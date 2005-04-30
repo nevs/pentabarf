@@ -1,0 +1,53 @@
+<patTemplate:tmpl name="content">
+
+  <div id="object-image">
+    <img src="{BASE_URL}images/icon-list-64x64.png" class="object-image" />
+  </div>
+
+  <div id="content-errors" class="">
+    {ERROR_COUNTER} Errors
+    <patTemplate:tmpl name="error-table" type="simplecondition" requiredvars="error-list.reason">
+    <table>
+      <tbody>
+        <patTemplate:tmpl name="error-list">
+          <tr>
+            <td><a href="{URL}"><img src="{IMAGE_URL}" class="tiny" title="{TITLE}" /></a></td>
+            <td><a href="{URL}">{REASON}</a></td>
+            <td>
+              <patTemplate:tmpl name="title-error" parse="on"> 
+                <a href="{TITLE_URL}">
+                  {TITLE}<br />
+                </a>
+              </patTemplate:tmpl>
+            </td>
+          </tr>
+        </patTemplate:tmpl>
+      </tbody>
+    </table>
+    </patTemplate:tmpl>
+  </div>
+
+  <div id="content-warnings" class="">
+    {WARNING_COUNTER} Warnings
+    <patTemplate:tmpl name="warning-table" type="simplecondition" requiredvars="warning-list.reason">
+    <table>
+      <tbody>
+        <patTemplate:tmpl name="warning-list">
+          <tr>
+            <td><a href="{URL}"><img src="{IMAGE_URL}" class="tiny" title="{TITLE}" /></a></td>
+            <td><a href="{URL}">{REASON}</a></td>
+            <td>
+              <patTemplate:tmpl name="title-warning" parse="on"> 
+                <a href="{TITLE_URL}">
+                  {TITLE}<br />
+                </a>
+              </patTemplate:tmpl>
+            </td>
+          </tr>
+        </patTemplate:tmpl>
+      </tbody>
+    </table>
+    </patTemplate:tmpl>
+  </div>
+
+</patTemplate:tmpl>

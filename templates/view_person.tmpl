@@ -1,0 +1,767 @@
+<patTemplate:tmpl name="content">
+  <script type="text/javascript" src="{BASE_URL}js/create_element.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/new_element.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_person_im.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_person_phone.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_person_language.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_person_event.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_link.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_keyword.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/tainted.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/watch.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/request.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/dom_drag.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/dragndrop_list.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/jscalendar/calendar-setup.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/jscalendar/lang/calendar-en.js"></script>
+  <patTemplate:tmpl name="watch-button" type="simplecondition" requiredvars="WATCH_BUTTON">
+    <div id="watch">
+      <button id="watch-button-person-{PERSON_ID}" onClick="window.watch('person', {PERSON_ID});" title="Put this person on your watch list" accesskey="w">{WATCH_BUTTON}</button>
+    </div>
+  </patTemplate:tmpl>
+
+  <script type="text/javascript">
+  function send_content()
+  {
+    if (!document.getElementsByName('last_name')[0].value &&
+        !document.getElementsByName('login_name')[0].value &&
+        !document.getElementsByName('nickname')[0].value &&
+        !document.getElementsByName('public_name')[0].value)
+    {
+      alert('Eines der folgenden Felder muss ausgefuellt sein: Last Name, Nickname, Public Name oder Login Name');
+    } else {
+      document.forms['form_content'].submit();
+    }
+  }
+  </script>
+
+  <div id="object-image">
+    <img src="{BASE_URL}images/icon-person-64x64.png" class="object-image" alt="" />
+  </div>
+
+<form id="form_content" method="post" action="{VIEW_URL}" enctype="multipart/form-data">
+
+  <patTemplate:tmpl name="modification_buttons" src="modification_buttons.tmpl" parse="on" />
+
+  <input type="hidden" name="save" value="save" />
+  <input type="hidden" name="timestamp" value="{TIMESTAMP}" />
+  <input type="hidden" name="person_id" value="{PERSON_ID}" />
+
+    <patTemplate:tmpl type="simplecondition" requiredvars="conflicts.reason">
+    <div id="conflicts">
+      <fieldset>
+        <legend>Konflikte</legend>
+        <patTemplate:tmpl name="conflicts" parse="on"> 
+          <a href="{REASON_URL}">
+            {REASON}<br />
+          </a>
+        </patTemplate:tmpl>
+      </fieldset>
+    </div>
+    </patTemplate:tmpl>
+
+  <div id="comment">
+    <img src="{IMAGE_URL}" class="huge" style="float: right;" alt="" />
+    <fieldset>
+      <legend>Notes</legend>
+        <table>
+          <tr>
+            <td><textarea rows="5" cols="60" name="remark" tabindex="0">{REMARK}</textarea></td>
+          </tr>
+        </table>
+    </fieldset>
+    <a href="../vcard/person/{PERSON_ID}"><button type="button">Get VCard</button></a>
+  </div>
+ 
+  <div id="content-events" class="content_tab">
+      <fieldset>
+        <legend>Events</legend>
+        <table id="person_event_table" class="hidden">
+          <thead>
+            <tr>
+              <th/>
+              <th>Event</th>
+              <th>Event-Status</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Comment</th>
+              <th>remove</th>
+            </tr>
+          </thead>
+          <tbody id="person_event_table_body">
+          </tbody>
+        </table>
+        <button type="button" name="add_person_event" value="Add Events" title="Add a new event to list of events" tabindex="0" onClick="window.add_person_event();">Add Event</button>
+      </fieldset>
+  </div>
+
+
+ 
+  <div id="content-general" class="content_tab">
+    <fieldset>
+      <legend>Names</legend>
+      <table>
+        <tr>
+          <td><label>First Name</label></td>
+          <td><input type="text" name="first_name" value="{FIRST_NAME}" tabindex="0" /></td>
+        </tr>
+      <!--
+        <tr>
+          <td><label>Middle Name</label></td>
+          <td><input type="text" name="middle_name" value="{MIDDLE_NAME}" tabindex="0" /></td>
+        </tr>
+      -->
+        <tr>
+          <td><label>Last Name</label></td>
+          <td><input type="text" name="last_name" value="{LAST_NAME}" tabindex="0" /></td>
+        </tr>
+        <tr>
+          <td><label>Nickname</label></td>
+          <td><input type="text" name="nickname" value="{NICKNAME}" tabindex="0" /></td>
+        </tr>
+        <tr>
+          <td><label>Public Name</label></td>
+          <td><input type="text" name="public_name" value="{PUBLIC_NAME}" tabindex="0" /></td>
+        </tr>
+        <tr>
+          <td><label>Title</label></td>
+          <td><input type="text" name="title" value="{TITLE}" tabindex="0" /></td>
+        </tr>
+        <tr>
+          <td><label for="f_arrived">Arrived</label></td>
+          <td><input id="f_arrived" type="checkbox" name="f_arrived" value="t" 
+                <patTemplate:tmpl type="simplecondition" requiredvars="content.f_arrived">checked="checked"</patTemplate:tmpl>
+                tabindex="0" /></td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Properties</legend>
+      <table>
+        <tr>
+          <td><label>Gender</label></td>
+          <td>
+            <select name="gender" tabindex="0">
+              <option value=""></option>
+              <option value="t" {GENDER_M}>male</option>
+              <option value="f" {GENDER_F}>female</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Foto</label> (128x128)</td>
+          <td>
+            <input type="file" name="image" /><br />
+            <input id="image_public" type="checkbox" name="image_public" 
+              <patTemplate:tmpl type="simplecondition" requiredvars="content.image_public">checked="checked"</patTemplate:tmpl> 
+              value="1" tabindex="0" />
+            <label for="image_public">public</label><br />
+            <input id="image_delete" type="checkbox" name="image_delete" value="t" tabindex="0" />
+            <label for="image_delete">Bild l&ouml;schen</label>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Spoken Languages</legend>
+      <ol id="list_language">
+      </ol>
+      <button type="button" name="add_person_language" value="Add Language" title="Add a new language to the list" tabindex="0" onClick="window.add_person_language();">Add Language</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Keywords</legend>
+        <ol id="list_keyword">
+        </ol>
+        <button type="button" name="add_keyword" tabindex="0" onClick="window.add_keyword();">Add Keyword</button>
+    </fieldset>
+
+  </div>
+
+  <div id="content-contact" class="content_tab">
+    <fieldset>
+      <legend>E-Mail</legend>
+      <table>
+        <tr>
+          <td><label><a href="mailto:{EMAIL_CONTACT}" title="Send message to contact e-mail address">Contact E-Mail</a></label></td>
+          <td>
+          <input type="text" name="email_contact" value="{EMAIL_CONTACT}" size="40" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label><a href="mailto:{EMAIL_PUBLIC}" title="Send message to public e-mail address">Public E-Mail</a></label></td>
+          <td>
+          <input type="text" name="email_public" value="{EMAIL_PUBLIC}" size="40" tabindex="0" />
+          </td>
+        </tr>
+<!--
+        <tr>
+          <td><label>OpenPGP Public Key</label></td>
+          <td><textarea cols="40" rows="7" name="gpg_key" tabindex="0">GPG_KEY</textarea></td>
+        </tr>
+-->
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Instant Messaging</legend>
+      <table id="im_table" class="hidden">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Type</th>
+            <th>Address</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+       <tbody id="im_table_body">
+        </tbody>
+      </table>
+      <button type="button" name="add_person_im" value="Add IM Contact" title="Add a new IM contact to list" tabindex="0" onClick="window.add_person_im();">Add IM Address</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Telephone</legend>
+      <table id="telephone_table" class="hidden">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Type</th>
+            <th>Number</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="telephone_table_body">
+        </tbody>
+      </table>
+      <button type="button" name="add_person_phone" value="Add Telephone Number" title="Add a new phone number to list of numbers" tabindex="0" onClick="window.add_person_phone();">Add Number</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Address</legend>
+      <table>
+        <colgroup>
+          <col class="label" />
+          <col class="input" />
+        </colgroup>
+        <tr>
+          <td><label>Address</label></td>
+          <td>
+            <input type="text" name="address" value="{ADDRESS}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Street</label></td>
+          <td>
+            <input type="text" name="street" value="{STREET}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Street Postcode</label></td>
+          <td>
+            <input type="text" name="street_postcode" value="{STREET_POSTCODE}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>PO Box</label></td>
+          <td>
+            <input type="text" name="po_box" value="{PO_BOX}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>PO Box Postcode</label></td>
+          <td>
+            <input type="text" name="po_box_postcode" value="{PO_BOX_POSTCODE}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>City</label></td>
+          <td>
+            <input type="text" name="city" value="{CITY}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Country</label></td>
+          <td>
+            <select name="country_id" tabindex="0">
+              <patTemplate:tmpl name="country" src="select.tmpl" parse="on" />
+            </select>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+  </div>
+
+
+  <div id="content-links" class="content_tab">
+      
+    <fieldset>
+      <legend>Public Links</legend>
+      <table id="public_link_table" class="hidden">
+        <thead>
+          <tr>
+            <th />
+            <th>Link Type</th>
+            <th>URL</th>
+            <th>Title</th>
+            <th>Comment</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="public_link_table_body">
+        </tbody>
+      </table>
+      <button type="button" name="add_public_link" value="Add Public Links" title="Add a new public link to list of links" tabindex="0" onClick="window.add_public_link();">Add Public Link</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Internal Links</legend>
+      <table id="internal_link_table" class="hidden">
+        <thead>
+          <tr>
+            <th />
+            <th>Link Type</th>
+            <th>URL</th>
+            <th>Title</th>
+            <th>Comment</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="internal_link_table_body">
+        </tbody>
+      </table>
+      <button type="button" name="add_internal_link" value="Add Internal Links" title="Add a new internal link to list of links" tabindex="0" onClick="window.add_internal_link();">Add Internal Link</button>
+    </fieldset>
+  </div>
+
+
+  <div id="content-description" class="content_tab">
+    <fieldset>
+      <legend>Abstract</legend>
+      <textarea cols="70" rows="3" name="abstract" tabindex="0">{ABSTRACT}</textarea>
+    </fieldset>
+    <fieldset>
+      <legend>Description</legend>
+      <textarea cols="70" rows="23" name="description" tabindex="0">{DESCRIPTION}</textarea>
+    </fieldset>
+  </div>
+
+  <div id="content-rating" class="content_tab">
+    <fieldset>
+      <legend>My Rating</legend>
+      <table class="rating">
+        <colgroup>
+          <col class="label" />
+          <col class="ratings" span="5" />
+          <col class="comment" />
+          <col class="no-rating" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th class="pre">--</th>
+            <th class="pre">-</th>
+            <th class="pre">o</th>
+            <th class="pre">+</th>
+            <th class="pre">++</th>
+            <th>Comment</th>
+            <th>No Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><label>Speaker Quality</label></td>
+            <td><input type="radio" name="speaker_quality" value="1" {SPEAKER_QUALITY_1} tabindex="0" /></td>
+            <td><input type="radio" name="speaker_quality" value="2" {SPEAKER_QUALITY_2} tabindex="0"/></td>
+            <td><input type="radio" name="speaker_quality" value="3" {SPEAKER_QUALITY_3} tabindex="0" /></td>
+            <td><input type="radio" name="speaker_quality" value="4" {SPEAKER_QUALITY_4} tabindex="0" /></td>
+            <td><input type="radio" name="speaker_quality" value="5" {SPEAKER_QUALITY_5} tabindex="0" /></td>
+            <td><input type="text" name="speaker_quality_comment" value="{SPEAKER_QUALITY_COMMENT}" size="40" tabindex="0" /></td>
+            <td><input type="radio" name="speaker_quality" value="0" {SPEAKER_QUALITY_0} tabindex="0" /></td>
+          </tr>
+          <tr>
+            <td><label>Speaker Competence</label></td>
+            <td><input type="radio" name="competence" value="1" {COMPETENCE_1} tabindex="0" /></td>
+            <td><input type="radio" name="competence" value="2" {COMPETENCE_2} tabindex="0" /></td>
+            <td><input type="radio" name="competence" value="3" {COMPETENCE_3} tabindex="0" /></td>
+            <td><input type="radio" name="competence" value="4" {COMPETENCE_4} tabindex="0" /></td>
+            <td><input type="radio" name="competence" value="5" {COMPETENCE_5} tabindex="0" /></td>
+            <td><input type="text" name="competence_comment" value="{COMPETENCE_COMMENT}" size="40" tabindex="0" /></td>
+            <td><input type="radio" name="competence" value="0" {COMPETENCE_0} tabindex="0" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+
+    <fieldset>
+    <legend>My Opinion</legend>
+      <textarea name="rating_remark" rows="3" cols="60" tabindex="0">{RATING_REMARK}</textarea>
+    </fieldset>
+
+    <fieldset>
+    <legend>Summary</legend>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th colspan="2">Rating</th>
+            <th>Total votes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><label>Speaker Quality</label></td>
+            <td class="rating-bar">
+              <span class="negative p{QUALITY_BAR_NEGATIVE}">{QUALITY_VALUE_NEGATIVE}</span>
+            </td>
+            <td class="rating-bar">
+              <span class="positive p{QUALITY_BAR_POSITIVE}">{QUALITY_VALUE_POSITIVE}</span>
+            </td>
+            <td>{QUALITY_VOTE_COUNT}</td>
+          </tr>
+          <tr>
+            <td><label>Speaker Competence</label></td>
+            <td class="rating-bar">
+              <span class="negative p{COMPETENCE_BAR_NEGATIVE}">{COMPETENCE_VALUE_NEGATIVE}</span>
+            </td>
+            <td class="rating-bar">
+              <span class="positive p{COMPETENCE_BAR_POSITIVE}">{COMPETENCE_VALUE_POSITIVE}</span>
+            </td>
+            <td>{COMPETENCE_VOTE_COUNT}</td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+
+      <patTemplate:tmpl name="opinion-table" type="simplecondition" requiredvars="opinions.opinion">
+      <table>
+        <thead>
+        <tr>
+          <th />
+          <th>Person</th>
+          <th>Opinion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <patTemplate:tmpl name="opinions" parse="on">
+        <tr>
+          <td><a href="{URL}" title="{NAME}"><img src="{IMAGE_URL}" class="small" alt="" /></a></td>
+          <td><a href="{URL}" title="{NAME}">{NAME}</a></td>
+          <td><patTemplate:var name="OPINION" modifier="nl2br" /></td>
+        </tr>
+        </patTemplate:tmpl>
+        </tbody>
+      </table>
+      </patTemplate:tmpl>
+
+  </div>
+
+  <div id="content-travel" class="content_tab">
+    <fieldset>
+      <legend>Travel</legend>
+
+      <table>
+        <tr>
+          <td>
+            <table>
+              <tr>
+                <th colspan="2">Arrival</th>
+              </tr>
+              <tr>
+                <td><label>From</label></td>
+                <td>
+                  <input type="text" name="arrival_from" value="{ARRIVAL_FROM}" tabindex="0" />
+                </td>
+              </tr>
+              <tr>
+                <td><label>To</label></td>
+                <td>
+                  <input type="text" name="arrival_to" value="{ARRIVAL_TO}" tabindex="0" />
+                </td>
+              </tr>
+              <tr>
+                <td><label>Date</label></td>
+                <td>
+                  <input type="text" id="arrival_date" name="arrival_date" value="{ARRIVAL_DATE}" tabindex="0" size="10" />
+                  <button type="button" id="calendar_arrival_date">...</button>
+                  <script type="text/javascript">
+                    Calendar.setup({
+                      inputField   :  "arrival_date",
+                      ifFormat     :  "%Y-%m-%d",
+                      button       :  "calendar_arrival_date",
+                      showOthers   :  true,
+                      singleClick  :  false
+                    });
+                  </script>
+                </td>
+              </tr>
+              <tr>
+                <td><label>Time</label></td>
+                <td>
+                 <input type="text" name="arrival_time" value="{ARRIVAL_TIME}" tabindex="0" />
+                </td>
+              </tr>
+              <tr>
+                <td><label>Number</label></td>
+                <td>
+                  <input type="text" name="arrival_number" value="{ARRIVAL_NUMBER}" tabindex="0" />
+                </td>
+              </tr>
+              <tr>
+                <td><label>Transport type</label></td>
+                <td>
+                  <select name="arrival_transport_id" tabindex="0">
+                    <patTemplate:tmpl name="arrival_transport" src="select.tmpl" parse="on" />
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label>Pickup</label></td>
+                <td>
+                  <input type="checkbox" name="f_arrival_pickup" value="1" 
+                    <patTemplate:tmpl type="simplecondition" requiredvars="content.f_arrival_pickup">checked="checked"</patTemplate:tmpl>
+                    tabindex="0" />
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table>
+              <tr>
+                <th colspan="2">Departure</th>
+              </tr>
+              <tr>
+                <td><label>From</label></td>
+                <td>
+                <input type="text" name="departure_from" value="{DEPARTURE_FROM}" tabindex="0" />
+                </td>
+              </tr>
+              <tr>
+                <td><label>To</label></td>
+                <td>
+                <input type="text" name="departure_to" value="{DEPARTURE_TO}" tabindex="0" />
+                </td>
+              </tr>
+              <tr>
+                <td><label>Date</label></td>
+                <td>
+                <input type="text" id="departure_date" name="departure_date" value="{DEPARTURE_DATE}" tabindex="0" size="10" />
+                <button type="button" id="calendar_departure_date">...</button>
+                <script type="text/javascript">
+                  Calendar.setup({
+                    inputField   :  "departure_date",
+                    ifFormat     :  "%Y-%m-%d",
+                    button       :  "calendar_departure_date",
+                    showOthers   :  true,
+                    singleClick  :  false
+                  });
+                 </script>
+                </td>
+              </tr>
+              <tr>
+                <td><label>Time</label></td>
+                <td>
+                <input type="text" name="departure_time" value="{DEPARTURE_TIME}" tabindex="0" />
+                </td>
+              </tr>
+              <tr>
+                <td><label>Number</label></td>
+                <td>
+                <input type="text" name="departure_number" value="{DEPARTURE_NUMBER}" tabindex="0" />
+                </td>
+              </tr>
+              <tr>
+                <td><label>Transport type</label></td>
+                <td>
+                <select name="departure_transport_id" tabindex="0">
+                  <patTemplate:tmpl name="departure_transport" src="select.tmpl" parse="on" />
+                </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label>Pickup</label></td>
+                <td>
+                <input type="checkbox" name="f_departure_pickup" value="1" 
+                  <patTemplate:tmpl type="simplecondition" requiredvars="content.f_departure_pickup">checked="checked"</patTemplate:tmpl>
+                  tabindex="0" />
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><label>Total travel Costs:</label>
+          <input type="text" name="travel_cost" value="{TRAVEL_COST}" size="10" tabindex="0" />
+          <select name="travel_currency_id" tabindex="0">
+            <patTemplate:tmpl name="travel_currency" src="select.tmpl" parse="on" />
+          </select>
+          </td>
+        </tr>
+      </table>
+
+    </fieldset>
+
+
+    <fieldset>
+      <legend>Accommodation</legend>
+      <table>
+        <tr>
+          <td><label>Place / Name</label></td>
+          <td>
+          <input type="text" name="accommodation_name" value="{ACCOMMODATION_NAME}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Phone</label></td>
+          <td>
+          <input type="text" name="accommodation_phone" value="{ACCOMMODATION_PHONE}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Phone Room</label></td>
+          <td>
+          <input type="text" name="accommodation_phone_room" value="{ACCOMMODATION_PHONE_ROOM}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Street</label></td>
+          <td>
+          <input type="text" name="accommodation_street" value="{ACCOMMODATION_STREET}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Postcode</label></td>
+          <td>
+          <input type="text" name="accommodation_postcode" value="{ACCOMMODATION_POSTCODE}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>City</label></td>
+          <td>
+          <input type="text" name="accommodation_city" value="{ACCOMMODATION_CITY}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Total accommodation cost</label></td>
+          <td>
+          <input type="text" name="accommodation_cost" value="{ACCOMMODATION_COST}" size="10" tabindex="0" />
+          <select name="accommodation_currency_id" tabindex="0">
+            <patTemplate:tmpl name="accommodation_currency" src="select.tmpl" parse="on" />
+          </select>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Bank Account</legend>
+      <table>
+        <tr>
+          <td><label>IBAN</label></td>
+          <td><input type="text" name="iban" value="{IBAN}" tabindex="0" size="60" /></td>
+        </tr>
+        <tr>
+          <td><label>Bank name</label></td>
+          <td><input type="text" name="bank_name" value="{BANK_NAME}" tabindex="0" size="60" /></td>
+        </tr>
+        <tr>
+          <td><label>Account Owner</label></td>
+          <td><input type="text" name="account_owner" value="{ACCOUNT_OWNER}" tabindex="0" size="60" /></td>
+        </tr>
+      </table>
+    </fieldset>
+
+
+
+  </div>
+
+  
+  <div id="content-account" class="content_tab">
+    <fieldset>
+      <legend>Account</legend>
+      <table>
+        <tr>
+          <td><label>Login Name</label></td>
+          <td>
+            <input type="text" name="login_name" value="{LOGIN_NAME}" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Password</label></td>
+          <td>
+            <input type="password" name="password1" value=""  tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Repeat Password</label></td>
+          <td>
+            <input type="password" name="password2" value="" tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Language</label></td>
+          <td>
+          <select name="change_language" tabindex="0">
+            <patTemplate:tmpl name="language_list" src="select.tmpl" parse="on" />
+          </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="pref_images_person">Show Person Images</label></td>
+          <td><input id="pref_images_person" type="checkbox" name="pref_images_person" 
+                <patTemplate:tmpl type="simplecondition" requiredvars="content.pref_images_person">checked="checked"</patTemplate:tmpl>
+              tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label for="pref_images_event">Show Event Images</label></td>
+          <td><input id="pref_images_event" type="checkbox" name="pref_images_event" 
+                <patTemplate:tmpl type="simplecondition" requiredvars="content.pref_images_event">checked="checked"</patTemplate:tmpl>
+              tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label for="pref_images_conference">Show Conference Images</label></td>
+          <td><input id="pref_images_conference" type="checkbox" name="pref_images_conference" 
+                <patTemplate:tmpl type="simplecondition" requiredvars="content.pref_images_conference">checked="checked"</patTemplate:tmpl>
+              tabindex="0" />
+          </td>
+        </tr>
+        <tr>
+          <td><label>Last activity</label></td>
+          <td>{LAST_LOGIN}</td>
+        </tr>
+      </table>
+    </fieldset>
+
+
+
+
+
+    <fieldset>
+      <legend>Roles</legend>
+      <table>
+<patTemplate:tmpl name="role">       
+        <tr>
+          <td><label for="{ROLE_NAME}">{ROLE_LABEL}</label></td>
+          <td>
+            <input id="{ROLE_NAME}" type="checkbox" name="{ROLE_NAME}" 
+              <patTemplate:tmpl type="simplecondition" requiredvars="role.role_active">checked="checked"</patTemplate:tmpl>
+              tabindex="0" />
+          </td>
+        </tr>
+</patTemplate:tmpl>
+      </table>
+    </fieldset>
+
+  </div>
+
+</form>
+  </div>
+
+
+</patTemplate:tmpl>

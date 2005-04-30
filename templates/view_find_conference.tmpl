@@ -1,0 +1,63 @@
+<patTemplate:tmpl name="content">
+  <script type="text/javascript" src="{BASE_URL}js/watch.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/request.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/search.js"></script>
+
+  <div id="object-image">
+    <img src="{BASE_URL}images/icon-find-conference-64x64.png" class="object-image" />
+  </div>
+
+<!--
+  <div id="content-simple">
+--!>
+    <fieldset>
+      <legend>Find</legend>
+      <form method="post" action="">
+        <input type="text" name="find_conferences" value="{FIND}" size="50" />
+        <button type="submit">Show Matching Conferences</button>
+      </form>
+    </fieldset>
+<!--
+  </div>
+
+  <div id="content-advanced">
+    <fieldset>
+    <legend>Find</legend>
+      <form method="post" action="">
+        <div id="search_elements">
+        </div>
+        <button type="submit">Show Matching Conferences</button>
+      </form>
+    </fieldset>
+  </div>
+--!>
+
+<patTemplate:tmpl name="result">
+  <fieldset>
+    <legend>{RESULT}</legend>
+    <patTemplate:tmpl name="result_list" type="simplecondition" requiredvars="result_element.conference_id">
+      <table id="result" class="sortable">
+        <tr>
+          <th></th>
+          <th>Acronym</th>
+          <th>Title</th>
+          <th>Subtitle</th>
+          <th>Watch</th>
+        </tr>
+      <patTemplate:tmpl name="result_element">
+        <tr>
+          <td>
+            <a href="{URL}">
+              <img src="{IMAGE_URL}" height="32" width="32" />
+            </a>
+          </td>
+          <td><a href="{URL}">{ACRONYM}</a></td>
+          <td><a href="{URL}">{TITLE}</a></td>
+          <td><a href="{URL}">{SUBTITLE}</a></td>
+          <td><button id="watch-button-conference-{CONFERENCE_ID}" onClick="window.watch('conference', {CONFERENCE_ID});" title="Put this conference on your watch list">{WATCH_BUTTON}</button></td>
+        </tr>
+      </patTemplate:tmpl>
+    </table>
+  </patTemplate:tmpl>
+</patTemplate:tmpl>
+</patTemplate:tmpl>

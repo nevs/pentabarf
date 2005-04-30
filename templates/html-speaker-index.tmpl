@@ -1,0 +1,33 @@
+<patTemplate:tmpl name="content">
+
+  <p class="intro"><strong>{CONFERENCE_TITLE}</strong><br/><em><[speakers-and-moderators]></em></p>
+
+  <div id="speaker-index" class="section">
+
+  <table class="speaker-index">
+    <thead>
+      <tr>
+        <th class="speaker"><strong><[speaker]></strong></th>
+        <th class="events"><strong><[events]></strong></th>
+      </tr>
+    </thead>
+    <tbody>
+<patTemplate:tmpl name="speaker">
+      <tr>
+        <td class="speaker">
+          <a href="{SPEAKER_URL}"><img src="{SPEAKER_IMAGE_URL}" class="speaker-image" alt="Picture of {SPEAKER_NAME}" /></a>
+          <p><a href="{SPEAKER_URL}">{SPEAKER_NAME}</a></p>
+        </td>
+        <td class="events">
+          <ul class="events">
+<patTemplate:tmpl>
+            <li><a href="{EVENT_URL}">{EVENT_TITLE}</a></li>
+</patTemplate:tmpl>
+          </ul>
+        </td>
+      </tr>
+</patTemplate:tmpl>
+    </tbody>
+  </table>
+  </div>
+</patTemplate:tmpl>

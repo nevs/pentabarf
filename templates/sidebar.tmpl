@@ -1,0 +1,97 @@
+  <div id="sidebar">
+    <div id="logo">
+      <a href="{BASE_URL}pentabarf/conference/{CURRENT_CONFERENCE_ID}" title="Pentabarf">
+        <img src="{BASE_URL}pentabarf/images/conference/{CURRENT_CONFERENCE_ID}/128x128" alt="" />
+      </a>
+    </div>
+    <div id="menu">
+      <div class="menu-item-group">
+        <form id="form_conference_setter" class="menu-text" method="post" action="{VIEW_URL}">
+          <input type="hidden" name="save" value="save" />
+          <select name="change_conference" onBlur="submit()" onChange="submit()">
+            <patTemplate:tmpl name="conference_list" src="select.tmpl" parse="on" />
+          </select>
+        </form>
+      </div>
+
+      <div class="menu-item-group">
+        <a class="menu-item {ITEM_STATE_HOME}" href="{BASE_URL}" title="Your personal overview" accesskey="h"><[overview]></a>
+        <a class="menu-item {ITEM_STATE_WATCHLIST}" href="{BASE_URL}pentabarf/watchlist" title="Your watchlist" accesskey="w"><[watchlist]></a>
+        <a class="menu-item {ITEM_STATE_RECENT_CHANGES}" href="{BASE_URL}pentabarf/recent_changes" title="View the recent changes to the database" accesskey="r"><[recent-changes]></a>
+        <a class="menu-item {ITEM_STATE_REPORTS}" href="{BASE_URL}pentabarf/reports" title="Get insightful reports"><[reports]></a>
+        <a class="menu-item {ITEM_STATE_CONFLICTS}" href="{BASE_URL}pentabarf/conflicts" title="Look for obvious inconsistencies in the database"><[conflicts]></a>
+        <a class="menu-item off" href="{BASE_URL}pentabarf/person/{AUTH_PERSON_ID}#account" title="View your personal record"><strong><[my-settings]></strong></a>
+
+      </div>
+
+      <div class="menu-item-group">
+        <div class="menu-text">
+          VIEW<br/>
+          <a href="{BASE_URL}pentabarf/person">
+            <img src="{BASE_URL}images/icon-person-32x32.png" title="Go back to the recently viewed person" alt="" />
+          </a>
+          <a href="{BASE_URL}pentabarf/event">
+            <img src="{BASE_URL}images/icon-event-32x32.png"  title="Go back to the recently viewed event" alt="" />
+          </a>
+          <a href="{BASE_URL}pentabarf/conference">
+            <img src="{BASE_URL}images/icon-conference-32x32.png" title="Go back to the recently viewed conference" alt="" />
+          </a>
+        </div>
+      </div>
+
+      <div class="menu-item-group">
+        <div class="menu-text">
+          FIND<br/>
+          <a href="{BASE_URL}pentabarf/find_person">
+            <img src="{BASE_URL}images/icon-find-person-32x32.png" title="Search for persons" alt="" />
+          </a>
+          <a href="{BASE_URL}pentabarf/find_event">
+            <img src="{BASE_URL}images/icon-find-event-32x32.png"  title="Search for events" alt="" />
+          </a>
+          <a href="{BASE_URL}pentabarf/find_conference">
+            <img src="{BASE_URL}images/icon-find-conference-32x32.png" title="Search for conferences" alt="" />
+          </a>
+        </div>
+<!--
+        <a class="menu-item {ITEM_STATE_FIND_PERSON}" href="{BASE_URL}pentabarf/find_person" title="Find Persons">Find Person</a>
+        <a class="menu-item {ITEM_STATE_FIND_EVENT}" href="{BASE_URL}pentabarf/find_event" title="Find Events">Find Event</a>
+        <a class="menu-item {ITEM_STATE_FIND_CONFERENCE}" href="{BASE_URL}pentabarf/find_conference" title="Find Conference">Find Conference</a>
+-->
+      </div>
+      <div class="menu-item-group">
+        <div class="menu-text">
+          NEW<br/>
+          <a href="{BASE_URL}pentabarf/new_person">
+            <img src="{BASE_URL}images/icon-new-person-32x32.png" title="Add a new person to the database" alt="" />
+          </a>
+          <a href="{BASE_URL}pentabarf/new_event">
+            <img src="{BASE_URL}images/icon-new-event-32x32.png"  title="Add a new event to the database" alt="" />
+          </a>
+          <a href="{BASE_URL}pentabarf/new_conference">
+            <img src="{BASE_URL}images/icon-new-conference-32x32.png" title="Add a new conference to the database" alt="" />
+          </a>
+        </div>
+<!--
+        <a class="menu-item {ITEM_STATE_NEW_PERSON}" href="{BASE_URL}pentabarf/new_person" title="New Person">New Person</a>
+        <a class="menu-item {ITEM_STATE_NEW_EVENT}" href="{BASE_URL}pentabarf/new_event" title="New Event">New Event</a>
+        <a class="menu-item {ITEM_STATE_NEW_CONFERENCE}" href="{BASE_URL}pentabarf/new_conference" title="New Conference">New Conference</a>
+-->
+      </div>
+
+      <div class="menu-item-group">
+      </div>
+
+<!--
+      <div class="menu-item-group">
+        <a class="menu-item {ITEM_STATE_PREFERENCES}" href="{BASE_URL}pentabarf/person/{AUTH_PERSON_ID}/account">Preferences</a>
+      </div>
+-->
+
+      <div class="menu-item-group">
+        <a class="menu-item off" href="https://wiki.c3d2.de/index.php/Pentabarf" title="Help" accesskey="">[[Pentabarf]]</a>
+        <a class="menu-item off" href="https://wiki.c3d2.de/index.php/Pentabarf/Dokumentation" title="Help" accesskey="">Dokumentation</a>
+        <a class="menu-item {ITEM_STATE_SETUP}" href="https://pentabarf.cccv.de/flyspray/" title="setup">Bug Tracker</a>
+        <a class="menu-item off" href="https://pulsar.digital.udk-berlin.de/~sven/doxygen/html/" title="Docs" accesskey="">Developer Docs</a>
+      </div>
+    </div>
+  </div>

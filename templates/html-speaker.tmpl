@@ -1,0 +1,54 @@
+<patTemplate:tmpl name="content">
+  <p class="intro"><strong>{CONFERENCE_TITLE}</strong><br/><em><[speakers-and-moderators]></em></p>
+
+  <div id="speaker" class="section">
+
+  <div id="infobox">
+    <table>
+      <tr>
+        <th colspan="2"><[events]></th>
+      </tr>
+      <patTemplate:tmpl name="event-list" varscope="content" type="simplecondition" requiredvars="EVENT_ID">
+      <tr>
+        <td><a href="{EVENT_URL}"><img src="{EVENT_IMAGE_URL}" class="event-image" /></a></td>
+        <td><a href="{EVENT_URL}"><span class="event-title">{EVENT_TITLE}</span></a></td>
+      </tr>
+      </patTemplate:tmpl>
+    </table>  
+  </div>
+
+  <h1>{SPEAKER_NAME}</h1>
+
+  <img src="{SPEAKER_IMAGE_URL}" class="speaker-image" />
+
+<patTemplate:tmpl varscope="content" type="simplecondition" requiredvars="description">
+  <patTemplate:var name="DESCRIPTION" modifier="Markdown" />
+</patTemplate:tmpl>
+
+
+<patTemplate:tmpl varscope="content" type="simplecondition" requiredvars="speaker_email">
+  <h2>Contact</h2>
+  <p>{SPEAKER_EMAIL}</p>
+</patTemplate:tmpl>
+
+<patTemplate:tmpl type="simplecondition" requiredvars="links.link_url">
+  <h2>Links</h2>
+  <ul class="links">
+<patTemplate:tmpl name="links">
+    <li><a href="{LINK_URL}">{LINK_TITLE}</a></li>
+</patTemplate:tmpl>
+  </ul>
+</patTemplate:tmpl>
+
+  </div>
+
+  <div id="navigation">
+<patTemplate:tmpl varscope="content" type="simplecondition" requiredvars="NAV_PREV_TITLE">
+    <a href="{NAV_PREV_URL}"><span class="previous" title="{NAV_PREV_TITLE}">&lt;&lt;&lt;</span></a>
+</patTemplate:tmpl>
+<patTemplate:tmpl varscope="content" type="simplecondition" requiredvars="NAV_NEXT_TITLE">
+    <a href="{NAV_NEXT_URL}"><span class="next" title="{NAV_NEXT_TITLE}">&gt;&gt;&gt;</span></a>
+</patTemplate:tmpl>
+  </div>
+
+</patTemplate:tmpl>

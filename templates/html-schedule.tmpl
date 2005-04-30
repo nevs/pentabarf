@@ -1,0 +1,56 @@
+<patTemplate:tmpl name="content">
+  <p class="intro"><strong>{CONFERENCE_TITLE}</strong><br/><em><[day-overview]></em></p>
+
+  <div id="schedule" class="section">
+
+  <h1><[overview]> <[day]> {DAY}</h1>
+  <table>
+    <thead>
+      <tr class="odd">
+        <th class="time"><strong><[time]></strong></th>
+<patTemplate:tmpl name="room">
+        <th><strong>{ROOM}</strong></th>
+</patTemplate:tmpl>
+      </tr>
+    </thead>
+    <tbody>
+<patTemplate:tmpl name="schedule">
+      <tr>
+        <td class="time">{TIME}</td>
+<patTemplate:tmpl type="condition" conditionvar="type">
+<patTemplate:sub condition="empty">
+          <td class="room empty" />
+</patTemplate:sub>
+<patTemplate:sub condition="event">
+        <td class="room event" rowspan="{ROWSPAN}">
+          <p class="title"><a href="{EVENT_URL}">{EVENT_TITLE}</a></p>
+          <p class="subtitle"><a href="{EVENT_URL}">{EVENT_SUBTITLE}</a></p>
+          <ul class="speakers">
+<patTemplate:tmpl><li><a href="{SPEAKER_URL}">{SPEAKER_NAME}</a></li></patTemplate:tmpl>
+          </ul>
+
+
+<!--
+          <p>
+            <a href="{EVENT_URL}">
+              Language: <span class="language">{EVENT_LANGUAGE}</span><br/>
+              Type: <span class="type">{EVENT_TYPE}</span><br />
+              Track: <span class="track">{EVENT_TRACK}</span><br />
+            </a>
+          </p>
+
+          <p class="abstract">
+            <a href="{EVENT_URL}">
+              {EVENT_ABSTRACT}
+            </a>
+          </p>
+-->
+</td>
+</patTemplate:sub>
+</patTemplate:tmpl>
+      </tr>
+</patTemplate:tmpl>
+    </tbody>
+  </table>
+  </div>
+</patTemplate:tmpl>

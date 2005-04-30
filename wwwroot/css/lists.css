@@ -1,0 +1,21 @@
+.dragable {
+	position: relative;
+	background-color: #c8d8e8;
+	margin: 5px;
+	padding: 5px;
+        max-width: 200px;
+	list-style-type: normal;
+}
+
+.drag-handle {
+        background: #90ac98;
+
+	margin: 5px;
+	padding: 5px;
+	display: inline;
+	width-min: 10px;
+}
+
+.drag-handle:hover {
+  cursor: move;
+}

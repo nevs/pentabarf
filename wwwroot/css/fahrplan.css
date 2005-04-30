@@ -1,0 +1,134 @@
+body {
+	background-color: white;
+	color: black;
+
+	font-family: "Lucida Grande", "Arial", sans-serif;
+}
+
+:link, :visited {
+	text-decoration: none;
+	color: black;
+}
+
+caption {
+	border-width: 0px;
+	border-style: solid;
+	border-color: black;
+
+	background-color: #eee;
+	font-weight: bold;
+
+  text-align: center;
+  font-size: 200%;
+
+	padding: 5px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+
+
+table {
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+
+  margin-bottom: 50px;
+}
+
+td {
+	vertical-align: top;
+	text-align: left;
+}
+
+td.time {
+	font-size: 150%;
+	vertical-align: top;
+
+	background-color: #000;
+	color: white;
+	padding: 2px;
+}
+
+th {
+	text-align: center;
+	
+	padding: 10px;
+	background-color: #000;
+	color: #fff;
+}
+
+
+td.empty {
+	background-color: #eee;
+}
+
+td.event, td.speakers {
+	background-color: #ddd;
+
+  padding: 2px;
+
+	border-color: black;
+	border-style: solid;
+	border-width: 1px;
+}
+
+td.conflict {
+	background-color: red;
+
+	border-color: black;
+	border-style: solid;
+	border-width: 0.01cm;
+}
+
+
+ul.speakers { margin: 0; padding: 0; display: inline; font-weight: bold; }
+ul.speakers li { margin: 0; padding: 0; display: inline; }
+ul.speakers li+li:before { content: ", "; }
+
+span.language {
+  font-weight: bold;
+}
+
+span.track {
+  font-weight: bold;
+}
+
+span.type {
+  font-weight: bold;
+}
+
+
+body.schedule p.abstract {
+  border-top: black dotted 1px;
+  font-size: 90%;
+  padding: 8px 2px 0px 2px;
+}
+
+body.event p.abstract {
+  font-weight: bold;
+}
+
+span.event-id {
+  display: block;
+  color: white;
+  background-color: black;
+  text-align: center;
+  padding: 2px;
+  width: 3em;
+}
+
+p.title {
+  font-weight: bold;
+  font-size: 125%;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+p.subtitle {
+  font-style: italic;
+  font-size: 120%;
+
+  margin-top: 0;
+
+}

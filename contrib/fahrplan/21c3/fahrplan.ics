@@ -1,0 +1,4101 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Pentabarf//Fahrplan 0.3//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALDESC;VALUE=TEXT:21C3 Fahrplan Release 1.0.2
+X-WR-CALNAME;VALUE=TEXT:21C3 Fahrplan
+X-WR-TIMEZONE;VALUE=TEXT:Europe/Berlin
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:305@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T110000
+DURATION:PT2H
+SUMMARY:(K)ein Anschluss unter dieser Nummer [305]
+DESCRIPTION:(K)ein Anschluss unter dieser Nummer\nDie Informationsgesellsc
+ haft: Neue Chancen und Hemmnisse für geschlechtergerechte Entwicklung\n\n
+ Heike Jensen\n\nDr. Heike Jensen (HU Berlin und terre des femmes) ist mit 
+ Olga Drossou in der einzigen Frauengruppe für die WSIS und hat sich auf F
+ rauen-NGOs spezialisiert. Geplant ist ein Workshop zu WSIS und Computer-Fr
+ auen: was können / wollen die Haecksen für Forderungen einbringen?\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Heike Jensen":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/305
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:140@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T130000
+DURATION:PT1H30M
+SUMMARY:A Fat Girl's Intimate Perspective on Hacker Culture and Spaces [14
+ 0]
+DESCRIPTION:A Fat Girl's Intimate Perspective on Hacker Culture and Spaces
+ \nHow to Survive a Cock Fight\, without a Cock\n\nb9punk\n\nDespite her ge
+ nder handicap\, *b9punk* has managed to chill out in the\nAmerican Hacker 
+ scenes and retain her self-respect. Her contemporaries\nthink that's a pre
+ tty big accomplishment and would like her to talk to\nyou about her (pendi
+ ng) patented formula for what she crudely calls\n"putting up with the bull
+ pucky\, and getting something out of the hacker\nscene besides sex." She's
+  also conducted a extensive survey with some of\nyour favorite hacker cele
+ brities and ordinary people to sort out the\nFact from the Fiction concern
+ ing myths about girls in the hacker scene.\n\nPlease help b9punk in taking
+  part in her survey:\nhttp://survey.hackerhalfwayhouse.org/\n\nNot enough 
+ as a good deed? Well\, go ahead to this one:\nhttp://survey.hackerhalfwayh
+ ouse.org/optional_essay_survey.txt\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="b9punk":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/140
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:292@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T234500
+DURATION:PT30M
+SUMMARY:A/V Showcase: Jon Baxter [292]
+DESCRIPTION:A/V Showcase: Jon Baxter\n\nJon Baxter\n\nVJ performance by Ne
+ w Zealand VJ Jon Baxter.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jon Baxter":mailto:jba
+ xternz@mac.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/292
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:207@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T180000
+DURATION:PT2H
+SUMMARY:Amateurfunk - ein Hobby mit Hackvalue!? [207]
+DESCRIPTION:Amateurfunk - ein Hobby mit Hackvalue!?\nEine kurze Einführun
+ g mit Beleuchtung chaosrelevanter Aspekte\n\nMarc Schneider\, Thomas Rück
+ er\n\nDer Amateurfunk hat eine lange Tradition im CCC. Wir werden interess
+ ante Gebiete aus dem breiten Themenspektrum des Afu betrachten und aktuell
+ e Forschungsfelder vorstellen. Fehlen dürfen natürlich nicht diverse Hac
+ ks im und um den Amateurfunk (Mobiltelefonie\, drahtlose Datenübertragung
+ \, etc.).Weiterhin werden wir die Aktivitäten der IG Chaoswelle / DARC OV
+  D23 vorstellen. In Ihr sind die meisten Funkamateure im und um den CCC or
+ ganisiert. Hier gibt es das ganze Jahr über interessante Veranstaltungen 
+ und es werden neue Ideen ausgebrütet. Man trifft sich täglich zum Chat i
+ m vom Internet (fast) unabhängigen Datennetz oder spricht auf Kurzwelle m
+ it einander.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Marc Schneider":mailto
+ :macke_21c3@macke.org
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Thomas Rücker":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/207
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:100@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T140000
+DURATION:PT1H
+SUMMARY:Anonymous communications [100]
+DESCRIPTION:Anonymous communications\n\nGeorge Danezis\n\nWe will present 
+ the state of the art in deployed anonymous communication systems\, and in 
+ particular Mixminion\, for anonymous email\, and Tor\, for anonymous web b
+ rowsing. We will focus on the concrete future challenges to deploy and str
+ engthen theses systems.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="George Danezis":mailto
+ :gd216@cl.cam.ac.uk
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/100
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:109@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T210000
+DURATION:PT1H
+SUMMARY:Anti-Honeypot Technology [109]
+DESCRIPTION:Anti-Honeypot Technology\n\nThorsten Holz\n\nCurrent Honeypot-
+ based tools have a huge disadvantage: Attackers can detect honeypots with 
+ simple techniques and are to some extent also able to circumvent and disab
+ le the logging mechanisms. On the basis of some examples\, we will show me
+ thods for attackers to play with honeypots.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Thorsten Holz":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/109
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:126@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T120000
+DURATION:PT1H
+SUMMARY:Apache Security [126]
+DESCRIPTION:Apache Security\nImproving the security of your web server by 
+ breaking into it\n\nSebastian Wolfgarten\n\nWhile apparently being quite s
+ ecure out of the  box the Apache web server is still a well-liked  target 
+ for hackers. This talk will help system  administrators to improve the sec
+ urity of their  site and will also cover techniques on attacking a web ser
+ ver.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sebastian Wolfgarten":
+ invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/126
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:259@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T140000
+DURATION:PT1H
+SUMMARY:Apple Motion on the Workbench [259]
+DESCRIPTION:Apple Motion on the Workbench\nIntroduction and Working with A
+ pple Motion\n\nfALk\n\nMeant as a short introduction into Apple Motion as 
+ a very fast tool for preparing VJ loops. This will be a collaborative expl
+ oration of the program for everyone to have a look at this marvelous tool.
+ \n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fALk":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/259
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:110@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T180000
+DURATION:PT2H
+SUMMARY:Applied Data Mining [110]
+DESCRIPTION:Applied Data Mining\n\nIngo Lütkebohle\, Julia Lüning\n\nHan
+ ds-on introduction to the basics of getting interesting results from borin
+ g data\, using freely available tools and real-world data. No mathematics 
+ necessary.  BYOL - Bring Your Own Laptop!\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Ingo Lütkebohle":inva
+ lid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Julia Lüning":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/110
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:78@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T140000
+DURATION:PT1H
+SUMMARY:Aspects of Elliptic Curve Cryptography [78]
+DESCRIPTION:Aspects of Elliptic Curve Cryptography\n\nFlorian Heß\n\nThe 
+ talk will give an introduction to elliptic curve cryptography and explain 
+ some recent developments regarding attacks on the discrete logarithm probl
+ em on elliptic curves. In practice\, elliptic curve cryptography can for e
+ xample be employed in the TLS/SSL and IPsec protocols. It is well suited f
+ or use in constraint devices such as smart cards.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Florian Heß":mailto:h
+ ess@math.tu-berlin.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/78
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:113@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T190000
+DURATION:PT1H
+SUMMARY:Automated Hacking via Google [113]
+DESCRIPTION:Automated Hacking via Google\n\nDaniel Bartlett\n\nA look at m
+ ethods of locating vulnerable sites via google and exploiting them with no
+  user interaction and how to prevent your code being vulnerable.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Daniel Bartlett":mailt
+ o:danbuk@gmail.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/113
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:79@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T180000
+DURATION:PT1H
+SUMMARY:AVG ain't vector graphics [79]
+DESCRIPTION:AVG ain't vector graphics\nKiss Macromedia Director goodbye\n\
+ nUlrich von Zadow\n\nAVG is an open source plattform for multimedia instal
+ lations running on Linux and Mac OS X. The lecture will show what can be d
+ one using the platform and how installations can be scripted. If there is 
+ interest\, I can also go into design and implementation details.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Ulrich von Zadow":inva
+ lid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/79
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:280@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T110000
+DURATION:PT1H
+SUMMARY:AVIT Breakfeast Day One [280]
+DESCRIPTION:AVIT Breakfeast Day One\n\nfRED\n\nBreakfeastmeeting as daily 
+ introduction. There will be free Brötchen\, Kaffee and Tee for the attend
+ ing VJs.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fRED":mailto:fred@kakl
+ otter.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/280
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:286@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T100000
+DURATION:PT1H
+SUMMARY:AVIT Breakfeast Day Three [286]
+DESCRIPTION:AVIT Breakfeast Day Three\n\nTobyspark\n\nBreakfeastmeeting as
+  daily introduction. There will be free Brötchen\, Kaffee and Tee for the
+  attending VJs.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Tobyspark":mailto:toby
+ @tobyz.net
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/286
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:285@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T100000
+DURATION:PT1H
+SUMMARY:AVIT Breakfeast Day Two [285]
+DESCRIPTION:AVIT Breakfeast Day Two\n\nfALk\n\nBreakfeastmeeting as daily 
+ introduction. There will be free Brötchen\, Kaffee and Tee for the attend
+ ing VJs.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fALk":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/285
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:281@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T150000
+DURATION:PT1H
+SUMMARY:AVIT Introduction [281]
+DESCRIPTION:AVIT Introduction\n\nfALk\n\nA short welcome to the VJs of the
+  world.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fALk":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/281
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:254@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T130000
+DURATION:PT1H
+SUMMARY:AVIT^C3 MIDI Lab [254]
+DESCRIPTION:AVIT^C3 MIDI Lab\nMIDIFY - DONT MYSTIFY\n\nElektroschroeder\, 
+ Hamageddon\n\nin this workshop we will explore different methods of contro
+ lling vj\napplications with dedicated midi hardware.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Elektroschroeder":mail
+ to:techlab@web.de
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Hamageddon":mailto:080
+ 2@vju.info
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/254
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:164@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T160000
+DURATION:PT1H
+SUMMARY:Barrierefreies Internet [164]
+DESCRIPTION:Barrierefreies Internet\nAspekte der Minimierung der Unmöglic
+ hkeit\n\nPetra Berndt\, Ralf Roletschek\n\nMenschen mit Behinderungen sind
+  überdurchschnittlich häufig im Internet aktiv weil dies eine Kommunikat
+ ionsmöglichkeit darstellt die sie im 'real live' nicht oder nur eingeschr
+ änkt haben. Der Vortrag soll zeigen welche Barrieren sich im Internet fü
+ r Behinderte beim Besuch von Homepages ergeben und wie man versuchen kann\
+ , diese als Ersteller von Seiten zu umgehen. Verschiedene Arten von Behind
+ erungen verlangen die Berücksichtigung verschiedener Aspekte\, die sich d
+ urchaus auch widersprechen.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Petra Berndt":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Ralf Roletschek":inval
+ id:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/164
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:316@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T110000
+DURATION:PT2H
+SUMMARY:Bericht von den BigBrotherAwards [316]
+DESCRIPTION:Bericht von den BigBrotherAwards\nAbgesandte berichten über P
+ reise\, Datenkraken und Reaktionen\n\nChristian Mock\, Doris Kaiserreiner\
+ , Matthias Geiser\, padeluun\, Rena Tangens\, Thomas Bader\n\nIn 14 Lände
+ rn werden derzeit BigBrotherAwards vergeben. Die drei\ndeutschsprachigen L
+ änder sind beim Congress\, um über die bei den\nPreisträgern ungeliebte
+ n Preise zu berichten.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Christian Mock":invali
+ d:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Doris Kaiserreiner":in
+ valid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Matthias Geiser":mailt
+ o:ccc@dodeka.ch
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="padeluun":invalid:noma
+ il
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Rena Tangens":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Thomas Bader":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/316
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:263@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T180000
+DURATION:PT1H
+SUMMARY:Berliner VJ Stammtisch [263]
+DESCRIPTION:Berliner VJ Stammtisch\nTreffen der Berliner VJ szene\n\nfALk\
+ n\nDie unorganisierte unüberschaubare Berliner VJ szene versucht sich mal
+  hallo zu sagen...\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fALk":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/263
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:313@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T180000
+DURATION:PT1H
+SUMMARY:Biometrie als datenschutzrechtliches Problem [313]
+DESCRIPTION:Biometrie als datenschutzrechtliches Problem\n\nElisa\n\nJe na
+ ch Art des Verfahrens\, Einsatzort und den verwendeten Merkmalen\nkann Dat
+ enschutz eine große Rolle beim Einsatz biometrischer Verfahren\nspielen. 
+ Da sich die anfallenden Daten im privaten Bereich stark von\ndenen im oeff
+ entlichen Bereich (Ausweise) unterscheiden\, muss dieses\nProblem sehr dif
+ ferenziert betrachtet werden.\n\nIch moechte auf verschiedene datenschutzr
+ echtliche Aspekte in der\nBiometrie eingehen und zukuenftige/aktuelle Rege
+ lungen beim Einsatz\nbiometrischer Merkmale in Ausweisdokumenten betrachte
+ n.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Elisa":mailto:elisa@we
+ ltregierung.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/313
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:27@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T140000
+DURATION:PT1H
+SUMMARY:Biometrie in Ausweisdokumenten [27]
+DESCRIPTION:Biometrie in Ausweisdokumenten\nEine Aufnahme der politischen 
+ und technischen Sicht\n\nstarbug\n\nEine kurze Einführung in die Technik 
+ und ein Überblick über die zurückliegenden\, gegenwärtigen und zukünf
+ tigen politischen Entscheidungen unter Berücksichtigung von Studien und T
+ est zur Tauglichkeit vorraussichtlich verwendeter Systeme. Ziel ist es\, a
+ ufzuzeigen\, wie wenig die Systeme in den geplanten Einsatzszenarien den v
+ ersprochenen Sicherheitsgewinn bringen. Im Anschluss wird es noch ein paar
+  Vorführungen zur Überwindbarkeit der drei wichtigsten Systeme (Gesichts
+ erkennung\, Fingerabdruck und Iriserkennung) und eine offene Diskussion ü
+ ber die Politik und die Einstellung gegenüber der Technik geben.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="starbug":invalid:nomai
+ l
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/27
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:331@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T230000
+DURATION:PT1H
+SUMMARY:Biometrie überwinden [331]
+DESCRIPTION:Biometrie überwinden\n\nstarbug\n\nIn diesem Workshop werden 
+ biometrische Verfahren genauer beleuchtet werden. Er baut auf dem Vortrag 
+ "Biometrie in Ausweisdokumententen" auf.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="starbug":invalid:nomai
+ l
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/331
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:28@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T150000
+DURATION:PT1H
+SUMMARY:Biometrie überwinden [28]
+DESCRIPTION:Biometrie überwinden\n\nstarbug\n\nIn diesem Workshop werden 
+ biometrische Verfahren genauer beleuchtet werden. Er baut auf dem Vortrag 
+ "Biometrie in Ausweisdokumententen" auf.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="starbug":invalid:nomai
+ l
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/28
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:121@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T220000
+DURATION:PT1H
+SUMMARY:Black Ops of DNS [121]
+DESCRIPTION:Black Ops of DNS\n\nDan Kaminsky\n\nDNS is best known for tran
+ slating domain names into the numerical addresses the Internet can route. 
+  But it's capable of so much more.  Ultimately\, DNS is a globally deploye
+ d\, routing\, caching overlay network deployed across the entire Internet\
+ , both public and private. From traversing firewalls to the mass duplicati
+ on of audio streams\, we will demonstrate some unexpected features of this
+  ancient system.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Dan Kaminsky":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/121
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:230@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T193000
+DURATION:PT30M
+SUMMARY:Blitzöffnung (Finale) [230]
+DESCRIPTION:Blitzöffnung (Finale)\n8. Deutsche Meisterschaften im Schloss
+ öffnen\n\n\n\nIm Wettkampf Blitzöffnung müssen Schlösser binnen einer 
+ Minute nach dem KO-System geöffnet werden. Meister ist\, wer alles aufbek
+ ommt und somit als letzter Wettkämpfer übrig bleibt. Dieser Wettkampf is
+ t sowohl für Wettkämpfer als auch Zuschauer oft ein schockierendes Erleb
+ nis. Erlebt direkt\, wie binnen 60 Sekunden wehrlose Schlösser niedergema
+ cht werden! Für traumatische Erkenntnisse übernehmen wir keine Haftung.\
+ n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/230
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:66@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T150000
+DURATION:PT2H
+SUMMARY:Bluetooth Hacking [66]
+DESCRIPTION:Bluetooth Hacking\n\nAdam Laurie\, Marcel Holtmann\, Martin He
+ rfurt\n\nBluesnarfing\, bluebugging and backdooring have been in the spotl
+ ight for over a year now\, and\, finally\, the mobile phone industry have 
+ reacted and are issuing fixes for these very serious problems. Accordingly
+ \, the time has come for full disclosure...\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Adam Laurie":mailto:gr
+ oup@trifinite.org
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Marcel Holtmann":mailt
+ o:group@trifinite.org
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Martin Herfurt":mailto
+ :group@trifinite.org
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/66
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:55@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T220000
+DURATION:PT1H
+SUMMARY:CCC-Jahresrückblick [55]
+DESCRIPTION:CCC-Jahresrückblick\nEin Überblick über die Aktivitäten de
+ s Clubs 2004\n\nAndy Müller-Maguhn\, Lars Weiler\n\nDie Sprecher des CCC 
+ stellen die Aktivitäten des und Geschehnisse im Chaos Computer Club im ab
+ gelaufenen Jahr vor. Hierunter fallen Berichte und Anekdoten von Veranstal
+ tungen innerhalb des CCC als auch Vorträge und Konferenzen an denen CCC-V
+ ertreter teilgenommen haben.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Andy Müller-Maguhn":m
+ ailto:andy@ccc.de
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Lars Weiler":mailto:py
+ lon (at) ccc.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/55
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:84@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T230000
+DURATION:PT1H
+SUMMARY:Chaosradio Workshop [84]
+DESCRIPTION:Chaosradio Workshop\nEin Treffen der Radioprojekte im Chaos-Um
+ feld\n\nTim Pritlove\n\nTreffen aller Radioprojekte im Chaos-Umfeld zum Er
+ fahrungsaustausch und zum Ausloten von Kooperationsmöglichkeiten.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Tim Pritlove":mailto:t
+ im@ccc.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/84
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:23@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T160000
+DURATION:PT1H
+SUMMARY:Ciphire Mail [23]
+DESCRIPTION:Ciphire Mail\nNext Generation Email Encryption\, Now\n\nLars E
+ ilebrecht\n\nA technical introduction to Ciphire Mail\, a new email encryp
+ tion solution. We will discuss the design\, concept\, and technical aspect
+ s of the system\, and demonstrate how usability\, security\, and trust mec
+ hanisms are improved.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Lars Eilebrecht":inval
+ id:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/23
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:173@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T210000
+DURATION:PT1H
+SUMMARY:Closing Event [173]
+DESCRIPTION:Closing Event\nSo long and thanks for all the fish\n\nTim Prit
+ love\n\nThe final get-together looking back at three days of genuine hacki
+ ng experience at bcc. 21C3 tried to reinvent the Congress in a couple of w
+ ays. Did we succeed? Could we do better? Of course we can\, but looking ah
+ ead to 22C3 should bring us finally on the road to a true international ev
+ ent that serves the community as one of the best and funniest events on th
+ is planet.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Tim Pritlove":mailto:t
+ im@ccc.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/173
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:73@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T140000
+DURATION:PT3H
+SUMMARY:Coden auf dem Info-Layer [73]
+DESCRIPTION:Coden auf dem Info-Layer\nDie Hierarchie der Online-Kommunikat
+ ion oder: Warum der Titel die Botschaft ist\n\nErich Möchel\n\nIm Zentrum
+  von Vortrag/Workshop stehen Auswahl\, Analyse und Produktion von Nachrich
+ ten für News/sites\, Weblogs\, Mailing/lists etc.  Definition der eigenen
+  Ziele und der möglichen Dialog-Gruppen. Zusammenstellen der Quellen und 
+ Brauen der eigenen Nachrichten/mixtur. Wie man aus Texten unbekannter Auto
+ r/inn/en Ideologien\, Meinungen und Werte herausfiltert. Die gnadenlose Hi
+ erarchie der Online-Kommunikation oder: Weshalb der Titel die Botschaft is
+ t. Sowie weitere bisher bekannt gewordene Faustregeln der E-Kommunikation 
+ anhand von praktischen Beispielen. Produktion eines Nachrichtentexts\, der
+  am Ende des Workshops auch publiziert wird.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Erich Möchel":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/73
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:266@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T190000
+DURATION:PT1H
+SUMMARY:Collaboration for the Tresor Showcase Part I [266]
+DESCRIPTION:Collaboration for the Tresor Showcase Part I\n\nfRED\n\nPuttin
+ g together a one hour collaborative VJ set for prime time Tresor VJ night 
+ with Vjs who have not performed together before.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fRED":mailto:fred@kakl
+ otter.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/266
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:283@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T190000
+DURATION:PT1H
+SUMMARY:Collaboration for the Tresor Showcase Part II [283]
+DESCRIPTION:Collaboration for the Tresor Showcase Part II\n\nfRED\n\nPutti
+ ng together a one hour collaborative VJ set for prime time Tresor VJ night
+  with Vjs who have not performed together before.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fRED":mailto:fred@kakl
+ otter.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/283
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:18@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T160000
+DURATION:PT1H
+SUMMARY:Computer und Robotik in Entenhausen [18]
+DESCRIPTION:Computer und Robotik in Entenhausen\n\nHenriette Fiebig\n\nSch
+ on Mitte der 50er Jahre experimentierte Daniel Düsentrieb mit unterschied
+ lichen Robotern und Dagobert Duck setzte Computer ein. Segen und Tücken d
+ er Technik werden vorgestellt - natürlich mit verschwenderischer Präsent
+ ation von Bildmaterial - und die Frage gestellt\, ob nicht Düsentriebs Wi
+ nzroboter "Helferlein" eigentlich die am besten funktionierende Erfindung 
+ Düsentriebs war und ist.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Henriette Fiebig":inva
+ lid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/18
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:42@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T210000
+DURATION:PT1H
+SUMMARY:Cored Programming [42]
+DESCRIPTION:Cored Programming\nBuilding systems on your own soft core\n\nK
+ laus Schleisiek\n\nA presentation of the public-domain "uCore" written in 
+ VHDL that can be \nused by the "Core Aided Programmer" to realise systems 
+ in FPGAs. Its \narchitecture\, its hardware/software co-design approach\, 
+ its prototyping \nboard and its software development environment.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Klaus Schleisiek":inva
+ lid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/42
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:273@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T150000
+DURATION:PT2H
+SUMMARY:Crashkurs Mathematik am Beispiel Biometrie [273]
+DESCRIPTION:Crashkurs Mathematik am Beispiel Biometrie\n\nJule P. Riede\n\
+ nDieser Vortrag ist ein Crashkurs in Mathematik am Beispiel Biometrie.\nAu
+ sgehend von dem Problem\, eine Iris in einem Foto zu lokalisieren\,\nfange
+ n wir bei der Definition einer Funktion an und landen via\nTrigonometrie\,
+  Differential- und Integralrechnung\, sowie ein wenig linearer\nAlgebra be
+ i Vektoranalysis und Statistik.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jule P. Riede":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/273
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:97@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T230000
+DURATION:PT1H
+SUMMARY:Das Literarische Code-Quartett [97]
+DESCRIPTION:Das Literarische Code-Quartett\n\nAndreas Bogk\, Felix von Lei
+ tner\, FX of Phenoelit\, Michael Natterer\n\nDie Parallelen bei Software u
+ nd Büchern gehen von dem kreativen Schaffensprozeß über Konsumverhalten
+ \, Entlohnung bis zu Fragen wie Lizenzen und Verwertungsmodelle.  Wir werd
+ en das dieses Jahr noch etwas weiter treiben\, indem wir analog zur bekann
+ ten Fernsehsendung besonders prägnante Codestücke auf der Bühne mit Pub
+ likum kritisieren werden.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Andreas Bogk":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Felix von Leitner":mai
+ lto:fefe@fefe.de
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="FX of Phenoelit":inval
+ id:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Michael Natterer":inva
+ lid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/97
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:48@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T160000
+DURATION:PT1H
+SUMMARY:Datamining the NSA: Hands-On Workshop [48]
+DESCRIPTION:Datamining the NSA: Hands-On Workshop\n\nAdrian Dabrowski\, Ch
+ ris Jeitler\, Erich Möchel\, Sourcerer\n\nThe workshop related to the lec
+ ture "Datamining the NSA: Introduction" is be more of a technical round ta
+ ble. The aim is to generate a more sophisticated technical approach with t
+ he possible help of those participating. Everybody will be handed out the 
+ full amount of data on a DVD and be invited to participate in deeper minin
+ g efforts.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Adrian Dabrowski":inva
+ lid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Chris Jeitler":invalid
+ :nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Erich Möchel":invalid
+ :nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sourcerer":invalid:nom
+ ail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/48
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:47@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T150000
+DURATION:PT1H
+SUMMARY:Datamining the NSA: Introduction [47]
+DESCRIPTION:Datamining the NSA: Introduction\n\nErich Möchel\n\nDataminin
+ g the NSA \n\nAn inquiry into the strategies\, methods and actors of the "
+ Biometrics \nConsortium" an NSA led incubator project in the field of biom
+ etrics. \nPresentation at 21c3 in Berlin\, by q/uintessenz biometrics rese
+ arch unit. \n\nData sources\n\nBiometrics Consortium List Archive 1994-200
+ 4 [ca 60 MB text]. Containing \npostings of about 2500 different persons f
+ rom US military and government \nagencies\, worldwide biometrics business 
+ people\, scientists\, lobbyists etc.\n \nOne GB presentations and speakers
+  biographies from various biometrics-related \nconference events. Roughly 
+ the same amount of data from international \nbiometrics standardization gr
+ oups [ISO/IEC\, ICAO MRTD]\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Erich Möchel":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/47
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:114@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T190000
+DURATION:PT1H
+SUMMARY:Der 2. Korb der Urheberrechtsnovelle [114]
+DESCRIPTION:Der 2. Korb der Urheberrechtsnovelle\n\nMarkus Beckedahl\, Mar
+ tin Kreißl\n\nDie aktuellen Entwicklungen im Urheberrecht sollen beleucht
+ et und anschließend diskutiert werden.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Markus Beckedahl":inva
+ lid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Martin Kreißl":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/114
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:129@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T200000
+DURATION:PT1H
+SUMMARY:Die Propagandawüste des realen Krieges [129]
+DESCRIPTION:Die Propagandawüste des realen Krieges\nDirekte und indirekte
+  Steuerungsmöglichkeiten der Medien im Krieg des 21. Jahrhunderts\n\nGerd
+  Fittkau\n\nEin Essay über die Medienstrategien kriegsführender Parteien
+  von Napoleon bis zum Zeitalter der Satellitentechnik und Enthauptungen pe
+ r Videostream im Internet. Im Fokus sind vorwiegend die Entwicklungen und 
+ Veränderungen im Nachgang des Vietnamkrieges. Eine Zeitachse vom Falkland
+ krieg via NATO-Jugoslawien-Feldzug bis zum Irak-Krieg und dem war on terro
+ r von Heute wird beleuchtet und kritisch bewertet.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Gerd Fittkau":mailto:f
+ ittkau@bildfang.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/129
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:52@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T103000
+DURATION:PT30M
+SUMMARY:Die Üblichen Verdächtigen [52]
+DESCRIPTION:Die Üblichen Verdächtigen\n\nPeter Glaser\n\nEröffnung des 
+ Congresses und Keynote durch Peter Glaser.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Peter Glaser":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/52
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:60@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T180000
+DURATION:PT1H
+SUMMARY:Digital Prosthetics [60]
+DESCRIPTION:Digital Prosthetics\nNumbness\, Institutionalisation\, and the
+  Revolutionary Demands of Hacking\n\nGeorge N. Dafermos\n\nA lecture on ho
+ w digital media prosthetics\, institutionalisation (in particular the mani
+ festations of copyright and patent law which lurk behind vested interests 
+ in controlling the transition to a vastly powerful new world)\, and the im
+ peratives of corporate planning have come into a conflict so fierce that s
+ hared lived experience\, increasingly\, is forced to undergo a rapid proce
+ ss of commodification.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="George N. Dafermos":ma
+ ilto:george at hyperdrome.net
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/60
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:269@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T220000
+DURATION:PT1H
+SUMMARY:DIN AV DVD Presentation [269]
+DESCRIPTION:DIN AV DVD Presentation\n\nMichael Weinholzner\, Torsten Oetke
+ n\n\nvisomat inc. has created DIN AV\, a new label for contemporary audio-
+ video collaborations. The first release - DIN AV 01/04/CN/86.03 - on scape
+ -music in spring 2004 includes 6 av-ses-sions\, interviews with the artist
+ s\, 3 screensavers and a live extract from a concert of Pole and vi-somat 
+ inc.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Michael Weinholzner":i
+ nvalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Torsten Oetken":mailto
+ :info@visomat.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/269
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:63@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T150000
+DURATION:PT1H
+SUMMARY:Edit This Page [63]
+DESCRIPTION:Edit This Page\nScaling the Wiki Beyond 1 Million\n\nBrion Vib
+ ber\, Tim Starling\n\nWikipedia developers chronicle the evolution of the 
+ MediaWiki software and server farm to manage the popular and ever-growing 
+ editable encyclopedia. Planned scalability improvements are outlined\, plu
+ s developers' conference and hacking session.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Brion Vibber":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Tim Starling":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/63
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:187@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T210000
+DURATION:PT1H
+SUMMARY:Einführung in die Rastersondenmikroskopie [187]
+DESCRIPTION:Einführung in die Rastersondenmikroskopie\nPushing atoms for 
+ fun and profit...\n\nAndreas Bogk\n\nGegenstand des Vortrags ist eine Einf
+ ührung in die Rastersondenmikroskopie. Dabei handelt es sich um eine Tech
+ nik zur Untersuchung von Oberflächenstrukturen auf Nanometermaßstab. Daz
+ u wird die Oberfläche auf verschiedene Arten mit einer an der Spitze nur 
+ wenige Nanometer dicken Sonde auf verschiedene Arten und Weisen abgetastet
+ . Die Auflösung ist ausreichend\, um einzelne Moleküle und sogar Atome s
+ ichtbar zu machen.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Andreas Bogk":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/187
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:41@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T120000
+DURATION:PT1H
+SUMMARY:Einführung in kryptographische Methoden [41]
+DESCRIPTION:Einführung in kryptographische Methoden\n\nStefan Schumacher\
+ n\nKryptographie ist z. Zt. das wohl einzige Mittel um zuverlässig die Pr
+ ivatsphäre zu schätzen oder die Integrität von Daten sicherzustellen. K
+ ryptographische Methoden sind außerdem auch hervorragende Mittel um Rechn
+ ersysteme vor Manipulation und Einbruch zu schützen bzw. diesen nachzuwei
+ sen. Dieser Vortrag soll eine Einführung in grundlegende Methoden bieten 
+ und richtet sich an absolute Einsteiger und setzt keine weiteren Kenntniss
+ e voraus.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Stefan Schumacher":inv
+ alid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/41
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:107@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T160000
+DURATION:PT1H
+SUMMARY:Embedded devices as an attack vector [107]
+DESCRIPTION:Embedded devices as an attack vector\n\nStephen Lewis\n\nAltho
+ ugh attacking embedded devices is not a new idea\, little work has been do
+ ne on using these devices for attack. Here I present work on the insertion
+  of custom code into a network switch in order to carry out attacks on a n
+ etwork.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Stephen Lewis":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/107
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:122@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T130000
+DURATION:PT1H
+SUMMARY:Enforcement of Intellectual Property Rights under German Private L
+ aw [122]
+DESCRIPTION:Enforcement of Intellectual Property Rights under German Priva
+ te Law\nAn outline in view of the European Directive on the Enforcement of
+  Intellectual Property Rights (2004/48/EC)\n\nUlrike Mahlmann\n\nThe objec
+ tive of the European Directive „on the Enforcement of Intellectual Prope
+ rty Rights“ is to help prevent intellectual property infringements and t
+ o sanction them more effectively. It strengthens the rightholders’ posit
+ ion considerably and contains a number of rules that have a potential of b
+ eing abused.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Ulrike Mahlmann":mailt
+ o:info@ulixmann.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/122
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:53@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T130000
+DURATION:PT1H
+SUMMARY:Enforcing the GNU GPL [53]
+DESCRIPTION:Enforcing the GNU GPL\nCopyright helps Copyleft\n\nHarald Welt
+ e\n\nLinux is used more and more\, especially in the embedded market. Unfo
+ rtunately\, a number of vendors do not comply with the GNU GPL. The author
+  has enforced the GPL numerous times in and out of court\, and will talk a
+ bout his experience.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Harald Welte":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/53
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:14@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T180000
+DURATION:PT1H
+SUMMARY:Feuriges Hacken - Spaß mit Firewire [14]
+DESCRIPTION:Feuriges Hacken - Spaß mit Firewire\nFirewire als Penetration
+ svektor\n\nMaximillian Dornseif\, Michael Becher\n\nFirewire/i.Link ist da
+ für bekannt\, Videoausrüstung oder externe Festplatten mit Rechnern zu v
+ erbinden. Weniger bekannt ist die Tatsache\, dass über das Firewire-Proto
+ koll der physikalische Speicher der miteinander verbundenen Geräte gelese
+ n und geschrieben werden kann\, ohne dass es durch Software unterstützt w
+ erden muss. Das kann zum Erhöhen der Benutzerrechte oder zum Spionieren a
+ uf anderen Rechnern ausgenutzt werden. Jede mögliche Art von Gerät am Fi
+ rewire-Bus könnte zum Stehlen von Daten oder zum Installieren von Hintert
+ üren in die mit ihm verbundenen Rechner umfunktioniert werden. Auf der an
+ deren Seite ergibt sich eine neue Möglichkeit für forensische Analysen e
+ ines Rechners.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Maximillian Dornseif":
+ invalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Michael Becher":mailto
+ :becher@i4.informatik.rwth-aachen.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/14
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:315@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T130000
+DURATION:PT2H
+SUMMARY:Fight for your Right to Fileshare [315]
+DESCRIPTION:Fight for your Right to Fileshare\nContent Flatrate\, not Copy
+ right War\n\nRasmus Fleischer\, Volker Grassmuck\n\nCurrent copyright law 
+ has only one answer to p2p filesharers: sue them. A much better model not 
+ only for users but for authors as well\, is to permit what can‘t be prev
+ ented anyway\, and in turn collect a flat levy on Internet access. Thus\, 
+ the Content Flatrate achieves compensation for creators without control of
+  users.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Rasmus Fleischer":inva
+ lid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Volker Grassmuck":mail
+ to:vgrass@rz.hu-berlin.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/315
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:40@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T150000
+DURATION:PT1H
+SUMMARY:Firewall Piercing [40]
+DESCRIPTION:Firewall Piercing\nCreative exploitation of valid Internet pro
+ tocols to get your data through obstacles\n\nAlien8\, Maik Hentsche\n\nIT 
+ will be shown how IPv4 based protocols can be used to tunnel data through 
+ Firewalls while maintaining RFC compatibility. The goal is to show a broad
+  spectrum of techniques. However\, a few examples are presented in more de
+ tail.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Alien8":mailto:fb@alie
+ n8.de
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Maik Hentsche":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/40
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:75@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T150000
+DURATION:PT1H
+SUMMARY:First Aid for Nerds [75]
+DESCRIPTION:First Aid for Nerds\nHowTo: Survive the Congress! You need mor
+ e than caffeine.\n\nSaniFox aka Sven Vößing\n\nAuch das Nerddasein birgt
+  jede Menge Gefahren wie Koffeinschock\, Schlafmangel und Reallife. Was ka
+ nn ich als Nerd da tun? Das wird hier beantwortet.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="SaniFox aka Sven Vöß
+ ing":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/75
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:70@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T230000
+DURATION:PT1H
+SUMMARY:Fnord-Jahresrückblick [70]
+DESCRIPTION:Fnord-Jahresrückblick\nDas Jahr 2004 und sein Wahnsinn\n\nFel
+ ix von Leitner\, Frank Rieger\n\nDer Fnord-Jahresrückblick beleuchtet Tei
+ le des Weltgeschehens des gerade zuende gehenden Jahres\, die wir für unt
+ er Gebühr beleuchtet halten: Nachrichten\, die es gar nicht in die Mainst
+ ream-Medien geschafft haben\, oder die von irgendwelchen Sommerloch-Skanda
+ lchen auf Seite 15 ins Kleingedruckte verdrängt wurden.  Trotz des Ernste
+ s der Lage zeigt der  Fnord-Jahresrückblick aber auch den humoristischen 
+ Teil der Nachrichtenlage.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Felix von Leitner":mai
+ lto:fefe@fefe.de
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Frank Rieger":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/70
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:277@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T160000
+DURATION:PT1H
+SUMMARY:Forth [277]
+DESCRIPTION:Forth\n\nCarsten Strotmann\n\nDer Vortrag "Das Programmiersyst
+ em Forth" erklärt in unterhaltsamer\nWeise die "exotische" Programmierspr
+ ache Forth\, die Konzepte der Sprache\nund die heutigen Anwendungen in uns
+ erer täglichen Umwelt. Forth ist für\njeden Programmierer ein interessan
+ ter Blick über den Tellerrand der\netablierten Programmiersprachen und di
+ e Forth-Philosophie unterstützt\nbeim Erstellen von schlanken\, übersich
+ tlichen und schnellen Programmen\nin fast jeder Progarmmiersprache.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Carsten Strotmann":inv
+ alid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/277
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:38@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T220000
+DURATION:PT1H
+SUMMARY:Free Software in South America [38]
+DESCRIPTION:Free Software in South America\nHow an emerging industry chose
+  to not follow the proprietary prophets\n\nJosef Spillner\n\nOverview abou
+ t the young and still developing Free Software scene in South and Latin Am
+ erica (mostly Brazil)\, ways to achieve independence of existing structure
+ s\, and some specific projects.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Josef Spillner":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/38
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:209@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T190000
+DURATION:PT1H
+SUMMARY:Freedom of expression in new Arab landscape [209]
+DESCRIPTION:Freedom of expression in new Arab landscape\nSpreading of new 
+ Arab satellite TV stations: consequences on public opinions and on state c
+ ontrol of freedom of expression\n\nDonatella Della Ratta\n\nThe lecture wi
+ ll deal about freedom of expression in the Arab world after the spreading 
+ of new private satellite channels opposing the traditional state monopoly 
+ and censorship in TV broadcasting. It will focus on the case study of Al J
+ azeera being the first Arab TV station to build its editorial policy aroun
+ d “the opinion and the counter-opinion” and the public expression of d
+ ifferent points of view\, from the very conservative to the ones that are 
+ traditionally banned because of their violent opposition to Arab regimes.\
+ n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Donatella Della Ratta"
+ :mailto:donatelladellaratta@gmail.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/209
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:208@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T230000
+DURATION:PT1H
+SUMMARY:GameCube Hacking [208]
+DESCRIPTION:GameCube Hacking\n\nFelix Domke\, Michael Steil\n\nThe Gamecub
+ e - what it is made of and how it can be hacked. We'll describe different 
+ approachs of getting own code onto the gamecube and things that you can do
+  with a GameCube under your control. Of course it runs Linux.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Felix Domke":invalid:n
+ omail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Michael Steil":mailto:
+ mist@c64.org
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/208
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:247@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T180000
+DURATION:PT2H
+SUMMARY:Gentoo Developer Meeting [247]
+DESCRIPTION:Gentoo Developer Meeting\n\nMarc Hildebrand\n\nThe meeting on 
+ the one hand serves as a "come together" of the involved developers. Possi
+ bilities for closer co-operation\, improved direct communication and more 
+ synergy in the network are to be worked out. On the other hand we will dis
+ cuss how we can improve the progress of Gentoo as a whole\, with the work 
+ done by everybody.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Marc Hildebrand":mailt
+ o:zypher@gentoo.org
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/247
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:123@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T150000
+DURATION:PT1H
+SUMMARY:Gentoo Hardened [123]
+DESCRIPTION:Gentoo Hardened\n\nPappy\n\nAn introduction to the hardened to
+ olchain used at the Hardened Gentoo project\, which\, combined with the Pa
+ X kernel\, strong DAC/MAC control mechanisms and a thorough low-entry orie
+ nted user documentation provides "full scale" protection for a wide range 
+ from home users to enterprise businesses.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Pappy":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/123
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:37@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T200000
+DURATION:PT1H
+SUMMARY:GNOME Anwendungsentwicklung [37]
+DESCRIPTION:GNOME Anwendungsentwicklung\n\nSven Herzberg\n\nSvens Vortrag 
+ steigt sehr schnell in die Interna von GObject\, dem Objekt-Orientierungs-
+ Framework ein\, um dann anhand von Nautilus- und Evolution-Plugins zu zeig
+ en\, wie man Plugins in GNOME realsiert. Im Anschluss kann dann noch eine 
+ Hilfestellung gegeben werden\, wo sich welche GNOME-Bibliotheken einsetzen
+  lassen.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sven Herzberg":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/37
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:172@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T200000
+DURATION:PT1H
+SUMMARY:GPG Key Signing Party [172]
+DESCRIPTION:GPG Key Signing Party\n\nJens Kubieziel\n\nA key signing party
+  for people to exchange their public encryption keys.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jens Kubieziel":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/172
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:99@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T140000
+DURATION:PT1H
+SUMMARY:GPL für Anfänger [99]
+DESCRIPTION:GPL für Anfänger\n\nHubert Feyrer\n\nEs sollen die Hintergr�
+ �nde "freier" Software beleuchtet werden. Der Vortrag erläutert rechtlich
+ e Grundlagen (Urheberrecht\, Lizenzen & Patente) geben und anschliessend a
+ nhand der GPL einige Eigenschaften "freier" Software aufgezeigt weden.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Hubert Feyrer":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/99
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:65@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T180000
+DURATION:PT2H
+SUMMARY:Grundlagen des Compilerdesign [65]
+DESCRIPTION:Grundlagen des Compilerdesign\nDas Brainfuck Compiler Projekt\
+ n\nClifford Wolf\n\nNach einer kurzen Einfuehrung in brainf*ck (dauert ca.
+  15 Min.) werden einerseits Grundlagen des Compilerdesigns vermittelt und 
+ wird andrerseits die Frage "Wie erstelle ich einen universellen Codegenera
+ tor für brainf*ck?" beantwortet.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Clifford Wolf":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/65
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:74@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T000000
+DURATION:PT2H
+SUMMARY:Hacker Jeopardy [74]
+DESCRIPTION:Hacker Jeopardy\nDas einzig wahre Expertenquiz\n\nRay\, Stefan
+  'Sec' Zehl\n\nEin kurzweiliges Quiz in dem 9 Kandidaten aus den Reihen de
+ r Congress-Besucher ihr Hackertum unter Beweis stellen und versuchen\, den
+  Vorjahressieger von seinem Thron zu vertreiben.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Ray":invalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Stefan 'Sec' Zehl":inv
+ alid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/74
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:62@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T130000
+DURATION:PT1H
+SUMMARY:Hacking EU funding for a FOSS project [62]
+DESCRIPTION:Hacking EU funding for a FOSS project\nUnderstanding and adapt
+ ing EU legal guidelines from a FOSS perspective\n\nHolger Krekel\n\nFOSS c
+ ulture hacks^h^h^h^h meets the EU buerocracy. It is not easy for FOSS proj
+ ects to get $$$ funding by the European Union. We'll look and discuss how 
+ it played out for the PyPy project\, a language project targetting itself 
+ with a "Münchhausen" approach. We'll try to see why it took the project -
+  tackling deeply technical issues - one year to communicate "correctly" wi
+ th the European Union.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Holger Krekel":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/62
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:136@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T220000
+DURATION:PT1H
+SUMMARY:Hacking Linux-Powered Devices [136]
+DESCRIPTION:Hacking Linux-Powered Devices\n\nStefan Arentz\n\nMore and mor
+ e devices like wireless access points\, personal network storage servers o
+ r satellite decoders are powered by Linux. Some vendors are even publicly 
+ distributing the (base) source code for their products. This session will 
+ show the details of embedded Linux \nand how you can change these devices 
+ to your own needs.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Stefan Arentz":mailto:
+  stefan.arentz@soze.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/136
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:216@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T180000
+DURATION:PT1H
+SUMMARY:Hacking The Genome [216]
+DESCRIPTION:Hacking The Genome\nDesigner Proteins\, Elite Organisms and Yo
+ u\n\nRussell Hanson\n\nThere are a variety of problems in biology and bioc
+ hemistry which can only in recent years be addressed by computational meth
+ ods. The melding of algorithmic\, physical\, biological\, and chemical tec
+ hniques are becomming commonplace. I will describe a few.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Russell Hanson":mailto
+ : russell at qiezi.net
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/216
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:186@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T150000
+DURATION:PT1H
+SUMMARY:Hacking with Pure Data [186]
+DESCRIPTION:Hacking with Pure Data\nPD is open source software\, and it is
+  free. It is easy to extend PD with "libraries" and self written "external
+ s".\n\nPeter Plessas\n\nPureData (PD) is a graphical programming language 
+ in the tradition of \nMaxMSP\, a complete programming environment for musi
+ c and multimedia. PD \nis released under the Standard Improved BSD License
+  and runs on Linux\, \nWin\, MacOSX and IRIX machines.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Peter Plessas":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/186
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:90@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T000000
+DURATION:PT1H
+SUMMARY:Hacktivity [90]
+DESCRIPTION:Hacktivity\n\nClifford Wolf\n\nUm den Menschen wieder Spass un
+ d Kreativität beim Umgang mit der Technik zu vermitteln\, hat sich die Ch
+ aosnahe Gruppe Wien eine kleine Unterhaltungsshow mit Publikumsbeteiligung
+  einfallen lassen. Es geht hierbei weniger um konkretes Fachwissen\, als u
+ m den kreativen Umgang mit eben diesem. Vier Kandidaten müssen sich den s
+ chweren Aufgaben des Hacktivity Bewerbes stellen wollen. Ebenso bekommt da
+ s Publikum eine Aufgabe\, die es zu lösen hat..\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Clifford Wolf":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/90
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:211@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T110000
+DURATION:PT2H30M
+SUMMARY:Haecksen - Get2Know [211]
+DESCRIPTION:Haecksen - Get2Know\nBrunch fuer Mädchen/Frauen\, die sich f�
+ �r die Haecksen interessieren\n\npallas\n\nBei diesem Brunch möchten wir 
+ allen interessierten Maedchen und Frauen die Möglichkeit geben uns (die H
+ aecksen) in entspannter Atmosphäre kennenzulernen. Komm einfach vorbei\, 
+ wir freuen uns auf Dich! (Diese Veranstaltung ist women-only.)\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="pallas":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/211
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:210@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T210000
+DURATION:PT3H
+SUMMARY:Haecksen-Treffen [210]
+DESCRIPTION:Haecksen-Treffen\n\npallas\n\nDa die Haecksen sogar ueber die 
+ Landesgrenzen hinaus verstreut sind\, werden wir auf dem Congress die selt
+ ene Gelegenheit zu einem internen Treffen nutzen. Dabei werden wir ueber u
+ nsere Arbeit im vergangenen Jahr reflektieren und natuerlich das kommende 
+ Jahr planen. (Diese Veranstaltung ist Haecksen-only. Fuer die Kontaktaufna
+ hme ist der Brunch gedacht.)\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="pallas":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/210
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:261@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T160000
+DURATION:PT1H
+SUMMARY:Hang the VJ [261]
+DESCRIPTION:Hang the VJ\nDo visuals destroy nightlife?\n\nfRED\n\nBased on
+  an article in the TAZ newspaper regarding the contact europe festival whe
+ re to many visuals killed the athmosphere this discussion round tries to g
+ ive view into the club goers mind and if the points raised in the article 
+ are valid and how VJs could change their perception\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fRED":mailto:fred@kakl
+ otter.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/261
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:213@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T130000
+DURATION:PT2H
+SUMMARY:Haskell [213]
+DESCRIPTION:Haskell\nA Wild Ride\n\nSven Moritz Hallberg\n\nHaskell is a p
+ urely functional programming language. Its main features include its stron
+ g type system\, declarative style\, concise syntax\, and clean structure. 
+ Contrary to the frequently found notion of Haskell being a language of mor
+ e "academic interest"\, it is in my opinion much rather the case that Hask
+ ell can excellently express applications of direct practical utility witho
+ ut sacrificing the language's academic assets at all.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sven Moritz Hallberg":
+ invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/213
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:271@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T110000
+DURATION:PT1H
+SUMMARY:Hidden Data in Internet Published Documents [271]
+DESCRIPTION:Hidden Data in Internet Published Documents\n\nMaximillian Dor
+ nseif\, Steven J. Murdoch\n\nMany files are being published on the Interne
+ t which hold\nunexpected (and potentially embarrassing) data. We examine\n
+ different cases of hidden data in file formats (including Word\,\nPDF and 
+ JPEG) and show examples of these from a crawl of the\nInternet\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Maximillian Dornseif":
+ invalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Steven J. Murdoch":inv
+ alid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/271
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:244@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T190000
+DURATION:PT1H
+SUMMARY:High-Speed Computing & Co-Processing with FPGAs [244]
+DESCRIPTION:High-Speed Computing & Co-Processing with FPGAs\n\nDavid Hulto
+ n\n\nFPGAs (Field Programmable Gate Arrays) are slowly becoming more and m
+ ore advanced and practical as high-speed computing platforms. In this talk
+ \, David will provide an in-depth introduction into the guts and capabilit
+ ies of modern day FPGAs and show how you can take your current algorithms 
+ and efficiently convert them to gate logic and run\nthem on hardware. This
+  presentation will also introduce a set of open source cores (jawn v1.0) t
+ hat will implement the basic functionality of john the ripper on FPGAs and
+  allow you to crack password hashes as fast as 100+ PCs using FPGA PCMCIA 
+ cards on your laptop.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="David Hulton":mailto:0
+ x31337@gmail.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/244
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:105@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T220000
+DURATION:PT2H
+SUMMARY:Honeypot Forensics [105]
+DESCRIPTION:Honeypot Forensics\nNo stone unturned or: logs\, what logs?\n\
+ nKrisztian Piller\, Sebastian Wolfgarten\n\nIn the world of intrusion dete
+ ction\, intrusion prevention and hacker research honeypots are a quite a n
+ ew and interesting technology. But only few know there is more to achieve 
+ with honeypots than just catch an intruders attention. Honeypots could rew
+ ard you with versatile results and this presentation will be interesting t
+ o you even if you are familiar with deploying IDS/IPS/Honeypot systems. We
+  will give an overview of the existing tools and provide you with a method
+ ology to start your own forensic examinations.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Krisztian Piller":inva
+ lid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sebastian Wolfgarten":
+ invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/105
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:158@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T160000
+DURATION:PT1H
+SUMMARY:How to find *anything* on the Web [158]
+DESCRIPTION:How to find *anything* on the Web\nAdvanced internet searching
+  strategies & "wizard seeking" tips\n\nFravia\n\nParticipants will be trai
+ ned to become good "seekers". Techniques and tricks used for efficiently s
+ earching through the world wide web will be taught and search engines will
+  be reviewed\; in short: the hacker's approach to searching.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Fravia":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/158
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:133@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T110000
+DURATION:PT1H
+SUMMARY:How To Herd Cats [133]
+DESCRIPTION:How To Herd Cats\n\nDruid\n\nDespite the hacker ethic of free 
+ information real life frameworks for constructive dialogue are sadly lacki
+ ng. Interestingly a number of systems\, from socratic dialogue to parliame
+ ntary procedure already exist for structuring conversation toward a goal. 
+ In this talk we will look at hacker workgroups from open source developers
+  to CTF teams and look at what solutions have been tried\, and what tools 
+ have been developed. Also\, this topic lends itself to analysis of common 
+ hacker roles and social structures that define and impede growth and devel
+ opment within the community.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Druid":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/133
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:178@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T210000
+DURATION:PT1H
+SUMMARY:Humanoid Robots [178]
+DESCRIPTION:Humanoid Robots\n\nSven Behnke\n\nHumanoid robots are investig
+ ated\, because the human body facilitates acting in a world designed for h
+ umans\, simplifies the interaction with humans\, and allows for intuitive 
+ multimodal communication. They are also a tool to understand human intelli
+ gence. In the talk I will review some humanoid robot projects and introduc
+ e you to our robots Alpha\, Toni\, Kondo\, and RoboSapien.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sven Behnke":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/178
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:310@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T220000
+DURATION:PT1H
+SUMMARY:Information - Wissen - Macht [310]
+DESCRIPTION:Information - Wissen - Macht\nDunkle Seiten der Informationsge
+ sellschaft?\n\nMarko Maglić\n\nInformation und Wissen sind die Pfeiler de
+ r  Informationsgesellschaft . Das alte Sprichwort  Wissen ist Macht  errei
+ cht vollkommen neue Dimensionen: Wissen ist nunmehr die Grundvoraussetzung
+  für Macht\, und wird zum Machterhalt genutzt. Die Kriminalisierung non-k
+ onformer Gruppierungen und Überwachung aller sind Bestandteil unseres tä
+ glichen Lebens.  Sicherheit  dient in dieser Gesellschaft als pass-par-tou
+ t-Argument\, um die Privatsphäre des Individuums auszuhebeln. Der digital
+  divide   den es von offizieller Seite her zu vermeiden gilt ist nicht nur
+  vorprogrammiert\, sondern wahrscheinlich auch gewollt. Der Staat kann und
+  will den Bürger nicht schützen. Mündige Bürger stehen seinem Machtbes
+ treben entgegen.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Marko Maglić":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/310
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:67@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T120000
+DURATION:PT1H
+SUMMARY:Inside PDF [67]
+DESCRIPTION:Inside PDF\nPrinciples and structure of Adobe's Portable Docum
+ ent Format\n\nMaik Musall\n\nIntroduction to the Portable Document Format.
+  We look inside PDF files and learn about the format itself\, it's strengt
+ hs and weaknesses\, and try to set a base for further individual studies.\
+ n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Maik Musall":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/67
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:329@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T130000
+DURATION:PT1H
+SUMMARY:Intelektuelle Selbstverdeidigung Teil 2 [329]
+DESCRIPTION:Intelektuelle Selbstverdeidigung Teil 2\n\nJörg Platzer\n\nWe
+ gen des großen Erfolges: Interlektuelle Selbstverteidigung Teil 2!\nWarum
+  die Manipulation so gut funktioniert\, auch bei dir\, und was man dagegen
+  tun kann.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jörg Platzer":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/329
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:94@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T130000
+DURATION:PT1H
+SUMMARY:Intellektuelle Selbstverteidigung [94]
+DESCRIPTION:Intellektuelle Selbstverteidigung\nDa uns niemand die Wahrheit
+  ins Hirn schüttet\, müssen wir uns da wohl selbst drum kümmern\n\nJör
+ g Platzer\n\nDa uns Niemand die Wahrheit ins Hirn schüttet\, müssen wir 
+ uns da wohl selbst drum kümmern. Intellektuelle Selbstverteidigung  ist d
+ er Denksport  zur effektiven Abwehr von Manipulation\, Gedankenkontrolle u
+ nd Meinungsmache. Sie ermöglicht individuelle Meinungsbildung\, Realität
+ sabgleich\, unabhängige Standpunkterarbeitung und die Befähigung\, diese
+  zu vertreten. Intellektuelle Selbstverteidigung ist Meinungsbildung von u
+ nten.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jörg Platzer":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/94
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:45@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T200000
+DURATION:PT1H
+SUMMARY:Internet censorship in China [45]
+DESCRIPTION:Internet censorship in China\nUnderstanding and circumventing 
+ Internet censorship in China\n\nJens Ohlig\n\nA look at the technical\, po
+ litical and cultural backgound of the Great Firewall of China. Practical t
+ ips for travellers to China on how to circumvent censorship and ideas on h
+ ow Chinese cyber-culture may be different.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jens Ohlig":invalid:no
+ mail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/45
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:258@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T123000
+DURATION:PT30M
+SUMMARY:Introduction to 3DJ [258]
+DESCRIPTION:Introduction to 3DJ\nVJing in the 3rd Dimension\n\nwhitevoid\n
+ \n3DJ is a piece of software for realtime visualization of video and sound
+ - or music input in an interactive stereoscopic 3D environment. Made for t
+ he use in clubs and dicotheques with stereoscopic 3D-projections or regula
+ r video projections as an advanced 3D-VJ ("3DJ")-tool.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="whitevoid":mailto:info
+ @widewhitevoid.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/258
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:287@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T120000
+DURATION:PT30M
+SUMMARY:Introduction to Cubensis [287]
+DESCRIPTION:Introduction to Cubensis\nDemoscene Inspired Visual Software\n
+ \nreboot  cubensis ^ incognita\n\nIntroduction to the new VJ software "Cub
+ ensis" with realtime rendered 3D imagery.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="reboot  cubensis ^ inc
+ ognita":mailto:rebuto@hotmail.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/287
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:257@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T133000
+DURATION:PT30M
+SUMMARY:Introduction to ES-X [257]
+DESCRIPTION:Introduction to ES-X\nImprovisational VJ tool from John DeKron
+ \n\nJohn DeKron\n\nwhat is it?\n ES_X was developed and intensely tested i
+ n life performances by John Dekron and videoking. it is an intentionally s
+ imple yet powerful instrument for live improvisation with video material. 
+ (both clips and live video input).\n "live" means that is not necessary to
+  precompose material or setups that will be fixed throughout a show.\n "im
+ provisation" means that you may use your intuition to alter your output in
+  whatever way you feel.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="John DeKron":mailto:jo
+ hn@thisserver.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/257
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:288@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T130000
+DURATION:PT30M
+SUMMARY:Introduction to Play [288]
+DESCRIPTION:Introduction to Play\nVJ software for interactive Installation
+ s\n\ncodeep: Seex\n\nIn order to bring the visual experience closer to the
+  viever\, a team of artists has developed a motion capture system that ena
+ bles scratching of a selected video clip by means of moving a hand.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="codeep: Seex":mailto:l
+ uka@bonami-int.si
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/288
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:212@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T220000
+DURATION:PT4H
+SUMMARY:Jam-Session [212]
+DESCRIPTION:Jam-Session\nLet's get loud...\n\npallas\n\nNerds und Musik? L
+ asst uns beweisen\, dass das wunderbar zusammen passt. Bringt statt eurer 
+ Books\, Instrumente/eure Stimme\, sowie gute Stimmung mit :) Denn es wird 
+ gejammt werden.\nDafuer ist der - traditionell gemuetlich angehauchte - Ha
+ ecksen-Raum die perfekte Location.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="pallas":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/212
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:117@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T190000
+DURATION:PT1H
+SUMMARY:Kampagne Fair Sharing [117]
+DESCRIPTION:Kampagne Fair Sharing\n\nJulian Finn\, Markus Beckedahl\, Matt
+ hias Mehldau\, Oliver Moldenhauer\, Volker Grassmuck\n\nDie Musikindustrie
+  setzt gerade alles daran\, ihre Kunden und potentiellen Kunden zu verklag
+ en und sieht keine Alternative um den Kampf gegen Tauschbörsen zu gewinne
+ n. Dabei ist die Kriminalisierung einer ganzen Generation weder Sinnvoll n
+ och wünschenswert. Die Kulturflatrate zeigt einen Ausweg...\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Julian Finn":invalid:n
+ omail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Markus Beckedahl":inva
+ lid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Matthias Mehldau":inva
+ lid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Oliver Moldenhauer":in
+ valid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Volker Grassmuck":mail
+ to:vgrass@rz.hu-berlin.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/117
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:214@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T133000
+DURATION:PT3H
+SUMMARY:Kryptografie in Theorie und Praxis [214]
+DESCRIPTION:Kryptografie in Theorie und Praxis\nOnly the paranoids survive
+ \n\nJutta Horstmann\, Rosa Lou Freund\, Sabine Schmidt\n\nAn zwei Vorträg
+ e über "Mathematische Grundlagen der Kryptographie" bzw. "Gesellschaftlic
+ he\, politische und praktische Aspekte von Verschlüsselung" schliesst sic
+ h ein Workshop an\, in dem gemeinsam die eigenen Kommunikationskanäle ges
+ ichert werden.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jutta Horstmann":inval
+ id:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Rosa Lou Freund":inval
+ id:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sabine Schmidt":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/214
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:131@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T120000
+DURATION:PT1H
+SUMMARY:Learning OpenPGP by example [131]
+DESCRIPTION:Learning OpenPGP by example\n\nSeth Hardy\n\nThe goal of this 
+ talk is to help demystify some of the internals of the OpenPGP standard\, 
+ through example\, so that others can learn from and hopefully continue the
+  process. The current (free) open source implementations of the OpenPGP st
+ andard are easily better than many commercial solutions\, as well as more 
+ readily supported. To do this\, I will show off a number of the OpenPGP-ba
+ sed projects I've been working on lately\, including: subliminally leaking
+  keys in digital signatures\; vanity key generation\; extending the web of
+  trust to ssh host keys\; and maybe even some attacks against the keyserve
+ r network that I'll later regret showing off code for.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Seth Hardy":invalid:no
+ mail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/131
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:56@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T140000
+DURATION:PT1H
+SUMMARY:LiberTOS [56]
+DESCRIPTION:LiberTOS\nEchtzeiterweiterung des Linuxkernels\n\nBenedikt Spr
+ anger\n\nEchtzeit-Anforderungen spielen in weiten Bereichen mittlerweise e
+ ine große Rolle. Bisherige Ansätze den Linux-Kernel echtzeitfähig zu ma
+ chen gingen von einem Dual-Kernel-Ansatz aus. LiberTOS ist eine Erweiterun
+ g die Echtzeitfähigkeit direkt im Kernel bietet.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Benedikt Spranger":inv
+ alid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/56
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:142@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T110000
+DURATION:PT1H
+SUMMARY:Lightning Talks: Day 1 [142]
+DESCRIPTION:Lightning Talks: Day 1\n\nFrank Rosengart\n\nLightning Talks a
+ re your chance to give introductory talks for your projects\, interesting 
+ technologies and evolving developments and other things that might be inte
+ resting to the 21C3 audience.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Frank Rosengart":mailt
+ o:frank@rosengart.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/142
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:157@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T110000
+DURATION:PT1H
+SUMMARY:Lightning Talks: Day 2 [157]
+DESCRIPTION:Lightning Talks: Day 2\n\nVolker Birk\n\nLightning Talks are y
+ our chance to give introductory talks for your projects\, interesting tech
+ nologies and evolving developments and other things that might be interest
+ ing to the 21C3 audience.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Volker Birk":mailto:bu
+ mens@dingens.org
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/157
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:250@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T110000
+DURATION:PT1H
+SUMMARY:Lightning Talks: Day 3 [250]
+DESCRIPTION:Lightning Talks: Day 3\n\nHanno Wagner\n\nLightning Talks are 
+ your chance to give introductory talks for your projects\, interesting tec
+ hnologies and evolving developments and other things that might be interes
+ ting to the 21C3 audience.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Hanno Wagner":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/250
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:174@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T180000
+DURATION:PT1H
+SUMMARY:Lobbying für Nerds [174]
+DESCRIPTION:Lobbying für Nerds\n\nAndreas Bogk\, Andreas Dietl\, Andy Mü
+ ller-Maguhn\, Markus Beckedahl\n\nEine Vielzahl von politischen Direktiven
+  und Gesetzen veränder den Umgang mit den neuen Medien. Viele einflußrei
+ che Lobbygruppen nutzen die in diesem Themengebiet unerfahrenen Politiker\
+ , um ihre Interessen politisch durchzubringen. Idee dieses Vortrags ist es
+ \, politische Prozesse transparent zu machen und Hilfestellungen zu geben\
+ , wie für die eigenen Vorstellungen einer freien Wissensgesellschaft an d
+ ie Entscheidungsträger kommuniziert werden kann.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Andreas Bogk":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Andreas Dietl":mailto:
+ andreas@edri.org
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Andy Müller-Maguhn":m
+ ailto:andy@ccc.de
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Markus Beckedahl":inva
+ lid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/174
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:231@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T110000
+DURATION:PT5H
+SUMMARY:Lockpicking von Meisterhand [231]
+DESCRIPTION:Lockpicking von Meisterhand\nFür Anfänger und Fortgeschritte
+ ne\n\n\n\nZu jeder vollen Stunde beginnt ein Lockpicking-Workshop. Traditi
+ onell werden die ersten Workshops von den neuen Deutschen Meistern gehalte
+ n.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/231
+LOCATION:Lockpicking
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:44@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T160000
+DURATION:PT1H
+SUMMARY:Machine Learning in Science and Engineering [44]
+DESCRIPTION:Machine Learning in Science and Engineering\nA Brief Introduct
+ ion into Machine Learning with a few Application Examples\n\nGunnar Rätsc
+ h\n\nI am going to give a broad overview about the current stage of resear
+ ch in Machine Learning. I start with the general motivation and the setup 
+ of learning problems and discuss state-of-the-art learning algorithms for 
+ novelty detection\, classification and regression. Additionally\, I outlin
+ e how machine learning methods are used for spam detection\, intrusion det
+ ection\, brain computer interace and biological sequence analysis.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Gunnar Rätsch":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/44
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:308@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T140000
+DURATION:PT1H
+SUMMARY:MD5 To Be Considered Harmful Someday [308]
+DESCRIPTION:MD5 To Be Considered Harmful Someday\n\nDan Kaminsky\n\nJoux a
+ nd Wang’s multicollision attack has yielded collisions for several one-w
+ ay hash algorithms. Of these\, MD5 is the most problematic due to its heav
+ y deployment\, but there exists a perception that the flaws identified hav
+ e no applied implications. We show that the appendability of Merkle-Damgar
+ d allows us to add any payload to the proof-of-concept hashes released by 
+ Wang et al. We then demonstrate a tool\, Stripwire\, that uses this capabi
+ lity to create two files – one which executes an arbitrary sequence of c
+ ommands\, the other which hides those commands with the strength of AES �
+ � both with the same MD5 hash. We show how this affects file-oriented syst
+ em auditors such as Tripwire\, but point out that the failure is nowhere n
+ ear as catastrophic as it appears at first glance. We examine how this fai
+ lure affects HMAC and Digital Signatures within Digital Rights Management 
+ (DRM) systems\, and how the full attack expands into an unusual pseudosteg
+ anographic strikeback methodology against peer to peer networks.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Dan Kaminsky":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/308
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:194@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T210000
+DURATION:PT3H
+SUMMARY:MediaWiki Developer Workshop [194]
+DESCRIPTION:MediaWiki Developer Workshop\nDeveloper conference kickoff mee
+ ting\n\nBrion Vibber\, Tim Starling\n\nKick-off meeting of the MediaWiki d
+ eveloper crew.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Brion Vibber":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Tim Starling":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/194
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:146@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T200000
+DURATION:PT1H
+SUMMARY:Mehr Sicherheit für HostAP-WLANs [146]
+DESCRIPTION:Mehr Sicherheit für HostAP-WLANs\nWLANs mit Wi-Fi Protected A
+ ccess (WPA) betreiben\n\nJan Fiegert\n\nDer HostAP Treiber wird für Prism
+  802.11b Karten unter Linux entwickelt. Er unterstützt den Betrieb im Mas
+ ter Modus. Damit lässt sich ein Access Point realisieren. Es soll gezeigt
+  werden\, wie dieser mit Security Features (WPA [PSK|EAP]) aufgerüstet we
+ rden kann.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jan Fiegert":mailto:ja
+ n.fiegert@gmx.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/146
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:289@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T140000
+DURATION:PT1H
+SUMMARY:Mixing VJing and Post-Production [289]
+DESCRIPTION:Mixing VJing and Post-Production\n\nTobyspark\n\nWorkshop - Co
+ mbining VJ software and editing software\, we'll turn around music videos 
+ within the time of the workshop by making 'VJ remixes'.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Tobyspark":mailto:toby
+ @tobyz.net
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/289
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:12@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T130000
+DURATION:PT1H
+SUMMARY:Natural Language Steganography [12]
+DESCRIPTION:Natural Language Steganography\nNLS and an AI-complete Securit
+ y Primitive\n\nRichard Bergmair\n\nThe lecture gives some insight to the c
+ onstruction of natural language stegosystems. Such systems recode sensitiv
+ e plaintext to innocuous natural language text\, thereby providing securit
+ y against arbitrators.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Richard Bergmair":inva
+ lid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/12
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:17@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T140000
+DURATION:PT1H
+SUMMARY:Next-Generation Peer-to-Peer Systems [17]
+DESCRIPTION:Next-Generation Peer-to-Peer Systems\n\nMagnus Kolweyh\n\nA si
+ gnificant paradigm for the Internet are Peer-to-Peer Systems. Those networ
+ ks form new types of distributed information platforms. The lecture will d
+ iscuss concepts for Next-Generation Peer-to-Peer Systems that range beyond
+  the scope of todays filesharing applications.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Magnus Kolweyh":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/17
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:68@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T110000
+DURATION:PT1H
+SUMMARY:NOC Overview [68]
+DESCRIPTION:NOC Overview\nAufbau und Struktur des 21C3-Netzwerks\n\ncpunkt
+ \, Sebastian Werner\n\nEine Einführung in die Eigenschaften und Dienste d
+ es 21C3-Netzwerks. Beschreibung der Hardware\, Software und der Protokolle
+ \, die zum Einsatz kommen\, um das lokale Netzwerk und die Anbindung an da
+ s Internet zu realisieren.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="cpunkt":invalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sebastian Werner":inva
+ lid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/68
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:125@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T180000
+DURATION:PT1H
+SUMMARY:Old Skewl Hacking: Infra Red [125]
+DESCRIPTION:Old Skewl Hacking: Infra Red\nMMIrDA (Major Malfunction's Infr
+ a Red Discovery Application)\n\nMajor Malfunction\n\nThis talk will cover 
+ methods for discovering the hidden capabilities of Infra-Red remote contro
+ ls\, as well as brute forcing single function controls such as garage door
+  openers or car alarm systems. It will look at the 'why' as well as the 'h
+ ow'\, and opens up some interesting possibilities for future research into
+  other similar technologies such as RF car alarms etc.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Major Malfunction":inv
+ alid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/125
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:256@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T110000
+DURATION:PT1H
+SUMMARY:On finding the score to visuals [256]
+DESCRIPTION:On finding the score to visuals\n\ncodeep: Ros Roca\, codeep: 
+ Seex\n\nTo find a standard wich can be used as a medium that can perserve 
+ the work of a vj for instituonal conservation and later use\, we must firs
+ t define the form of art that it is. Visuals are determined by several cru
+ cial factors that we try to shine light on.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="codeep: Ros Roca":mail
+ to:luka@bonami-int.si
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="codeep: Seex":mailto:l
+ uka@bonami-int.si
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/256
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:249@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T100000
+DURATION:PT30M
+SUMMARY:Opening Event [249]
+DESCRIPTION:Opening Event\nLet the games begin...\n\nJens Ohlig\, Tim Prit
+ love\n\nOpening ceremony of 21C3. Introduction to the Congress schedule\, 
+ lectures and facilities.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jens Ohlig":invalid:no
+ mail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Tim Pritlove":mailto:t
+ im@ccc.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/249
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:176@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T130000
+DURATION:PT2H
+SUMMARY:Passive covert channels in the Linux kernel [176]
+DESCRIPTION:Passive covert channels in the Linux kernel\nImplementation an
+ d detection of kernel based backdoors and covert channels in Linux kernels
+ \n\nJoanna Rutkowska\n\nThe presentation will describe the idea of passive
+  covert channels (PCC). By passive covert channels\, one means a specific 
+ kind of CC\, which does not generate its own traffic. A PCC only changes s
+ ome fields in the packets generated by a legitimate user (or processes) of
+  the compromised host. For example\, a PCC can be implemented as a kernel 
+ module which will change the Initial Sequence Number (ISN) in all (or only
+  some) outgoing TCP connections. The new ISNs will carry the secret messag
+ e\, which could be\, for example\, the password sniffed by malicious softw
+ are running on the compromised machine.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Joanna Rutkowska":mail
+ to:joanna@invisiblethings.org
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/176
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:16@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T210000
+DURATION:PT1H
+SUMMARY:Phishing the Web [16]
+DESCRIPTION:Phishing the Web\n$$$ Make money fast! $$$\n\nPeter Panter\n\n
+ Phishing became a serious problem in 2004 with media coverage even in non-
+ technical context. The lecture will gather the incidents\, shows common at
+ tacks-techniques and tries to give a prognosis for the near future.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Peter Panter":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/16
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:130@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T200000
+DURATION:PT2H
+SUMMARY:Physical Security [130]
+DESCRIPTION:Physical Security\n\nBarry\, Mark Seiden\n\nPhysical security 
+ is an oft-overlooked but critical prerequisite for good information securi
+ ty. Software has leaked into every aspect of modern life and now controls 
+ access to physical resources as well as to business and personal informati
+ on. When critically examined\, physical security policies and mechanisms h
+ ave (perhaps have *always*) contained substantial snake oil components\, i
+ ncluding back doors\, extensive use of protection by "security through obs
+ curity"\, and piece solutions which ignore their environmental context or 
+ need to function in a system.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Barry":invalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Mark Seiden":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/130
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:141@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T220000
+DURATION:PT1H
+SUMMARY:Pirate Radio [141]
+DESCRIPTION:Pirate Radio\nRunning a Station and Staying on the Air\n\nb9pu
+ nk\n\nPirate radio DJs ZT and b9punk will discuss the Whats\, Hows and Why
+ s of starting your own station\, including a technical overview of what is
+  required to get on the air\, legal concerns\, and the philosophy and soci
+ al relevance of the movement as a whole. They will recount their experienc
+ es with KBFR\, a wildly successful and growing station based out of Boulde
+ r\, Colorado\, including the rewards of being DJs\, bringing the 'hacker s
+ cene' to pirate radio\, and their encounters with the FCC. They will also 
+ talk about the Real Public Radio (RPR) Network\, a content provider\, and 
+ all-purpose resource for international pirate stations\, and what you can 
+ do to get involved. Joining the crew via phone\, will be Monk\, the statio
+ n's founder and benevolent dictator\, who will be broadcasting the entire 
+ panel live in the US\, as well as streaming over the internet.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="b9punk":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/141
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:262@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T160000
+DURATION:PT1H
+SUMMARY:Pixels don't need no money [262]
+DESCRIPTION:Pixels don't need no money\nEthics of a corporate sponsored VJ
+  scene\n\nfALk\n\nWith the recent push of large corporations (like Motorol
+ a and BMW) or mass media (like MTV) into the VJ scene questions are raised
+  of how we can sustain a community driven scene without capitalistic influ
+ ence and its main focus on the artistic side of our craft.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fALk":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/262
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:253@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T120000
+DURATION:PT1H
+SUMMARY:Pixels want to be many [253]
+DESCRIPTION:Pixels want to be many\nHigh definition video and reasons for 
+ using it in a VJ context\n\n4YourEye:Eva\, 4YourEye:Gery\n\nTechnics and I
+ deas for VJing in high resolutions made possible by the new consumer video
+  format HDV.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="4YourEye:Eva":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="4YourEye:Gery":mailto:
+ gery@4youreye.at
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/253
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:265@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T200000
+DURATION:PT1H
+SUMMARY:Pixels want to blink Part I [265]
+DESCRIPTION:Pixels want to blink Part I\nCollaboration with the Blinkenlig
+ hts Project\n\nfALk\n\nExploring ways of displaying visual sets on the Bli
+ nkenlights Screens. With emphasis on a VJ to blinkenlights blackbox / prog
+ ramm.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fALk":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/265
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:284@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T200000
+DURATION:PT1H
+SUMMARY:Pixels want to blink Part II [284]
+DESCRIPTION:Pixels want to blink Part II\nCollaboration with the Blinkenli
+ ghts Project\n\nfALk\n\nExploring ways of displaying visual sets on the Bl
+ inkenlights Screens. With emphasis on a VJ to blinkenlights blackbox / pro
+ gramm.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fALk":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/284
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:260@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T160000
+DURATION:PT1H
+SUMMARY:Pixels want to break free of the screen [260]
+DESCRIPTION:Pixels want to break free of the screen\nAlternative projectio
+ n technology and their impact in the VJ scene\n\nfALk\, whitevoid\n\nDiscu
+ ssion round that tries to figure out if alternatives to the "beamer-screen
+ -setup" have a deeper impact on the public view of visuals.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fALk":invalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="whitevoid":mailto:info
+ @widewhitevoid.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/260
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:252@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T150000
+DURATION:PT1H
+SUMMARY:Pixels want to dance [252]
+DESCRIPTION:Pixels want to dance\nVideo feedback for live performances\n\n
+ Fluchtpunkt\n\nCore Concepts and Methods for generation of intelligent Vid
+ eofeedbackloop with or without seeds.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Fluchtpunkt":mailto:to
+ bias_halbherr@hotmail.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/252
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:255@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T110000
+DURATION:PT1H
+SUMMARY:Pixels want to talk [255]
+DESCRIPTION:Pixels want to talk\nConcepts of narrative storytelling in a V
+ J context\n\nfALk\n\nBreaking free of the truly abstract nature of visuals
+  is a goal not many VJs share. This speech will show some technics and dif
+ ferent approaches to get a visual narrative going.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fALk":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/255
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:98@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T180000
+DURATION:PT1H
+SUMMARY:Portable Software-Installation with pkgsrc [98]
+DESCRIPTION:Portable Software-Installation with pkgsrc\nPackage management
+  on Linux\, Solaris and NetBSD\n\nHubert Feyrer\n\nHave you tried installi
+ ng a certain package on (say) Linux\, Solaris\, MacOS X\, MS Windows and N
+ etBSD at the same time? The pkgsrc system allows doing so by a simple "mak
+ e install" instead of knowing lots of details.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Hubert Feyrer":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/98
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:232@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T190000
+DURATION:PT1H
+SUMMARY:Positionsbezogene Ad-hoc Collaboration über WLAN [232]
+DESCRIPTION:Positionsbezogene Ad-hoc Collaboration über WLAN\n\nPeter Iba
+ ch\n\nWir  haben  ein  System  zur  Positionsbestimmung  mobiler  Systeme 
+  basierend  auf  WLAN  Signalstärke-Auswertung  entwickelt.  Es  arbeitet
+   rein  softwarebasiert\,  d.h.  bei  den  mobilen  Systemen ist außer ei
+ ner konventionellen WLAN-Karte keine weitere Hardware erforderlich. Die  W
+ LAN Access Points können beliebig verteilt bzw. ggf. sogar mobil sein und
+  es sind weder  Eingriffe an der AP-Hardware noch an der Software nötig. 
+ Unsere Versuche am Uni-Campus  Berlin-Adlershof  zeigen  in  typischen  B�
+ �roumgebungen  eine Positionierungsgenauigkeit  im  einstelligen Meter-Ber
+ eich. Die Softwarekomponenten des Positionierungssystems stehen zum  freie
+ n  Download  zur  Verfügung  und  können  für  Experimente  oder  Anwen
+ dungen  genutzt  werden.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Peter Ibach":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/232
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:218@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T150000
+DURATION:PT1H
+SUMMARY:Practical Mac OS X Insecurity [218]
+DESCRIPTION:Practical Mac OS X Insecurity\nSecurity Concepts\, Problems\, 
+ and Exploits on Your Mac\n\nAngelo Laub\n\nSome recent security problems w
+ ith Mac OS X stem from the fact that Apple tries to combine the Unix secur
+ ity model with easy and convient usability and closed source. Showing exam
+ ples from our own research we will take you on a pleasant journey to get r
+ oot on almost any recent Macintosh. And of course\, there will be "just on
+ e more thing".\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Angelo Laub":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/218
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:274@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T190000
+DURATION:PT2H
+SUMMARY:Praktische Anleitung zum Bau eines Radiosenders [274]
+DESCRIPTION:Praktische Anleitung zum Bau eines Radiosenders\nPlatinen ätz
+ en und löten\n\nElektra\n\nWir bauen einen Micro-FM-Sender - die Teilnehm
+ erInnen lernen dabei alles was es für die preiswerte Massenproduktion kle
+ iner Radiosender (FM) braucht \;-)\, denn wir stellen auch die Platinen au
+ s mit Fotolack beschichteten Leiterplatten her. Nur die Transistoren\, Kon
+ densatoren und Widerstände fertigen wir nicht selbst. Nach dem Workshop s
+ ollten die TeilnehmerInnen in der Lage sein auch andere Schaltungen aus Le
+ iterplattenlayouts (etwa aus Elektronikzeitschriften oder Datenblättern) 
+ herstellen zu können. Für das Material berechnen wir vorraussichtlich 8�
+ �� pro TeilnehmerIn.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Elektra":mailto:onelek
+ tra@gmx.net
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/274
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:138@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T130000
+DURATION:PT1H
+SUMMARY:Protesting in the new Millenium [138]
+DESCRIPTION:Protesting in the new Millenium\nThe Use of Electronic Communi
+ cations to Protest\n\nEmmanuel Goldstein\n\nEmmanuel Goldstein describes t
+ he changing times in the United States. While hackers were always looked u
+ pon with suspicion\, they are now seen as a very definite threat on the or
+ der of terrorists. Add activism into the mix and there's no end to the pot
+ ential for trouble.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Emmanuel Goldstein":ma
+ ilto:emmanuel@2600.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/138
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:328@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T150000
+DURATION:PT1H
+SUMMARY:Pure Data and Gem for VJs [328]
+DESCRIPTION:Pure Data and Gem for VJs\nhacking with pure data: the VJ edit
+ ion\n\nAsli Serbest\, Peter Plessas\n\nAn introduction to the open source 
+ alternative to the widely used PD graphical programming environment with s
+ pecial emphasis on GEM the Pure Data Open GL enginge\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Asli Serbest":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Peter Plessas":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/328
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:83@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T180000
+DURATION:PT1H
+SUMMARY:Quanteninformationstheorie für Nicht-Physiker [83]
+DESCRIPTION:Quanteninformationstheorie für Nicht-Physiker\nKeiner hat's v
+ erstanden\, aber alle basteln dran\n\nSandro Gaycken\n\nDie Quanteninforma
+ tionstheorie prophezeit grundlegende Revolutionen für die Informationstec
+ hnologie. Ist zwar die alltägliche technische Anwendung noch fern\, lasse
+ n sich doch anhand der Vielzahl aktueller Bemühungen bereits recht genaue
+  Bilder davon entwerfen\, was uns aus der Quantenmechanik erreichen wird. 
+ Quantenkryptographie\, Superdense Coding\, Quantenteleportation und Quante
+ nnetzwerke sind hier nur einige der leckeren Stichworte. Der Vortrag soll 
+ eine kurze Einführung in die Grundlagen der Quanteninformation – das Su
+ perpositionsprinzip und Verschränkung – geben und von dort aus einige d
+ er Ausblicke genauer entwerfen\, die von seriösen Entwickler derzeit prop
+ agiert werden.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sandro Gaycken":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/83
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:81@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T220000
+DURATION:PT2H
+SUMMARY:Quantenmechanik für Nicht-Physiker [81]
+DESCRIPTION:Quantenmechanik für Nicht-Physiker\nWas man über Quantenmech
+ anik wissen sollte\, wenn man auf einer Stehparty danach gefragt wird\n\nS
+ andro Gaycken\n\nDie Quantenmechanik ist heute die grundlegende physikalis
+ che Theorie. Mit ihrer erstaunlicher Gestalt\, die exotische Eigenschaften
+  wie die Welle-Teilchen-Dualität\, eine Wahrscheinlichkeitsinterpretation
+  und den Tunneleffekt beinhaltet\, revolutioniert sie nicht nur bereits se
+ it einem Jahrhundert in immer wieder neuen Entdeckungen die Naturwissensch
+ aften\, sie fordert auch unsere alltäglichen Intuitionen und Vorstellunge
+ n zu Änderungen auf. Mein Vortrag soll eine kurze Einführung in die Grun
+ dstrukturen und die Darstellung der Quantenmechanik geben.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sandro Gaycken":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/81
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:182@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T190000
+DURATION:PT1H
+SUMMARY:Radioaktive Pässe [182]
+DESCRIPTION:Radioaktive Pässe\n...und andere sinnvolle Methoden für die 
+ innere Sicherheit\n\nUmberto Annino\n\nBiometrische Ausweise\, RFID unter 
+ die Haut etc.: was es bringt\, warum es kommt. Was die Sicherheitsbemühun
+ gen wirklich bringen\, und warum sie trotzdem umgesetzt werden. Ziel ist\,
+  eine intelligente Begründung zu destillieren.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Umberto Annino":mailto
+ :umbi@umbi.net
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/182
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:51@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T160000
+DURATION:PT1H
+SUMMARY:Recent features to OpenBSD: ntpd and bgpd [51]
+DESCRIPTION:Recent features to OpenBSD: ntpd and bgpd\nHow to build free\,
+  scalable and secure network daemons\n\nHenning Brauer\n\nThe talk will in
+ troduce some of the recent changes in the OpenBSD operating system\, namel
+ y the introduction of bgpd\, a free BGP implementation and OpenNTPD\, a fr
+ ee NTP implementation. Using those concrete examples\, Henning Brauer will
+  point out important DOs and DONTs for writing scalable and secure network
+  daemons.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Henning Brauer":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/51
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:246@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T210000
+DURATION:PT1H
+SUMMARY:RFID Technologie und Implikationen [246]
+DESCRIPTION:RFID Technologie und Implikationen\n\nHolger Ziekow\n\nEinfüh
+ rende Präsentation zum Thema RFID. Die Grundlagen der RFID Technik und de
+ s dahinter liegenden EPC Netzwerks werden erklärt. Darauf aufbauend werde
+ n Verbraucherschutzfragen diskutiert. Anhand von\nAttack-Trees werden dann
+  Sicherheitsrisiken isoliert und zum Teil\, insbesondere im Bereich der De
+ aktivierungsverfahren\, vertieft.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Holger Ziekow":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/246
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:29@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T200000
+DURATION:PT1H
+SUMMARY:Robocup [29]
+DESCRIPTION:Robocup\nFuFighters\n\nRaúl Rojas\n\nRaúl Rojas and his team
+  have implemented a centrally controlled team of football playing robots. 
+ They will present this project (including a video) and show us their robot
+ s.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Raúl Rojas":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/29
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:306@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T200000
+DURATION:PT1H
+SUMMARY:Ruby [306]
+DESCRIPTION:Ruby\nHands on\n\nMario Manno\n\nRuby vereinfacht viele kompli
+ zierte Dinge und lässt sich angenehm lesen und schreiben. Stilistisch bes
+ chreibt sich Ruby am Besten als eine Mischung aus Smalltalk und Perl.\nDie
+ ser Vortrag führt in die Sprache ein und erläutert wesentliche Konzepte 
+ und Entwurfsmuster der objektorientierte Programmierung. Alltägliches und
+  Besonderheiten der Sprache werden durch viele Beispiele verdeutlicht.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Mario Manno":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/306
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:26@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T130000
+DURATION:PT2H
+SUMMARY:SAP R/3 Protocol Reverse Engineering [26]
+DESCRIPTION:SAP R/3 Protocol Reverse Engineering\n\nNils Magnus\n\nMost ha
+ ckers perceive SAP R/3 installations as enormous data graves with limited 
+ hack value because of its immense size and doubtful design. However\, ther
+ e are usually lots of company relevant data. As it is good and common prac
+ tise\, the more valuable the data\, the less it is protected.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Nils Magnus":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/26
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:134@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T150000
+DURATION:PT1H
+SUMMARY:Secure Instant Messaging [134]
+DESCRIPTION:Secure Instant Messaging\nSuppression of secure communications
+  by governments\n\nphar\n\nThe talk describes some of the current practice
+ s of Instant Messaging providers\, and go over what makes some of the desi
+ gn choices better or worse\, describing possible and known attacks against
+  messaging protocols and suggest possible solutions to those problems. If 
+ possible a live demonstration of exploitation of AOLs Instant Messenger wi
+ ll be shown though a simple attack on DNS.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="phar":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/134
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:127@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T110000
+DURATION:PT1H
+SUMMARY:Security Frameworks [127]
+DESCRIPTION:Security Frameworks\nAn enterprise approach to security\n\nRob
+ ert Frazier\n\nThe presentation looks at security from a framework approac
+ h\, using the OSI 7 layer model to map security tools across the enterpris
+ e. The discussion centers on how security tools map to the OSI model to pr
+ ovide end-to-end security.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Robert Frazier":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/127
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:95@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T190000
+DURATION:PT2H
+SUMMARY:Security Nightmares 2005 [95]
+DESCRIPTION:Security Nightmares 2005\nOder: worüber wir nächstes Jahr la
+ chen werden\n\nFrank Rieger\, Ron\n\nSecurity Nightmares betrachtet die Ve
+ rgangenheit\, Gegenwart und Zukunft von Sicherheitsvorfällen in der IT. W
+ ir machen eine Rückschau auf unsere Vorhersagen vom letzten Jahr\, unterh
+ alten uns darüber\, was sonst noch passiert ist und wagen dann die Vorsch
+ au ins nächste Jahr.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Frank Rieger":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Ron":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/95
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:267@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T220000
+DURATION:PT45M
+SUMMARY:Showcase: 4YourEye [267]
+DESCRIPTION:Showcase: 4YourEye\n\n4YourEye:Eva\, 4YourEye:Gery\n\nVJ Showc
+ ase with Austrian VJ group 4YourEye\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="4YourEye:Eva":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="4YourEye:Gery":mailto:
+ gery@4youreye.at
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/267
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:300@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T004500
+DURATION:PT45M
+SUMMARY:Showcase: Codeep [300]
+DESCRIPTION:Showcase: Codeep\n\ncodeep: Ros Roca\, codeep: Seex\n\nA codee
+ p live act by Seex and Ros Roca\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="codeep: Ros Roca":mail
+ to:luka@bonami-int.si
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="codeep: Seex":mailto:l
+ uka@bonami-int.si
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/300
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:304@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T030000
+DURATION:PT45M
+SUMMARY:Showcase: ctrl-v [304]
+DESCRIPTION:Showcase: ctrl-v\na narrative set by vj fALk und fRED\n\nfALk\
+ , fRED\n\na narrative vj set about a young media hacker in berlin that try
+ s to get hisself into the biggest networks of the city \nby protobeamaz:fA
+ Lk with visual beat support by fRED\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fALk":invalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fRED":mailto:fred@kakl
+ otter.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/304
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:296@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T021500
+DURATION:PT45M
+SUMMARY:Showcase: Cubensis [296]
+DESCRIPTION:Showcase: Cubensis\n\nreboot  cubensis ^ incognita\n\nDemoscen
+ e inspired 3D visuals from Spain with Cubensis VJ software\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="reboot  cubensis ^ inc
+ ognita":mailto:rebuto@hotmail.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/296
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:297@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T030000
+DURATION:PT45M
+SUMMARY:Showcase: Dr. Mo [297]
+DESCRIPTION:Showcase: Dr. Mo\n\nDr. Mo\n\nMexican XNOgraphiks VJ presentat
+ ion\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Dr. Mo":mailto:morishu
+ z@gmail.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/297
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:291@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T230000
+DURATION:PT45M
+SUMMARY:Showcase: E-Gruppe [291]
+DESCRIPTION:Showcase: E-Gruppe\n\ne-gruppe\n\nVJ Performance by E-Gruppe B
+ erlin\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="e-gruppe":mailto:e@rau
+ m-e.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/291
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:301@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T013000
+DURATION:PT45M
+SUMMARY:Showcase: elektroschroeder [301]
+DESCRIPTION:Showcase: elektroschroeder\n\nElektroschroeder\n\nVj Showcase 
+ by Frankfurt/M Midi VJ elektroschroeder\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Elektroschroeder":mail
+ to:techlab@web.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/301
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:293@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T001500
+DURATION:PT30M
+SUMMARY:Showcase: Fluchtpunkt [293]
+DESCRIPTION:Showcase: Fluchtpunkt\n\nFluchtpunkt\n\nFeedback VJ set with S
+ wiss VJ Fluchtpunkt.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Fluchtpunkt":mailto:to
+ bias_halbherr@hotmail.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/293
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:302@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T021500
+DURATION:PT45M
+SUMMARY:Showcase: hamageddon [302]
+DESCRIPTION:Showcase: hamageddon\n\nHamageddon\n\nShowcase by Frankfurt/M 
+ Resident and Midi VJ known as hamageddon\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Hamageddon":mailto:080
+ 2@vju.info
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/302
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:298@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T000000
+DURATION:PT45M
+SUMMARY:Showcase: John DeKron:videokonferenz [298]
+DESCRIPTION:Showcase: John DeKron:videokonferenz\n\nJohn DeKron\n\nVJ Perf
+ ormance with Berlin resident ESX VJSoftware author and BIX installation VJ
+  John DeKron\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="John DeKron":mailto:jo
+ hn@thisserver.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/298
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:299@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T231500
+DURATION:PT45M
+SUMMARY:Showcase: rbnesc [299]
+DESCRIPTION:Showcase: rbnesc\na narrative set by vj spark\n\nTobyspark\n\n
+ a narrative set that about city live by London vj spark\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Tobyspark":mailto:toby
+ @tobyz.net
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/299
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:294@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T004500
+DURATION:PT45M
+SUMMARY:Showcase: whitevoid [294]
+DESCRIPTION:Showcase: whitevoid\n\nwhitevoid\n\n3D VJ projection by whitev
+ oid.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="whitevoid":mailto:info
+ @widewhitevoid.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/294
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:295@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T013000
+DURATION:PT45M
+SUMMARY:Showcase: zelabo + O.S.T [295]
+DESCRIPTION:Showcase: zelabo + O.S.T\n\nO.S.T.\, zelabo:céline\, zelabo:j
+ erome\n\nAudio Visual Showcase with french vj collective Zelabo and Berlin
+  audio group O.S.T.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="O.S.T.":invalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="zelabo:céline":mailto
+ :celine@zelabo.com
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="zelabo:jerome":mailto:
+ zelabo@zelabo.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/295
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:268@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T224500
+DURATION:PT30M
+SUMMARY:Showcase: zoozoozoo.net [268]
+DESCRIPTION:Showcase: zoozoozoo.net\n\nzoozoozoo: peer\, zoozoozoo: soenke
+ \n\nShowcase by Hamburg VJ-Team zoozoozoo\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="zoozoozoo: peer":mailt
+ o:peer@zoozoozoo.net
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="zoozoozoo: soenke":inv
+ alid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/268
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:15@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T120000
+DURATION:PT1H
+SUMMARY:Sicherheit bei VoIP-Systemen\, eine Einführung [15]
+DESCRIPTION:Sicherheit bei VoIP-Systemen\, eine Einführung\nWelche Standa
+ rds gibt es\, was wird de-facto wo genutzt?\n\nChristian Louis\n\nDer Vort
+ rag beschäftigt sich mit Sicherheit von VoIP\, einem Stiefkind der Entwic
+ klung rund um diese neue Killerapplikation. Es wird versucht\, einen Über
+ blick über bestehende Produkte und Lösungen zu geben und aufzuzeigen\, w
+ elche Sicherheit heute (noch nicht) geboten wird. Neben der Betrachtung de
+ r Protokolle SIP\, IAX\, H.323 und SCCP folgt auch ein Überblick über au
+ sgewählte Produkte mit hoher Marktdurchdringung (Cisco CallManager\, Aste
+ risk...)\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Christian Louis":mailt
+ o:cl@christianlouis.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/15
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:307@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T140000
+DURATION:PT1H
+SUMMARY:Sicherheitsanalyse von IT-Großprojekten der öffentlichen Hand [3
+ 07]
+DESCRIPTION:Sicherheitsanalyse von IT-Großprojekten der öffentlichen Han
+ d\nUntersuchung eines Austauschsystems für hochsensible personenbezogene 
+ Daten\n\nThomas Maus\n\nGerade für den Staat schreibt das Datenschutzgese
+ tz strenge Schutz- und Vorsichtsmaßnahmen vor\, wie mit persönlichen und
+  personenbezogenen Daten umzugehen ist.  In der Praxis scheitern die meist
+ en IT-Großprojekte der öffentlichen Hand schon vorher an anderen Sachen\
+ , aber wenn sie zur Fertigstellung kommen\, wie geht man dann vor\, um zu 
+ testen\, wie so ein System mit den Daten umgeht?  Dieser Vortrag beleuchte
+ t das an einem aktuellen Beispiel aus der Praxis.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Thomas Maus":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/307
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:272@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T180000
+DURATION:PT1H
+SUMMARY:Sicherheitsmanagement [272]
+DESCRIPTION:Sicherheitsmanagement\nWie baut man ein sicheres System?\n\nVi
+ ola Braeuer\n\nWenn man ein System sichern will\, muss man viele Aspekte b
+ eachten: Hardware\, Betriebssysteme\, Netzwerke\, Applikationssoftware\, M
+ enschen (Administratoren und Nutzer). Dieser Vortrag erläutert wie man am
+  besten vorgeht.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Viola Braeuer":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/272
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:151@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T180000
+DURATION:PT1H
+SUMMARY:Side Channel Analysis of Smart Cards [151]
+DESCRIPTION:Side Channel Analysis of Smart Cards\nHow to protect smart car
+ ds in the real world\n\nDirk Feldhusen\, Matthias Heuft\n\nSmart cards are
+  used for authentication and for securing transactions. But even if the cr
+ yptographic algorithms and the protocols are secure\, information about se
+ cret data may leak through so called side channels. Examples for side chan
+ nels are timing of the computation as well as power consumption and electr
+ omagnetic emanation of the card. Nowadays cards which are used in security
+  applications are protected against such attacks and are tested by IT secu
+ rity evaluation facilities.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Dirk Feldhusen":invali
+ d:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Matthias Heuft":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/151
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:171@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T190000
+DURATION:PT30M
+SUMMARY:Siegerehrung Lockpicking [171]
+DESCRIPTION:Siegerehrung Lockpicking\n8. Deutsche Meisterschaften im Schlo
+ ssöffnen\n\nSteffen Wernéry\n\nSiegerehrung der 8. Deutschen Meisterscha
+ ften im Schlossöffnen. Ehrenvoll\, unterhaltsam\, spannend und auch infor
+ mativ.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Steffen Wernéry":inva
+ lid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/171
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:165@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T120000
+DURATION:PT1H
+SUMMARY:Softwarepatente - Der Tag danach [165]
+DESCRIPTION:Softwarepatente - Der Tag danach\nWas man nach dem Desaster no
+ ch alles tun kann\n\nThomas Warwaris\n\nWer glaubt Softwarepatente wären 
+ das Ende für Freie Software\, der irrt. Da Klein- \nund Mittelbetriebe da
+ nach keine vernünftige Möglichkeit mehr haben\, Software zu \nerstellen 
+ und zu verkaufen bleibt\, Freie Software als letzte Zuflucht. Wir zeigen w
+ as passieren kann - und wie proprietäre Softwarehersteller die Zeche für
+  die Patentamtslobby zahlen werden.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Thomas Warwaris":inval
+ id:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/165
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:120@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T110000
+DURATION:PT1H
+SUMMARY:Softwarepatente - Rüstzeug zur Debatte [120]
+DESCRIPTION:Softwarepatente - Rüstzeug zur Debatte\nWas geschehen muss\n\
+ nAndré Rebentisch\, Christian Cornelsson\, Holger Blasum\n\n"Selbstständ
+ ige Programmansprüche" / "Computerprogramme als solche" / "zu weit gehend
+ e Patentierbarkeit"\n- praktischer Schlittschuhlaufkurs auf dem Glatteis d
+ es Vokabulars der Patentgemeinde.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="André Rebentisch":inv
+ alid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Christian Cornelsson":
+ mailto:ccorn@cs.tu-berlin.de
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Holger Blasum":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/120
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:163@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T130000
+DURATION:PT2H
+SUMMARY:SPAM Workshop [163]
+DESCRIPTION:SPAM Workshop\nSPAM- und Zombie-Abwehr bei hohem Mail-Volumen 
+ am Beispiel von qmail\n\nSirko Zidlewitz\n\nSPAM-Mails und virenverseuchte
+  Mails von Zombie-Rechnern stellen für kleine und große Provider eine da
+ uerhafte Herausforderung dar. Am Beispiel von qmail wird die Integration v
+ on einem mehrstufigem\, modularen Anti-SPAM-Konzept erläutert. An welcher
+  Stelle des "Qmail-Big-Picture" setzt welches Verfahren an\, und warum ist
+  dies alles nur Flickwerk? Bewußt werden eventuelle zukünftiger Standard
+ s noch nicht berücksichtigt\, sondern nur derzeitig umsetzbare Möglichke
+ iten zur Kombination verschiedener Verfahren erklärt.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Sirko Zidlewitz":inval
+ id:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/163
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:168@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T150000
+DURATION:PT1H
+SUMMARY:Spam-Politik [168]
+DESCRIPTION:Spam-Politik\nPolitisch-rechtliche Bekämpfung unerwünschter 
+ Information\n\nDirk Schmidt\n\nSpam ist ein nicht einfach zu fassender Beg
+ riff. Unterschiedliche Perspektiven auf die spam-Phänomene\, entgegensteh
+ ende Interessen und die Historie führen zu unterschiedlichen Problemdarst
+ ellung und schließlich Lösungsvorschlägen für die spam-Bekämpfung. Di
+ eser widmet sich der Vortrag aus politischer Sicht\, zeigt Akteure\, ihre 
+ Ziele und Lösungen auf. Komplexer wird die spam-Bekämpfung dadurch\, das
+ s sie von Entwicklungen in anderen IT-Bereichen beeinflusst wird\, wie auc
+ h diese auche eine Infrastruktur für andere  Zielsetzung - z.B. Lösungen
+  für den Schutz von Verwertungsrechten - bieten kann.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Dirk Schmidt":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/168
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:39@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T200000
+DURATION:PT1H
+SUMMARY:Squeak and Croquet [39]
+DESCRIPTION:Squeak and Croquet\n\nMarcus Denker\n\nSqueak allows kids of a
+ ll ages to be creative with their computer. The goal of the Squeak Project
+  is to build a system without constraints: It is used at schools\,universi
+ ties and in industry. Squeak is an open system: It is implemented in Squea
+ k itself\, all parts are open for learning and hacking. The whole source c
+ ode is available and can be changed while the system is running. The Croqu
+ et project ist building a revolutionary collaborative environment based on
+  Squeak. It provides a scalable\, peer-to-peer multiuser 3D environment th
+ at is as open and fun as Squeak itself.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Marcus Denker":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/39
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:159@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T180000
+DURATION:PT1H
+SUMMARY:State of Emergent Democracy [159]
+DESCRIPTION:State of Emergent Democracy\nWhere are we today?\n\nJoi Ito\n\
+ nSince I started my first web site 10 years ago\, we've moved from a visio
+ n of cyber-utopia to the lust of the bubble\, to bust and back to a cautio
+ us optimism. Two years after writing my somewhat optimistic paper on Emerg
+ ent Democracy we've seen blogs challenge the mass media\, Wikipedia challe
+ nge the authority of encyclopedias and an American election heavily influe
+ nced by the Internet. I will speak about the impact that blogging and othe
+ r social software is having on politics and free speech\, and will discuss
+  the US elections in this context.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Joi Ito":invalid:nomai
+ l
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/159
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:153@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T110000
+DURATION:PT1H
+SUMMARY:Suchmaschinenpolitik [153]
+DESCRIPTION:Suchmaschinenpolitik\nGoogle is watching you!\n\nFrédéric Ph
+ ilipp Thiele\, Hendrik Speck\n\nEine differenzierte Betrachtung des Suchma
+ schinenmarktes und dessen Politik.\nZensur\, Manipulation\, Überwachung. 
+ Was ist aus den allwissenden Göttern\nunserer Zeit geworden? Gibt es Alte
+ rnativen?\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Frédéric Philipp Thi
+ ele":invalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Hendrik Speck":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/153
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:57@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T180000
+DURATION:PT1H
+SUMMARY:SUN Bloody Daft Solaris Mechanisms [57]
+DESCRIPTION:SUN Bloody Daft Solaris Mechanisms\nB.D.S.M. The Solaris 10 wa
+ y\n\nArchim\n\nA new look into writing Solaris kernel rootkits using the n
+ ew tools provided to the Solaris 10 Admin by SUN.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Archim":mailto:vulndev
+ .at.21c3@gmail.com
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/57
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:13@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T190000
+DURATION:PT1H
+SUMMARY:The Art of Fingerprinting [13]
+DESCRIPTION:The Art of Fingerprinting\nOpen your eyes on the network\n\nIl
+ ja van Sprundel\, Maximillian Dornseif\n\nFingerprinting is the art of ext
+ racting features from a resource and comparing it to a database to draw co
+ nclusions about the probed resource. We show the current state of the art 
+ of fingerprinting on all layers of the TCPstack\, will evaluate existing t
+ ools and relase our own new fingerprinting engine.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Ilja van Sprundel":inv
+ alid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Maximillian Dornseif":
+ invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/13
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:58@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T160000
+DURATION:PT1H
+SUMMARY:The Blinking Suspects [58]
+DESCRIPTION:The Blinking Suspects\nDie blinkenden Verdächtigen\n\nStefan 
+ '1stein' Schürmans\, STephan 'ST' Kambor\n\nWas gab es für blinkende Akt
+ ivitäten im Jahr 2004? Wie funktionieren die einzelnen Nachbau-Projekte u
+ nd wie bekommt man sie ins eigene Wohnzimmer?\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Stefan '1stein' Schür
+ mans":invalid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="STephan 'ST' Kambor":m
+ ailto:st@st23.org
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/58
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:108@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T130000
+DURATION:PT1H
+SUMMARY:The Convergence of Anti-Counterfeiting and Computer Security [108]
+DESCRIPTION:The Convergence of Anti-Counterfeiting and Computer Security\n
+ Reverse-engineering currency detection systems\n\nSteven J. Murdoch\n\nThi
+ s talk examines the similarities between computer security and\noptical do
+ cument security. Also we describe our work on reverse\nengineering anti-co
+ unterfeiting measures\, included in much modern\ngraphics software\, and d
+ iscuss its impact on Open Source.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Steven J. Murdoch":inv
+ alid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/108
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:115@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T150000
+DURATION:PT1H
+SUMMARY:The Fiasco µKernel [115]
+DESCRIPTION:The Fiasco µKernel\n\nAdam Lackorzynski\, Michael Peter\n\nIn
+  the talk we will present an overview about the L4 microkernel family as w
+ ell as systems built on top of it. We will focus on L4Linux and secure sys
+ tems.\n\nThe distinguished feature of L4 microkernels is their limitiation
+  to the most primitive abstractions. All other functionality is implemente
+ d in user land. The system design allows that system core components can b
+ e isolated by address spaces. L4Linux is a port of the Linux kernel to the
+  L4 microkernel. L4Linux runs as a user space application side by side wit
+ h other L4 programs on the microkernel system. We will present the design 
+ and the most interesting implementation details.\n\nBuilding secure system
+ s on top of microkernels exemplifies how kernel design influences the over
+ all characteristics of the whole system. In the second part of the talk we
+  will outline how such a secure system can be constructed and will show an
+  example on top of L4.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Adam Lackorzynski":inv
+ alid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Michael Peter":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/115
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:215@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T000000
+DURATION:PT1H
+SUMMARY:The Incomputable Alan Turing [215]
+DESCRIPTION:The Incomputable Alan Turing\nEin Audio-Feature\n\nConstanze K
+ urz\, Jens-Martin Loebel\, Julia Böttcher\, Kai Kittler\, Marcus Richter\
+ n\nLive-Performance der Hörspielwerkstatt der Humboldt-Universität Berli
+ n\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Constanze Kurz":mailto
+ :frau@waste.informatik.hu-berlin.de
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jens-Martin Loebel":in
+ valid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Julia Böttcher":inval
+ id:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Kai Kittler":invalid:n
+ omail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Marcus Richter":invali
+ d:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/215
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:111@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T120000
+DURATION:PT1H
+SUMMARY:The Kernel Accelerator Device [111]
+DESCRIPTION:The Kernel Accelerator Device\nReconfigurable computing for th
+ e kernel\n\nLudwig Jaffé\n\nKAD is an interdisciplinary development proje
+ ct which consists of kernel driver programming\, fpga programming (VHDL/Ve
+ rilog) and hardware development. There is no working KAD at the moment\, b
+ ut our aim is to develop such a device under the GPL with much support fro
+ m everyone who likes to do so. The development will be carried out from bo
+ ttom up by integrating existing components into the kad.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Ludwig Jaffé":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/111
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:72@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T160000
+DURATION:PT1H
+SUMMARY:The Reality of Network Address Translators [72]
+DESCRIPTION:The Reality of Network Address Translators\nDealing with NAT\n
+ \nHarald Welte\n\nNAT's are ubiquitous in todays Internet. Unfortunately t
+ he IETF missed to recognize this reality. Due to this lack of standardizai
+ ton\, NAT's pose an enormous threat to the paradigm shift from client-serv
+ er to peer-to-peer. The presentation covers proposed solutions.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Harald Welte":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/72
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:278@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T140000
+DURATION:PT1H
+SUMMARY:TKÜV - Das Ohr am Draht [278]
+DESCRIPTION:TKÜV - Das Ohr am Draht\nRecht\, Regulierung und Realität de
+ r Telekommunikationsüberwachung in Deutschland\n\nJörg Müller-Kind\n\nR
+ und 200 Verpflichtete müssen bis zum 31.12.2004 Konzepte für die Überwa
+ chung von E-Mail bei der RegTP eingereicht haben. Über Breitband-IP-Acces
+ s (xDSL\, Cable\, Wireless) und VoiP wird heftig diskutiert. Der Vortrag g
+ ibt einen Überblick über Entwicklung und Stand der Normen zur Telekommun
+ ikationsüberwachung und deren Umsetzung mit dem Schwerpunkt Internet und 
+ IP-basierende Dienste.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jörg Müller-Kind":in
+ valid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/278
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:46@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T110000
+DURATION:PT1H
+SUMMARY:Toll Collect [46]
+DESCRIPTION:Toll Collect\nVerpeilen im industriellen Maßstab\n\nVolker Bi
+ rk\n\nTechnik und juristischer Hintergrund des Mautsystems ausgeleuchtet n
+ ach Stärken\, Schwächen und dem Überwachungsauftrag.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Volker Birk":mailto:bu
+ mens@dingens.org
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/46
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:183@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T150000
+DURATION:PT1H
+SUMMARY:Tor [183]
+DESCRIPTION:Tor\nAn anonymizing overlay network for TCP\n\nRoger Dingledin
+ e\n\nTor is a free-software anonymizing network for web browsing\, instant
+  messaging\, etc. Our deployed network has thousands of users. I'll talk a
+ bout design decisions\, some everyday uses for anonymity networks\, and wh
+ ere we need to go from here.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Roger Dingledine":mail
+ to:arma@mit.edu
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/183
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:152@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T210000
+DURATION:PT1H
+SUMMARY:Treffen der CCC-Erfakreise [152]
+DESCRIPTION:Treffen der CCC-Erfakreise\n\nLars Weiler\n\nTreffen der Erfa-
+ Kreise des Chaos Computer Clubs zwecks Realitätsabgleich und Informations
+ austausch zwischen den Regionen über Projekte und Aktivitäten.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Lars Weiler":mailto:py
+ lon (at) ccc.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/152
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:64@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T120000
+DURATION:PT1H
+SUMMARY:Trusted Computing [64]
+DESCRIPTION:Trusted Computing\nEine unendliche Geschichte\n\nAndreas Bogk\
+ , Rüdiger Weis\n\nNach heftigen Protesten ist die Trusted Computing Group
+  2004 auf einige Kritikpunkte teilweise eingegangen. So kündigte Microsof
+ t eine grundlegende Überarbeitung von NGSB an. Die TCG schrieb einen verb
+ esserten Schutz der Privatsphäre in den neuen Standard 1.2. Wir zeigen in
+  unserem Vortrag jedoch\, dass dieser einfach widerrufbar ist. Zudem versu
+ chen einige Firmen im zweistelligen Millionenbereich Geräte mit der veral
+ teten weniger benutzerfreundliche Version TCG1.1b in den Markt zu drücken
+ . Auch durch die trotz gegenteiliger Anfrage der Bundesregierung vorgenomm
+ ene Integration der kryptographischen Funktionalitäten in "Super-I/O-Chip
+ s" treten neue Sicherheitsprobleme auf.  Zudem erschweren zahlreiche Fehle
+ r und Unklarheiten im Standard die Implementierung. Auch sind zentrale Fra
+ gestellungen wie\, die Problem der Nutzerbevormundung und der Wettbewerbsb
+ ehinderungen und Patentfragen weiterhin ungelöst.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Andreas Bogk":invalid:
+ nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Rüdiger Weis":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/64
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:317@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T110000
+DURATION:PT2H
+SUMMARY:Unsicherheit von Personal Firewalls [317]
+DESCRIPTION:Unsicherheit von Personal Firewalls\nVersagen auf der ganzen L
+ inie\n\nAlexander Bernauer\, Ansgar Wiechers\n\nAnstatt einen PC sicher zu
+  machen\, öffnen Personal Firewalls neue Löcher\, die das System angreif
+ bar machen. Obwohl das unter Fachleuten seit langem bekannt ist\, behaupte
+ n die Hersteller das Gegenteil. Der Vortrag zeigt u.a.\, wie mit einfachst
+ en Mitteln alle Personal Firewalls umgegangen werden können.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Alexander Bernauer":in
+ valid:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Ansgar Wiechers":mailt
+ o:ansgar.wiechers@ulm.ccc.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/317
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:80@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T210000
+DURATION:PT1H
+SUMMARY:USB - Unbekannter Serieller Bus [80]
+DESCRIPTION:USB - Unbekannter Serieller Bus\n\nStefan '1stein' Schürmans\
+ n\nDer Vortrag erläutert die Funktionsweise von USB - vom Hardwareaufbau 
+ bis zu den Protokollen (jedoch nicht die Anwendungs-Protokolle der USB-Kla
+ ssen). Am Ende wird als Beispiel eines selbstgebauten USB-Geräts - der Ha
+ ckerPort - vorgestellt.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Stefan '1stein' Schür
+ mans":invalid:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/80
+LOCATION:Saal 3
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:161@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T200000
+DURATION:PT1H
+SUMMARY:Veranstaltungs- und Projektplanung im CCC [161]
+DESCRIPTION:Veranstaltungs- und Projektplanung im CCC\nBeyond Pentabarf\n\
+ nfukami\, Tim Pritlove\n\nIm CCC finden viele Veranstaltungen und Projekte
+  statt\, doch gibt es oft viel Chaos und wenig Abstimmung. Dieser Workshop
+  möchte über die bislang geschaffenen Strukturen und mögliche Kooperati
+ onen nachdenken und Leute ermuntern\, neue Veranstaltungen ins Leben zu ru
+ fen und an bestehenden organisatorisch teilzunehmen. Außerdem wird Pentab
+ arf\, ein neues Konferenzplanungssystem vorgestellt\, das im Rahmen der Vo
+ rbereitung des 21C3 entstanden ist.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fukami":mailto:fukami@
+ c3d2.de
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Tim Pritlove":mailto:t
+ im@ccc.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/161
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:19@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T180000
+DURATION:PT1H
+SUMMARY:Verdeckte Netzwerkanalyse [19]
+DESCRIPTION:Verdeckte Netzwerkanalyse\nIch weiss\, was Du weisst\n\nTorste
+ n Höfler\n\nEs gibt relativ viele Möglichkeiten passiv fastzustellen\, m
+ it welchem Betriebssystem man sich gerade "unterhält". Die theoretischen 
+ Grundlagen des Fingerprintings und einige Tools werden vorgestellt. Einige
+  Tipps zur Abhilfe (hide myself) werden ebenfalls gegeben.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Torsten Höfler":inval
+ id:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/19
+LOCATION:Saal 2
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:118@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T160000
+DURATION:PT1H
+SUMMARY:Verified Fiasco [118]
+DESCRIPTION:Verified Fiasco\nEin Projekt zur formalen Analyse und zum Bewe
+ isen der totalen Korrektheit des Mikrokern-Betriebssystems Fiasco\n\nChris
+ toph Haase\n\nDer Vortrag gibt eine kurze Einführung in Softwareverifikat
+ ion und beschreibt dann einen Ansatz zur Verifikation von C++ Programmen\,
+  der derzeit an der TU-Dresden zur Verifikation des Mikrokernbetriebssyste
+ ms Fiasco entwickelt wird.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Christoph Haase":inval
+ id:nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/118
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:264@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T180000
+DURATION:PT1H
+SUMMARY:Video Mix Project Stammtisch [264]
+DESCRIPTION:Video Mix Project Stammtisch\nWhat means socially concerned\n\
+ nfRED\n\nGet together of the world wide Video Mix Project for socially con
+ cerned VJs.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="fRED":mailto:fred@kakl
+ otter.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/264
+LOCATION:AVIT
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:156@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T120000
+DURATION:PT1H
+SUMMARY:Videoüberwachung im europäischen Vergleich [156]
+DESCRIPTION:Videoüberwachung im europäischen Vergleich\nGemeinsame Trend
+ s und nationale Unterschiede\n\nEric Töpfer\n\nEin Überblick über die a
+ ktuelle Situation im Bereich Videoüberwachung in Europa. In einer Zusamme
+ nfassung der Ergebnisse sollen nationale Unterschiede und gemeinsame europ
+ äische Trends aufgezeigt werden und vor dem Hintergrund der forschungslei
+ tenden Frage diskutiert werden\, ob wir mit dem Aufstieg von Videoüberwac
+ hung zum urbanen Alltagsphänomen an der Schwelle zu einem urbanen Panopti
+ con stehen\, in dem die Überwachten ihr Verhalten in vorauseilendem Gehor
+ sam gegenüber den unsichtbaren Beobachtern selbst disziplinieren und sich
+  damit einem latenten Anpassungsdruck unterwerfen.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Eric Töpfer":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/156
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:135@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T120000
+DURATION:PT1H
+SUMMARY:Voting Machine Technology [135]
+DESCRIPTION:Voting Machine Technology\n\nTom Trumpbour\n\nThe talk will be
+  about voting machine technology\, a short history\, its vulnerabilities a
+ nd overall reliability. There will be a concentration about the Diebold e-
+ voting code and its limitations.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Tom Trumpbour":invalid
+ :nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/135
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:77@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T110000
+DURATION:PT1H
+SUMMARY:Weird Programming 2 [77]
+DESCRIPTION:Weird Programming 2\nThe headache continues…\n\nMarkus Schab
+ er\n\nLike in the last year\, examples of strange programming (art)work wi
+ ll be shown. In addition to the funny and sportive disciplines known from 
+ last year\, some examples of painful production code will be presented.\n\
+ nWie letztes Jahr werden wieder beispielhaft grenzwertige Programmier- (ku
+ nst)werke beleuchtet. Neben den spassig-sportlichen "Disziplinen" werden d
+ iesmal auch schmerzhafte Beispiele von Produktivcode vorgestellt.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Markus Schaber":mailto
+ :markus.schaber@ulm.ccc.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/77
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:242@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T110000
+DURATION:PT1H
+SUMMARY:Weird Programming I [242]
+DESCRIPTION:Weird Programming I\nDer Kopfschmerz beginnt...\n\nMarkus Scha
+ ber\n\nEine kurze Rundreise über die Grenzgebiete der Programmierkunst\, 
+ bei denen der Spass vor dem Nutzen kommt. Beleuchtet wird u. A. Obfuscated
+  Programming\, Quines und exotische Programmiersprachen.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Markus Schaber":mailto
+ :markus.schaber@ulm.ccc.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/242
+LOCATION:Haecksen
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:229@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T160000
+DURATION:PT2H
+SUMMARY:Wettkampf Freestyle (Finale) [229]
+DESCRIPTION:Wettkampf Freestyle (Finale)\n8. Deutsche Meisterschaften im S
+ chlossöffnen\n\n\n\nIm Wettkampf Freestyle ist jedes Werkzeug erlaubt\, u
+ m Zylindereingerichte mit Stiftzuhaltungen zu entsperren. Finaler Wettkamp
+ f um den Deutschen Meistertitel 2004.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/229
+LOCATION:Lockpicking
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:228@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T160000
+DURATION:PT2H
+SUMMARY:Wettkampf Freestyle (Qualifikation) [228]
+DESCRIPTION:Wettkampf Freestyle (Qualifikation)\n8. Deutsche Meisterschaft
+ en im Schlossöffnen\n\n\n\nIm Wettkampf Freestyle ist jedes Werkzeug erla
+ ubt\, um Zylindereingerichte mit Stiftzuhaltungen zu entsperren. Die beste
+ n Teilnehmer der Vorrunde qualifizieren sich für das Finale.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/228
+LOCATION:Lockpicking
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:227@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T130000
+DURATION:PT2H
+SUMMARY:Wettkampf Handöffnung (Finale) [227]
+DESCRIPTION:Wettkampf Handöffnung (Finale)\n8. Deutsche Meisterschaften i
+ m Schlossöffnen\n\n\n\nIn der Königsdisziplin Handöffnung werden handel
+ sübliche Zylindereingerichte nur mit dem Tastbesteck geöffnet. Finaler W
+ ettkampf um den Deutschen Meistertitel 2004.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/227
+LOCATION:Lockpicking
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:223@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T123000
+DURATION:PT2H30M
+SUMMARY:Wettkampf Handöffnung (Qualifikation) [223]
+DESCRIPTION:Wettkampf Handöffnung (Qualifikation)\n8. Deutsche Meistersch
+ aften im Schlossöffnen\n\n\n\nIn der Königsdisziplin Handöffnung werden
+  handelsübliche Zylindereingerichte nur mit dem Tastbesteck geöffnet. Di
+ e besten Teilnehmer der Vorrunde qualifizieren sich für das Finale.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/223
+LOCATION:Lockpicking
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:222@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T110000
+DURATION:PT1H
+SUMMARY:Wettkampf Hangöffnung (Finale) [222]
+DESCRIPTION:Wettkampf Hangöffnung (Finale)\n8. Deutsche Meisterschaften i
+ m Schlossöffnen\n\n\n\nIm Wettkampf Hangöffnung werden Vorhangschlösser
+  mit Stiftzuhaltungen mit einem Tastbesteck geöffnet. \nFinaler Wettkampf
+  um den Deutschen Meistertitel 2004.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/222
+LOCATION:Lockpicking
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:221@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T103000
+DURATION:PT1H
+SUMMARY:Wettkampf Hangöffnung (Qualifikation) [221]
+DESCRIPTION:Wettkampf Hangöffnung (Qualifikation)\n8. Deutsche Meistersch
+ aften im Schlossöffnen\n\n\n\nIm Wettkampf Hangöffnung werden Vorhangsch
+ lösser mit Stiftzuhaltungen mit einem Tastbesteck geöffnet. \nDie besten
+  Teilnehmer der Vorrunde qualifizieren sich für das Finale.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/221
+LOCATION:Lockpicking
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:225@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041228T220000
+DURATION:PT1H
+SUMMARY:Wikimedia Collaboration Workshop [225]
+DESCRIPTION:Wikimedia Collaboration Workshop\nInternational collaboration 
+ of the Wikipedia scene\n\nAngela Beesley\, Elisabeth Bauer\, Jimmy Wales\n
+ \nA workshop for Wikipedians that want to support the project on a nationa
+ l or international scale. Meetup for activists and people interested in th
+ e inner workings and plans of the project.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Angela Beesley":mailto
+ :angela@wikimedia.org
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Elisabeth Bauer":inval
+ id:nomail
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jimmy Wales":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/225
+LOCATION:Workshop
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:59@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T160000
+DURATION:PT1H
+SUMMARY:Wikipedia Sociographics [59]
+DESCRIPTION:Wikipedia Sociographics\nWhat the wikipedia community doesn't 
+ know about itself\n\nJimmy Wales\n\nThe lecture reports on social dynamics
+  of the Wikipedia project and presents a bunch of statistics and results o
+ f research exploring the inner workings of the project.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jimmy Wales":invalid:n
+ omail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/59
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:312@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T230000
+DURATION:PT1H
+SUMMARY:Wirklich selbst denken oder durchdrehen [312]
+DESCRIPTION:Wirklich selbst denken oder durchdrehen\nÜber die bedauerlich
+ e Mangel- und Fehlrezeption Robert Anton Wilsons in Deutschland\n\nDaniel 
+ Kulla\n\nAusgehend von dem Umstand\, daß Wilsons Witze hierzulande tödli
+ ch ernstgenommen wurden\, wird der Frage  nachgegangen\, wie das deutsche 
+ Bild vom "Illuminatus!"-Co-Autor entstanden ist. Dabei spielen die Hacker-
+ Folklore und der Oberkonspirologe Mathias Bröckers die Hauptrollen\, die 
+ so viele gute Pointen versaut haben.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Daniel Kulla":invalid:
+ nomail
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/312
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:11@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041229T130000
+DURATION:PT1H
+SUMMARY:xDash [11]
+DESCRIPTION:xDash\nWie integriere ich meine Applikationen mittels Instant 
+ Messaging?\n\nJerzy Wachowiak\n\nIn praktisch jeder Firma existieren Appli
+ kationen nebeneinander\, die auf unterschiedlichen Betriebssystemen und Da
+ tenbanken laufen. Das Rückgrat der Integration von IT-Systemen nach dem M
+ uster "Publish/Subscribe" bildet der "Asynchronous Messaging Service". Im 
+ Falle des xDash-Projekts wird der Jabber Server und das XML basierte Proto
+ koll Jabber/XMPP eingesetzt\, das ursprünglich für Instant Messaging ent
+ wickelt worden ist. Die Konvergenz von Asynchronous Messaging und Instant 
+ Messaging eröffnet neue Möglichkeiten der Gestaltung von Systemarchitekt
+ uren und der Schnittstelle mit dem Benutzer über den IM-Client. Der Vortr
+ ag stellt die Funktionsweise und Einsatzmöglichkeiten von xDash sowie die
+  Unterschiede zu den auf dem Markt etablierten Alternativen vor.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Jerzy Wachowiak":mailt
+ o:jerzy.wachowiak.xdash@interia.pl
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/11
+LOCATION:Saal 4
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:101@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T120000
+DURATION:PT1H
+SUMMARY:XMPP/Jabber [101]
+DESCRIPTION:XMPP/Jabber\nIntroducing the 'lingua franca' of Instant Messag
+ ing\n\nEff D. Zero\n\nXMPP is a free\, next-generation\, feature rich inst
+ ant messaging architecture and protocol\, which perhaps cat put an end to 
+ the great IM war between propritary protocols. This talk introduces the ba
+ sic protocol concepts (bidirectional XML streams\, transports/gateways to 
+ other IM-networks)\, the general XMPP network architecture and features li
+ ke GPG end-to-end encryption will be demonstrated.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Eff D. Zero":mailto:21
+ c3@null.bumpern.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/101
+LOCATION:Saal 1
+END:VEVENT
+BEGIN:VEVENT
+METHOD:PUBLISH
+UID:49@21C3@pentabarf.org
+DTSTART;TZID=Europe/Berlin:20041227T150000
+DURATION:PT1H
+SUMMARY:Zufallszahlengeneratoren [49]
+DESCRIPTION:Zufallszahlengeneratoren\nZufallszahlengeneratoren mit zentral
+ em Grenzwertsatz und Lötkolben\n\nRolf Freitag\n\nVorgestellt werden Verf
+ ahren und Schaltpläne sowie Hardware zum Erzeugen von Zufallszahlen und z
+ ugehörige mathematische Beweise. Im Mittelpunkt stehen Zufallszahlengener
+ atoren\, die auf dem zentralen Grenzwertsatz basieren und sich auch für s
+ chnelle Anwendungen wie Rausch-Radar eignen. Einige dieser Generatoren wer
+ den auch gezeigt und vorgeführt.\n
+CLASS:PUBLIC
+STATUS:CONFIRMED
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="Rolf Freitag":mailto:r
+ olf.freitag@email.de
+CATEGORY:Lecture
+URL:http://www.ccc.de/congress/2004/fahrplan/event/49
+LOCATION:Saal 2
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,5 @@
+\unprotect
+\setupoutput[pdftex]
+\setupsystem[\c!gebied={/home/alech/}]
+\setupsystem[inputfile=day1.tex]
+\protect

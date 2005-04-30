@@ -1,0 +1,38 @@
+/**
+ * patError - simple and powerful error managemet system
+ * 
+ * $Id: install.txt,v 1.2 2004/02/10 22:13:37 gerd Exp $
+ *
+ * @access		public
+ * @package		patError
+ * @todo		more detailed information
+ */
+ 
+patError Installation
+=====================
+This is a very short document, that tries to help you setting up patError for basic
+usage. Please read the readme.txt for further information.
+
+INSTALLATION:
+=============
+patError is a very small package that basically consits of two classes seperated in two
+files in the include-directory:
+
+	patError.php
+	patErrorManager.php
+
+Just copy these files to your include-directory. 
+
+TESTING:
+========
+For testing patError, include "patErrorManager.php" and call the static methods:
+Example:
+<?PHP
+	include_once 'include/patErrorManager.php';
+	patErrorManager::raiseError( 111, 'Test', 'Testing patErrorManager' );
+?>
+
+Notice, that patError.php will be included automatically! 
+
+Have fun, gERD
+Viel Spass am Gerät, gERD

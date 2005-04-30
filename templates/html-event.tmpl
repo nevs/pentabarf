@@ -1,0 +1,136 @@
+<patTemplate:tmpl name="content">
+  <p class="intro"><strong>{CONFERENCE_TITLE}</strong><br/><em><[lectures-and-workshops]></em></p>
+
+  <div id="event" class="section">
+
+  <div id="infobox">
+
+  <patTemplate:tmpl type="simplecondition" requiredvars="speaker-list.speaker_name" >
+    <table>
+      <tr>
+        <th colspan="2"><[speakers]></th>
+      </tr>
+  <patTemplate:tmpl name="speaker-list" >
+      <tr>
+        <td><a href="{SPEAKER_URL}"><img src="{SPEAKER_IMAGE_URL}" class="speaker-image" alt="Picture of {SPEAKER_NAME}"/></a></td>
+        <td><a href="{SPEAKER_URL}"><span class="person-name">{SPEAKER_NAME}</span></a></td>
+      </tr>
+  </patTemplate:tmpl>
+    </table>
+  </patTemplate:tmpl>
+
+  <patTemplate:tmpl type="simplecondition" requiredvars="moderator-list.moderator_name" >
+    <table>
+      <tr>
+        <th colspan="2"><[moderators]></th>
+      </tr>
+  <patTemplate:tmpl name="moderator-list" >
+      <tr>
+        <td><a href="{MODERATOR_URL}"><img src="{MODERATOR_IMAGE_URL}" class="speaker-image" alt="Picture of {MODERATOR_NAME}"/></a></td>
+        <td><a href="{MODERATOR_URL}"><span class="person-name">{MODERATOR_NAME}</span></a></td>
+      </tr>
+  </patTemplate:tmpl>
+    </table>
+  </patTemplate:tmpl>
+
+
+    <table>
+      <tr>
+        <th colspan="2"><[schedule]></th>
+      </tr>
+      <tr>
+        <td class="keyword"><[day]></td>
+        <td class="value">{EVENT_DAY}</td>
+      </tr>
+      <tr>
+        <td class="keyword"><[location]></td>
+        <td class="value">{EVENT_ROOM}</td>
+      </tr>
+      <tr>
+        <td class="keyword"><[start-time]></td>
+        <td class="value">{EVENT_TIME} <[time-suffix]></td>
+      </tr>
+      <tr>
+        <td class="keyword"><[duration]></td>
+        <td class="value">{EVENT_DURATION}</td>
+      </tr>
+
+      <tr>
+        <th colspan="2">INFO</th>
+      </tr>
+      <tr>
+        <td class="keyword">ID</td>
+        <td class="value">{EVENT_ID}</td>
+      </tr>
+      <tr>
+        <td class="keyword"><[event-type]></td>
+        <td class="value">{EVENT_TYPE}</td>
+      </tr>
+      <tr>
+        <td class="keyword"><[track]></td>
+        <td class="value">{EVENT_TRACK}</td>
+      </tr>
+      <tr>
+        <td class="keyword"><[language]></td>
+        <td class="value">{EVENT_LANGUAGE}</td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th colspan="2">
+          FEEDBACK
+        </th>
+      </tr>
+      <tr>
+        <td colspan="2" class="feedback">
+          <[did-you-attend-this-event]><br/><a href="{FEEDBACK_LINK}"><[give-feedback]></a>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <h1 class="title">{EVENT_TITLE}</h1>
+  <p class="subtitle">{EVENT_SUBTITLE}</p>
+
+  <img src="{IMAGE_URL}" class="event-image" />
+  <div class="abstract"><patTemplate:var name="ABSTRACT" modifier="Markdown" /></div>
+  <div class="description"><patTemplate:var name="DESCRIPTION" modifier="Markdown" /></div>
+
+<patTemplate:tmpl varscope="content" type="simplecondition" requiredvars="file-list.file_url">
+  <div class="attachments">
+    <h2><[attachments]></h2>
+    <ul>
+<patTemplate:tmpl name="file-list">
+      <li><a href="{FILE_URL}">{FILE_TITLE} ({FILE_TYPE}, {FILE_SIZE})</a></li>
+</patTemplate:tmpl>
+    </ul>
+  </div>
+</patTemplate:tmpl>
+
+
+<patTemplate:tmpl varscope="content" type="simplecondition" requiredvars="link-list.link_url">
+  <div class="links">
+    <h2><[links]></h2>
+    <ul>
+<patTemplate:tmpl name="link-list">
+      <li><a href="{LINK_URL}">{LINK_TITLE}</a></li>
+</patTemplate:tmpl>
+    </ul>
+  </div>
+</patTemplate:tmpl>
+
+  </div>
+
+
+  <div id="navigation">
+<patTemplate:tmpl varscope="content" type="simplecondition" requiredvars="NAV_PREV_TITLE">
+    <a href="{NAV_PREV_URL}"><span class="previous" title="{NAV_PREV_TITLE}">&lt;&lt;&lt;</span></a>
+</patTemplate:tmpl>
+<patTemplate:tmpl varscope="content" type="simplecondition" requiredvars="NAV_NEXT_TITLE">
+    <a href="{NAV_NEXT_URL}"><span class="next" title="{NAV_NEXT_TITLE}">&gt;&gt;&gt;</span></a>
+</patTemplate:tmpl>
+  </div>
+
+</patTemplate:tmpl>

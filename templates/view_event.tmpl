@@ -1,0 +1,709 @@
+<patTemplate:tmpl name="content">
+  <script type="text/javascript" src="{BASE_URL}js/create_element.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/new_element.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_event_person.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_link.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_attachment.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_keyword.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/add_related_event.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/tainted.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/watch.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/request.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/dom_drag.js"></script>
+  <script type="text/javascript" src="{BASE_URL}js/dragndrop_list.js"></script>
+
+  <patTemplate:tmpl name="watch-button" type="simplecondition" requiredvars="watch_button">
+    <div id="watch">
+      <button id="watch-button-event-{EVENT_ID}" onClick="window.watch('event', {EVENT_ID});" title="Put this event on your watch list" accesskey="w">{WATCH_BUTTON}</button>
+    </div>
+  </patTemplate:tmpl>
+
+
+  <script type="text/javascript">
+  function send_content()
+  {
+    if (!document.getElementsByName('conference_id')[0].value ||
+        !document.getElementsByName('title')[0].value ||
+        !document.getElementsByName('event_state_id')[0].value)
+    {
+      alert('Die folgenden Felder sind Pflichtfelder: Conference, Title, Event State');
+    } else {
+      document.forms['form_content'].submit();
+    }
+  }
+  </script>
+
+  <div id="object-image">
+    <img src="{BASE_URL}images/icon-event-64x64.png" class="object-image" alt="" />
+  </div>
+
+  <form id="form_content" method="post" action="{VIEW_URL}" enctype="multipart/form-data">
+
+    <patTemplate:tmpl name="modification_buttons" src="modification_buttons.tmpl" parse="on" />
+
+    <input type="hidden" name="save" value="save" />
+    <input type="hidden" name="timestamp" value="{TIMESTAMP}" />
+    <input type="hidden" name="event_id" value="{EVENT_ID}" />
+
+    <patTemplate:tmpl type="simplecondition" requiredvars="conflicts.reason">
+    <div id="conflicts">
+      <fieldset>
+        <legend>Konflikte</legend>
+        <patTemplate:tmpl name="conflicts" parse="on"> 
+          <a href="{REASON_URL}">
+            {REASON}<br />
+          </a>
+        </patTemplate:tmpl>
+      </fieldset>
+    </div>
+    </patTemplate:tmpl>
+
+    <div id="comment">
+      <img src="{IMAGE_URL}" class="huge" style="float: right;" alt="" />
+      <fieldset>
+        <legend>Notes</legend>
+        <table>
+          <tr>
+            <td><textarea rows="5" cols="60" name="remark" tabindex="0">{REMARK}</textarea></td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+
+  
+    <div id="content-persons" class="content_tab">
+      <fieldset>
+        <legend>Event Persons</legend>
+        <table id="persons_table" class="hidden">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Person</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Comment</th>
+              <th>Remove?</th>
+            </tr>
+          </thead>
+          <tbody id="person_table_body">
+          </tbody>
+        </table>
+        <button type="button" name="add_event_persons" value="Add Persons" title="Add a new person to list of persons" tabindex="0" onClick="window.add_event_person();">Add Person</button>
+      </fieldset>
+    
+    </div>
+  
+
+    <div id="content-general" class="content_tab">
+      <fieldset>
+        <legend>General</legend>
+        <table>
+          <tr>
+            <td><label>Title</label></td>
+            <td>
+              <input type="text" name="title" value="{TITLE}" size="60" tabindex="0" />
+            </td>
+          </tr>
+          <tr>
+            <td><label>Subtitle</label></td>
+            <td>
+              <input type="text" name="subtitle" value="{SUBTITLE}" size="60" tabindex="0" />
+            </td>
+          </tr>
+          <tr>
+            <td><label>Event State</label></td>
+            <td>
+              <select name="event_state_id" tabindex="0">
+                <patTemplate:tmpl name="event_state" src="select.tmpl" parse="on" />
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label>Team</label></td>
+            <td>
+              <select name="team_id" tabindex="0">
+                <patTemplate:tmpl name="team" src="select.tmpl" parse="on" />
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label for="f_public">Public</label></td>
+            <td>
+              <input id="f_public" type="checkbox" name="f_public" value="t" {F_PUBLIC} tabindex="0" />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="f_paper">Paper</label></td>
+            <td>
+              <input id="f_paper" type="checkbox" name="f_paper" value="t" {F_PAPER} tabindex="0" />
+            </td>
+          </tr>
+          <tr>
+            <td><label for="f_slides">Slides</label></td>
+            <td>
+              <input id="f_slides" type="checkbox" name="f_slides" value="t" {F_SLIDES} tabindex="0" />
+            </td>
+          </tr>
+          <tr>
+            <td><label>Language</label></td>
+            <td>
+              <select name="language_id" tabindex="0">
+                <patTemplate:tmpl name="language_id" src="select.tmpl" parse="on" />
+             </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label>Track</label></td>
+            <td>
+              <select name="conference_track_id" tabindex="0">
+                <patTemplate:tmpl name="conference_track" src="select.tmpl" parse="on" />
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label>Event Type</label></td>
+            <td>
+              <select name="event_type_id" tabindex="0">
+                <patTemplate:tmpl name="event_type" src="select.tmpl" parse="on" />
+             </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label>Conference</label></td>
+            <td>
+              <select name="conference_id" tabindex="0">
+                <patTemplate:tmpl name="conference" src="select.tmpl" parse="on" />
+              </select>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+      
+      <fieldset>
+        <legend>Fahrplan</legend>
+        <table>
+          <tr>
+            <td><label>Day</label></td>
+            <td>
+              <select name="day" tabindex="0">
+                <patTemplate:tmpl name="day" src="select.tmpl" parse="on" />
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label>Start Time</label></td>
+            <td>
+              <select name="start_time" tabindex="0">
+                <patTemplate:tmpl name="start_time" src="select.tmpl" parse="on" />
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label>Duration</label></td>
+            <td>
+              <select name="duration" tabindex="0">
+                <patTemplate:tmpl name="duration" src="select.tmpl" parse="on" />
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><label>Room</label></td>
+            <td>
+              <select name="room_id" tabindex="0">
+                <patTemplate:tmpl name="room" src="select.tmpl" parse="on" />
+              </select>
+            </td>
+          </tr>
+        </table>
+      </fieldset>
+
+      <fieldset>
+        <legend>Keywords</legend>
+          <ol id="list_keyword">
+          </ol>
+          <button type="button" name="add_keyword" tabindex="0" onClick="window.add_keyword();">Add Keyword</button>
+      </fieldset>
+
+<!--
+      <fieldset>
+        <legend>Keywords</legend>
+        <table id="keyword_table" class="hidden">
+          <thead>
+            <tr>
+              <td>Keyword</td>
+              <td>remove</td>
+            </tr>
+          </thead>
+          <tbody id="keyword_table_body">
+          </tbody>
+        </table>
+        <button type="button" name="add_keyword" tabindex="0" onClick="window.add_keyword();">Add Keyword</button>
+      </fieldset>
+-->
+
+      <fieldset>
+        <legend>Logo</legend>
+        (128x128)
+        <input type="file" name="image" /><br />
+        <input id="image_delete" type="checkbox" name="image_delete" value="1" tabindex="0" />
+        <label for="image_delete">Bild l&ouml;schen</label>
+      </fieldset>
+
+    </div>
+
+  
+    <div id="content-description" class="content_tab">
+      <fieldset>
+        <legend>Abstract</legend>
+        <textarea rows="5" cols="60" name="abstract" tabindex="0">{ABSTRACT}</textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Long Description</legend>
+        <textarea rows="30" cols="60" name="description" tabindex="0">{DESCRIPTION}</textarea>
+      </fieldset>
+
+
+      <fieldset>
+        <legend>Attachments</legend>
+        <patTemplate:tmpl name="attachment_table" parse="on" type="simplecondition" requiredvars="attachments.attachment_id">
+        <table id="attachment_table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Type</th>
+              <th>public</th>
+              <th>Filename</th>
+              <th>Title</th>
+              <th>remove</th>
+            </tr>
+          </thead>
+          <tbody>
+          <patTemplate:tmpl name="attachments" parse="on">
+            <tr>
+              <td><a href="{URL}">Download ({FILESIZE})</a></td>
+              <td>
+                <select name="attachment[{ATTACHMENT_ID}][attachment_type_id]" tabindex="0">
+                  <patTemplate:tmpl name="attachment_type_id" src="select.tmpl" parse="on" />
+                </select>
+              </td>
+              <td><input type="checkbox" name="attachment[{ATTACHMENT_ID}][f_public]" value="t" {F_PUBLIC} tabindex="0" /></td>
+              <td><input type="text" name="attachment[{ATTACHMENT_ID}][filename]" value="{FILENAME}" tabindex="0" /></td>
+              <td><input type="text" name="attachment[{ATTACHMENT_ID}][title]" value="{TITLE}" tabindex="0" /></td>
+              <td><input type="checkbox" name="attachment[{ATTACHMENT_ID}][delete]" value="t" tabindex="0" /></td>
+            </tr>
+          </patTemplate:tmpl>
+          </tbody>
+        </table>
+        </patTemplate:tmpl>
+        <table id="attachment_upload_table" class="hidden">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>public</th>
+              <th>Title</th>
+              <th>Path</th>
+            </tr>
+          </thead>
+          <tbody id="attachment_upload_table_body">
+          </tbody>
+        </table>
+        <button type="button" name="add_attachments" value="Add Attachments" title="Add a new attachment to list of attachments" tabindex="0" onClick="window.add_attachment();">Add Attachment</button>
+      </fieldset>
+
+
+
+
+
+    </div>
+
+    <div id="content-links" class="content_tab">
+      <fieldset>
+        <legend>Public Links</legend>
+        <table id="public_link_table" class="hidden">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Link Type</th>
+              <th>URL</th>
+              <th>Title</th>
+              <th>Comment</th>
+              <th>remove</th>
+            </tr>
+          </thead>
+          <tbody id="public_link_table_body">
+          </tbody>
+        </table>
+        <button type="button" name="add_public_links" value="Add Public Links" title="Add a new link to list of public links" tabindex="0" onClick="window.add_public_link();">Add Public Link</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Internal Links</legend>
+        <table id="internal_link_table" class="hidden">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Link Type</th>
+              <th>URL</th>
+              <th>Title</th>
+              <th>Comment</th>
+              <th>remove</th>
+            </tr>
+          </thead>
+          <tbody id="internal_link_table_body">
+          </tbody>
+        </table>
+        <button type="button" name="add_internal_links" value="Add Internal Links" title="Add a new link to list of internal links" tabindex="0" onClick="window.add_internal_link();">Add Internal Link</button>
+      </fieldset>
+
+    </div>
+
+  
+    <div id="content-rating" class="content_tab">
+      <fieldset>
+        <legend>My Rating</legend>
+        <table class="rating">
+          <colgroup>
+            <col class="label" />
+            <col class="ratings" span="5" />
+            <col class="comment" />
+            <col class="no-rating" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th class="pre">--</th>
+              <th class="pre">-</th>
+              <th class="pre">o</th>
+              <th class="pre">+</th>
+              <th class="pre">++</th>
+              <th>Comment</th>
+              <th>No Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><label>Documentation</label></td>
+              <td><input type="radio" name="documentation" value="1" {DOCUMENTATION_1} tabindex="0" /></td>
+              <td><input type="radio" name="documentation" value="2" {DOCUMENTATION_2} tabindex="0" /></td>
+              <td><input type="radio" name="documentation" value="3" {DOCUMENTATION_3} tabindex="0" /></td>
+              <td><input type="radio" name="documentation" value="4" {DOCUMENTATION_4} tabindex="0" /></td>
+              <td><input type="radio" name="documentation" value="5" {DOCUMENTATION_5} tabindex="0" /></td>
+              <td><input type="text" name="documentation_comment" value="{DOCUMENTATION_COMMENT}" size="40" tabindex="0" /></td>
+              <td><input type="radio" name="documentation" value="0" {DOCUMENTATION_0} tabindex="0" /></td>
+            </tr>
+            <tr>
+              <td><label>Quality</label></td>
+              <td><input type="radio" name="quality" value="1" {QUALITY_1} tabindex="0" /></td>
+              <td><input type="radio" name="quality" value="2" {QUALITY_2} tabindex="0" /></td>
+              <td><input type="radio" name="quality" value="3" {QUALITY_3} tabindex="0" /></td>
+              <td><input type="radio" name="quality" value="4" {QUALITY_4} tabindex="0" /></td>
+              <td><input type="radio" name="quality" value="5" {QUALITY_5} tabindex="0" /></td>
+              <td><input type="text" name="quality_comment" value="{QUALITY_COMMENT}" size="40" tabindex="0" /></td>
+              <td><input type="radio" name="quality" value="0" {QUALITY_0} tabindex="0" /></td>
+            </tr>
+            <tr>
+              <td><label>Relevance</label></td>
+              <td><input type="radio" name="relevance" value="1" {RELEVANCE_1} tabindex="0" /></td>
+              <td><input type="radio" name="relevance" value="2" {RELEVANCE_2} tabindex="0" /></td>
+              <td><input type="radio" name="relevance" value="3" {RELEVANCE_3} tabindex="0" /></td>
+              <td><input type="radio" name="relevance" value="4" {RELEVANCE_4} tabindex="0" /></td>
+              <td><input type="radio" name="relevance" value="5" {RELEVANCE_5} tabindex="0" /></td>
+              <td><input type="text" name="relevance_comment" value="{RELEVANCE_COMMENT}" size="40" tabindex="0" /></td>
+              <td><input type="radio" name="relevance" value="0" {RELEVANCE_0} tabindex="0" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+
+      <fieldset>
+      <legend>My Opinion</legend>
+        <textarea name="rating_remark" rows="3" cols="60" tabindex="0">{RATING_REMARK}</textarea>
+      </fieldset>
+
+      <fieldset>
+      <legend>Summary</legend>
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th colspan="2">Rating</th>
+              <th>Total votes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><label>Documentation</label></td>
+              <td class="rating-bar">
+                <span class="negative p{DOCUMENTATION_BAR_NEGATIVE}">{DOCUMENTATION_VALUE_NEGATIVE}</span>
+              </td>
+              <td class="rating-bar">
+                <span class="positive p{DOCUMENTATION_BAR_POSITIVE}">{DOCUMENTATION_VALUE_POSITIVE}</span>
+              </td>
+              <td>{DOCUMENTATION_VOTE_COUNT}</td>
+            </tr>
+            <tr>
+              <td><label>Quality</label></td>
+              <td class="rating-bar">
+                <span class="negative p{QUALITY_BAR_NEGATIVE}">{QUALITY_VALUE_NEGATIVE}</span>
+              </td>
+              <td class="rating-bar">
+                <span class="positive p{QUALITY_BAR_POSITIVE}">{QUALITY_VALUE_POSITIVE}</span>
+              </td>
+              <td>{QUALITY_VOTE_COUNT}</td>
+            </tr>
+            <tr>
+              <td><label>Relevance</label></td>
+              <td class="rating-bar">
+                <span class="negative p{RELEVANCE_BAR_NEGATIVE}">{RELEVANCE_VALUE_NEGATIVE}</span>
+              </td>
+              <td class="rating-bar">
+                <span class="positive p{RELEVANCE_BAR_POSITIVE}">{RELEVANCE_VALUE_POSITIVE}</span>
+              </td>
+              <td>{RELEVANCE_VOTE_COUNT}</td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+
+      <patTemplate:tmpl name="opinion-table" parse="on" type="simplecondition" requiredvars="opinions.opinion">
+      <table>
+        <thead>
+        <tr>
+          <th />
+          <th>Person</th>
+          <th>Opinion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <patTemplate:tmpl name="opinions" parse="on">
+        <tr>
+          <td><a href="{URL}" title="{NAME}"><img src="{IMAGE_URL}" class="small" alt="" /></a></td>
+          <td><a href="{URL}" title="{NAME}">{NAME}</a></td>
+          <td>{OPINION}</td>
+        </tr>
+        </patTemplate:tmpl>
+        </tbody>
+      </table>
+      </patTemplate:tmpl>
+    </div>
+
+    <div id="content-resources" class="content_tab">
+      <fieldset>
+        <legend>Resources</legend>
+        <textarea rows="15" cols="60" name="resources" tabindex="0">{RESOURCES}</textarea>
+      </fieldset>
+    </div>
+
+    <div id="content-related" class="content_tab">
+
+        <p>Related Events</p>
+        <table id="related_event_table" class="hidden">
+          <thead>
+            <tr>
+              <td>Event Title</td>
+              <td>remove</td>
+            </tr>
+          </thead>
+          <tbody id="related_event_table_body">
+          </tbody>
+        </table>
+        <button type="button" name="add_related_event" tabindex="0" onClick="window.add_related_event();">Add Related Event</button>
+
+      <patTemplate:tmpl name="related-table" type="simplecondition" requiredvars="related-list.title">
+        <table id="result" class="sortable">
+          <tr>
+            <th/>
+            <th>Track</th>
+            <th>Title/Subtitle</th>
+            <th>Status</th>
+            <th>Room</th>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Persons</th>
+            <th>Watch</th>
+            <th>remove</th>
+          </tr>
+          <patTemplate:tmpl name="related-list">
+            <tr>
+              <td><a href="{URL}"><img src="{IMAGE_URL}" height="32" width="32" title="{TITLE}" alt="" /></a></td>
+              <td><a href="{URL}">{TRACK}</a></td>
+              <td><a href="{URL}"><strong>{TITLE}</strong><br /><em>{SUBTITLE}</em></a></td>
+              <td><a href="{URL}">{STATUS}</a></td>
+              <td><a href="{URL}">{ROOM}</a></td>
+              <td><a href="{URL}">{DAY}</a></td>
+              <td><a href="{URL}">{TIME}</a></td>
+              <td>
+                <ul>
+                  <patTemplate:tmpl type="simplecondition" requiredvars="person">
+                    <li><a href="{PERSON_URL}">{PERSON}</a></li>
+                  </patTemplate:tmpl>
+                </ul>
+              </td>
+              <td><button id="watch-button-event-{EVENT_ID}" type="button" onClick="window.watch('event', {EVENT_ID});">{WATCH_BUTTON}</button></td>
+              <td><input id="" type="checkbox" name="related_event_delete[{EVENT_ID}][delete]" value="t" tabindex="0" /></td>
+            </tr>
+          </patTemplate:tmpl>
+        </table>
+      </patTemplate:tmpl>
+
+      <patTemplate:tmpl name="related-keyword-table" type="simplecondition" requiredvars="related-keyword-list.title">
+        <p>Related Events with matching keywords</p>
+        <table id="result" class="sortable">
+          <tr>
+            <th/>
+            <th>Track</th>
+            <th>Title/Subtitle</th>
+            <th>Status</th>
+            <th>Room</th>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Persons</th>
+            <th>Watch</th>
+          </tr>
+          <patTemplate:tmpl name="related-keyword-list">
+            <tr>
+              <td><a href="{URL}"><img src="{IMAGE_URL}" height="32" width="32" title="{TITLE}" alt="" /></a></td>
+              <td><a href="{URL}">{TRACK}</a></td>
+              <td><a href="{URL}"><strong>{TITLE}</strong><br /><em>{SUBTITLE}</em></a></td>
+              <td><a href="{URL}">{STATUS}</a></td>
+              <td><a href="{URL}">{ROOM}</a></td>
+              <td><a href="{URL}">{DAY}</a></td>
+              <td><a href="{URL}">{TIME}</a></td>
+              <td>
+                <ul>
+                  <patTemplate:tmpl type="simplecondition" requiredvars="person">
+                    <li><a href="{PERSON_URL}">{PERSON}</a></li>
+                  </patTemplate:tmpl>
+                </ul>
+              </td>
+              <td><button id="watch-button-event-{EVENT_ID}" type="button" onClick="window.watch('event', {EVENT_ID});">{WATCH_BUTTON}</button></td>
+            </tr>
+          </patTemplate:tmpl>
+        </table>
+      </patTemplate:tmpl>
+
+      <patTemplate:tmpl name="related-speaker-table" type="simplecondition" requiredvars="related-speaker-list.title">
+        <p>Related Events with matching Speaker</p>
+        <table id="result" class="sortable">
+          <tr>
+            <th/>
+            <th>Track</th>
+            <th>Title/Subtitle</th>
+            <th>Status</th>
+            <th>Room</th>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Persons</th>
+            <th>Watch</th>
+          </tr>
+          <patTemplate:tmpl name="related-speaker-list">
+            <tr>
+              <td><a href="{URL}"><img src="{IMAGE_URL}" height="32" width="32" title="{TITLE}" alt="" /></a></td>
+              <td><a href="{URL}">{TRACK}</a></td>
+              <td><a href="{URL}"><strong>{TITLE}</strong><br /><em>{SUBTITLE}</em></a></td>
+              <td><a href="{URL}">{STATUS}</a></td>
+              <td><a href="{URL}">{ROOM}</a></td>
+              <td><a href="{URL}">{DAY}</a></td>
+              <td><a href="{URL}">{TIME}</a></td>
+              <td>
+                <ul>
+                  <patTemplate:tmpl type="simplecondition" requiredvars="person">
+                    <li><a href="{PERSON_URL}">{PERSON}</a></li>
+                  </patTemplate:tmpl>
+                </ul>
+              </td>
+              <td><button id="watch-button-event-{EVENT_ID}" type="button" onClick="window.watch('event', {EVENT_ID});">{WATCH_BUTTON}</button></td>
+            </tr>
+          </patTemplate:tmpl>
+        </table>
+      </patTemplate:tmpl>
+
+    </div>
+
+    <div class="content_tab" id="content-feedback">
+      <fieldset>
+      <legend>Summary</legend>
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th colspan="2">Rating</th>
+              <th>Total votes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><label>Participant Knowledge</label></td>
+              <td class="rating-bar">
+                <span class="negative p{PARTICIPANT_KNOWLEDGE_BAR_NEGATIVE}">{PARTICIPANT_KNOWLEDGE_VALUE_NEGATIVE}</span>
+              </td>
+              <td class="rating-bar">
+                <span class="positive p{PARTICIPANT_KNOWLEDGE_BAR_POSITIVE}">{PARTICIPANT_KNOWLEDGE_VALUE_POSITIVE}</span>
+              </td>
+              <td>{PARTICIPANT_KNOWLEDGE_VOTE_COUNT}</td>
+            </tr>
+            <tr>
+              <td><label>Topic Importance</label></td>
+              <td class="rating-bar">
+                <span class="negative p{TOPIC_IMPORTANCE_BAR_NEGATIVE}">{TOPIC_IMPORTANCE_VALUE_NEGATIVE}</span>
+              </td>
+              <td class="rating-bar">
+                <span class="positive p{TOPIC_IMPORTANCE_BAR_POSITIVE}">{TOPIC_IMPORTANCE_VALUE_POSITIVE}</span>
+              </td>
+              <td>{TOPIC_IMPORTANCE_VOTE_COUNT}</td>
+            </tr>
+            <tr>
+              <td><label>Content Quality</label></td>
+              <td class="rating-bar">
+                <span class="negative p{CONTENT_QUALITY_BAR_NEGATIVE}">{CONTENT_QUALITY_VALUE_NEGATIVE}</span>
+              </td>
+              <td class="rating-bar">
+                <span class="positive p{CONTENT_QUALITY_BAR_POSITIVE}">{CONTENT_QUALITY_VALUE_POSITIVE}</span>
+              </td>
+              <td>{CONTENT_QUALITY_VOTE_COUNT}</td>
+            </tr>
+            <tr>
+              <td><label>Presentation Quality</label></td>
+              <td class="rating-bar">
+                <span class="negative p{PRESENTATION_QUALITY_BAR_NEGATIVE}">{PRESENTATION_QUALITY_VALUE_NEGATIVE}</span>
+              </td>
+              <td class="rating-bar">
+                <span class="positive p{PRESENTATION_QUALITY_BAR_POSITIVE}">{PRESENTATION_QUALITY_VALUE_POSITIVE}</span>
+              </td>
+              <td>{PRESENTATION_QUALITY_VOTE_COUNT}</td>
+            </tr>
+            <tr>
+              <td><label>Audience Involvement</label></td>
+              <td class="rating-bar">
+                <span class="negative p{AUDIENCE_INVOLVEMENT_BAR_NEGATIVE}">{AUDIENCE_INVOLVEMENT_VALUE_NEGATIVE}</span>
+              </td>
+              <td class="rating-bar">
+                <span class="positive p{AUDIENCE_INVOLVEMENT_BAR_POSITIVE}">{AUDIENCE_INVOLVEMENT_VALUE_POSITIVE}</span>
+              </td>
+              <td>{AUDIENCE_INVOLVEMENT_VOTE_COUNT}</td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+
+      <patTemplate:tmpl name="feedback-table" parse="on" type="simplecondition" requiredvars="feedback.opinion">
+      <table>
+        <thead>
+        <tr>
+          <th>Remarks</th>
+        </tr>
+        </thead>
+        <tbody>
+        <patTemplate:tmpl name="feedback" parse="on">
+        <tr>
+          <td><patTemplate:var name="OPINION" modifier="nl2br" /></td>
+        </tr>
+        </patTemplate:tmpl>
+        </tbody>
+      </table>
+      </patTemplate:tmpl>
+    </div>
+  
+  </form>
+</patTemplate:tmpl>

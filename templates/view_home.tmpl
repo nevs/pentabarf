@@ -1,0 +1,57 @@
+<patTemplate:tmpl name="content">
+
+  <div id="object-image">
+    <img src="{BASE_URL}images/pentabarf-64x64.png" class="object-image" />
+  </div>
+
+  <h2><[welcome]>, {AUTH_PERSON_SALUTATION}</h2>
+  <p><[this_is_your_personal_startpage]></p>
+
+  <div id="content-coordinator" class="content_tab">
+    <patTemplate:tmpl name="coordinator-list" type="simplecondition" requiredvars="event-coordinator.title">
+    <table id="coordinator-list" class="sortable">
+      <thead>
+      	<tr>
+	  <th/>
+	  <th><[title]></th>
+	  <th><[status]></th>
+	</tr>
+      </thead>
+      <tbody>
+        <patTemplate:tmpl name="event-coordinator">
+          <tr>
+            <td><a href="{URL}"><img src="{IMAGE_URL}" class="small" title="{TITLE}" /></a></td>
+            <td><a href="{URL}"><strong>{TITLE}</strong><br /><em>{SUBTITLE}</em</a></td>
+            <td><a href="{URL}">{STATUS}</a></td>
+          </tr>
+        </patTemplate:tmpl>
+      </tbody>
+    </table>
+    </patTemplate:tmpl>
+  </div>
+
+  <div id="content-participant" class="content_tab">
+    <patTemplate:tmpl name="participant-list" type="simplecondition" requiredvars="event-participant.title">
+    <table id="participant-list" class="sortable">
+      <thead>
+      	<tr>
+	  <th/>
+	  <th><[title]></th>
+	  <th><[status]></th>
+	</tr>
+      </thead>
+      <tbody>
+        <patTemplate:tmpl name="event-participant">
+          <tr>
+            <td><a href="{URL}"><img src="{IMAGE_URL}" class="small" title="{TITLE}" /></a></td>
+            <td><a href="{URL}"><strong>{TITLE}</strong><br /><em>{SUBTITLE}</em</a></td>
+            <td><a href="{URL}">{STATUS}</a></td>
+          </tr>
+        </patTemplate:tmpl>
+      </tbody>
+    </table>
+    </patTemplate:tmpl>
+  </div>
+
+
+</patTemplate:tmpl>

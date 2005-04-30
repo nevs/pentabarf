@@ -1,0 +1,17 @@
+<?php
+
+    $server    = "jabber.berlin.ccc.de";
+    $port      = "5222";
+
+    $username  = "";
+    $password  = "";
+    $resource  = "";
+
+    $jabber_recipient = array( "sven@jabber.berlin.ccc.de",
+                        "tim@jabber.berlin.ccc.de",
+                        );
+
+    $mail_subject = "Pentabarf Error";
+    $mail_recipient = array("sven@c3d2.de", "tim@ccc.de");
+
+?>

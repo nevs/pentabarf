@@ -1,0 +1,90 @@
+﻿/* SIDEBAR */
+
+/*
+ * COLORS
+ *
+ * dark    - #90acc8
+ * light   - 
+ * bright  - 
+ *
+ */ 
+
+
+#sidebar {
+  position: fixed;
+  overflow: auto;
+  width: 128px;
+  min-width: 128px;
+  height: 100%; 
+  padding: 0px 10px 0px 10px;
+  margin: 0;
+  background-color: #90acc8;
+  border-right: 1px solid black;
+  z-index: 4;
+}
+
+/* Web Site Logo */
+
+#logo {
+/*  background: url(../images/erisdiscordia-160x160.png) no-repeat center; */
+
+  height: 128px;
+  width: 128px;
+  margin: 5px 0 0 0;
+  border: none;
+}
+
+#logo img {
+  height: 128px;
+  width: 128px;
+}
+
+/* Menu */
+
+#menu {
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#menu .menu-item {
+  display: block;
+  padding: 2px 0 2px 0;
+  line-height: 120%;
+  margin: 1px 0 1px 0;
+
+  background-color: #f1f5f8;
+  border: 1px solid #90acc8;
+
+  text-align: center;
+}
+
+#menu .menu-text {
+  display: block;
+  padding: 3px;
+  line-height: 120%;
+  margin: 2px 0 2px 0;
+
+  	background-color: #c8d8e8;
+  border: 1px solid black;
+
+  text-align: center;
+}
+
+#menu .menu-item.selected {
+  font-weight: bold;
+  background-color: #90acc8;
+  color: white;
+  border: 1px solid black;
+}
+
+#menu .menu-item.off:hover {
+  background-color: #c8d8e8;
+  border: 1px solid red;
+}
+
+#menu .menu-item-group {
+  margin-bottom: 6px;
+  margin-top: 6px;
+}
+

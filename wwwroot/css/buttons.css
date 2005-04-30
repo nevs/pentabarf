@@ -1,0 +1,58 @@
+﻿
+/* BUTTONS */
+
+#buttons {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+
+  padding: 10px;
+	
+  background-color: #90acc8;
+  border-top: 2px dashed black;
+  border-left: 2px dashed black;
+  z-index: 3;
+	
+  text-align: right;
+}
+
+#buttons button {
+  font-size: 150%;
+}
+
+#watch {
+  position: fixed;
+  right: 15px;
+  top: 50px;
+  z-index: 5;
+}
+
+
+button {
+  visibility: visible;
+  border: 2px solid black;  
+
+  display: inline;
+  cursor: pointer;
+
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  background-color: #fff;
+  vertical-align: middle;
+
+  padding-left: 3px;
+  padding-right: 3px;
+
+  text-align: center;
+}
+
+button:hover {
+  background-color: #90acc8;
+  color: #fff;
+}
+
+button:active {
+  color: black;
+}

@@ -1,0 +1,223 @@
+Extending patTemplate:
+----------------------
+$Id: extending-pattemplate.txt,v 1.7 2004/04/06 19:21:32 schst Exp $
+
+1. Variable Modifiers
+---------------------
+Variable modifiers will be applied to the value of a variable when
+parsing the template. There two types of modfifiers:
+
+1.a) You may use any PHP function as a variable modifier.
+The modifier must accept only a string as a parameter and also return
+a string. Perfect examples for variable modifiers are nl2br() or
+htmlentities().
+
+2.b) You may create custom modifiers. To do this, create a new file in
+
+  PATTEMPLATE_ROOT/patTemplate/Modifier
+  
+or any of its sub-folders. In this file, you have to create a new class
+that's called
+
+  patTemplate_Modifier_FILENAME
+  
+where FILENAME is the name of your file (and thus also of your modifier).
+If your modifier is located in a subfolder, you have to include the folder
+name in the class name, e.g. patTemplate_Modifier_Html_Image.
+
+Your class should inherit from patTemplate_Modifier and provide the following
+method:
+
+  string modify( string value, array params )
+  
+In the method you may modify the value and return it to the templating enginge.
+
+2. Template Readers
+-------------------
+patTemplate 3.0 allows you to read templates from any source,
+may it be the filesystem, databases or shared memory.
+To read from a datasource that's not yet supported, you'll have to
+implement a new template reader. To do this, create a new PHP file in:
+
+  PATTEMPLATE_ROOT/patTemplate/Reader
+  
+Let's say you want to create a reader that reads data from shared memory.
+Then you'd create a new file in the mentioned folder called
+
+  SHM.php
+  
+In this file you place a create a new class that extends patTemplate_Reader
+and that is called patTemplate_Reader_SHM. There you'll have to implement only
+one method that reads templates from the source:
+
+<?PHP
+class patTemplate_Reader_SHM extends patTemplate_Reader
+{
+	function readTemplates( $input, $options = array() )
+	{
+		/**
+		 * somehow access shared memory
+		 */
+		$content	= shm_get( $shm, $input );
+		$templates	= $this->parseString( $content );
+		
+		return	$templates;
+	}
+}
+
+Options is currently not used, so this may change until patTemplate 3.0
+stable is released.
+
+If your reader should support the parse="off" attribute you'll have to
+implement a second method loadTemplate(), that accepts exactly the same
+parameters as readTemplates() and will just load the template content from
+a datasource and return it as a string.
+
+In order to use template caches (see 7), you'll have to implement
+to other methods:
+
+string  getKey( string input )
+integer getModificationTime( string input )
+
+getKey() should return a unique identification key for the template that
+is referenced by input, a common way to achive this is to use md5().
+getModificationTime() should return a timestamp of the time the file was
+modified on, for a lot of readers this is not possible. In that case, you do not
+need to implement the method, as it's already implemented in the base class.
+
+You can als use the String reader if you need to parse templates that are
+read from strange datasources, but you will loose the template caching feature.
+
+Of course it's also possible to use the file reader and PHP's stream_wrappers.
+
+3. Custom Template Tags (functions)
+-----------------------------------
+Custom Tags allow you to extend patTemplate. You may define classes that
+are instantiated and evaluated,, when patTemplate finds a tag that is not
+supported by the engine. Custom functions are evaluated by the template reader.
+To create your own template function, create a new class that inherits from
+patTemplate_Function and place it into
+
+  PATTEMPLATE_ROOT/patTemplate/Function
+  
+In this class you have to implement on function:
+
+  string call( array params, string content )
+  
+This method will be called on the closing tag with the same name as
+your file (and class). patTemplate_Reader will pass the attributes
+and the content of the tag to your method. You will then have to
+compute the data you want to insert to the template and return the
+string. This will be inserted instead of your custom tag.
+
+Custom Template Functions allow to do things like:
+ - Modify parts of the template while reading it
+ - Insert the current date/time
+ - Get request variables and insert them into the template
+ - ...
+
+Custom template functions (or tags) can also be called Horst. If you want to
+know, why they are called Horst, you could contact gERD or Argh.
+
+4. Output Filters
+-----------------
+Output filters allow you to modfiy the data that is sent to
+the browser, after _all_ templates have been parsed. Output filters
+are applied, when patTemplate::displayParsedTemplate() is called.
+Examples for output filtering are the removal of all whitespace prior
+to sending data to the browser or even compressing the data using gzip,
+if the client supports gzip encoding. In fact these two examples already
+accompany the patTemplate distributions.
+
+Of course there are infinite possibilities of what an output filter
+could to, and that's why I implemented it as a plugin to patTemplate.
+To build your own output filter you simply have to create a new file in
+
+  PATTEMPLATE_ROOT/patTemplate/OutputFilter
+  
+Let's say you want to create a filter that obfuscates email addresses in the
+output. Then you'd create a new file in the mentioned folder called
+
+  EmailObfuscator.php
+  
+In this file you place a create a new class that extends patTemplate_OutputFilter
+and that is called patTemplate_OutputFilter_EmailObfuscator. There you'll have to
+implement only one method that filters the output and this method has to be called
+apply() and should only accept a string a sole parameter. So your file should look
+like this:
+
+<?PHP
+class patTemplate_OutputFilter_EmailObfuscator extends patTemplate_OutputFilter
+{
+	function apply( $data )
+	{
+		/**
+		 * somehow obfuscate emails here
+		 */
+		return $data;
+	}
+}
+?> 
+
+Now if you want to use this output filter, all you have to do is:
+
+$tmpl->applyOutputFilter( 'EmailObfuscator' );
+$tmpl->displayParsedTemplate();
+
+And patTemplate will do the rest.
+
+5. Input Filters
+----------------
+Input filters are used to modify the templates _before_ the patTemplate
+tags are analyzed. This allows you to strip comments and improve performance
+while parsing the templates.
+They are implemented in exactly the same way as an output filter, they just
+have to be place in the InputFilter directory and should extend the
+patTemplate_InputFilter class.
+You could use an input filter to:
+ - strip HTML comments
+ - unzip the templates
+ - ...
+
+6. Dumpers
+----------
+Dumpers are used for debugging purposes. To write your own dumper, create a new
+class that is inherited from patTemplate_Dump and place it into the
+patTemplate/Dump folder. The file has to be called exactly like the last
+portion of the class name.
+That means if you create a text dumper, call the file
+/patTemplate/Dump/Text.php and the class patTemplate_Dump_Text.
+
+You have to create four methods in this class:
+void displayHeader()
+void displayFooter()
+void dumpGlobals( array globals )
+void dumpTemplates( array templates, array vars )
+
+In this methods you should only output data.
+'globals' is an associative array containing all global variables,
+'templates' is an associative array containing all templates. Each entry
+is an array that contains all template properties. The 'vars' parameter
+is an array that contains the variables of the templates.
+
+7. Template Caches
+------------------
+A template cache is invoked when patTemplate::readTemplatesFromInput() is
+called. It stores the serialized template so it does not have to be parsed
+on every request. A template cache needs to implement to methods:
+
+array load( int key[, array modificationTime] )
+boolean write( int key, array templates )
+
+When calling load, the template cache should read and unserialize the templates
+from the storage container and return the array. The modification time will
+only be passed, if the reader supports this feature (e.g. there's no modification
+time when reading from a string).
+
+The write method has to work just the other way round. It should serialize the
+templates and write them to the storage container.
+
+8. Output Caches
+----------------
+Output caches are not implemented, yet.
+They will be part of patTemplate 3.1.0

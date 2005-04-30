@@ -1,0 +1,6 @@
+What the heck are all these files used for?
+-------------------------------------------
+$Id: what-is-what.txt,v 1.2 2004/03/29 21:19:49 schst Exp $
+
+This document will explain the different
+files in the new patTemplate distribution.
