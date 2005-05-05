@@ -159,7 +159,7 @@
   $transaction->create();
   $transaction->set('conference_id', $conference->get('conference_id'));
   $transaction->set('changed_by', $transaction->get_auth_person_id());
-  $transaction->set('f_create', $new_dataset ? TRUE : FALSE);
+  $transaction->set('f_create', $new_dataset ? "t" : "f");
   $transaction->write(TRANSACTION);
 
 

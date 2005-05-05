@@ -196,7 +196,7 @@
   $transaction->create();
   $transaction->set('event_id', $event->get('event_id'));
   $transaction->set('changed_by', $transaction->get_auth_person_id());
-  $transaction->set('f_create', $new_dataset ? TRUE : FALSE);
+  $transaction->set('f_create', $new_dataset ? 't' : 'f');
   $transaction->write(TRANSACTION);
 
   if ($new_dataset)
