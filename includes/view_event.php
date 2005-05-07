@@ -416,7 +416,7 @@
                         'TRACK'        => $related->get('conference_track_id') && $track->select(array('conference_track_id' => $related->get('conference_track_id')))? $track->get('tag') : '' ,
                         'ROOM'         => $related->get('room_id') != 0 && $room->select(array('room_id'=>$related->get('room_id'))) ? $room->get('short_name') : '',
                         'DAY'          => $related->get('day'), 
-                        'TIME'         => is_object( $related->get('start_time') ) ? $related->get('start_time')->format('%H:%M') : "",
+                        'TIME'         => is_object( $related->get('start_time') ) ? $related->get('start_time')->format('%H:%M') : '',
                         'PERSON'       => $persons,
                         'PERSON_URL'   => $person_url, 
                         'WATCH_BUTTON' => $watch);
@@ -459,7 +459,7 @@
                         'TRACK'        => $related->get('conference_track_id') && $track->select(array('conference_track_id' => $related->get('conference_track_id')))? $track->get('tag') : '' ,
                         'ROOM'         => $related->get('room_id') != 0 && $room->select(array('room_id'=>$related->get('room_id'))) ? $room->get('short_name') : '',
                         'DAY'          => $related->get('day'), 
-                        'TIME'         => is_object( $related->get('start_time') ) ? $related->get('start_time')->format('%H:%M') : "",
+                        'TIME'         => is_object( $related->get('start_time') ) ? $related->get('start_time')->format('%H:%M') : '',
                         'PERSON'       => $persons,
                         'PERSON_URL'   => $person_url, 
                         'WATCH_BUTTON' => $watch);
@@ -499,7 +499,7 @@
                         'TRACK'        => $related->get('conference_track_id') && $track->select(array('conference_track_id' => $related->get('conference_track_id')))? $track->get('tag') : '' ,
                         'ROOM'         => $related->get('room_id') != 0 && $room->select(array('room_id'=>$related->get('room_id'))) ? $room->get('short_name') : '',
                         'DAY'          => $related->get('day'), 
-                        'TIME'         => $related->get('start_time')->format('%H:%M'),
+                        'TIME'         => is_object($related->get('start_time')) ? $related->get('start_time')->format('%H:%M') : '',
                         'PERSON'       => $persons,
                         'PERSON_URL'   => $person_url, 
                         'WATCH_BUTTON' => $watch);
