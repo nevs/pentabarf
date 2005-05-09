@@ -507,5 +507,4 @@
   $template->addRows('related-speaker-list', $related_events);
 
   
-
 ?>

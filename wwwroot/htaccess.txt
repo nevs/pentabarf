@@ -6,5 +6,6 @@ RewriteRule ^/?[Pp]entabarf/watch/(.*)         watch.php?$1
 RewriteRule ^/?[Pp]entabarf/vcard/(.*)         vcard.php?$1
 RewriteRule ^/?[Pp]entabarf/html/(.*)          html.php?$1
 RewriteRule ^/?[Pp]entabarf/ical/(.*)          ics.php?$1
+RewriteRule ^/?[Pp]entabarf/text/(.*)          text.php?$1
 RewriteRule ^/?[Pp]entabarf/xml/(.*)           xml.php?$1
 RewriteRule ^/?[Pp]entabarf/?(.*)              index.php?$1

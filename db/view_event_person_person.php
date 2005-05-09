@@ -25,6 +25,10 @@ class View_Event_Person_Person extends View_Event_Person
     $this->field['email_public']['table'] = 'person';
     $this->field['email_contact']['type'] = 'VARCHAR';
     $this->field['email_contact']['table'] = 'person';
+    $this->field['abstract']['type'] = 'TEXT';
+    $this->field['abstract']['table'] = 'person';
+    $this->field['description']['type'] = 'TEXT';
+    $this->field['description']['table'] = 'person';
     parent::__construct($select);
   }
 
