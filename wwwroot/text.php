@@ -8,6 +8,7 @@
   require_once('../db/auth_person.php');
   require_once('../db/event_state.php');
   require_once('../db/event_state_localized.php');
+  require_once('../db/event_type_localized.php');
   require_once('../db/view_event_person_person.php');
   require_once('../functions/get_url.php');
 
@@ -27,6 +28,7 @@
   $state_local = new Event_State_Localized;
   $event = new Event;
   $coordinator = new View_Event_Person_Person;
+  $event_type = new Event_Type_Localized;
 
   foreach( $state as $key ) {
     if ($event->select(array('event_state_id' => $state->get('event_state_id'), 'conference_id' => $RESOURCE ) ) ) {
@@ -34,25 +36,27 @@
       echo "Events with state '{$state_local->get('name')}'\n\n";
       foreach( $event as $key ) {
          echo "Title: {$event->get('title')}\n"; 
-         echo "Subtitle: {$event->get('subtitle')}\n"; 
+         if ($event->get('subtitle') != '') echo "Subtitle: {$event->get('subtitle')}\n"; 
+         if ($event_type->select(array('event_type_id' => $event->get('event_type_id'), 'language_id' => $preferences['language'])))
+         echo "Event Type: {$event_type->get('name')}\n";;
          if ($coordinator->select(array('event_id' => $event->get('event_id'), 'event_role_tag' => 'coordinator'))) {
             echo "Coordinator: {$coordinator->get('name')}\n";
          }
-         echo "Abstract:\n{$event->get('abstract')}\n"; 
-         echo "Description:\n{$event->get('description')}\n"; 
-         echo "Event Persons:\n";
-         $coordinator->select(array('event_id' => $event->get('event_id')));
-         foreach ($coordinator as $key) {
-            if ($coordinator->get('event_role_tag') == 'coordinator') continue;
-            echo "Name: {$coordinator->get('name')}\n";
-            echo "Abstract: {$coordinator->get('abstract')}\n";
-            echo "Description: {$coordinator->get('description')}\n";
+         if ($event->get('abstract') != '') echo "Abstract:\n{$event->get('abstract')}\n"; 
+         if ($event->get('description') != '') echo "Description:\n{$event->get('description')}\n"; 
+         if ($coordinator->select(array('event_id' => $event->get('event_id')))) {
+            echo "\nEvent Persons:\n";
+            foreach ($coordinator as $key) {
+               if ($coordinator->get('event_role_tag') == 'coordinator') continue;
+               echo "Name: {$coordinator->get('name')}\n";
+               if ($coordinator->get('abstract') != '') echo "Abstract: {$coordinator->get('abstract')}\n";
+               if ($coordinator->get('description') != '') echo "Description: {$coordinator->get('description')}\n";
+            }
          }
-         echo "\n\n";
+         echo "\n";
       }
       echo "\n";
     }
   }
-
 
 ?>
