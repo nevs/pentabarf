@@ -45,9 +45,13 @@
          if ($event->get('abstract') != '') echo "Abstract:\n{$event->get('abstract')}\n"; 
          if ($event->get('description') != '') echo "Description:\n{$event->get('description')}\n"; 
          if ($coordinator->select(array('event_id' => $event->get('event_id')))) {
-            echo "\nEvent Persons:\n";
+            $flag = false;
             foreach ($coordinator as $key) {
                if ($coordinator->get('event_role_tag') == 'coordinator') continue;
+               if ($flag == false) {
+                  $flag = true;
+                  echo "\nEvent Persons:\n";
+               }
                echo "Name: {$coordinator->get('name')}\n";
                if ($coordinator->get('abstract') != '') echo "Abstract: {$coordinator->get('abstract')}\n";
                if ($coordinator->get('description') != '') echo "Description: {$coordinator->get('description')}\n";
