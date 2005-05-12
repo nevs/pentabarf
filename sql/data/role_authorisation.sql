@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
 
 SET client_encoding = 'UNICODE';
 
@@ -84,5 +83,4 @@ INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (4, 27);
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (5, 27);
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (6, 24);
 
-COMMIT TRANSACTION;
 

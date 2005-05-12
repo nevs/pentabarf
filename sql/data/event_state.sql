@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
 
 SET client_encoding = 'UNICODE';
 
@@ -31,5 +30,4 @@ INSERT INTO event_state (event_state_id, tag, rank) VALUES (9, 'onhold', NULL);
 
 SELECT pg_catalog.setval('event_state_event_state_id_seq', 9, true);
 
-COMMIT TRANSACTION;
 

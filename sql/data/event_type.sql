@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
-
 SET client_encoding = 'UNICODE';
 
 SET search_path = public, pg_catalog;
@@ -28,4 +26,3 @@ INSERT INTO event_type (event_type_id, tag, rank) VALUES (4, 'movie', NULL);
 
 SELECT pg_catalog.setval('event_type_event_type_id_seq', 8, true);
 
-COMMIT TRANSACTION;

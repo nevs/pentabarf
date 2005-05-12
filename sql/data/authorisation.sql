@@ -1,7 +1,6 @@
 --
 -- PostgreSQL database dump
 --
-BEGIN TRANSACTION;
 
 SET client_encoding = 'UNICODE';
 
@@ -45,5 +44,4 @@ INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (14, 'modify_valu
 
 SELECT pg_catalog.setval('authorisation_authorisation_id_seq', 29, true);
 
-COMMIT TRANSACTION;
 

@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
 
 SET client_encoding = 'UNICODE';
 
@@ -24,5 +23,4 @@ INSERT INTO transport_localized (transport_id, language_id, name) VALUES (3, 120
 INSERT INTO transport_localized (transport_id, language_id, name) VALUES (4, 120, 'UFO');
 INSERT INTO transport_localized (transport_id, language_id, name) VALUES (5, 120, 'submarine');
 
-COMMIT TRANSACTION;
 

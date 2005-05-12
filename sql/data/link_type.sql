@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
-
 SET client_encoding = 'UNICODE';
 
 SET search_path = public, pg_catalog;
@@ -28,5 +26,4 @@ INSERT INTO link_type (link_type_id, tag, url_prefix, f_public, rank) VALUES (6,
 
 SELECT pg_catalog.setval('link_type_link_type_id_seq', 6, true);
 
-COMMIT TRANSACTION;
 

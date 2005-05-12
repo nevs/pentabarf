@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
 
 SET client_encoding = 'UNICODE';
 
@@ -25,5 +24,4 @@ INSERT INTO time_zone (time_zone_id, tag, f_visible, f_preferred) VALUES (3, 'ut
 
 SELECT pg_catalog.setval('time_zone_time_zone_id_seq', 3, true);
 
-COMMIT TRANSACTION;
 

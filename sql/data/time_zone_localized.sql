@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
 
 SET client_encoding = 'UNICODE';
 
@@ -20,5 +19,4 @@ INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (1, 144
 INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (2, 144, 'Berlin');
 INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (3, 144, 'Wilna');
 
-COMMIT TRANSACTION;
 

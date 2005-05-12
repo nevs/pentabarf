@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
 
 SET client_encoding = 'UNICODE';
 
@@ -32,5 +31,4 @@ INSERT INTO event_state_localized (event_state_id, language_id, name) VALUES (7,
 INSERT INTO event_state_localized (event_state_id, language_id, name) VALUES (8, 120, 'Declined (confirmed)');
 INSERT INTO event_state_localized (event_state_id, language_id, name) VALUES (9, 120, 'On Hold');
 
-COMMIT TRANSACTION;
 

@@ -3,9 +3,7 @@
 --
 
 SET client_encoding = 'UNICODE';
-SET check_function_bodies = false;
 
-SET SESSION AUTHORIZATION 'pentabarf';
 
 SET search_path = public, pg_catalog;
 

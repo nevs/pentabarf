@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
 
 SET client_encoding = 'UNICODE';
 
@@ -28,5 +27,4 @@ INSERT INTO role (role_id, tag, rank) VALUES (6, 'visitor', 6);
 
 SELECT pg_catalog.setval('role_role_id_seq', 6, true);
 
-COMMIT TRANSACTION;
 

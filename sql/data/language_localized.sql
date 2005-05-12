@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
 
 SET client_encoding = 'UNICODE';
 
@@ -32,5 +31,4 @@ INSERT INTO language_localized (translated_id, language_id, name) VALUES (336, 1
 INSERT INTO language_localized (translated_id, language_id, name) VALUES (336, 120, 'polish');
 INSERT INTO language_localized (translated_id, language_id, name) VALUES (113, 144, 'niederländisch');
 
-COMMIT TRANSACTION;
 

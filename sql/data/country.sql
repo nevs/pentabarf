@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
-
 SET client_encoding = 'UNICODE';
 
 SET search_path = public, pg_catalog;
@@ -262,5 +260,4 @@ INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_prefe
 
 SELECT pg_catalog.setval('country_country_id_seq', 240, true);
 
-COMMIT TRANSACTION;
 

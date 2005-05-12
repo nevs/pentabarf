@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
-
 SET client_encoding = 'UNICODE';
 
 SET search_path = public, pg_catalog;
@@ -91,6 +89,4 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (160, 144, 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (160, 120, 'Norway');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (183, 144, 'Russland');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (183, 120, 'Russia');
-
-COMMIT TRANSACTION;
 

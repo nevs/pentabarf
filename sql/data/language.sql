@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
-
 SET client_encoding = 'UNICODE';
 
 --
@@ -489,5 +487,4 @@ INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, 
 
 SELECT pg_catalog.setval('language_language_id_seq', 469, true);
 
-COMMIT TRANSACTION;
 

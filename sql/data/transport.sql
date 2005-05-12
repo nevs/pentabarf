@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
-
 SET client_encoding = 'UNICODE';
 
 SET search_path = public, pg_catalog;
@@ -27,5 +25,4 @@ INSERT INTO transport (transport_id, tag, rank) VALUES (5, 'submarine', NULL);
 
 SELECT pg_catalog.setval('transport_transport_id_seq', 1, false);
 
-COMMIT TRANSACTION;
 

@@ -2,8 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
-
 SET client_encoding = 'UNICODE';
 
 SET search_path = public, pg_catalog;
@@ -194,5 +192,4 @@ INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_prefer
 
 SELECT pg_catalog.setval('currency_currency_id_seq', 1, false);
 
-COMMIT TRANSACTION;
 

@@ -2,7 +2,6 @@
 -- PostgreSQL database dump
 --
 
-BEGIN TRANSACTION;
 
 SET client_encoding = 'UNICODE';
 
@@ -26,5 +25,4 @@ INSERT INTO event_type_localized (event_type_id, language_id, name) VALUES (1, 1
 INSERT INTO event_type_localized (event_type_id, language_id, name) VALUES (3, 144, 'Workshop');
 INSERT INTO event_type_localized (event_type_id, language_id, name) VALUES (4, 144, 'Film');
 
-COMMIT TRANSACTION;
 
