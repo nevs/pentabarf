@@ -19,7 +19,6 @@ CREATE OR REPLACE FUNCTION event_related_trigger_insert() RETURNS TRIGGER AS '
    END;
 ' LANGUAGE 'plpgsql';
 
--- CREATE TRIGGER related_event_after_insert AFTER INSERT ON event_related FOR STATEMENT EXECUTE PROCEDURE event_related_trigger_insert();
 
 -- trigger for ensuring that there are always pairs of linked events
 CREATE OR REPLACE FUNCTION event_related_trigger_delete() RETURNS TRIGGER AS '
@@ -38,6 +37,5 @@ CREATE OR REPLACE FUNCTION event_related_trigger_delete() RETURNS TRIGGER AS '
    END;
 ' LANGUAGE 'plpgsql';
 
--- CREATE TRIGGER related_event_after_delete AFTER DELETE ON event_related FOR STATEMENT EXECUTE PROCEDURE event_related_trigger_delete();
 
 
