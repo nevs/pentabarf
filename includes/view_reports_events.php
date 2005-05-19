@@ -45,7 +45,7 @@
       'SUBTITLE'   => $event->get('subtitle'),
       'EVENT_TYPE' => $type->get_count() ? $type->get('name') : "",
       'TRACK'      => $track_name,
-      'DURATION'   => $event->get('duration')->format('%H:%M'),
+      'DURATION'   => is_object($event->get('duration')) ? $event->get('duration')->format('%H:%M') : '',
       'LANGUAGE'   => $language->get_count() ? $language->get('name') : ""
     ));
     

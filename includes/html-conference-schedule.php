@@ -184,6 +184,7 @@
       $schedule[$index]['SPEAKER_URL'][$value] = array();
       $schedule[$index]['SPEAKER_NAME'][$value] = array();
       foreach($current->speaker as $key => $name) {
+        if (!is_object($name)) continue;
         $schedule[$index]['SPEAKER_URL'][$value][$key] = "speaker/{$name->person_id}.$lang.html";
         $schedule[$index]['SPEAKER_NAME'][$value][$key] = $name->name;
       }
