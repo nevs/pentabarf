@@ -68,7 +68,11 @@ class Auth_Person extends Entity {
           } else {
             trigger_error("Login not allowed\nUser: ".$_SERVER['PHP_AUTH_USER']);
           }
+        } else {
+           trigger_error("Wrong password for user ".$_SERVER['PHP_AUTH_USER']);
         }
+      } else {
+         trigger_error("User does not exist: ".$_SERVER['PHP_AUTH_USER']);
       }
     }
     header('WWW-Authenticate: Basic realm="Pentabarf"');
@@ -77,7 +81,7 @@ class Auth_Person extends Entity {
     exit;
   }
 
-  final public function get($field_name)
+  final public function get( $field_name )
   {
     if (in_array($field_name, array("person_id", "login_name", "preferences", "name"))) {
       return Entity::get($field_name);
@@ -86,7 +90,7 @@ class Auth_Person extends Entity {
     }
   }
 
-  final public function set($field_name, $value)
+  final public function set( $field_name, $value )
   {
     if ($field_name != "preferences") {
       throw new Exception("You are not allowed to set this",1);
