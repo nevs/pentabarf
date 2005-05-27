@@ -16,7 +16,7 @@
   $currency = new Currency;
   $currency->select(array('f_default' => 't'));
   $curr_sign = $currency->get('iso_4217_code');
-  $template->addVar("report", "TOTAL_SUM", sprintf("%.2f",round($p_t->get_expenses_sum($preferences['conference']),2))." ".$curr_sign);
+  $template->addVar("report-table", "TOTAL_SUM", sprintf("%.2f",round($p_t->get_expenses_sum($preferences['conference']),2))." ".$curr_sign);
 
   $person = new View_Person;
   foreach($p_t as $value) {
