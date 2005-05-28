@@ -40,7 +40,7 @@
 
 
   // array with the names of the js-switched tabs
-  $tab_names = array('persons', 'general', 'description', 'links', 'rating', 'resources', 'related', 'feedback');
+  $tab_names = array('persons', 'general', 'description', 'links', 'review', 'resources', 'related', 'feedback');
  
   content_tabs($tab_names, $template);
 
