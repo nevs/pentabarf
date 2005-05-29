@@ -45,6 +45,7 @@
   
   // put event data into template
   member_to_template($event, array('f_public', 'start_time', 'f_paper', 'f_slides'));
+  $template->addVar("content","F_PUBLIC","checked='checked'");
   $template->addVar("content","F_PAPER","checked='checked'");
   $template->addVar("content","F_SLIDES","checked='checked'");
 
