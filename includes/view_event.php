@@ -283,7 +283,7 @@
           'VALUE'         => $value,
           'SELECTED'      => $selected,
           'F_PUBLIC'      => $attachment->get('f_public') == 't' ? "checked='checked'" : "",
-          'MIME_TYPE'     => $mime_type->get('mime_type');
+          'MIME_TYPE'     => $mime_type->get('mime_type'),
           'URL'           => get_attachment_url($attachment)));
     }
     $template->addRows("attachments", $attachments);
