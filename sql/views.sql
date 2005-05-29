@@ -49,10 +49,12 @@ CREATE OR REPLACE VIEW view_room AS
 
 
 -- view for persons with name
-CREATE OR REPLACE VIEW view_person AS SELECT person_id, login_name, coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname, person.login_name) AS name, password, title, gender, first_name, middle_name, last_name, public_name, nickname, address, street, street_postcode, po_box, po_box_postcode, city, country_id, email_contact, email_public, iban, bank_name, account_owner, abstract, description, gpg_key, remark, preferences, f_conflict, f_deleted, last_login FROM person;
+CREATE OR REPLACE VIEW view_person AS 
+   SELECT person_id, login_name, coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname, person.login_name) AS name, password, title, gender, first_name, middle_name, last_name, public_name, nickname, address, street, street_postcode, po_box, po_box_postcode, city, country_id, email_contact, email_public, iban, bank_name, account_owner, abstract, description, gpg_key, remark, preferences, f_conflict, f_deleted, last_login FROM person;
 
 -- view for events 
-CREATE OR REPLACE VIEW view_event AS SELECT event.event_id, event.conference_id, event.tag, event.title, event.subtitle, event.conference_track_id, event.team_id, event.event_type_id, event.duration, event.event_state_id, event.language_id, event.room_id, event.day, event.start_time, event.abstract, event.description, event.resources, event.f_public, event.f_paper, event.f_slides, event.f_conflict, event.f_deleted, event.remark, view_event_state.language_id AS translated_id, view_event_state.tag AS event_state_tag, view_event_state.name AS event_state, view_event_type.tag AS event_type_tag, view_event_type.name AS event_type, view_conference_track.tag AS conference_track_tag, view_conference_track.name AS conference_track, view_team.tag AS team_tag, view_team.name as team, view_room.tag AS room_tag, view_room.name AS room, conference.acronym, (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime
+CREATE OR REPLACE VIEW view_event AS 
+   SELECT event.event_id, event.conference_id, event.tag, event.title, event.subtitle, event.conference_track_id, event.team_id, event.event_type_id, event.duration, event.event_state_id, event.language_id, event.room_id, event.day, event.start_time, event.abstract, event.description, event.resources, event.f_public, event.f_paper, event.f_slides, event.f_conflict, event.f_deleted, event.remark, view_event_state.language_id AS translated_id, view_event_state.tag AS event_state_tag, view_event_state.name AS event_state, view_event_type.tag AS event_type_tag, view_event_type.name AS event_type, view_conference_track.tag AS conference_track_tag, view_conference_track.name AS conference_track, view_team.tag AS team_tag, view_team.name as team, view_room.tag AS room_tag, view_room.name AS room, conference.acronym, (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime
 FROM event 
      INNER JOIN view_event_state USING (event_state_id)
      INNER JOIN conference USING (conference_id)
@@ -72,30 +74,34 @@ FROM event
 
 
 -- view for last active user
-CREATE OR REPLACE VIEW view_last_active AS SELECT person_id, login_name, name, last_login, now() - last_login AS login_diff 
+CREATE OR REPLACE VIEW view_last_active AS 
+   SELECT person_id, login_name, name, last_login, now() - last_login AS login_diff 
 FROM view_person 
 WHERE last_login > now() + '-1 hour'::interval 
 ORDER BY last_login DESC; 
 
 -- view for recent changes
-CREATE OR REPLACE VIEW view_recent_changes AS SELECT 'conference' AS type, conference_transaction.conference_id AS id, conference.title AS title, conference_transaction.changed_when, conference_transaction.changed_by, view_person.name , conference_transaction.f_create 
+CREATE OR REPLACE VIEW view_recent_changes AS 
+   SELECT 'conference' AS type, conference_transaction.conference_id AS id, conference.acronym, conference.title AS title, conference_transaction.changed_when, conference_transaction.changed_by, view_person.name , conference_transaction.f_create 
 FROM conference_transaction 
      INNER JOIN conference USING (conference_id)
      INNER JOIN view_person ON (conference_transaction.changed_by = view_person.person_id)
 UNION 
-SELECT 'event' AS type, event_transaction.event_id AS id, event.title AS title, event_transaction.changed_when, event_transaction.changed_by, view_person.name , event_transaction.f_create 
+SELECT 'event' AS type, event_transaction.event_id AS id, conference.acronym, event.title AS title, event_transaction.changed_when, event_transaction.changed_by, view_person.name , event_transaction.f_create 
 FROM event_transaction 
      INNER JOIN event USING (event_id)
+     INNER JOIN conference USING (conference_id)
      INNER JOIN view_person ON (event_transaction.changed_by = view_person.person_id)
 UNION 
-SELECT 'person' AS type, person_transaction.person_id AS id, person.name AS title , person_transaction.changed_when, person_transaction.changed_by, view_person.name , person_transaction.f_create 
+SELECT 'person' AS type, person_transaction.person_id AS id, '' AS acronym, person.name AS title , person_transaction.changed_when, person_transaction.changed_by, view_person.name , person_transaction.f_create 
 FROM person_transaction
      INNER JOIN view_person AS person USING (person_id)
      INNER JOIN view_person ON (person_transaction.changed_by = view_person.person_id)
 ORDER BY changed_when DESC;
 
 -- view for event_persons
-CREATE OR REPLACE VIEW view_event_person AS SELECT event_person.event_person_id, event_person.event_id, event_person.person_id, event_person.event_role_id, event_person.event_role_state_id, event_person.remark, event_person.rank, event.conference_id, event.title, event.subtitle, event.event_state_id, view_person.name, view_event_state.language_id, view_event_state.tag AS event_state_tag, view_event_state.name AS event_state, view_event_role.tag AS event_role_tag, view_event_role.name AS event_role, view_event_role_state.tag AS event_role_state_tag, view_event_role_state.name AS event_role_state
+CREATE OR REPLACE VIEW view_event_person AS 
+SELECT event_person.event_person_id, event_person.event_id, event_person.person_id, event_person.event_role_id, event_person.event_role_state_id, event_person.remark, event_person.rank, event.conference_id, event.title, event.subtitle, event.event_state_id, view_person.name, view_event_state.language_id, view_event_state.tag AS event_state_tag, view_event_state.name AS event_state, view_event_role.tag AS event_role_tag, view_event_role.name AS event_role, view_event_role_state.tag AS event_role_state_tag, view_event_role_state.name AS event_role_state
 FROM event_person 
      INNER JOIN event USING (event_id) 
      INNER JOIN view_person USING (person_id) 
@@ -108,7 +114,9 @@ FROM event_person
            view_event_state.language_id = view_event_role_state.language_id);
 
 -- view for schedule
-CREATE OR REPLACE VIEW view_schedule AS SELECT view_event.event_id, view_event.conference_id, view_event.tag, view_event.title, view_event.subtitle, view_event.conference_track_id, view_event.team_id, view_event.event_type_id, view_event.duration, view_event.event_state_id, view_event.language_id, view_event.room_id, view_event.day, view_event.start_time, view_event.abstract, view_event.description, view_event.resources, view_event.f_public, view_event.f_paper, view_event.f_slides, view_event.f_conflict, view_event.f_deleted, view_event.remark, view_event.translated_id, view_event.event_state_tag, view_event.event_state, view_event.event_type_tag, view_event.event_type, view_event.conference_track_tag, view_event.conference_track, view_event.team_tag, view_event.team, view_event.room_tag, view_event.room, view_event.acronym, view_event.start_datetime FROM view_event
+CREATE OR REPLACE VIEW view_schedule AS 
+SELECT view_event.event_id, view_event.conference_id, view_event.tag, view_event.title, view_event.subtitle, view_event.conference_track_id, view_event.team_id, view_event.event_type_id, view_event.duration, view_event.event_state_id, view_event.language_id, view_event.room_id, view_event.day, view_event.start_time, view_event.abstract, view_event.description, view_event.resources, view_event.f_public, view_event.f_paper, view_event.f_slides, view_event.f_conflict, view_event.f_deleted, view_event.remark, view_event.translated_id, view_event.event_state_tag, view_event.event_state, view_event.event_type_tag, view_event.event_type, view_event.conference_track_tag, view_event.conference_track, view_event.team_tag, view_event.team, view_event.room_tag, view_event.room, view_event.acronym, view_event.start_datetime 
+FROM view_event
 WHERE event_state_tag = 'confirmed' AND
       day IS NOT NULL AND
       start_time IS NOT NULL AND
