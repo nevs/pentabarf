@@ -16,6 +16,7 @@
   require_once('../db/view_event_attachment.php');
   require_once('../db/attachment_type.php');
   require_once('../db/event_keyword.php');
+  require_once('../db/mime_type.php');
   require_once('../db/room.php');
   require_once('../db/event_transaction.php');
   require_once('../db/view_language.php');
@@ -255,6 +256,7 @@
         array_push($value, $type->get('attachment_type_id'));
         array_push($selected, $type->get('attachment_type_id') == $attachment->get('attachment_type_id') ? "selected='selected'" : "");
       }
+
       $filesize = $attachment->get('filesize');
       if ($filesize < 900) {
           $filesize .= ' Byte';
@@ -267,6 +269,11 @@
           $filesize = sprintf('%.1f', $filesize);
           $filesize .= ' MByte';
       }
+
+      $mime_type_id = $attachment->get('mime_type_id');
+      $mime_type = new MIME_TYPE;
+      $mime_type->select(array('mime_type_id' => $mime_type_id));
+
       array_push($attachments, array(
           'ATTACHMENT_ID' => $attachment->get('event_attachment_id'),
           'TITLE'         => $attachment->get('title'),
@@ -276,6 +283,7 @@
           'VALUE'         => $value,
           'SELECTED'      => $selected,
           'F_PUBLIC'      => $attachment->get('f_public') == 't' ? "checked='checked'" : "",
+          'MIME_TYPE'     => $mime_type->get('mime_type');
           'URL'           => get_attachment_url($attachment)));
     }
     $template->addRows("attachments", $attachments);

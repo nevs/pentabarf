@@ -275,6 +275,7 @@
               <th>public</th>
               <th>Filename</th>
               <th>Title</th>
+              <th>MIME Type</th>
               <th>remove</th>
             </tr>
           </thead>
@@ -290,6 +291,7 @@
               <td><input type="checkbox" name="attachment[{ATTACHMENT_ID}][f_public]" value="t" {F_PUBLIC} tabindex="0" /></td>
               <td><input type="text" name="attachment[{ATTACHMENT_ID}][filename]" value="{FILENAME}" tabindex="0" /></td>
               <td><input type="text" name="attachment[{ATTACHMENT_ID}][title]" value="{TITLE}" tabindex="0" /></td>
+              <td>{MIME_TYPE}</td>
               <td><input type="checkbox" name="attachment[{ATTACHMENT_ID}][delete]" value="t" tabindex="0" /></td>
             </tr>
           </patTemplate:tmpl>
