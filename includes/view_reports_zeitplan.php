@@ -51,7 +51,7 @@
                             'DAY'         => $event->get('day'),
                             'ROOM'        => $room->get('short_name'),
                             'TRACK'       => $tracks[$event->get('conference_track_id')],
-                            'TIME'        => $event->get('real_start_time')->format('%H:%M:%S'),
+                            'TIME'        => is_object($event->get('real_start_time')) ? $event->get('real_start_time')->format('%H:%M:%S'):'',
                             'DURATION'    => $event->get('duration')->format('%H:%M'),
                             'TITLE'       => $event->get('title'),
                             'SUBTITLE'    => $event->get('subtitle'),
