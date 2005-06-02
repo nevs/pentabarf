@@ -15,16 +15,20 @@
 
   if ( $events->select(array('conference_id' => 2) ) ) {
      foreach( $events as $key ) {
-       echo $events->get('event_id').'|';
-       echo $events->get('title').'|';
-       $person->select(array('event_id' => $events->get('event_id')));
-       $persons = array();
-       foreach( $person as $key ) {
-         $persons[] = $person->get('name');
-       }
-       echo implode(', ', $persons).'|';
-       echo $events->get('event_state').'|';
-       echo str_replace( array("\r", "\n"), " ", $events->get('resources')."\r\n";
+        $line = $events->get('event_id').'|';
+        $line .= $events->get('title').'|';
+        $person->select(array('event_id' => $events->get('event_id')));
+        $persons = array();
+        foreach( $person as $key ) {
+           $persons[] = $person->get('name');
+        }
+        $line .= implode(', ', $persons).'|';
+        $line .= $events->get('event_state').'|';
+        $line .= $events->get('resources');
+
+        // remove bad character
+        $line = str_replace( array("\r", "\n", "|"), " ", $events->get('resources') );
+        echo $line."\r\n";
      }
   }
 ?>
