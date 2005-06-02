@@ -17,7 +17,7 @@
      foreach( $events as $key ) {
         $line = $events->get('event_id').'|';
         $line .= $events->get('title').'|';
-        $person->select(array('event_id' => $events->get('event_id')));
+        $person->select(array('event_id' => $events->get('event_id'), 'event_role_tag' => array( 'moderator', 'speaker' ) ) );
         $persons = array();
         foreach( $person as $key ) {
            $persons[] = $person->get('name');
