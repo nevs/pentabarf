@@ -27,7 +27,7 @@
         $line .= $events->get('resources');
 
         // remove bad character
-        $line = str_replace( array("\r", "\n"), " ", $events->get('resources') );
+        $line = str_replace( array("\r", "\n"), " ", $line );
         echo $line."\r\n";
      }
   }
