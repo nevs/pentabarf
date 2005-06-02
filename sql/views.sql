@@ -1,50 +1,50 @@
 
 -- view for ui_messages with fallback to tag
 CREATE OR REPLACE VIEW view_ui_message AS 
-   SELECT ui_message_id, language_id, tag, coalesce(name,tag) AS name
-      FROM ( SELECT language_id, ui_message_id, ui_message.tag FROM language CROSS JOIN ui_message) AS all_lang 
+   SELECT ui_message_id, language_id, tag, coalesce(name,tag) AS name, language_tag
+      FROM ( SELECT language_id, ui_message_id, ui_message.tag, language.tag AS language_tag FROM language CROSS JOIN ui_message) AS all_lang 
              LEFT OUTER JOIN ui_message_localized USING (language_id, ui_message_id);
 
 -- view for event_state with fallback to tag
 CREATE OR REPLACE VIEW view_event_state AS 
-   SELECT event_state_id, language_id, tag, coalesce(name,tag) AS name, rank
-      FROM ( SELECT language_id, event_state_id, event_state.tag, event_state.rank FROM language CROSS JOIN event_state) AS all_lang 
+   SELECT event_state_id, language_id, tag, coalesce(name,tag) AS name, rank, language_tag
+      FROM ( SELECT language_id, event_state_id, event_state.tag, event_state.rank, language.tag AS language_tag FROM language CROSS JOIN event_state) AS all_lang 
              LEFT OUTER JOIN event_state_localized USING (language_id, event_state_id);
 
 -- view for event_type with fallback to tag
 CREATE OR REPLACE VIEW view_event_type AS 
-   SELECT event_type_id, language_id, tag, coalesce(name,tag) AS name, rank
-      FROM ( SELECT language_id, event_type_id, event_type.tag, event_type.rank FROM language CROSS JOIN event_type) AS all_lang 
+   SELECT event_type_id, language_id, tag, coalesce(name,tag) AS name, rank, language_tag
+      FROM ( SELECT language_id, event_type_id, event_type.tag, event_type.rank, language.tag AS language_tag FROM language CROSS JOIN event_type) AS all_lang 
              LEFT OUTER JOIN event_type_localized USING (language_id, event_type_id);
 
 -- view for event_role with fallback to tag
 CREATE OR REPLACE VIEW view_event_role AS 
-   SELECT event_role_id, language_id, tag, coalesce(name,tag) AS name, rank
-      FROM ( SELECT language_id, event_role_id, event_role.tag, event_role.rank FROM language CROSS JOIN event_role) AS all_lang 
+   SELECT event_role_id, language_id, tag, coalesce(name,tag) AS name, rank, language_tag
+      FROM ( SELECT language_id, event_role_id, event_role.tag, event_role.rank, language.tag AS language_tag FROM language CROSS JOIN event_role) AS all_lang 
              LEFT OUTER JOIN event_role_localized USING (language_id, event_role_id);
 
 -- view for event_role_state with fallback to tag
 CREATE OR REPLACE VIEW view_event_role_state AS 
-   SELECT event_role_state_id, language_id, tag, coalesce(name,tag) AS name, rank 
-      FROM ( SELECT language_id, event_role_state_id, event_role_state.tag, event_role_state.rank FROM language CROSS JOIN event_role_state) AS all_lang 
+   SELECT event_role_state_id, language_id, tag, coalesce(name,tag) AS name, rank, language_tag
+      FROM ( SELECT language_id, event_role_state_id, event_role_state.tag, event_role_state.rank, language.tag AS language_tag FROM language CROSS JOIN event_role_state) AS all_lang 
              LEFT OUTER JOIN event_role_state_localized USING (language_id, event_role_state_id);
 
 -- view for conference_track with fallback to tag
 CREATE OR REPLACE VIEW view_conference_track AS 
-   SELECT conference_track_id, conference_id, language_id, tag, coalesce(name,tag) AS name, rank 
-      FROM ( SELECT language_id, conference_track_id, conference_track.conference_id, conference_track.tag, conference_track.rank FROM language CROSS JOIN conference_track) AS all_lang 
+   SELECT conference_track_id, conference_id, language_id, tag, coalesce(name,tag) AS name, rank, language_tag 
+      FROM ( SELECT language_id, conference_track_id, conference_track.conference_id, conference_track.tag, conference_track.rank, language.tag AS language_tag FROM language CROSS JOIN conference_track) AS all_lang 
              LEFT OUTER JOIN conference_track_localized USING (language_id, conference_track_id);
 
 -- view for team with fallback to tag
 CREATE OR REPLACE VIEW view_team AS 
-   SELECT team_id, language_id, tag, coalesce(name,tag) AS name, rank 
-      FROM ( SELECT language_id, team_id, team.tag, team.rank FROM language CROSS JOIN team) AS all_lang 
+   SELECT team_id, language_id, tag, coalesce(name,tag) AS name, rank, language_tag
+      FROM ( SELECT language_id, team_id, team.tag, team.rank, language.tag AS language_tag FROM language CROSS JOIN team) AS all_lang 
              LEFT OUTER JOIN team_localized USING (language_id, team_id);
 
 -- view for room with fallback to tag
 CREATE OR REPLACE VIEW view_room AS 
-   SELECT room_id, conference_id, language_id, tag, coalesce(public_name , tag) AS name, f_public, size, remark, rank
-      FROM ( SELECT language_id, room.room_id, room.conference_id, room.short_name AS tag, room.f_public, room.size, room.remark, room.rank FROM language CROSS JOIN room) AS all_lang 
+   SELECT room_id, conference_id, language_id, tag, coalesce(public_name , tag) AS name, f_public, size, remark, rank, language_tag
+      FROM ( SELECT language_id, room.room_id, room.conference_id, room.short_name AS tag, room.f_public, room.size, room.remark, room.rank, language.tag AS language_tag FROM language CROSS JOIN room) AS all_lang 
           LEFT OUTER JOIN room_localized USING (language_id, room_id);
 
 
@@ -54,7 +54,7 @@ CREATE OR REPLACE VIEW view_person AS
 
 -- view for events 
 CREATE OR REPLACE VIEW view_event AS 
-   SELECT event.event_id, event.conference_id, event.tag, event.title, event.subtitle, event.conference_track_id, event.team_id, event.event_type_id, event.duration, event.event_state_id, event.language_id, event.room_id, event.day, event.start_time, event.abstract, event.description, event.resources, event.f_public, event.f_paper, event.f_slides, event.f_conflict, event.f_deleted, event.remark, view_event_state.language_id AS translated_id, view_event_state.tag AS event_state_tag, view_event_state.name AS event_state, view_event_type.tag AS event_type_tag, view_event_type.name AS event_type, view_conference_track.tag AS conference_track_tag, view_conference_track.name AS conference_track, view_team.tag AS team_tag, view_team.name as team, view_room.tag AS room_tag, view_room.name AS room, conference.acronym, (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime
+   SELECT event.event_id, event.conference_id, event.tag, event.title, event.subtitle, event.conference_track_id, event.team_id, event.event_type_id, event.duration, event.event_state_id, event.language_id, event.room_id, event.day, event.start_time, event.abstract, event.description, event.resources, event.f_public, event.f_paper, event.f_slides, event.f_conflict, event.f_deleted, event.remark, view_event_state.language_id AS translated_id, view_event_state.language_tag AS translated_tag, view_event_state.tag AS event_state_tag, view_event_state.name AS event_state, view_event_type.tag AS event_type_tag, view_event_type.name AS event_type, view_conference_track.tag AS conference_track_tag, view_conference_track.name AS conference_track, view_team.tag AS team_tag, view_team.name as team, view_room.tag AS room_tag, view_room.name AS room, conference.acronym, (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime
 FROM event 
      INNER JOIN view_event_state USING (event_state_id)
      INNER JOIN conference USING (conference_id)
@@ -101,7 +101,7 @@ ORDER BY changed_when DESC;
 
 -- view for event_persons
 CREATE OR REPLACE VIEW view_event_person AS 
-SELECT event_person.event_person_id, event_person.event_id, event_person.person_id, event_person.event_role_id, event_person.event_role_state_id, event_person.remark, event_person.rank, event.conference_id, event.title, event.subtitle, event.event_state_id, view_person.name, view_event_state.language_id, view_event_state.tag AS event_state_tag, view_event_state.name AS event_state, view_event_role.tag AS event_role_tag, view_event_role.name AS event_role, view_event_role_state.tag AS event_role_state_tag, view_event_role_state.name AS event_role_state
+SELECT event_person.event_person_id, event_person.event_id, event_person.person_id, event_person.event_role_id, event_person.event_role_state_id, event_person.remark, event_person.rank, event.conference_id, event.title, event.subtitle, event.event_state_id, view_person.name, view_event_state.language_id, view_event_state.language_tag, view_event_state.tag AS event_state_tag, view_event_state.name AS event_state, view_event_role.tag AS event_role_tag, view_event_role.name AS event_role, view_event_role_state.tag AS event_role_state_tag, view_event_role_state.name AS event_role_state
 FROM event_person 
      INNER JOIN event USING (event_id) 
      INNER JOIN view_person USING (person_id) 
@@ -115,7 +115,7 @@ FROM event_person
 
 -- view for schedule
 CREATE OR REPLACE VIEW view_schedule AS 
-SELECT view_event.event_id, view_event.conference_id, view_event.tag, view_event.title, view_event.subtitle, view_event.conference_track_id, view_event.team_id, view_event.event_type_id, view_event.duration, view_event.event_state_id, view_event.language_id, view_event.room_id, view_event.day, view_event.start_time, view_event.abstract, view_event.description, view_event.resources, view_event.f_public, view_event.f_paper, view_event.f_slides, view_event.f_conflict, view_event.f_deleted, view_event.remark, view_event.translated_id, view_event.event_state_tag, view_event.event_state, view_event.event_type_tag, view_event.event_type, view_event.conference_track_tag, view_event.conference_track, view_event.team_tag, view_event.team, view_event.room_tag, view_event.room, view_event.acronym, view_event.start_datetime 
+SELECT view_event.event_id, view_event.conference_id, view_event.tag, view_event.title, view_event.subtitle, view_event.conference_track_id, view_event.team_id, view_event.event_type_id, view_event.duration, view_event.event_state_id, view_event.language_id, view_event.room_id, view_event.day, view_event.start_time, view_event.abstract, view_event.description, view_event.resources, view_event.f_public, view_event.f_paper, view_event.f_slides, view_event.f_conflict, view_event.f_deleted, view_event.remark, view_event.translated_id, view_event.language_tag AS translated_tag, view_event.event_state_tag, view_event.event_state, view_event.event_type_tag, view_event.event_type, view_event.conference_track_tag, view_event.conference_track, view_event.team_tag, view_event.team, view_event.room_tag, view_event.room, view_event.acronym, view_event.start_datetime 
 FROM view_event
 WHERE event_state_tag = 'confirmed' AND
       day IS NOT NULL AND

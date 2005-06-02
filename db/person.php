@@ -52,6 +52,8 @@ class Person extends Entity
     $this->field['email_public']['length'] = 64;
     $this->field['iban']['type'] = 'VARCHAR';
     $this->field['iban']['length'] = 128;
+    $this->field['bic']['type'] = 'VARCHAR';
+    $this->field['bic']['length'] = 11;
     $this->field['bank_name']['type'] = 'VARCHAR';
     $this->field['bank_name']['length'] = 128;
     $this->field['account_owner']['type'] = 'VARCHAR';

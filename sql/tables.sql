@@ -397,6 +397,7 @@ CREATE TABLE person (
   email_contact VARCHAR(64),
   email_public VARCHAR(64),
   iban VARCHAR(128),
+  bic VARCHAR(11),
   bank_name VARCHAR(128),
   account_owner VARCHAR(128),
   abstract TEXT,
