@@ -57,7 +57,7 @@ class View_Person extends View {
     $this->field['iban']['type'] = 'VARCHAR';
     $this->field['iban']['table'] = 'person';
     $this->field['bic']['type'] = 'VARCHAR';
-    $this->field['bic']['length'] = 11;
+    $this->field['bic']['table'] = 'person';
     $this->field['bank_name']['type'] = 'VARCHAR';
     $this->field['bank_name']['table'] = 'person';
     $this->field['account_owner']['type'] = 'VARCHAR';
