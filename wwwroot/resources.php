@@ -24,7 +24,7 @@
        }
        echo implode(', ', $persons).'|';
        echo $events->get('event_state').'|';
-       echo str_replace( array("\r", "\n"), "", $events->get('resources')."\r\n";
+       echo str_replace( array("\r", "\n"), " ", $events->get('resources')."\r\n";
      }
   }
 ?>
