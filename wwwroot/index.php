@@ -105,10 +105,8 @@
         'TIME'        => $person->get('login_diff')->format('%M:%S')
        ));
     }
-  } else { 
-    $last_user[0]['LOGIN_NAME'] = "you are alone";
-  }
-  $template->addRows("last_user",$last_user);
+    $template->addRows("last_user",$last_user);
+  } 
 
   add_js_to_template($template);
   $template->addGlobalVar("VIEW_URL", $BASE_URL."pentabarf/$VIEW/$RESOURCE"); 
