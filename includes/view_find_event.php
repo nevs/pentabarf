@@ -155,7 +155,6 @@
     $watchlist = new Person_Watchlist_Event;
     $event_person = new Event_Person;
     $event_role = new Event_Role;
-    $room = new Room;
     $day_change = new Date_Span($conference->get('day_change'));
     $timeslot_sum = new Date_Span;
 
@@ -163,6 +162,7 @@
       if (is_object( $event->get('duration'))) $timeslot_sum->add($event->get('duration'));
       $event_state->select(array('event_state_id' => $event->get('event_state_id'), 'language_id' => $preferences['language']));
       $event_person->select(array('event_id' => $event->get('event_id')));
+      $room = new Room;
       $room->select(array('room_id' => $event->get('room_id')));
       if (!$room->get_count()) $room->create();
       if (!$track->select(array('conference_track_id' => $event->get('conference_track_id')))) $track->create();
