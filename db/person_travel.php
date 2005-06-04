@@ -67,6 +67,11 @@ class Person_Travel extends Entity
     $this->field['f_arrived']['type'] = 'BOOL';
     $this->field['f_arrived']['not_null'] = true;
     $this->field['f_arrived']['default'] = true;
+    $this->field['fee']['type'] = 'DECIMAL';
+    $this->field['fee']['length'] = 16;
+    $this->field['fee']['fraction'] = 2;
+    $this->field['fee_currency_id']['type'] = 'INTEGER';
+    $this->field['fee_currency_id']['not_null'] = true;
     $this->field['person_id']['primary_key'] = true;
     $this->field['conference_id']['primary_key'] = true;
     parent::__construct($select);

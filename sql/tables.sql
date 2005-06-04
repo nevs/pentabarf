@@ -494,12 +494,15 @@ CREATE TABLE person_travel (
   accommodation_phone VARCHAR(32),
   accommodation_phone_room VARCHAR(32),
   f_arrived BOOL NOT NULL DEFAULT FALSE,
+  fee DECIMAL(16,2),
+  fee_currency_id INTEGER NOT NULL,
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
   FOREIGN KEY (arrival_transport_id) REFERENCES transport (transport_id),
   FOREIGN KEY (departure_transport_id) REFERENCES transport (transport_id),
   FOREIGN KEY (travel_currency_id) REFERENCES currency (currency_id),
   FOREIGN KEY (accommodation_currency_id) REFERENCES currency (currency_id),
+  FOREIGN KEY (fee_currency_id) REFERENCES currency (currency_id),
   PRIMARY KEY (person_id, conference_id)
 ) WITHOUT OIDS;
 

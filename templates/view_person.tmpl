@@ -594,10 +594,20 @@
           </td>
         </tr>
         <tr>
-          <td colspan="2"><label>Total travel Costs:</label>
+          <td><label>Total travel Costs:</label></td>
+          <td>
           <input type="text" name="travel_cost" value="{TRAVEL_COST}" size="10" tabindex="0" />
           <select name="travel_currency_id" tabindex="0">
             <patTemplate:tmpl name="travel_currency" src="select.tmpl" parse="on" />
+          </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Fee:</label></td>
+          <td>
+          <input type="text" name="fee" value="{FEE}" size="10" tabindex="0" />
+          <select name="fee_currency_id" tabindex="0">
+            <patTemplate:tmpl name="fee_currency" src="select.tmpl" parse="on" />
           </select>
           </td>
         </tr>
