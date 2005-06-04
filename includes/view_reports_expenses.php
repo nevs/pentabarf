@@ -26,7 +26,8 @@
                               "NAME"               => $person->get('name'),
                               "TRAVEL_COST"        => $p_t->get('travel_cost') ? sprintf("%.2f",round($p_t->get('travel_cost'),2))." $curr_sign" : "",
                               "ACCOMMODATION_COST" => $p_t->get('accommodation_cost') ? sprintf("%.2f",round($p_t->get('accommodation_cost'),2))." $curr_sign" : "",
-                              "SUM"                => $p_t->get('travel_cost') || $p_t->get('accommodation_cost') ? sprintf("%.2f",round($p_t->get('travel_cost') + $p_t->get('accommodation_cost'),2))." $curr_sign" : "" ));
+                              "FEE"                => $p_t->get('fee') ? sprintf("%.2f",round($p_t->get('fee'),2))." $curr_sign" : "",
+                              "SUM"                => $p_t->get('fee') || $p_t->get('travel_cost') || $p_t->get('accommodation_cost') ? sprintf("%.2f",round($p_t->get('fee') + $p_t->get('travel_cost') + $p_t->get('accommodation_cost'),2))." $curr_sign" : "" ));
   }
   $template->addRows("report-list", $result);
 
