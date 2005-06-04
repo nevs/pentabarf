@@ -4,7 +4,7 @@
 	margin: 5px;
 	padding: 5px;
         max-width: 200px;
-	list-style-type: normal;
+	list-style-type: none;
 }
 
 .drag-handle {
@@ -13,7 +13,7 @@
 	margin: 5px;
 	padding: 5px;
 	display: inline;
-	width-min: 10px;
+	min-width: 10px;
 }
 
 .drag-handle:hover {

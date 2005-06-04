@@ -3,7 +3,7 @@
 
 
 table {
-  border: 1px, solid, black;
+  border: 1px solid black;
   padding: 2px;
   
   width: auto;
@@ -45,11 +45,11 @@ tr {
 }
 
 tr:hover th {
-  border: 1px, solid, #c8d8e8;
+  border: 1px solid #c8d8e8;
 }
 
 tr:hover td {
-  border: 1px, solid, #90acc8;
+  border: 1px solid #90acc8;
 }
 
 
