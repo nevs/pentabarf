@@ -52,6 +52,7 @@
   $currency->select(array('f_visible' => 't'));
   fill_select('travel_currency', $currency, 'currency_id', 'iso_4217_code', $def_curr->get('currency_id'), false);
   fill_select('accommodation_currency', $currency, 'currency_id', 'iso_4217_code', $def_curr->get('currency_id'), false);
+  fill_select("fee_currency", $currency, "currency_id", "iso_4217_code", $def_curr->get('currency_id'),false);
 
   
   $role = new Role_Localized;
