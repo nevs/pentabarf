@@ -22,20 +22,20 @@
           <tr>
             <td><a href="{URL}"><img src="{IMAGE_URL}" class="small" title="{TITLE}" /></a></td>
             <td><a href="{URL}">{NAME}</a></td>
-            <td><a href="{URL}">{FEE}</a></td>
-            <td><a href="{URL}">{TRAVEL_COST}</a></td>
-            <td><a href="{URL}">{ACCOMMODATION_COST}</a></td>
-            <td><a href="{URL}">{SUM}</a></td>
+            <td class="money"><a href="{URL}">{FEE}</a></td>
+            <td class="money"><a href="{URL}">{TRAVEL_COST}</a></td>
+            <td class="money"><a href="{URL}">{ACCOMMODATION_COST}</a></td>
+            <td class="money"><a href="{URL}">{SUM}</a></td>
           </tr>
         </patTemplate:tmpl>
       </tbody>
       <tfoot>
           <tr>
             <td colspan="2" />
-            <td><strong>{SUM_FEE}</strong></td>
-            <td><strong>{SUM_TRAVEL_COST}</strong></td>
-            <td><strong>{SUM_ACCOMMODATION_COST}</strong></td>
-            <td><strong>{TOTAL_SUM}</strong></td>
+            <td class="money"><strong>{SUM_FEE}</strong></td>
+            <td class="money"><strong>{SUM_TRAVEL_COST}</strong></td>
+            <td class="money"><strong>{SUM_ACCOMMODATION_COST}</strong></td>
+            <td class="money"><strong>{TOTAL_SUM}</strong></td>
           </tr>
       </tfoot>
     </table>

@@ -41,6 +41,10 @@ td {
   vertical-align: middle;
 }
 
+td.money {
+	text-align: right;
+}
+
 tr {
   background-color: #c8d8e8;
 }
