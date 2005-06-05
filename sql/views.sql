@@ -5,11 +5,17 @@ CREATE OR REPLACE VIEW view_ui_message AS
       FROM ( SELECT language_id, ui_message_id, ui_message.tag, language.tag AS language_tag FROM language CROSS JOIN ui_message) AS all_lang 
              LEFT OUTER JOIN ui_message_localized USING (language_id, ui_message_id);
 
--- view for ui_messages with fallback to tag
+-- view for country with fallback to tag
 CREATE OR REPLACE VIEW view_country AS 
    SELECT country_id, language_id, tag, coalesce(name,tag) AS name, language_tag
       FROM ( SELECT language_id, country_id, country.iso_3166_code AS tag, country.phone_prefix, language.tag AS language_tag FROM language CROSS JOIN country WHERE country.f_visible = 't' ) AS all_lang 
              LEFT OUTER JOIN country_localized USING (language_id, country_id);
+
+-- view for currency with fallback to tag
+CREATE OR REPLACE VIEW view_currency AS 
+   SELECT currency_id, language_id, tag, coalesce(name,tag) AS name, language_tag
+      FROM ( SELECT language_id, currency_id, currency.iso_4217_code AS tag, currency.f_default, currency.exchange_rate, language.tag AS language_tag FROM language CROSS JOIN currency WHERE currency.f_visible = 't' ) AS all_lang 
+             LEFT OUTER JOIN currency_localized USING (language_id, currency_id);
 
 -- view for transport with fallback to tag
 CREATE OR REPLACE VIEW view_transport AS 
