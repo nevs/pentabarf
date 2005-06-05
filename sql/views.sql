@@ -50,7 +50,7 @@ CREATE OR REPLACE VIEW view_room AS
 
 -- view for persons with name
 CREATE OR REPLACE VIEW view_person AS 
-   SELECT person_id, login_name, coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname, person.login_name) AS name, password, title, gender, first_name, middle_name, last_name, public_name, nickname, address, street, street_postcode, po_box, po_box_postcode, city, country_id, email_contact, email_public, iban, bank_name, account_owner, abstract, description, gpg_key, remark, preferences, f_conflict, f_deleted, last_login FROM person;
+   SELECT person_id, login_name, coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname, person.login_name) AS name, password, title, gender, first_name, middle_name, last_name, public_name, nickname, address, street, street_postcode, po_box, po_box_postcode, city, country_id, email_contact, email_public, iban, bic, bank_name, account_owner, abstract, description, gpg_key, remark, preferences, f_conflict, f_deleted, last_login FROM person;
 
 -- view for events 
 CREATE OR REPLACE VIEW view_event AS 
@@ -115,7 +115,7 @@ FROM event_person
 
 -- view for schedule
 CREATE OR REPLACE VIEW view_schedule AS 
-SELECT view_event.event_id, view_event.conference_id, view_event.tag, view_event.title, view_event.subtitle, view_event.conference_track_id, view_event.team_id, view_event.event_type_id, view_event.duration, view_event.event_state_id, view_event.language_id, view_event.room_id, view_event.day, view_event.start_time, view_event.abstract, view_event.description, view_event.resources, view_event.f_public, view_event.f_paper, view_event.f_slides, view_event.f_conflict, view_event.f_deleted, view_event.remark, view_event.translated_id, view_event.language_tag AS translated_tag, view_event.event_state_tag, view_event.event_state, view_event.event_type_tag, view_event.event_type, view_event.conference_track_tag, view_event.conference_track, view_event.team_tag, view_event.team, view_event.room_tag, view_event.room, view_event.acronym, view_event.start_datetime 
+SELECT view_event.event_id, view_event.conference_id, view_event.tag, view_event.title, view_event.subtitle, view_event.conference_track_id, view_event.team_id, view_event.event_type_id, view_event.duration, view_event.event_state_id, view_event.language_id, view_event.room_id, view_event.day, view_event.start_time, view_event.abstract, view_event.description, view_event.resources, view_event.f_public, view_event.f_paper, view_event.f_slides, view_event.f_conflict, view_event.f_deleted, view_event.remark, view_event.translated_id, view_event.translated_tag, view_event.event_state_tag, view_event.event_state, view_event.event_type_tag, view_event.event_type, view_event.conference_track_tag, view_event.conference_track, view_event.team_tag, view_event.team, view_event.room_tag, view_event.room, view_event.acronym, view_event.start_datetime 
 FROM view_event
 WHERE event_state_tag = 'confirmed' AND
       day IS NOT NULL AND
