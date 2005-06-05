@@ -11,6 +11,12 @@ CREATE OR REPLACE VIEW view_country AS
       FROM ( SELECT language_id, country_id, country.iso_3166_code AS tag, country.phone_prefix, language.tag AS language_tag FROM language CROSS JOIN country WHERE country.f_visible = 't' ) AS all_lang 
              LEFT OUTER JOIN country_localized USING (language_id, country_id);
 
+-- view for transport with fallback to tag
+CREATE OR REPLACE VIEW view_transport AS 
+   SELECT transport_id, language_id, tag, coalesce(name,tag) AS name, rank, language_tag
+      FROM ( SELECT language_id, transport_id, transport.tag, transport.rank, language.tag AS language_tag FROM language CROSS JOIN transport) AS all_lang 
+             LEFT OUTER JOIN transport_localized USING (language_id, transport_id);
+
 -- view for event_state with fallback to tag
 CREATE OR REPLACE VIEW view_event_state AS 
    SELECT event_state_id, language_id, tag, coalesce(name,tag) AS name, rank, language_tag
