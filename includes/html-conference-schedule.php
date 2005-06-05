@@ -46,6 +46,7 @@
   $timeslot_duration = $conference->get("timeslot_duration");
   
   $room = new Room;
+  $room->set_order('rank');
   $room->select(array("conference_id" => $conference->get("conference_id") ));
   
   $event = new View_Fahrplan_Event;
