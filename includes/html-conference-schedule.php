@@ -88,6 +88,7 @@
     
     if (isset($time_table[$event->get("room_id")][$event_slot])) {
       // we've got a conflict
+      throw new Exception('Conflict in Schedule not yet handled');
       $current->conflict = true;
       for ($i = $event_slot; $i >= $first_slot && !($time_table[$event->get("room_id")][$i] instanceof Assignment);$i--);
       $old = $time_table[$event->get("room_id")][$i];
@@ -95,9 +96,9 @@
       $event_slot = $i;
       if (is_array($old->event_id)) {
         array_push($old->event_id, $event->get("event_id"));
-        array_push($old->title, $event->get("title"));
-        array_push($old->subtitle, $event->get("subtitle"));
-        array_push($old->abstract, $event->get("abstract"));
+        array_push($old->title, htmlspecialchars($event->get("title")));
+        array_push($old->subtitle, htmlspecialchars($event->get("subtitle")));
+        array_push($old->abstract, htmlspecialchars($event->get("abstract")));
         array_push($old->language, $languages[$event->get("language_id")]);
         array_push($old->speaker, $speakers);
         $current->event_id = $old->event_id;
@@ -108,9 +109,9 @@
         $current->speaker  = $old->speaker;
       } else {
         $current->event_id = array($old->event_id, $event->get("event_id"));
-        $current->title = array($old->title, $event->get("title"));
-        $current->subtitle = array($old->subtitle, $event->get("subtitle"));
-        $current->abstract = array($old->abstract, $event->get("abstract"));
+        $current->title = array($old->title, htmlspecialchars($event->get("title")));
+        $current->subtitle = array($old->subtitle, htmlspecialchars($event->get("subtitle")));
+        $current->abstract = array($old->abstract, htmlspecialchars($event->get("abstract")));
         $current->language = array($old->language, $languages[$event->get("language_id")]);
         $current->speaker = array($old->speaker, $speakers);
       }
@@ -119,8 +120,8 @@
       // everything is fine
       $current->event_id = $event->get("event_id");
       $current->title = $event->get("title");
-      $current->subtitle = $event->get("subtitle");
-      $current->abstract = $event->get("abstract");
+      $current->subtitle = $event->get("subtitle") ? $event->get("subtitle") : "";
+      $current->abstract = $event->get("abstract") ? $event->get("abstract") : "";
       $current->type = $types[$event->get("event_type_id")];
       $current->track = $tracks[$event->get("conference_track_id")];
       $current->language = $languages[$event->get("language_id")];
