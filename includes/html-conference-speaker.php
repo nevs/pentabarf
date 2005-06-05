@@ -34,7 +34,8 @@
 
   $template->addVar('content', 'SPEAKER_NAME', $person->get('name'));
 
-  $template->addVar('content', 'DESCRIPTION', $person->get('description') == "" ? $person->get('abstract') : $person->get('description'));
+  $template->addVar('content', 'ABSTRACT', $person->get('abstract'));
+  $template->addVar('content', 'DESCRIPTION', $person->get('description'));
 
   if ($person->get("email_public")) {
     $email = str_replace(array("@", "."), array(" at ", " dot "),$person->get("email_public"));
