@@ -36,7 +36,7 @@
   $template->addVar('content', 'EVENT_SUBTITLE', $event->get('subtitle'));
   $template->addVar('content', 'EVENT_ID', $event_id);
   $template->addVar('content', 'EVENT_DAY', $event->get('day'));
-  $template->addVar('content', 'EVENT_TIME', is_object($event->get('real_start_time')) ? $event->get('real_start_time')->format('%H:%M')) : '';
+  $template->addVar('content', 'EVENT_TIME', is_object($event->get('real_start_time')) ? $event->get('real_start_time')->format('%H:%M') : '';
   $template->addVar('content', 'EVENT_DURATION', $event->get('duration')->format('%H:%M'));
   $template->addVar('content', 'ABSTRACT', $event->get('abstract'));
   $template->addVar('content', 'DESCRIPTION', $event->get('description'));
