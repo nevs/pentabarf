@@ -62,7 +62,7 @@
       'URL'       => get_event_url($conflict->get('event_id1'),'general'),
       'TITLE_URL' => array( get_event_url($conflict->get('event_id1'),'general'), get_event_url($conflict->get('event_id2'),'general')),
       'IMAGE_URL' => get_event_image_url(0),
-      'REASON'    => 'Doppelt belegter Timeslot',
+      'REASON'    => 'overlapping events',
       'TITLE'     => array($conflict->get('title1'), $conflict->get('title2'))
     ));
   }
@@ -77,7 +77,7 @@
       'URL'       => get_person_url($conflict->get('person_id'),'events'),
       'TITLE_URL' => array( get_event_url($conflict->get('event_id1'),'general'), get_event_url($conflict->get('event_id2'),'general')),
       'IMAGE_URL' => get_person_image_url($conflict->get('person_id')),
-      'REASON'    => 'Moderator/Referent in 2 Veranstaltungen gleichzeitig',
+      'REASON'    => 'moderator/speaker in 2 events simultaneously',
       'TITLE'     => array($conflict->get('title1'), $conflict->get('title2'))
     ));
   }
@@ -92,7 +92,7 @@
       'URL'       => get_person_url($conflict->get('person_id'),'events'),
       'TITLE_URL' => array( get_person_url($conflict->get('person_id'),'general'), get_event_url($conflict->get('event_id'), 'general')),
       'IMAGE_URL' => get_person_image_url($conflict->get('person_id')),
-      'REASON'    => 'Moderator/Referent spricht nicht die Sprache der Veranstaltung',
+      'REASON'    => 'moderator/speaker does not speak the language of the event',
       'TITLE'     => array($conflict->get('name'), $conflict->get('title'))
     ));
   }
@@ -107,7 +107,7 @@
       'URL'       => get_event_url($conflict->get('event_id'),'persons'),
       'TITLE_URL' => array( get_event_url($conflict->get('event_id'),'persons')),
       'IMAGE_URL' => get_event_image_url($conflict->get('event_id')),
-      'REASON'    => 'Event mit unvollstaendigen Zeit/Raum/Tag - Daten',
+      'REASON'    => 'event with missing start time / room / day',
       'TITLE'     => array($conflict->get('title'))
     ));
   }
@@ -122,7 +122,7 @@
       'URL'       => get_event_url($conflict->get('event_id'),'persons'),
       'TITLE_URL' => array( get_event_url($conflict->get('event_id'),'persons')),
       'IMAGE_URL' => get_event_image_url($conflict->get('event_id')),
-      'REASON'    => 'Event ohne Referent/Moderator',
+      'REASON'    => 'event without speaker / moderator',
       'TITLE'     => array($conflict->get('title'))
     ));
   }
@@ -135,7 +135,7 @@
       'URL'       => get_person_url($person,'contact'),
       'TITLE_URL' => array(get_person_url($person,'contact')),
       'IMAGE_URL' => get_person_image_url($person),
-      'REASON'    => 'Referent ohne E-Mail-Adresse',
+      'REASON'    => 'speaker without email address',
       'TITLE'     => array($person->get('name'))
     ));
   }
@@ -144,14 +144,14 @@
   $event = new Conflict_Event_No_Coordinator;
   $event->select(array('conference_id' => $preferences['conference']));
   foreach($event as $key) {
-    add_conflict_event($event, 'Event ohne Koordinator', $warnings);
+    add_conflict_event($event, 'event without coordinator', $warnings);
   }
 
   // events without abstract
   $event = new View_Event;
   $event->select(array('event_state_tag' => 'confirmed', 'abstract' => false, 'f_public' => 't', 'conference_id' => $preferences['conference']));
   foreach($event as $key){
-    add_conflict_event($event, 'Event ohne Abstract', $errors);
+    add_conflict_event($event, 'event without abstract', $errors);
   }
 
 
@@ -159,7 +159,7 @@
   $event = new View_Event;
   $event->select(array('event_state_tag' => 'confirmed', 'conference_track_id' => false, 'f_public' => 't', 'conference_id' => $preferences['conference']));
   foreach($event as $key){
-    add_conflict_event($event, 'Event ohne Track', $warnings);
+    add_conflict_event($event, 'event without track', $warnings);
   }
 
 
@@ -167,7 +167,7 @@
   $event = new View_Event;
   $event->select(array('event_state_tag' => 'confirmed', 'description' => false, 'f_public' => 't', 'conference_id' => $preferences['conference']));
   foreach($event as $key){
-    add_conflict_event($event, 'Event ohne Beschreibung', $warnings);
+    add_conflict_event($event, 'event without description', $warnings);
   }
 
 
@@ -177,7 +177,7 @@
   $event->select(array('event_state_tag' => 'confirmed', 'f_paper' => 't', 'f_public' => 't', 'conference_id' => $preferences['conference']));
   foreach($event as $key){
     if ($attachment->select(array('event_id' => $event->get('event_id'), 'attachment_type_tag' => 'paper')) == 0) {
-      add_conflict_event($event, 'Event ohne Paper', $errors);
+      add_conflict_event($event, 'event without paper', $errors);
     }
   }
 
@@ -188,7 +188,7 @@
   $event->select(array('event_state_tag' => 'confirmed', 'f_slides' => 't', 'f_public' => 't', 'conference_id' => $preferences['conference']));
   foreach($event as $key){
     if ($attachment->select(array('event_id' => $event->get('event_id'), 'attachment_type_tag' => 'slides')) == 0) {
-      add_conflict_event($event, 'Event ohne Slides', $errors);
+      add_conflict_event($event, 'event without slides', $errors);
     }
   }
 
