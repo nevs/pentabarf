@@ -47,7 +47,7 @@
   
   $room = new Room;
   $room->set_order('rank');
-  $room->select(array("conference_id" => $conference->get("conference_id") ));
+  $room->select(array("conference_id" => $conference->get("conference_id"), 'f_public' => 't' ));
   
   $event = new View_Fahrplan_Event;
   $event->select(array('conference_id' =>$conference->get("conference_id"), 'day' => $day, 'f_public' => 't'));

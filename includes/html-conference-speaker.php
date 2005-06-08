@@ -24,7 +24,7 @@
   $person_id = isset($OPTIONS[1]) ? intval(preg_replace('/([0-9]+)\..*/', '\1', $OPTIONS[1])) : 0;
 
   if (!$person_id || !$person->select( array("person_id" => $person_id))) {
-    header('Location: $LOCATION');
+    header("Location: $LOCATION");
     exit;
   }
 
