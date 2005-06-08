@@ -43,7 +43,7 @@ function create_element(type, subtype, name, values, selected)
           if (selected) new_element.setAttribute("size", selected)
           break;
         case "checkbox":
-          if (selected) new_element.setAttribute("checked", "checked");
+          if (selected == 't') new_element.setAttribute("checked", "checked");
           break;
       }
 
