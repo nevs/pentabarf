@@ -36,7 +36,7 @@
   $LOCATION = $BASE_URL.'pentabarf/html/conference/'.$conference->get('conference_id').'/';
 
   
-  $template->addVar('main', 'CSS_FILE', $conference->get('export_css_file'));
+  $template->addVar('main', 'CSS_FILE', $LOCATION.'fahrplan.css');
   $template->addGlobalVar('LANG', $lang);
   $template->addGlobalVar('ALT_LANG', $lang == 'de' ? 'en' : 'de');
   $template->addGlobalVar('RELEASE', $conference->get('release'));
@@ -58,6 +58,11 @@
     // import icalender stuff
     $_SERVER['QUERY_STRING'] = "conference/{$conference->get('conference_id')}";
     require_once('../wwwroot/ics.php');
+    exit;
+  } else if ($OPTIONS[0] == "fahrplan.css") {
+    // output css 
+    header('Content-type: text/css');
+    echo $conference->get('css');
     exit;
   } else if (substr($OPTIONS[0],0,4) == "day_") {
     // conference schedule
@@ -126,7 +131,7 @@
     require_once("css/fahrplan.css");
     exit;
   } else if (isset($OPTIONS[1])) {
-    // redirect for santity
+    // redirect for sanity
     header("Location: $LOCATION");
     exit;
   } else {

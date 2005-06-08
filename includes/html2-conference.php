@@ -36,7 +36,7 @@
   $LOCATION = $BASE_URL.'pentabarf/html2/conference/'.$conference->get('conference_id').'/';
 
   
-  $template->addVar('main', 'CSS_FILE', $conference->get('export_css_file'));
+  $template->addVar('main', 'CSS_FILE', $LOCATION.'fahrplan.css');
   $template->addGlobalVar('LANG', $lang);
   $template->addGlobalVar('ALT_LANG', $lang == 'de' ? 'en' : 'de');
   $template->addGlobalVar('RELEASE', $conference->get('release'));
@@ -55,6 +55,11 @@
 
   if (!isset($OPTIONS[0])) {
     header("Location: $LOCATION");
+    exit;
+  } else if ($OPTIONS[0] == "fahrplan.css") {
+    // output css 
+    header('Content-type: text/css');
+    echo $conference->get('css');
     exit;
   } else if ($OPTIONS[0] == "event") {
     if (isset($OPTIONS[1]) && $OPTIONS[1] == "images" && isset($OPTIONS[2])) {
