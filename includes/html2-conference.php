@@ -56,15 +56,6 @@
   if (!isset($OPTIONS[0])) {
     header("Location: $LOCATION");
     exit;
-  } else if ($OPTIONS[0] == "fahrplan.ics") {
-    // import icalender stuff
-    $_SERVER['QUERY_STRING'] = "conference/{$conference->get('conference_id')}";
-    require_once('../wwwroot/ics.php');
-    exit;
-  } else if (substr($OPTIONS[0],0,4) == "day_") {
-    // conference schedule
-    require_once("html-conference-schedule.php");
-    exit;
   } else if ($OPTIONS[0] == "event") {
     if (isset($OPTIONS[1]) && $OPTIONS[1] == "images" && isset($OPTIONS[2])) {
       require_once("../db/event_image.php");
@@ -128,12 +119,13 @@
     require_once("css/fahrplan.css");
     exit;
   } else if (isset($OPTIONS[1])) {
-    // redirect for santity
+    // redirect for sanity
     header("Location: $LOCATION");
     exit;
   } else {
     $template->addVar('main', 'DOC_NAME', 'index');
     $template->readTemplatesFromFile('html-base.tmpl');
+    $template->setAttribute("ics_file", "visibility", "hidden");
     $template->displayParsedTemplate('main');
   }
 
