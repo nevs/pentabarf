@@ -142,8 +142,9 @@
 
 
 
-
-  $template->addVar('content', 'FEEDBACK_LINK', "{$conference->get('feedback_base_url')}event/{$event->get('event_id')}.html");
+  if ( $conference->get('feedback_base_url') != '' ) {
+    $template->addVar('content', 'FEEDBACK_LINK', "{$conference->get('feedback_base_url')}event/{$event->get('event_id')}.html");
+  }
 
   $language = new Language_Localized;
   if ($event->get('language_id') && $language->select( array('translated_id' => $event->get('language_id'), 'language_id' => $sprache->get('language_id')))) {
