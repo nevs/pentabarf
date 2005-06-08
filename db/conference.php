@@ -55,6 +55,7 @@ class Conference extends Entity
     $this->field['export_css_file']['length'] = 256;
     $this->field['feedback_base_url']['type'] = 'VARCHAR';
     $this->field['feedback_base_url']['length'] = 256;
+    $this->field['css']['type'] = 'TEXT';
     $this->field['conference_id']['primary_key'] = true;
     parent::__construct($select);
   }
