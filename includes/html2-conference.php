@@ -78,7 +78,7 @@
         exit;
       }
     } else {
-      require_once("html-conference-event.php");
+      require_once("html2-conference-event.php");
     }
   } else if (substr($OPTIONS[0],0,6) == "events") {
       // event index
