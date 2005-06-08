@@ -136,7 +136,7 @@ function fold($string)
 
     foreach($persons as $index) {
       $email_public = $persons->get("email_public");
-      $name = $persons->get("name");
+      $name = str_replace("\"", "'", $persons->get("name"));
       echo fold("ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN=\"{$name}\":" . ($email_public ? "mailto:{$email_public}" : "invalid:nomail") . "");
     }
   
