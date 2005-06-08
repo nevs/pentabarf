@@ -35,8 +35,9 @@
 
   $LOCATION = $BASE_URL.'pentabarf/html/conference/'.$conference->get('conference_id').'/';
 
+  $css_prefix = ( isset($OPTIONS[0]) && ( $OPTIONS[0] == 'event' || $OPTIONS[0] == 'speaker' ) ) ? '../' : '';
   
-  $template->addVar('main', 'CSS_FILE', $LOCATION.'fahrplan.css');
+  $template->addVar('main', 'CSS_FILE', $css_prefix.'fahrplan.css');
   $template->addGlobalVar('LANG', $lang);
   $template->addGlobalVar('ALT_LANG', $lang == 'de' ? 'en' : 'de');
   $template->addGlobalVar('RELEASE', $conference->get('release'));
