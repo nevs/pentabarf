@@ -12,10 +12,10 @@ class View_Fahrplan_Event_no_Timetable extends View {
   */
   public function __construct($select = array())
   {
-    $this->table = "event, event_state, conference, room";
+    $this->table = "event LEFT OUTER JOIN room USING (room_id), event_state, conference";
     $this->domain = "event";
     $this->order = "lower(event.title), lower(event.subtitle)";
-    $this->join = "event.event_state_id = event_state.event_state_id AND event_state.tag = 'confirmed' AND event.conference_id = conference.conference_id AND event.room_id = room.room_id";
+    $this->join = "event.event_state_id = event_state.event_state_id AND event_state.tag = 'confirmed' AND event.conference_id = conference.conference_id";
     $this->field['event_id']['type'] = 'SERIAL';
     $this->field['event_id']['table'] = 'event';
     $this->field['conference_id']['type'] = 'INTEGER';
