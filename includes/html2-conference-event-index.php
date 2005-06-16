@@ -70,7 +70,7 @@
       'EVENT_LANGUAGE'    => $language->get_count() ? $language->get('name') : '',
       'EVENT_TRACK'       => $track->get_count() ? $track->get('tag') : '',
       'EVENT_TYPE'        => $event_type->get_count() ? $event_type->get('name') : '',
-      'EVENT_ROOM'        => $room->get('short_name'),
+      'EVENT_ROOM'        => $room->get_count() ? $room->get('short_name') : '',
       'EVENT_IMAGE_URL'   => "event/images/{$event->get('event_id')}.{$extension}" ,
       'FEEDBACK_LINK'     => "{$conference->get('feedback_base_url')}event/{$event->get('event_id')}.html",
       'SPEAKER_URL'       => $speaker_urls,
