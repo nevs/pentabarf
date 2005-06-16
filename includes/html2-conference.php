@@ -82,7 +82,7 @@
     }
   } else if (substr($OPTIONS[0],0,6) == "events") {
       // event index
-      require_once("html-conference-event-index.php");
+      require_once("html2-conference-event-index.php");
       exit;
   } else if ($OPTIONS[0] == "speaker") {
     if (isset($OPTIONS[1]) && $OPTIONS[1] == "images" && isset($OPTIONS[2])) {

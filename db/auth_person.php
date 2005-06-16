@@ -69,7 +69,7 @@ class Auth_Person extends Entity {
             trigger_error("Login not allowed\nUser: ".$_SERVER['PHP_AUTH_USER']);
           }
         } else {
-           trigger_error("Wrong password for user ".$_SERVER['PHP_AUTH_USER']);
+           trigger_error("Wrong password for user ".$_SERVER['PHP_AUTH_USER']."\nIP: {$_SERVER['REMOTE_ADDR']}");
         }
       } else {
          trigger_error("User does not exist: ".$_SERVER['PHP_AUTH_USER']);

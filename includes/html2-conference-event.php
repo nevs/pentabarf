@@ -1,7 +1,7 @@
 <?php
   
   require_once('../db/view_event_person_person_with_role_state.php');
-  require_once('../db/view_fahrplan_event.php');
+  require_once('../db/view_fahrplan_event_no_timetable.php');
   require_once('../db/view_event.php');
   require_once('../db/event_type_localized.php');
   require_once('../db/conference_track.php');
@@ -56,7 +56,7 @@
 
   // Hack for Event Navigation
   
-  $event_nav = new View_Fahrplan_Event;
+  $event_nav = new View_Fahrplan_Event_no_Timetable;
   $event_nav->select(array('conference_id' => $conference->get('conference_id'), 'f_public' => 't'));
 
   // search current event
