@@ -680,6 +680,9 @@ abstract class Entity implements Iterator
           }
           return $wert;
           break;
+        case 'TIME':
+          return $value != "" ? new Date_Span(strtok($value, ".+")) : false;
+          break;
         case 'INTERVAL': case 'TIME':
           return $value != "" ? new Date_Span(strtok($value, ".")) : false;
           break;
