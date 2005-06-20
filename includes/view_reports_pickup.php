@@ -17,6 +17,7 @@
     array_push($result, array("IMAGE_URL"          => get_person_image_url($person),
                               "URL"                => get_person_url($person, "general"),
                               "NAME"               => $person->get('name'),
+                              "TYPE"               => $person->get('type'),
                               "FROM"               => $person->get('from'),
                               "TO"                 => $person->get('to'),
                               "NUMBER"             => $person->get('number'),
