@@ -2,7 +2,7 @@
 
   $template->readTemplatesFromFile("view_reports.tmpl");
   
-  $reports = array("events", "expenses", "zeitplan", "persons");
+  $reports = array("events", "expenses", "zeitplan", "persons", "pickup");
 
   if ($RESOURCE == "") {
     if (isset($preferences['current_report']) && in_array($preferences['current_report'], $reports)) {

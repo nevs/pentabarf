@@ -20,6 +20,7 @@
 
     public function select($days)
     {
+      $this->clear();
       $days = intval($days) > 0 ? intval($days) : 1;
       $sql = 
 "SELECT 'conference' AS type, conference_transaction.conference_id AS id, conference.title AS title, conference_transaction.changed_when, conference_transaction.changed_by, coalesce(p.public_name, coalesce(p.first_name || ' ', '') || p.last_name, p.nickname, p.login_name) AS name , conference_transaction.f_create 
