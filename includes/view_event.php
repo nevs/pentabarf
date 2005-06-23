@@ -215,12 +215,21 @@
   if ($conference->select(array('conference_id' => $event->get('conference_id')))) {
     $time = clone $conference->get('timeslot_duration');
     $limit = $conference->get('max_timeslot_duration') ? $conference->get('max_timeslot_duration') : 10;
+    $done = array();
     for ($i = 0; $i < $limit; $i++) {
+      $done[] = $time->format('%H:%M:%S');
       array_push($duration, 
           array(  'VALUE'     => $time->format('%H:%M:%S'), 
                   'TEXT'      => $time->format('%H:%M'), 
                   'SELECTED'  => $time->equal($event->get('duration'))? "selected='selected'" : ""));
       $time->add($conference->get('timeslot_duration'));
+    }
+    if (!in_array( $event->get('duration')->format('%H:%M:%S'), $done )) {
+      array_push($duration, 
+          array(  'VALUE'     => $event->get('duration')->format('%H:%M:%S'), 
+                  'TEXT'      => $event->get('duration')->format('%H:%M'), 
+                  'SELECTED'  => "selected='selected'" ));
+    
     }
   }
   $template->addRows("duration",$duration);
