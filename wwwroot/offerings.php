@@ -23,7 +23,7 @@
            $persons[] = $person->get('name');
         }
         $line .= implode(', ', $persons).'|';
-        $line .= $events->get('notes');
+        $line .= $events->get('remark');
 
         // remove bad character
         $line = str_replace( array("\r", "\n"), " ", $line );
