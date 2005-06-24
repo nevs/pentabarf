@@ -24,7 +24,7 @@
         $persons[0]['description'] = "";
         foreach( $person as $key ) {
            $persons[$key]['name'] = $person->get('name');
-           $persons[$key]['description'] = $person->get('description');
+           $persons[$key]['description'] = str_replace("|", "/", $person->get('description'));
         }
         $line .= $persons[0]['name'].'|';
         $line .= $persons[0]['description'].'|';
