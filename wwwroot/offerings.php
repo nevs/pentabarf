@@ -13,7 +13,7 @@
   $events = new View_Event;
   $person = new View_Event_Person_Person;
 
-  if ( $events->select(array('conference_id' => 2, 'event_state_ta_tagg' => 'offering' ) ) ) {
+  if ( $events->select(array('conference_id' => 2, 'event_state_tag' => 'offering' ) ) ) {
      foreach( $events as $key ) {
         $line = $events->get('event_id').'|';
         $line .= $events->get('title').'|';
