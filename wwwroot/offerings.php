@@ -37,7 +37,7 @@
         // print additional speaker on new lines
         foreach( $persons as $key => $value ) {
            if ( $key == 0 ) continue;
-           $line = "|||".$value['name']."|".$value['description']."|"
+           $line = "|||".$value['name']."|".$value['description']."|";
            $line = str_replace( array("\r", "\n"), " ", $line );
            echo $line."\r\n";
         }
