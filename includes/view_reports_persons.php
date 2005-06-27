@@ -4,7 +4,7 @@
   require_once("../db/view_fahrplan_arrived_person.php");
 
 
-  $template->addVar("main","CONTENT_TITLE","Reports: Expenses");
+  $template->addVar("main","CONTENT_TITLE","Reports: Persons");
   $template->addVar("main","VIEW_TITLE", "Reports");
 
 
