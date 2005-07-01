@@ -106,6 +106,30 @@ CREATE OR REPLACE FUNCTION event_localized( INTEGER, INTEGER ) RETURNS SETOF eve
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
 
+-- returns all person states of a person 
+CREATE OR REPLACE FUNCTION person_event_role_states(integer, text) RETURNS text AS '
+  DECLARE
+    cur_person_id ALIAS FOR $1;
+    cur_conference_id ALIAS FOR $2;
+    cur_states TEXT;
+    cur_status RECORD;
+    
+  BEGIN
+
+    FOR cur_status IN
+      SELECT event_role_state.tag FROM event_person INNER JOIN event_role_state USING (event_role_state_id) INNER JOIN event USING (event_id) WHERE conference_id = cur_conference_id AND person_id = cur_person_id
+    LOOP
+      IF ( cur_states IS NOT NULL ) THEN
+         cur_states := cur_states || '', ''::text || cur_status.tag;
+      ELSE
+         cur_states := cur_status.tag;
+      END IF;
+    END LOOP;
+
+    RETURN cur_states;
+  END;
+' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+
 -- returns all phone numbers of a specific type 
 CREATE OR REPLACE FUNCTION person_phone_by_type(integer, text) RETURNS text AS '
   DECLARE
