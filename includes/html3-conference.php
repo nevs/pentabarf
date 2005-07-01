@@ -31,7 +31,7 @@
   $template->setBasedir('../templates');
   $template->readTemplatesFromFile('html-main.tmpl');
 
-  $LOCATION = $BASE_URL.'pentabarf/html/conference/'.$conference->get('conference_id').'/';
+  $LOCATION = $BASE_URL.'pentabarf/html3/conference/'.$conference->get('conference_id').'/';
 
   $css_prefix = ( isset($OPTIONS[0]) && ( $OPTIONS[0] == 'event' || $OPTIONS[0] == 'speaker' ) ) ? '../' : '';
   
