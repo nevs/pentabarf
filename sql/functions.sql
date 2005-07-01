@@ -105,3 +105,28 @@ CREATE OR REPLACE FUNCTION event_localized( INTEGER, INTEGER ) RETURNS SETOF eve
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
+
+-- returns all phone numbers of a specific type 
+CREATE OR REPLACE FUNCTION person_phone_by_type(integer, text) RETURNS text AS '
+  DECLARE
+    cur_person_id ALIAS FOR $1;
+    cur_phone_type_tag ALIAS FOR $2;
+    cur_phone_numbers TEXT;
+    cur_phone_number RECORD;
+    
+  BEGIN
+
+    FOR cur_phone_number IN
+      SELECT phone_number FROM person_phone INNER JOIN phone_type USING (phone_type_id) WHERE person_id = cur_person_id AND phone_type.tag = cur_phone_type_tag 
+    LOOP
+      IF ( cur_phone_numbers IS NOT NULL ) THEN
+         cur_phone_numbers := cur_phone_numbers || '', ''::text || cur_phone_number.phone_number;
+      ELSE
+         cur_phone_numbers := cur_phone_number.phone_number;
+      END IF;
+    END LOOP;
+
+    RETURN cur_phone_numbers;
+  END;
+' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+
