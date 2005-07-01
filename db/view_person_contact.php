@@ -41,7 +41,7 @@ class View_Person_Travel extends View
     if ( count( $where ) < 1 || !isset( $where['conference_id'] ) || !( $conference_id = (integer) $where['conference_id'] ) ) {
       return 0;
     }
-    $sql = "SELECT person_id, name, person_event_role_states(person_id,{$conference_id}) AS states, email_contact, person_phone_by_type(view_person.person_id, 'phone') AS telephone, person_phone_by_type(view_person.person_id, 'mobile') AS mobile, person_phone_by_type(view_person.person_id, 'dect') AS dect FROM view_person WHERE EXISTS (SELECT 1 FROM event_person INNER JOIN event USING (event_id) INNER JOIN event_state USING (event_state_id) where person_id = view_person.person_id AND conference_id = {$conference_id} )";
+    $sql = "SELECT person_id, name, person_event_role_states(person_id,{$conference_id}) AS states, email_contact, person_phone_by_type(view_person.person_id, 'phone') AS telephone, person_phone_by_type(view_person.person_id, 'mobile') AS mobile, person_phone_by_type(view_person.person_id, 'dect') AS dect FROM view_person WHERE EXISTS (SELECT 1 FROM event_person INNER JOIN event USING (event_id) INNER JOIN event_state USING (event_state_id) INNER JOIN event_role_state USING (event_role_state_id) where person_id = view_person.person_id AND conference_id = {$conference_id} ) ORDER BY name";
     return $this->real_select($sql);
   }
 }
