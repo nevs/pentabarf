@@ -15,7 +15,7 @@
 
   foreach($person as $value) {
     array_push($result, array("IMAGE_URL"          => get_person_image_url($person),
-                              "URL"                => get_person_url($person, "travel"),
+                              "URL"                => get_person_url($person, "contact"),
                               "NAME"               => $person->get('name'),
                               "E_MAIL"             => $person->get('email_contact'),
                               "TELEPHONE"          => $person->get('telephone'),
