@@ -57,11 +57,11 @@ function fold($string)
   
   echo fold("BEGIN:VCALENDAR");
   echo fold("VERSION:2.0");
-  echo fold("PRODID:-//Pentabarf//Fahrplan 0.3//EN");
+  echo fold("PRODID:-//Pentabarf//Schedule 0.3//EN");
   echo fold("CALSCALE:GREGORIAN");
   echo fold("METHOD:PUBLISH");
-  echo fold("X-WR-CALDESC;VALUE=TEXT:{$conference_acronym} Fahrplan Release {$conference_release}");
-  echo fold("X-WR-CALNAME;VALUE=TEXT:{$conference_acronym} Fahrplan");
+  echo fold("X-WR-CALDESC;VALUE=TEXT:{$conference_acronym} Schedule Release {$conference_release}");
+  echo fold("X-WR-CALNAME;VALUE=TEXT:{$conference_acronym} Schedule");
   echo fold("X-WR-TIMEZONE;VALUE=TEXT:{$conference_timezone}");
 
 
