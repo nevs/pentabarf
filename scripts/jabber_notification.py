@@ -19,8 +19,8 @@ import jabber #TODO: Make sure this is right. Its fine if you put the jabber.py 
 
 #TODO: Set variable for jabber connection
 Server = 'jabber.berlin.ccc.de'
-Username = 'pentabarf'
-Password = 'haase-kellertank'
+Username = ''
+Password = ''
 Resource = 'Subversion'
 
 #TODO: Set list of contacts to spam
