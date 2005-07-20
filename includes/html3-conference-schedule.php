@@ -89,6 +89,12 @@
     
     if (isset($time_table[$event->get("room_id")][$event_slot])) {
       // we've got a conflict
+      echo "<pre>";
+      print_r( $time_table[$event->get('room_id')][$event_slot]);
+      echo "<hr/>";
+      echo "event_id: {$event->get('event_id')}\n title: {$event->get('title')}";
+      echo "</pre>";
+      echo $event->get("event_id");
       throw new Exception('Conflict in Schedule not yet handled');
       $current->conflict = true;
       for ($i = $event_slot; $i >= $first_slot && !($time_table[$event->get("room_id")][$i] instanceof Assignment);$i--);
