@@ -144,7 +144,7 @@
 
   if ( $conference->get('feedback_base_url') != '' ) {
     $template->addVar('content', 'FEEDBACK_LINK', 
-        "{$conference->get('feedback_base_url')}".( substr($conference->get('feedback_base_url'), -1, 1) == '/' ? '': ''/ )."event/{$event->get('event_id')}.html");
+        "{$conference->get('feedback_base_url')}".( substr($conference->get('feedback_base_url'), -1, 1 ) == '/' ? '': '/' )."event/{$event->get('event_id')}.html");
   }
 
   $language = new Language_Localized;
