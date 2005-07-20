@@ -6,7 +6,7 @@ require_once("view.php");
 * Class for accessing, manipulating, creating and deleting records in event_person.
 */
 
-class View_Person_Travel extends View
+class View_Person_Contact extends View
 {
   public function __construct($select = array())
   {

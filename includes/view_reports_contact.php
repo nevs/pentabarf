@@ -8,7 +8,7 @@
   $template->addVar("main","VIEW_TITLE", "Reports");
 
 
-  $person = new View_Person_Travel;
+  $person = new View_Person_Contact;
   $person->select(array('conference_id' => $preferences['conference']));
 
   $result = array();
