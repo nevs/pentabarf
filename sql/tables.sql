@@ -270,6 +270,7 @@ CREATE TABLE conference (
   export_base_url VARCHAR(256),
   export_css_file VARCHAR(256),
   feedback_base_url VARCHAR(256),
+  css TEXT,
   FOREIGN KEY (country_id) REFERENCES country (country_id),
   FOREIGN KEY (time_zone_id) REFERENCES time_zone (time_zone_id),
   FOREIGN KEY (currency_id) REFERENCES currency (currency_id),
