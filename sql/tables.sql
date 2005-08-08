@@ -587,6 +587,22 @@ CREATE TABLE event_type_localized (
   PRIMARY KEY (event_type_id, language_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE event_origin (
+  event_origin_id SERIAL NOT NULL,
+  tag VARCHAR(32) NOT NULL UNIQUE,
+  rank INTEGER,
+  PRIMARY KEY (event_origin_id)
+) WITHOUT OIDS;
+
+CREATE TABLE event_origin_localized (
+  event_origin_id INTEGER NOT NULL,
+  language_id INTEGER NOT NULL,
+  name VARCHAR(64) NOT NULL,
+  FOREIGN KEY (event_origin_id) REFERENCES event_origin (event_origin_id),
+  FOREIGN KEY (language_id) REFERENCES language (language_id),
+  PRIMARY KEY (event_origin_id, language_id)
+) WITHOUT OIDS;
+
 CREATE TABLE team (
   team_id SERIAL NOT NULL,
   tag VARCHAR(32) NOT NULL,
