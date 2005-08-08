@@ -167,9 +167,9 @@
   }
 
   /* add rating fields to template */
-  member_to_template($event_rating, array('documentation', 'quality', 'relevance', 'remark'));
-  $template->addVar("content","DOCUMENTATION_".($event_rating->get('documentation') ? $event_rating->get('documentation') : "0"),"checked='checked'" );
-  $template->addVar("content","QUALITY_".($event_rating->get('quality') ? $event_rating->get('quality') : "0"),"checked='checked'" );
+  member_to_template($event_rating, array('acceptance', 'actuality', 'relevance', 'remark'));
+  $template->addVar("content","ACCEPTANCE_".($event_rating->get('acceptance') ? $event_rating->get('acceptance') : "0"),"checked='checked'" );
+  $template->addVar("content","ACTUALITY_".($event_rating->get('actuality') ? $event_rating->get('actuality') : "0"),"checked='checked'" );
   $template->addVar("content","RELEVANCE_".($event_rating->get('relevance') ? $event_rating->get('relevance') : "0"),"checked='checked'" );
   $template->addVar("content","RATING_REMARK", $event_rating->get('remark'));
  
@@ -238,8 +238,8 @@
   
   // calculate rating summary
   $event_rating->select(array('event_id' => $event->get('event_id')));
-  rating_summary("DOCUMENTATION", $event_rating, "documentation");
-  rating_summary("QUALITY", $event_rating, "quality");
+  rating_summary("ACCEPTANCE", $event_rating, "acceptance");
+  rating_summary("ACTUALITY", $event_rating, "actuality");
   rating_summary("RELEVANCE", $event_rating, "relevance");
 
   $event_feedback = new Event_Rating_Public;
