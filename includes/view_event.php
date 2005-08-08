@@ -7,6 +7,7 @@
   require_once('../db/event_type_localized.php');
   require_once('../db/event_role.php');
   require_once('../db/view_person.php');
+  require_once('../db/event_origin_localized.php');
   require_once('../db/event_state_localized.php');
   require_once('../db/team.php');
   require_once('../db/view_watchlist_event.php');
@@ -298,6 +299,11 @@
     $template->addRows("attachments", $attachments);
   }
   
+
+  // get event_origins
+  $event_origin = new Event_Origin_Localized;
+  $event_origin->select(array('language_id' => $preferences['language']));
+  fill_select("event_origin", $event_origin, "event_origin_id", "name", $event->get('event_origin_id'), FALSE);
 
   // get event_states
   $event_state = new Event_State_Localized;

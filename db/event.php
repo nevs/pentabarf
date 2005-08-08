@@ -29,6 +29,8 @@ class Event extends Entity
     $this->field['team_id']['type'] = 'INTEGER';
     $this->field['event_type_id']['type'] = 'INTEGER';
     $this->field['duration']['type'] = 'INTERVAL';
+    $this->field['event_origin_id']['type'] = 'INTEGER';
+    $this->field['event_origin_id']['not_null'] = true;
     $this->field['event_state_id']['type'] = 'INTEGER';
     $this->field['event_state_id']['not_null'] = true;
     $this->field['language_id']['type'] = 'INTEGER';
