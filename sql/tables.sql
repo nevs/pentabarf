@@ -413,6 +413,18 @@ CREATE TABLE person (
   PRIMARY KEY (person_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE person_conference (
+  person_conference_id SERIAL NOT NULL,
+  person_id INTEGER NOT NULL,
+  conference_id INTEGER NOT NULL,
+  abstract TEXT,
+  description TEXT,
+  email_public VARCHAR(64),
+  FOREIGN KEY (person_id) REFERENCES person (person_id),
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
+  PRIMARY KEY (person_conference_id)
+) WITHOUT OIDS;
+
 CREATE TABLE person_link (
   person_link_id SERIAL NOT NULL,
   person_id INTEGER NOT NULL,
