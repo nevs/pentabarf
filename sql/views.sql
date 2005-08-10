@@ -149,4 +149,16 @@ WHERE event_state_tag = 'confirmed' AND
 CREATE OR REPLACE VIEW view_find_conference AS
 SELECT conference.conference_id, conference.acronym, conference.title, conference.subtitle, start_date, days, venue, city FROM conference;
 
+CREATE OR REPLACE VIEW view_find_event AS
+SELECT event.event_id, event.title, event.subtitle FROM event;
+
+CREATE OR REPLACE VIEW view_conference_image AS
+SELECT conference_image.conference_id, conference_image.mime_type_id, mime_type.mime_type, conference_image.image FROM conference_image INNER JOIN mime_type USING (mime_type_id);
+
+CREATE OR REPLACE VIEW view_event_image AS
+SELECT event_image.event_id, event_image.mime_type_id, mime_type.mime_type, event_image.image FROM event_image INNER JOIN mime_type USING (mime_type_id);
+
+CREATE OR REPLACE VIEW view_person_image AS
+SELECT person_image.person_id, person_image.mime_type_id, mime_type.mime_type, person_image.image FROM person_image INNER JOIN mime_type USING (mime_type_id);
+
 
