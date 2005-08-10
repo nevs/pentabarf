@@ -146,4 +146,7 @@ WHERE event_state_tag = 'confirmed' AND
                            ( event_role.tag = 'moderator' AND event_role_state.tag = 'confirmed' ) ) )
 ;
 
+CREATE OR REPLACE VIEW view_find_conference AS
+SELECT conference.conference_id, conference.acronym, conference.title, conference.subtitle, start_date, days, venue, city FROM conference;
+
 
