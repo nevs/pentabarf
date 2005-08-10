@@ -140,8 +140,8 @@
   $event_rating = new Event_Rating;
   $event_rating->create();
   // calculate rating summary
-  rating_summary("DOCUMENTATION", $event_rating, "documentation");
-  rating_summary("QUALITY", $event_rating, "quality");
+  rating_summary("ACCEPTANCE", $event_rating, "acceptance");
+  rating_summary("ACTUALITY", $event_rating, "actuality");
   rating_summary("RELEVANCE", $event_rating, "relevance");
 
 
