@@ -160,7 +160,7 @@ SELECT conference.conference_id,
        mime_type.file_extension
   FROM conference 
   LEFT OUTER JOIN conference_image USING (conference_id)
-  INNER JOIN mime_type USING (mime_type_id);
+  LEFT OUTER JOIN mime_type USING (mime_type_id);
 
 CREATE OR REPLACE VIEW view_find_event AS
 SELECT event.event_id, event.title, event.subtitle FROM event;
