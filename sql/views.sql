@@ -186,6 +186,18 @@ SELECT event.event_id,
   INNER JOIN view_room ON (view_event_state.language_id = view_room.language_id AND event.room_id = view_room.room_id)
 ;
 
+CREATE OR REPLACE VIEW view_find_person AS
+SELECT view_person.person_id,
+       view_person.name,
+       person_image.mime_type_id,
+       mime_type.mime_type,
+       mime_type.file_extension
+  FROM view_person
+  LEFT OUTER JOIN person_image USING (person_id)
+  LEFT OUTER JOIN mime_type USING (mime_type_id)
+;
+
+
 CREATE OR REPLACE VIEW view_conference_image AS
 SELECT conference_image.conference_id, conference_image.mime_type_id, mime_type.mime_type, conference_image.image FROM conference_image INNER JOIN mime_type USING (mime_type_id);
 
