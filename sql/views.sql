@@ -180,11 +180,11 @@ SELECT event.event_id,
        view_room.tag AS room_tag,
        view_room.name AS room
   FROM event
-  LEFT OUTER JOIN event_image USING (event_id)
-  LEFT OUTER JOIN mime_type USING (mime_type_id)
   INNER JOIN conference USING (conference_id)
   INNER JOIN view_event_state USING (event_state_id)
-  INNER JOIN view_room ON (view_event_state.language_id = view_room.language_id AND event.room_id = view_room.room_id)
+  LEFT OUTER JOIN event_image USING (event_id)
+  LEFT OUTER JOIN mime_type USING (mime_type_id)
+  LEFT OUTER JOIN view_room ON (view_event_state.language_id = view_room.language_id AND event.room_id = view_room.room_id)
 ;
 
 CREATE OR REPLACE VIEW view_find_person AS
