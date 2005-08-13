@@ -164,6 +164,7 @@ SELECT conference.conference_id,
 
 CREATE OR REPLACE VIEW view_find_event AS
 SELECT event.event_id, 
+       event.conference_id,
        event.title, 
        event.subtitle,
        event.event_state_id,
