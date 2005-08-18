@@ -49,22 +49,21 @@
   $event->write(TRANSACTION);
   
   $rating = new Event_Rating;
-  if (($rating->select(array('person_id' => $event->get_auth_person_id(),'event_id' => $event->get('event_id')))) == 1 ) {
-    if ($event->get('event_id') != $rating->get('event_id')) {
-      // new record
-      $rating->create();
-      $rating->set('event_id', $event->get('event_id'));
-      $rating->set('person_id', $event->get_auth_person_id());
-    }
-    foreach($rating->get_field_names() as $value) {
-      if ($value == 'event_id' || $value == 'person_id' || $value == 'remark') continue;
-      if (isset($_POST[$value])) {
-        $rating->set($value, $_POST[$value]);
-      }
-    }
-    $rating->set('remark', $_POST['rating_remark']);
-    $rating->write(TRANSACTION);
+  $rating->select(array('person_id' => $event->get_auth_person_id(),'event_id' => $event->get('event_id')));
+  if ($rating->get_count() == 0) {
+    // new record
+    $rating->create();
+    $rating->set('event_id', $event->get('event_id'));
+    $rating->set('person_id', $event->get_auth_person_id());
   }
+  foreach($rating->get_field_names() as $value) {
+    if ($value == 'event_id' || $value == 'person_id' || $value == 'remark') continue;
+    if (isset($_POST[$value])) {
+      $rating->set($value, $_POST[$value]);
+    }
+  }
+  $rating->set('remark', $_POST['rating_remark']);
+  $rating->write(TRANSACTION);
 
   $event_person = new Event_Person;
   if (isset($_POST['event_person']) && is_array($_POST['event_person'])) {
