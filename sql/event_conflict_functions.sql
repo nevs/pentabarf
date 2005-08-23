@@ -73,7 +73,7 @@ CREATE OR REPLACE FUNCTION conflict_event_no_speaker(integer) RETURNS SETOF even
       WHERE tag = ''confirmed'' AND event_role_id = cur_event_role_moderator;
 -- Loop through all events
     FOR cur_event IN
-      SELECT event.* FROM event
+      SELECT event_id , conference_id , tag , title , subtitle , conference_track_id , team_id , event_type_id , duration , event_state_id , language_id , room_id , day , start_time , abstract , description , resources , f_public , f_paper , f_slides , f_conflict , f_deleted , remark , event_origin_id , f_unmoderated FROM event
         WHERE event.conference_id = cur_conference_id AND
               event.event_state_id = cur_event_state_confirmed AND
               event.f_public = TRUE
