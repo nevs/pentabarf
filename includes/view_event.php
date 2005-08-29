@@ -74,7 +74,7 @@
   $template->addVar( "content", "IMAGE_URL", get_event_image_url($event, "64x64", false));
   
   // get conflicts for this event
-  
+/* 
   $reasons = array();
   $conflict = new Conflict_Event_Time;
   $conflict->select(array('conference_id' => $event->get('conference_id')), array('event_id1' => $event->get('event_id')));
@@ -105,7 +105,7 @@
                        'REASON' => $conflict->get('name').' spricht nicht die Sprache dieser Veranstaltung.');
   }
   $template->addRows('conflicts', $reasons);
-  
+*/
 
 
   // is the event watched  
