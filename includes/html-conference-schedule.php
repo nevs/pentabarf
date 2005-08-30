@@ -4,6 +4,7 @@
   require_once("../db/view_event_person_person.php");
   require_once("../db/view_fahrplan_person.php");
   require_once("../db/view_person.php");
+  require_once("../db/view_ui_message.php");
   require_once("../db/event_type_localized.php");
   require_once("../db/conference_track.php");
 
@@ -11,8 +12,15 @@
 
   $day = (integer) substr($OPTIONS[0],4,1);
   $lang = substr($OPTIONS[0],6,2);
+
+  $ui_message = new View_UI_Message;
+
  
-  $template->addVar('main', 'TITLE', "{$conference->get("acronym")}: Schedule Day {$day}");
+  $ui_message->select( array( 'tag' => 'schedule', 'language_id' => $sprache->get('language_id')));
+  $title = "{$conference->get("acronym")}: {$ui_message->get('name')}";
+  $ui_message->select( array( 'tag' => 'day', 'language_id' => $sprache->get('language_id')));
+  $title .= "{$ui_message->get('name')} {$day}";
+  $template->addVar('main', 'TITLE', $title);
   $template->addVar('main', 'DOC_NAME', "day_{$day}");
 
   $template->addVar('content', 'DAY', "{$day}");
