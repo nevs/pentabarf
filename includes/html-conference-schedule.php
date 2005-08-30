@@ -11,7 +11,6 @@
   $template->readTemplatesFromFile("html-schedule.tmpl");
 
   $day = (integer) substr($OPTIONS[0],4,1);
-  $lang = substr($OPTIONS[0],6,2);
 
   $ui_message = new View_UI_Message;
 
@@ -183,7 +182,7 @@
       }
       $schedule[$index]['ROWSPAN'][$value] = $current->slots;
       $schedule[$index]['EVENT_ID'][$value] = $current->event_id;
-      $schedule[$index]['EVENT_URL'][$value] = "event/{$current->event_id}.$lang.html";
+      $schedule[$index]['EVENT_URL'][$value] = "event/{$current->event_id}.html.{$lang}";
       $schedule[$index]['EVENT_TITLE'][$value] = $current->title;
       $schedule[$index]['EVENT_SUBTITLE'][$value] = $current->subtitle;
       $schedule[$index]['EVENT_TYPE'][$value] = $current->type;
@@ -195,7 +194,7 @@
       $schedule[$index]['SPEAKER_NAME'][$value] = array();
       foreach($current->speaker as $key => $name) {
         if (!is_object($name)) continue;
-        $schedule[$index]['SPEAKER_URL'][$value][$key] = "speaker/{$name->person_id}.$lang.html";
+        $schedule[$index]['SPEAKER_URL'][$value][$key] = "speaker/{$name->person_id}.html.{$lang}";
         $schedule[$index]['SPEAKER_NAME'][$value][$key] = $name->name;
       }
     }

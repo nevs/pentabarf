@@ -52,7 +52,7 @@
   }
   
   if($person_nav->get_prev('person_id')) {
-    $template->addVar('content', 'NAV_PREV_URL', $person_nav->get_prev('person_id').'.'.$lang.'.html');
+    $template->addVar('content', 'NAV_PREV_URL', $person_nav->get_prev('person_id').'.html.'.$lang);
     $template->addVar('content', 'NAV_PREV_TITLE', $person_nav->get_prev('name'));
   }
 

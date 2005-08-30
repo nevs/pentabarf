@@ -65,7 +65,7 @@
   }
   
   if($event_nav->get_prev('event_id')) {
-    $template->addVar('content', 'NAV_PREV_URL', $event_nav->get_prev('event_id').'.'.$lang.'.html');
+    $template->addVar('content', 'NAV_PREV_URL', $event_nav->get_prev('event_id').'.html.'.$lang);
     $template->addVar('content', 'NAV_PREV_TITLE', $event_nav->get_prev('title'));
   }
 
@@ -73,7 +73,7 @@
   $template->addVar('content', 'NAV_TOTAL_NUMBER', $event_nav->get_count());
 
   if($event_nav->get_next('event_id')) {
-    $template->addVar('content', 'NAV_NEXT_URL', $event_nav->get_next('event_id').'.'.$lang.'.html');
+    $template->addVar('content', 'NAV_NEXT_URL', $event_nav->get_next('event_id').'.html.'.$lang);
     $template->addVar('content', 'NAV_NEXT_TITLE', $event_nav->get_next('title'));
   }
 
@@ -106,7 +106,7 @@
     }
 
     array_push($speakers, array(
-      'SPEAKER_URL'        => "../speaker/{$event_speaker->get('person_id')}.$lang.html",
+      'SPEAKER_URL'        => "../speaker/{$event_speaker->get('person_id')}.html.{$lang}",
       'SPEAKER_IMAGE_URL'  => "../speaker/images/{$event_speaker->get('person_id')}.{$extension}",
       'SPEAKER_NAME'       => $event_speaker->get('name'))
     );
@@ -133,7 +133,7 @@
     }
 
     array_push($moderators, array(
-      'MODERATOR_URL'        => "../speaker/{$event_moderator->get('person_id')}.$lang.html",
+      'MODERATOR_URL'        => "../speaker/{$event_moderator->get('person_id')}.html.{$lang}",
       'MODERATOR_IMAGE_URL'  => "../speaker/images/{$event_moderator->get('person_id')}.{$extension}",
       'MODERATOR_NAME'       => $event_moderator->get('name'))
     );

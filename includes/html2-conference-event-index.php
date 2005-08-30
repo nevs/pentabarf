@@ -41,7 +41,7 @@
     $speaker_urls = array();
     $speaker_names = array();
     foreach($event_speaker as $value) {
-      array_push($speaker_urls, "speaker/{$event_speaker->get('person_id')}.$lang.html");
+      array_push($speaker_urls, "speaker/{$event_speaker->get('person_id')}.html.{$lang}");
       array_push($speaker_names, $event_speaker->get('name'));
     }
 
@@ -64,7 +64,7 @@
 
     array_push($events, array(
       'EVENT_ID'          => $event->get('event_id'),
-      'EVENT_URL'         => "event/{$event->get('event_id')}.{$lang}.html",
+      'EVENT_URL'         => "event/{$event->get('event_id')}.html.{$lang}",
       'EVENT_TITLE'       => $event->get('title'),
       'EVENT_SUBTITLE'    => $event->get('subtitle'),
       'EVENT_LANGUAGE'    => $language->get_count() ? $language->get('name') : '',

@@ -42,12 +42,12 @@
     $event_title = array();
     foreach($event as $value) {
       array_push($event_title, $event->get('title'));
-      array_push($event_urls, "event/{$event->get('event_id')}.$lang.html");
+      array_push($event_urls, "event/{$event->get('event_id')}.html.{$lang}");
     }
 
     array_push($speaker, array(
       'SPEAKER_IMAGE_URL' => "speaker/images/{$person->get('person_id')}.{$extension}", 
-      'SPEAKER_URL'       => "speaker/{$person->get('person_id')}.$lang.html",
+      'SPEAKER_URL'       => "speaker/{$person->get('person_id')}.html.{$lang}",
       'SPEAKER_NAME'      => $person->get('name'),
       'EVENT_URL'         => $event_urls,
       'EVENT_TITLE'       => $event_title

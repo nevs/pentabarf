@@ -95,7 +95,7 @@
 
     array_push($events, array(
       'EVENT_ID'          => $event_person->get('event_id'),
-      'EVENT_URL'         => "../event/{$event_person->get('event_id')}.$lang.html",
+      'EVENT_URL'         => "../event/{$event_person->get('event_id')}.html.{$lang}",
       'EVENT_IMAGE_URL'   => "../event/images/{$event_person->get('event_id')}.$extension",
       'EVENT_TITLE'       => $event_person->get('title'),
       'EVENT_SUBTITLE'       => $event_person->get('subtitle')

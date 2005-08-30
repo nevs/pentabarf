@@ -21,7 +21,7 @@
   require_once('../patError/patErrorManager.php');
   require_once('../patTemplate/patTemplate.php');
 
-  $lang = strstr($_SERVER['QUERY_STRING'], '.de.') ? 'de' : 'en';
+  $lang = strstr($_SERVER['QUERY_STRING'], '.de') ? 'de' : 'en';
 
   $sprache = new Language;
   $sprache->select(array('tag' => $lang));

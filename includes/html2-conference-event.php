@@ -65,7 +65,7 @@
   }
   
   if($event_nav->get_prev('event_id')) {
-    $template->addVar('content', 'NAV_PREV_URL', $event_nav->get_prev('event_id').'.'.$lang.'.html');
+    $template->addVar('content', 'NAV_PREV_URL', $event_nav->get_prev('event_id').'.html'.$lang);
     $template->addVar('content', 'NAV_PREV_TITLE', $event_nav->get_prev('title'));
   }
 
