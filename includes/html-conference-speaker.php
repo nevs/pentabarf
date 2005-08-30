@@ -53,7 +53,7 @@
   }
   
   if($person_nav->get_prev('person_id')) {
-    $template->addVar('content', 'NAV_PREV_URL', $person_nav->get_prev('person_id').'.'.$lang.'.html');
+    $template->addVar('content', 'NAV_PREV_URL', $person_nav->get_prev('person_id').'.html.'.$lang);
     $template->addVar('content', 'NAV_PREV_TITLE', $person_nav->get_prev('name'));
   }
 
@@ -61,7 +61,7 @@
   $template->addVar('content', 'NAV_TOTAL_NUMBER', $person_nav->get_count());
 
   if($person_nav->get_next('person_id')) {
-    $template->addVar('content', 'NAV_NEXT_URL', $person_nav->get_next('person_id').'.'.$lang.'.html');
+    $template->addVar('content', 'NAV_NEXT_URL', $person_nav->get_next('person_id').'.html.'.$lang);
     $template->addVar('content', 'NAV_NEXT_TITLE', $person_nav->get_next('name'));
   }
 
