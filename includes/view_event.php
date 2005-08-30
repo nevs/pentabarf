@@ -446,6 +446,7 @@
   }
   $template->addRows('related-list', $related_events);
 
+/*
   // get list of related events with matching keywords
   $related = new Related_Event_Keyword();
   $related->select(array('event_id'    => $event->get('event_id')));
@@ -489,7 +490,7 @@
   }
   $template->addRows('related-keyword-list', $related_events);
 
-/*
+
   // get list of related events with identical speaker
   $related = new Related_Event_Speaker();
   $related->select(array('event_id' => $event->get('event_id')));
