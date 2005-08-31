@@ -13,6 +13,12 @@ CREATE TYPE conflict_event_person AS (
   person_id INTEGER
 );
 
+CREATE TYPE conflict_event_person_event AS (
+  event_id1 INTEGER,
+  event_id2 INTEGER,
+  person_id INTEGER
+);
+
 CREATE TYPE conflict_event AS (
   event_id  INTEGER
 );
