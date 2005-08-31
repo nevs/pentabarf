@@ -201,6 +201,18 @@
 
   }
 
+  if( $day > 1 ) {
+    $template->addVar('content', 'NAV_PREV_URL', "day_".($day - 1).".html.{$lang}");
+  }
+
+  $template->addVar('content', 'NAV_CURRENT_NUMBER', $day);
+  $template->addVar('content', 'NAV_TOTAL_NUMBER', $conference->get('days'));
+
+  if( $day < $conference->get('days')) {
+    $template->addVar('content', 'NAV_NEXT_URL', "day_".($day + 1).".html.{$lang}");
+  }
+
+
   $template->addRows('schedule', $schedule);
   $template->displayParsedTemplate('main');
 

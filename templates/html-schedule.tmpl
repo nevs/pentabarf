@@ -47,4 +47,14 @@
     </tbody>
   </table>
   </div>
+
+  <div id="navigation">
+<patTemplate:tmpl varscope="content" type="simplecondition" requiredvars="NAV_PREV_URL">
+    <a href="{NAV_PREV_URL}"><span class="previous" title="{NAV_PREV_TITLE}">&lt;&lt;&lt;</span></a>
+</patTemplate:tmpl>
+<patTemplate:tmpl varscope="content" type="simplecondition" requiredvars="NAV_NEXT_URL">
+    <a href="{NAV_NEXT_URL}"><span class="next" title="{NAV_NEXT_TITLE}">&gt;&gt;&gt;</span></a>
+</patTemplate:tmpl>
+  </div>
+
 </patTemplate:tmpl>
