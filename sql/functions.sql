@@ -21,7 +21,7 @@ CREATE OR REPLACE FUNCTION get_permissions(INTEGER) RETURNS SETOF TEXT AS '
 
 
 -- returns all person states of a person 
-CREATE OR REPLACE FUNCTION person_event_role_states(integer, text) RETURNS text AS '
+CREATE OR REPLACE FUNCTION person_event_role_states(integer, integer) RETURNS text AS '
   DECLARE
     cur_person_id ALIAS FOR $1;
     cur_conference_id ALIAS FOR $2;
