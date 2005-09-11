@@ -1,11 +1,11 @@
 
-var conference_track_counter = 0;
+var room_counter = 0;
 
 function add_room(room_id, short_name, f_public, size, remark, rank)
 {
   var table_row;
-  var row_id = conference_track_counter;
-  conference_track_counter++;
+  var row_id = room_counter;
+  room_counter++;
 
   document.getElementById('room_table').style.display = "block";
   table_row = document.createElement("tr");
