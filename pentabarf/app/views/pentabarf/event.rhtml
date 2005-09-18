@@ -1,4 +1,4 @@
-<%= javascript_include_tag('add_functions') %>
+<%= javascript_include_tag('add_functions', 'tainted') %>
 <div id="object-image">
   <%= image_tag('icon-event-64x64.png', { :class => 'object-image' } ) %>
 </div>
@@ -403,5 +403,5 @@
   </div>
 
   <%= end_form_tag() %>
-  <%= javascript_tag("new Form.EventObserver('event_form', function(element, value ) { Element.show('buttons') } )") %>
+  <%= javascript_tag("new Form.EventObserver('event_form', function(element, value ) { enable_save_button() } )") %>
 </div>

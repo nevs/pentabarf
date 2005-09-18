@@ -1,5 +1,5 @@
 <%= javascript_include_tag( '/javascripts/jscalendar/calendar.js', '/javascripts/jscalendar/calendar-setup.js', '/javascripts/jscalendar/lang/calendar-en.js' ) %>
-<%= javascript_include_tag('add_functions') %>
+<%= javascript_include_tag('add_functions', 'tainted') %>
 <div id="object-image">
   <%= image_tag('icon-person-64x64.png', { :class => 'object-image' } ) %>
 </div>
@@ -636,9 +636,9 @@
   </div>
 
   <div id="buttons" style="display: none;">
-    <%= javascript_tag("new Form.EventObserver('person_form', function(element, value ) { Element.show('buttons') } )") %>
     <%= submit_tag("Save", {:id => 'save-button'}) %>
   </div>
 
   <%= end_form_tag() %>
+  <%= javascript_tag("new Form.EventObserver('event_form', function(element, value ) { enable_save_button() } )") %>
 </div>
