@@ -1,0 +1,97 @@
+<%= javascript_include_tag('search') %>
+<div id="data">
+
+  <div id="content-simple" class="content_tab">
+    <fieldset>
+      <legend>Find</legend>
+      <%= text_field_tag( :find_event, @params[:id], :size => 40 ) %>
+      <label id="search-indicator" style="display: none;">Searching ...</label>
+      <%= observe_field( :find_event, 
+                         :frequency => 1, 
+                         :update => :results, 
+                         :url => { :action => :search_event},
+                         :loading => "Element.show('search-indicator')",
+                         :complete => "Element.hide('search-indicator')" ) 
+      %>
+    </fieldset>
+  </div>
+  
+  <div id="content-advanced" class="content_tab">
+    <fieldset>
+      <legend>Find</legend>
+        <%= start_form_tag( {:action => :search_event_advanced}, {:id => 'find_event_advanced'} ) %>
+          <div id="search_elements">
+          </div>
+        <%= end_form_tag() %>
+      <label id="search-indicator-advanced" style="display: none;">Searching ...</label>
+    </fieldset>
+    <script type="text/javascript">
+      var criteria = new Array();
+      criteria[0] = new Array();
+      criteria[0]['name'] = 'Title';
+      criteria[0]['value'] = 's_title';
+      criteria[0]['type'] = 'text';
+      criteria[1] = new Array();
+      criteria[1]['name'] = 'Sprache';
+      criteria[1]['value'] = 'language_id';
+      criteria[1]['type'] = 'keyword';
+      criteria[2] = new Array();
+      criteria[2]['name'] = 'Origin';
+      criteria[2]['value'] = 'event_origin_id';
+      criteria[2]['type'] = 'keyword';
+      criteria[3] = new Array();
+      criteria[3]['name'] = 'Event State';
+      criteria[3]['value'] = 'event_state_id';
+      criteria[3]['type'] = 'keyword';
+      criteria[4] = new Array();
+      criteria[4]['name'] = 'Track';
+      criteria[4]['value'] = 'conference_track_id';
+      criteria[4]['type'] = 'keyword';
+
+      var valuelists = new Array();
+      valuelists[1] = new Array();
+      <% for language in Momomoto::View_language.find({:language_id => @current_language_id, :f_visible => 't'}) %>
+        valuelists[1][<%= language.translated_id %>] = '<%= escape_javascript(language.name) %>';
+      <% end %>
+      valuelists[2] = new Array();
+      <% for origin in Momomoto::View_event_origin.find({:language_id => @current_language_id}) %>
+        valuelists[2][<%= origin.event_origin_id %>] = '<%= escape_javascript(origin.name) %>';
+      <% end %>
+      valuelists[3] = new Array();
+      <% for state in Momomoto::View_event_state.find({:language_id => @current_language_id}) %>
+        valuelists[3][<%= state.event_state_id %>] = '<%= escape_javascript(state.name) %>';
+      <% end %>
+      valuelists[4] = new Array();
+      <% for track in Momomoto::View_conference_track.find({:language_id => @current_language_id, :conference_id => @current_conference_id}) %>
+        valuelists[4][<%= track.conference_track_id %>] = '<%= escape_javascript(track.name) %>';
+      <% end %>
+    </script>
+    <%= javascript_tag("search_criteria_add('search_elements', 0)") %>
+        <%= observe_form( :find_event_advanced, 
+                           :frequency => 1, 
+                           :update => :results, 
+                           :url => { :action => :search_event_advanced},
+                           :loading => "Element.show('search-indicator-advanced')",
+                           :complete => "Element.hide('search-indicator-advanced')" ) 
+        %>
+  </div>
+
+  <fieldset>
+    <table>
+      <thead>
+        <tr>
+          <th />
+          <th>Title / Subtitle</th>
+          <th>Status</th>
+          <th>Room</th>
+          <th>Day</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody id="results">
+        <%= render(:partial => 'search_event') %>
+      </tbody>
+    </table>
+  </fieldset>
+
+</div>

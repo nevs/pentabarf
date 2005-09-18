@@ -305,6 +305,7 @@ CREATE TABLE conference_image (
   conference_id INTEGER NOT NULL,
   mime_type_id INTEGER NOT NULL,
   image BYTEA NOT NULL,
+  last_changed TIMESTAMP NOT NULL DEFAULT 'now()',
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
   FOREIGN KEY (mime_type_id) REFERENCES mime_type (mime_type_id),
   PRIMARY KEY (conference_id)
@@ -408,6 +409,7 @@ CREATE TABLE person (
   preferences TEXT,
   f_conflict BOOL NOT NULL DEFAULT FALSE,
   f_deleted BOOL NOT NULL DEFAULT FALSE,
+  f_spam BOOL NOT NULL DEFAULT FALSE,
   last_login TIMESTAMP WITH TIME ZONE,
   FOREIGN KEY (country_id) REFERENCES country (country_id),
   PRIMARY KEY (person_id)
@@ -553,6 +555,7 @@ CREATE TABLE person_image (
   mime_type_id INTEGER NOT NULL,
   f_public BOOL NOT NULL DEFAULT FALSE,
   image BYTEA NOT NULL,
+  last_changed TIMESTAMP NOT NULL DEFAULT 'now()',
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   FOREIGN KEY (mime_type_id) REFERENCES mime_type (mime_type_id),
   PRIMARY KEY (person_id)
@@ -706,6 +709,7 @@ CREATE TABLE event_image (
   event_id INTEGER NOT NULL,
   mime_type_id INTEGER NOT NULL,
   image BYTEA NOT NULL,
+  last_changed TIMESTAMP NOT NULL DEFAULT 'now()',
   FOREIGN KEY (event_id) REFERENCES event (event_id),
   FOREIGN KEY (mime_type_id) REFERENCES mime_type (mime_type_id),
   PRIMARY KEY (event_id)

@@ -1,0 +1,31 @@
+<div id="data">
+  <fieldset>
+    <legend>Find</legend>
+    <%= text_field_tag( :find_conference, @params[:id], :size => 40 ) %>
+    <label id="search-indicator" style="display: none;">Searching ...</label>
+    <%= observe_field( :find_conference, 
+                     :frequency => 1, 
+                     :update => :results, 
+                     :url => { :action => :search_conference },
+                     :loading => "Element.show('search-indicator')",
+                     :complete => "Element.hide('search-indicator')" ) 
+    %>
+  </fieldset>
+  
+  <fieldset>
+    <table>
+      <thead>
+        <tr>
+          <th />
+          <th>Acronym</th>
+          <th>Title</th>
+          <th>Subtitle</th>
+        </tr>
+      </thead>
+      <tbody id="results">
+        <%= render(:partial => 'search_conference') %>
+      </tbody>
+    </table>
+  </fieldset>
+
+</div>

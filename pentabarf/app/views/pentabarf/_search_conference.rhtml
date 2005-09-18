@@ -1,0 +1,20 @@
+<% for conference in @conferences %>
+  <tr>
+    <td>
+      <% if conference.mime_type_id %>
+        <%= link_to( image_tag("/images/conference/#{conference.conference_id.to_s + '.' + conference.file_extension.to_s}", {:size => "32x32"} ), :action => 'conference', :id => conference.conference_id ) %>
+      <% else %>
+        <%= link_to( image_tag( "icon-conference-32x32.png", {:size => "32x32"} ), :action => 'conference', :id => conference.conference_id ) %>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to( h(conference.acronym), :action => 'conference', :id => conference.conference_id ) %>
+    </td>
+    <td>
+      <%= link_to( h(conference.title), :action => 'conference', :id => conference.conference_id ) %>
+    </td>
+    <td>
+      <%= link_to( h(conference.subtitle), :action => 'conference', :id => conference.conference_id ) %>
+    </td>
+  </tr>
+<% end %>

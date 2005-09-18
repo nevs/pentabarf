@@ -1,0 +1,640 @@
+<%= javascript_include_tag( '/javascripts/jscalendar/calendar.js', '/javascripts/jscalendar/calendar-setup.js', '/javascripts/jscalendar/lang/calendar-en.js' ) %>
+<%= javascript_include_tag('add_functions') %>
+<div id="object-image">
+  <%= image_tag('icon-person-64x64.png', { :class => 'object-image' } ) %>
+</div>
+<div id="data">
+  <%= start_form_tag({:action => :save_person, :id => params[:id]}, {:multipart => true, :id =>:person_form}) %>
+  <%= hidden_field_tag('person_id', @person.person_id ) %>
+  <% transaction = Momomoto::Person_transaction.find( {:person_id => @person.person_id} ) %>
+  <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
+  <div id="comment">
+    <%= image_tag("/images/person/#{params[:id]}-128x128", {:size => '128x128', :style => 'float: right;'} ) %>
+    <fieldset>
+      <legend>Notes</legend>
+      <table>
+        <tr>
+          <td><%= text_area_tag('person[remark]', @person.remark, {:rows => 5, :cols => 60}) %></td>
+        </tr>
+      </table>
+    </fieldset>
+  </div>
+
+  <div id="content-general" class="content_tab">
+    <fieldset>
+      <legend>Names</legend>
+      <table>
+        <tr>
+          <td><label>First Name</label></td>
+          <td><%= text_field_tag('person[first_name]', @person.first_name, { :tabindex => 0 }) %></td>
+        <tr>
+        <tr>
+          <td><label>Last Name</label></td>
+          <td><%= text_field_tag('person[last_name]', @person.last_name, { :tabindex => 0 }) %></td>
+        </tr>
+        <tr>
+          <td><label>Nickname</label></td>
+          <td><%= text_field_tag('person[nickname]', @person.nickname, { :tabindex => 0 }) %></td>
+        </tr>
+        <tr>
+          <td><label>Public Name</label></td>
+          <td><%= text_field_tag('person[public_name]', @person.public_name, { :tabindex => 0 }) %></td>
+        </tr>
+        <tr>
+          <td><label>Title</label></td>
+          <td><%= text_field_tag('person[title]', @person.title, { :tabindex => 0 }) %></td>
+        </tr>
+        <tr>
+          <td><label for="f_arrived">Arrived</label></td>
+          <td><%= check_box_tag('person_travel[f_arrived]', 't', @person_travel.f_arrived == 't' ? true : false, {:tabindex => 0} ) %></td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Properties</legend>
+      <table>
+        <tr>
+          <td><label>Gender</label></td>
+          <td><%= select('person', 'gender', {'male' => 't', 'female' => 'f'}, {:include_blank => true}) %></td>
+        </tr>
+        <tr>
+          <td><label>Foto</label> (square)</td>
+          <td>
+            <input type="file" name="image" /><br />
+            <%= check_box_tag('person_image[f_public]', 't', false, {:tabindex => 0}) %>
+            <label for="image_public">public</label><br />
+            <%= check_box_tag('person_image[delete]', 't', false, {:tabindex => 0}) %>
+            <label for="person_image[delete]">delete picture</label>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+  </div>
+
+  <div id="content-events" class="content_tab">
+      <fieldset>
+        <legend>Events</legend>
+        <table id="person_event_table" class="hidden">
+          <thead>
+            <tr>
+              <th/>
+              <th>Event</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Comment</th>
+              <th>remove</th>
+            </tr>
+          </thead>
+          <tbody id="person_event_table_body">
+          </tbody>
+        </table>
+        <script type="text/javascript">
+          var event_names = new Array();
+          <% for event in Momomoto::Event.find({:conference_id => @current_conference_id}) %>
+            event_names[<%= event.event_id %>] = '<%= escape_javascript(event.title[0..40]) %>';
+          <% end %>
+          var event_roles = new Array();
+          var event_role_states = new Array();
+          <% for event_role in Momomoto::View_event_role.find({:language_id => @current_language_id}) %>
+            event_roles[<%= event_role.event_role_id %>] = '<%= escape_javascript(event_role.name) %>';
+            event_role_states[<%= event_role.event_role_id %>] = new Array();
+          <% end %>
+          <% for event_role_state in Momomoto::View_event_role_state.find({:language_id => @current_language_id}) %>
+            event_role_states[<%= event_role_state.event_role_id %>][<%= event_role_state.event_role_state_id %>] = '<%= escape_javascript(event_role_state.name) %>';
+          <% end %>
+
+          <% for event in Momomoto::View_event_person.find({:conference_id => @current_conference_id, :person_id => @person.person_id, :language_id => @current_language_id}) %>
+            add_person_event(<%= event.event_person_id %>, <%= event.event_id %>, <%= event.event_role_id %>, '<%= event.event_role_state_id %>', '<%= escape_javascript(event.remark) %>');
+          <% end %>
+          
+        </script>
+        <button type="button" name="add_person_event" value="Add Events" title="Add a new event to list of events" tabindex="0" onClick="window.add_person_event();">Add Event</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Other Conference</legend>
+        <% events = Momomoto::View_event_person.new 
+           events.order= 'conference_id'
+           events.select({:person_id => @person.person_id, :language_id => @current_language_id, :event_role_state => true})
+        %>
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Event State</th>
+              <th>Role</th>
+              <th>Role State</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for event in events %>
+            <% next if event.conference_id == @current_conference_id %>
+            <tr>
+              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.title) %><br/><%= h(event.subtitle) %></a></td>
+              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.event_state) %></a></td>
+              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.event_role) %></a></td>
+              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.event_role_state) %></a></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </fieldset>
+
+  </div>
+
+  <div id="content-contact" class="content_tab">
+
+    <fieldset>
+      <legend>E-Mail</legend>
+      <table>
+        <tr>
+          <td><label><%= mail_to(h(@person.email_contact), 'Contact E-Mail', {:title => "Send message to contact e-mail address"}) %></label></td>
+          <td><%= text_field_tag( 'person[email_contact]', @person.email_contact, {:size => 40, :tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label><%= mail_to(h(@person.email_public), 'Public E-Mail', {:title => "Send message to public e-mail address"}) %></label></td>
+          <td><%= text_field_tag( 'person[email_public]', @person.email_public, {:size => 40, :tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Include in Mailings</label>
+          <td><%= check_box_tag('person[f_spam]', 't', @person.f_spam == 't' ? true : false, {:tabindex => 0}) %></td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Instant Messaging</legend>
+      <table id="im_table" class="hidden">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Type</th>
+            <th>Address</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+       <tbody id="im_table_body">
+        </tbody>
+      </table>
+      <script type="text/javascript">
+        var im_type = new Array();
+        var im_scheme = new Array();
+        <% for im_type in Momomoto::View_im_type.find({:language_id => @current_language_id}) %>
+          im_type[<%= im_type.im_type_id %>] = '<%= escape_javascript(im_type.name) %>';
+          im_scheme[<%= im_type.im_type_id %>] = '<%= escape_javascript(im_type.scheme) %>';
+        <% end %>
+        <% for person_im in Momomoto::Person_im.find( {:person_id => @person.person_id} ) %>
+          add_person_im(<%= person_im.person_im_id %>,<%= person_im.im_type_id %>, '<%= escape_javascript(person_im.im_address) %>');
+        <% end %>
+      </script>
+      <button type="button" name="add_person_im" value="Add IM Contact" title="Add a new IM contact to list" tabindex="0" onClick="window.add_person_im()">Add IM Address</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Telephone</legend>
+      <table id="telephone_table" class="hidden">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Type</th>
+            <th>Number</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="telephone_table_body">
+        </tbody>
+      </table>
+      <script type="text/javascript">
+        var phone_type = new Array();
+        var phone_scheme = new Array();
+      <% for phone_type in Momomoto::View_phone_type.find( {:language_id => @current_language_id} ) %>
+        phone_type[<%= phone_type.phone_type_id %>] = '<%= escape_javascript(phone_type.name) %>';
+        phone_scheme[<%= phone_type.phone_type_id %>] = '<%= escape_javascript(phone_type.scheme) %>';
+      <% end %>
+      <% for person_phone in Momomoto::Person_phone.find( {:person_id => @person.person_id} ) %>
+        add_person_phone(<%= person_phone.person_phone_id %>,<%= person_phone.phone_type_id %>,'<%= escape_javascript(person_phone.phone_number) %>');
+      <% end %>
+      </script>
+      <button type="button" name="add_person_phone" value="Add Telephone Number" title="Add a new phone number to list of numbers" tabindex="0" onClick="window.add_person_phone();">Add Number</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Address</legend>
+      <table>
+        <colgroup>
+          <col class="label" />
+          <col class="input" />
+        </colgroup>
+        <tr>
+          <td><label>Address</label></td>
+          <td><%= text_field_tag('person[address]', @person.address, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Street</label></td>
+          <td><%= text_field_tag('person[street]', @person.street, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Street Postcode</label></td>
+          <td><%= text_field_tag('person[street_postcode]', @person.street_postcode, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>PO Box</label></td>
+          <td><%= text_field_tag('person[po_box]', @person.po_box, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>PO Box Postcode</label></td>
+          <td><%= text_field_tag('person[po_box_postcode]', @person.po_box_postcode, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>City</label></td>
+          <td><%= text_field_tag('person[city]', @person.city, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Country</label></td>
+          <td><%= select_tag('person[country_id]', Momomoto::View_country.find(:language_id => @current_language_id), :country_id, :name, @person.country_id) %></td>
+        </tr>
+      </table>
+    </fieldset>
+  </div>
+
+  <div id="content-description" class="content_tab">
+    <fieldset>
+      <legend>Abstract</legend>
+      <%= text_area_tag('person[abstract]', @person.abstract, {:cols => 70, :rows => 3,:tabindex => 0}) %>
+    </fieldset>
+    <fieldset>
+      <legend>Description</legend>
+      <%= text_area_tag('person[description]', @person.description, {:cols => 70, :rows => 23, :tabindex => 0} ) %>
+    </fieldset>
+  </div>
+
+  <div id="content-links" class="content_tab">
+      
+    <fieldset>
+      <legend>Public Links</legend>
+      <table id="public_link_table" class="hidden">
+        <thead>
+          <tr>
+            <th />
+            <th>Link Type</th>
+            <th>URL</th>
+            <th>Title</th>
+            <th>Comment</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="public_link_table_body">
+        </tbody>
+      </table>
+      <button type="button" name="add_public_link" value="Add Public Links" title="Add a new public link to list of links" tabindex="0" onClick="window.add_link('public');">Add Public Link</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Internal Links</legend>
+      <table id="internal_link_table" class="hidden">
+        <thead>
+          <tr>
+            <th />
+            <th>Link Type</th>
+            <th>URL</th>
+            <th>Title</th>
+            <th>Comment</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="internal_link_table_body">
+        </tbody>
+      </table>
+      <button type="button" name="add_internal_link" value="Add Internal Links" title="Add a new internal link to list of links" tabindex="0" onClick="window.add_link('internal');">Add Internal Link</button>
+    </fieldset>
+    <script type="text/javascript">
+      var internal_link_types = new Array();
+      var public_link_types = new Array();
+      <% for link_type in Momomoto::View_link_type.find(:language_id => @current_language_id) %>
+        <%= link_type.f_public != 't' ? 'internal_link_types' : 'public_link_types' -%>[<%= link_type.link_type_id %>]= '<%= link_type.name %>';
+      <% end %>
+      <% for person_link in Momomoto::View_person_link.find( {:person_id => @person.person_id, :language_id => @current_language_id} ) %>
+        add_link(<%= person_link.f_public == 't' ? "'public'" : "'internal'" %>, <%= person_link.person_link_id  %>,<%= person_link.link_type_id %>, '<%= escape_javascript(person_link.url) %>', '<%= escape_javascript(person_link.title)%>', '<%= escape_javascript(person_link.description) %>');
+      <% end %>
+    </script>
+
+  </div>
+
+  <div id="content-rating" class="content_tab">
+    <fieldset>
+      <legend>My Rating</legend>
+      <table class="rating">
+        <colgroup>
+          <col class="label" />
+          <col class="ratings" span="5" />
+          <col class="comment" />
+          <col class="no-rating" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th class="pre">--</th>
+            <th class="pre">-</th>
+            <th class="pre">o</th>
+            <th class="pre">+</th>
+            <th class="pre">++</th>
+            <th>No Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><label>Speaker Quality</label></td>
+            <td><%= radio_button('rating[speaker_quality]', '1', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[speaker_quality]', '2', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[speaker_quality]', '3', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[speaker_quality]', '4', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[speaker_quality]', '5', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[speaker_quality]', '0', @rating.speaker_quality, {:tabindex => 0}) %></td>
+          </tr>
+          <tr>
+            <td><label>Speaker Competence</label></td>
+            <td><%= radio_button('rating[competence]', '1', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[competence]', '2', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[competence]', '3', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[competence]', '4', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[competence]', '5', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[competence]', '0', @rating.competence, {:tabindex => 0}) %></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+
+    <fieldset>
+    <legend>My Opinion</legend>
+      <%= text_area_tag('rating[remark]', @rating.remark, {:tabindex => 0, :rows => 3, :cols => 60}) %>
+    </fieldset>
+
+    <fieldset>
+      <legend>Summary</legend>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th colspan="2">Rating</th>
+            <th>Total Votes</th>
+          <tr>
+        <thead>
+        <% ratings = Momomoto::Person_rating.find({:person_id => @person.person_id}) %>
+        <tbody>
+          <tr>
+            <td><label>Quality</label></td>
+            <%= rating_bar( ratings, :speaker_quality ) %>
+          </tr>
+          <tr>
+            <td><label>Competence</label></td>
+            <%= rating_bar( ratings, :competence) %>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+        <tr>
+          <th colspan="2">Person</th>
+          <th>Opinion</th>
+          <th>Timestamp</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for rating in Momomoto::View_person_rating.find({:person_id => @person.person_id, :remark => true}) %>
+        <tr>
+          <td><a href="<%= url_for({:action => :person, :id => rating.evaluator_id}) %>" title="<%= h(rating.name) %>"><img src="<%= url_for({:controller => 'images', :action => :person, :id => rating.evaluator_id}) %>" class="small" alt="" /></a></td>
+          <td><a href="<%= url_for({:action => :person, :id => rating.evaluator_id}) %>" title="<%= h(rating.name) %>"><%= h(rating.name) %></a></td>
+          <td><%= h(rating.remark) %></td>
+          <td><%= h(rating.eval_time.gsub(/\..*/, '')) %></td>
+        </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </fieldset>
+
+  </div>
+
+  <div id="content-travel" class="content_tab">
+    <fieldset>
+      <legend>Travel</legend>
+
+      <table>
+        <tr>
+          <td>
+            <table>
+              <tr>
+                <th colspan="2">Arrival</th>
+              </tr>
+              <tr>
+                <td><label>From</label></td>
+                <td><%= text_field_tag('person_travel[arrival_from]', @person_travel.arrival_from, {:tabindex => 0} ) %></td>
+              </tr>
+              <tr>
+                <td><label>To</label></td>
+                <td><%= text_field_tag('person_travel[arrival_to]', @person_travel.arrival_to, {:tabindex => 0} ) %></td>
+              </tr>
+              <tr>
+                <td><label>Date</label></td>
+                <td>
+                  <%= text_field_tag('person_travel[arrival_date]', @person_travel.arrival_date, {:id => :arrival_date,:tabindex => 0,:size => 10}) %>
+                  <button type="button" id="calendar_arrival_date">...</button>
+                  <script type="text/javascript">
+                    Calendar.setup({
+                      inputField   :  "arrival_date",
+                      ifFormat     :  "%Y-%m-%d",
+                      button       :  "calendar_arrival_date",
+                      showOthers   :  true,
+                      singleClick  :  false
+                    });
+                  </script>
+                </td>
+              </tr>
+              <tr>
+                <td><label>Time</label></td>
+                <td><%= text_field_tag('person_travel[arrival_time]', @person_travel.arrival_time, {:tabindex => 0}) %></td>
+              </tr>
+              <tr>
+                <td><label>Number</label></td>
+                <td><%= text_field_tag('person_travel[arrival_number]', @person_travel.arrival_number, {:tabindex => 0}) %></td>
+              </tr>
+              <tr>
+                <td><label>Transport type</label></td>
+                <td><%= select_tag('person_travel[arrival_transport_id]', Momomoto::View_transport.find(:language_id => @current_language_id), :transport_id, :name, @person_travel.arrival_transport_id, {:tabindex => 0} ) %></td>
+              </tr>
+              <tr>
+                <td><label>Pickup</label></td>
+                <td><%= check_box_tag('person_travel[f_arrival_pickup]', 't', @person_travel.f_arrival_pickup == 't' ? true : false, {:tabindex => 0} )%></td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table>
+              <tr>
+                <th colspan="2">Departure</th>
+              </tr>
+              <tr>
+                <td><label>From</label></td>
+                <td><%= text_field_tag('person_travel[departure_from]', @person_travel.departure_from, {:tabindex => 0}) %></td>
+              </tr>
+              <tr>
+                <td><label>To</label></td>
+                <td><%= text_field_tag('person_travel[departure_to]', @person_travel.departure_to, {:tabindex => 0}) %></td>
+              </tr>
+              <tr>
+                <td><label>Date</label></td>
+                <td>
+                  <%= text_field_tag('person_travel[departure_date]', @person_travel.departure_date, {:tabindex => 0,:size => 0}) %>
+                  <button type="button" id="calendar_departure_date">...</button>
+                  <script type="text/javascript">
+                    Calendar.setup({
+                      inputField   :  "departure_date",
+                      ifFormat     :  "%Y-%m-%d",
+                      button       :  "calendar_departure_date",
+                      showOthers   :  true,
+                      singleClick  :  false
+                    });
+                  </script>
+                </td>
+              </tr>
+              <tr>
+                <td><label>Time</label></td>
+                <td><%= text_field_tag('person_travel[departure_time]', @person_travel.departure_time, {:tabindex => 0}) %></td>
+              </tr>
+              <tr>
+                <td><label>Number</label></td>
+                <td><%= text_field_tag('person_travel[departure_number]', @person_travel.departure_number, {:tabindex => 0}) %></td>
+              </tr>
+              <tr>
+                <td><label>Transport type</label></td>
+                <td><%= select_tag('person_travel[departure_transport_id]', Momomoto::View_transport.find( {:language_id => @current_language_id} ), :transport_id, :name, @person_travel.departure_transport_id, {:tabindex => 0}) %></td>
+              </tr>
+              <tr>
+                <td><label>Pickup</label></td>
+                <td><%= check_box_tag('person_travel[f_departure_pickup]', 't', @person_travel.f_departure_pickup == 't' ? true : false, {:tabindex => 0})%></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Total travel Costs:</label></td>
+          <td><%= text_field_tag('person_travel[travel_cost]', @person_travel.travel_cost, {:size => 10, :tabindex => 0}) %>
+              <%= select_tag('person_travel[travel_currency_id]', Momomoto::View_currency.find( {:language_id => @current_language_id} ), :currency_id, :name, @person_travel.travel_currency_id, {:tabindex => 0}, false) %>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Fee:</label></td>
+          <td><%= text_field_tag('person_travel[fee]', @person_travel.fee, {:tabindex => 0, :size => 10} ) %>
+              <%= select_tag('person_travel[fee_currency_id]', Momomoto::View_currency.find( {:language_id => @current_language_id} ), :currency_id, :name, @person_travel.fee_currency_id, {:tabindex => 0}, false ) %>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Accommodation</legend>
+      <table>
+        <tr>
+          <td><label>Place / Name</label></td>
+          <td><%= text_field_tag('person_travel[accommodation_name]', @person_travel.accommodation_name, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Phone</label></td>
+          <td><%= text_field_tag('person_travel[accommodation_phone]', @person_travel.accommodation_phone, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Phone Room</label></td>
+          <td><%= text_field_tag('person_travel[accommodation_phone_room]', @person_travel.accommodation_phone_room, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Street</label></td>
+          <td><%= text_field_tag('person_travel[accommodation_street]', @person_travel.accommodation_street, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Postcode</label></td>
+          <td><%= text_field_tag('person_travel[accommodation_postcode]', @person_travel.accommodation_postcode, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>City</label></td>
+          <td><%= text_field_tag('person_travel[accommodation_city]', @person_travel.accommodation_city, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Total accommodation cost</label></td>
+          <td><%= text_field_tag('person_travel[accommodation_cost]', @person_travel.accommodation_cost, {:tabindex => 0}) %>
+              <%= select_tag('person_travel[accommodation_currency_id]', Momomoto::View_currency.find( {:language_id => @current_language_id} ), :currency_id, :name, @person_travel.accommodation_currency_id, {:tabindex => 0}, false ) %>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Bank Account</legend>
+      <table>
+        <tr>
+          <td><label>IBAN</label></td>
+          <td><%= text_field_tag('person[iban]', @person.iban, {:tabindex => 0, :size => 60}) %></td>
+        </tr>
+        <tr>
+          <td><label>BIC</label></td>
+          <td><%= text_field_tag('person[bic]', @person.bic, {:tabindex => 0, :size => 12}) %></td>
+        </tr>
+        <tr>
+          <td><label>Bank name</label></td>
+          <td><%= text_field_tag('person[bank_name]', @person.bank_name, {:tabindex => 0, :size => 60}) %></td>
+        </tr>
+        <tr>
+          <td><label>Account Owner</label></td>
+          <td><%= text_field_tag('person[account_owner]', @person.account_owner, {:tabindex => 0, :size => 60}) %></td>
+        </tr>
+      </table>
+    </fieldset>
+
+  </div>
+
+  <div id="content-account" class="content_tab">
+    <fieldset>
+      <legend>Account</legend>
+      <table>
+        <tr>
+          <td><label>Login Name</label></td>
+          <td><%= text_field_tag('person[login_name]', @person.login_name, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Password</label></td>
+          <td><%= password_field_tag('person[password]', nil, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Repeat Password</label></td>
+          <td><%= password_field_tag('password', nil, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Last activity</label></td>
+          <td><%= h(@person.last_login) %></td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Roles</legend>
+      <table>
+        <% person_role = Momomoto::Person_role.new %>
+        <% for role in Momomoto::View_role.find({:language_id => @current_language_id}) %>
+        <tr>
+          <td><label for="<%= h(role.tag) %>"><%= h(role.name) %></label></td>
+          <td><%= check_box_tag("person_role[#{role.role_id}]", '1', person_role.select({:person_id => @person.person_id, :role_id => role.role_id}) == 1 ? true : false , {:tabindex => 0}) %></td>
+        </tr>
+        <% end %>
+      </table>
+    </fieldset>
+
+  </div>
+
+  <div id="buttons" style="display: none;">
+    <%= javascript_tag("new Form.EventObserver('person_form', function(element, value ) { Element.show('buttons') } )") %>
+    <%= submit_tag("Save", {:id => 'save-button'}) %>
+  </div>
+
+  <%= end_form_tag() %>
+</div>

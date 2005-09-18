@@ -1,0 +1,407 @@
+<%= javascript_include_tag('add_functions') %>
+<div id="object-image">
+  <%= image_tag('icon-event-64x64.png', { :class => 'object-image' } ) %>
+</div>
+<div id="data">
+  <%= start_form_tag({:action => :save_event, :id => params[:id]}, {:multipart => true, :id => :event_form}) %>
+  <%= hidden_field_tag('event_id', @event.event_id ) %>
+  <% transaction = Momomoto::Event_transaction.find( {:event_id => @event.event_id} ) %>
+  <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
+  
+  <div id="buttons" style="display: none;">
+    <%= submit_tag("Save", {:id => 'save-button'}) %>
+  </div>
+
+  <div id="comment">
+    <%= image_tag("/images/event/#{params[:id]}-128x128", {:size => "128x128", :style => "float: right;"} ) %>
+    <fieldset>
+      <legend>Notes</legend>
+      <table>
+        <tr>
+          <td><%= text_area_tag('event[remark]', @event.remark, {:rows => 5, :cols => 60}) %></td>
+        </tr>
+      </table>
+    </fieldset>
+  </div>
+
+  <div id="content-persons" class="content_tab">
+    <fieldset>
+      <legend>Event Persons</legend>
+      <table id="persons_table" class="hidden">
+        <thead>
+          <tr>
+            <th colspan="2">Person</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Comment</th>
+            <th>Remove?</th>
+          </tr>
+        </thead>
+        <tbody id="person_table_body">
+        </tbody>
+      </table>
+      <script type="text/javascript">
+        var person_names = new Array();
+        <% for person in Momomoto::View_person.find() %>
+          person_names[<%= person.person_id %>] = '<%= escape_javascript(person.name)%>';
+        <% end %>
+
+        var event_roles = new Array();
+        var event_role_states = new Array();
+        <% for event_role in Momomoto::View_event_role.find({:language_id => @current_language_id}) %>
+          event_roles[<%= event_role.event_role_id %>] = '<%= escape_javascript(event_role.name) %>';
+          event_role_states[<%= event_role.event_role_id %>] = new Array();
+        <% end %>
+        <% for event_role_state in Momomoto::View_event_role_state.find({:language_id => @current_language_id}) %>
+          event_role_states[<%= event_role_state.event_role_id %>][<%= event_role_state.event_role_state_id %>] = '<%= escape_javascript(event_role_state.name) %>';
+        <% end %>
+        <% for person in Momomoto::View_event_person.find({:event_id => @event.event_id, :language_id => @current_language_id}) %>
+          add_event_person(<%= person.event_person_id %>, <%= person.person_id %>, <%= person.event_role_id %>, '<%= person.event_role_state_id %>', '<%= escape_javascript(person.remark) %>');
+        <% end %>
+      </script>
+      <button type="button" name="add_event_persons" value="Add Persons" title="Add a new person to list of persons" tabindex="0" onClick="window.add_event_person();">Add Person</button>
+    </fieldset>
+  </div>
+
+
+  <div id="content-general" class="content_tab">
+    <fieldset>
+      <legend>General</legend>
+      <table>
+        <tr>
+          <td><label>Title</label></td>
+          <td><%= text_field_tag('event[title]', @event.title, {:size => 60, :tabindex => 0} ) %></td>
+        </tr>
+        <tr>
+          <td><label>Subtitle</label></td>
+          <td><%= text_field_tag('event[subtitle]', @event.subtitle, {:size => 60, :tabindex => 0} ) %></td>
+        </tr>
+        <tr>
+          <td><label>Tag</label></td>
+          <td><%= text_field_tag('event[tag]', @event.tag, {:size => 32, :tabindex => 0} ) %></td>
+        </tr>
+        <tr>
+          <td><label>Event Origin</label></td>
+          <td><%= select_tag( 'event[event_origin_id]', Momomoto::View_event_origin.find({:language_id => @current_language_id}), "event_origin_id", "name", @event.event_origin_id, { :tabindex => 0}, false ) %></td>
+        </tr>
+        <tr>
+          <td><label>Event State</label></td>
+          <td><%= select_tag( 'event[event_state_id]', Momomoto::View_event_state.find({:language_id => @current_language_id}), "event_state_id", "name", @event.event_state_id, { :tabindex => 0 }, false ) %></td>
+        </tr>
+        <tr>
+          <td><label>Team</label></td>
+          <td><%= select_tag( 'event[team_id]', Momomoto::View_team.find({:language_id => @current_language_id, :conference_id => @event.conference_id}), "team_id", "name", @event.team_id, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label for="f_public">Public Event?</label></td>
+          <td><%= check_box_tag( 'event[f_public]', 't', @event.f_public == 't' ? true : false, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label for="f_paper">Paper expected?</label></td>
+          <td><%= check_box_tag( 'event[f_paper]', 't', @event.f_paper == 't' ? true : false, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label for="f_slides">Slides expected?</label></td>
+          <td><%= check_box_tag( 'event[f_slides]', 't', @event.f_slides == 't' ? true : false, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Language</label></td>
+          <td><%= select_tag( 'event[language_id]', Momomoto::View_language.find({:language_id => @current_language_id,:f_visible => 't'}), :translated_id, :name, @event.language_id, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Track</label></td>
+          <td><%= select_tag( 'event[conference_track_id]', Momomoto::View_conference_track.find({:language_id => @current_language_id, :conference_id => @event.conference_id}), "conference_track_id", "name", @event.conference_track_id, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Event Type</label></td>
+          <td><%= select_tag( 'event[event_type_id]', Momomoto::View_event_type.find({:language_id => @current_language_id}), "event_type_id", "name", @event.event_type_id, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Conference</label></td>
+          <td><%= select_tag( 'event[conference_id]', Momomoto::Conference.find(), "conference_id", "acronym", @event.conference_id, { :tabindex => 0 } ) %></td>
+        </tr>
+      </table>
+    </fieldset>
+    
+    <fieldset>
+      <legend>Fahrplan</legend>
+      <table>
+        <tr>
+          <td><label>Day</label></td>
+          <td><%= select_tag( 'event[day]', 1..@conference.days, "to_i", "to_i", @event.day, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Start Time</label></td>
+          <% key = Time.parse("00:00:00")
+             current = Time.parse(@conference.day_change)
+             diff = Time.parse(@conference.timeslot_duration)
+             offset = diff.hour * 3600 + diff.min * 60 + diff.sec
+             start_times = []
+             passed = 0
+             while passed < (24*60*60)
+               start_times.push( { :key => key.strftime("%H:%M:%S"), :value => current.strftime("%H:%M")})
+               passed += offset
+               current += offset
+               key += offset
+             end
+          %>
+          <td><%= select_tag( 'event[start_time]', start_times, :key, :value, @event.start_time, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Duration</label></td>
+          <%  diff = Time.parse(@conference.timeslot_duration)
+              slot = diff.hour * 3600 + diff.min * 60 + diff.sec
+              durations = []
+              for i in 1..@conference.max_timeslot_duration
+                durations.push( { :key => diff.strftime("%H:%M:%S"), :value => diff.strftime("%H:%M")})
+                diff += slot
+              end
+          %>
+          <td><%= select_tag( 'event[duration]', durations, :key, :value, @event.duration, { :tabindex => 0 }, false ) %></td>
+        </tr>
+        <tr>
+          <td><label>Room</label></td>
+          <td><%= select_tag( 'event[room_id]', Momomoto::View_room.find({:language_id => @current_language_id, :conference_id => @event.conference_id}), :room_id, :name, @event.room_id, { :tabindex => 0 } ) %></td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>Logo</legend>
+      (square)
+      <input type="file" name="image" /><br />
+      <input id="image_delete" type="checkbox" name="image_delete" value="1" tabindex="0" />
+      <label for="image_delete">delete picture</label>
+    </fieldset>
+
+  </div>
+
+  <div id="content-description" class="content_tab">
+    <fieldset>
+      <legend>Abstract</legend>
+      <%= text_area_tag('event[abstract]', @event.abstract, {:tabindex => 0,:rows => 5, :cols => 60}) %>
+    </fieldset>
+
+    <fieldset>
+      <legend>Long Description</legend>
+      <%= text_area_tag('event[description]', @event.description, {:tabindex => 0,:rows => 30, :cols => 60}) %>
+    </fieldset>
+
+
+    <fieldset>
+      <legend>Attachments</legend>
+      <table id="attachment_table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Type</th>
+            <th>public</th>
+            <th>Filename</th>
+            <th>Title</th>
+            <th>MIME Type</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for attachment in [] %>
+          <tr>
+            <td><a href="{URL}">Download ( <%= attachment.file_size %> )</a></td>
+            <td><%= select_tag("event_attachment[#{attachment.attachment_id}][attachment_type_id]", [], :attachment_type_id, :name, attachment.attachment_type_id, {:tabindex => 0}, false ) %></td>
+            <td><%= check_box_tag("event_attachment[#{attachment.attachment_id}][f_public]", 't', attachment.f_public == 't' ? true : false, {:tabindex => 0}) %></td>
+            <td><%= text_field_tag("event_attachment[#{attachment.attachment_id}][filename]", attachment.filename, {:tabindex => 0}) %></td>
+            <td><%= text_field_tag("event_attachment[#{attachment.attachment_id}][title]", attachment.title, {:tabindex => 0}) %></td>
+            <td><%= h( attachment.mime_type) %></td>
+            <td><%= check_box_tag("event_attachment[#{attachment.attachment_id}][delete]", 't', false, {:tabindex => 0}) %>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </patTemplate:tmpl>
+      <table id="attachment_upload_table" class="hidden">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>public</th>
+            <th>Title</th>
+            <th>Path</th>
+          </tr>
+        </thead>
+        <tbody id="attachment_upload_table_body">
+        </tbody>
+      </table>
+      <button type="button" name="add_attachments" value="Add Attachments" title="Add a new attachment to list of attachments" tabindex="0" onClick="window.add_attachment();">Add Attachment</button>
+    </fieldset>
+
+  </div>
+
+  <div id="content-links" class="content_tab">
+      
+    <fieldset>
+      <legend>Public Links</legend>
+      <table id="public_link_table" class="hidden">
+        <thead>
+          <tr>
+            <th />
+            <th>Link Type</th>
+            <th>URL</th>
+            <th>Title</th>
+            <th>Comment</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="public_link_table_body">
+        </tbody>
+      </table>
+      <button type="button" name="add_public_link" value="Add Public Links" title="Add a new public link to list of links" tabindex="0" onClick="window.add_link('public');">Add Public Link</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Internal Links</legend>
+      <table id="internal_link_table" class="hidden">
+        <thead>
+          <tr>
+            <th />
+            <th>Link Type</th>
+            <th>URL</th>
+            <th>Title</th>
+            <th>Comment</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="internal_link_table_body">
+        </tbody>
+      </table>
+      <button type="button" name="add_internal_link" value="Add Internal Links" title="Add a new internal link to list of links" tabindex="0" onClick="window.add_link('internal');">Add Internal Link</button>
+    </fieldset>
+    <script type="text/javascript">
+      var internal_link_types = new Array();
+      var public_link_types = new Array();
+      <% for link_type in Momomoto::View_link_type.find(:language_id => @current_language_id) %>
+        <%= link_type.f_public != 't' ? 'internal_link_types' : 'public_link_types' -%>[<%= link_type.link_type_id %>]= '<%= link_type.name %>';
+      <% end %>
+      <% for event_link in Momomoto::View_event_link.find( {:event_id => @event.event_id, :language_id => @current_language_id} ) %>
+        add_link(<%= event_link.f_public == 't' ? "'public'" : "'internal'" %>, <%= event_link.event_link_id  %>,<%= event_link.link_type_id %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title)%>', '<%= escape_javascript(event_link.description) %>');
+      <% end %>
+    </script>
+
+  </div>
+
+  <div id="content-rating" class="content_tab">
+    <fieldset>
+      <legend>My Rating</legend>
+      <table class="rating">
+        <colgroup>
+          <col class="label" />
+          <col class="ratings" span="5" />
+          <col class="comment" />
+          <col class="no-rating" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th class="pre">--</th>
+            <th class="pre">-</th>
+            <th class="pre">o</th>
+            <th class="pre">+</th>
+            <th class="pre">++</th>
+            <th>No Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><label>Relevance</label></td>
+            <td><%= radio_button('rating[relevance]', '1', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[relevance]', '2', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[relevance]', '3', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[relevance]', '4', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[relevance]', '5', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[relevance]', '0', @rating.relevance, {:tabindex => 0}) %></td>
+          </tr>
+          <tr>
+            <td><label>Actuality</label></td>
+            <td><%= radio_button('rating[actuality]', '1', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[actuality]', '2', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[actuality]', '3', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[actuality]', '4', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[actuality]', '5', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[actuality]', '0', @rating.actuality, {:tabindex => 0}) %></td>
+          </tr>
+          <tr>
+            <td><label>Acceptance</label></td>
+            <td><%= radio_button('rating[acceptance]', '1', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[acceptance]', '2', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[acceptance]', '3', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[acceptance]', '4', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[acceptance]', '5', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button('rating[acceptance]', '0', @rating.acceptance, {:tabindex => 0}) %></td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+
+    <fieldset>
+    <legend>My Opinion</legend>
+      <%= text_area_tag('rating[remark]', @rating.remark, {:tabindex => 0, :rows => 3, :cols => 60}) %>
+    </fieldset>
+
+    <fieldset>
+    <legend>Summary</legend>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th colspan="2">Rating</th>
+            <th>Total Votes</th>
+          </tr>
+        </thead>
+        <% ratings = Momomoto::Event_rating.find({:event_id => @event.event_id}) %>
+        <tbody>
+          <tr>
+            <td><label>Relevance</label></td>
+            <%= rating_bar( ratings, :relevance) %>
+          </tr>
+          <tr>
+            <td><label>Actuality</label></td>
+            <%= rating_bar( ratings, :actuality) %>
+          </tr>
+          <tr>
+            <td><label>Acceptance</label></td>
+            <%= rating_bar( ratings, :acceptance) %>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead>
+        <tr>
+          <th colspan="2">Person</th>
+          <th>Opinion</th>
+          <th>Timestamp</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for rating in Momomoto::View_event_rating.find({:event_id => @event.event_id, :remark => true}) %>
+        <tr>
+          <td><a href="<%= url_for({:action => :person, :id => rating.person_id}) %>" title="<%= h(rating.name) %>"><img src="<%= url_for({:controller => 'images', :action => :person, :id => rating.person_id}) %>" class="small" alt="" /></a></td>
+          <td><a href="<%= url_for({:action => :person, :id => rating.person_id}) %>" title="<%= h(rating.name) %>"><%= h(rating.name) %></a></td>
+          <td><%= h(rating.remark) %></td>
+          <td><%= h(rating.eval_time.gsub(/\..*/, '')) %></td>
+        </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </fieldset>
+
+  </div>
+
+  <div id="content-resources" class="content_tab">
+    <fieldset>
+      <legend>Resources</legend>
+      <%= text_area_tag('event[resources]', @event.resources, {:tabindex => 0, :rows => 15, :cols => 60}) %>
+    </fieldset>
+  </div>
+
+  
+  <%= end_form_tag() %>
+  <%= javascript_tag("new Form.EventObserver('event_form', function(element, value ) { Element.show('buttons') } )") %>
+</div>

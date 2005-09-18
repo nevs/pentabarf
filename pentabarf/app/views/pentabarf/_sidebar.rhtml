@@ -1,0 +1,44 @@
+<div id="sidebar">
+  <div id="logo">
+    <%= link_to( image_tag("/images/conference/#{@current_conference_id}-128x128"), {:action => :conference, :id => @current_conference_id} ) %>
+  </div>
+
+  <div id="menu">
+  
+    <div class="menu-item-group">
+      <%= start_form_tag( { }, { :class => "menu-text"} ) %>
+        <%= select_tag("change_conference", Momomoto::Conference.find(), :conference_id, :acronym, @current_conference_id, {:tabindex => 0}, false ) %>
+      <%= end_form_tag() %>
+    </div>
+    
+    <div class="menu-item-group">
+      <%= link_to( 'Overview', { :action => 'index' }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Recent Changes', { :action => 'recent_changes' }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Reports', { :action => 'reports' }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Conflicts', { :action => 'conflicts' }, { :class => 'menu-item' } ) %>
+    </div>
+  
+    <div class="menu-item-group">
+      <div class="menu-text">
+        FIND<br/>
+        <%= link_to( image_tag('icon-find-person-32x32.png', {:title => 'Find Persons' } ), { :action => :find_person } ) %>
+        <%= link_to( image_tag('icon-find-event-32x32.png', {:title => 'Find Events' } ), { :action => :find_event } ) %>
+        <%= link_to( image_tag('icon-find-conference-32x32.png', {:title => 'Find Conferences' } ), { :action => :find_conference } ) %>
+      </div>
+    </div>
+    
+    <div class="menu-item-group">
+      <div class="menu-text">
+        NEW<br/>
+        <%= link_to( image_tag('icon-new-person-32x32.png', {:title => 'New Person' } ), { :action => :person, :id => 'new' } ) %>
+        <%= link_to( image_tag('icon-new-event-32x32.png', {:title => 'New Event' } ), { :action => :event, :id => 'new' } ) %>
+        <%= link_to( image_tag('icon-new-conference-32x32.png', {:title => 'New Conference' } ), { :action => :conference, :id => 'new' } ) %>
+      </div>
+    </div>
+    
+    <div class="menu-item-group">
+      <%= link_to( 'Dokumentation', 'https://pentabarf.org/wiki/', { :class => 'menu-item' } ) %>
+      <%= link_to( 'Bugtracker', 'https://trac.cccv.de/pentabarf', { :class => 'menu-item' } ) %>
+    </div>
+  </div>
+</div>

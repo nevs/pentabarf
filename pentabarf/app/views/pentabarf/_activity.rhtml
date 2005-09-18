@@ -1,0 +1,8 @@
+<% last_active = Momomoto::View_last_active.find() %>
+<% if last_active.length > 0 %>
+  <% for person in last_active do %>
+    <%= link_to( "<span class=\"user\">#{h(person.login_name)}</span><span class=\"time\">#{ Time.parse(person.login_diff).strftime('%M:%S')}</span>", { :action => :person, :id => person.person_id }, {:title => person.name } ) -%>
+  <% end %>
+<% else %>
+  <span class="user">Eris is with you</span>
+<% end %>

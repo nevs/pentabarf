@@ -1,0 +1,26 @@
+<% for change in @changes %>
+
+  <entry>
+    <id><%= @content_feed_url %>/<%= to_iso8601(change.changed_when) %></id>
+    <title><%= h(change.title) %></title>
+    <updated><%= to_iso8601(change.changed_when) %></updated>
+
+    <link rel="alternate" type="text/html" href="<%= url_for( :controller => :pentabarf, :action => change['type'], :id => change['id'] ) %>" />
+
+    <author>
+      <name><%= h(change.name) %></name>
+    </author>
+
+    <category term="<%= change['type'] %>" />
+
+    <summary type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        <%= image_tag( "icon-#{change['type']}/#{change['id']}-128x128.png" ) %>
+        <p>Title/Name: <strong><%= h(change.title) %></strong></p>
+        <p>Changed by: <strong><%= h(change.name) %></strong></p>
+        <p>Changed on: <strong><%= to_iso8601(change.changed_when) %></strong></p>
+      </div>
+    </summary>
+  </entry>
+
+<% end %>

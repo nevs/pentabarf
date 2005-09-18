@@ -1,0 +1,33 @@
+<div id="object-image">
+  <%= image_tag('icon-list-64x64.png', { :class => 'object-image' } ) %>
+</div>
+
+<div id="data">
+  
+  <fieldset>
+    <table>
+      <thead>
+        <tr>
+          <th />
+          <th>Title / Name</th>
+          <th>Changed By</th>
+          <th>Date &amp; Time</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% for change in @changes %>
+        <tr>
+          <td>
+            <%= link_to( image_tag( "icon-#{change['type']}-32x32.png" ), :action => change['type'], :id => change['id'] ) %>
+            <% link_to( image_tag("/images/#{change['type']}/#{change['id']}"), :action => change['type'], :id => change['id'] ) %>
+          </td>
+          <td><%= link_to( h(change.title), :action => change['type'], :id => change['id'] ) %></td>
+          <td><%= link_to( h(change.name), :action => change['type'], :id => change['id'] ) %></td>
+          <td><%= link_to( h(change.changed_when.gsub(/\..*$/, '')), :action => change['type'], :id => change['id'] ) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </fieldset>
+
+</div>

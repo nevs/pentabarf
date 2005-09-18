@@ -1,0 +1,5 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first_view_find_conference:
+  id: 1
+another_view_find_conference:
+  id: 2

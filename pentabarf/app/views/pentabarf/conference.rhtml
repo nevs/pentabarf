@@ -1,0 +1,256 @@
+<%= javascript_include_tag( '/javascripts/jscalendar/calendar.js', '/javascripts/jscalendar/calendar-setup.js', '/javascripts/jscalendar/lang/calendar-en.js' ) %>
+<%= javascript_include_tag('add_functions') %>
+<div id="object-image">
+  <%= image_tag('icon-conference-64x64.png', { :class => 'object-image' } ) %>
+</div>
+<div id="data">
+  <%= start_form_tag({:action => :save_conference, :id => params[:id]}, {:multipart => true, :id => :conference_form}) %>
+  <%= hidden_field_tag(:conference_id, @conference.conference_id) %>
+  <% transaction = Momomoto::Conference_transaction.find( {:conference_id => @conference.conference_id} ) %>
+  <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
+
+  <div id="buttons" style="display: none;">
+    <%= submit_tag("Save", {:id => 'save-button'}) %>
+  </div>
+
+  <div id="comment">
+  
+    <%= image_tag("/images/conference/#{params[:id]}-128x128", {:size => '128x128', :style => 'float: right;'} ) %>
+    
+    <fieldset>
+      <legend>Notes</legend>
+      <table>
+        <tr>
+          <td><%= text_area_tag('conference[remark]', @conference.remark, {:rows => 5, :cols => 60}) %></td>
+        </tr>
+      </table>
+    </fieldset>
+
+  </div>
+
+  <div id="content-general" class="content_tab">
+
+    <fieldset>
+      <legend>General</legend>
+      <table>
+        <tr>
+          <td><label>Acronym</label></td>
+          <td><%= text_field_tag('conference[acronym]', @conference.acronym, {:size => 10, :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Title</label></td>
+          <td><%= text_field_tag('conference[title]', @conference.title, {:size => 60, :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Subtitle</label></td>
+          <td><%= text_field_tag('conference[subtitle]', @conference.subtitle, {:size => 60, :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Venue</label></td>
+          <td><%= text_field_tag('conference[venue]', @conference.venue, {:size => 40, :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>City</label></td>
+          <td><%= text_field_tag('conference[city]', @conference.city, {:size => 40, :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Country</label></td>
+          <td>
+            <%= select_tag( 'conference[country_id]', 
+                        Momomoto::View_country.find( { :language_id => @current_language_id } ), 
+                        'country_id', 
+                        'name', 
+                        @conference.country_id, { :tabindex => 0 } ) 
+            %>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Start Date</label></td>
+          <td>
+            <%= text_field_tag('conference[start_date]', @conference.start_date, { :size => 12, :tabindex => 0 } ) %>
+            <button type="button" id="calendar_start_date">...</button>
+            <script type="text/javascript">
+              Calendar.setup({
+                inputField   :  "conference[start_date]",
+                ifFormat     :  "%Y-%m-%d",
+                button       :  "calendar_start_date",
+                showOthers   :  true,
+                singleClick  :  false
+              });
+            </script>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Duration</label></td>
+          <td>
+            <%= select_tag( 'conference[days]', 1..20, 'to_i', 'to_i', @conference.days, { :tabindex => 0 }, false ) %>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Time Zone</label></td>
+          <td>
+            <%= select_tag( 'conference[time_zone_id]', Momomoto::View_time_zone.find( {:language_id => @current_language_id} ), 'time_zone_id', 'name', @conference.time_zone_id, { :tabindex => 0 } ) %>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Currency</label></td>
+          <td>
+            <%= select_tag( 'conference[currency_id]', 
+                            Momomoto::View_currency.find( {:language_id => @current_language_id} ), 
+                            'currency_id', 'name', @conference.currency_id, { :tabindex => 0 } ) %>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Timeslot Duration</label></td>
+          <td>
+            <%= select_tag( 'conference[timeslot_duration]', 
+                            ['00:05:00', '00:10:00', '00:15:00', '00:20:00', '00:25:00', '00:30:00', '01:00:00'], 
+                            'to_s', 'to_s', @conference.timeslot_duration, { :tabindex => 0 } ) %>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Maximum Timeslots per Event</label></td>
+          <td>
+            <%= select_tag( 'conference[max_timeslot_duration]', 1..20, 
+                            'to_i', 'to_i', @conference.max_timeslot_duration, 
+                            { :tabindex => 0 } ) %>
+          </td>
+        </tr>
+        <tr>
+          <td><label>Day Change</label></td>
+          <td>
+            <%= select_tag( 'conference[day_change]', 
+                            (0..23).to_a.collect {|x| sprintf('%02d:00:00',x)}, 
+                            'to_s', 'to_s', @conference.day_change, { :tabindex => 0 } ) %>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+  </div>
+
+  <div id="content-persons">
+    <fieldset>
+      <legend>Teams</legend>
+      <table id="team_table" class="hidden">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="team_table_body">
+        </tbody>
+      </table>
+      <script type="text/javascript">
+      <% for team in Momomoto::Team.find( {:conference_id => @conference.conference_id } ) %>
+        <%= "add_team('#{escape_javascript(team.team_id.to_s)}', '#{escape_javascript(team.tag)}');" %>
+      <% end %>
+      </script>
+      <button type="button" name="add_team" value="Add Team" title="Add a new team" tabindex="0" onClick="window.add_team();">Add Team</button>
+    </fieldset>
+    <fieldset>
+      <legend>Persons</legend>
+    </fieldset>
+  </div>
+
+  <div id="content-tracks">
+    <fieldset>
+      <legend>Tracks</legend>
+      <table id="conference_track_table" class="hidden">
+        <thead>
+          <tr>
+            <th>Track</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="conference_track_table_body">
+        </tbody>
+      </table>
+      <script type="text/javascript">
+      <% for track in Momomoto::Conference_track.find( {:conference_id => @conference.conference_id } ) %>
+        <%= "add_conference_track(#{track.conference_track_id}, '#{escape_javascript(track.tag)}');" %>
+      <% end %>
+      </script>
+      <button type="button" name="add_conference_track" value="Add Track" title="Add a new track to list of tracks" tabindex="0" onClick="window.add_conference_track();">Add Track</button>
+    </fieldset>
+  </div>
+
+  <div id="content-rooms">
+    <fieldset>
+      <legend>Rooms</legend>
+      <table id="room_table" class="hidden">
+        <thead>
+          <tr>
+            <th>Short Name</th>
+            <th>Order</th>
+            <th>public</th>
+            <th>remove</th>
+          </tr>
+        </thead>
+        <tbody id="room_table_body">
+        </tbody>
+      </table>
+      <script type="text/javascript">
+      <% for room in Momomoto::Room.find( {:conference_id => @conference.conference_id } ) %>
+        <%= "add_room('#{room.room_id}','#{escape_javascript(room.short_name)}','#{room.f_public}','#{room.size}','#{escape_javascript(room.remark)}','#{room.rank}');" %>
+      <% end %>
+      </script>
+     <button type="button" name="add_room" value="Add Room" title="Add a new room to list of rooms" tabindex="0" onClick="window.add_room();">Add Room</button>
+    </fieldset>
+  </div>
+
+  <div id="content-events">
+    <fieldset>
+      <legend>Events</legend>
+      <table>
+        <tr>
+          <th></th>
+          <th>Title</th>
+        </tr>
+        <% for event in Momomoto::View_event.find( {:conference_id => @conference.conference_id, :translated_id => @current_language_id} ) %>
+        <tr>
+          <td><%= link_to(image_tag('icon-event-32x32.png'), {:action => :event, :id => event.event_id}) %></td>
+          <td><%= link_to("<strong>#{h(event.title)}</strong><br/><em>#{h(event.subtitle)}</em>", {:action => :event, :id => event.event_id}) %></td>
+        </tr>
+        <% end %>
+      </table>
+    </fieldset>
+  </div>
+
+  <div id="content-export" class="content_tab">
+  <fieldset>
+    <legend>Export</legend>
+      <table>
+        <tr>
+          <td><label>Release</label></td>
+          <td><%= text_field_tag('conference[release]', @conference.release, {:size => 60, :tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Export Base URL</label></td>
+          <td><%= text_field_tag('conference[export_base_url]', @conference.export_base_url, {:size => 60,:tabindex => 0} ) %></td>
+        </tr>
+        <tr>
+          <td><label>Feedback Base URL</label></td>
+          <td><%= text_field_tag('conference[feedback_base_url]', @conference.feedback_base_url, {:size => 60,:tabindex => 0} ) %></td>
+        </tr>
+      </table>
+   </fieldset>
+   <fieldset>
+     <legend>CSS</legend>
+     <table>
+       <tr>
+         <td><%= text_area_tag('conference[css]', @conference.css, {:cols => 80, :rows => 40, :tabindex => 0} ) %></td>
+       </tr>
+     </table>
+   </fieldset>
+ </div>
+
+  <div id="content-feedback">
+    <fieldset>
+      <legend>Feedback</legend>
+    </fieldset>
+  </div>
+
+  <%= end_form_tag() %>
+  <%= javascript_tag("new Form.EventObserver('conference_form', function(element, value ) { Element.show('buttons') } )") %>
+</div>

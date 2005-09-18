@@ -1,0 +1,8 @@
+daemon:
+  jabber_id: 
+  password: 
+  socket_path: /tmp/xmpp
+
+recipients:
+  - sven@jabber.berlin.ccc.de
+

@@ -1,4 +1,0 @@
-RewriteEngine on
-#RewriteBase /feedback/
-RewriteRule ^/?[Ee]vent/?(.*)              event-feedback.php?$1
-

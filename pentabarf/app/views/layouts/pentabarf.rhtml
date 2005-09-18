@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title><%= h(@content_title) %> - Pentabarf <%= get_version() %></title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <%= javascript_include_tag( 'prototype', 'effects', 'switch_tab', 'cookie' ) %>
+    <%= javascript_tag( "p_base = '#{escape_javascript(get_base_url())}';" ) %>
+    <%= stylesheet_link_tag 'main' %>
+  </head>
+  <body id="body">
+    <%= render(:partial => 'sidebar') %>
+    <div id="main">
+      <div id="context">
+        <h1><%= h(@content_title) %></h1>
+      </div>
+      <div id="content">
+        <%= @content_for_layout %>
+      </div>
+      <div id="tabs">
+        <%= render(:partial => 'tabs') %>
+      </div>
+    </div>
+    <div id="activity">
+      <%= render(:partial => 'activity') %>
+    </div>
+    <%= periodically_call_remote(:update => 'activity', :url => { :action => :activity }, :frequency => 23 ) %>
+  </body>
+</html>

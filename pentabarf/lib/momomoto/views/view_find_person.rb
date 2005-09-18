@@ -1,0 +1,22 @@
+module Momomoto
+  class View_find_person < Base
+    def initialize
+      super
+      @domain = 'person'
+      @order = 'lower(name)'
+      @fields = {
+        :search => Datatype::Textsearch.new( {:virtual=>true,:field=>[:first_name, :last_name, :nickname, :login_name, :email_contact]} ),
+        :person_id => Datatype::Integer.new( {} ),
+        :name => Datatype::Varchar.new( {} ),
+        :first_name => Datatype::Varchar.new( {:length=>64} ),
+        :last_name => Datatype::Varchar.new( {:length=>64} ),
+        :nickname => Datatype::Varchar.new( {:length=>64} ),
+        :login_name => Datatype::Varchar.new( {:length=>32} ),
+        :email_contact => Datatype::Varchar.new( {:length=>64} ),
+        :mime_type_id => Datatype::Integer.new( {} ),
+        :mime_type => Datatype::Varchar.new( {:length=>128} ),
+        :file_extension => Datatype::Varchar.new( {:length=>16} )
+      }
+    end
+  end
+end
