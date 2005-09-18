@@ -83,7 +83,7 @@ module Momomoto
       begin
         @@connection = PGconn.connect( config['host'], config['port'], nil, nil, 
                                        config['database'], config['username'], config['password'])
-      rescue
+      rescue => e
         raise "Connection to Database failed." 
       end
       true

@@ -81,7 +81,7 @@
             <% for event in events %>
             <% next if event.conference_id == @current_conference_id %>
             <tr>
-              <td></td>
+              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.acronym) %></a></td>
               <td></td>
               <td><strong><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.title) %></strong><br/><%= h(event.subtitle) %></a></td>
               <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.event_state) %></a></td>

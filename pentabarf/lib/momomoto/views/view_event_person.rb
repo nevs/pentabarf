@@ -12,6 +12,7 @@ module Momomoto
         :remark => Datatype::Text.new( {} ),
         :rank => Datatype::Integer.new( {} ),
         :conference_id => Datatype::Integer.new( {} ),
+        :acronym => Datatype::Varchar.new( {:length=>16} ),
         :title => Datatype::Varchar.new( {:length=>128} ),
         :subtitle => Datatype::Varchar.new( {:length=>128} ),
         :event_state_id => Datatype::Integer.new( {} ),
