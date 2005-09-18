@@ -24,6 +24,7 @@
     </fieldset>
   </div>
 
+
   <div id="content-persons" class="content_tab">
     <fieldset>
       <legend>Event Persons</legend>
@@ -62,7 +63,6 @@
       <button type="button" name="add_event_persons" value="Add Persons" title="Add a new person to list of persons" tabindex="0" onClick="window.add_event_person();">Add Person</button>
     </fieldset>
   </div>
-
 
   <div id="content-general" class="content_tab">
     <fieldset>
@@ -178,7 +178,7 @@
 
   <div id="content-description" class="content_tab">
     <fieldset>
-      <legend>Abstract</legend>
+      <legend>Short Description</legend>
       <%= text_area_tag('event[abstract]', @event.abstract, {:tabindex => 0,:rows => 5, :cols => 60}) %>
     </fieldset>
 
@@ -287,6 +287,12 @@
   </div>
 
   <div id="content-rating" class="content_tab">
+
+    <fieldset>
+      <legend>My Opinion</legend>
+      <%= text_area_tag('rating[remark]', @rating.remark, {:tabindex => 0, :rows => 3, :cols => 60}) %>
+    </fieldset>
+
     <fieldset>
       <legend>My Rating</legend>
       <table class="rating">
@@ -337,11 +343,6 @@
           </tr>
         </tbody>
       </table>
-    </fieldset>
-
-    <fieldset>
-    <legend>My Opinion</legend>
-      <%= text_area_tag('rating[remark]', @rating.remark, {:tabindex => 0, :rows => 3, :cols => 60}) %>
     </fieldset>
 
     <fieldset>
@@ -401,7 +402,6 @@
     </fieldset>
   </div>
 
-  
   <%= end_form_tag() %>
   <%= javascript_tag("new Form.EventObserver('event_form', function(element, value ) { Element.show('buttons') } )") %>
 </div>
