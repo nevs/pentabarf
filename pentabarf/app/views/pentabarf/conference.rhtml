@@ -9,9 +9,7 @@
   <% transaction = Momomoto::Conference_transaction.find( {:conference_id => @conference.conference_id} ) %>
   <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
 
-  <div id="buttons" style="display: none;">
-    <%= submit_tag("Save", {:id => 'save-button'}) %>
-  </div>
+  <%= render(:partial => 'modification_buttons') %>
 
   <div id="comment">
   

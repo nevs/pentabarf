@@ -8,9 +8,7 @@
   <% transaction = Momomoto::Event_transaction.find( {:event_id => @event.event_id} ) %>
   <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
   
-  <div id="buttons" style="display: none;">
-    <%= submit_tag("Save", {:id => 'save-button'}) %>
-  </div>
+  <%= render(:partial => 'modification_buttons') %>
 
   <div id="comment">
     <%= image_tag("/images/event/#{params[:id]}-128x128", {:size => "128x128", :style => "float: right;"} ) %>

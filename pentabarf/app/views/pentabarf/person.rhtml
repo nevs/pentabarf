@@ -8,6 +8,9 @@
   <%= hidden_field_tag('person_id', @person.person_id ) %>
   <% transaction = Momomoto::Person_transaction.find( {:person_id => @person.person_id} ) %>
   <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
+  
+  <%= render(:partial => 'modification_buttons') %>
+
   <div id="comment">
     <%= image_tag("/images/person/#{params[:id]}-128x128", {:size => '128x128', :style => 'float: right;'} ) %>
     <fieldset>
@@ -633,10 +636,6 @@
       </table>
     </fieldset>
 
-  </div>
-
-  <div id="buttons" style="display: none;">
-    <%= submit_tag("Save", {:id => 'save-button'}) %>
   </div>
 
   <%= end_form_tag() %>
