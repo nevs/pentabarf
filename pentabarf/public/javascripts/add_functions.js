@@ -326,7 +326,7 @@ function person_event_role_changed(row_id,event_role_state_id)
   
   select_state.parentNode.parentNode.replaceChild(select_state_new, select_state.parentNode);
   
-  if(event_role_states[select_role.value]) {
+  if( event_role_states[select_role.value].length > 0 ) {
   	select_state_new.firstChild.style.display = "block";
   } else 
   	select_state_new.firstChild.style.display = "none";
@@ -395,7 +395,7 @@ function event_person_role_changed(row_id,event_role_state_id)
   
   select_state.parentNode.parentNode.replaceChild(select_state_new, select_state.parentNode);
   
-  if(event_role_states[select_role.value]) {
+  if( event_role_states[select_role.value].length > 0 ) {
   	select_state_new.firstChild.style.display = "block";
   } else 
   	select_state_new.firstChild.style.display = "none";
