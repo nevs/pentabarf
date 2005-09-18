@@ -20,6 +20,81 @@
     </fieldset>
   </div>
 
+  <div id="content-events" class="content_tab">
+      <fieldset>
+        <legend>Events</legend>
+        <table id="person_event_table" class="hidden">
+          <thead>
+            <tr>
+              <th/>
+              <th>Event</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Comment</th>
+              <th>remove</th>
+            </tr>
+          </thead>
+          <tbody id="person_event_table_body">
+          </tbody>
+        </table>
+        <script type="text/javascript">
+          var event_names = new Array();
+          <% for event in Momomoto::Event.find({:conference_id => @current_conference_id}) %>
+            event_names[<%= event.event_id %>] = '<%= escape_javascript(event.title[0..40]) %>';
+          <% end %>
+          var event_roles = new Array();
+          var event_role_states = new Array();
+          <% for event_role in Momomoto::View_event_role.find({:language_id => @current_language_id}) %>
+            event_roles[<%= event_role.event_role_id %>] = '<%= escape_javascript(event_role.name) %>';
+            event_role_states[<%= event_role.event_role_id %>] = new Array();
+          <% end %>
+          <% for event_role_state in Momomoto::View_event_role_state.find({:language_id => @current_language_id}) %>
+            event_role_states[<%= event_role_state.event_role_id %>][<%= event_role_state.event_role_state_id %>] = '<%= escape_javascript(event_role_state.name) %>';
+          <% end %>
+
+          <% for event in Momomoto::View_event_person.find({:conference_id => @current_conference_id, :person_id => @person.person_id, :language_id => @current_language_id}) %>
+            add_person_event(<%= event.event_person_id %>, <%= event.event_id %>, <%= event.event_role_id %>, '<%= event.event_role_state_id %>', '<%= escape_javascript(event.remark) %>');
+          <% end %>
+          
+        </script>
+        <button type="button" name="add_person_event" value="Add Events" title="Add a new event to list of events" tabindex="0" onClick="window.add_person_event();">Add Event</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Other Conferences</legend>
+        <% events = Momomoto::View_event_person.new 
+           events.order= 'conference_id'
+           events.select({:person_id => @person.person_id, :language_id => @current_language_id, :event_role_state => true})
+        %>
+        <table>
+          <thead>
+            <tr>
+              <th>Conference</th>
+              <th/>
+              <th>Title</th>
+              <th>Event State</th>
+              <th>Role</th>
+              <th>Role State</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for event in events %>
+            <% next if event.conference_id == @current_conference_id %>
+            <tr>
+              <td></td>
+              <td></td>
+              <td><strong><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.title) %></strong><br/><%= h(event.subtitle) %></a></td>
+              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.event_state) %></a></td>
+              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.event_role) %></a></td>
+              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.event_role_state) %></a></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </fieldset>
+
+  </div>
+
   <div id="content-general" class="content_tab">
     <fieldset>
       <legend>Names</legend>
@@ -70,77 +145,6 @@
         </tr>
       </table>
     </fieldset>
-
-  </div>
-
-  <div id="content-events" class="content_tab">
-      <fieldset>
-        <legend>Events</legend>
-        <table id="person_event_table" class="hidden">
-          <thead>
-            <tr>
-              <th/>
-              <th>Event</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Comment</th>
-              <th>remove</th>
-            </tr>
-          </thead>
-          <tbody id="person_event_table_body">
-          </tbody>
-        </table>
-        <script type="text/javascript">
-          var event_names = new Array();
-          <% for event in Momomoto::Event.find({:conference_id => @current_conference_id}) %>
-            event_names[<%= event.event_id %>] = '<%= escape_javascript(event.title[0..40]) %>';
-          <% end %>
-          var event_roles = new Array();
-          var event_role_states = new Array();
-          <% for event_role in Momomoto::View_event_role.find({:language_id => @current_language_id}) %>
-            event_roles[<%= event_role.event_role_id %>] = '<%= escape_javascript(event_role.name) %>';
-            event_role_states[<%= event_role.event_role_id %>] = new Array();
-          <% end %>
-          <% for event_role_state in Momomoto::View_event_role_state.find({:language_id => @current_language_id}) %>
-            event_role_states[<%= event_role_state.event_role_id %>][<%= event_role_state.event_role_state_id %>] = '<%= escape_javascript(event_role_state.name) %>';
-          <% end %>
-
-          <% for event in Momomoto::View_event_person.find({:conference_id => @current_conference_id, :person_id => @person.person_id, :language_id => @current_language_id}) %>
-            add_person_event(<%= event.event_person_id %>, <%= event.event_id %>, <%= event.event_role_id %>, '<%= event.event_role_state_id %>', '<%= escape_javascript(event.remark) %>');
-          <% end %>
-          
-        </script>
-        <button type="button" name="add_person_event" value="Add Events" title="Add a new event to list of events" tabindex="0" onClick="window.add_person_event();">Add Event</button>
-      </fieldset>
-
-      <fieldset>
-        <legend>Other Conference</legend>
-        <% events = Momomoto::View_event_person.new 
-           events.order= 'conference_id'
-           events.select({:person_id => @person.person_id, :language_id => @current_language_id, :event_role_state => true})
-        %>
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Event State</th>
-              <th>Role</th>
-              <th>Role State</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for event in events %>
-            <% next if event.conference_id == @current_conference_id %>
-            <tr>
-              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.title) %><br/><%= h(event.subtitle) %></a></td>
-              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.event_state) %></a></td>
-              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.event_role) %></a></td>
-              <td><a href="<%= url_for( {:action => :event, :id => event.event_id}) %>"><%= h(event.event_role_state) %></a></td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </fieldset>
 
   </div>
 
