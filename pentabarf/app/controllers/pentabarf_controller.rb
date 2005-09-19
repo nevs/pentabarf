@@ -37,8 +37,23 @@ class PentabarfController < ApplicationController
   end
 
   def search_event_advanced
+    conditions = transform_advanced_search_conditions( params[:search])
+    conditions[:translated_id] = @current_language_id
+    conditions[:conference_id] = @current_conference_id
+    @events = Momomoto::View_find_event.find( conditions )
+    render(:partial => 'search_event')
+  end
+
+  def search_person_advanced
+    conditions = transform_advanced_search_conditions( params[:search])
+    @persons = Momomoto::View_find_person.find( conditions )
+    render(:partial => 'search_person')
+  end
+
+
+  def transform_advanced_search_conditions( search )
     conditions = {}
-    params[:search].each do | key, value |
+    search.each do | key, value |
       if conditions[value['type'].to_sym]
         if
           conditions[value['type'].to_sym].kind_of?(Array)
@@ -53,17 +68,14 @@ class PentabarfController < ApplicationController
         conditions[value['type'].to_sym] = value['value']
       end
     end
-    conditions[:translated_id] = @current_language_id
-    conditions[:conference_id] = @current_conference_id
-    @events = Momomoto::View_find_event.find( conditions )
-    render(:partial => 'search_event')
+    conditions 
   end
 
   def find_person
     @tabs = [{:tag => 'simple', :url => "JavaScript:switch_tab('simple');", :text => 'Simple', :class => 'tab'},
              {:tag => 'advanced', :url => "JavaScript:switch_tab('advanced');", :text => 'Advanced', :class => 'tab'}]
     @content_title ='Find Person'
-    @persons = Momomoto::View_find_person.find( {:search => params[:id]} )
+    @persons = Momomoto::View_find_person.find( {:search => params[:id]}, 50 )
   end
 
   def search_person

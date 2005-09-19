@@ -5,12 +5,15 @@ module Momomoto
       @domain = 'person'
       @order = 'lower(name)'
       @fields = {
-        :search => Datatype::Textsearch.new( {:virtual=>true,:field=>[:first_name, :last_name, :nickname, :login_name, :email_contact]} ),
+        :search => Datatype::Textsearch.new( {:virtual=>true,:field=>[:first_name, :last_name, :nickname, :login_name, :public_name, :email_contact]} ),
+        :s_name => Datatype::Textsearch.new( {:virtual=>true,:field=>[:first_name, :last_name, :nickname, :login_name, :public_name]} ),
+        :s_email => Datatype::Textsearch.new( {:virtual=>true,:field=>[:email_contact]} ),
         :person_id => Datatype::Integer.new( {} ),
         :name => Datatype::Varchar.new( {} ),
         :first_name => Datatype::Varchar.new( {:length=>64} ),
         :last_name => Datatype::Varchar.new( {:length=>64} ),
         :nickname => Datatype::Varchar.new( {:length=>64} ),
+        :public_name => Datatype::Varchar.new( {:length=>64} ),
         :login_name => Datatype::Varchar.new( {:length=>32} ),
         :email_contact => Datatype::Varchar.new( {:length=>64} ),
         :mime_type_id => Datatype::Integer.new( {} ),

@@ -1,17 +1,53 @@
+<%= javascript_include_tag('search') %>
 <div id="data">
-  <fieldset>
-    <legend>Find</legend>
-    <%= text_field_tag( :find_person, @params[:id], :size => 40 ) %>
-    <label id="search-indicator" style="display: none;">Searching ...</label>
-    <%= observe_field( :find_person, 
-                     :frequency => 1, 
-                     :update => :results, 
-                     :url => { :action => :search_person},
-                     :loading => "Element.show('search-indicator')",
-                     :complete => "Element.hide('search-indicator')" ) 
-    %>
-  </fieldset>
+
+  <div id="content-simple" class="content_tab">
+    <fieldset>
+      <legend>Find</legend>
+      <%= text_field_tag( :find_person, @params[:id], :size => 40 ) %>
+      <label id="search-indicator" style="display: none;">Searching ...</label>
+      <%= observe_field( :find_person, 
+                       :frequency => 1, 
+                       :update => :results, 
+                       :url => { :action => :search_person},
+                       :loading => "Element.show('search-indicator')",
+                       :complete => "Element.hide('search-indicator')" ) 
+      %>
+    </fieldset>
+  </div>
   
+  <div id="content-advanced" class="content_tab">
+    <fieldset>
+      <legend>Find</legend>
+        <%= start_form_tag( {:action => :search_person_advanced}, {:id => 'find_person_advanced'} ) %>
+          <div id="search_elements">
+          </div>
+        <%= end_form_tag() %>
+      <label id="search-indicator-advanced" style="display: none;">Searching ...</label>
+    </fieldset>
+    <script type="text/javascript">
+      var criteria = new Array();
+      criteria[0] = new Array();
+      criteria[0]['name'] = 'Name';
+      criteria[0]['value'] = 's_name';
+      criteria[0]['type'] = 'text';
+      criteria[1] = new Array();
+      criteria[1]['name'] = 'E-Mail';
+      criteria[1]['value'] = 's_email';
+      criteria[1]['type'] = 'text';
+
+      var valuelists = new Array();
+    </script>
+    <%= javascript_tag("search_criteria_add('search_elements', 0)") %>
+        <%= observe_form( :find_person_advanced, 
+                           :frequency => 1, 
+                           :update => :results, 
+                           :url => { :action => :search_person_advanced},
+                           :loading => "Element.show('search-indicator-advanced')",
+                           :complete => "Element.hide('search-indicator-advanced')" ) 
+        %>
+  </div>
+
   <fieldset>
     <table>
       <thead>
