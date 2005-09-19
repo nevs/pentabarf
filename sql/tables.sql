@@ -586,6 +586,24 @@ CREATE TABLE event_state_localized (
   PRIMARY KEY (event_state_id, language_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE event_state_progress (
+  event_state_progress_id SERIAL NOT NULL,
+  event_state_id INTEGER NOT NULL,
+  tag VARCHAR(32) NOT NULL,
+  rank INTEGER,
+  FOREIGN KEY (event_state_id) REFERENCES event_state (event_state_id),
+  PRIMARY KEY (event_state_progress_id)
+) WITHOUT OIDS;
+
+CREATE TABLE event_state_progress_localized (
+  event_state_progress_id INTEGER NOT NULL,
+  language_id INTEGER NOT NULL,
+  name VARCHAR(64) NOT NULL,
+  FOREIGN KEY (event_state_progress_id) REFERENCES event_state_progress (event_state_progress_id),
+  FOREIGN KEY (language_id) REFERENCES language (language_id),
+  PRIMARY KEY (event_state_progress_id, language_id)
+) WITHOUT OIDS;
+
 CREATE TABLE event_type (
   event_type_id SERIAL NOT NULL,
   tag VARCHAR(32) NOT NULL UNIQUE,
