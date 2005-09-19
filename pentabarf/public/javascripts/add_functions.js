@@ -268,6 +268,10 @@ var person_event_counter = 0;
 
 function add_person_event(event_person_id, event_id, event_role_id, event_role_state_id, remark)
 {
+  if ( event_names.length == 0 ) {
+    alert('You have not yet added events to this conference.');
+    return;
+  }
   var table_row, table_data, element;
 
   var row_id = person_event_counter;
