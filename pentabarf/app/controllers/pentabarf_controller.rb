@@ -160,6 +160,7 @@ class PentabarfController < ApplicationController
         @content_title ='New Person'
         @person = Momomoto::View_person.new_record()
         @person.person_id = 0
+        @person.f_spam = 't'
         @person_travel = Momomoto::Person_travel.new_record()
         @rating = Momomoto::Person_rating.new_record()
       else
