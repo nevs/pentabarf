@@ -124,6 +124,15 @@
         </tr>
       </table>
     </fieldset>
+
+    <fieldset>
+      <legend>Logo</legend>
+      (square)
+      <%= file_field_tag('conference_image[image]') %><br/>
+      <%= check_box_tag('conference_image[delete]', 't', false, {:tabindex => 0}) %>
+      <label for="conference_image[delete]">delete picture</label>
+    </fieldset>
+
   </div>
 
   <div id="content-persons">

@@ -171,9 +171,9 @@
     <fieldset>
       <legend>Logo</legend>
       (square)
-      <input type="file" name="event_image[image]" /><br />
-      <input id="image_delete" type="checkbox" name="image_delete" value="1" tabindex="0" />
-      <label for="image_delete">delete picture</label>
+      <%= file_field_tag('event_image[image]') %><br/>
+      <%= check_box_tag('event_image[delete]', 't', false, {:tabindex => 0}) %>
+      <label for="event_image[delete]">delete picture</label>
     </fieldset>
 
   </div>

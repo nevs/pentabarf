@@ -432,6 +432,23 @@ class PentabarfController < ApplicationController
         end
         modified = true if conference.write
 
+        image = Momomoto::Conference_image.new
+        image.select({:conference_id => conference.conference_id})
+        if image.length != 1 && params[:conference_image][:image]
+          image.create
+          image.conference_id = conference.conference_id
+        end
+        if image.length == 1
+          if params[:conference_image][:image].size > 0
+            mime_type = Momomoto::Mime_type.find({:mime_type => params[:conference_image][:image].content_type.chomp, :f_image => 't'})
+            raise "mime-type not found #{params[:conference_image][:image].content_type}" if mime_type.length != 1
+            image.mime_type_id = mime_type.mime_type_id
+            image.image = process_image( params[:conference_image][:image].read )
+            image.last_changed = 'now()'
+          end
+          modified = true if image.write
+        end
+
         if params[:team]
           team = Momomoto::Team.new
           params[:team].each do | key, value |
