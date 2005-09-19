@@ -147,12 +147,12 @@ function add_person_im(person_im_id, im_type_id, im_address)
   if (person_im_id) {
     element = create_element("a", 0,"person_im["+row_id+"][im_link]", im_scheme[im_type_id]+"://"+im_address, null, true);
     element.setAttribute("title", im_address);
-    element.appendChild(create_element("img", 0, "person_im["+row_id+"][image]", "/images/icon-im-32x32.png", null, true));
+    element.appendChild(create_element("img", 0, "person_im["+row_id+"][image]", p_base + "images/icon-im-32x32.png", null, true));
     table_data = document.createElement("td");
     table_data.appendChild(element);
     table_row.appendChild(table_data);
   } else {
-    table_row.appendChild(create_element("img", 0, "person_im["+row_id+"][image]", "/images/icon-im-32x32.png"));
+    table_row.appendChild(create_element("img", 0, "person_im["+row_id+"][image]", p_base + "images/icon-im-32x32.png"));
   }
   table_row.appendChild(create_element("input", "hidden", "person_im["+row_id+"][person_im_id]", person_im_id));
   table_row.appendChild(create_element("select", null, "person_im["+row_id+"][im_type_id]", im_type, im_type_id));
@@ -178,12 +178,12 @@ function add_person_phone(person_phone_id, phone_type_id, number)
   if (person_phone_id) {
     element = create_element("a", 0,"person_phone["+row_id+"][url]", phone_scheme[phone_type_id]+"://"+number, null, true);
     element.setAttribute("title", number);
-    element.appendChild(create_element("img", 0, "person_phone["+row_id+"][image]", "/images/icon-phone-32x32.png", null, true));
+    element.appendChild(create_element("img", 0, "person_phone["+row_id+"][image]", p_base + "images/icon-phone-32x32.png", null, true));
     table_data = document.createElement("td");
     table_data.appendChild(element);
     table_row.appendChild(table_data);
   } else {
-    table_row.appendChild(create_element("img", 0, "person_phone["+row_id+"][image]", "/images/icon-phone-32x32.png"));
+    table_row.appendChild(create_element("img", 0, "person_phone["+row_id+"][image]", p_base + "images/icon-phone-32x32.png"));
   }
   table_row.appendChild(create_element("input", "hidden", "person_phone["+row_id+"][person_phone_id]", person_phone_id));
   table_row.appendChild(create_element("select", 0, "person_phone["+row_id+"][phone_type_id]", phone_type, phone_type_id));
@@ -280,13 +280,13 @@ function add_person_event(event_person_id, event_id, event_role_id, event_role_s
   if (event_id) {
     element = create_element("a", 0, "event_person[" + row_id + "][link]", p_base + "pentabarf/event/" + event_id, null, false );
     element.setAttribute("title", "Go to \""+event_names[event_id]+"\"");
-    element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", "/images/icon-event-32x32.png"));
+    element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/icon-event-32x32.png"));
     //element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/event/" + event_id, null, false ));
     table_data = document.createElement("td");
     table_data.appendChild(element);
     table_row.appendChild(table_data);
   } else {
-    table_row.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", "/images/icon-event-32x32.png"));
+    table_row.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/icon-event-32x32.png"));
   }
   
   table_row.appendChild(create_element("input", "hidden", "event_person["+row_id+"][event_person_id]", event_person_id));
@@ -348,13 +348,13 @@ function add_event_person(event_person_id, person_id, event_role_id, event_role_
   if (person_id) {
     element = create_element("a", 0, "event_person[" + row_id + "][link]", p_base + "pentabarf/person/" + person_id, null, false );
     element.setAttribute("title", "Go to \""+person_names[person_id]+"\"");
-    element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", "/images/icon-person-32x32.png", null, false ));
+    element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/icon-person-32x32.png", null, false ));
 //    element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/person/" + person_id, null, false));
     table_data = document.createElement("td");
     table_data.appendChild(element);
     table_row.appendChild(table_data);
   } else {
-    table_row.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", "/images/icon-person-32x32.png"));
+    table_row.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/icon-person-32x32.png"));
   }
 
   table_row.appendChild(create_element("input", "hidden", "event_person["+row_id+"][event_person_id]", event_person_id));

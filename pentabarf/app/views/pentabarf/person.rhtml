@@ -139,7 +139,7 @@
         <tr>
           <td><label>Foto</label> (square)</td>
           <td>
-            <input type="file" name="image" /><br />
+            <%= file_field_tag('person_image[image]') %><br/>
             <%= check_box_tag('person_image[f_public]', 't', false, {:tabindex => 0}) %>
             <label for="image_public">public</label><br />
             <%= check_box_tag('person_image[delete]', 't', false, {:tabindex => 0}) %>

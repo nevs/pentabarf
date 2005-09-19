@@ -1,6 +1,6 @@
 class PentabarfController < ApplicationController
   before_filter :authorize, :check_permission
-  after_filter :compress
+  after_filter :save_preferences, :compress
 
   def initialize
     @current_conference_id = 7
@@ -598,12 +598,15 @@ class PentabarfController < ApplicationController
   protected
 
   def check_permission
-    if @action_name != 'activity'
-      @user.write
-    end
     return true if @user.privilege?('login_allowed') || params[:action] == 'meditation'
     redirect_to( :action => :meditation )
     false
+  end
+
+  def save_preferences
+    if @action_name != 'activity'
+      @user.write
+    end
   end
 
 end
