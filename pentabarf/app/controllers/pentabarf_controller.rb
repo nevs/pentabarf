@@ -229,9 +229,11 @@ class PentabarfController < ApplicationController
         modified = true if person.write
         
         image = Momomoto::Person_image.new
-        # image.select({:person_id => person.person_id})
-        # image.f_public = 'f' unless params[:person_image][:f_public]
-        # modified = true if image.write
+        image.select({:person_id => person.person_id})
+        if image.length == 1
+          image.f_public = params[:person_image][:f_public] ? 't' : 'f'
+          modified = true if image.write
+        end
 
         person_role = Momomoto::Person_role.new
         for role in Momomoto::Role.find()
