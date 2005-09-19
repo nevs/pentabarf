@@ -58,7 +58,7 @@
         <% for person in Momomoto::View_event_person.find({:event_id => @event.event_id, :language_id => @current_language_id}) %>
           add_event_person(<%= person.event_person_id %>, <%= person.person_id %>, <%= person.event_role_id %>, '<%= person.event_role_state_id %>', '<%= escape_javascript(person.remark) %>');
         <% end %>
-        <% if @params[:id] = 'new' %>
+        <% if @params[:id] == 'new' %>
           add_event_person( null, <%= @user.person_id %>, <%= coordinator_id %>, '', '');
         <% end %>
       </script>
