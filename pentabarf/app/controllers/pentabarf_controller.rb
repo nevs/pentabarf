@@ -214,6 +214,11 @@ class PentabarfController < ApplicationController
         person[:f_spam] = 'f' unless params[:person]['f_spam']
         person.password= params[:person][:password]
         modified = true if person.write
+        
+        image = Momomoto::Person_image.new
+        # image.select({:person_id => person.person_id})
+        # image.f_public = 'f' unless params[:person_image][:f_public]
+        # modified = true if image.write
 
         person_role = Momomoto::Person_role.new
         for role in Momomoto::Role.find()
