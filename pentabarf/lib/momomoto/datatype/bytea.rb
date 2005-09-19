@@ -6,6 +6,10 @@ module Momomoto
 
     class Bytea < Base 
     
+      def filter_set( data )
+        data
+      end
+
       def filter_read( value )
         PGconn.unescape_bytea( value )
       end
