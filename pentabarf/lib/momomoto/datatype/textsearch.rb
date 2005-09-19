@@ -4,16 +4,20 @@ module Momomoto
   module Datatype
     class Textsearch < Base 
 
-      def filter_write( data )
+      def filter_write( data = '')
         cond = ''
-        data.to_s.split( ' ' ).each do | value |
+        if data.kind_of?(Array)
+          data.each do | v |
+            cond += ' AND ' unless cond == ''
+            cond += filter_write( v )
+          end
+        else
           fields = ''
           property(:field).each do | field_name |
-            fields += fields != '' ? ' OR ' : ''
-            fields += "#{field_name} ILIKE '%#{value.to_s.gsub(/[%\\']/, '')}%'"
+            fields += ' OR ' unless fields == ''
+            fields += "#{field_name} ILIKE '%#{data.to_s.gsub(/[%\\']/, '')}%'"
           end
-          cond += cond != '' ? ' AND ' : ''
-          cond += '(' + fields + ')'
+          cond = '(' + fields + ')'
         end
         cond
       end

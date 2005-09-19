@@ -266,19 +266,7 @@ module Momomoto
         next unless value 
         raise "Unknown field #{key} in class #{self.class.name}" if @fields[key] == nil
         if @fields[key].property(:virtual)
-          next if @fields[key].filter_write( value ) == ''
-          if value.instance_of?(Array)
-            values = ''
-            value.each do | v |
-              next if @fields[key].filter_write( v ) == ''
-              values += values == '' ? '' : ' AND '
-              values += @fields[key].filter_write( v )
-            end
-            next if values == ''
-            where = where_append( where, "(#{values})")
-          else
-            where = where_append( where, "#{@fields[key].filter_write(value)}" )
-          end
+          where = where_append( where, "#{@fields[key].filter_write(value)}" )
         elsif value === true 
           where = where_append( where, "#{key} IS NOT NULL" )
         elsif value === false
