@@ -29,6 +29,15 @@ module ApplicationHelper
     "0.2"
   end
 
+  def get_revision()
+    revision_file = '../../revision.txt'
+    if File.exists?( revision_file ) && File.readable_real?( revision_file )
+      rev = File.open( revision_file, 'r').gets.chomp 
+    end
+    rev = 2342 if rev.to_s == ''
+    rev
+  end
+
   def get_base_url()
     "https://" + @request.host + @request.env['REQUEST_URI'].gsub(/pentabarf.*/, '')
   end
