@@ -11,6 +11,9 @@
   </head>
   <body id="body">
     <%= render(:partial => 'sidebar') %>
+    <div id="activity">
+      <%= render(:partial => 'activity') %>
+    </div>
     <div id="main">
       <div id="context">
         <h1><%= h(@content_title) %></h1>
@@ -21,9 +24,6 @@
       <div id="tabs">
         <%= render(:partial => 'tabs') %>
       </div>
-    </div>
-    <div id="activity">
-      <%= render(:partial => 'activity') %>
     </div>
     <%= periodically_call_remote(:update => 'activity', :url => { :action => :activity }, :frequency => 23 ) %>
   </body>

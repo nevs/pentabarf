@@ -209,12 +209,12 @@ function add_public_link(link_id, link_type_id, url, title, description)
   if (link_id) {
     element = create_element("a", 0,"link["+row_id+"][url]", url, null, true);
     element.setAttribute("title", title);
-    element.appendChild(create_element("img", 0, "link["+row_id+"][image]", "/images/icon-link-32x32.png", null, true));
+    element.appendChild(create_element("img", 0, "link["+row_id+"][image]", p_base + "images/icon-link-32x32.png", null, true));
     table_data = document.createElement("td");
     table_data.appendChild(element);
     table_row.appendChild(table_data);
   } else {
-    table_row.appendChild(create_element("img", 0, "link["+row_id+"][image]", "/images/icon-link-32x32.png"));
+    table_row.appendChild(create_element("img", 0, "link["+row_id+"][image]", p_base + "images/icon-link-32x32.png"));
   }
   table_row.appendChild(create_element("input", "hidden", "link["+row_id+"][link_id]", link_id));
   table_row.appendChild(create_element("select", 0, "link["+row_id+"][link_type_id]", public_link_types, link_type_id));
@@ -239,12 +239,12 @@ function add_internal_link(link_id, link_type_id, url, title, description)
   if (link_id) {
     element = create_element("a", 0,"link["+row_id+"][url]", url, null, true);
     element.setAttribute("title", title);
-    element.appendChild(create_element("img", 0, "link["+row_id+"][image]", "/images/icon-link-32x32.png", null, true));
+    element.appendChild(create_element("img", 0, "link["+row_id+"][image]", p_base + "images/icon-link-32x32.png", null, true));
     table_data = document.createElement("td");
     table_data.appendChild(element);
     table_row.appendChild(table_data);
   } else {
-    table_row.appendChild(create_element("img", 0, "link["+row_id+"][image]", "/images/icon-link-32x32.png"));
+    table_row.appendChild(create_element("img", 0, "link["+row_id+"][image]", p_base + "images/icon-link-32x32.png"));
   }
   table_row.appendChild(create_element("input", "hidden", "link["+row_id+"][link_id]", link_id));
   table_row.appendChild(create_element("select", 0, "link["+row_id+"][link_type_id]", internal_link_types, link_type_id));
