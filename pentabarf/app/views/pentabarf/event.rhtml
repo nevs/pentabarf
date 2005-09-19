@@ -48,6 +48,7 @@
         var event_roles = new Array();
         var event_role_states = new Array();
         <% for event_role in Momomoto::View_event_role.find({:language_id => @current_language_id}) %>
+          <% coordinator_id = event_role.event_role_id if event_role.tag == 'coordinator' %>
           event_roles[<%= event_role.event_role_id %>] = '<%= escape_javascript(event_role.name) %>';
           event_role_states[<%= event_role.event_role_id %>] = new Array();
         <% end %>
@@ -56,6 +57,9 @@
         <% end %>
         <% for person in Momomoto::View_event_person.find({:event_id => @event.event_id, :language_id => @current_language_id}) %>
           add_event_person(<%= person.event_person_id %>, <%= person.person_id %>, <%= person.event_role_id %>, '<%= person.event_role_state_id %>', '<%= escape_javascript(person.remark) %>');
+        <% end %>
+        <% if @params[:id] = 'new' %>
+          add_event_person( null, <%= @user.person_id %>, <%= coordinator_id %>, '', '');
         <% end %>
       </script>
       <button type="button" name="add_event_persons" value="Add Persons" title="Add a new person to list of persons" tabindex="0" onClick="window.add_event_person();">Add Person</button>
