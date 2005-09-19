@@ -230,7 +230,7 @@ class PentabarfController < ApplicationController
         
         image = Momomoto::Person_image.new
         image.select({:person_id => person.person_id})
-        if image.length != 1 && params[:image]
+        if image.length != 1 && params[:person_image][:image]
           image.create
           image.person_id = person.person_id
         end
@@ -240,7 +240,7 @@ class PentabarfController < ApplicationController
             mime_type = Momomoto::Mime_type.find({:mime_type => params[:person_image][:image].content_type.chomp, :f_image => 't'})
             raise "mime-type not found #{params[:person_image][:image].content_type}" if mime_type.length != 1
             image.mime_type_id = mime_type.mime_type_id
-            image.image = params[:person_image][:image].read
+            image.image = process_image( params[:person_image][:image].read )
             image.last_changed = 'now()'
           end
           modified = true if image.write
@@ -551,6 +551,23 @@ class PentabarfController < ApplicationController
           rating.person_id = @user.person_id
         end
 
+        image = Momomoto::Event_image.new
+        image.select({:event_id => event.event_id})
+        if image.length != 1 && params[:event_image][:image]
+          image.create
+          image.event_id = event.event_id
+        end
+        if image.length == 1
+          if params[:event_image][:image].size > 0
+            mime_type = Momomoto::Mime_type.find({:mime_type => params[:event_image][:image].content_type.chomp, :f_image => 't'})
+            raise "mime-type not found #{params[:event_image][:image].content_type}" if mime_type.length != 1
+            image.mime_type_id = mime_type.mime_type_id
+            image.image = process_image( params[:event_image][:image].read )
+            image.last_changed = 'now()'
+          end
+          modified = true if image.write
+        end
+
         params[:rating].each do | key, value |
           rating[key] = value
         end
@@ -638,6 +655,10 @@ class PentabarfController < ApplicationController
     if @action_name != 'activity'
       @user.write
     end
+  end
+
+  def process_image( image )
+    image
   end
 
 end
