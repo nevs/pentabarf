@@ -417,6 +417,56 @@
     </fieldset>
   </div>
 
+  <div id="content-related" class="content_tab">
+    <fieldset>
+      <legend>Related Events</legend>
+    </fieldset>
+  </div>
+
+  <div id="content-feedback" class="content_tab">
+    <fieldset>
+      <legend>Feedback</legend>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th colspan="2">Rating</th>
+            <th>Total votes</th>
+          </tr>
+        <thead>
+        <% ratings = Momomoto::Event_rating_public.find({:event_id => @event.event_id}) %>
+        <tbody>
+          <tr>
+            <td><label>Participant Knowledge</label></td>
+            <%= rating_bar( ratings, :participant_knowledge) %>
+          </tr>
+          <tr>
+            <td><label>Topic Importance</label></td>
+            <%= rating_bar( ratings, :topic_importance) %>
+          </tr>
+          <tr>
+            <td><label>Content Quality</label></td>
+            <%= rating_bar( ratings, :content_quality) %>
+          </tr>
+        </tbody>
+      </table>
+
+      <table>
+        <thead><tr><th>Remarks</th></tr></thead>
+        <tbody>
+          <% for rating in ratings %>
+          <% next if rating.remark.to_s == '' %>
+          <tr>
+            <td><%= h(rating.remark) %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+            
+    </fieldset>
+  </div>
+
+
   <%= end_form_tag() %>
   <%= javascript_tag("new Form.EventObserver('event_form', function(element, value ) { enable_save_button() } )") %>
 </div>
