@@ -92,16 +92,17 @@ class ApplicationController < ActionController::Base
     config = YAML.load_file( '../config/jabber.yml' )
 
     config['recipients'].each do | recipient |
-      begin
-        sock = UNIXSocket.open(config['daemon']['socket_path'])
-      rescue
-        return
-      end
       msg = Jabber::Message.new(Jabber::JID.new(recipient))
       msg.set_type(:chat)
       msg.set_body( text )
-      sock.send(msg.to_s, 0)
-      sock.close
+      begin
+        sock = UNIXSocket.open(config['daemon']['socket_path'])
+        sock.send(msg.to_s, 0)
+        sock.close
+      rescue
+        sock.close
+        return
+      end
     end
   end
 

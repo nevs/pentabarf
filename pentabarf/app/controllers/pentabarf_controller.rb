@@ -3,13 +3,12 @@ class PentabarfController < ApplicationController
   after_filter :save_preferences, :compress
 
   def initialize
-    @current_conference_id = 7
-    @current_language_id = 144
-    @content_title ='Overview'
+    @content_title ='@content_title'
     @tabs = []
   end
 
   def index
+    @content_title ='Overview'
   end
 
   def find_conference
@@ -663,13 +662,25 @@ class PentabarfController < ApplicationController
   protected
 
   def check_permission
-    return true if @user.privilege?('login_allowed') || params[:action] == 'meditation'
-    redirect_to( :action => :meditation )
-    false
+    if @user.privilege?('login_allowed') || params[:action] == 'meditation'
+      @preferences = @user.preferences
+      if params[:current_conference_id]
+        conf = Momomoto::Conference.find({:conference_id => params[:current_conference_id]})
+        if conf.length == 1
+          @preferences[:current_conference_id] = params[:current_conference_id].to_i
+        end
+      end
+      @current_conference_id = @preferences[:current_conference_id]
+      @current_language_id = @preferences[:current_language_id]
+    else
+      redirect_to( :action => :meditation )
+      false
+    end
   end
 
   def save_preferences
     if @action_name != 'activity'
+      @user.preferences = @preferences
       @user.write
     end
   end
