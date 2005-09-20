@@ -404,3 +404,13 @@ function event_person_role_changed(row_id,event_role_state_id)
   } else 
   	select_state_new.firstChild.style.display = "none";
 }
+
+function event_state_changed()
+{
+  var select_state = document.getElementById("event[event_state_id]");
+  var select_progress = document.getElementById("event[event_state_progress_id]");
+  var select_progress_new = create_element("select", 0, "event[event_state_progress_id]",event_state_progress[select_state.value]);
+  
+  select_progress.parentNode.parentNode.replaceChild(select_progress_new, select_progress.parentNode);
+}
+

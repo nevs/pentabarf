@@ -2,7 +2,7 @@
 module ApplicationHelper
 
   def select_tag( name, collection, key, value, selected, options = {}, with_empty = true )
-    html = "<select name=\"#{ h(name) }\""
+    html = "<select name=\"#{ h(name) }\" id=\"#{h(name)}\""
     options.each do | html_key, html_value |
       html += " #{h(html_key)}=\"#{h(html_value)}\""
     end
