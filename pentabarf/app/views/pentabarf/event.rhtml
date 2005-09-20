@@ -401,7 +401,7 @@
           <td><a href="<%= url_for({:action => :person, :id => rating.person_id}) %>" title="<%= h(rating.name) %>"><img src="<%= url_for({:controller => 'images', :action => :person, :id => rating.person_id}) %>" class="small" alt="" /></a></td>
           <td><a href="<%= url_for({:action => :person, :id => rating.person_id}) %>" title="<%= h(rating.name) %>"><%= h(rating.name) %></a></td>
           <td><%= h(rating.remark) %></td>
-          <td><%= h(rating.eval_time.gsub(/\..*/, '')) %></td>
+          <td><%= h(rating.eval_time.gsub(/[.+].*/, '')) %></td>
         </tr>
         <% end %>
         </tbody>

@@ -35,7 +35,7 @@ module ApplicationHelper
       rev = File.open( revision_file, 'r').gets.chomp 
     end
     rev = 2342 if rev.to_s == ''
-    rev
+    rev.to_s
   end
 
   def get_base_url()
