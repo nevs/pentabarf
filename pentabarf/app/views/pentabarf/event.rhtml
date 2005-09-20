@@ -184,7 +184,7 @@
     <fieldset>
       <legend>Logo</legend>
       (square)
-      <%= file_field_tag('event_image[image]') %><br/>
+      <%= file_field_tag('event_image[image]',{:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>
       <%= check_box_tag('event_image[delete]', 't', false, {:tabindex => 0}) %>
       <label for="event_image[delete]">delete picture</label>
     </fieldset>

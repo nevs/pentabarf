@@ -139,7 +139,7 @@
         <tr>
           <td><label>Foto</label> (square)</td>
           <td>
-            <%= file_field_tag('person_image[image]') %><br/>
+            <%= file_field_tag('person_image[image]', {:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>
             <% image = Momomoto::Person_image.find({:person_id => @person.person_id}) 
                image.create if image.length != 1 %>
             <%= check_box_tag('person_image[f_public]', 't', image.f_public == 't' ? true : false , {:tabindex => 0}) %>

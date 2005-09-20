@@ -64,6 +64,9 @@ function create_element(type, subtype, name, values, selected, without_td)
       break;
   }
   
+  if ( init_done ) {
+    enable_save_button();
+  }
   if ( without_td != null ) {
     return new_element;
   } else {
