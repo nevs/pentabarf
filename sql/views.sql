@@ -117,9 +117,37 @@ CREATE OR REPLACE VIEW view_phone_type AS
 
 -- view for event_state with fallback to tag
 CREATE OR REPLACE VIEW view_event_state AS 
-   SELECT event_state_id, language_id, tag, coalesce(name,tag) AS name, rank, language_tag
-      FROM ( SELECT language_id, event_state_id, event_state.tag, event_state.rank, language.tag AS language_tag FROM language CROSS JOIN event_state) AS all_lang 
+   SELECT event_state_id, 
+          language_id, 
+          tag, 
+          coalesce(name,tag) AS name, 
+          rank, 
+          language_tag
+      FROM ( SELECT language_id, 
+                    event_state_id, 
+                    event_state.tag, 
+                    event_state.rank, 
+                    language.tag AS language_tag 
+               FROM language CROSS JOIN event_state) AS all_lang 
              LEFT OUTER JOIN event_state_localized USING (language_id, event_state_id);
+
+-- view for event_state_progress with fallback to tag
+CREATE OR REPLACE VIEW view_event_state_progress AS 
+   SELECT event_state_progress_id, 
+          event_state_id,
+          language_id, 
+          tag, 
+          coalesce(name,tag) AS name, 
+          rank, 
+          language_tag
+      FROM ( SELECT language_id, 
+                    event_state_progress_id, 
+                    event_state_id,
+                    event_state_progress.tag, 
+                    event_state_progress.rank, 
+                    language.tag AS language_tag 
+               FROM language CROSS JOIN event_state_progress) AS all_lang 
+             LEFT OUTER JOIN event_state_progress_localized USING (language_id, event_state_progress_id);
 
 -- view for event_type with fallback to tag
 CREATE OR REPLACE VIEW view_event_type AS 
