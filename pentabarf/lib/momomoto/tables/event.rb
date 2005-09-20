@@ -28,7 +28,8 @@ module Momomoto
         :f_deleted => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :remark => Datatype::Text.new( {} ),
         :event_origin_id => Datatype::Integer.new( {:not_null=>true} ),
-        :f_unmoderated => Datatype::Bool.new( {:not_null=>true, :default=>true} )
+        :f_unmoderated => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
+        :event_state_progress_id => Datatype::Integer.new( {:not_null=>true} )
       }
     end
   end
