@@ -71,7 +71,8 @@ class ApplicationController < ActionController::Base
   def log_error( exception )
     super( exception )
 
-    message = "User: #{@user.login_name}\n"
+    message = ''
+    message += "User: #{@user.login_name}\n" if @user != nil 
     message += "IP: #{@request.remote_ip}\n"
     message += "URL: https://#{@request.host + @request.request_uri}\n"
     message += "Exception: #{exception.to_s}\n"
