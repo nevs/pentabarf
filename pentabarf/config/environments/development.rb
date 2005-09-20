@@ -7,7 +7,7 @@ require 'active_support/whiny_nil'
 
 # Reload code; show full error reports; disable caching.
 Dependencies.mechanism                             = :load
-ActionController::Base.consider_all_requests_local = false
+ActionController::Base.consider_all_requests_local = true
 ActionController::Base.perform_caching             = false
 
 # The breakpoint server port that script/breakpointer connects to.
