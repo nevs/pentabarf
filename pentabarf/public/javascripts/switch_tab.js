@@ -1,8 +1,9 @@
 
-function switch_tab(tag) {
+function switch_tab( tag ) {
 
   var page_url = document.location.href;
-  if ( tag == "" && page_url.search('#') != -1 ) {
+  
+  if ( !tag && page_url.search('#') != -1 ) {
     tag = page_url.slice(page_url.search('#') + 1,page_url.length);
     page_url = page_url.slice(0,page_url.search('#'));
   }
