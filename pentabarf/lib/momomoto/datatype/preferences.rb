@@ -21,7 +21,7 @@ module Momomoto
           value = Hash.new
         end
         # make sure certain values are set
-        value[:current_conference_id] = 7 unless value[:current_conference_id]
+        value[:current_conference_id] = 1 unless value[:current_conference_id]
         value[:current_language_id] = 120 unless value[:current_language_id]
         value[:search_event] = "" unless value[:search_event]
         value[:search_event_advanced] = {} unless value[:search_event_advanced]
