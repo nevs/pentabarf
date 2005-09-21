@@ -16,10 +16,14 @@
           <% for role in Momomoto::View_event_person.find({:language_id => @current_language_id, :conference_id => @current_conference_id, :person_id => @user.person_id, :event_role_tag => ['speaker', 'moderator','visitor']}) %>
             <tr>
               <td><%= link_to(image_tag('icon-event-32x32.png'), {:action => :event, :id => role.event_id}) %></td>
-              <td><%= h(role.title) %></td>
-              <td><%= h(role.event_state) %></td>
-              <td><%= h(role.event_role) %></td>
-              <td><%= h(role.event_role_state) %></td>
+              <td>
+                <a href="<%= url_for({:action => :event, :id => role.event_id}) %>">
+                  <strong><%= h(role.title) %></strong><br/><em><%= h(role.subtitle) %></em>
+                </a>
+              </td>
+              <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_state) %></a></td>
+              <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_role) %></a></td>
+              <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_role_state) %></a></td>
             </tr>
           <% end %>
         </tbody>
@@ -41,9 +45,13 @@
         <tbody>
           <% for role in Momomoto::View_event_person.find({:language_id => @current_language_id, :conference_id => @current_conference_id, :person_id => @user.person_id, :event_role_tag => 'coordinator'}) %>
               <td><%= link_to(image_tag('icon-event-32x32.png'), {:action => :event, :id => role.event_id}) %></td>
-              <td><%= h(role.title) %></td>
-              <td><%= h(role.event_state) %></td>
-              <td><%= h(role.event_role) %></td>
+              <td>
+                <a href="<%= url_for({:action => :event, :id => role.event_id}) %>">
+                  <strong><%= h(role.title) %></strong><br/><em><%= h(role.subtitle) %></em>
+                </a>
+              </td>
+              <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_state) %></a></td>
+              <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_role) %></a></td>
             <tr>
             </tr>
           <% end %>
