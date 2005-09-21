@@ -685,7 +685,7 @@ CREATE TABLE event (
   FOREIGN KEY (event_type_id) REFERENCES event_type (event_type_id),
   FOREIGN KEY (event_origin_id) REFERENCES event_origin (event_origin_id),
   FOREIGN KEY (event_state_id) REFERENCES event_state (event_state_id),
-  FOREIGN KEY (event_state_progress_id) REFERENCES event_state_progress (event_state_progress_id)
+  FOREIGN KEY (event_state_progress_id) REFERENCES event_state_progress (event_state_progress_id),
   FOREIGN KEY (language_id) REFERENCES language (language_id),
   FOREIGN KEY (room_id) REFERENCES room (room_id),
   PRIMARY KEY (event_id)
