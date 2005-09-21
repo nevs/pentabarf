@@ -620,7 +620,7 @@
         </tr>
         <tr>
           <td><label>Last activity</label></td>
-          <td><%= h(@person.last_login) %></td>
+          <td><%= h(@person.last_login.gsub(/[+.].*/, '')) %></td>
         </tr>
       </table>
     </fieldset>

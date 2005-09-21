@@ -279,6 +279,19 @@ CREATE TABLE conference (
   PRIMARY KEY (conference_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE conference_person (
+  conference_person_id SERIAL NOT NULL,
+  conference_id INTEGER NOT NULL,
+  person_id INTEGER NOT NULL,
+  abstract TEXT,
+  description TEXT,
+  remark TEXT,
+  email_public VARCHAR(64),
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
+  FOREIGN KEY (person_id) REFERENCES person (person_id),
+  PRIMARY KEY (conference_person_id)
+) WITHOUT OIDS;
+
 CREATE TABLE conference_link (
   conference_link_id SERIAL NOT NULL,
   conference_id INTEGER NOT NULL,
