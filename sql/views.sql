@@ -33,7 +33,7 @@ CREATE OR REPLACE VIEW view_person AS
           f_deleted, 
           f_spam, 
           last_login 
-      FROM person;
+     FROM person;
 
 -- view for events 
 CREATE OR REPLACE VIEW view_event AS 
@@ -72,7 +72,8 @@ CREATE OR REPLACE VIEW view_event AS
           view_team.name as team, 
           view_room.tag AS room_tag, 
           view_room.name AS room, 
-          conference.acronym, (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
+          conference.acronym, 
+          (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
           event_image.mime_type_id,
           mime_type.mime_type,
           mime_type.file_extension
@@ -180,21 +181,6 @@ CREATE OR REPLACE VIEW view_event_person AS
          LEFT OUTER JOIN view_event_role_state ON (
                event_person.event_role_state_id = view_event_role_state.event_role_state_id AND 
                view_event_state.language_id = view_event_role_state.language_id);
-  
--- view for schedule
-CREATE OR REPLACE VIEW view_schedule AS 
-SELECT view_event.event_id, view_event.conference_id, view_event.tag, view_event.title, view_event.subtitle, view_event.conference_track_id, view_event.team_id, view_event.event_type_id, view_event.duration, view_event.event_state_id, view_event.language_id, view_event.room_id, view_event.day, view_event.start_time, view_event.abstract, view_event.description, view_event.resources, view_event.f_public, view_event.f_paper, view_event.f_slides, view_event.f_conflict, view_event.f_deleted, view_event.remark, view_event.translated_id, view_event.translated_tag, view_event.event_state_tag, view_event.event_state, view_event.event_type_tag, view_event.event_type, view_event.conference_track_tag, view_event.conference_track, view_event.team_tag, view_event.team, view_event.room_tag, view_event.room, view_event.acronym, view_event.start_datetime 
-FROM view_event
-WHERE event_state_tag = 'confirmed' AND
-      day IS NOT NULL AND
-      start_time IS NOT NULL AND
-      EXISTS (SELECT 1 FROM event_person 
-                            INNER JOIN event_role USING (event_role_id)
-                            INNER JOIN event_role_state USING (event_role_state_id)
-                       WHERE event_person.event_id = event_id AND 
-                         ( ( event_role.tag = 'speaker' AND event_role_state.tag = 'confirmed' ) OR 
-                           ( event_role.tag = 'moderator' AND event_role_state.tag = 'confirmed' ) ) )
-;
 
 CREATE OR REPLACE VIEW view_find_conference AS
   SELECT conference.conference_id, 
