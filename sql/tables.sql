@@ -822,36 +822,6 @@ CREATE TABLE event_person (
   PRIMARY KEY (event_person_id)
 ) WITHOUT OIDS;
 
-CREATE TABLE conference_role (
-  conference_role_id SERIAL NOT NULL,
-  tag VARCHAR(32),
-  rank INTEGER,
-  PRIMARY KEY (conference_role_id)
-) WITHOUT OIDS;
-
-CREATE TABLE conference_role_localized (
-  conference_role_id INTEGER NOT NULL,
-  language_id INTEGER NOT NULL,
-  name VARCHAR(64),
-  FOREIGN KEY (conference_role_id) REFERENCES conference_role (conference_role_id),
-  FOREIGN KEY (language_id) REFERENCES language (language_id),
-  PRIMARY KEY (conference_role_id, language_id)
-) WITHOUT OIDS;
-  
-CREATE TABLE conference_person (
-  conference_person_id SERIAL NOT NULL,
-  conference_id INTEGER NOT NULL,
-  person_id INTEGER NOT NULL,
-  conference_role_id INTEGER NOT NULL,
-  remark TEXT,
-  rank INTEGER,
-  FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
-  FOREIGN KEY (person_id) REFERENCES person (person_id),
-  FOREIGN KEY (conference_role_id) REFERENCES conference_role (conference_role_id),
-  UNIQUE (conference_id, person_id, conference_role_id),
-  PRIMARY KEY (conference_person_id)
-) WITHOUT OIDS;
-
 CREATE TABLE conference_transaction (
   conference_id INTEGER NOT NULL,
   changed_when TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
