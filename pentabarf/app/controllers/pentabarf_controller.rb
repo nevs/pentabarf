@@ -9,6 +9,8 @@ class PentabarfController < ApplicationController
 
   def index
     @content_title ='Overview'
+    @tabs = [{:tag => 'participant', :url => "JavaScript:switch_tab('participant');", :text => 'Participant', :class => 'tab'},
+             {:tag => 'coordinator', :url => "JavaScript:switch_tab('coordinator');", :text => 'Coordinator', :class => 'tab'}]
   end
 
   def find_conference

@@ -1,5 +1,55 @@
 <div id="data">
 
-  <p>Welcome to Pentabarf</p>
+  <div id="content-participant" class="content_tab">
+    <fieldset>
+      <legend>Participant</legend>
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2">Title</th>
+            <th>Event State</th>
+            <th>Role</th>
+            <th>Role State</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for role in Momomoto::View_event_person.find({:language_id => @current_language_id, :person_id => @user.person_id, :event_role_tag => ['speaker', 'moderator','visitor']}) %>
+            <tr>
+              <td><%= link_to(image_tag('icon-event-32x32.png'), {:action => :event, :id => role.event_id}) %></td>
+              <td><%= h(role.title) %></td>
+              <td><%= h(role.event_state) %></td>
+              <td><%= h(role.event_role) %></td>
+              <td><%= h(role.event_role_state) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
 
+  <div id="content-coordinator" class="content_tab">
+    <fieldset>
+      <legend>Coordinator</legend>
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2">Title</th>
+            <th>Event State</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for role in Momomoto::View_event_person.find({:language_id => @current_language_id, :person_id => @user.person_id, :event_role_tag => 'coordinator'}) %>
+              <td><%= link_to(image_tag('icon-event-32x32.png'), {:action => :event, :id => role.event_id}) %></td>
+              <td><%= h(role.title) %></td>
+              <td><%= h(role.event_state) %></td>
+              <td><%= h(role.event_role) %></td>
+            <tr>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+  
 </div>
