@@ -162,6 +162,8 @@ class PentabarfController < ApplicationController
         @person = Momomoto::View_person.new_record()
         @person.person_id = 0
         @person.f_spam = 't'
+        @conference_person = Momomoto::Conference_person.new_record()
+        @conference_person.conference_id = @current_conference_id
         @person_travel = Momomoto::Person_travel.new_record()
         @rating = Momomoto::Person_rating.new_record()
       else
@@ -171,6 +173,12 @@ class PentabarfController < ApplicationController
           return
         end
         @content_title = @person.name
+        @conference_person = Momomoto::Conference_person.find({:conference_id => @current_conference_id, :person_id => @person.person_id})
+        if @conference_person.length != 1
+          @conference_person.create
+          @conference_person.conference_id = @current_conference_id
+          @conference_person.person_id = @person.person_id
+        end
         @person_travel = Momomoto::Person_travel.find( {:person_id => params[:id],:conference_id => @current_conference_id} )
         @person_travel.create if @person_travel.length == 0
         @rating = Momomoto::Person_rating.find({:person_id => params[:id], :evaluator_id => @user.person_id})
@@ -228,6 +236,17 @@ class PentabarfController < ApplicationController
         person[:f_spam] = 'f' unless params[:person]['f_spam']
         person.password= params[:person][:password]
         modified = true if person.write
+
+        conference_person = Momomoto::Conference_person.new
+        conference_person.select({:conference_id => params[:conference_person][:conference_id], :person_id => person.person_id})
+        if conference_person.length != 1
+          conference_person.create
+          conference_person.person_id = person.person_id
+        end
+        params[:conference_person].each do | key, value |
+          conference_person[key] = value
+        end
+        modified = true if conference_person.write
         
         image = Momomoto::Person_image.new
         image.select({:person_id => person.person_id})

@@ -8,6 +8,7 @@
   <%= hidden_field_tag('person_id', @person.person_id ) %>
   <% transaction = Momomoto::Person_transaction.find( {:person_id => @person.person_id} ) %>
   <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
+  <%= hidden_field_tag('conference_person[conference_id]', @conference_person.conference_id) %>
   
   <%= render(:partial => 'modification_buttons') %>
 
@@ -17,7 +18,7 @@
       <legend>Notes</legend>
       <table>
         <tr>
-          <td><%= text_area_tag('person[remark]', @person.remark, {:rows => 5, :cols => 60}) %></td>
+          <td><%= text_area_tag('conference_person[remark]', @conference_person.remark, {:rows => 5, :cols => 60}) %></td>
         </tr>
       </table>
     </fieldset>
@@ -163,8 +164,8 @@
           <td><%= text_field_tag( 'person[email_contact]', @person.email_contact, {:size => 40, :tabindex => 0}) %></td>
         </tr>
         <tr>
-          <td><label><%= mail_to(h(@person.email_public), 'Public E-Mail', {:title => "Send message to public e-mail address"}) %></label></td>
-          <td><%= text_field_tag( 'person[email_public]', @person.email_public, {:size => 40, :tabindex => 0}) %></td>
+          <td><label><%= mail_to(h(@conference_person.email_public), 'Public E-Mail', {:title => "Send message to public e-mail address"}) %></label></td>
+          <td><%= text_field_tag( 'conference_person[email_public]', @conference_person.email_public, {:size => 40, :tabindex => 0}) %></td>
         </tr>
         <tr>
           <td><label>Include in Mailings</label>
@@ -271,11 +272,11 @@
   <div id="content-description" class="content_tab">
     <fieldset>
       <legend>Abstract</legend>
-      <%= text_area_tag('person[abstract]', @person.abstract, {:cols => 70, :rows => 3,:tabindex => 0}) %>
+      <%= text_area_tag('conference_person[abstract]', @conference_person.abstract, {:cols => 70, :rows => 3,:tabindex => 0}) %>
     </fieldset>
     <fieldset>
       <legend>Description</legend>
-      <%= text_area_tag('person[description]', @person.description, {:cols => 70, :rows => 23, :tabindex => 0} ) %>
+      <%= text_area_tag('conference_person[description]', @conference_person.description, {:cols => 70, :rows => 23, :tabindex => 0} ) %>
     </fieldset>
   </div>
 
