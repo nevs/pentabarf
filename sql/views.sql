@@ -529,9 +529,7 @@ CREATE OR REPLACE VIEW view_person_rating AS
   SELECT person_rating.person_id,
          person_rating.evaluator_id,
          person_rating.speaker_quality,
-         person_rating.quality_comment,
          person_rating.competence,
-         person_rating.competence_comment,
          person_rating.remark,
          person_rating.eval_time,
          view_person.name
@@ -543,11 +541,8 @@ CREATE OR REPLACE VIEW view_event_rating AS
   SELECT event_rating.event_id,
          event_rating.person_id,
          event_rating.relevance,
-         event_rating.relevance_comment,
          event_rating.actuality,
-         event_rating.actuality_comment,
          event_rating.acceptance,
-         event_rating.acceptance_comment,
          event_rating.remark,
          event_rating.eval_time,
          view_person.name
