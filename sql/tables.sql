@@ -912,6 +912,7 @@ CREATE TABLE event_attachment (
   title VARCHAR(64),
   data BYTEA NOT NULL,
   f_public BOOL NOT NULL DEFAULT FALSE,
+  last_changed TIMESTAMP NOT NULL DEFAULT 'now()',
   FOREIGN KEY (attachment_type_id) REFERENCES attachment_type (attachment_type_id),
   FOREIGN KEY (event_id) REFERENCES event (event_id),
   FOREIGN KEY (mime_type_id) REFERENCES mime_type (mime_type_id),
