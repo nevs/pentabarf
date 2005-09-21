@@ -12,10 +12,11 @@
     </div>
     
     <div class="menu-item-group">
-      <%= link_to( 'Overview', { :action => 'index' }, { :class => 'menu-item' } ) %>
-      <%= link_to( 'Recent Changes', { :action => 'recent_changes' }, { :class => 'menu-item' } ) %>
-      <%= link_to( 'Reports', { :action => 'reports' }, { :class => 'menu-item' } ) %>
-      <%= link_to( 'Conflicts', { :action => 'conflicts' }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Overview', { :action => :index }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Recent Changes', { :action => :recent_changes }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Reports', { :action => :reports }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Conflicts', { :action => :conflicts }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Preferences', url_for({:action => :person, :id => @user.person_id}) + '#account', { :class => 'menu-item' } ) %>
     </div>
   
     <div class="menu-item-group">
