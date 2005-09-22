@@ -47,6 +47,10 @@
       criteria[4]['name'] = 'Track';
       criteria[4]['value'] = 'conference_track_id';
       criteria[4]['type'] = 'keyword';
+      criteria[5] = new Array();
+      criteria[5]['name'] = 'Coordinator';
+      criteria[5]['value'] = 's_coordinator';
+      criteria[5]['type'] = 'keyword';
 
       var valuelists = new Array();
       valuelists[1] = new Array();
@@ -64,6 +68,10 @@
       valuelists[4] = new Array();
       <% for track in Momomoto::View_conference_track.find({:language_id => @current_language_id, :conference_id => @current_conference_id}) %>
         valuelists[4][<%= track.conference_track_id %>] = '<%= escape_javascript(track.name) %>';
+      <% end %>
+      valuelists[5] = new Array();
+      <% for coordinator in Momomoto::View_event_person.find({:language_id => @current_language_id,:conference_id => @current_conference_id,:event_role_tag => 'coordinator'}) %>
+        valuelists[5][<%= coordinator.person_id %>] = '<%= escape_javascript(coordinator.name) %>';
       <% end %>
     </script>
     <%= javascript_tag("search_criteria_add('search_elements', 0)") %>

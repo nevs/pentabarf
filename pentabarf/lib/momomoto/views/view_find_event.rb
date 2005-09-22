@@ -6,6 +6,7 @@ module Momomoto
       @order = 'lower(title),lower(subtitle)'
       @fields = {
         :s_title => Datatype::Textsearch.new( {:virtual=>true,:field=>[:title,:subtitle]} ),
+        :s_coordinator => Datatype::Keysearch.new( {:virtual=>true,:key_field=>'event_id',:subselect=>"SELECT event_id FROM event_person INNER JOIN event_role USING(event_role_id) WHERE event_role.tag = 'coordinator' AND event_person.person_id IN (%%%)"} ),
         :event_id => Datatype::Integer.new( {} ),
         :conference_id => Datatype::Integer.new( {} ),
         :title => Datatype::Varchar.new( {:length=>128} ),
