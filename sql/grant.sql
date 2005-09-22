@@ -14,6 +14,8 @@
  GRANT SELECT ON conference TO backup;
  GRANT SELECT ON conference_conference_id_seq TO backup;
  GRANT SELECT ON conference_image TO backup;
+ GRANT SELECT ON conference_language TO backup;
+ GRANT SELECT ON conference_language_conference_language_id_seq TO backup;
  GRANT SELECT ON conference_link TO backup;
  GRANT SELECT ON conference_link_conference_link_id_seq TO backup;
  GRANT SELECT ON conference_localized TO backup;
@@ -21,9 +23,6 @@
  GRANT SELECT ON conference_person_conference_person_id_seq TO backup;
  GRANT SELECT ON conference_release TO backup;
  GRANT SELECT ON conference_release_release_id_seq TO backup;
- GRANT SELECT ON conference_role TO backup;
- GRANT SELECT ON conference_role_conference_role_id_seq TO backup;
- GRANT SELECT ON conference_role_localized TO backup;
  GRANT SELECT ON conference_track TO backup;
  GRANT SELECT ON conference_track_conference_track_id_seq TO backup;
  GRANT SELECT ON conference_track_localized TO backup;
@@ -60,6 +59,9 @@
  GRANT SELECT ON event_state TO backup;
  GRANT SELECT ON event_state_event_state_id_seq TO backup;
  GRANT SELECT ON event_state_localized TO backup;
+ GRANT SELECT ON event_state_progress TO backup;
+ GRANT SELECT ON event_state_progress_event_state_progress_id_seq TO backup;
+ GRANT SELECT ON event_state_progress_localized TO backup;
  GRANT SELECT ON event_transaction TO backup;
  GRANT SELECT ON event_type TO backup;
  GRANT SELECT ON event_type_event_type_id_seq TO backup;
@@ -81,8 +83,6 @@
  GRANT SELECT ON mime_type_mime_type_id_seq TO backup;
  GRANT SELECT ON person TO backup;
  GRANT SELECT ON person_availability TO backup;
- GRANT SELECT ON person_conference TO backup;
- GRANT SELECT ON person_conference_person_conference_id_seq TO backup;
  GRANT SELECT ON person_im TO backup;
  GRANT SELECT ON person_im_person_im_id_seq TO backup;
  GRANT SELECT ON person_image TO backup;
@@ -124,4 +124,3 @@
  GRANT SELECT ON ui_message TO backup;
  GRANT SELECT ON ui_message_localized TO backup;
  GRANT SELECT ON ui_message_ui_message_id_seq TO backup;
- 
