@@ -259,8 +259,6 @@ CREATE TABLE conference (
   country_id INTEGER,
   time_zone_id INTEGER,
   currency_id INTEGER,
-  primary_language_id INTEGER,
-  secondary_language_id INTEGER,
   timeslot_duration INTERVAL,
   max_timeslot_duration INTEGER,
   day_change TIME WITHOUT TIME ZONE NOT NULL DEFAULT '0:00:00',
@@ -274,8 +272,6 @@ CREATE TABLE conference (
   FOREIGN KEY (country_id) REFERENCES country (country_id),
   FOREIGN KEY (time_zone_id) REFERENCES time_zone (time_zone_id),
   FOREIGN KEY (currency_id) REFERENCES currency (currency_id),
-  FOREIGN KEY (primary_language_id) REFERENCES language (language_id),
-  FOREIGN KEY (secondary_language_id) REFERENCES language (language_id),
   PRIMARY KEY (conference_id)
 ) WITHOUT OIDS;
 
