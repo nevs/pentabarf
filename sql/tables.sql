@@ -279,6 +279,16 @@ CREATE TABLE conference (
   PRIMARY KEY (conference_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE conference_language (
+  conference_language_id SERIAL NOT NULL,
+  conference_id INTEGER NOT NULL,
+  language_id INTEGER NOT NULL,
+  rank INTEGER,
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
+  FOREIGN KEY (language_id) REFERENCES language (language_id),
+  PRIMARY KEY (conference_language_id)
+) WITHOUT OIDS;
+
 CREATE TABLE conference_person (
   conference_person_id SERIAL NOT NULL,
   conference_id INTEGER NOT NULL,
@@ -422,18 +432,6 @@ CREATE TABLE person (
   last_login TIMESTAMP WITH TIME ZONE,
   FOREIGN KEY (country_id) REFERENCES country (country_id),
   PRIMARY KEY (person_id)
-) WITHOUT OIDS;
-
-CREATE TABLE person_conference (
-  person_conference_id SERIAL NOT NULL,
-  person_id INTEGER NOT NULL,
-  conference_id INTEGER NOT NULL,
-  abstract TEXT,
-  description TEXT,
-  email_public VARCHAR(64),
-  FOREIGN KEY (person_id) REFERENCES person (person_id),
-  FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
-  PRIMARY KEY (person_conference_id)
 ) WITHOUT OIDS;
 
 CREATE TABLE person_link (
