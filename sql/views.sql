@@ -199,6 +199,8 @@ CREATE OR REPLACE VIEW view_find_event AS
          event.conference_id,
          event.title, 
          event.subtitle,
+         event.abstract,
+         event.description,
          event.event_origin_id,
          event.conference_track_id,
          event.event_state_id,
