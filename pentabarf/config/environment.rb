@@ -12,7 +12,6 @@ RAILS_ROOT = File.join(File.dirname(__FILE__), '..')
 #
 # See config/environments/*.rb for environment-specific configuration.
 RAILS_ENV  = ENV['RAILS_ENV'] || 'development'
-RAILS_ENV  = 'production'
 
 
 # Load the Rails framework.  Mock classes for testing come first.
@@ -115,7 +114,7 @@ module ActionView
         if tags.length > 0
           Momomoto::View_ui_message.find({:language_id => @current_language_id, :tag => tags}).each do | msg |
             next if msg.name.match(/[{}<>]/)
-            template.gsub!( "<[" + msg.tag + "]>", msg.name )
+            template.gsub!( "<[" + msg.tag + "]>", h(msg.name) )
           end
         end
         b = evaluate_locals(local_assigns)
