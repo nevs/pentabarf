@@ -171,6 +171,12 @@ module Momomoto
       @current_record = @resultset.length > 0 ? 0 : nil 
       @resultset.length
     end
+    
+    def find_by_id( field_name, value )
+      self.each do | record | 
+        return self if record[field_name.to_sym] == value
+      end
+    end
 
     def write()
       raise "Views are not writable" if @table[0..4] == 'view_'
