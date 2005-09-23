@@ -1,4 +1,6 @@
 class FeedController < ApplicationController
+  before_filter :authorize
+  after_filter :compress
 
   def index
     redirect_to :action => recent_changes
