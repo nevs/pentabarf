@@ -28,7 +28,7 @@ module Momomoto
         :bank_name => Datatype::Varchar.new( {:length=>128} ),
         :account_owner => Datatype::Varchar.new( {:length=>128} ),
         :gpg_key => Datatype::Text.new( {} ),
-        :preferences => Datatype::Text.new( {} ),
+        :preferences => Datatype::Preferences.new( {} ),
         :f_conflict => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :f_deleted => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :f_spam => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
