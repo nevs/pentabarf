@@ -280,7 +280,6 @@ module Momomoto
         elsif value.instance_of?( Array )
           values = ''
           value.each do | v |
-            next if @fields[key].filter_write( v ) == ''
             values += values == '' ? '' : ', '
             values += @fields[key].filter_write( v )
           end
