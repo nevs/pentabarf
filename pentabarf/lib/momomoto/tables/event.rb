@@ -3,6 +3,7 @@ module Momomoto
     def initialize
       super
       @domain = 'event'
+      @order = 'lower(title), lower(subtitle)'
       @fields = {
         :event_id => Datatype::Integer.new( {:not_null=>true, :default=>true, :primary_key=>true, :serial=>true} ),
         :conference_id => Datatype::Integer.new( {:not_null=>true} ),
