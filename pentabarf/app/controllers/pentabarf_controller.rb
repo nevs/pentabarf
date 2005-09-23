@@ -163,7 +163,9 @@ class PentabarfController < ApplicationController
         @person.person_id = 0
         @person.f_spam = 't'
         @conference_person = Momomoto::Conference_person.new_record()
+        @conference_person.conference_person_id = 0
         @conference_person.conference_id = @current_conference_id
+        @conference_person.person_id = 0
         @person_travel = Momomoto::Person_travel.new_record()
         @rating = Momomoto::Person_rating.new_record()
       else
@@ -176,6 +178,7 @@ class PentabarfController < ApplicationController
         @conference_person = Momomoto::Conference_person.find({:conference_id => @current_conference_id, :person_id => @person.person_id})
         if @conference_person.length != 1
           @conference_person.create
+          @conference_person.conference_person_id = 0
           @conference_person.conference_id = @current_conference_id
           @conference_person.person_id = @person.person_id
         end
@@ -238,12 +241,13 @@ class PentabarfController < ApplicationController
         modified = true if person.write
 
         conference_person = Momomoto::Conference_person.new
-        conference_person.select({:conference_id => params[:conference_person][:conference_id], :person_id => person.person_id})
+        conference_person.select({:conference_person_id => params[:conference_person][:conference_person_id],:conference_id => params[:conference_person][:conference_id], :person_id => person.person_id})
         if conference_person.length != 1
           conference_person.create
           conference_person.person_id = person.person_id
         end
         params[:conference_person].each do | key, value |
+          next if key.to_sym == :conference_person_id || key.to_sym == :person_id
           conference_person[key] = value
         end
         modified = true if conference_person.write

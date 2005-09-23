@@ -8,6 +8,7 @@
   <%= hidden_field_tag('person_id', @person.person_id ) %>
   <% transaction = Momomoto::Person_transaction.find( {:person_id => @person.person_id} ) %>
   <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
+  <%= hidden_field_tag('conference_person[conference_person_id]', @conference_person.conference_person_id) %>
   <%= hidden_field_tag('conference_person[conference_id]', @conference_person.conference_id) %>
   
   <%= render(:partial => 'modification_buttons') %>
@@ -30,8 +31,7 @@
         <table id="person_event_table" class="hidden">
           <thead>
             <tr>
-              <th/>
-              <th>Event</th>
+              <th colspan="2">Event</th>
               <th>Role</th>
               <th>Status</th>
               <th>Comment</th>
@@ -66,16 +66,13 @@
 
       <fieldset>
         <legend>Other Conferences</legend>
-        <% events = Momomoto::View_event_person.new 
-           events.order= 'conference_id'
-           events.select({:person_id => @person.person_id, :language_id => @current_language_id, :event_role_state => true})
+        <% events = Momomoto::View_event_person.find({:person_id => @person.person_id, :language_id => @current_language_id, :event_role_state => true}, nil, 'conference_id')
         %>
         <table>
           <thead>
             <tr>
               <th>Conference</th>
-              <th/>
-              <th>Title</th>
+              <th colspan="2">Title</th>
               <th>Event State</th>
               <th>Role</th>
               <th>Role State</th>
