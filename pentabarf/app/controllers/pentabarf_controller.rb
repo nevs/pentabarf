@@ -242,6 +242,7 @@ class PentabarfController < ApplicationController
         prefs = person.preferences
         prefs[:current_language_id] = params[:person][:preferences][:current_language_id]
         person.preferences = prefs
+        @preferences = prefs if person.person_id == @user.person_id
         modified = true if person.write
 
         conference_person = Momomoto::Conference_person.new
@@ -699,6 +700,7 @@ class PentabarfController < ApplicationController
         if conf.length == 1
           @preferences[:current_conference_id] = params[:current_conference_id].to_i
           redirect_to()
+          @user.write
           return false
         end
       end
