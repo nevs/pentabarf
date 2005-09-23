@@ -240,7 +240,7 @@ class PentabarfController < ApplicationController
         person[:gender] = nil if params[:person]['gender'] == ""
         person[:f_spam] = 'f' unless params[:person]['f_spam']
         person.password= params[:person][:password]
-        prefs = person.preferences
+        prefs = person.preferences || {}
         prefs[:current_language_id] = params[:person][:preferences][:current_language_id]
         person.preferences = prefs
         @preferences = prefs if person.person_id == @user.person_id
