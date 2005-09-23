@@ -6,6 +6,10 @@ module Momomoto
 
     class Preferences < Base 
 
+      def value()
+        filter_get(@value) if @value
+      end
+
       def filter_set( value )
         value
       end
