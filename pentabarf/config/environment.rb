@@ -12,6 +12,7 @@ RAILS_ROOT = File.join(File.dirname(__FILE__), '..')
 #
 # See config/environments/*.rb for environment-specific configuration.
 RAILS_ENV  = ENV['RAILS_ENV'] || 'development'
+RAILS_ENV  = 'production'
 
 
 # Load the Rails framework.  Mock classes for testing come first.
@@ -101,5 +102,27 @@ ActiveRecord::Base.set_inheritance_column('dont need no inheritance column')
 
 # disabling sessions is broken :/
 #ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS=false
+
+module ActionView
+  class Base
+    private
+      def rhtml_render(extension, template, local_assigns)
+        # lets do some localization
+        tags = template.scan(/<\[[a-z:_]+\]>/)
+        tags.collect do | tag | 
+          tag.delete!("<[]>")
+        end
+        if tags.length > 0
+          Momomoto::View_ui_message.find({:language_id => @current_language_id, :tag => tags}).each do | msg |
+            next if msg.name.match(/[{}<>]/)
+            template.gsub!( "<[" + msg.tag + "]>", msg.name )
+          end
+        end
+        b = evaluate_locals(local_assigns)
+        @@compiled_erb_templates[template] ||= ERB.new(template, nil, '-')
+        @@compiled_erb_templates[template].result(b)
+      end
+  end
+end
 
 
