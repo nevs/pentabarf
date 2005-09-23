@@ -693,6 +693,8 @@ class PentabarfController < ApplicationController
         conf = Momomoto::Conference.find({:conference_id => params[:current_conference_id]})
         if conf.length == 1
           @preferences[:current_conference_id] = params[:current_conference_id].to_i
+          redirect_to()
+          return false
         end
       end
       @current_conference_id = @preferences[:current_conference_id]
