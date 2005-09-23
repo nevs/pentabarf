@@ -263,11 +263,12 @@ module Momomoto
       sets, conditions = '', {}
       @resultset[@current_record].each do | field_name, value |
         raise "not null field with null value in class #{self.class.name} field #{field_name} in update" if value.property( :not_null ) && value.write_value == 'NULL'
-        sets += sets == '' ? '' : ', '
-        sets += "#{field_name.to_s} = #{value.write_value}"
         if value.property( :primary_key ) 
           conditions[field_name] = value.value
         end
+        next unless value.dirty?
+        sets += sets == '' ? '' : ', '
+        sets += "#{field_name.to_s} = #{value.write_value}"
       end
       return "" unless conditions.length 
       "UPDATE #{@table} SET #{sets} #{compile_where(conditions)};"
@@ -310,7 +311,7 @@ module Momomoto
       raise "Connection to Database has not yet been established." if @@connection == nil
       begin
         #ApplicationController.jabber_message( sql ) if self.class.name != 'Momomoto::Login' && @table[0..4] != 'view_'
-        #ApplicationController.jabber_message( sql ) if self.class.name == 'Momomoto::View_find_event'
+        #ApplicationController.jabber_message( sql ) if self.class.name == 'Momomoto::View_find_event' || self.class.name == 'Momomoto::Login'
         @@connection.exec( sql )
       rescue => e
         ApplicationController.jabber_message( "Query failed: #{sql}" )
