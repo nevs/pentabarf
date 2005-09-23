@@ -12,34 +12,34 @@
     </div>
     
     <div class="menu-item-group">
-      <%= link_to( 'Overview', { :action => :index }, { :class => 'menu-item' } ) %>
-      <%= link_to( 'Recent Changes', { :action => :recent_changes }, { :class => 'menu-item' } ) %>
-      <%= link_to( 'Reports', { :action => :reports }, { :class => 'menu-item' } ) %>
-      <%= link_to( 'Conflicts', { :action => :conflicts }, { :class => 'menu-item' } ) %>
-      <%= link_to( 'Preferences', url_for({:action => :person, :id => @user.person_id}) + '#account', { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::startpage]>', { :action => :index }, { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::recent_changes]>', { :action => :recent_changes }, { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::reports]>', { :action => :reports }, { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::conflicts]>', { :action => :conflicts }, { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::preferences]>', url_for({:action => :person, :id => @user.person_id}) + '#account', { :class => 'menu-item' } ) %>
     </div>
   
     <div class="menu-item-group">
       <div class="menu-text">
-        FIND<br/>
-        <%= link_to( image_tag('icon-find-person-32x32.png', {:title => 'Find Persons' } ), { :action => :find_person } ) %>
-        <%= link_to( image_tag('icon-find-event-32x32.png', {:title => 'Find Events' } ), { :action => :find_event } ) %>
-        <%= link_to( image_tag('icon-find-conference-32x32.png', {:title => 'Find Conferences' } ), { :action => :find_conference } ) %>
+        <[sidebar::find]><br/>
+        <%= link_to( image_tag('icon-find-person-32x32.png', {:title => '<[link::find_person]>' } ), { :action => :find_person } ) %>
+        <%= link_to( image_tag('icon-find-event-32x32.png', {:title => '<[link::find_event]>' } ), { :action => :find_event } ) %>
+        <%= link_to( image_tag('icon-find-conference-32x32.png', {:title => '<[link::find_conference]>' } ), { :action => :find_conference } ) %>
       </div>
     </div>
     
     <div class="menu-item-group">
       <div class="menu-text">
-        NEW<br/>
-        <%= link_to( image_tag('icon-new-person-32x32.png', {:title => 'New Person' } ), { :action => :person, :id => 'new' } ) %>
-        <%= link_to( image_tag('icon-new-event-32x32.png', {:title => 'New Event' } ), { :action => :event, :id => 'new' } ) %>
-        <%= link_to( image_tag('icon-new-conference-32x32.png', {:title => 'New Conference' } ), { :action => :conference, :id => 'new' } ) %>
+        <[sidebar::new]><br/>
+        <%= link_to( image_tag('icon-new-person-32x32.png', {:title => '<[link::new_person]>' } ), { :action => :person, :id => 'new' } ) %>
+        <%= link_to( image_tag('icon-new-event-32x32.png', {:title => '<[link::new_event]>' } ), { :action => :event, :id => 'new' } ) %>
+        <%= link_to( image_tag('icon-new-conference-32x32.png', {:title => '<[link::new_conference]>' } ), { :action => :conference, :id => 'new' } ) %>
       </div>
     </div>
     
     <div class="menu-item-group">
-      <%= link_to( 'Dokumentation', 'https://pentabarf.org/wiki/', { :class => 'menu-item' } ) %>
-      <%= link_to( 'Bugtracker', 'https://trac.cccv.de/pentabarf/timeline', { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::pentabarf_wiki]>', 'https://pentabarf.org/wiki/', { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::pentabarf_bugtracker]>', 'https://trac.cccv.de/pentabarf/timeline', { :class => 'menu-item' } ) %>
     </div>
   </div>
 </div>
