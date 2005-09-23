@@ -301,13 +301,11 @@ CREATE TABLE conference_person (
 CREATE TABLE conference_link (
   conference_link_id SERIAL NOT NULL,
   conference_id INTEGER NOT NULL,
-  link_type_id INTEGER NOT NULL,
   url VARCHAR(1024) NOT NULL,
   title VARCHAR(128),
   description VARCHAR(128),
   rank INTEGER,
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
-  FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
   PRIMARY KEY (conference_link_id)
 ) WITHOUT OIDS;
 
