@@ -687,6 +687,7 @@ class PentabarfController < ApplicationController
   protected
 
   def check_permission
+    #redirect_to :action => :meditation if params[:action] != 'meditation'
     if @user.privilege?('login_allowed') || params[:action] == 'meditation'
       @preferences = @user.preferences
       if params[:current_conference_id]
