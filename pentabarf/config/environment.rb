@@ -91,14 +91,6 @@ Controllers = Dependencies::LoadingModule.root(
 
 # Include your app's configuration here:
 
-# our primary keys are named <tablename>_id
-ActiveRecord::Base.set_primary_key do
-  "#{@table_name}_id"
-end
-
-ActiveRecord::Base.pluralize_table_names = false
-ActiveRecord::Base.set_inheritance_column('dont need no inheritance column')
-
 # disabling sessions is broken :/
 #ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS=false
 
