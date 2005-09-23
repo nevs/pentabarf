@@ -233,11 +233,15 @@ class PentabarfController < ApplicationController
         end
         
         params[:person].each do | key, value |
+          next if key.to_sym == :preferences
           person[key]= value
         end
         person[:gender] = nil if params[:person]['gender'] == ""
         person[:f_spam] = 'f' unless params[:person]['f_spam']
         person.password= params[:person][:password]
+        prefs = person.preferences
+        prefs[:current_language_id] = params[:person][:preferences][:current_language_id]
+        person.preferences = prefs
         modified = true if person.write
 
         conference_person = Momomoto::Conference_person.new
