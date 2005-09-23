@@ -137,14 +137,17 @@ module Momomoto
       end
     end
 
-    def self.find( conditions = {} , limit = nil)
+    def self.find( conditions = {} , limit = nil, order = nil)
       data = self.new
       data.limit = limit if limit
+      data.order = order if order
       data.select( conditions )
       return data
     end
     
-    def select( conditions = {} ) 
+    def select( conditions = {}, limit = nil, order = nil ) 
+      self.limit= limit if limit
+      self.order= order if order
       fields = ''
       @fields.each do | key , value | 
         next if value.property(:virtual)
