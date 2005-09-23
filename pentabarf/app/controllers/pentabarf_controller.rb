@@ -162,6 +162,7 @@ class PentabarfController < ApplicationController
         @person = Momomoto::View_person.new_record()
         @person.person_id = 0
         @person.f_spam = 't'
+        @person.preferences = {}
         @conference_person = Momomoto::Conference_person.new_record()
         @conference_person.conference_person_id = 0
         @conference_person.conference_id = @current_conference_id
