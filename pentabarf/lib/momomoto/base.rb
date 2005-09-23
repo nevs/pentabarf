@@ -176,6 +176,8 @@ module Momomoto
       self.each do | record | 
         return self if record[field_name.to_sym] == value
       end
+      @current_record = nil
+      false
     end
 
     def write()
