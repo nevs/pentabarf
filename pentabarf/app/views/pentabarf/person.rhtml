@@ -629,6 +629,7 @@
         <tr>
           <td><label>User Interface Language</label></td>
           <td><%= select_tag('person[preferences][current_language_id]', Momomoto::View_language.find({:language_id => @current_language_id, :f_localized => 't'}), :translated_id, :name, @person.preferences[:current_language_id], {:tabindex => 0}, false) %></td>
+          <td><%= @person.preferences.inspect %></td>
         </tr>
       </table>
     </fieldset>

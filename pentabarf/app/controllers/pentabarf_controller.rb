@@ -240,9 +240,8 @@ class PentabarfController < ApplicationController
         person[:f_spam] = 'f' unless params[:person]['f_spam']
         person.password= params[:person][:password]
         prefs = person.preferences
-        prefs[:current_language_id] = params[:person][:preferences][:current_language_id]
+        prefs[:current_language_id] = params[:person][:preferences][:current_language_id].to_i
         person.preferences = prefs
-        @preferences = prefs if person.person_id == @user.person_id
         modified = true if person.write
 
         conference_person = Momomoto::Conference_person.new
@@ -693,7 +692,7 @@ class PentabarfController < ApplicationController
 
   def check_permission
     #redirect_to :action => :meditation if params[:action] != 'meditation'
-    if @user.privilege?('login_allowed') || params[:action] == 'meditation'
+    if @user.permission?('login_allowed') || params[:action] == 'meditation'
       @preferences = @user.preferences
       if params[:current_conference_id]
         conf = Momomoto::Conference.find({:conference_id => params[:current_conference_id]})

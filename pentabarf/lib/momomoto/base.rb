@@ -173,6 +173,7 @@ module Momomoto
       @resultset.length
     end
     
+    # search in the resultset for a record with a specific value
     def find_by_id( field_name, value )
       self.each do | record | 
         return self if record[field_name.to_sym] == value
@@ -181,18 +182,19 @@ module Momomoto
       false
     end
 
+    # write record to database
     def write()
       raise "Views are not writable" if @table[0..4] == 'view_'
       return false unless dirty?
       raise "domain not set for class #{self.class.name}" unless @domain 
       if @new_record 
-        if permission?( 'create' )
+        if privilege?( 'create' )
           execute( insert() )
         else
           raise "not allowed to write table #{@table} domain #{@domain}\nPermissions: #{@@permissions.inspect}"
         end
       else 
-        if permission?( 'modify' )
+        if privilege?( 'modify' )
           execute( update() )
         else
           raise "not allowed to modify table #{@table} domain #{@domain}\nPermissions: #{@@permissions.inspect}"
@@ -202,11 +204,7 @@ module Momomoto
     end
 
     def permission?( action )
-      @@permissions.member?( "#{action}_#{@domain}")
-    end
-
-    def privilege?( privilege )
-      @@permissions.member?( privilege )
+      @@permissions.member?( action )
     end
 
     def dirty?()
@@ -244,6 +242,10 @@ module Momomoto
 
     protected
     
+    def privilege?( action )
+      @@permissions.member?( "#{action}_#{@domain}")
+    end
+
     def insert()
       fields, values = '', ''
       @resultset[@current_record].each do | field_name, value |

@@ -7,11 +7,17 @@ module Momomoto
     class Preferences < Base 
 
       def value()
-        filter_get(@value) if @value
+        filter_get(@value).clone if @value
       end
 
       def new_value()
         {}
+      end
+
+      def value=( new_value )
+        new_value = filter_set( new_value )
+        @dirty = true unless new_value == @value
+        @value = new_value
       end
 
       def filter_set( value )
@@ -33,10 +39,10 @@ module Momomoto
         value[:current_language_id] = 120 unless value[:current_language_id].to_i != 0
         value[:search_event] = "" unless value[:search_event]
         value[:search_event_advanced] = {} unless value[:search_event_advanced]
-        value[:search_person] = "" unless value[:search_event]
-        value[:search_person_advanced] = {} unless value[:search_event_advanced]
-        value[:search_conference] = "" unless value[:search_event]
-        value[:search_conference_advanced] = {} unless value[:search_event_advanced]
+        value[:search_person] = "" unless value[:search_person]
+        value[:search_person_advanced] = {} unless value[:search_person_advanced]
+        value[:search_conference] = "" unless value[:search_conference]
+        value[:search_conference_advanced] = {} unless value[:search_conference_advanced]
         value
       end
 
