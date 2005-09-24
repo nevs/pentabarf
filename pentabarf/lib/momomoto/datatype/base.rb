@@ -21,6 +21,10 @@ module Momomoto
         end
       end
 
+      def new_value
+        nil
+      end
+
       def property( name )
         @properties[name]
       end

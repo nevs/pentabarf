@@ -10,6 +10,10 @@ module Momomoto
         filter_get(@value) if @value
       end
 
+      def new_value()
+        {}
+      end
+
       def filter_set( value )
         value
       end
@@ -49,4 +53,5 @@ module Momomoto
  
   end
 end
+
 

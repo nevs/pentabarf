@@ -117,6 +117,7 @@ module Momomoto
       @fields.each do | field_name, field | 
         next if field.property(:virtual)
         @resultset[0][field_name] = field.clone
+        @resultset[0][field_name].value = field.new_value
       end
       @current_record = 0
       @new_record = true

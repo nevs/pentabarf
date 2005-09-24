@@ -162,7 +162,6 @@ class PentabarfController < ApplicationController
         @person = Momomoto::View_person.new_record()
         @person.person_id = 0
         @person.f_spam = 't'
-        @person.preferences = {}
         @conference_person = Momomoto::Conference_person.new_record()
         @conference_person.conference_person_id = 0
         @conference_person.conference_id = @current_conference_id
@@ -240,7 +239,7 @@ class PentabarfController < ApplicationController
         person[:gender] = nil if params[:person]['gender'] == ""
         person[:f_spam] = 'f' unless params[:person]['f_spam']
         person.password= params[:person][:password]
-        prefs = person.preferences || {}
+        prefs = person.preferences
         prefs[:current_language_id] = params[:person][:preferences][:current_language_id]
         person.preferences = prefs
         @preferences = prefs if person.person_id == @user.person_id
