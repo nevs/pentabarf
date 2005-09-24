@@ -21,6 +21,39 @@ module ApplicationHelper
     html
   end
 
+  def content_tabs_js( tabs_simple, environment = nil, with_show_all = true )
+    html = '<script type="text/javascript">'
+    html += 'var tab_name = new Array();'
+    if environment
+      tabs_ui = tabs_simple.collect { | tab_name | "#{environment}::tab_#{tab_name}" } 
+      tabs_local = Momomoto::View_ui_message.find({:language_id => @current_language_id, :tag => tabs_ui})
+    end
+    tabs = []
+    tabs_simple.each_with_index do | tab_name, index |
+      tabs[index] = {}
+      tabs[index][:tag] = tab_name
+      tabs[index][:url] = "javascript:switch_tab('#{tab_name}')"
+      tabs[index][:class] = "tab inactive"
+      if environment && tabs_local.find_by_id(:tag, "#{environment}::tab_#{tab_name}")
+        tabs[index][:text] = tabs_local.name
+      else
+        tabs[index][:text] = tab_name
+      end
+      html += "tab_name[#{index}] = '#{tab_name}';"
+    end
+    html += '</script>'
+    content_tabs( tabs, with_show_all, html )
+  end
+  
+  def content_tabs( tabs, with_show_all = true, html = '' )
+    html += '<div id="tabs">'
+    tabs.each_with_index do | tab, index |
+      html += "<span>#{ link_to(tab[:text],  tab[:url], {:accesskey => index + 1, :class => tab[:class], :id => 'tab-'+tab[:tag]})}</span>"
+    end
+    html += '</div>'
+    html
+  end
+
   def radio_button( name, value, checked, options = {} )
     radio_button_tag( name, value, value.to_s == checked.to_s, options )
   end
