@@ -11,7 +11,8 @@ module Momomoto
       end
 
       def filter_set( value )
-        value.to_i if value
+        return nil if value == ''
+        return value.to_i if value
       end
 
       def filter_get( value )
@@ -19,7 +20,7 @@ module Momomoto
       end
 
       def filter_read( value )
-        value
+        value.to_i if value
       end
     
       def filter_write( value )

@@ -39,7 +39,7 @@ module Momomoto
 
       def value=( new_value )
         new_value = filter_set( new_value )
-        @dirty = true unless @value.to_s == new_value.to_s
+        @dirty = true unless @value == new_value
         @value = new_value
       end
 
