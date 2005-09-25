@@ -5,7 +5,6 @@ class PentabarfController < ApplicationController
 
   def initialize
     @content_title ='@content_title'
-    @tabs = []
   end
 
   def index
@@ -13,8 +12,6 @@ class PentabarfController < ApplicationController
   end
 
   def find_conference
-    @tabs = [{:tag => 'simple', :url => "JavaScript:switch_tab('simple');", :text => 'Simple', :class => 'tab'},
-             {:tag => 'advanced', :url => "JavaScript:switch_tab('advanced');", :text => 'Advanced', :class => 'tab'}]
     @conferences = Momomoto::View_find_conference.find( {:search => params[:id]} )
     @content_title ='Find Conference'
   end
@@ -25,8 +22,6 @@ class PentabarfController < ApplicationController
   end
 
   def find_event
-    @tabs = [{:tag => 'simple', :url => "JavaScript:switch_tab('simple');", :text => 'Simple', :class => 'tab'},
-             {:tag => 'advanced', :url => "JavaScript:switch_tab('advanced');", :text => 'Advanced', :class => 'tab'}]
     @content_title ='Find Event'
     @events = Momomoto::View_find_event.find( {:s_title => params[:id], :conference_id => @current_conference_id, :translated_id => @current_language_id} )
   end
@@ -72,8 +67,6 @@ class PentabarfController < ApplicationController
   end
 
   def find_person
-    @tabs = [{:tag => 'simple', :url => "JavaScript:switch_tab('simple');", :text => 'Simple', :class => 'tab'},
-             {:tag => 'advanced', :url => "JavaScript:switch_tab('advanced');", :text => 'Advanced', :class => 'tab'}]
     @content_title ='Find Person'
     @persons = Momomoto::View_find_person.find( {:search => params[:id]}, 50 )
   end
@@ -89,13 +82,6 @@ class PentabarfController < ApplicationController
   end
 
   def conference
-    @tabs = [{:tag => 'general', :url => "JavaScript:switch_tab('general');", :text => 'General', :class => 'tab'},
-             {:tag => 'persons', :url => "JavaScript:switch_tab('persons');", :text => 'Persons', :class => 'tab'},
-             {:tag => 'tracks', :url => "JavaScript:switch_tab('tracks');", :text => 'Tracks', :class => 'tab'},
-             {:tag => 'rooms', :url => "JavaScript:switch_tab('rooms');", :text => 'Rooms', :class => 'tab'},
-             {:tag => 'events', :url => "JavaScript:switch_tab('events');", :text => 'Events', :class => 'tab'},
-             {:tag => 'export', :url => "JavaScript:switch_tab('export');", :text => 'Export', :class => 'tab'},
-             {:tag => 'feedback', :url => "JavaScript:switch_tab('feedback');", :text => 'Feedback', :class => 'tab'}]
     if params[:id]
       if params[:id] == 'new'
         @content_title ='New Conference'
@@ -115,14 +101,6 @@ class PentabarfController < ApplicationController
   end
 
   def event
-    @tabs = [{:tag => 'general', :url => "JavaScript:switch_tab('general');", :text => 'General', :class => 'tab'},
-             {:tag => 'persons', :url => "JavaScript:switch_tab('persons');", :text => 'Persons', :class => 'tab'},
-             {:tag => 'description', :url => "JavaScript:switch_tab('description');", :text => 'Description', :class => 'tab'},
-             {:tag => 'links', :url => "JavaScript:switch_tab('links');", :text => 'Links', :class => 'tab'},
-             {:tag => 'rating', :url => "JavaScript:switch_tab('rating');", :text => 'Rating', :class => 'tab'},
-             {:tag => 'resources', :url => "JavaScript:switch_tab('resources');", :text => 'Resources', :class => 'tab'},
-             {:tag => 'related', :url => "JavaScript:switch_tab('related');", :text => 'Related', :class => 'tab'},
-             {:tag => 'feedback', :url => "JavaScript:switch_tab('feedback');", :text => 'Feedback', :class => 'tab'}]
     if params[:id]
       if params[:id] == 'new'
         @content_title ='New Event'

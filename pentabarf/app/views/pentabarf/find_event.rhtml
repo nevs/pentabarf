@@ -1,4 +1,5 @@
 <%= javascript_include_tag('search') %>
+<%= content_tabs_js(['simple','advanced'], 'view_find_event') %>
 <div id="data">
 
   <div id="content-simple" class="content_tab">
@@ -106,3 +107,4 @@
   </fieldset>
 
 </div>
+<%= javascript_tag("switch_tab();") %>

@@ -22,7 +22,6 @@
       <div id="content">
         <%= @content_for_layout %>
       </div>
-      <%= render(:partial => 'tabs') %>
     </div>
     <%= periodically_call_remote(:update => 'activity', :url => { :action => :activity }, :frequency => 23 ) %>
     <%= javascript_tag("init_done = true;") %>
