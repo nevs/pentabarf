@@ -56,7 +56,6 @@ require 'momomoto/momomoto'
 require 'momomoto/login'
 require 'momomoto/tables'
 require 'momomoto/views'
-require 'xmpp4r'
 require 'time'
 
 

@@ -4,6 +4,7 @@
 require 'zlib'
 require 'stringio'
 require 'socket'
+require 'xmpp4r'
 
 class ApplicationController < ActionController::Base
 
