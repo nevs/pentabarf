@@ -543,7 +543,7 @@ class PentabarfController < ApplicationController
         else
           conference.rollback
         end
-      rescue
+      rescue => e
         conference.rollback
         raise e
       end

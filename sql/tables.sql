@@ -298,6 +298,30 @@ CREATE TABLE conference_person (
   PRIMARY KEY (conference_person_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE conference_person_link (
+    conference_person_link_id SERIAL NOT NULL,
+    conference_person_id INTEGER NOT NULL,
+    url TEXT NOT NULL,
+    title VARCHAR(128),
+    description VARCHAR(128),
+    rank INTEGER,
+    FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
+    PRIMARY KEY (conference_person_link_id)
+) WITHOUT OIDS;
+
+CREATE TABLE conference_person_link_internal (
+    conference_person_link_internal_id SERIAL NOT NULL,
+    conference_person_id INTEGER NOT NULL,
+    link_type_id INTEGER NOT NULL,
+    url TEXT NOT NULL,
+    title VARCHAR(128),
+    description VARCHAR(128),
+    rank INTEGER,
+    FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
+    FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
+    PRIMARY KEY (conference_person_link_internal_id)
+) WITHOUT OIDS;
+
 CREATE TABLE conference_link (
   conference_link_id SERIAL NOT NULL,
   conference_id INTEGER NOT NULL,
