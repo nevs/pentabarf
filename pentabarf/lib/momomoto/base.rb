@@ -28,7 +28,9 @@ module Momomoto
       @@connection = nil
       # array with permissions of the current user
       @@permissions = []
-    
+      # language_id of the user interface
+      @@ui_language_id = 0
+
     protected
 
       # name of the table this class operates on
@@ -48,9 +50,17 @@ module Momomoto
       # order for selects
       @order = nil
 
+      def ui_language_id=( value )
+        @@ui_language_id = value.to_i
+      end
+
     public
 
     attr_reader :limit, :current_record, :order, :new_record
+
+    def self.ui_language_id
+      @@ui_language_id
+    end
 
     # set limit for queries
     def limit=( value )

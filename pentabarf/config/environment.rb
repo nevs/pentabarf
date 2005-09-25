@@ -103,7 +103,7 @@ module ActionView
           tag.delete!("<[]>")
         end
         if tags.length > 0
-          Momomoto::View_ui_message.find({:language_id => @current_language_id, :tag => tags}).each do | msg |
+          Momomoto::View_ui_message.find({:language_id => Momomoto::Base.ui_language_id, :tag => tags}).each do | msg |
             next if msg.name.match(/[{}<>]/)
             template.gsub!( "<[" + msg.tag + "]>", h(msg.name) )
           end

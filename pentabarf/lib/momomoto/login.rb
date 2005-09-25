@@ -7,7 +7,7 @@ module Momomoto
     def initialize
     super
     @table = 'person'
-    @domain = 'person'
+    @domain = 'own_person'
     @fields = { :person_id    => Datatype::Integer.new( {:primary_key => true, :not_null => true, :serial => true} ),
                 :login_name   => Datatype::Varchar.new( {} ),
                 :password     => Datatype::Password.new( {:length => 48} ),
@@ -25,6 +25,7 @@ module Momomoto
         if Digest::MD5.hexdigest( salt_bin + password ) == self[0].password[16..47]
           @current_record = 0;
           @@permissions = execute("SELECT get_permissions from get_permissions(#{self[:person_id]});").to_a.flatten
+          self.ui_language_id= self[:preferences][:current_language_id]
           return true
         end
       end
