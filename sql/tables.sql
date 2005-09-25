@@ -452,31 +452,6 @@ CREATE TABLE person (
   PRIMARY KEY (person_id)
 ) WITHOUT OIDS;
 
-CREATE TABLE person_link (
-  person_link_id SERIAL NOT NULL,
-  person_id INTEGER NOT NULL,
-  url VARCHAR(1024) NOT NULL,
-  title VARCHAR(128),
-  description VARCHAR(128),
-  rank INTEGER,
-  FOREIGN KEY (person_id) REFERENCES person (person_id),
-  FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
-  PRIMARY KEY (person_link_id)
-) WITHOUT OIDS;
-
-CREATE TABLE person_link_internal (
-  person_link_internal_id SERIAL NOT NULL,
-  person_id INTEGER NOT NULL,
-  link_type_id INTEGER NOT NULL,
-  url TEXT NOT NULL,
-  title VARCHAR(128),
-  description VARCHAR(128),
-  rank INTEGER,
-  FOREIGN KEY (person_id) REFERENCES person (person_id),
-  FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
-  PRIMARY KEY (person_link_internal_id)
-) WITHOUT OIDS;
-
 CREATE TABLE person_phone (
   person_phone_id SERIAL NOT NULL,
   person_id INTEGER NOT NULL,
