@@ -1,10 +1,10 @@
 module Momomoto
-  class View_event_link < Base
+  class View_event_link_internal < Base
     def initialize
       super
       @domain = 'event'
       @fields = {
-        :event_link_id => Datatype::Integer.new( {} ),
+        :event_link_internal_id => Datatype::Integer.new( {} ),
         :event_id => Datatype::Integer.new( {} ),
         :link_type_id => Datatype::Integer.new( {} ),
         :url => Datatype::Varchar.new( {:length=>1024} ),
