@@ -36,26 +36,26 @@ class ImagesController < ApplicationController
     if action_name == 'conference'
       modification = Momomoto::View_conference_image_modification.find( {:conference_id => extract_id( @params[:id] )} )
       if modification.length == 1
-        timestamp = modification.last_changed
+        @timestamp = modification.last_changed
       else
-        timestamp = File.ctime( RAILS_ROOT + '/public/images/icon-conference-128x128.png' )
+        @timestamp = File.ctime( RAILS_ROOT + '/public/images/icon-conference-128x128.png' )
       end
     elsif action_name == 'event'
       modification = Momomoto::View_event_image_modification.find( {:event_id => extract_id( @params[:id] )} )
       if modification.length == 1
-        timestamp = modification.last_changed
+        @timestamp = modification.last_changed
       else
-        timestamp = File.ctime( RAILS_ROOT + '/public/images/icon-event-128x128.png' )
+        @timestamp = File.ctime( RAILS_ROOT + '/public/images/icon-event-128x128.png' )
       end
     elsif action_name == 'person'
       modification = Momomoto::View_person_image_modification.find( {:person_id => extract_id( @params[:id] )} )
       if modification.length == 1
-        timestamp = modification.last_changed
+        @timestamp = modification.last_changed
       else
-        timestamp = File.ctime( RAILS_ROOT + '/public/images/icon-person-128x128.png' )
+        @timestamp = File.ctime( RAILS_ROOT + '/public/images/icon-person-128x128.png' )
       end
     end
-    if @request.env['HTTP_IF_MODIFIED_SINCE'] == timestamp
+    if @request.env['HTTP_IF_MODIFIED_SINCE'] == @timestamp
       render_text( "Not changed", 304 )
       return false
     end
@@ -64,14 +64,14 @@ class ImagesController < ApplicationController
 
   def deliver_image( image, query )
     @response.headers['Content-type'] = image.mime_type
-    @response.headers['Last-Modified'] = @modification.last_changed
+    @response.headers['Last-Modified'] = @timestamp
     render_resized( Magick::Image.from_blob( image.image )[0], query )
   end
 
   def deliver_static_image( image, query )
     image_file = File.open( image )
     @response.headers['Content-type'] = 'image/png'
-    @response.headers['Last-Modified'] = image_file.ctime
+    @response.headers['Last-Modified'] = @timestamp
     render_resized( Magick::Image.from_blob( image_file.read )[0], query )
   end
 
