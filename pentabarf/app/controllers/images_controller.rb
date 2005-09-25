@@ -8,7 +8,7 @@ class ImagesController < ApplicationController
     if image.length == 1
       deliver_image( image, params[:id] )
     else
-      render_text("Not found.", 404)
+      deliver_static_image( RAILS_ROOT + '/public/images/icon-conference-128x128.png', params[:id])
     end
   end
 
@@ -17,7 +17,7 @@ class ImagesController < ApplicationController
     if image.length == 1
       deliver_image( image, params[:id] )
     else
-      render_text("Not found.", 404)
+      deliver_static_image( RAILS_ROOT + '/public/images/icon-event-128x128.png', params[:id])
     end
   end
 
@@ -26,22 +26,36 @@ class ImagesController < ApplicationController
     if image.length == 1
       deliver_image( image, params[:id] )
     else
-      render_text("Not found.", 404)
+      deliver_static_image( RAILS_ROOT + '/public/images/icon-person-128x128.png', params[:id])
     end
   end
 
   protected
 
   def modified_since
-    @modification = nil
     if action_name == 'conference'
-      @modification = Momomoto::View_conference_image_modification.find( {:conference_id => extract_id( @params[:id] )} )
+      modification = Momomoto::View_conference_image_modification.find( {:conference_id => extract_id( @params[:id] )} )
+      if modification.length == 1
+        timestamp = modification.last_changed
+      else
+        timestamp = File.ctime( RAILS_ROOT + '/public/images/icon-conference-128x128.png' )
+      end
     elsif action_name == 'event'
-      @modification = Momomoto::View_event_image_modification.find( {:event_id => extract_id( @params[:id] )} )
+      modification = Momomoto::View_event_image_modification.find( {:event_id => extract_id( @params[:id] )} )
+      if modification.length == 1
+        timestamp = modification.last_changed
+      else
+        timestamp = File.ctime( RAILS_ROOT + '/public/images/icon-event-128x128.png' )
+      end
     elsif action_name == 'person'
-      @modification = Momomoto::View_person_image_modification.find( {:person_id => extract_id( @params[:id] )} )
+      modification = Momomoto::View_person_image_modification.find( {:person_id => extract_id( @params[:id] )} )
+      if modification.length == 1
+        timestamp = modification.last_changed
+      else
+        timestamp = File.ctime( RAILS_ROOT + '/public/images/icon-person-128x128.png' )
+      end
     end
-    if @modification && @modification.length == 1 && @request.env['HTTP_IF_MODIFIED_SINCE'] == @modification.last_changed
+    if @request.env['HTTP_IF_MODIFIED_SINCE'] == timestamp
       render_text( "Not changed", 304 )
       return false
     end
@@ -51,9 +65,19 @@ class ImagesController < ApplicationController
   def deliver_image( image, query )
     @response.headers['Content-type'] = image.mime_type
     @response.headers['Last-Modified'] = @modification.last_changed
-    img = Magick::Image.from_blob( image.image )[0]
-    img.x_resolution = 72
-    img.y_resolution = 72
+    render_resized( Magick::Image.from_blob( image.image )[0], query )
+  end
+
+  def deliver_static_image( image, query )
+    image_file = File.open( image )
+    @response.headers['Content-type'] = 'image/png'
+    @response.headers['Last-Modified'] = image_file.ctime
+    render_resized( Magick::Image.from_blob( image_file.read )[0], query )
+  end
+
+  def render_resized( image, query)
+    image.x_resolution = 72
+    image.y_resolution = 72
     if query.match( /\d+-(\d+)x(\d+)/ )
       height = $1.to_i > 512 ? 32 : $1.to_i
       width = $2.to_i > 512 ? 32 : $2.to_i
@@ -61,7 +85,7 @@ class ImagesController < ApplicationController
       height = 32
       width = 32
     end
-    render_text( img.resize!( height, width ).strip!.to_blob )
+    render_text( image.resize!( height, width ).strip!.to_blob )
   end
 
   def extract_id( query )
