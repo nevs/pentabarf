@@ -112,7 +112,7 @@
           <td>
             <%= select_tag( 'conference[max_timeslot_duration]', 1..20, 
                             'to_i', 'to_i', @conference.max_timeslot_duration, 
-                            { :tabindex => 0 } ) %>
+                            { :tabindex => 0 }, false ) %>
           </td>
         </tr>
         <tr>
