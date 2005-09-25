@@ -34,6 +34,7 @@ module ApplicationHelper
       tabs[index][:tag] = tab_name
       tabs[index][:url] = "javascript:switch_tab('#{tab_name}')"
       tabs[index][:class] = "tab inactive"
+      tabs[index][:accesskey] = index
       if environment && tabs_local.find_by_id(:tag, "#{environment}::tab_#{tab_name}")
         tabs[index][:text] = tabs_local.name
       else
@@ -41,14 +42,18 @@ module ApplicationHelper
       end
       html += "tab_name[#{index}] = '#{tab_name}';"
     end
+    if with_show_all == true
+      tabs.push({:tag=>'all',:url=>"javascript:switch_tab('all')",:class=>"tab inactive",:accesskey=>0,:text=>"Show all"})
+    end
     html += '</script>'
-    content_tabs( tabs, with_show_all, html )
+    
+    content_tabs( tabs, html )
   end
   
-  def content_tabs( tabs, with_show_all = true, html = '' )
+  def content_tabs( tabs, html = '' )
     html += '<div id="tabs">'
     tabs.each_with_index do | tab, index |
-      html += "<span>#{ link_to(tab[:text],  tab[:url], {:accesskey => index + 1, :class => tab[:class], :id => 'tab-'+tab[:tag]})}</span>"
+      html += "<span>#{ link_to(tab[:text],  tab[:url], {:accesskey => ( tab[:accesskey] || ( index + 1 )), :class => tab[:class], :id => 'tab-'+tab[:tag]})}</span>"
     end
     html += '</div>'
     html

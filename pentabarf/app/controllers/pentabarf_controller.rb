@@ -1,6 +1,7 @@
 class PentabarfController < ApplicationController
   before_filter :authorize, :check_permission
-  after_filter :save_preferences, :compress
+  after_filter :save_preferences, :except => [:meditation, :activity]
+  after_filter :compress
 
   def initialize
     @content_title ='@content_title'
@@ -9,8 +10,6 @@ class PentabarfController < ApplicationController
 
   def index
     @content_title ='Overview'
-    @tabs = [{:tag => 'participant', :url => "JavaScript:switch_tab('participant');", :text => 'Participant', :class => 'tab'},
-             {:tag => 'coordinator', :url => "JavaScript:switch_tab('coordinator');", :text => 'Coordinator', :class => 'tab'}]
   end
 
   def find_conference
@@ -148,14 +147,6 @@ class PentabarfController < ApplicationController
   end
 
   def person
-    @tabs = [{:tag => 'general', :url => "JavaScript:switch_tab('general');", :text => 'General', :class => 'tab'},
-             {:tag => 'events', :url => "JavaScript:switch_tab('events');", :text => 'Events', :class => 'tab'},
-             {:tag => 'contact', :url => "JavaScript:switch_tab('contact');", :text => 'Contact', :class => 'tab'},
-             {:tag => 'description', :url => "JavaScript:switch_tab('description');", :text => 'Description', :class => 'tab'},
-             {:tag => 'links', :url => "JavaScript:switch_tab('links');", :text => 'Links', :class => 'tab'},
-             {:tag => 'rating', :url => "JavaScript:switch_tab('rating');", :text => 'Rating', :class => 'tab'},
-             {:tag => 'travel', :url => "JavaScript:switch_tab('travel');", :text => 'Travel', :class => 'tab'},
-             {:tag => 'account', :url => "JavaScript:switch_tab('account');", :text => 'Account', :class => 'tab'}]
     if params[:id]
       if params[:id] == 'new'
         @content_title ='New Person'
@@ -318,9 +309,8 @@ class PentabarfController < ApplicationController
           rating.evaluator_id = @user.person_id
         end
 
-        params[:rating].each do | key, value |
-          rating[key] = value
-        end
+        params[:rating].each { | key, value | rating[key] = value }
+        rating.eval_time = 'now()'
         modified = true if rating.write
         
         if params[:event_person]
@@ -596,6 +586,10 @@ class PentabarfController < ApplicationController
           rating.person_id = @user.person_id
         end
 
+        params[:rating].each { | key, value | rating[key] = value }
+        rating.eval_time = 'now()'
+        modified = true if rating.write
+        
         image = Momomoto::Event_image.new
         image.select({:event_id => event.event_id})
         if image.length != 1 && params[:event_image][:image].size > 0
@@ -612,12 +606,6 @@ class PentabarfController < ApplicationController
           end
           modified = true if image.write
         end
-
-        params[:rating].each do | key, value |
-          rating[key] = value
-        end
-        modified = true if rating.write
-        
 
         if params[:event_person]
           person = Momomoto::Event_person.new()
@@ -698,8 +686,9 @@ class PentabarfController < ApplicationController
         conf = Momomoto::Conference.find({:conference_id => params[:current_conference_id]})
         if conf.length == 1
           @preferences[:current_conference_id] = params[:current_conference_id].to_i
-          redirect_to()
+          @user.preferences = @preferences
           @user.write
+          redirect_to()
           return false
         end
       end
@@ -708,13 +697,6 @@ class PentabarfController < ApplicationController
     else
       redirect_to( :action => :meditation )
       false
-    end
-  end
-
-  def save_preferences
-    if @action_name != 'activity'
-      @user.preferences = @preferences
-      @user.write
     end
   end
 

@@ -1,5 +1,6 @@
 <%= javascript_include_tag( '/javascripts/jscalendar/calendar.js', '/javascripts/jscalendar/calendar-setup.js', '/javascripts/jscalendar/lang/calendar-en.js' ) %>
 <%= javascript_include_tag('add_functions', 'tainted') %>
+<%= content_tabs_js( ['general', 'events', 'contact', 'description', 'links', 'rating', 'travel', 'account'], 'view_person' ) %>
 <div id="object-image">
   <%= image_tag('icon-person-64x64.png', { :class => 'object-image' } ) %>
 </div>
@@ -650,4 +651,5 @@
 
   <%= end_form_tag() %>
   <%= javascript_tag("new Form.EventObserver('person_form', function(element, value ) { enable_save_button() } )") %>
+  <%= javascript_tag("switch_tab();") %>
 </div>

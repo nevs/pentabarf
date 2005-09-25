@@ -1,4 +1,5 @@
-<% if @tabs.length %>
+<% if @tabs.length > 0 %>
+<div id="tabs">
   <% @tabs.each_with_index do | tab, index |  %>
     <span><%= link_to(tab[:text],  tab[:url], {:accesskey => index + 1, :class => tab[:class], :id => "tab-#{tab[:tag]}"}) %></span>
   <% end %>
@@ -10,4 +11,5 @@
     <% end %>
     switch_tab();
   </script>
+</div>
 <% end %>
