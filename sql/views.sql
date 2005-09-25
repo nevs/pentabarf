@@ -300,20 +300,20 @@ CREATE OR REPLACE VIEW view_event_link_internal AS
   FROM event_link_internal 
        INNER JOIN view_link_type USING (link_type_id);
 
-CREATE OR REPLACE VIEW view_person_link_internal AS
-  SELECT person_link_internal_id,
-         person_id,
+CREATE OR REPLACE VIEW view_conference_person_link_internal AS
+  SELECT conference_person_link_internal_id,
+         conference_person_id,
          link_type_id,
          url,
          title,
          description,
-         person_link_internal.rank,
+         conference_person_link_internal.rank,
          language_id,
          url_prefix,
          f_public,
          tag,
          name
-    FROM person_link_internal 
+    FROM conference_person_link_internal 
          INNER JOIN view_link_type USING (link_type_id);
 
 CREATE OR REPLACE VIEW view_person_rating AS
