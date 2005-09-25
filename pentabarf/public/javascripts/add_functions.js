@@ -348,8 +348,8 @@ function add_event_person(event_person_id, person_id, event_role_id, event_role_
   if (person_id) {
     element = create_element("a", 0, "event_person[" + row_id + "][link]", p_base + "pentabarf/person/" + person_id, null, false );
     element.setAttribute("title", "Go to \""+person_names[person_id]+"\"");
-    element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/icon-person-32x32.png", null, false ));
-//    element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/person/" + person_id, null, false));
+//    element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/icon-person-32x32.png", null, false ));
+    element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/person/" + person_id, null, false));
     table_data = document.createElement("td");
     table_data.appendChild(element);
     table_row.appendChild(table_data);
