@@ -385,6 +385,28 @@ class PentabarfController < ApplicationController
           end
         end
 
+        if params[:internal_link]
+          person_link_internal = Momomoto::Person_link_internal.new()
+          params[:internal_link].each do | key, value |
+            person_link_internal.select( {:person_id => person.person_id, :person_link_internal_id => value[:internal_link_id]} )
+            if person_link_internal.length != 1
+              person_link_internal.create
+              person_link_internal.person_id = person.person_id
+            end
+
+            if value[:delete]
+              person_link_internal.delete unless person_link_internal.new_record
+              next
+            end
+
+            value.each do | field_name, field_value |
+              next if field_name.to_sym == :internal_link_id
+              person_link_internal[field_name] = field_value
+            end
+            modified = true if person_link_internal.write
+          end
+        end
+
         if modified == true
           transaction = Momomoto::Person_transaction.new_record()
           transaction.person_id = person.person_id
@@ -633,6 +655,28 @@ class PentabarfController < ApplicationController
               event_link[field_name] = field_value
             end
             modified = true if event_link.write
+          end
+        end
+
+        if params[:internal_link]
+          event_link_internal = Momomoto::Event_link_internal.new()
+          params[:internal_link].each do | key, value |
+            event_link_internal.select( {:event_id => event.event_id, :event_link_internal_id => value[:internal_link_id]} )
+            if event_link_internal.length != 1
+              event_link_internal.create
+              event_link_internal.event_id = event.event_id
+            end
+
+            if value[:delete]
+              event_link_internal.delete unless event_link_internal.new_record
+              next
+            end
+
+            value.each do | field_name, field_value |
+              next if field_name.to_sym == :internal_link_id
+              event_link_internal[field_name] = field_value
+            end
+            modified = true if event_link_internal.write
           end
         end
 

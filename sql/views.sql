@@ -284,36 +284,36 @@ CREATE OR REPLACE VIEW view_person_image_modification AS
          person_image.last_changed
     FROM person_image;
 
-CREATE OR REPLACE VIEW view_event_link AS
-  SELECT event_link_id,
+CREATE OR REPLACE VIEW view_event_link_internal AS
+  SELECT event_link_internal_id,
          event_id,
          link_type_id,
          url,
          title,
          description,
-         event_link.rank,
+         event_link_internal.rank,
          language_id,
          url_prefix,
          f_public,
          tag,
          name
-  FROM event_link 
+  FROM event_link_internal 
        INNER JOIN view_link_type USING (link_type_id);
 
-CREATE OR REPLACE VIEW view_person_link AS
-  SELECT person_link_id,
+CREATE OR REPLACE VIEW view_person_link_internal AS
+  SELECT person_link_internal_id,
          person_id,
          link_type_id,
          url,
          title,
          description,
-         person_link.rank,
+         person_link_internal.rank,
          language_id,
          url_prefix,
          f_public,
          tag,
          name
-    FROM person_link 
+    FROM person_link_internal 
          INNER JOIN view_link_type USING (link_type_id);
 
 CREATE OR REPLACE VIEW view_person_rating AS

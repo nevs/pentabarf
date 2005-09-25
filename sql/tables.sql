@@ -431,7 +431,6 @@ CREATE TABLE person (
 CREATE TABLE person_link (
   person_link_id SERIAL NOT NULL,
   person_id INTEGER NOT NULL,
-  link_type_id INTEGER NOT NULL,
   url VARCHAR(1024) NOT NULL,
   title VARCHAR(128),
   description VARCHAR(128),
@@ -439,6 +438,19 @@ CREATE TABLE person_link (
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
   PRIMARY KEY (person_link_id)
+) WITHOUT OIDS;
+
+CREATE TABLE person_link_internal (
+  person_link_internal_id SERIAL NOT NULL,
+  person_id INTEGER NOT NULL,
+  link_type_id INTEGER NOT NULL,
+  url TEXT NOT NULL,
+  title VARCHAR(128),
+  description VARCHAR(128),
+  rank INTEGER,
+  FOREIGN KEY (person_id) REFERENCES person (person_id),
+  FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
+  PRIMARY KEY (person_link_internal_id)
 ) WITHOUT OIDS;
 
 CREATE TABLE person_phone (
@@ -764,6 +776,17 @@ CREATE TABLE event_rating (
 CREATE TABLE event_link (
   event_link_id SERIAL NOT NULL,
   event_id INTEGER NOT NULL,
+  url VARCHAR(1024) NOT NULL,
+  title VARCHAR(128),
+  description VARCHAR(128),
+  rank INTEGER,
+  FOREIGN KEY (event_id) REFERENCES event (event_id),
+  PRIMARY KEY (event_link_id)
+) WITHOUT OIDS;
+
+CREATE TABLE event_link_internal (
+  event_link_internal_id SERIAL NOT NULL,
+  event_id INTEGER NOT NULL,
   link_type_id INTEGER NOT NULL,
   url VARCHAR(1024) NOT NULL,
   title VARCHAR(128),
@@ -771,7 +794,7 @@ CREATE TABLE event_link (
   rank INTEGER,
   FOREIGN KEY (event_id) REFERENCES event (event_id),
   FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
-  PRIMARY KEY (event_link_id)
+  PRIMARY KEY (event_link_internal_id)
 ) WITHOUT OIDS;
 
 CREATE TABLE event_role (

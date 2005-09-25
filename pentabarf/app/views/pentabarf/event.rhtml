@@ -254,21 +254,24 @@
       
     <fieldset>
       <legend>Public Links</legend>
-      <table id="public_link_table" class="hidden">
+      <table id="link_table" class="hidden">
         <thead>
           <tr>
-            <th />
-            <th>Link Type</th>
-            <th>URL</th>
+            <th colspan="2">URL</th>
             <th>Title</th>
             <th>Comment</th>
             <th>remove</th>
           </tr>
         </thead>
-        <tbody id="public_link_table_body">
+        <tbody id="link_table_body">
         </tbody>
       </table>
-      <button type="button" name="add_public_link" value="Add Public Links" title="Add a new public link to list of links" tabindex="0" onClick="window.add_link('public');">Add Public Link</button>
+      <button type="button" name="add_link" value="Add Links" title="Add a new link to list of links" tabindex="0" onClick="window.add_link();">Add Link</button>
+      <script type="text/javascript">
+      <% for event_link in Momomoto::Event_link.find( {:event_id => @event.event_id} ) %>
+        add_link(<%= event_link.event_link_id  %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title)%>', '<%= escape_javascript(event_link.description) %>');
+      <% end %>
+      </script>
     </fieldset>
 
     <fieldset>
@@ -290,13 +293,12 @@
       <button type="button" name="add_internal_link" value="Add Internal Links" title="Add a new internal link to list of links" tabindex="0" onClick="window.add_link('internal');">Add Internal Link</button>
     </fieldset>
     <script type="text/javascript">
-      var internal_link_types = new Array();
-      var public_link_types = new Array();
+      var link_types = new Array();
       <% for link_type in Momomoto::View_link_type.find(:language_id => @current_language_id) %>
-        <%= link_type.f_public != 't' ? 'internal_link_types' : 'public_link_types' -%>[<%= link_type.link_type_id %>]= '<%= link_type.name %>';
+        link_types[<%= link_type.link_type_id %>]= '<%= link_type.name %>';
       <% end %>
-      <% for event_link in Momomoto::View_event_link.find( {:event_id => @event.event_id, :language_id => @current_language_id} ) %>
-        add_link(<%= event_link.f_public == 't' ? "'public'" : "'internal'" %>, <%= event_link.event_link_id  %>,<%= event_link.link_type_id %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title)%>', '<%= escape_javascript(event_link.description) %>');
+      <% for event_link in Momomoto::View_event_link_internal.find( {:event_id => @event.event_id, :language_id => @current_language_id} ) %>
+        add_internal_link(<%= event_link.event_link_internal_id  %>,<%= event_link.link_type_id %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title)%>', '<%= escape_javascript(event_link.description) %>');
       <% end %>
     </script>
 

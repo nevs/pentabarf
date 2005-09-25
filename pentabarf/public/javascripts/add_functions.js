@@ -198,14 +198,14 @@ function add_person_phone(person_phone_id, phone_type_id, number)
 
 var link_counter = 0;
 
-function add_public_link(link_id, link_type_id, url, title, description)
+function add_link(link_id, url, title, description)
 {
   var table_row, table_data, element;
   var row_id = link_counter;
 
   link_counter++;
 
-  document.getElementById('public_link_table').style.display = "block";
+  document.getElementById('link_table').style.display = "block";
   table_row = document.createElement("tr");
   table_row.setAttribute("id","row_"+row_id);
 
@@ -220,52 +220,45 @@ function add_public_link(link_id, link_type_id, url, title, description)
     table_row.appendChild(create_element("img", 0, "link["+row_id+"][image]", p_base + "images/icon-link-32x32.png"));
   }
   table_row.appendChild(create_element("input", "hidden", "link["+row_id+"][link_id]", link_id));
-  table_row.appendChild(create_element("select", 0, "link["+row_id+"][link_type_id]", public_link_types, link_type_id));
   table_row.appendChild(create_element("input", "text", "link["+row_id+"][url]", url));
   table_row.appendChild(create_element("input", "text", "link["+row_id+"][title]", title));
   table_row.appendChild(create_element("input", "text", "link["+row_id+"][description]", description));
   table_row.appendChild(create_element("input", "checkbox", "link["+row_id+"][delete]"));
-  document.getElementById("public_link_table_body").appendChild(table_row);
+  document.getElementById("link_table_body").appendChild(table_row);
 }
+
+var internal_link_counter = 0;
 
 function add_internal_link(link_id, link_type_id, url, title, description)
 {
   var table_row, table_data, element;
 
-  var row_id = link_counter;
-  link_counter++;
+  var row_id = internal_link_counter;
+  internal_link_counter++;
 
   document.getElementById('internal_link_table').style.display = "block";
   table_row = document.createElement("tr");
   table_row.setAttribute("id","row_"+row_id);
 
   if (link_id) {
-    element = create_element("a", 0,"link["+row_id+"][url]", url, null, true);
+    element = create_element("a", 0,"internal_link["+row_id+"][url]", url, null, true);
     element.setAttribute("title", title);
-    element.appendChild(create_element("img", 0, "link["+row_id+"][image]", p_base + "images/icon-link-32x32.png", null, true));
+    element.appendChild(create_element("img", 0, "internal_link["+row_id+"][image]", p_base + "images/icon-link-32x32.png", null, true));
     table_data = document.createElement("td");
     table_data.appendChild(element);
     table_row.appendChild(table_data);
   } else {
-    table_row.appendChild(create_element("img", 0, "link["+row_id+"][image]", p_base + "images/icon-link-32x32.png"));
+    table_row.appendChild(create_element("img", 0, "internal_link["+row_id+"][image]", p_base + "images/icon-link-32x32.png"));
   }
-  table_row.appendChild(create_element("input", "hidden", "link["+row_id+"][link_id]", link_id));
-  table_row.appendChild(create_element("select", 0, "link["+row_id+"][link_type_id]", internal_link_types, link_type_id));
-  table_row.appendChild(create_element("input", "text", "link["+row_id+"][url]", url));
-  table_row.appendChild(create_element("input", "text", "link["+row_id+"][title]", title));
-  table_row.appendChild(create_element("input", "text", "link["+row_id+"][description]", description));
-  table_row.appendChild(create_element("input", "checkbox", "link["+row_id+"][delete]"));
+  table_row.appendChild(create_element("input", "hidden", "internal_link["+row_id+"][internal_link_id]", link_id));
+  table_row.appendChild(create_element("select", 0, "internal_link["+row_id+"][link_type_id]", link_types, link_type_id));
+  table_row.appendChild(create_element("input", "text", "internal_link["+row_id+"][url]", url));
+  table_row.appendChild(create_element("input", "text", "internal_link["+row_id+"][title]", title));
+  table_row.appendChild(create_element("input", "text", "internal_link["+row_id+"][description]", description));
+  table_row.appendChild(create_element("input", "checkbox", "internal_link["+row_id+"][delete]"));
   document.getElementById("internal_link_table_body").appendChild(table_row);
 }
 
-function add_link(type, link_id, link_type_id, url, title, description)
-{
-  if ( type == 'public' ) {
-    add_public_link(link_id, link_type_id, url, title, description);
-  } else {
-    add_internal_link(link_id, link_type_id, url, title, description);
-  }
-}
 
 var person_event_counter = 0;
 
