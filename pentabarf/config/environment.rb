@@ -31,7 +31,6 @@ ADDITIONAL_LOAD_PATHS.concat %w(
   components 
   config 
   lib 
-  lib/xmpp4r 
   vendor 
   vendor/rails/railties
   vendor/rails/railties/lib
