@@ -1,11 +1,11 @@
 module Momomoto
-  class View_person_link_internal < Base
+  class View_conference_person_link_internal < Base
     def initialize
       super
       @domain = 'person'
       @fields = {
-        :person_link_internal_id => Datatype::Integer.new( {} ),
-        :person_id => Datatype::Integer.new( {} ),
+        :conference_person_link_internal_id => Datatype::Integer.new( {} ),
+        :conference_person_id => Datatype::Integer.new( {} ),
         :link_type_id => Datatype::Integer.new( {} ),
         :url => Datatype::Text.new( {} ),
         :title => Datatype::Varchar.new( {:length=>128} ),
