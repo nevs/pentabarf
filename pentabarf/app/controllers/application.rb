@@ -110,4 +110,9 @@ class ApplicationController < ActionController::Base
     false
   end
 
+  def save_preferences
+    @user.preferences = @preferences
+    @user.write
+  end
+
 end
