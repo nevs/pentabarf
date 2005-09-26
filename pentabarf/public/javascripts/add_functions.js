@@ -241,7 +241,7 @@ function add_internal_link(link_id, link_type_id, url, title, description)
   table_row.setAttribute("id","row_"+row_id);
 
   if (link_id) {
-    element = create_element("a", 0,"internal_link["+row_id+"][url]", url, null, true);
+    element = create_element("a", 0,"internal_link["+row_id+"][url]", link_type_prefix[link_type_id] + url, null, true);
     element.setAttribute("title", title);
     element.appendChild(create_element("img", 0, "internal_link["+row_id+"][image]", p_base + "images/icon-link-32x32.png", null, true));
     table_data = document.createElement("td");
