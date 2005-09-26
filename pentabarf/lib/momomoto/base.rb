@@ -260,7 +260,7 @@ module Momomoto
       fields, values = '', ''
       @resultset[@current_record].each do | field_name, value |
         if value.property(:serial)
-          value.value= execute("SELECT nextval('#{@table}_#{field_name}_seq');").to_a[0][0]
+          value.value= execute("SELECT nextval('#{@table.to_s[0..28]}_#{field_name.to_s[0..28]}_seq');").to_a[0][0]
         end
         next if value.property( :default ) && value.write_value == 'NULL'
         raise "not null field with null value in class #{self.class.name} field #{field_name} in insert" if value.property( :not_null ) && value.write_value == 'NULL'
