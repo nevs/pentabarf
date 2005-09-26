@@ -34,7 +34,7 @@ module ApplicationHelper
       tabs[index][:tag] = tab_name
       tabs[index][:url] = "javascript:switch_tab('#{tab_name}')"
       tabs[index][:class] = "tab inactive"
-      tabs[index][:accesskey] = index
+      tabs[index][:accesskey] = index + 1
       if environment && tabs_local.find_by_id(:tag, "#{environment}::tab_#{tab_name}")
         tabs[index][:text] = tabs_local.name
       else
