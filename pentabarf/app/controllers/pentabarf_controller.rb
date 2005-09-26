@@ -364,12 +364,12 @@ class PentabarfController < ApplicationController
         end
 
         if params[:link]
-          person_link = Momomoto::Person_link.new()
+          person_link = Momomoto::Conference_person_link.new()
           params[:link].each do | key, value |
-            person_link.select( {:person_id => person.person_id, :person_link_id => value[:link_id]} )
+            person_link.select( {:conference_person_id => conference_person.conference_person_id, :conference_person_link_id => value[:link_id]} )
             if person_link.length != 1
               person_link.create
-              person_link.person_id = person.person_id
+              person_link.conference_person_id = conference_person.conference_person_id
             end
 
             if value[:delete]
@@ -386,12 +386,12 @@ class PentabarfController < ApplicationController
         end
 
         if params[:internal_link]
-          person_link_internal = Momomoto::Person_link_internal.new()
+          person_link_internal = Momomoto::Conference_person_link_internal.new()
           params[:internal_link].each do | key, value |
-            person_link_internal.select( {:person_id => person.person_id, :person_link_internal_id => value[:internal_link_id]} )
+            person_link_internal.select( {:conference_person_id => conference_person.conference_person_id, :conference_person_link_internal_id => value[:internal_link_id]} )
             if person_link_internal.length != 1
               person_link_internal.create
-              person_link_internal.person_id = person.person_id
+              person_link_internal.conference_person_id = conference_person.conference_person_id
             end
 
             if value[:delete]

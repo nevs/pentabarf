@@ -296,8 +296,8 @@
       </table>
       <button type="button" name="add_link" value="Add Links" title="Add a new link to list of links" tabindex="0" onClick="window.add_link();">Add Link</button>
       <script type="text/javascript">
-      <% for person_link in Momomoto::Person_link.find( {:person_id => @person.person_id} ) %>
-        add_link(<%= person_link.person_link_id  %>, '<%= escape_javascript(person_link.url) %>', '<%= escape_javascript(person_link.title)%>', '<%= escape_javascript(person_link.description) %>');
+      <% for person_link in Momomoto::Conference_person_link.find( {:conference_person_id => @conference_person.conference_person_id} ) %>
+        add_link(<%= person_link.conference_person_link_id  %>, '<%= escape_javascript(person_link.url) %>', '<%= escape_javascript(person_link.title)%>', '<%= escape_javascript(person_link.description) %>');
       <% end %>
       </script>
     </fieldset>
@@ -325,8 +325,8 @@
       <% for link_type in Momomoto::View_link_type.find(:language_id => @current_language_id) %>
         <%= 'link_types' %>[<%= link_type.link_type_id %>]= '<%= link_type.name %>';
       <% end %>
-      <% for link in Momomoto::Person_link_internal.find( {:person_id => @person.person_id} ) %>
-        add_internal_link(<%= link.person_link_internal_id  %>, <%= link.link_type_id %>, '<%= escape_javascript(link.url) %>', '<%= escape_javascript(link.title)%>', '<%= escape_javascript(link.description) %>');
+      <% for link in Momomoto::Conference_person_link_internal.find( {:conference_person_id => @conference_person.conference_person_id} ) %>
+        add_internal_link(<%= link.conference_person_link_internal_id  %>, <%= link.link_type_id %>, '<%= escape_javascript(link.url) %>', '<%= escape_javascript(link.title)%>', '<%= escape_javascript(link.description) %>');
       <% end %>
     </script>
 
