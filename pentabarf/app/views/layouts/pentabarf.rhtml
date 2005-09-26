@@ -5,10 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title><%= h(@content_title) %> - Pentabarf <%= get_version() %> (r<%= get_revision() %>)</title>
     <link rel="shortcut icon" href="/favicon.ico">
-    <%= javascript_include_tag( 'prototype', 'effects', 'switch_tab', 'cookie' ) %>
+    <%= javascript_include_tag( 'prototype', 'effects', 'switch_tab', 'cookie', 'tainted', 'add_functions' ) %>
     <%= javascript_tag( "p_base = '#{escape_javascript(get_base_url())}';" ) %>
     <%= stylesheet_link_tag 'main' %>
-    <%= javascript_tag("var init_done = false;") %>
   </head>
   <body id="body">
     <%= render(:partial => 'sidebar') %>
@@ -24,6 +23,6 @@
       </div>
     </div>
     <%= periodically_call_remote(:update => 'activity', :url => { :action => :activity }, :frequency => 23 ) %>
-    <%= javascript_tag("init_done = true;") %>
+    <%= javascript_tag("init_done = true;enumerator();") %>
   </body>
 </html>

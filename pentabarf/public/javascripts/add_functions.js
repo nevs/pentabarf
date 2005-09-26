@@ -93,6 +93,7 @@ function add_conference_track(conference_track_id, tag)
   table_row.appendChild(create_element("input", "checkbox", "conference_track[" + row_id + "][delete]"));
 
   document.getElementById("conference_track_table_body").appendChild(table_row);
+  enumerator();
 }
 
 var team_counter = 0;
@@ -112,6 +113,7 @@ function add_team(team_id, tag)
   table_row.appendChild(create_element("input", "checkbox", "team[" + row_id + "][delete]"));
 
   document.getElementById("team_table_body").appendChild(table_row);
+  enumerator();
 }
 
 var room_counter = 0;
@@ -133,6 +135,7 @@ function add_room(room_id, short_name, f_public, size, remark, rank)
   table_row.appendChild(create_element("input", "checkbox", "room[" + row_id + "][delete]"));
 
   document.getElementById("room_table_body").appendChild(table_row);
+  enumerator();
 }
 
 var person_im_counter = 0;
@@ -163,6 +166,7 @@ function add_person_im(person_im_id, im_type_id, im_address)
   table_row.appendChild(create_element("input", "checkbox", "person_im["+row_id+"][delete]"));
   
   document.getElementById("im_table_body").appendChild(table_row);
+  enumerator();
 }
 
 var person_phone_counter = 0;
@@ -194,6 +198,7 @@ function add_person_phone(person_phone_id, phone_type_id, number)
   table_row.appendChild(create_element("input", "checkbox", "person_phone["+row_id+"][delete]","1"))
   
   document.getElementById("telephone_table_body").appendChild(table_row);
+  enumerator();
 }
 
 var link_counter = 0;
@@ -225,6 +230,7 @@ function add_link(link_id, url, title, description)
   table_row.appendChild(create_element("input", "text", "link["+row_id+"][description]", description));
   table_row.appendChild(create_element("input", "checkbox", "link["+row_id+"][delete]"));
   document.getElementById("link_table_body").appendChild(table_row);
+  enumerator();
 }
 
 var internal_link_counter = 0;
@@ -257,6 +263,7 @@ function add_internal_link(link_id, link_type_id, url, title, description)
   table_row.appendChild(create_element("input", "text", "internal_link["+row_id+"][description]", description));
   table_row.appendChild(create_element("input", "checkbox", "internal_link["+row_id+"][delete]"));
   document.getElementById("internal_link_table_body").appendChild(table_row);
+  enumerator();
 }
 
 
@@ -315,6 +322,7 @@ function add_person_event(event_person_id, event_id, event_role_id, event_role_s
   document.getElementById("person_event_table_body").appendChild(table_row);
 
   person_event_role_changed(row_id,event_role_state_id);
+  enumerator();
 }
 
 function person_event_role_changed(row_id,event_role_state_id)
@@ -327,9 +335,11 @@ function person_event_role_changed(row_id,event_role_state_id)
   select_state.parentNode.parentNode.replaceChild(select_state_new, select_state.parentNode);
   
   if( event_role_states[select_role.value].length > 0 ) {
-  	select_state_new.firstChild.style.display = "block";
-  } else 
-  	select_state_new.firstChild.style.display = "none";
+    select_state_new.firstChild.style.display = "block";
+  } else {
+    select_state_new.firstChild.style.display = "none";
+  }
+  enumerator();
 }
 
 var event_person_counter = 0;
@@ -383,6 +393,7 @@ function add_event_person(event_person_id, person_id, event_role_id, event_role_
   document.getElementById("person_table_body").appendChild(table_row);
 
   event_person_role_changed(row_id,event_role_state_id);
+  enumerator();
 }
 
 
