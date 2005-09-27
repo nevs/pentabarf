@@ -238,6 +238,7 @@ module Momomoto
     end
 
     def delete()
+      return false unless privilege?( 'create' )
       conditions = {}
       @resultset[@current_record].each do | field_name, value |
         if value.property( :primary_key ) 
