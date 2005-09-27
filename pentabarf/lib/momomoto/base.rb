@@ -37,8 +37,8 @@ module Momomoto
       @table = ''
       # domain of the table this class belongs to
       @domain = nil
-      # array with the fields of the table
-      @fields = []
+      # hash with the fields of the table with their name as key
+      @fields = {}
       # resultset of the last database query
       @resultset = []
       # index of the current record
@@ -57,6 +57,10 @@ module Momomoto
     public
 
     attr_reader :limit, :current_record, :order, :new_record
+
+    def fields
+      @fields.keys
+    end
 
     def self.ui_language_id
       @@ui_language_id
@@ -118,6 +122,7 @@ module Momomoto
     end
 
     def []=(key, value)
+      raise "Field #{key} does not exist in #{@table}" unless @resultset[@current_record][key.to_sym]
       @resultset[@current_record][key.to_sym].value= value
     end
 

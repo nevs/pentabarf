@@ -580,6 +580,7 @@ class PentabarfController < ApplicationController
     end
     values.each do | field_name, value |
       next if pkeys.key?(field_name.to_sym)
+      next unless table.fields.member?( field_name.to_sym )
       table[field_name] = value
     end
     yield( table ) if block_given? 
