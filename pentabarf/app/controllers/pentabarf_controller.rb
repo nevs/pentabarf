@@ -364,66 +364,21 @@ class PentabarfController < ApplicationController
         if params[:team]
           team = Momomoto::Team.new
           params[:team].each do | key, value |
-            team.select({:conference_id => conference.conference_id, :team_id => value[:team_id]})
-            if team.length != 1
-              team.create
-              team.conference_id = conference.conference_id
-            end
-
-            if value[:delete]
-              team.delete unless team.new_record
-              next
-            end
-
-            value.each do | field_name, field_value |
-              next if field_name.to_sym == :team_id
-              team[field_name] = field_value
-            end
-            modified = true if team.write
+            modified = true if save_or_delete_record( team, {:conference_id => conference.conference_id, :team_id => value[:team_id]}, value)
           end
         end
 
         if params[:conference_track]
           track = Momomoto::Conference_track.new
           params[:conference_track].each do | key, value |
-            track.select({:conference_id => conference.conference_id, :conference_track_id => value[:conference_track_id]})
-            if track.length != 1
-              track.create
-              track.conference_id = conference.conference_id
-            end
-
-            if value[:delete]
-              team.delete unless team.new_record
-              next
-            end
-
-            value.each do | field_name, field_value |
-              next if field_name.to_sym == :conference_track_id
-              track[field_name] = field_value
-            end
-            modified = true if track.write
+            modified = true if save_or_delete_record( track, {:conference_id => conference.conference_id, :conference_track_id => value[:conference_track_id]}, value)
           end
         end
 
         if params[:room]
           room = Momomoto::Room.new
           params[:room].each do | key, value |
-            room.select({:conference_id => conference.conference_id, :room_id => value[:room_id]})
-            if room.length != 1
-              room.create
-              room.conference_id = conference.conference_id
-            end
-
-            if value[:delete]
-              room.delete unless room.new_record
-              next
-            end
-
-            value.each do | field_name, field_value |
-              next if field_name.to_sym == :room_id
-              room[field_name] = field_value
-            end
-            modified = true if room.write
+            modified = true if save_or_delete_record( room, {:conference_id => conference.conference_id, :room_id => value[:room_id]}, value)
           end
         end
 
