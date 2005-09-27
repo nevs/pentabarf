@@ -128,15 +128,15 @@ class PentabarfController < ApplicationController
     if params[:id]
       if params[:id] == 'new'
         @content_title ='New Person'
-        @person = Momomoto::View_person.new_record()
+        @person = Momomoto::View_person.new_record
         @person.person_id = 0
         @person.f_spam = 't'
-        @conference_person = Momomoto::Conference_person.new_record()
+        @conference_person = Momomoto::Conference_person.new_record
         @conference_person.conference_person_id = 0
         @conference_person.conference_id = @current_conference_id
         @conference_person.person_id = 0
-        @person_travel = Momomoto::Person_travel.new_record()
-        @rating = Momomoto::Person_rating.new_record()
+        @person_travel = Momomoto::Person_travel.new_record
+        @rating = Momomoto::Person_rating.new_record
       else
         @person = Momomoto::View_person.find( {:person_id => params[:id]} )
         if @person.length != 1
@@ -179,7 +179,7 @@ class PentabarfController < ApplicationController
 
   def save_person
     if params[:id] == 'new'
-      person = Momomoto::Person.new_record()
+      person = Momomoto::Person.new_record
     else
       person = Momomoto::Person.find( {:person_id => params[:person_id]} )
     end
@@ -239,7 +239,7 @@ class PentabarfController < ApplicationController
         end
 
         person_role = Momomoto::Person_role.new
-        for role in Momomoto::Role.find()
+        for role in Momomoto::Role.find
           if params[:person_role] && params[:person_role][role.role_id.to_s]
             modified = true if save_record( person_role, {:person_id => person.person_id, :role_id => role.role_id}, [])
           else
@@ -264,10 +264,7 @@ class PentabarfController < ApplicationController
         if params[:event_person]
           event = Momomoto::Event_person.new
           params[:event_person].each do | key, value |
-            if value[:delete]
-              modified = true if delete_record( event, {:person_id => person.person_id, :event_person_id => value[:event_person_id]})
-              next
-            elsif save_record( event, {:person_id => person.person_id, :event_person_id => value[:event_person_id]}, value)
+            if save_or_delete_record( event, {:person_id => person.person_id, :event_person_id => value[:event_person_id]}, value)
               transaction = Momomoto::Event_transaction.new_record
               transaction.event_id = event.event_id
               transaction.changed_by = @user.person_id
@@ -280,49 +277,33 @@ class PentabarfController < ApplicationController
         if params[:person_im]
           person_im = Momomoto::Person_im.new
           params[:person_im].each do | key, value |
-            if value[:delete]
-              modified = true if delete_record( person_im, {:person_id => person.person_id, :person_im_id => value[:person_im_id]})
-            else
-              modified = true if save_record( person_im, {:person_id => person.person_id, :person_im_id => value[:person_im_id]}, value)
-            end
+            modified = true if save_or_delete_record( person_im, {:person_id => person.person_id, :person_im_id => value[:person_im_id]}, value)
           end
         end
 
         if params[:person_phone]
-          person_phone = Momomoto::Person_phone.new()
+          person_phone = Momomoto::Person_phone.new
           params[:person_phone].each do | key, value |
-            if value[:delete]
-              modified = true if delete_record( person_phone, {:person_id => person.person_id, :person_phone_id => value[:person_phone_id]}) 
-            else
-              modified = true if save_record( person_phone, {:person_id => person.person_id, :person_phone_id => value[:person_phone_id]}, value) 
-            end
+            modified = true if save_or_delete_record( person_phone, {:person_id => person.person_id, :person_phone_id => value[:person_phone_id]}, value) 
           end
         end
 
         if params[:link]
-          person_link = Momomoto::Conference_person_link.new()
+          person_link = Momomoto::Conference_person_link.new
           params[:link].each do | key, value |
-            if value[:delete]
-              modified = true if delete_record( person_link, {:conference_person_id => conference_person.conference_person_id, :conference_person_link_id => value[:link_id]})
-            else
-              modified = true if save_record( person_link, {:conference_person_id => conference_person.conference_person_id, :conference_person_link_id => value[:link_id]}, value)
-            end
+            modified = true if save_or_delete_record( person_link, {:conference_person_id => conference_person.conference_person_id, :conference_person_link_id => value[:link_id]}, value)
           end
         end
 
         if params[:internal_link]
-          person_link_internal = Momomoto::Conference_person_link_internal.new()
+          person_link_internal = Momomoto::Conference_person_link_internal.new
           params[:internal_link].each do | key, value |
-            if value[:delete]
-              modified = true if delete_record( person_link_internal, {:conference_person_id => conference_person.conference_person_id, :conference_person_link_internal_id => value[:internal_link_id]})
-            else
-              modified = true if save_record( person_link_internal, {:conference_person_id => conference_person.conference_person_id, :conference_person_link_internal_id => value[:internal_link_id]}, value)
-            end
+            modified = true if save_or_delete_record( person_link_internal, {:conference_person_id => conference_person.conference_person_id, :conference_person_link_internal_id => value[:internal_link_id]}, value)
           end
         end
 
         if modified == true
-          transaction = Momomoto::Person_transaction.new_record()
+          transaction = Momomoto::Person_transaction.new_record
           transaction.person_id = person.person_id
           transaction.changed_by = @user.person_id
           transaction.f_create = 't' if params[:id] == 'new'
@@ -335,14 +316,13 @@ class PentabarfController < ApplicationController
         person.rollback
         raise e
       end
-      
       redirect_to({:action => :person, :id => person.person_id})
     end
   end
 
   def save_conference
     if params[:id] == 'new'
-      conference = Momomoto::Conference.new_record()
+      conference = Momomoto::Conference.new_record
     else
       conference = Momomoto::Conference.find( {:conference_id => params[:conference_id]})
     end
@@ -448,7 +428,7 @@ class PentabarfController < ApplicationController
         end
 
         if modified == true
-          transaction = Momomoto::Conference_transaction.new_record()
+          transaction = Momomoto::Conference_transaction.new_record
           transaction.conference_id = conference.conference_id
           transaction.changed_by = @user.person_id
           transaction.f_create = 't' if params[:id] == 'new'
@@ -467,7 +447,7 @@ class PentabarfController < ApplicationController
 
   def save_event
     if params[:id] == 'new'
-      event = Momomoto::Event.new_record()
+      event = Momomoto::Event.new_record
     else
       event = Momomoto::Event.find( {:event_id => params[:event_id]} )
     end
@@ -492,18 +472,11 @@ class PentabarfController < ApplicationController
         event.f_paper = 'f' unless params[:event]['f_paper']
         event.f_slides = 'f' unless params[:event]['f_slides']
         modified = true if event.write
-
-        rating = Momomoto::Event_rating.find( {:person_id => @user.person_id, :event_id => event.event_id} )
-        if rating.length != 1
-          rating.create
-          rating.event_id = event.event_id
-          rating.person_id = @user.person_id
+        
+        modified = true if save_record(Momomoto::Event_rating.new, {:person_id => @user.person_id, :event_id => event.event_id}, params[:rating]) do | t |
+          t.eval_time = 'now()'
         end
 
-        params[:rating].each { | key, value | rating[key] = value }
-        rating.eval_time = 'now()'
-        modified = true if rating.write
-        
         image = Momomoto::Event_image.new
         image.select({:event_id => event.event_id})
         if image.length != 1 && params[:event_image][:image].size > 0
@@ -522,26 +495,10 @@ class PentabarfController < ApplicationController
         end
 
         if params[:event_person]
-          person = Momomoto::Event_person.new()
+          person = Momomoto::Event_person.new
           params[:event_person].each do | key, value |
-            person.select({:event_id => event.event_id, :event_person_id => value[:event_person_id]})
-            if person.length != 1
-              person.create
-              person.event_id = event.event_id
-            end
-
-            if value[:delete]
-              person.delete unless person.new_record
-              next
-            end
-
-            value.each do | field_name, field_value |
-              next if field_name.to_sym == :event_person_id
-              person[field_name] = field_value
-            end
-
-            if person.write
-              transaction = Momomoto::Person_transaction.new_record()
+            if save_or_delete_record( person, {:event_id => event.event_id, :event_person_id => value[:event_person_id]}, value )
+              transaction = Momomoto::Person_transaction.new_record
               transaction.person_id = person.person_id
               transaction.changed_by = @user.person_id
               transaction.write
@@ -551,51 +508,21 @@ class PentabarfController < ApplicationController
         end
         
         if params[:link]
-          event_link = Momomoto::Event_link.new()
+          event_link = Momomoto::Event_link.new
           params[:link].each do | key, value |
-            event_link.select( {:event_id => event.event_id, :event_link_id => value[:link_id]} )
-            if event_link.length != 1
-              event_link.create
-              event_link.event_id = event.event_id
-            end
-
-            if value[:delete]
-              event_link.delete unless event_link.new_record
-              next
-            end
-
-            value.each do | field_name, field_value |
-              next if field_name.to_sym == :link_id
-              event_link[field_name] = field_value
-            end
-            modified = true if event_link.write
+            modified = true if save_or_delete_record( event_link, {:event_id => event.event_id, :event_link_id => value[:link_id]}, value)
           end
         end
 
         if params[:internal_link]
-          event_link_internal = Momomoto::Event_link_internal.new()
+          event_link_internal = Momomoto::Event_link_internal.new
           params[:internal_link].each do | key, value |
-            event_link_internal.select( {:event_id => event.event_id, :event_link_internal_id => value[:internal_link_id]} )
-            if event_link_internal.length != 1
-              event_link_internal.create
-              event_link_internal.event_id = event.event_id
-            end
-
-            if value[:delete]
-              event_link_internal.delete unless event_link_internal.new_record
-              next
-            end
-
-            value.each do | field_name, field_value |
-              next if field_name.to_sym == :internal_link_id
-              event_link_internal[field_name] = field_value
-            end
-            modified = true if event_link_internal.write
+            modified = true if save_or_delete_record( event_link_internal, {:event_id => event.event_id, :event_link_internal_id => value[:internal_link_id]}, value)
           end
         end
 
         if modified == true
-          transaction = Momomoto::Event_transaction.new_record()
+          transaction = Momomoto::Event_transaction.new_record
           transaction.event_id = event.event_id
           transaction.changed_by = @user.person_id
           transaction.f_create = 't' if params[:id] == 'new'
@@ -624,7 +551,7 @@ class PentabarfController < ApplicationController
           @preferences[:current_conference_id] = params[:current_conference_id].to_i
           @user.preferences = @preferences
           @user.write
-          redirect_to()
+          redirect_to
           return false
         end
       end
@@ -633,6 +560,14 @@ class PentabarfController < ApplicationController
     else
       redirect_to( :action => :meditation )
       false
+    end
+  end
+
+  def save_or_delete_record( table, pkeys, values )
+    if values[:delete]
+      return delete_record( table, pkeys )
+    else
+      return save_record( table, pkeys, values )
     end
   end
 
