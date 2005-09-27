@@ -293,8 +293,7 @@ CREATE OR REPLACE VIEW view_event_link_internal AS
          description,
          event_link_internal.rank,
          language_id,
-         url_prefix,
-         f_public,
+         template,
          tag,
          name
   FROM event_link_internal 
@@ -309,8 +308,7 @@ CREATE OR REPLACE VIEW view_conference_person_link_internal AS
          description,
          conference_person_link_internal.rank,
          language_id,
-         url_prefix,
-         f_public,
+         template,
          tag,
          name
     FROM conference_person_link_internal 

@@ -12,8 +12,7 @@ module Momomoto
         :description => Datatype::Varchar.new( {:length=>128} ),
         :rank => Datatype::Integer.new( {} ),
         :language_id => Datatype::Integer.new( {} ),
-        :url_prefix => Datatype::Varchar.new( {:length=>1024} ),
-        :f_public => Datatype::Bool.new( {} ),
+        :template => Datatype::Varchar.new( {:length=>1024} ),
         :tag => Datatype::Varchar.new( {:length=>32} ),
         :name => Datatype::Varchar.new( {} )
       }

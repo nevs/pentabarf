@@ -223,8 +223,7 @@ CREATE TABLE time_zone_localized (
 CREATE TABLE link_type (
   link_type_id SERIAL NOT NULL,
   tag VARCHAR(32) NOT NULL,
-  url_prefix VARCHAR(1024),
-  f_public BOOL NOT NULL DEFAULT FALSE,
+  template VARCHAR(1024),
   rank INTEGER,
   PRIMARY KEY (link_type_id)
 ) WITHOUT OIDS;

@@ -219,16 +219,14 @@ CREATE OR REPLACE VIEW view_language AS
 CREATE OR REPLACE VIEW view_link_type AS 
   SELECT link_type_id, 
          language_id, 
-         url_prefix, 
-         f_public,
+         template, 
          tag, 
          coalesce(name,tag) AS name, 
          rank, 
          language_tag
     FROM ( SELECT language_id, 
                   link_type_id, 
-                  link_type.url_prefix, 
-                  link_type.f_public, 
+                  link_type.template, 
                   link_type.tag, 
                   link_type.rank, 
                   language.tag AS language_tag 
