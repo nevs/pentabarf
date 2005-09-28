@@ -16,7 +16,7 @@ module Momomoto
         :last_name => Datatype::Varchar.new( {:length=>64} ),
         :public_name => Datatype::Varchar.new( {:length=>64} ),
         :nickname => Datatype::Varchar.new( {:length=>64} ),
-        :address => Datatype::Varchar.new( {:length=>64} ),
+        :address => Datatype::Varchar.new( {:length=>256} ),
         :street => Datatype::Varchar.new( {:length=>64} ),
         :street_postcode => Datatype::Varchar.new( {:length=>10} ),
         :po_box => Datatype::Varchar.new( {:length=>10} ),

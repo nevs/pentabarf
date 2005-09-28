@@ -429,7 +429,7 @@ CREATE TABLE person (
   last_name VARCHAR(64),
   public_name VARCHAR(64),
   nickname VARCHAR(64),
-  address VARCHAR(64),
+  address VARCHAR(256),
   street VARCHAR(64),
   street_postcode VARCHAR(10),
   po_box VARCHAR(10),
