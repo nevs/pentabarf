@@ -13,19 +13,8 @@
     %>
   </fieldset>
   
-  <fieldset>
-    <table>
-      <thead>
-        <tr>
-          <th colspan="2">Acronym</th>
-          <th>Title</th>
-          <th>Subtitle</th>
-        </tr>
-      </thead>
-      <tbody id="results">
-        <%= render(:partial => 'search_conference') %>
-      </tbody>
-    </table>
+  <fieldset id="results">
+    <%= render(:partial => 'search_conference') %>
   </fieldset>
 
 </div>

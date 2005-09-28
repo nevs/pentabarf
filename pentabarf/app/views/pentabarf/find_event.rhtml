@@ -89,21 +89,8 @@
         %>
   </div>
 
-  <fieldset>
-    <table>
-      <thead>
-        <tr>
-          <th colspan="2">Title / Subtitle</th>
-          <th>Status</th>
-          <th>Room</th>
-          <th>Day</th>
-          <th>Time</th>
-        </tr>
-      </thead>
-      <tbody id="results">
-        <%= render(:partial => 'search_event') %>
-      </tbody>
-    </table>
+  <fieldset id="results">
+    <%= render(:partial => 'search_event') %>
   </fieldset>
 
 </div>

@@ -1,32 +1,47 @@
-<% for event in @events %>
-  <tr>
-    <td>
-      <% if event.mime_type_id %>
-        <%= link_to( image_tag("/images/event/#{event.event_id.to_s + '.' + event.file_extension.to_s}", {:size => "32x32"} ), :action => :event, :id => event.event_id ) %>
-      <% else %>
-        <%= link_to( image_tag( "icon-event-32x32.png", {:size => "32x32"} ), :action => :event, :id => event.event_id ) %>
-      <% end %>
-    </td>
-    <td>
-      <strong>
-        <%= link_to( h(event.title), :action => :event, :id => event.event_id ) %>
-      </strong>
-      <br/>
-      <em>
-        <%= link_to( h(event.subtitle), :action => :event, :id => event.event_id ) %>
-      </em>
-    </td>
-    <td>
-      <%= link_to( h(event.event_state), :action => :event, :id => event.event_id ) %>
-    </td>
-    <td>
-      <%= link_to( h(event.room), :action => :event, :id => event.event_id ) %>
-    </td>
-    <td>
-      <%= link_to( h(event.day), :action => :event, :id => event.event_id ) %>
-    </td>
-    <td>
-      <%= link_to( h(event.start_time), :action => :event, :id => event.event_id ) %>
-    </td>
-  </tr>
-<% end %>
+<label><%= @events.length > 23 ? 23 : @events.length %> of <%= @events.length %></label>
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Title / Subtitle</th>
+      <th>Status</th>
+      <th>Room</th>
+      <th>Day</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for event in @events %>
+    <% next if event.current_record >= 23 %>
+      <tr>
+        <td>
+          <% if event.mime_type_id %>
+            <%= link_to( image_tag("/images/event/#{event.event_id.to_s + '.' + event.file_extension.to_s}", {:size => "32x32"} ), :action => :event, :id => event.event_id ) %>
+          <% else %>
+            <%= link_to( image_tag( "icon-event-32x32.png", {:size => "32x32"} ), :action => :event, :id => event.event_id ) %>
+          <% end %>
+        </td>
+        <td>
+          <strong>
+            <%= link_to( h(event.title), :action => :event, :id => event.event_id ) %>
+          </strong>
+          <br/>
+          <em>
+            <%= link_to( h(event.subtitle), :action => :event, :id => event.event_id ) %>
+          </em>
+        </td>
+        <td>
+          <%= link_to( h(event.event_state), :action => :event, :id => event.event_id ) %>
+        </td>
+        <td>
+          <%= link_to( h(event.room), :action => :event, :id => event.event_id ) %>
+        </td>
+        <td>
+          <%= link_to( h(event.day), :action => :event, :id => event.event_id ) %>
+        </td>
+        <td>
+          <%= link_to( h(event.start_time), :action => :event, :id => event.event_id ) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

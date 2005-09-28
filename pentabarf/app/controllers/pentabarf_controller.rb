@@ -68,7 +68,7 @@ class PentabarfController < ApplicationController
 
   def find_person
     @content_title ='Find Person'
-    @persons = Momomoto::View_find_person.find( {:search => params[:id]}, 50 )
+    @persons = Momomoto::View_find_person.find( {:search => params[:id]} )
   end
 
   def search_person
