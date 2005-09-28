@@ -449,6 +449,25 @@ class PentabarfController < ApplicationController
           modified = true if image.write
         end
 
+        if params[:attachment_upload]
+          file = Momomoto::Event_attachment.new
+          params[:attachment_upload].each do | key, value | 
+            next unless value[:data].size > 0
+            file.create
+            file.event_id = event.event_id
+            file.attachment_type_id = value[:attachment_type_id]
+            mime_type = Momomoto::Mime_type.find({:mime_type => params[:event_image][:image].content_type.chomp})
+            raise "mime-type not found #{params[:event_image][:image].content_type}" if mime_type.length != 1
+            file.mime_type_id = mime_type.mime_type_id
+            file.filename = File.basename(value[:data].original_filename).gsub(/[^\w0-9.-_]/, '')
+            file.title = value[:title]
+            file.data = value[:data].read
+            file.f_public = value[:f_public] ? 't' : 'f'
+            file.last_changed = 'now'
+            modified = true if file.write
+          end
+        end
+
         if params[:event_person]
           person = Momomoto::Event_person.new
           params[:event_person].each do | key, value |

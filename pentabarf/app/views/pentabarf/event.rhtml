@@ -245,6 +245,12 @@
         </tbody>
       </table>
       <button type="button" name="add_attachments" value="Add Attachments" title="Add a new attachment to list of attachments" tabindex="0" onClick="window.add_attachment();">Add Attachment</button>
+      <script type="text/javascript">
+        var attachment_types = new Array();
+        <% for type in Momomoto::View_attachment_type.find({:language_id => @current_language_id}) %>
+          attachment_types[<%= type.attachment_type_id %>] = '<%= escape_javascript(type.name) %>';
+        <% end %>
+      </script>
     </fieldset>
 
   </div>

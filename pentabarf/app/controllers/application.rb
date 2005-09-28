@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
     gz = Zlib::GzipWriter.new(output) 
     gz.write(response.body) 
     gz.close 
-    if output.length < response.body.length 
+    if output.length < response.body.to_s.length 
       response.body = output.string 
       response.headers['Content-encoding'] = encoding 
     end 
