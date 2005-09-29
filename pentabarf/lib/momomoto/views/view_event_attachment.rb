@@ -16,7 +16,8 @@ module Momomoto
         :title => Datatype::Varchar.new( {:length=>64} ),
         :f_public => Datatype::Bool.new( {} ),
         :last_changed => Datatype::Timestamp.new( {} ),
-        :filesize => Datatype::Integer.new( {} )
+        :filesize => Datatype::Integer.new( {} ),
+        :language_id => Datatype::Integer.new( {} )
       }
     end
   end

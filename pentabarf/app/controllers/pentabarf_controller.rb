@@ -468,6 +468,13 @@ class PentabarfController < ApplicationController
           end
         end
 
+        if params[:event_attachment]
+          attachment = Momomoto::Event_attachment.new
+          params[:event_attachment].each do | key, value |
+            modified = true if save_or_delete_record( attachment, {:event_attachment_id => key, :event_id => event.event_id}, value )
+          end
+        end
+
         if params[:event_person]
           person = Momomoto::Event_person.new
           params[:event_person].each do | key, value |

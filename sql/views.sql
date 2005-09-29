@@ -105,10 +105,11 @@ CREATE OR REPLACE VIEW view_event_attachment AS
          title,
          f_public,
          last_changed,
-         octet_length( data ) AS filesize
+         octet_length( data ) AS filesize,
+         view_attachment_type.language_id
     FROM event_attachment
          INNER JOIN view_attachment_type USING (attachment_type_id)
-         INNER JOIN view_mime_type USING (mime_type_id)
+         INNER JOIN view_mime_type USING (mime_type_id, language_id)
 ;
 
 -- view for last active user
