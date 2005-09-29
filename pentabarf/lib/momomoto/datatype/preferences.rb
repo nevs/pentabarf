@@ -21,7 +21,6 @@ module Momomoto
       end
 
       def filter_set( value )
-        return @value if value.to_s == ''
         value
       end
 
