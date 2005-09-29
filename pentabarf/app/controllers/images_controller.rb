@@ -63,14 +63,14 @@ class ImagesController < ApplicationController
   end
 
   def deliver_image( image, query )
-    @response.headers['Content-type'] = image.mime_type
+    @response.headers['Content-Type'] = image.mime_type
     @response.headers['Last-Modified'] = @timestamp
     render_resized( Magick::Image.from_blob( image.image )[0], query )
   end
 
   def deliver_static_image( image, query )
     image_file = File.open( image )
-    @response.headers['Content-type'] = 'image/png'
+    @response.headers['Content-Type'] = 'image/png'
     @response.headers['Last-Modified'] = @timestamp
     render_resized( Magick::Image.from_blob( image_file.read )[0], query )
   end

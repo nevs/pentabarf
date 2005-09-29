@@ -220,7 +220,11 @@
         <tbody>
           <% for attachment in Momomoto::View_event_attachment.find({:event_id => @event.event_id, :language_id => @current_language_id}) %>
           <tr>
-            <td><%= attachment.filesize %></td>
+            <td>
+              <a href="<%= url_for({:controller => 'file', :action => :event_attachment, :id => attachment.event_attachment_id}) %>">
+                Download (<%= human_size( attachment.filesize ) %>)
+              </a>
+            </td>
             <td><%= select_tag("event_attachment[#{attachment.event_attachment_id}][attachment_type_id]", Momomoto::View_attachment_type.find({:language_id => @current_language_id}), :attachment_type_id, :name, attachment.attachment_type_id, {:tabindex => 0}, false ) %></td>
             <td><%= check_box_tag("event_attachment[#{attachment.event_attachment_id}][f_public]", 't', attachment.f_public == 't' ? true : false, {:tabindex => 0}) %></td>
             <td><%= text_field_tag("event_attachment[#{attachment.event_attachment_id}][filename]", attachment.filename, {:tabindex => 0}) %></td>
