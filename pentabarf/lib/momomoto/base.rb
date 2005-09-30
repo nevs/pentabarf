@@ -155,9 +155,7 @@ module Momomoto
 
     def self.find( conditions = {} , limit = nil, order = nil)
       data = self.new
-      data.limit = limit if limit
-      data.order = order if order
-      data.select( conditions )
+      data.select( conditions, limit, order )
       return data
     end
     

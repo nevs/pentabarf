@@ -214,6 +214,7 @@
             <th>Filename</th>
             <th>Title</th>
             <th>MIME Type</th>
+            <th>Upload Time</th>
             <th>remove</th>
           </tr>
         </thead>
@@ -230,6 +231,7 @@
             <td><%= text_field_tag("event_attachment[#{attachment.event_attachment_id}][filename]", attachment.filename, {:tabindex => 0}) %></td>
             <td><%= text_field_tag("event_attachment[#{attachment.event_attachment_id}][title]", attachment.title, {:tabindex => 0}) %></td>
             <td><%= h( attachment.mime_type) %></td>
+            <td><%= h( attachment.last_changed.gsub(/[+.].*/, '')) %></td>
             <td><%= check_box_tag("event_attachment[#{attachment.event_attachment_id}][delete]", 't', false, {:tabindex => 0}) %>
           </tr>
           <% end %>
