@@ -216,7 +216,7 @@ function add_link(link_id, url, title, description)
 
   if (link_id) {
     element = create_element("a", 0,"link["+row_id+"][url]", url, null, true);
-    element.setAttribute("title", title);
+    element.setAttribute("title", url );
     element.appendChild(create_element("img", 0, "link["+row_id+"][image]", p_base + "images/icon-link-32x32.png", null, true));
     table_data = document.createElement("td");
     table_data.appendChild(element);
@@ -248,7 +248,7 @@ function add_internal_link(link_id, link_type_id, url, title, description)
 
   if (link_id) {
     element = create_element("a", 0,"internal_link["+row_id+"][url]", link_type_prefix[link_type_id] + url, null, true);
-    element.setAttribute("title", title);
+    element.setAttribute("title", link_type_prefix[link_type_id] + url );
     element.appendChild(create_element("img", 0, "internal_link["+row_id+"][image]", p_base + "images/icon-link-32x32.png", null, true));
     table_data = document.createElement("td");
     table_data.appendChild(element);
