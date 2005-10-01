@@ -466,7 +466,7 @@
       <script type="text/javascript">
         event_names = new Array();
       <% for event in Momomoto::Event.find({:conference_id => @event.conference_id}) %>
-        event_names[<%= event.event_id %>] = '<%= event.title %>';
+        event_names[<%= event.event_id %>] = '<%= escape_javascript(event.title) %>';
       <% end %>
       </script>
     </fieldset>
