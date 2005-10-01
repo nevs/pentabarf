@@ -222,7 +222,7 @@ class PentabarfController < ApplicationController
         
         image = Momomoto::Person_image.new
         image.select({:person_id => person.person_id})
-        if image.length != 1 && params[:person_image][:image].size > 0
+        if image.length != 1 && params[:person_image] && params[:person_image][:image] && params[:person_image][:image].size > 0
           image.create
           image.person_id = person.person_id
         end
@@ -346,7 +346,7 @@ class PentabarfController < ApplicationController
 
         image = Momomoto::Conference_image.new
         image.select({:conference_id => conference.conference_id})
-        if image.length != 1 && params[:conference_image][:image].size > 0
+        if image.length != 1 && params[:conference_image] && params[:conference_image][:image] && params[:conference_image][:image].size > 0
           image.create
           image.conference_id = conference.conference_id
         end
@@ -434,7 +434,7 @@ class PentabarfController < ApplicationController
 
         image = Momomoto::Event_image.new
         image.select({:event_id => event.event_id})
-        if image.length != 1 && params[:event_image][:image].size > 0
+        if image.length != 1 && params[:event_image] && params[:event_image][:image] && params[:event_image][:image].size > 0
           image.create
           image.event_id = event.event_id
         end
