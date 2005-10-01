@@ -210,16 +210,20 @@
     <fieldset>
       <legend>Events</legend>
       <table>
+        <thead>
         <tr>
           <th></th>
           <th>Title</th>
         </tr>
+        </thead>
+        <tbody>
         <% for event in Momomoto::View_event.find( {:conference_id => @conference.conference_id, :translated_id => @current_language_id} ) %>
         <tr>
           <td><%= link_to(image_tag('icon-event-32x32.png'), {:action => :event, :id => event.event_id}) %></td>
           <td><%= link_to("<strong>#{h(event.title)}</strong><br/><em>#{h(event.subtitle)}</em>", {:action => :event, :id => event.event_id}) %></td>
         </tr>
         <% end %>
+        </tbody>
       </table>
     </fieldset>
   </div>

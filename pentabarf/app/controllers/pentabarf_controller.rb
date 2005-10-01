@@ -432,6 +432,12 @@ class PentabarfController < ApplicationController
           t.eval_time = 'now()'
         end
 
+        if params[:related_event]
+          params[:related_event].each do | key, value |
+            modified = true if save_or_delete_record(Momomoto::Event_related.new, {:event_id1 => event.event_id, :event_id2 => value[:related_event_id]}, value)
+          end
+        end
+
         image = Momomoto::Event_image.new
         image.select({:event_id => event.event_id})
         if image.length != 1 && params[:event_image] && params[:event_image][:image] && params[:event_image][:image].size > 0

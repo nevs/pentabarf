@@ -365,5 +365,5 @@ CREATE OR REPLACE VIEW view_event_related AS
          title,
          subtitle
     FROM event_related
-         INNER JOIN event ON (event_related.event_id2 = event.event_id)
-;
+         INNER JOIN event ON (event_related.event_id2 = event.event_id);
+
