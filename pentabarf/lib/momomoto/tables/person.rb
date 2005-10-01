@@ -33,7 +33,7 @@ module Momomoto
         :f_deleted => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :f_spam => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :last_login => Datatype::Timestamp.new( {:with_timezone=>true} ),
-        :bic => Datatype::Varchar.new( {:length=>11} )
+        :bic => Datatype::Varchar.new( {:length=>32} )
       }
     end
 

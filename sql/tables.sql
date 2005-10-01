@@ -438,7 +438,7 @@ CREATE TABLE person (
   country_id INTEGER,
   email_contact VARCHAR(64),
   iban VARCHAR(128),
-  bic VARCHAR(11),
+  bic VARCHAR(32),
   bank_name VARCHAR(128),
   account_owner VARCHAR(128),
   gpg_key TEXT,

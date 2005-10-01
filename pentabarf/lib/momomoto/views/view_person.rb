@@ -25,7 +25,7 @@ module Momomoto
         :country_id => Datatype::Integer.new( {} ),
         :email_contact => Datatype::Varchar.new( {:length=>64} ),
         :iban => Datatype::Varchar.new( {:length=>128} ),
-        :bic => Datatype::Varchar.new( {:length=>11} ),
+        :bic => Datatype::Varchar.new( {:length=>32} ),
         :bank_name => Datatype::Varchar.new( {:length=>128} ),
         :account_owner => Datatype::Varchar.new( {:length=>128} ),
         :gpg_key => Datatype::Text.new( {} ),
