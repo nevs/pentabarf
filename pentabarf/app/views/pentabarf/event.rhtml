@@ -269,7 +269,6 @@
         <thead>
           <tr>
             <th colspan="2">URL</th>
-            <th>Title</th>
             <th>Comment</th>
             <th>remove</th>
           </tr>
@@ -280,7 +279,7 @@
       <button type="button" name="add_link" value="Add Links" title="Add a new link to list of links" tabindex="0" onClick="window.add_link();">Add Link</button>
       <script type="text/javascript">
       <% for event_link in Momomoto::Event_link.find( {:event_id => @event.event_id} ) %>
-        add_link(<%= event_link.event_link_id  %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title)%>', '<%= escape_javascript(event_link.description) %>');
+        add_link(<%= event_link.event_link_id  %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.description) %>');
       <% end %>
       </script>
     </fieldset>
@@ -293,7 +292,6 @@
             <th />
             <th>Link Type</th>
             <th>URL</th>
-            <th>Title</th>
             <th>Comment</th>
             <th>remove</th>
           </tr>
@@ -311,7 +309,7 @@
         link_type_prefix[<%= link_type.link_type_id %>]= '<%= link_type.template %>';
       <% end %>
       <% for event_link in Momomoto::View_event_link_internal.find( {:event_id => @event.event_id, :language_id => @current_language_id} ) %>
-        add_internal_link(<%= event_link.event_link_internal_id  %>,<%= event_link.link_type_id %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title)%>', '<%= escape_javascript(event_link.description) %>');
+        add_internal_link(<%= event_link.event_link_internal_id  %>,<%= event_link.link_type_id %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.description) %>');
       <% end %>
     </script>
 

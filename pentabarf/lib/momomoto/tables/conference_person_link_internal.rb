@@ -8,8 +8,7 @@ module Momomoto
         :conference_person_id => Datatype::Integer.new( {:not_null=>true} ),
         :link_type_id => Datatype::Integer.new( {:not_null=>true} ),
         :url => Datatype::Text.new( {:not_null=>true} ),
-        :title => Datatype::Varchar.new( {:length=>128} ),
-        :description => Datatype::Varchar.new( {:length=>128} ),
+        :description => Datatype::Varchar.new( {:length=>256} ),
         :rank => Datatype::Integer.new( {} )
       }
     end

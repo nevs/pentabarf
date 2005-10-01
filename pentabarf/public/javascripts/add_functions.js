@@ -203,7 +203,7 @@ function add_person_phone(person_phone_id, phone_type_id, number)
 
 var link_counter = 0;
 
-function add_link(link_id, url, title, description)
+function add_link(link_id, url, description)
 {
   var table_row, table_data, element;
   var row_id = link_counter;
@@ -226,7 +226,6 @@ function add_link(link_id, url, title, description)
   }
   table_row.appendChild(create_element("input", "hidden", "link["+row_id+"][link_id]", link_id));
   table_row.appendChild(create_element("input", "text", "link["+row_id+"][url]", url));
-  table_row.appendChild(create_element("input", "text", "link["+row_id+"][title]", title));
   table_row.appendChild(create_element("input", "text", "link["+row_id+"][description]", description));
   table_row.appendChild(create_element("input", "checkbox", "link["+row_id+"][delete]"));
   document.getElementById("link_table_body").appendChild(table_row);
@@ -235,7 +234,7 @@ function add_link(link_id, url, title, description)
 
 var internal_link_counter = 0;
 
-function add_internal_link(link_id, link_type_id, url, title, description)
+function add_internal_link(link_id, link_type_id, url, description)
 {
   var table_row, table_data, element;
 
@@ -259,7 +258,6 @@ function add_internal_link(link_id, link_type_id, url, title, description)
   table_row.appendChild(create_element("input", "hidden", "internal_link["+row_id+"][internal_link_id]", link_id));
   table_row.appendChild(create_element("select", 0, "internal_link["+row_id+"][link_type_id]", link_types, link_type_id));
   table_row.appendChild(create_element("input", "text", "internal_link["+row_id+"][url]", url));
-  table_row.appendChild(create_element("input", "text", "internal_link["+row_id+"][title]", title));
   table_row.appendChild(create_element("input", "text", "internal_link["+row_id+"][description]", description));
   table_row.appendChild(create_element("input", "checkbox", "internal_link["+row_id+"][delete]"));
   document.getElementById("internal_link_table_body").appendChild(table_row);
