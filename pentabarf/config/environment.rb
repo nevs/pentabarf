@@ -92,6 +92,7 @@ Controllers = Dependencies::LoadingModule.root(
 # disabling sessions is broken :/
 #ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS=false
 
+# we want localization in our rhtml renderer
 module ActionView
   class Base
     private
@@ -113,5 +114,14 @@ module ActionView
       end
   end
 end
+
+module Momomoto
+  class Base
+    def log_error( text )
+      ApplicationController.jabber_message( text )
+    end
+  end
+end
+
 
 

@@ -62,6 +62,10 @@ module Momomoto
       @fields.keys
     end
 
+    def log_error( text )
+      puts text
+    end
+
     def self.ui_language_id
       @@ui_language_id
     end
@@ -90,12 +94,14 @@ module Momomoto
       @table = self.class.name.downcase.gsub( /^.*::/, '') unless @table
     end
 
+    # returns an instance of the class with one new entry
     def self.new_record()
       new_record = self.new
       new_record.create
       new_record
     end
 
+    # establish connection to the database
     def self.connect( config )
       begin
         @@connection = PGconn.connect( config['host'], config['port'], nil, nil, 
@@ -327,11 +333,9 @@ module Momomoto
     def execute( sql )
       raise "Connection to Database has not yet been established." if @@connection == nil
       begin
-        #ApplicationController.jabber_message( sql ) if self.class.name != 'Momomoto::Login' && @table[0..4] != 'view_'
-        #ApplicationController.jabber_message( sql ) if self.class.name == 'Momomoto::View_find_event' || self.class.name == 'Momomoto::Login'
         @@connection.exec( sql )
       rescue => e
-        ApplicationController.jabber_message( "Query failed: #{sql}" )
+        log_error("Query failed: #{sql}")
         raise e 
       end
     end
