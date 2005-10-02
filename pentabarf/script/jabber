@@ -8,13 +8,14 @@ require 'thread'
 require 'rexml/document'
 
 config = YAML::load_file('config/jabber.yml')
+#Jabber::debug = true
 
 sockpath = config['daemon']['socket_path']
 jid = Jabber::JID.new(config['daemon']['jabber_id'])
 
 client = Jabber::Client.new(jid)
-Jabber::Helpers::Version.new(client, 'pentabarf', 'ravenhurst', 'OS 2.0', 10) 
-client.connect
+Jabber::Helpers::Version.new(client, 'Pentabarf', 'Ravenhurst') 
+client.connect(config['daemon']['server'], config['daemon']['port'])
 client.auth(config['daemon']['password']) 
 
 client.send(Jabber::Presence.new( nil, 'ravenhurst will solve all your problems.' ) )
