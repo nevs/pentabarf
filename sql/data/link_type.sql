@@ -3,6 +3,7 @@
 --
 
 SET client_encoding = 'UNICODE';
+SET check_function_bodies = false;
 
 SET search_path = public, pg_catalog;
 
@@ -11,12 +12,9 @@ SET search_path = public, pg_catalog;
 -- Name: link_type; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
-INSERT INTO link_type (link_type_id, tag, url_prefix, f_public, rank) VALUES (1, 'public link', NULL, true, NULL);
-INSERT INTO link_type (link_type_id, tag, url_prefix, f_public, rank) VALUES (2, 'weblog', NULL, true, NULL);
-INSERT INTO link_type (link_type_id, tag, url_prefix, f_public, rank) VALUES (3, 'request tracker', NULL, false, NULL);
-INSERT INTO link_type (link_type_id, tag, url_prefix, f_public, rank) VALUES (4, 'orga wiki', NULL, false, NULL);
-INSERT INTO link_type (link_type_id, tag, url_prefix, f_public, rank) VALUES (5, 'documentation', NULL, false, NULL);
-INSERT INTO link_type (link_type_id, tag, url_prefix, f_public, rank) VALUES (6, 'document', NULL, false, NULL);
+INSERT INTO link_type (link_type_id, tag, "template", rank) VALUES (3, 'request tracker', 'https://rt.cccv.de/Ticket/Display.html?id=', NULL);
+INSERT INTO link_type (link_type_id, tag, "template", rank) VALUES (4, 'orga wiki', 'https://22c3.cccv.de/wiki/', NULL);
+INSERT INTO link_type (link_type_id, tag, "template", rank) VALUES (1, 'url', NULL, 1);
 
 
 --

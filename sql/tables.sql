@@ -284,41 +284,6 @@ CREATE TABLE conference_language (
   PRIMARY KEY (conference_language_id)
 ) WITHOUT OIDS;
 
-CREATE TABLE conference_person (
-  conference_person_id SERIAL NOT NULL,
-  conference_id INTEGER NOT NULL,
-  person_id INTEGER NOT NULL,
-  abstract TEXT,
-  description TEXT,
-  remark TEXT,
-  email_public VARCHAR(64),
-  FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
-  FOREIGN KEY (person_id) REFERENCES person (person_id),
-  PRIMARY KEY (conference_person_id)
-) WITHOUT OIDS;
-
-CREATE TABLE conference_person_link (
-    conference_person_link_id SERIAL NOT NULL,
-    conference_person_id INTEGER NOT NULL,
-    url TEXT NOT NULL,
-    description VARCHAR(256),
-    rank INTEGER,
-    FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
-    PRIMARY KEY (conference_person_link_id)
-) WITHOUT OIDS;
-
-CREATE TABLE conference_person_link_internal (
-    conference_person_link_internal_id SERIAL NOT NULL,
-    conference_person_id INTEGER NOT NULL,
-    link_type_id INTEGER NOT NULL,
-    url TEXT NOT NULL,
-    description VARCHAR(256),
-    rank INTEGER,
-    FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
-    FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
-    PRIMARY KEY (conference_person_link_internal_id)
-) WITHOUT OIDS;
-
 CREATE TABLE conference_link (
   conference_link_id SERIAL NOT NULL,
   conference_id INTEGER NOT NULL,
@@ -364,16 +329,6 @@ CREATE TABLE conference_track_localized (
   FOREIGN KEY (conference_track_id) REFERENCES conference_track (conference_track_id),
   FOREIGN KEY (language_id) REFERENCES language (language_id),
   PRIMARY KEY (conference_track_id, language_id)
-) WITHOUT OIDS;
-
-CREATE TABLE conference_release (
-  release_id SERIAL NOT NULL,
-  conference_id INTEGER NOT NULL,
-  release_tag VARCHAR(32) NOT NULL,
-  description VARCHAR(128),
-  release_date TIMESTAMP(0) WITH TIME ZONE NOT NULL DEFAULT now(),
-  FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
-  PRIMARY KEY (release_id)
 ) WITHOUT OIDS;
 
 CREATE TABLE room (
@@ -448,6 +403,41 @@ CREATE TABLE person (
   PRIMARY KEY (person_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE conference_person (
+  conference_person_id SERIAL NOT NULL,
+  conference_id INTEGER NOT NULL,
+  person_id INTEGER NOT NULL,
+  abstract TEXT,
+  description TEXT,
+  remark TEXT,
+  email_public VARCHAR(64),
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
+  FOREIGN KEY (person_id) REFERENCES person (person_id),
+  PRIMARY KEY (conference_person_id)
+) WITHOUT OIDS;
+
+CREATE TABLE conference_person_link (
+    conference_person_link_id SERIAL NOT NULL,
+    conference_person_id INTEGER NOT NULL,
+    url TEXT NOT NULL,
+    description VARCHAR(256),
+    rank INTEGER,
+    FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
+    PRIMARY KEY (conference_person_link_id)
+) WITHOUT OIDS;
+
+CREATE TABLE conference_person_link_internal (
+    conference_person_link_internal_id SERIAL NOT NULL,
+    conference_person_id INTEGER NOT NULL,
+    link_type_id INTEGER NOT NULL,
+    url TEXT NOT NULL,
+    description VARCHAR(256),
+    rank INTEGER,
+    FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
+    FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
+    PRIMARY KEY (conference_person_link_internal_id)
+) WITHOUT OIDS;
+
 CREATE TABLE person_phone (
   person_phone_id SERIAL NOT NULL,
   person_id INTEGER NOT NULL,
@@ -469,22 +459,6 @@ CREATE TABLE person_rating (
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   FOREIGN KEY (evaluator_id) REFERENCES person (person_id),
   PRIMARY KEY (person_id, evaluator_id)
-) WITHOUT OIDS;
-
-CREATE TABLE person_watchlist_person (
-  person_id INTEGER NOT NULL,
-  watched_person_id INTEGER NOT NULL,
-  FOREIGN KEY (person_id) REFERENCES person (person_id),
-  FOREIGN KEY (watched_person_id) REFERENCES person (person_id),
-  PRIMARY KEY (person_id, watched_person_id)
-) WITHOUT OIDS;
-
-CREATE TABLE person_watchlist_conference (
-  person_id INTEGER NOT NULL,
-  conference_id INTEGER NOT NULL,
-  FOREIGN KEY (person_id) REFERENCES person (person_id),
-  FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
-  PRIMARY KEY (person_id, conference_id)
 ) WITHOUT OIDS;
 
 CREATE TABLE person_travel (
@@ -697,14 +671,6 @@ CREATE TABLE event (
   FOREIGN KEY (language_id) REFERENCES language (language_id),
   FOREIGN KEY (room_id) REFERENCES room (room_id),
   PRIMARY KEY (event_id)
-) WITHOUT OIDS;
-
-CREATE TABLE person_watchlist_event (
-  person_id INTEGER NOT NULL,
-  event_id INTEGER NOT NULL,
-  FOREIGN KEY (person_id) REFERENCES person (person_id),
-  FOREIGN KEY (event_id) REFERENCES event (event_id),
-  PRIMARY KEY (person_id, event_id)
 ) WITHOUT OIDS;
 
 CREATE TABLE event_audience (

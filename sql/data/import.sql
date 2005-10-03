@@ -27,8 +27,6 @@ BEGIN TRANSACTION;
 \i event_state_localized.sql
 \i event_type.sql
 \i event_type_localized.sql
-\i conference_role.sql
-\i conference_role_localized.sql
 
 COMMIT TRANSACTION;
 
