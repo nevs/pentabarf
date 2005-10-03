@@ -70,6 +70,7 @@ CREATE OR REPLACE VIEW view_event AS
           view_room.name AS room, 
           conference.acronym, 
           (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
+          event.start_time + conference.day_change AS real_starttime,
           event_image.mime_type_id,
           mime_type.mime_type,
           mime_type.file_extension

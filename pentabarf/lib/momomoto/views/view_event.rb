@@ -42,6 +42,7 @@ module Momomoto
         :room => Datatype::Varchar.new( {} ),
         :acronym => Datatype::Varchar.new( {:length=>16} ),
         :start_datetime => Datatype::Timestamp.new( {} ),
+        :real_starttime => Datatype::Time.new( {} ),
         :mime_type_id => Datatype::Integer.new( {} ),
         :mime_type => Datatype::Varchar.new( {:length=>128} ),
         :file_extension => Datatype::Varchar.new( {:length=>16} )
