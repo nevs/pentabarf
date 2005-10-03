@@ -234,18 +234,22 @@ module Momomoto
       dirty
     end
     
+    # begin a transaction
     def begin
       execute( 'BEGIN TRANSACTION;' )
     end
 
+    # commit a transaction
     def commit
       execute( 'COMMIT TRANSACTION;' )
     end
 
+    # roll a transaction back
     def rollback
       execute( 'ROLLBACK TRANSACTION;' )
     end
 
+    # delete current record
     def delete()
       return false unless privilege?( 'create' )
       conditions = {}
