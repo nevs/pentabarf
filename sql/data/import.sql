@@ -25,6 +25,8 @@ BEGIN TRANSACTION;
 \i event_role_state_localized.sql
 \i event_state.sql
 \i event_state_localized.sql
+\i event_state_progress.sql
+\i event_state_progress_localized.sql
 \i event_type.sql
 \i event_type_localized.sql
 
