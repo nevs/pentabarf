@@ -78,6 +78,7 @@ class ApplicationController < ActionController::Base
     message += "UA: #{@request.env['HTTP_USER_AGENT']}\n"
     message += "IP: #{@request.remote_ip}\n"
     message += "URL: https://#{@request.host + @request.request_uri}\n"
+    message += "Request: #{params.inspect}\n"
     message += "Exception: #{exception.to_s}\n"
     message += "Backtrace:\n"
     clean_backtrace(exception).each do | line | 
@@ -114,6 +115,7 @@ class ApplicationController < ActionController::Base
   end
 
   def save_preferences
+    @user.preferences = @preferences
     @user.write
   end
 
