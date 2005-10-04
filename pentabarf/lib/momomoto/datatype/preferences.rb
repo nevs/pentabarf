@@ -49,7 +49,7 @@ module Momomoto
       def filter_write( value )
         if value != nil
           value = YAML.dump( value )
-          value = value.gsub(/'/, "''").gsub(/\\/, "\\\\")
+          value = value.gsub(/\\/, '').gsub(/'/, "''")
           return "'#{value}'"
         end
         return "NULL"
