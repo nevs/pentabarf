@@ -314,6 +314,7 @@ module Momomoto
         elsif value === false
           where = where_append( where, "#{key} IS NULL" )
         elsif value.instance_of?( Array )
+          next if value.length == 0
           values = ''
           value.each do | v |
             values += values == '' ? '' : ', '
