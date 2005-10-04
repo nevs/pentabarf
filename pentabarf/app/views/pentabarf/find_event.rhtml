@@ -5,7 +5,7 @@
   <div id="content-simple" class="content_tab">
     <fieldset>
       <legend>Find</legend>
-      <%= text_field_tag( :find_event, @params[:id], :size => 40 ) %>
+      <%= text_field_tag( :find_event, @preferences[:search_event], :size => 40 ) %>
       <label id="search-indicator" style="display: none;">Searching ...</label>
       <%= observe_field( :find_event, 
                          :frequency => 1, 

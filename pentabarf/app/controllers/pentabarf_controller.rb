@@ -27,14 +27,20 @@ class PentabarfController < ApplicationController
 
   def find_event
     @content_title ='Find Event'
-    @events = Momomoto::View_find_event.find( {:s_title => params[:id], :conference_id => @current_conference_id, :translated_id => @current_language_id} )
+    @preferences[:search_event] = params[:id] if params[:id].to_s != ''
+    if @preferences[:search_event].match(/^ *(\d+ *)+$/)
+      @events = Momomoto::View_find_event.find( {:event_id => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
+    else
+      @events = Momomoto::View_find_event.find( {:s_title => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
+    end
   end
 
   def search_event
-    if request.raw_post.match(/^ *(\d+ *)+$/)
-      @events = Momomoto::View_find_event.find( {:event_id => request.raw_post.split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
+    @preferences[:search_event] = request.raw_post if request.raw_post.to_s != ''
+    if @preferences[:search_event].match(/^ *(\d+ *)+$/)
+      @events = Momomoto::View_find_event.find( {:event_id => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
     else
-      @events = Momomoto::View_find_event.find( {:s_title => request.raw_post.split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
+      @events = Momomoto::View_find_event.find( {:s_title => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
     end
     render(:partial => 'search_event')
   end
