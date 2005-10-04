@@ -12,15 +12,21 @@ class PentabarfController < ApplicationController
   end
 
   def find_conference
-    @conferences = Momomoto::View_find_conference.find( {:search => params[:id]} )
     @content_title ='Find Conference'
+    @preferences[:search_conference] = params[:id] if params[:id].to_s != ''
+    if @preferences[:search_conference].match(/^ *(\d+ *)+$/)
+      @conferences = Momomoto::View_find_conference.find( {:conference_id => @preferences[:search_conference].split(' ')} )
+    else
+      @conferences = Momomoto::View_find_conference.find( {:search => @preferences[:search_conference].split(' ')} )
+    end
   end
 
   def search_conference
-    if request.raw_post.match(/^ *(\d+ *)+$/)
-      @conferences = Momomoto::View_find_conference.find( {:conference_id => request.raw_post.split(' ')} )
+    @preferences[:search_conference] = request.raw_post if request.raw_post.to_s != ''
+    if @preferences[:search_conference].match(/^ *(\d+ *)+$/)
+      @conferences = Momomoto::View_find_conference.find( {:conference_id => @preferences[:search_conference].split(' ')} )
     else
-      @conferences = Momomoto::View_find_conference.find( {:search => request.raw_post.split(' ')} )
+      @conferences = Momomoto::View_find_conference.find( {:search => @preferences[:search_conference].split(' ')} )
     end
     render(:partial => 'search_conference')
   end

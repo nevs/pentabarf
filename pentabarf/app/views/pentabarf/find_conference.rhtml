@@ -2,7 +2,7 @@
 <div id="data">
   <fieldset>
     <legend>Find</legend>
-    <%= text_field_tag( :find_conference, @params[:id], :size => 40 ) %>
+    <%= text_field_tag( :find_conference, @preferences[:search_conference], :size => 40 ) %>
     <label id="search-indicator" style="display: none;">Searching ...</label>
     <%= observe_field( :find_conference, 
                      :frequency => 1, 
