@@ -1,6 +1,6 @@
 class PentabarfController < ApplicationController
   before_filter :authorize, :check_permission
-  after_filter :save_preferences, :except => [:meditation, :activity]
+  after_filter :save_preferences, :except => [:meditation, :activity, :save_conference, :save_event, :save_person]
   after_filter :compress
 
   def initialize
