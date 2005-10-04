@@ -11,7 +11,7 @@ RAILS_ROOT = File.join(File.dirname(__FILE__), '..')
 # environment variable instead.
 #
 # See config/environments/*.rb for environment-specific configuration.
-RAILS_ENV  = ENV['RAILS_ENV'] || 'development'
+RAILS_ENV  = ENV['RAILS_ENV'] || 'production'
 
 
 # Load the Rails framework.  Mock classes for testing come first.
