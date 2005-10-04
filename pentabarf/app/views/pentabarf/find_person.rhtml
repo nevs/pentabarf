@@ -5,14 +5,14 @@
   <div id="content-simple" class="content_tab">
     <fieldset>
       <legend>Find</legend>
-      <%= text_field_tag( :find_person, @params[:id], :size => 40 ) %>
+      <%= text_field_tag( :find_person, @preferences[:search_person], :size => 40 ) %>
       <label id="search-indicator" style="display: none;">Searching ...</label>
       <%= observe_field( :find_person, 
-                       :frequency => 1, 
-                       :update => :results, 
-                       :url => { :action => :search_person},
-                       :loading => "Element.show('search-indicator')",
-                       :complete => "Element.hide('search-indicator')" ) 
+                         :frequency => 1, 
+                         :update => :results, 
+                         :url => { :action => :search_person},
+                         :loading => "Element.show('search-indicator')",
+                         :complete => "Element.hide('search-indicator')" ) 
       %>
     </fieldset>
   </div>

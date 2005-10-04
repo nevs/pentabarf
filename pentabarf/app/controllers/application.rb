@@ -81,9 +81,7 @@ class ApplicationController < ActionController::Base
     message += "Request: #{params.inspect}\n"
     message += "Exception: #{exception.to_s}\n"
     message += "Backtrace:\n"
-    clean_backtrace(exception).each do | line | 
-      message += "#{line}\n"
-    end
+    message += clean_backtrace(exception).join('\n')
 
     begin
       ApplicationController.jabber_message( message )

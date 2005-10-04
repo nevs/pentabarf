@@ -53,7 +53,6 @@ class PentabarfController < ApplicationController
     render(:partial => 'search_person')
   end
 
-
   def transform_advanced_search_conditions( search )
     conditions = {}
     search.each do | key, value |
@@ -76,14 +75,20 @@ class PentabarfController < ApplicationController
 
   def find_person
     @content_title ='Find Person'
-    @persons = Momomoto::View_find_person.find( {:search => params[:id]} )
+    @preferences[:search_person] = params[:id] if params[:id].to_s != ''
+    if @preferences[:search_person].match(/^ *(\d+ *)+$/)
+      @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split(' ')} )
+    else
+      @persons = Momomoto::View_find_person.find( {:search => @preferences[:search_person].split(' ')} )
+    end
   end
 
   def search_person
-    if request.raw_post.match(/^ *(\d+ *)+$/)
-      @persons = Momomoto::View_find_person.find( {:person_id => request.raw_post.split(' ')} )
+    @preferences[:search_person] = request.raw_post if request.raw_post.to_s != ''
+    if @preferences[:search_person].match(/^ *(\d+ *)+$/)
+      @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split(' ')} )
     else
-      @persons = Momomoto::View_find_person.find( {:search => request.raw_post.split(' ')} )
+      @persons = Momomoto::View_find_person.find( {:search => @preferences[:search_person].split(' ')} )
     end
     render(:partial => 'search_person')
   end
