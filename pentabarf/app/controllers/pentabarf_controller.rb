@@ -217,7 +217,6 @@ class PentabarfController < ApplicationController
           next if key.to_sym == :preferences
           person[key]= value
         end
-        person[:gender] = nil if params[:person]['gender'] == ""
         person[:f_spam] = 'f' unless params[:person]['f_spam']
         person.password= params[:person][:password]
         prefs = person.preferences
@@ -239,15 +238,19 @@ class PentabarfController < ApplicationController
           image.person_id = person.person_id
         end
         if image.length == 1
-          image.f_public = ( params[:person_image] && params[:person_image][:f_public] ) ? 't' : 'f'
-          if params[:person_image][:image].size > 0
-            mime_type = Momomoto::Mime_type.find({:mime_type => params[:person_image][:image].content_type.chomp, :f_image => 't'})
-            raise "mime-type not found #{params[:person_image][:image].content_type}" if mime_type.length != 1
-            image.mime_type_id = mime_type.mime_type_id
-            image.image = process_image( params[:person_image][:image].read )
-            image.last_changed = 'now()'
+          if params[:person_image][:delete]
+            modified = true if image.delete
+          else
+            image.f_public = ( params[:person_image] && params[:person_image][:f_public] ) ? 't' : 'f'
+            if params[:person_image][:image].size > 0
+              mime_type = Momomoto::Mime_type.find({:mime_type => params[:person_image][:image].content_type.chomp, :f_image => 't'})
+              raise "mime-type not found #{params[:person_image][:image].content_type}" if mime_type.length != 1
+              image.mime_type_id = mime_type.mime_type_id
+              image.image = process_image( params[:person_image][:image].read )
+              image.last_changed = 'now()'
+            end
+            modified = true if image.write
           end
-          modified = true if image.write
         end
 
         person_role = Momomoto::Person_role.new
@@ -363,14 +366,18 @@ class PentabarfController < ApplicationController
           image.conference_id = conference.conference_id
         end
         if image.length == 1
-          if params[:conference_image][:image].size > 0
-            mime_type = Momomoto::Mime_type.find({:mime_type => params[:conference_image][:image].content_type.chomp, :f_image => 't'})
-            raise "mime-type not found #{params[:conference_image][:image].content_type}" if mime_type.length != 1
-            image.mime_type_id = mime_type.mime_type_id
-            image.image = process_image( params[:conference_image][:image].read )
-            image.last_changed = 'now()'
+          if params[:conference_image][:delete]
+            modified = true if image.delete
+          else
+            if params[:conference_image][:image].size > 0
+              mime_type = Momomoto::Mime_type.find({:mime_type => params[:conference_image][:image].content_type.chomp, :f_image => 't'})
+              raise "mime-type not found #{params[:conference_image][:image].content_type}" if mime_type.length != 1
+              image.mime_type_id = mime_type.mime_type_id
+              image.image = process_image( params[:conference_image][:image].read )
+              image.last_changed = 'now()'
+            end
+            modified = true if image.write
           end
-          modified = true if image.write
         end
 
         if params[:team]
@@ -457,14 +464,18 @@ class PentabarfController < ApplicationController
           image.event_id = event.event_id
         end
         if image.length == 1
-          if params[:event_image][:image].size > 0
-            mime_type = Momomoto::Mime_type.find({:mime_type => params[:event_image][:image].content_type.chomp, :f_image => 't'})
-            raise "mime-type not found #{params[:event_image][:image].content_type}" if mime_type.length != 1
-            image.mime_type_id = mime_type.mime_type_id
-            image.image = process_image( params[:event_image][:image].read )
-            image.last_changed = 'now()'
+          if params[:person_image][:delete]
+            modified = true if image.delete
+          else
+            if params[:event_image][:image].size > 0
+              mime_type = Momomoto::Mime_type.find({:mime_type => params[:event_image][:image].content_type.chomp, :f_image => 't'})
+              raise "mime-type not found #{params[:event_image][:image].content_type}" if mime_type.length != 1
+              image.mime_type_id = mime_type.mime_type_id
+              image.image = process_image( params[:event_image][:image].read )
+              image.last_changed = 'now()'
+            end
+            modified = true if image.write
           end
-          modified = true if image.write
         end
 
         if params[:attachment_upload]

@@ -6,13 +6,22 @@ module Momomoto
 
     class Bool < Base 
       def filter_set( value )
-        case value
-          when 't', '1', 1, true 
-            then 't'
-          when nil
-            then property(:not_null) ? 'f' : nil
-          else 
-            'f'
+        if property(:not_null)
+          case value
+            when 't', '1', 1, true
+              then 't'
+            else
+              'f'
+          end
+        else
+          case value
+            when 't', '1', 1, true 
+              then 't'
+            when 'f', '0', 0, false
+              then 'f'
+            else 
+              nil
+          end
         end
       end
 
