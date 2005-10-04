@@ -20,7 +20,7 @@ class PentabarfController < ApplicationController
     if request.raw_post.match(/^ *(\d+ *)+$/)
       @conferences = Momomoto::View_find_conference.find( {:conference_id => request.raw_post.split(' ')} )
     else
-      @conferences = Momomoto::View_find_conference.find( {:search => request.raw_post} )
+      @conferences = Momomoto::View_find_conference.find( {:search => request.raw_post.split(' ')} )
     end
     render(:partial => 'search_conference')
   end
@@ -34,7 +34,7 @@ class PentabarfController < ApplicationController
     if request.raw_post.match(/^ *(\d+ *)+$/)
       @events = Momomoto::View_find_event.find( {:event_id => request.raw_post.split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
     else
-      @events = Momomoto::View_find_event.find( {:s_title => request.raw_post, :conference_id => @current_conference_id, :translated_id => @current_language_id} )
+      @events = Momomoto::View_find_event.find( {:s_title => request.raw_post.split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
     end
     render(:partial => 'search_event')
   end
@@ -83,7 +83,7 @@ class PentabarfController < ApplicationController
     if request.raw_post.match(/^ *(\d+ *)+$/)
       @persons = Momomoto::View_find_person.find( {:person_id => request.raw_post.split(' ')} )
     else
-      @persons = Momomoto::View_find_person.find( {:search => request.raw_post} )
+      @persons = Momomoto::View_find_person.find( {:search => request.raw_post.split(' ')} )
     end
     render(:partial => 'search_person')
   end
