@@ -166,6 +166,10 @@ module Momomoto
       end
     end
 
+    def nil?
+      length > 0 ? false : true
+    end
+
     # class method for finding records
     def self.find( conditions = {} , limit = nil, order = nil, distinct = nil)
       data = self.new
@@ -194,9 +198,9 @@ module Momomoto
                         ( @limit != nil ? " LIMIT #{@limit.to_s}" : '' ) +
                         ";" )
       @resultset = []
-      for i in 0..(result.num_tuples - 1)
+      result.num_tuples.times do | i |
         @resultset[i] = {}
-        for j in 0..(result.num_fields - 1)
+        result.num_fields.times do | j |
           @resultset[i][result.fieldname(j).to_sym] = @fields[result.fieldname(j).to_sym].clone
           @resultset[i][result.fieldname(j).to_sym].import( result[i][j] )
         end
