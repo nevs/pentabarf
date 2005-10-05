@@ -53,7 +53,7 @@ class PentabarfController < ApplicationController
 
   def search_event_advanced
     @preferences[:search_event_advanced] = params[:search]
-    conditions = transform_advanced_search_conditions( params[:search])
+    conditions = transform_advanced_search_conditions( @preferences[:search_event_advanced] )
     conditions[:translated_id] = @current_language_id
     conditions[:conference_id] = @current_conference_id
     @events = Momomoto::View_find_event.find( conditions )
@@ -482,7 +482,7 @@ class PentabarfController < ApplicationController
           image.event_id = event.event_id
         end
         if image.length == 1
-          if params[:person_image][:delete]
+          if params[:event_image][:delete]
             modified = true if image.delete
           else
             if params[:event_image][:image].size > 0
