@@ -1,4 +1,8 @@
-<label><%= @events.length > 23 ? 23 : @events.length %> of <%= @events.length %></label>
+<% (@events.length.to_f/@preferences[:hits_per_page].to_f).ceil.times do | i |  %>
+<button type="button" onclick="b = new Ajax.Updater('results', '<%= url_for(:id => i) %>');b.updateContent();"><%= i %></button>
+<% end %>
+<br/>
+<label><%= (@events.length - @preferences[:hits_per_page] * @current_page) > @preferences[:hits_per_page] ? @preferences[:hits_per_page] : ( @events.length - @preferences[:hits_per_page] * @current_page ) %> of <%= @events.length %></label>
 <table>
   <thead>
     <tr>
@@ -11,7 +15,7 @@
   </thead>
   <tbody>
     <% for event in @events %>
-    <% next if event.current_record >= 23 %>
+    <% next if event.current_record < (@preferences[:hits_per_page] * @current_page) || event.current_record > (@preferences[:hits_per_page] * (@current_page + 1)) %>
       <tr>
         <td>
           <% if event.mime_type_id %>

@@ -43,6 +43,7 @@ module Momomoto
         value[:search_person_advanced] = {} unless value[:search_person_advanced]
         value[:search_conference] = "" unless value[:search_conference]
         value[:search_conference_advanced] = {} unless value[:search_conference_advanced]
+        value[:hits_per_page] = 42
         value
       end
 

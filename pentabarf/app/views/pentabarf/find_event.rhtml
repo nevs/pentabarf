@@ -75,7 +75,7 @@
         valuelists[4][<%= track.conference_track_id %>] = '<%= escape_javascript(track.name) %>';
       <% end %>
       valuelists[5] = new Array();
-      <% for coordinator in Momomoto::View_event_person.find({:language_id => @current_language_id,:conference_id => @current_conference_id,:event_role_tag => 'coordinator'}) %>
+      <% for coordinator in Momomoto::View_event_person.find({:language_id => @current_language_id,:conference_id => @current_conference_id,:event_role_tag => 'coordinator'}, nil, nil, :person_id) %>
         valuelists[5][<%= coordinator.person_id %>] = '<%= escape_javascript(coordinator.name) %>';
       <% end %>
       <% if @preferences[:search_event_advanced].length > 0 %>

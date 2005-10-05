@@ -199,11 +199,13 @@ module Momomoto
                         ";" )
       @resultset = []
       result.num_tuples.times do | i |
-        @resultset[i] = {}
+        current = {}
         result.num_fields.times do | j |
-          @resultset[i][result.fieldname(j).to_sym] = @fields[result.fieldname(j).to_sym].clone
-          @resultset[i][result.fieldname(j).to_sym].import( result[i][j] )
+          current[result.fieldname(j).to_sym] = @fields[result.fieldname(j).to_sym].clone
+          current[result.fieldname(j).to_sym].import( result[i][j] )
         end
+        next if distinct && find_by_id(distinct, current[distinct].value)
+        @resultset.push( current )
       end
       @new_record = false
       @current_record = @resultset.length > 0 ? 0 : nil 
