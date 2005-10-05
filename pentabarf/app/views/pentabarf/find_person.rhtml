@@ -38,8 +38,14 @@
       criteria[1]['type'] = 'text';
 
       var valuelists = new Array();
+      <% if @preferences[:search_person_advanced].length %>
+        <% @preferences[:search_person_advanced].each do | key, value | %>
+        search_criteria_add('search_elements', 0, '<%= escape_javascript(value['type']) %>', '<%= escape_javascript(value['logic']) %>', '<%= escape_javascript(value['value']) %>');
+        <% end %>
+      <% else %>
+        search_criteria_add('search_elements', 0);
+      <% end %>
     </script>
-    <%= javascript_tag("search_criteria_add('search_elements', 0)") %>
         <%= observe_form( :find_person_advanced, 
                            :frequency => 1, 
                            :update => :results, 

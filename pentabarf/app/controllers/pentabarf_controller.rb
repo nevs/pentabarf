@@ -52,6 +52,7 @@ class PentabarfController < ApplicationController
   end
 
   def search_event_advanced
+    @preferences[:search_event_advanced] = params[:search]
     conditions = transform_advanced_search_conditions( params[:search])
     conditions[:translated_id] = @current_language_id
     conditions[:conference_id] = @current_conference_id
@@ -60,8 +61,8 @@ class PentabarfController < ApplicationController
   end
 
   def search_person_advanced
-    conditions = transform_advanced_search_conditions( params[:search])
-    @persons = Momomoto::View_find_person.find( conditions )
+    @preferences[:search_person_advanced] = params[:search]
+    @persons = Momomoto::View_find_person.find( transform_advanced_search_conditions(@preferences[:search_person_advanced]) )
     render(:partial => 'search_person')
   end
 
