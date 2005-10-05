@@ -30,6 +30,7 @@ module Momomoto
 
       def filter_read( value )
         if value.to_s != ''
+          value.gsub!('HashWithIndifferentAccess', 'Hash')
           value = YAML.load(value)
         else
           value = Hash.new
@@ -49,6 +50,7 @@ module Momomoto
       def filter_write( value )
         if value != nil
           value = YAML.dump( value )
+          value = value.gsub('HashWithIndifferentAccess', 'Hash')
           value = value.gsub(/\\/, '').gsub(/'/, "''")
           return "'#{value}'"
         end
