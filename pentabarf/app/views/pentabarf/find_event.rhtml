@@ -78,8 +78,14 @@
       <% for coordinator in Momomoto::View_event_person.find({:language_id => @current_language_id,:conference_id => @current_conference_id,:event_role_tag => 'coordinator'}) %>
         valuelists[5][<%= coordinator.person_id %>] = '<%= escape_javascript(coordinator.name) %>';
       <% end %>
+      <% if @preferences[:search_event_advanced].length > 0 %>
+        <% @preferences[:search_event_advanced].each do | key, value | %>
+        search_criteria_add('search_elements', 0, '<%= escape_javascript(value['type']) %>', '<%= escape_javascript(value['logic']) %>', '<%= escape_javascript(value['value']) %>');
+        <% end %>
+      <% else %>
+        search_criteria_add('search_elements', 0);
+      <% end %>
     </script>
-    <%= javascript_tag("search_criteria_add('search_elements', 0)") %>
         <%= observe_form( :find_event_advanced, 
                            :frequency => 1, 
                            :update => :results, 
