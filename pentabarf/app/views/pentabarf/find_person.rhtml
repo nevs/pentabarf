@@ -56,7 +56,11 @@
   </div>
 
   <fieldset id="results">
-    <%= render(:partial => 'search_person') %>
+    <script type="text/javascript">
+      switch_tab('<%= @preferences[:search_person_type] %>');
+      set = new Ajax.Updater('results', '<%= @preferences[:search_person_type] == 'simple' ? url_for(:action => :search_person, :id => 0) : url_for(:action => :search_person_advanced) %>');
+      set.updateContent();
+    </script>
   </fieldset>
 
 </div>

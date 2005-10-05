@@ -14,7 +14,11 @@
   </fieldset>
   
   <fieldset id="results">
-    <%= render(:partial => 'search_conference') %>
+    <script type="text/javascript">
+      switch_tab('<%= @preferences[:search_conference_type] %>');
+      set = new Ajax.Updater('results', '<%= @preferences[:search_conference_type] == 'simple' ? url_for(:action => :search_conference, :id => 0) : url_for(:action => :search_conference_advanced) %>');
+      set.updateContent();
+    </script>
   </fieldset>
 
 </div>

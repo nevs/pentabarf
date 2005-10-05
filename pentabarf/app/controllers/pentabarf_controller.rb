@@ -13,16 +13,12 @@ class PentabarfController < ApplicationController
 
   def find_conference
     @content_title ='Find Conference'
-    @preferences[:search_conference] = params[:id] if params[:id].to_s != ''
-    if @preferences[:search_conference].match(/^ *(\d+ *)+$/)
-      @conferences = Momomoto::View_find_conference.find( {:conference_id => @preferences[:search_conference].split(' ')} )
-    else
-      @conferences = Momomoto::View_find_conference.find( {:search => @preferences[:search_conference].split(' ')} )
-    end
   end
 
   def search_conference
-    @preferences[:search_conference] = request.raw_post if request.raw_post.to_s != ''
+    @preferences[:search_conference] = request.raw_post unless params[:id]
+    @preferences[:search_conference_type] = 'simple'
+    @current_page = params[:id].to_i
     if @preferences[:search_conference].match(/^ *(\d+ *)+$/)
       @conferences = Momomoto::View_find_conference.find( {:conference_id => @preferences[:search_conference].split(' ')} )
     else
@@ -33,17 +29,11 @@ class PentabarfController < ApplicationController
 
   def find_event
     @content_title ='Find Event'
-    @current_page = 0
-    @preferences[:search_event] = params[:id] if params[:id].to_s != ''
-    if @preferences[:search_event].match(/^ *(\d+ *)+$/)
-      @events = Momomoto::View_find_event.find( {:event_id => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
-    else
-      @events = Momomoto::View_find_event.find( {:s_title => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
-    end
   end
 
   def search_event
-    @preferences[:search_event] = request.raw_post if request.raw_post.to_s != ''
+    @preferences[:search_event] = request.raw_post unless params[:id] 
+    @preferences[:search_event_type] = 'simple'
     @current_page = params[:id].to_i
     if @preferences[:search_event].match(/^ *(\d+ *)+$/)
       @events = Momomoto::View_find_event.find( {:event_id => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
@@ -55,6 +45,7 @@ class PentabarfController < ApplicationController
 
   def search_event_advanced
     @preferences[:search_event_advanced] = params[:search] if params[:search]
+    @preferences[:search_event_type] = 'advanced'
     @current_page = params[:id].to_i
     conditions = transform_advanced_search_conditions( @preferences[:search_event_advanced] )
     conditions[:translated_id] = @current_language_id
@@ -65,6 +56,7 @@ class PentabarfController < ApplicationController
 
   def search_person_advanced
     @preferences[:search_person_advanced] = params[:search] if params[:search]
+    @preferences[:search_person_type] = 'advanced'
     @current_page = params[:id].to_i
     @persons = Momomoto::View_find_person.find( transform_advanced_search_conditions(@preferences[:search_person_advanced]) )
     render(:partial => 'search_person')
@@ -92,17 +84,10 @@ class PentabarfController < ApplicationController
 
   def find_person
     @content_title ='Find Person'
-    @current_page = 0
-    @preferences[:search_person] = params[:id] if params[:id].to_s != ''
-    if @preferences[:search_person].match(/^ *(\d+ *)+$/)
-      @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split(' ')} )
-    else
-      @persons = Momomoto::View_find_person.find( {:search => @preferences[:search_person].split(' ')} )
-    end
   end
 
   def search_person
-    @preferences[:search_person] = request.raw_post if request.raw_post.to_s != ''
+    @preferences[:search_person] = request.raw_post unless params[:id]
     @current_page = params[:id].to_i
     if @preferences[:search_person].match(/^ *(\d+ *)+$/)
       @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split(' ')} )
@@ -245,6 +230,7 @@ class PentabarfController < ApplicationController
         person.password= params[:person][:password]
         prefs = person.preferences
         prefs[:current_language_id] = params[:person][:preferences][:current_language_id].to_i
+        prefs[:hits_per_page] = params[:person][:preferences][:hits_per_page].to_i
         person.preferences = prefs
         modified = true if person.write
 
