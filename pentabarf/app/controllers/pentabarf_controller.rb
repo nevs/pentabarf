@@ -64,7 +64,7 @@ class PentabarfController < ApplicationController
   end
 
   def search_person_advanced
-    @preferences[:search_person_advanced] = params[:search]
+    @preferences[:search_person_advanced] = params[:search] if params[:search]
     @current_page = params[:id].to_i
     @persons = Momomoto::View_find_person.find( transform_advanced_search_conditions(@preferences[:search_person_advanced]) )
     render(:partial => 'search_person')
