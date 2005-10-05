@@ -319,6 +319,17 @@ module Momomoto
             values += @fields[key].filter_write( v )
           end
           where = where_append( where, "#{key} IN (#{values})" )
+        elsif value.kind_of?(Hash)
+          value.each do | op, val |
+            operator = case op.to_sym 
+                         when :lt then '<' 
+                         when :le then '<='
+                         when :gt then '>'
+                         when :ge then '>='
+                         else next
+                       end
+            where = where_append( where, "#{key} #{operator} #{@fields[key].filter_write(val)}")
+          end
         else
           where = where_append( where, "#{key} = #{@fields[key].filter_write(value)}" )
         end
