@@ -5,15 +5,15 @@ module Momomoto
   class Login < Base
 
     def initialize
-    super
-    @table = 'person'
-    @domain = 'own_person'
-    @fields = { :person_id    => Datatype::Integer.new( {:primary_key => true, :not_null => true, :serial => true} ),
-                :login_name   => Datatype::Varchar.new( {} ),
-                :password     => Datatype::Password.new( {:length => 48} ),
-                :preferences  => Datatype::Preferences.new( {} ),
-                :last_login   => Datatype::Timestamp.new( {:auto_update => true} )
-    }
+      super
+      @table = 'person'
+      @domain = 'own_person'
+      @fields = { :person_id    => Datatype::Integer.new( {:primary_key => true, :not_null => true, :serial => true} ),
+                  :login_name   => Datatype::Varchar.new( {} ),
+                  :password     => Datatype::Password.new( {:length => 48} ),
+                  :preferences  => Datatype::Preferences.new( {} ),
+                  :last_login   => Datatype::Timestamp.new( {:auto_update => true} )
+      }
     end
 
     def authorize( login_name, password )

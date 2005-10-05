@@ -82,6 +82,7 @@ module Momomoto
       end
     end
 
+    # set order for queries
     def order=( value )
       if value.match( /[a-zA-Z,.()0-9]+/ )
         @order = value
@@ -90,6 +91,7 @@ module Momomoto
       end
     end
 
+    # get number of records in resultset
     def length()
       return @resultset.length
     end
@@ -136,6 +138,7 @@ module Momomoto
       @resultset[@current_record][key.to_sym].value= value
     end
 
+    # create a new record
     def create()
       @resultset = []
       @resultset[0] = {}
@@ -157,19 +160,26 @@ module Momomoto
     end
 
     def each
-      for i in 0..( @resultset.length - 1 )
+      @resultset.length.times do | i |
         @current_record = i
         yield( self )
       end
     end
 
-    def self.find( conditions = {} , limit = nil, order = nil)
+    # class method for finding records
+    def self.find( conditions = {} , limit = nil, order = nil, distinct = nil)
       data = self.new
-      data.select( conditions, limit, order )
+      data.select( conditions, limit, order, distinct )
       return data
     end
+
+    # instance method for finding records
+    def find( conditions = {}, limit = nil, order = nil, distinct = nil)
+      select( conditions, limit, order, distinct )
+      self
+    end
     
-    def select( conditions = {}, limit = nil, order = nil ) 
+    def select( conditions = {}, limit = nil, order = nil, distinct = nil ) 
       self.limit= limit if limit
       self.order= order if order
       fields = ''
@@ -226,10 +236,12 @@ module Momomoto
       true
     end
 
+    # has the current user a specific permission
     def permission?( action )
       @@permissions.member?( action )
     end
 
+    # has the record been modified
     def dirty?()
       dirty = false
       @resultset[@current_record].each do | field_name, value |
