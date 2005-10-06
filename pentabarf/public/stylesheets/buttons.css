@@ -57,8 +57,9 @@ button:active {
   color: black;
 }
 
+/* used for buttons to step through find results */
+
 button.active {
-  font-weight: normal;
   background-color: #90acc8;
   color: black;
 }
