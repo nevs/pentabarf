@@ -56,3 +56,12 @@ button:hover {
 button:active {
   color: black;
 }
+
+button.active {
+  color: white;
+  background-color: black;
+}
+
+button.active:hover {
+  color: #90acc8;
+}
