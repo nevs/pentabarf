@@ -1,8 +1,10 @@
+<% if @conferences.length > @preferences[:hits_per_page] %>
 <% (@conferences.length.to_f/@preferences[:hits_per_page].to_f).ceil.times do | i |  %>
 <button type="button" class="<%= i == @current_page ? 'active' : ''%>" onclick="b = new Ajax.Updater('results', '<%= url_for(:id => i) %>');b.updateContent();">
 <%= i * @preferences[:hits_per_page] + 1 -%>
 &#x2026;<%= ((i + 1) * @preferences[:hits_per_page]) > @conferences.length ? @conferences.length : (i + 1) * @preferences[:hits_per_page] %>
 </button>
+<% end %>
 <% end %>
 <table>
   <thead>
