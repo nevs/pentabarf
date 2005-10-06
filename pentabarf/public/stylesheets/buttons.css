@@ -58,10 +58,11 @@ button:active {
 }
 
 button.active {
-  color: white;
-  background-color: black;
+  background-color: #90acc8;
+  color: black;
 }
 
 button.active:hover {
-  color: #90acc8;
+  color: white;
+  background-color: black;
 }
