@@ -88,6 +88,7 @@ class PentabarfController < ApplicationController
 
   def search_person
     @preferences[:search_person] = request.raw_post unless params[:id]
+    @preferences[:search_person_type] = 'simple'
     @current_page = params[:id].to_i
     if @preferences[:search_person].match(/^ *(\d+ *)+$/)
       @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split(' ')} )
