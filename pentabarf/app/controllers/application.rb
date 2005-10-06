@@ -73,14 +73,15 @@ class ApplicationController < ActionController::Base
     super( exception )
 
     message = ''
-    message += "User: #{@user.login_name}\n" if @user
+    message += "User: #{@user.login_name}\n" unless @user && @user.nil?
     message += "Time: #{Time.now.to_s}\n"
     message += "UA: #{@request.env['HTTP_USER_AGENT']}\n"
     message += "IP: #{@request.remote_ip}\n"
     message += "URL: https://#{@request.host + @request.request_uri}\n"
     message += "Exception: #{exception.to_s}\n"
     message += "Backtrace:\n"
-    message += clean_backtrace(exception).join("\n") + "\n"
+    message += clean_backtrace(exception).join("\n")
+    message += "\n"
     message += "Request: #{params.inspect}\n"
 
     begin
