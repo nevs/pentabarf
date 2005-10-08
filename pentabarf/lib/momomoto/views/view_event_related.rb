@@ -7,7 +7,7 @@ module Momomoto
         :event_id1 => Datatype::Integer.new( {} ),
         :event_id => Datatype::Integer.new( {} ),
         :title => Datatype::Varchar.new( {:length=>128} ),
-        :subtitle => Datatype::Varchar.new( {:length=>128} )
+        :subtitle => Datatype::Varchar.new( {:length=>256} )
       }
     end
   end

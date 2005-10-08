@@ -9,7 +9,7 @@ module Momomoto
         :conference_id => Datatype::Integer.new( {} ),
         :tag => Datatype::Varchar.new( {:length=>32} ),
         :title => Datatype::Varchar.new( {:length=>128} ),
-        :subtitle => Datatype::Varchar.new( {:length=>128} ),
+        :subtitle => Datatype::Varchar.new( {:length=>256} ),
         :conference_track_id => Datatype::Integer.new( {} ),
         :team_id => Datatype::Integer.new( {} ),
         :event_type_id => Datatype::Integer.new( {} ),

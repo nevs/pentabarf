@@ -11,7 +11,7 @@ module Momomoto
         :event_id => Datatype::Integer.new( {} ),
         :conference_id => Datatype::Integer.new( {} ),
         :title => Datatype::Varchar.new( {:length=>128} ),
-        :subtitle => Datatype::Varchar.new( {:length=>128} ),
+        :subtitle => Datatype::Varchar.new( {:length=>256} ),
         :event_origin_id => Datatype::Integer.new( {} ),
         :conference_track_id => Datatype::Integer.new( {} ),
         :event_state_id => Datatype::Integer.new( {} ),
