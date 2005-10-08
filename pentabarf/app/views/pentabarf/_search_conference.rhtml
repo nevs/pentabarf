@@ -9,7 +9,8 @@
   </thead>
   <tbody>
   <% for conference in @conferences %>
-    <% next if conference.current_record < (@preferences[:hits_per_page] * @current_page) || conference.current_record > (@preferences[:hits_per_page] * (@current_page + 1)) %>
+    <% next if conference.current_record < (@preferences[:hits_per_page] * @current_page) %>
+    <% next if conference.current_record > ((@preferences[:hits_per_page] * (@current_page + 1)) - 1) %>
     <tr>
       <td>
         <% if conference.mime_type_id %>
