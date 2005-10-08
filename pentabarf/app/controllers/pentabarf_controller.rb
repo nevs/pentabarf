@@ -323,8 +323,7 @@ class PentabarfController < ApplicationController
           table.f_departure_pickup = 'f' unless params[:person_travel]['f_departure_pickup']
         end
 
-        modified = true if save_record( Momomoto::Person_rating.new, 
-                                       {:person_id => person.person_id, :evaluator_id => @user.person_id}, 
+        save_record( Momomoto::Person_rating.new, {:person_id => person.person_id, :evaluator_id => @user.person_id}, 
                                         params[:rating]) do | table |
           table.eval_time = 'now()'
         end
@@ -499,7 +498,7 @@ class PentabarfController < ApplicationController
         event.f_slides = 'f' unless params[:event]['f_slides']
         modified = true if event.write
         
-        modified = true if save_record(Momomoto::Event_rating.new, {:person_id => @user.person_id, :event_id => event.event_id}, params[:rating]) do | t |
+        save_record(Momomoto::Event_rating.new, {:person_id => @user.person_id, :event_id => event.event_id}, params[:rating]) do | t |
           t.eval_time = 'now()'
         end
 
