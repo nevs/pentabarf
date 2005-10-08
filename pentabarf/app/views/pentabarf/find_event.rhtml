@@ -84,7 +84,7 @@
         valuelists[5][<%= coordinator.person_id %>] = '<%= escape_javascript(coordinator.name) %>';
       <% end %>
         valuelists[7] = new Array();
-      <% for progress in Momomoto::View_event_state_combined.find({:language_id => @current_language_id}) %>
+      <% for progress in [] %>
         valuelists[7][<%= progress.event_state_progress_id %>] = '<%= progress.name %>';
       <% end %>
       <% if @preferences[:search_event_advanced].length > 0 %>
