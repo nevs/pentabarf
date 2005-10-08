@@ -639,7 +639,7 @@ CREATE TABLE event (
   conference_id INTEGER NOT NULL,
   tag VARCHAR(32),
   title VARCHAR(128) NOT NULL,
-  subtitle VARCHAR(128),
+  subtitle VARCHAR(256),
   conference_track_id INTEGER,
   team_id INTEGER,
   event_type_id INTEGER,
