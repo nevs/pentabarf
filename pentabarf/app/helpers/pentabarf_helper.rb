@@ -27,14 +27,12 @@ module PentabarfHelper
 
   def pagination( total, hits_per_page, current_page )
     html = ''
-    if total > hits_per_page
-        (total.to_f/hits_per_page.to_f).ceil.times do | i | 
-        html += "<button type=\"button\" class=\"#{ i == current_page ? 'active' : ''}\" onclick=\"b = new Ajax.Updater('results', '#{ url_for(:id => i) }');b.updateContent();\">"
-        html += (i * hits_per_page + 1).to_s
-        html += "&#x2026;"
-        html += (((i + 1) * hits_per_page) > total ? total : (i + 1) * hits_per_page).to_s
-        html += "</button> "
-      end
+    (total.to_f/hits_per_page.to_f).ceil.times do | i | 
+      html += "<button type=\"button\" class=\"#{ i == current_page ? 'active' : ''}\" onclick=\"b = new Ajax.Updater('results', '#{ url_for(:id => i) }');b.updateContent();\">"
+      html += (i * hits_per_page + 1).to_s
+      html += "&#x2026;"
+      html += (((i + 1) * hits_per_page) > total ? total : (i + 1) * hits_per_page).to_s
+      html += "</button> "
     end
     html
   end
