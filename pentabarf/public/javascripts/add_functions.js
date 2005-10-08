@@ -305,10 +305,18 @@ function add_person_event(event_person_id, event_id, event_role_id, event_role_s
   table_data = document.createElement("td");
   table_data.appendChild(element);
   if (event_id) {
-    element = document.createTextNode(event_names[event_id]);
-    table_data.appendChild(element);
+    // include title in <strong> and put subtitle behind <br/>
+    strong = document.createElement("strong");
+    strong.appendChild( document.createTextNode(event_names[event_id]) );
+    table_data.appendChild(strong);
+
+    table_data.appendChild( document.createElement("br") );
+    table_data.appendChild( document.createTextNode(event_subtitles[event_id]) );
   }
   table_row.appendChild(table_data);
+
+  // display event state (placeholder)
+  table_row.appendChild( document.createElement("td") );
 
   var role_select = create_element("select", 0, "event_person["+row_id+"][event_role_id]",event_roles,event_role_id);
   role_select.setAttribute("onchange", "person_event_role_changed('"+row_id+"','"+event_role_state_id+"')");
