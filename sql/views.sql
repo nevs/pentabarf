@@ -257,8 +257,10 @@ CREATE OR REPLACE VIEW view_find_person AS
          view_person.email_contact,
          person_image.mime_type_id,
          mime_type.mime_type,
-         mime_type.file_extension
+         mime_type.file_extension,
+         conference_person.conference_id
     FROM view_person
+         LEFT OUTER JOIN conference_person USING (person_id)
          LEFT OUTER JOIN person_image USING (person_id)
          LEFT OUTER JOIN mime_type USING (mime_type_id);
 
@@ -365,4 +367,13 @@ CREATE OR REPLACE VIEW view_event_related AS
          subtitle
     FROM event_related
          INNER JOIN event ON (event_related.event_id2 = event.event_id);
+
+CREATE OR REPLACE VIEW view_event_state_combined AS
+  SELECT view_event_state_progress.event_state_progress_id,
+         view_event_state_progress.event_state_id,
+         view_event_state_progress.tag AS event_state_progress_tag,
+         view_event_state.tag AS event_state_tag,
+         view_event_state.name || ' ' || view_event_state_progress.name AS name
+    FROM view_event_state_progress
+         INNER JOIN view_event_state USING (event_state_id);
 
