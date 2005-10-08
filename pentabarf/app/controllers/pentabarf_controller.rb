@@ -18,12 +18,18 @@ class PentabarfController < ApplicationController
   def search_conference
     @preferences[:search_conference] = request.raw_post unless params[:id]
     @preferences[:search_conference_type] = 'simple'
-    @current_page = params[:id].to_i
+    if params[:id] && params[:id] != '-1'
+      @preferences[:search_conference_page] = params[:id].to_i
+    elsif params[:id].nil? 
+      @preferences[:search_conference_page] = 0
+    end
+    @current_page = @preferences[:search_conference_page] 
     if @preferences[:search_conference].match(/^ *(\d+ *)+$/)
       @conferences = Momomoto::View_find_conference.find( {:conference_id => @preferences[:search_conference].split(' ')} )
     else
       @conferences = Momomoto::View_find_conference.find( {:search => @preferences[:search_conference].split(' ')} )
     end
+    @current_page = 0 if @conferences.length < (@preferences[:hits_per_page] * @current_page)
     render(:partial => 'search_conference')
   end
 
@@ -34,31 +40,49 @@ class PentabarfController < ApplicationController
   def search_event
     @preferences[:search_event] = request.raw_post unless params[:id] 
     @preferences[:search_event_type] = 'simple'
-    @current_page = params[:id].to_i
+    if params[:id] && params[:id] != '-1'
+      @preferences[:search_event_page] = params[:id].to_i
+    elsif params[:id].nil? 
+      @preferences[:search_event_page] = 0
+    end
+    @current_page = @preferences[:search_event_page] 
     if @preferences[:search_event].match(/^ *(\d+ *)+$/)
       @events = Momomoto::View_find_event.find( {:event_id => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
     else
       @events = Momomoto::View_find_event.find( {:s_title => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
     end
+    @current_page = 0 if @events.length < (@preferences[:hits_per_page] * @current_page)
     render(:partial => 'search_event')
   end
 
   def search_event_advanced
     @preferences[:search_event_advanced] = params[:search] if params[:search]
     @preferences[:search_event_type] = 'advanced'
-    @current_page = params[:id].to_i
+    if params[:id] && params[:id] != '-1'
+      @preferences[:search_event_advanced_page] = params[:id].to_i
+    elsif params[:id].nil? 
+      @preferences[:search_event_advanced_page] = 0
+    end
+    @current_page = @preferences[:search_event_advanced_page] 
     conditions = transform_advanced_search_conditions( @preferences[:search_event_advanced] )
     conditions[:translated_id] = @current_language_id
     conditions[:conference_id] = @current_conference_id
     @events = Momomoto::View_find_event.find( conditions )
+    @current_page = 0 if @events.length < (@preferences[:hits_per_page] * @current_page)
     render(:partial => 'search_event')
   end
 
   def search_person_advanced
     @preferences[:search_person_advanced] = params[:search] if params[:search]
     @preferences[:search_person_type] = 'advanced'
-    @current_page = params[:id].to_i
+    if params[:id] && params[:id] != '-1'
+      @preferences[:search_person_advanced_page] = params[:id].to_i
+    elsif params[:id].nil?
+      @preferences[:search_person_advanced_page] = 0
+    end
+    @current_page = @preferences[:search_person_advanced_page] 
     @persons = Momomoto::View_find_person.find( transform_advanced_search_conditions(@preferences[:search_person_advanced]) )
+    @current_page = 0 if @persons.length < (@preferences[:hits_per_page] * @current_page)
     render(:partial => 'search_person')
   end
 
@@ -89,12 +113,18 @@ class PentabarfController < ApplicationController
   def search_person
     @preferences[:search_person] = request.raw_post unless params[:id]
     @preferences[:search_person_type] = 'simple'
-    @current_page = params[:id].to_i
+    if params[:id] && params[:id] != '-1'
+      @preferences[:search_person_page] = params[:id].to_i
+    elsif params[:id].nil? 
+      @preferences[:search_person_page] = 0
+    end
+    @current_page = @preferences[:search_person_page] 
     if @preferences[:search_person].match(/^ *(\d+ *)+$/)
       @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split(' ')} )
     else
       @persons = Momomoto::View_find_person.find( {:search => @preferences[:search_person].split(' ')} )
     end
+    @current_page = 0 if @persons.length < (@preferences[:hits_per_page] * @current_page)
     render(:partial => 'search_person')
   end
 
@@ -233,7 +263,15 @@ class PentabarfController < ApplicationController
         end
         prefs = person.preferences
         prefs[:current_language_id] = params[:person][:preferences][:current_language_id].to_i
-        prefs[:hits_per_page] = params[:person][:preferences][:hits_per_page].to_i
+        if prefs[:hits_per_page] != params[:person][:preferences][:hits_per_page].to_i
+          prefs[:hits_per_page] = params[:person][:preferences][:hits_per_page].to_i
+          prefs[:search_conference_page] = 0
+          prefs[:search_conference_advanced_page] = 0
+          prefs[:search_event_page] = 0
+          prefs[:search_event_advanced_page] = 0
+          prefs[:search_person_page] = 0
+          prefs[:search_person_advanced_page] = 0
+        end
         person.preferences = prefs
         modified = true if person.write
 
@@ -441,7 +479,6 @@ class PentabarfController < ApplicationController
       event = Momomoto::Event.find( {:event_id => params[:event_id]} )
     end
     if event.length == 1
-
       if params[:changed_when] != ''
         transaction = Momomoto::Event_transaction.find( {:event_id => event.event_id} )
         if transaction.length == 1 && transaction.changed_when != params[:changed_when]

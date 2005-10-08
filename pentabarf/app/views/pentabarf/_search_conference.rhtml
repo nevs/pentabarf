@@ -19,15 +19,9 @@
           <%= link_to( image_tag( "icon-conference-32x32.png", {:size => "24x24"} ), :action => 'conference', :id => conference.conference_id ) %>
         <% end %>
       </td>
-      <td>
-        <%= link_to( h(conference.acronym), :action => 'conference', :id => conference.conference_id ) %>
-      </td>
-      <td>
-        <%= link_to( h(conference.title), :action => 'conference', :id => conference.conference_id ) %>
-      </td>
-      <td>
-        <%= link_to( h(conference.subtitle), :action => 'conference', :id => conference.conference_id ) %>
-      </td>
+      <td><%= link_to( h(conference.acronym), :action => 'conference', :id => conference.conference_id ) %></td>
+      <td><%= link_to( h(conference.title), :action => 'conference', :id => conference.conference_id ) %></td>
+      <td><%= link_to( h(conference.subtitle), :action => 'conference', :id => conference.conference_id ) %></td>
     </tr>
   <% end %>
   </tbody>
