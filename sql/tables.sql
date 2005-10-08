@@ -222,7 +222,7 @@ CREATE TABLE time_zone_localized (
 
 CREATE TABLE link_type (
   link_type_id SERIAL NOT NULL,
-  tag VARCHAR(32) NOT NULL,
+  tag VARCHAR(32) NOT NULL UNIQUE,
   template VARCHAR(1024),
   rank INTEGER,
   PRIMARY KEY (link_type_id)
@@ -758,7 +758,7 @@ CREATE TABLE event_link_internal (
 
 CREATE TABLE event_role (
   event_role_id SERIAL NOT NULL,
-  tag VARCHAR(32),
+  tag VARCHAR(32) NOT NULL UNIQUE,
   rank INTEGER,
   PRIMARY KEY (event_role_id)
 ) WITHOUT OIDS;
@@ -837,7 +837,7 @@ CREATE TABLE person_transaction (
 
 CREATE TABLE attachment_type (
   attachment_type_id SERIAL NOT NULL,
-  tag VARCHAR(32) NOT NULL,
+  tag VARCHAR(32) NOT NULL UNIQUE,
   rank INTEGER,
   PRIMARY KEY (attachment_type_id)
 ) WITHOUT OIDS;
@@ -873,6 +873,22 @@ CREATE TABLE event_related (
   FOREIGN KEY (event_id1) REFERENCES event (event_id),
   FOREIGN KEY (event_id2) REFERENCES event (event_id),
   PRIMARY KEY (event_id1, event_id2)
+) WITHOUT OIDS;
+
+CREATE TABLE conference_phase (
+  conference_phase_id SERIAL NOT NULL,
+  tag VARCHAR(32) NOT NULL UNIQUE,
+  rank INTEGER,
+  PRIMARY KEY (conference_phase_id)
+) WITHOUT OIDS;
+
+CREATE TABLE conference_phase_localized (
+  conference_phase_id INTEGER NOT NULL,
+  language_id INTEGER NOT NULL,
+  name VARCHAR(64) NOT NULL,
+  FOREIGN KEY (conference_phase_id) REFERENCES conference_phase (conference_phase_id),
+  FOREIGN KEY (language_id) REFERENCES language (language_id),
+  PRIMARY KEY (conference_phase_id, language_id)
 ) WITHOUT OIDS;
 
 COMMIT;
