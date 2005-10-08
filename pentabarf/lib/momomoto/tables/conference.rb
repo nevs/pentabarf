@@ -9,6 +9,7 @@ module Momomoto
         :acronym => Datatype::Varchar.new( {:not_null=>true, :length=>16} ),
         :title => Datatype::Varchar.new( {:not_null=>true, :length=>128} ),
         :subtitle => Datatype::Varchar.new( {:length=>128} ),
+        :conference_phase_id => Datatype::Integer.new( {:not_null=>true} ),
         :start_date => Datatype::Date.new( {:not_null=>true} ),
         :days => Datatype::Smallint.new( {:not_null=>true, :default=>true} ),
         :venue => Datatype::Varchar.new( {:length=>64} ),

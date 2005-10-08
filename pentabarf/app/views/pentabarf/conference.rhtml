@@ -44,6 +44,10 @@
           <td><%= text_field_tag('conference[subtitle]', @conference.subtitle, {:size => 60, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
+          <td><label>Conference Phase</label></td>
+          <td><%= select_tag('conference[conference_phase_id]', Momomoto::View_conference_phase.find({:language_id => @current_language_id}), :conference_phase_id, :name, @conference.conference_phase_id, {:tabindex=>0}, false) %></td>
+        </tr>
+        <tr>
           <td><label>Venue</label></td>
           <td><%= text_field_tag('conference[venue]', @conference.venue, {:size => 40, :tabindex => 0 } ) %></td>
         </tr>

@@ -127,7 +127,7 @@ module Momomoto
           raise "Invalid index for class #{self.class.name}"
         end
       else
-        raise "resultset empty while trying to get #{key}" if @resultset.nil? || @resultset.length == 0
+        raise "resultset empty while trying to get #{key}" if @resultset.nil?
         raise "field #{key} does not exist in table #{self.class.name}[]" if @resultset[@current_record][key.to_sym] == nil
         return @resultset[@current_record][ key.to_sym ].value()
       end
