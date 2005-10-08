@@ -10,6 +10,7 @@ class ImagesController < ApplicationController
     else
       deliver_static_image( RAILS_ROOT + '/public/images/icon-conference-128x128.png', params[:id])
     end
+    GC.start
   end
 
   def event
@@ -19,6 +20,7 @@ class ImagesController < ApplicationController
     else
       deliver_static_image( RAILS_ROOT + '/public/images/icon-event-128x128.png', params[:id])
     end
+    GC.start
   end
 
   def person
@@ -28,6 +30,7 @@ class ImagesController < ApplicationController
     else
       deliver_static_image( RAILS_ROOT + '/public/images/icon-person-128x128.png', params[:id])
     end
+    GC.start
   end
 
   protected
