@@ -46,8 +46,8 @@
         var event_names = new Array();
         var event_subtitles = new Array();
           <% for event in Momomoto::Event.find({:conference_id => @current_conference_id}) %>
-          event_names[<%= event.event_id %>] = '<%= escape_javascript(event.title[0..40]) %>';
-          event_subtitles[<%= event.event_id %>] = '<%= escape_javascript(event.subtitle[0..40]) %>';
+          event_names[<%= event.event_id %>] = '<%= escape_javascript(event.title) %>';
+          event_subtitles[<%= event.event_id %>] = '<%= escape_javascript(event.subtitle) %>';
           <% end %>
           var event_roles = new Array();
           var event_role_states = new Array();
