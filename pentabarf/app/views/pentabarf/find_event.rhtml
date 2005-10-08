@@ -56,6 +56,11 @@
       criteria[6]['name'] = 'Description';
       criteria[6]['value'] = 's_description';
       criteria[6]['type'] = 'text';
+      criteria[7] = new Array();
+      criteria[7]['name'] = 'Event State and Progress';
+      criteria[7]['value'] = 'event_state_progress_id';
+      criteria[7]['type'] = 'keyword';
+
 
       var valuelists = new Array();
       valuelists[1] = new Array();
@@ -77,6 +82,10 @@
       valuelists[5] = new Array();
       <% for coordinator in Momomoto::View_event_person.find({:language_id => @current_language_id,:conference_id => @current_conference_id,:event_role_tag => 'coordinator'}, nil, nil, :person_id) %>
         valuelists[5][<%= coordinator.person_id %>] = '<%= escape_javascript(coordinator.name) %>';
+      <% end %>
+        valuelists[7] = new Array();
+      <% for progress in Momomoto::View_event_state_combined.find({:language_id => @current_language_id}) %>
+        valuelists[7][<%= progress.event_state_progress_id %>] = '<%= progress.name %>';
       <% end %>
       <% if @preferences[:search_event_advanced].length > 0 %>
         <% @preferences[:search_event_advanced].each do | key, value | %>
