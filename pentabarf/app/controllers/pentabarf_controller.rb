@@ -219,16 +219,18 @@ class PentabarfController < ApplicationController
       person.begin
 
       begin
-        if params[:person][:password].to_s != ''
-          raise "Passwords do not match" if params[:person][:password] != params[:password]
-        end
         
         params[:person].each do | key, value |
-          next if key.to_sym == :preferences
+          next if key.to_sym == :preferences || key.to_sym == :password
           person[key]= value
         end
         person[:f_spam] = 'f' unless params[:person]['f_spam']
-        person.password= params[:person][:password]
+        if person.permission?('modify_login')
+          if params[:person][:password].to_s != ''
+            raise "Passwords do not match" if params[:person][:password] != params[:password]
+          end
+          person.password= params[:person][:password]
+        end
         prefs = person.preferences
         prefs[:current_language_id] = params[:person][:preferences][:current_language_id].to_i
         prefs[:hits_per_page] = params[:person][:preferences][:hits_per_page].to_i
@@ -264,12 +266,14 @@ class PentabarfController < ApplicationController
           end
         end
 
-        person_role = Momomoto::Person_role.new
-        for role in Momomoto::Role.find
-          if params[:person_role] && params[:person_role][role.role_id.to_s]
-            modified = true if save_record( person_role, {:person_id => person.person_id, :role_id => role.role_id}, [])
-          else
-            modified = true if delete_record( person_role, {:person_id => person.person_id, :role_id => role.role_id})
+        if person.permission?('modify_login')
+          person_role = Momomoto::Person_role.new
+          for role in Momomoto::Role.find
+            if params[:person_role] && params[:person_role][role.role_id.to_s]
+              modified = true if save_record( person_role, {:person_id => person.person_id, :role_id => role.role_id}, [])
+            else
+              modified = true if delete_record( person_role, {:person_id => person.person_id, :role_id => role.role_id})
+            end
           end
         end
 
