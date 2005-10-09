@@ -18,8 +18,7 @@
       <% for change in @changes %>
         <tr>
           <td>
-            <%= link_to( image_tag( "icon-#{change['type']}-32x32.png" ), :action => change['type'], :id => change['id'] ) %>
-            <% link_to( image_tag("/images/#{change['type']}/#{change['id']}"), :action => change['type'], :id => change['id'] ) %>
+            <%= link_to( image_tag("/images/#{change['type']}/#{change['id']}"), :action => change['type'], :id => change['id'] ) %>
           </td>
           <td><%= link_to( h(change.title), :action => change['type'], :id => change['id'] ) %></td>
           <td><%= link_to( h(change.name), :action => change['type'], :id => change['id'] ) %></td>
