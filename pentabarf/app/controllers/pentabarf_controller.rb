@@ -238,7 +238,6 @@ class PentabarfController < ApplicationController
       person = Momomoto::Person.find( {:person_id => params[:person_id]} )
     end
     if person.length == 1
-
       if params[:changed_when] != ''
         transaction = Momomoto::Person_transaction.find( {:person_id => person.person_id} )
         if transaction.length == 1 && transaction.changed_when != params[:changed_when]
@@ -257,7 +256,7 @@ class PentabarfController < ApplicationController
           person[key]= value
         end
         person[:f_spam] = 'f' unless params[:person]['f_spam']
-        if person.permission?('modify_login') || person.person_id = @user.person_id
+        if person.permission?('modify_login') || person.person_id == @user.person_id
           if params[:person][:password].to_s != ''
             @meditation_message = 'Passwords do not match'
             raise "Passwords do not match" if params[:person][:password] != params[:password]
@@ -280,9 +279,9 @@ class PentabarfController < ApplicationController
 
         conference_person = Momomoto::Conference_person.new
         modified = true if save_record( conference_person, 
-                                      {:person_id => params[:person_id],
-                                       :conference_id => params[:conference_person][:conference_id] }, 
-                                      params[:conference_person] )
+                                       {:person_id => params[:person_id],
+                                        :conference_id => params[:conference_person][:conference_id] }, 
+                                        params[:conference_person] )
         
         image = Momomoto::Person_image.new
         image.select({:person_id => person.person_id})
