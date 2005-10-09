@@ -893,5 +893,19 @@ CREATE TABLE conference_phase_localized (
   PRIMARY KEY (conference_phase_id, language_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE conflict_type (
+  conflict_type_id SERIAL NOT NULL,
+  tag VARCHAR(64) NOT NULL UNIQUE,
+  PRIMARY KEY (conflict_type_id)
+) WITHOUT OIDS;
+
+CREATE TABLE conflict (
+  conflict_id SERIAL NOT NULL,
+  conflict_type_id INTEGER NOT NULL,
+  tag VARCHAR(64),
+  FOREIGN KEY (conflict_type_id) REFERENCES conflict_type (conflict_type_id),
+  PRIMARY KEY (conflict_id)
+) WITHOUT OIDS;
+
 COMMIT;
 
