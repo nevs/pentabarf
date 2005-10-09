@@ -245,6 +245,21 @@ CREATE TABLE role_authorisation (
   PRIMARY KEY (role_id, authorisation_id)
 ) WITHOUT OIDS;
   
+CREATE TABLE conference_phase (
+  conference_phase_id SERIAL NOT NULL,
+  tag VARCHAR(32) NOT NULL UNIQUE,
+  rank INTEGER,
+  PRIMARY KEY (conference_phase_id)
+) WITHOUT OIDS;
+
+CREATE TABLE conference_phase_localized (
+  conference_phase_id INTEGER NOT NULL,
+  language_id INTEGER NOT NULL,
+  name VARCHAR(64) NOT NULL,
+  FOREIGN KEY (conference_phase_id) REFERENCES conference_phase (conference_phase_id),
+  FOREIGN KEY (language_id) REFERENCES language (language_id),
+  PRIMARY KEY (conference_phase_id, language_id)
+) WITHOUT OIDS;
 
 CREATE TABLE conference (
   conference_id SERIAL NOT NULL,
@@ -875,22 +890,6 @@ CREATE TABLE event_related (
   FOREIGN KEY (event_id1) REFERENCES event (event_id),
   FOREIGN KEY (event_id2) REFERENCES event (event_id),
   PRIMARY KEY (event_id1, event_id2)
-) WITHOUT OIDS;
-
-CREATE TABLE conference_phase (
-  conference_phase_id SERIAL NOT NULL,
-  tag VARCHAR(32) NOT NULL UNIQUE,
-  rank INTEGER,
-  PRIMARY KEY (conference_phase_id)
-) WITHOUT OIDS;
-
-CREATE TABLE conference_phase_localized (
-  conference_phase_id INTEGER NOT NULL,
-  language_id INTEGER NOT NULL,
-  name VARCHAR(64) NOT NULL,
-  FOREIGN KEY (conference_phase_id) REFERENCES conference_phase (conference_phase_id),
-  FOREIGN KEY (language_id) REFERENCES language (language_id),
-  PRIMARY KEY (conference_phase_id, language_id)
 ) WITHOUT OIDS;
 
 CREATE TABLE conflict_type (
