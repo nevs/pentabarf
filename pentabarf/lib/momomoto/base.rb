@@ -207,6 +207,7 @@ module Momomoto
         next if distinct && find_by_id(distinct, current[distinct].value)
         @resultset.push( current )
       end
+      result.clear
       @new_record = false
       @current_record = @resultset.length > 0 ? 0 : nil 
       @resultset.length
