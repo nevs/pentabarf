@@ -249,12 +249,11 @@ module Momomoto
     end
 
     # has the record been modified
-    def dirty?()
-      dirty = false
+    def dirty?
       @resultset[@current_record].each do | field_name, value |
-        dirty = true if value.dirty?
+        return true if value.dirty?
       end
-      dirty
+      false
     end
     
     # begin a transaction
