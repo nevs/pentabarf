@@ -5,6 +5,7 @@ class PentabarfController < ApplicationController
 
   def initialize
     @content_title ='@content_title'
+    @content_subtitle =''
   end
 
   def index
@@ -169,6 +170,7 @@ class PentabarfController < ApplicationController
         @rating = Momomoto::Event_rating.find({:event_id => params[:id], :person_id => @user.person_id})
         @rating.create if @rating.length != 1
         @content_title = @event.title
+        @content_subtitle = @event.subtitle
       end
       @conference = Momomoto::Conference.find( {:conference_id => @event.conference_id } )
     else
@@ -278,9 +280,8 @@ class PentabarfController < ApplicationController
 
         conference_person = Momomoto::Conference_person.new
         modified = true if save_record( conference_person, 
-                                      {:conference_person_id => params[:conference_person][:conference_person_id],
-                                       :conference_id => params[:conference_person][:conference_id], 
-                                       :person_id => person.person_id}, 
+                                      {:person_id => params[:person_id]
+                                       :conference_id => params[:conference_person][:conference_id] }, 
                                       params[:conference_person] )
         
         image = Momomoto::Person_image.new
