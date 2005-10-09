@@ -82,7 +82,7 @@ class PentabarfController < ApplicationController
       @preferences[:search_person_advanced_page] = 0
     end
     @current_page = @preferences[:search_person_advanced_page] 
-    @persons = Momomoto::View_find_person.find( transform_advanced_search_conditions(@preferences[:search_person_advanced]) )
+    @persons = Momomoto::View_find_person.find( transform_advanced_search_conditions(@preferences[:search_person_advanced]), nil, nil, :person_id )
     @current_page = 0 if @persons.length < (@preferences[:hits_per_page] * @current_page)
     render(:partial => 'search_person')
   end
@@ -121,9 +121,9 @@ class PentabarfController < ApplicationController
     end
     @current_page = @preferences[:search_person_page] 
     if @preferences[:search_person].match(/^ *(\d+ *)+$/)
-      @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split(' ')} )
+      @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split(' ')}, nil, nil, :person_id )
     else
-      @persons = Momomoto::View_find_person.find( {:search => @preferences[:search_person].split(' ')} )
+      @persons = Momomoto::View_find_person.find( {:search => @preferences[:search_person].split(' ')}, nil, nil, :person_id )
     end
     @current_page = 0 if @persons.length < (@preferences[:hits_per_page] * @current_page)
     render(:partial => 'search_person')
@@ -264,7 +264,7 @@ class PentabarfController < ApplicationController
           person.password= params[:person][:password]
         end
         prefs = person.preferences
-        prefs[:current_language_id] = params[:person][:preferences][:current_language_id].to_i
+        prefs[:current_language_id] = params[:event][:preferences][:current_language_id].to_i
         if prefs[:hits_per_page] != params[:person][:preferences][:hits_per_page].to_i
           prefs[:hits_per_page] = params[:person][:preferences][:hits_per_page].to_i
           prefs[:search_conference_page] = 0
