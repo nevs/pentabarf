@@ -323,11 +323,6 @@ class PentabarfController < ApplicationController
           table.f_departure_pickup = 'f' unless params[:person_travel]['f_departure_pickup']
         end
 
-        modified = true if save_record( Momomoto::Person_rating.new, {:person_id => person.person_id, :evaluator_id => @user.person_id}, 
-                                        params[:rating]) do | table |
-          table.eval_time = 'now()' if table.dirty?
-        end
-        
         if params[:event_person]
           event = Momomoto::Event_person.new
           params[:event_person].each do | key, value |
@@ -383,6 +378,11 @@ class PentabarfController < ApplicationController
         person.rollback
         raise e
       end
+      save_record( Momomoto::Person_rating.new, {:person_id => person.person_id, :evaluator_id => @user.person_id}, 
+                   params[:rating]) do | table |
+        table.eval_time = 'now()' if table.dirty?
+      end
+        
       redirect_to({:action => :person, :id => person.person_id})
     end
   end
@@ -498,10 +498,6 @@ class PentabarfController < ApplicationController
         event.f_slides = 'f' unless params[:event]['f_slides']
         modified = true if event.write
         
-        modified = true if save_record(Momomoto::Event_rating.new, {:person_id => @user.person_id, :event_id => event.event_id}, params[:rating]) do | t |
-          t.eval_time = 'now()' if t.dirty?
-        end
-
         if params[:related_event]
           params[:related_event].each do | key, value |
             modified = true if save_or_delete_record(Momomoto::Event_related.new, {:event_id1 => event.event_id, :event_id2 => value[:related_event_id]}, value)
@@ -596,6 +592,11 @@ class PentabarfController < ApplicationController
         event.rollback
         raise e
       end
+      
+      save_record(Momomoto::Event_rating.new, {:person_id => @user.person_id, :event_id => event.event_id}, params[:rating]) do | t |
+        t.eval_time = 'now()' if t.dirty?
+      end
+
       redirect_to({:action => :event, :id => event.event_id})
     end
   end
