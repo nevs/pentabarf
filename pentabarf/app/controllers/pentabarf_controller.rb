@@ -325,7 +325,7 @@ class PentabarfController < ApplicationController
 
         modified = true if save_record( Momomoto::Person_rating.new, {:person_id => person.person_id, :evaluator_id => @user.person_id}, 
                                         params[:rating]) do | table |
-          table.eval_time = 'now()'
+          table.eval_time = 'now()' if table.dirty?
         end
         
         if params[:event_person]
@@ -499,7 +499,7 @@ class PentabarfController < ApplicationController
         modified = true if event.write
         
         modified = true if save_record(Momomoto::Event_rating.new, {:person_id => @user.person_id, :event_id => event.event_id}, params[:rating]) do | t |
-          t.eval_time = 'now()'
+          t.eval_time = 'now()' if t.dirty?
         end
 
         if params[:related_event]
