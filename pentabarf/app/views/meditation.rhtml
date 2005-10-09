@@ -35,6 +35,12 @@ li {
 }
     </style>
 
+<% if @meditation_message.to_s != '' %>
+    <script type="text/javascript">
+      alert('<%= escape_javascript(@meditation_message) %>');
+    </script>
+<% end %>
+
   </head>
   <body>
    

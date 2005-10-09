@@ -257,6 +257,7 @@ class PentabarfController < ApplicationController
         person[:f_spam] = 'f' unless params[:person]['f_spam']
         if person.permission?('modify_login') || person.person_id = @user.person_id
           if params[:person][:password].to_s != ''
+            @meditation_message = 'Passwords do not match'
             raise "Passwords do not match" if params[:person][:password] != params[:password]
           end
           person.password= params[:person][:password]
