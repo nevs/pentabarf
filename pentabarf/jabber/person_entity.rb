@@ -8,22 +8,18 @@ require 'base64'
 #require 'active_support/core_ext/hash/keys'
 
 class PersonEntity < Entity
-  def initialize(stream, jid, conference_id, person_id)
-    super(stream, jid)
+  def initialize(stream, jid, base_url, conference_id, person_id)
+    super(stream, jid, base_url)
     @conference_id = conference_id
     @person_id = person_id
+
+    if Momomoto::View_person.find({:person_id => @person_id}, 1).nil?
+      raise NoEntityException.new
+    end
   end
 
-  def notify_change(change)
-    puts "Got #{change.title}"
-    #subscriptions = Subscriptions.new(@jid)
-
-    msg = Jabber::Message.new(Jabber::JID.new('astro@hooker.sin'))
-    msg.type = :headline
-    msg.subject = "#{change.title}"
-    msg.body = "#{msg.subject}\n\n#{change.changed_when} by #{change.changed_by}"
-
-    send(msg)
+  def url
+    "#{@base_url}person/#{@person_id}"
   end
 
   def handle_subscription_request(from)
@@ -31,15 +27,13 @@ class PersonEntity < Entity
   end
 
   def presence
-    #event = Momomoto::View_find_event.find({:translated_id => 144, :conference_id => @conference_id, :event_id => @event_id}, 1)
-    #Jabber::Presence.new.set_status(event.title)
+    person = Momomoto::View_person.find({:person_id => @person_id}, 1)
+    Jabber::Presence.new.set_status(person.name)
   end
 
   def disco_identity
-    #event = Momomoto::View_find_event.find({:translated_id => 144, :conference_id => @conference_id, :event_id => @event_id}, 1)
-    #Jabber::DiscoIdentity.new('client', event.title, 'bot')
     person = Momomoto::View_person.find({:person_id => @person_id}, 1)
-    Jabber::DiscoIdentity.new('client', event.name)
+    Jabber::DiscoIdentity.new('client', person.name)
   end
 
   def disco_features

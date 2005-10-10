@@ -2,9 +2,13 @@ require 'entity'
 require 'momomoto/tables'
 
 class ConferenceEntity < Entity
-  def initialize(stream, jid, conference_id)
-    super(stream, jid)
+  def initialize(stream, jid, base_url, conference_id)
+    super(stream, jid, base_url)
     @conference_id = conference_id
+
+    if Momomoto::Conference.find({:conference_id => @conference_id, :f_deleted => 'f'}, 1).nil?
+      raise NoEntityException.new
+    end
   end
 
   def disco_identity

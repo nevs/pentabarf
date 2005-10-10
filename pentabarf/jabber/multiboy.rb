@@ -21,6 +21,7 @@ class Multiboy
   # * Calls Multiboy#register_callbacks
   def initialize(config)
     @conference_id = config['conference_id']
+    @base_url = config['base_url']
     @exception_jids = config['exception_jids']
     @changes_poll_interval = (config['changes_poll_interval'].to_i == 0) ? 60 : config['changes_poll_interval'].to_i
 
@@ -46,7 +47,8 @@ class Multiboy
     puts "Broadcasting subscribed presences"
     Dir.new('subscriptions').each { |filename|
       next if filename =~ /^\./
-      entity(Jabber::JID.new(filename)).broadcast_presence
+      ent = entity(Jabber::JID.new(filename))
+      ent.broadcast_presence unless ent.nil?
     }
 
     @poll_thread = Thread.new { changes_poll }
@@ -64,7 +66,8 @@ class Multiboy
     puts "Broadcasting subscribed presences"
     Dir.new('subscriptions').each { |filename|
       next if filename =~ /^\./
-      entity(Jabber::JID.new(filename)).broadcast_presence(:unavailable)
+      ent = entity(Jabber::JID.new(filename))
+      ent.broadcast_presence(:unavailable) unless ent.nil?
     }
 
     @stream.close
@@ -91,23 +94,25 @@ class Multiboy
     res = nil
 
     if jid.node == nil
-      res = ConferenceEntity.new(@stream, jid, @conference_id)
+      res = ConferenceEntity.new(@stream, jid, @base_url, @conference_id)
     else
       jid.node.scan(/^day-(\d+)$/) { |day,|
-        res = DayEntity.new(@stream, jid, @conference_id, day.to_i)
+        res = DayEntity.new(@stream, jid, @base_url, @conference_id, day.to_i)
       }
       jid.node.scan(/^day-(\d+)-time-(\d+)$/) { |day,time,|
-        res = DayTimeEntity.new(@stream, jid, @conference_id, day.to_i, time)
+        res = DayTimeEntity.new(@stream, jid, @base_url, @conference_id, day.to_i, time)
       }
       jid.node.scan(/^event-(\d+)$/) { |event_id,|
-        res = EventEntity.new(@stream, jid, @conference_id, event_id.to_i)
+        res = EventEntity.new(@stream, jid, @base_url, @conference_id, event_id.to_i)
       }
       jid.node.scan(/^person-(\d+)$/) { |person_id,|
-        res = PersonEntity.new(@stream, jid, @conference_id, person_id.to_i)
+        res = PersonEntity.new(@stream, jid, @base_url, @conference_id, person_id.to_i)
       }
     end
 
     res
+  rescue NoEntityException => e
+    nil
   end
 
   ##
@@ -164,13 +169,10 @@ class Multiboy
       Momomoto::View_recent_changes.find({:changed_when => {:ge => last_poll}}, nil, 'changed_when').each { |change|
         changes.push(change.changed_when)
 
+        ##
+        # We're running and tracking changes...
         unless warmup or last_changes.include?(change.changed_when)
-          puts "Changed: #{change[:type]} #{change[:id]} (#{change.title}) by #{change.changed_by}"
-
-          ent = entity(Jabber::JID.new("#{change[:type]}-#{change[:id]}", @stream.jid.domain))
-          unless ent.nil?
-            ent.notify_change(change)
-          end
+          handle_change(change)
         end
 
         last_poll = change.changed_when
@@ -181,5 +183,16 @@ class Multiboy
 
       warmup = false
     }
+  end
+
+  ##
+  # Handle a record received from View_recent_changes
+  def handle_change(change)
+    puts "Changed: #{change[:type]} #{change[:id]} (#{change.title}) by #{change.changed_by}"
+
+    ent = entity(Jabber::JID.new("#{change[:type]}-#{change[:id]}", @stream.jid.domain))
+    unless ent.nil?
+      ent.notify_change(change)
+    end
   end
 end

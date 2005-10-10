@@ -4,19 +4,46 @@ require 'xmpp4r/iq/query/discoitems'
 
 require 'subscriptions'
 
+
+##
+# To be raised when the entity is invalid...
+class NoEntityException < Exception
+end
+
+
 ##
 # Base class for all target entities
 class Entity
   ##
   # Just pass stream and target jid
-  def initialize(stream, jid)
+  def initialize(stream, jid, base_url)
     @stream = stream
     @jid = jid
+    @base_url = base_url
+  end
+
+  ##
+  # Return an URL for this entity
+  # which can be included into notification messages
+  def url
+    nil
   end
 
   ##
   # Called when a recent change on this entity appears
   def notify_change(change)
+    puts "Got #{change.title}"
+    subscriptions = Subscriptions.new(@jid)
+
+    msg = Jabber::Message.new
+    msg.type = :headline
+    msg.subject = "#{change.title}"
+    msg.body = "#{msg.subject}\n\n#{url}\n\n#{change.changed_when} by #{change.name}"
+
+    subscriptions.each_element { |item|
+      msg.to = item.jid
+      send(msg)
+    }
   end
   
   ##
@@ -111,10 +138,14 @@ class Entity
   # Broadcast presence to all subscribers
   def broadcast_presence(type=nil)
     subscriptions = Subscriptions.new(@jid)
-    pres = presence
+    begin
+      pres = presence.set_type(type)
+    rescue
+      pres = Jabber::Presence.new.set_type(:unavailable)
+    end
 
     subscriptions.each_element('item') { |item|
-      send(pres.set_to(item.jid).set_type(type))
+      send(pres.set_to(item.jid))
     }
   end
 
@@ -131,7 +162,7 @@ class Entity
   # for each available resource
   # with *no* from and to attributes set
   def presence
-    pres = Jabber::Presence.new.set_type(:unavailable)
+    Jabber::Presence.new.set_type(:unavailable)
   end
 
   ##

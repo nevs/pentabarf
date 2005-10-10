@@ -2,8 +2,8 @@ require 'entity'
 require 'momomoto/views'
 
 class DayTimeEntity < Entity
-  def initialize(stream, jid, conference_id, day, timestr)
-    super(stream, jid)
+  def initialize(stream, jid, base_url, conference_id, day, timestr)
+    super(stream, jid, base_url)
     @conference_id = conference_id
     @day = day
 

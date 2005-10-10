@@ -5,3 +5,4 @@ port: 5347
 conference_id: 1
 exception_jids: [astro@spaceboyz.net]
 changes_poll_interval: 10
+base_url: https://pentabarf.cccv.de/pentabarf/

@@ -4,14 +4,18 @@ require 'RMagick'
 require 'base64'
 
 class EventEntity < Entity
-  def initialize(stream, jid, conference_id, event_id)
-    super(stream, jid)
+  def initialize(stream, jid, base_url, conference_id, event_id)
+    super(stream, jid, base_url)
     @conference_id = conference_id
     @event_id = event_id
+
+    if Momomoto::View_find_event.find({:translated_id => 144, :conference_id => @conference_id, :event_id => @event_id}, 1).nil?
+      raise NoEntityException.new
+    end
   end
 
-  def notify_change(change)
-    #subscriptions = Subscriptions.new(@jid)
+  def url
+    "#{@base_url}event/#{@event_id}"
   end
 
   def handle_subscription_request(from)
