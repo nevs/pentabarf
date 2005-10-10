@@ -87,12 +87,12 @@ class PentabarfController < ApplicationController
     render(:partial => 'search_person')
   end
 
+  # transforms request from advanced search into a form understandable by momomoto
   def transform_advanced_search_conditions( search )
     conditions = {}
     search.each do | key, value |
       if conditions[value['type'].to_sym]
-        if
-          conditions[value['type'].to_sym].kind_of?(Array)
+        if conditions[value['type'].to_sym].kind_of?(Array)
           conditions[value['type'].to_sym].push(value['value'])
         else
           old_value = conditions[value['type'].to_sym]
@@ -385,8 +385,9 @@ class PentabarfController < ApplicationController
       end
         
       redirect_to({:action => :person, :id => person.person_id})
+    else
+      redirect_to({:action => :person, :id => params[:id]})
     end
-    redirect_to({:action => :person, :id => params[:id]})
   end
 
   def save_conference
@@ -470,8 +471,9 @@ class PentabarfController < ApplicationController
         raise e
       end
       redirect_to({:action => :conference, :id => conference.conference_id})
+    else
+      redirect_to({:action => :conference, :id => params[:id]})
     end
-    redirect_to({:action => :conference, :id => params[:id]})
   end
 
   def save_event
@@ -601,8 +603,9 @@ class PentabarfController < ApplicationController
       end
 
       redirect_to({:action => :event, :id => event.event_id})
+    else
+      redirect_to({:action => :event, :id => params[:id]})
     end
-    redirect_to({:action => :event, :id => params[:id]})
   end
 
   protected
