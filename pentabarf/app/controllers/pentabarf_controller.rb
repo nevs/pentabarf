@@ -386,6 +386,7 @@ class PentabarfController < ApplicationController
         
       redirect_to({:action => :person, :id => person.person_id})
     end
+    redirect_to({:action => :person, :id => params[:id]})
   end
 
   def save_conference
@@ -470,6 +471,7 @@ class PentabarfController < ApplicationController
       end
       redirect_to({:action => :conference, :id => conference.conference_id})
     end
+    redirect_to({:action => :conference, :id => params[:id]})
   end
 
   def save_event
@@ -600,6 +602,7 @@ class PentabarfController < ApplicationController
 
       redirect_to({:action => :event, :id => event.event_id})
     end
+    redirect_to({:action => :event, :id => params[:id]})
   end
 
   protected
