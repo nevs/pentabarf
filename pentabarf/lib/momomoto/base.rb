@@ -135,6 +135,7 @@ module Momomoto
 
     def []=(key, value)
       raise "Field #{key} does not exist in #{@table}" unless @resultset[@current_record][key.to_sym]
+      raise "Setting primary key fields make no sense in #{@table}:#{key}" if @new_record == false && @resultset[@current_record][key.to_sym].property(:primary_key)
       @resultset[@current_record][key.to_sym].value= value
     end
 

@@ -384,3 +384,14 @@ CREATE OR REPLACE VIEW view_event_state_combined AS
     FROM view_event_state_progress
          INNER JOIN view_event_state USING (event_state_id, language_id);
 
+CREATE OR REPLACE VIEW view_jid_login AS
+  SELECT person_im_id,
+         person_id,
+         im_address,
+         view_person.name,
+    FROM person_im
+         INNER JOIN im_type USING (im_type_id)
+         INNER JOIN view_person USING (person_id)
+   WHERE im_type.tag = 'jabber';
+         
+

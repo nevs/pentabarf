@@ -279,7 +279,8 @@ class PentabarfController < ApplicationController
 
         conference_person = Momomoto::Conference_person.new
         modified = true if save_record( conference_person, 
-                                       {:person_id => person.person_id,
+                                       {:conference_person_id => params[:conference_person][:conference_person_id],
+                                        :person_id => person.person_id,
                                         :conference_id => params[:conference_person][:conference_id] }, 
                                         params[:conference_person] )
         

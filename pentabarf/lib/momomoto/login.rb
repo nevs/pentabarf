@@ -16,6 +16,12 @@ module Momomoto
       }
     end
 
+    def self.authorize( login_name, password )
+      login = self.new
+      login.authorize( login_name, password )
+      login
+    end
+
     def authorize( login_name, password )
       if login_name.to_s != '' && password.to_s != '' && select( { :login_name => login_name } ) == 1
         salt = self[0].password[0..15]
