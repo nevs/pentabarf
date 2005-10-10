@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
-
 SET client_encoding = 'UNICODE';
+SET check_function_bodies = false;
 
 SET search_path = public, pg_catalog;
 
@@ -82,5 +82,8 @@ INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (3, 27);
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (4, 27);
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (5, 27);
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (6, 24);
+INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (1, 30);
+INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (1, 31);
+INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (4, 7);
 
 

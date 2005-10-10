@@ -3,6 +3,7 @@
 --
 
 SET client_encoding = 'UNICODE';
+SET check_function_bodies = false;
 
 SET search_path = public, pg_catalog;
 
@@ -30,4 +31,5 @@ INSERT INTO authorisation_localized (authorisation_id, language_id, name) VALUES
 INSERT INTO authorisation_localized (authorisation_id, language_id, name) VALUES (21, 144, 'Zuordnung von Personen zu Gruppen');
 INSERT INTO authorisation_localized (authorisation_id, language_id, name) VALUES (22, 144, 'Modifizierung der Daten zur eigenen Person');
 INSERT INTO authorisation_localized (authorisation_id, language_id, name) VALUES (23, 144, 'Modifizierung der Daten an der die Person beteiligt ist');
+
 

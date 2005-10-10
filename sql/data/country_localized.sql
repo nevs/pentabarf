@@ -3,6 +3,7 @@
 --
 
 SET client_encoding = 'UNICODE';
+SET check_function_bodies = false;
 
 SET search_path = public, pg_catalog;
 
@@ -89,4 +90,17 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (160, 144, 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (160, 120, 'Norway');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (183, 144, 'Russland');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (183, 120, 'Russia');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (36, 120, 'Canada');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (36, 144, 'Kanada');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (46, 144, 'China');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (46, 120, 'China');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (100, 144, 'Israel');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (100, 120, 'Israel');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (101, 144, 'Indien');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (101, 120, 'India');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (29, 120, 'Brazil');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (29, 144, 'Brasilien');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (171, 144, 'Pakistan');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (171, 120, 'Pakistan');
+
 

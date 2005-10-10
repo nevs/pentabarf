@@ -3,6 +3,7 @@
 --
 
 SET client_encoding = 'UNICODE';
+SET check_function_bodies = false;
 
 SET search_path = public, pg_catalog;
 
@@ -35,6 +36,8 @@ INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (21, 'delete_logi
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (22, 'modify_own_person', 22);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (23, 'modify_own_event', 23);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (14, 'modify_valuelist', 14);
+INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (30, 'write_valuelist', NULL);
+INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (31, 'create_valuelist', NULL);
 
 
 --
@@ -42,6 +45,6 @@ INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (14, 'modify_valu
 -- Name: authorisation_authorisation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval('authorisation_authorisation_id_seq', 29, true);
+SELECT pg_catalog.setval('authorisation_authorisation_id_seq', 31, true);
 
 

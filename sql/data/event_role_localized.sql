@@ -3,7 +3,7 @@
 --
 
 SET client_encoding = 'UNICODE';
-
+SET check_function_bodies = false;
 
 SET search_path = public, pg_catalog;
 
@@ -22,5 +22,7 @@ INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (3, 1
 INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (4, 120, 'Visitor');
 INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (5, 144, 'Berichterstatter');
 INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (5, 120, 'Reporter');
+INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (6, 120, 'Reviewer');
+INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (6, 144, 'Reviewer');
 
 

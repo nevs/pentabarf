@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
-
 SET client_encoding = 'UNICODE';
+SET check_function_bodies = false;
 
 SET search_path = public, pg_catalog;
 
@@ -30,5 +30,7 @@ INSERT INTO language_localized (translated_id, language_id, name) VALUES (352, 1
 INSERT INTO language_localized (translated_id, language_id, name) VALUES (336, 144, 'polnisch');
 INSERT INTO language_localized (translated_id, language_id, name) VALUES (336, 120, 'polish');
 INSERT INTO language_localized (translated_id, language_id, name) VALUES (113, 144, 'niederländisch');
+INSERT INTO language_localized (translated_id, language_id, name) VALUES (98, 120, 'czech');
+INSERT INTO language_localized (translated_id, language_id, name) VALUES (98, 144, 'tschechisch');
 
 

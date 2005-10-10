@@ -3,6 +3,9 @@
 --
 
 SET client_encoding = 'UNICODE';
+SET check_function_bodies = false;
+
+SET search_path = public, pg_catalog;
 
 --
 -- Data for TOC entry 3 (OID 66115)
@@ -109,7 +112,6 @@ INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, 
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (95, 'crp', 'crp', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (96, 'csb', 'csb', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (97, 'cus', 'cus', false, false, false, false);
-INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (98, 'cze', 'cze', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (99, 'dak', 'dak', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (100, 'dan', 'dan', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (101, 'dar', 'dar', false, false, false, false);
@@ -478,6 +480,7 @@ INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, 
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (120, 'eng', 'en', false, true, true, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (144, 'ger', 'de', true, true, true, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (391, 'spa', 'spa', false, false, true, false);
+INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (98, 'cze', 'cze', false, false, true, false);
 
 
 --

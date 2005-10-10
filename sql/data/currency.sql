@@ -3,6 +3,7 @@
 --
 
 SET client_encoding = 'UNICODE';
+SET check_function_bodies = false;
 
 SET search_path = public, pg_catalog;
 
@@ -180,9 +181,10 @@ INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_prefer
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (153, 'USD', false, true, false, 1.28560);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (73, 'JPY', false, false, false, 136.51000);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (39, 'DKK', false, false, false, 7.43340);
-INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (49, 'GBP', false, false, false, 0.69775);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (128, 'SEK', false, false, false, 9.10800);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (46, 'EUR', true, true, false, 1.00000);
+INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (49, 'GBP', false, true, false, 0.69775);
+INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (173, 'DEM', false, true, false, NULL);
 
 
 --
@@ -190,6 +192,6 @@ INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_prefer
 -- Name: currency_currency_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval('currency_currency_id_seq', 1, false);
+SELECT pg_catalog.setval('currency_currency_id_seq', 173, true);
 
 
