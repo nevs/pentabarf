@@ -2,7 +2,7 @@ module Momomoto
   class Person_rating < Base
     def initialize
       super
-      @domain = 'person'
+      @domain = 'rating'
       @fields = {
         :person_id => Datatype::Integer.new( {:not_null=>true, :primary_key=>true} ),
         :evaluator_id => Datatype::Integer.new( {:not_null=>true, :primary_key=>true} ),
