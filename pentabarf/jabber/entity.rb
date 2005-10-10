@@ -41,8 +41,10 @@ class Entity
     msg.body = "#{msg.subject}\n\n#{url}\n\n#{change.changed_when} by #{change.name}"
 
     subscriptions.each_element { |item|
-      msg.to = item.jid
-      send(msg)
+      if item.subscription == :from or item.subscription == :both
+        msg.to = item.jid
+        send(msg)
+      end
     }
   end
   
@@ -123,6 +125,11 @@ class Entity
       
     elsif pres.type == :subscribed
       subscriptions[pres.from].subscription = (subscriptions[pres.from].subscription == :from) ? :both : :to
+      
+    elsif pres.type == :unsubscribe
+      subscriptions[pres.from].subscription = (subscriptions[pres.from].subscription == :both) ? :to : :none
+      response.type = :unsubscribed
+      send(response)
       
     elsif pres.type == :unsubscribed
       subscriptions[pres.from].subscription = (subscriptions[pres.from].subscription == :both) ? :from : :none
