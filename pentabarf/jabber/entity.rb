@@ -128,6 +128,9 @@ class Entity
       
     elsif pres.type == :unsubscribe
       subscriptions[pres.from].subscription = (subscriptions[pres.from].subscription == :both) ? :to : :none
+
+      response = Jabber::Presence.new
+      response.to = pres.from.strip
       response.type = :unsubscribed
       send(response)
       
