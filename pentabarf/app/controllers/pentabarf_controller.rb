@@ -264,7 +264,7 @@ class PentabarfController < ApplicationController
           person.password= params[:person][:password]
         end
         prefs = person.preferences
-        prefs[:current_language_id] = params[:event][:preferences][:current_language_id].to_i
+        prefs[:current_language_id] = params[:person][:preferences][:current_language_id].to_i
         if prefs[:hits_per_page] != params[:person][:preferences][:hits_per_page].to_i
           prefs[:hits_per_page] = params[:person][:preferences][:hits_per_page].to_i
           prefs[:search_conference_page] = 0

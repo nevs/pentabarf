@@ -266,7 +266,6 @@ CREATE OR REPLACE VIEW view_find_person AS
          LEFT OUTER JOIN person_image USING (person_id)
          LEFT OUTER JOIN mime_type USING (mime_type_id);
 
-
 CREATE OR REPLACE VIEW view_conference_image AS
   SELECT conference_image.conference_id, 
          conference_image.mime_type_id, 
