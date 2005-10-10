@@ -642,6 +642,7 @@
       </table>
     </fieldset>
 
+    <% if @user.permission?('modify_login') %>
     <fieldset>
       <legend>Permissions</legend>
       <table>
@@ -654,6 +655,7 @@
         <% end %>
       </table>
     </fieldset>
+    <% end %>
 
   </div>
 

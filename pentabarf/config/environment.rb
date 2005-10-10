@@ -13,7 +13,6 @@ RAILS_ROOT = File.join(File.dirname(__FILE__), '..')
 # See config/environments/*.rb for environment-specific configuration.
 RAILS_ENV  = ENV['RAILS_ENV'] || 'production'
 
-
 # Load the Rails framework.  Mock classes for testing come first.
 ADDITIONAL_LOAD_PATHS = ["#{RAILS_ROOT}/test/mocks/#{RAILS_ENV}"]
 
@@ -57,7 +56,6 @@ require 'momomoto/login'
 require 'momomoto/tables'
 require 'momomoto/views'
 require 'time'
-
 
 # Environment-specific configuration.
 require_dependency "environments/#{RAILS_ENV}"
