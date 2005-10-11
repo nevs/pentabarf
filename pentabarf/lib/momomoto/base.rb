@@ -256,6 +256,16 @@ module Momomoto
       end
       false
     end
+
+    # has any of the non primary key fields data
+    def data?
+      @fields.each do | field_name, value |
+        next if value.property(:virtual)
+        next if value.property(:primary_key)
+        return true if value.value != nil
+      end
+      false
+    end
     
     # begin a transaction
     def begin
