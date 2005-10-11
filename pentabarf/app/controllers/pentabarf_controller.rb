@@ -355,6 +355,7 @@ class PentabarfController < ApplicationController
         if params[:link]
           person_link = Momomoto::Conference_person_link.new
           params[:link].each do | key, value |
+            next if value[:url].to_s == ''
             modified = true if save_or_delete_record( person_link, {:conference_person_id => conference_person.conference_person_id, :conference_person_link_id => value[:link_id]}, value)
           end
         end
@@ -362,6 +363,7 @@ class PentabarfController < ApplicationController
         if params[:internal_link]
           person_link_internal = Momomoto::Conference_person_link_internal.new
           params[:internal_link].each do | key, value |
+            next if value[:url].to_s == ''
             modified = true if save_or_delete_record( person_link_internal, {:conference_person_id => conference_person.conference_person_id, :conference_person_link_internal_id => value[:internal_link_id]}, value)
           end
         end
@@ -573,6 +575,7 @@ class PentabarfController < ApplicationController
         if params[:link]
           event_link = Momomoto::Event_link.new
           params[:link].each do | key, value |
+            next if value[:url].to_s == ''
             modified = true if save_or_delete_record( event_link, {:event_id => event.event_id, :event_link_id => value[:link_id]}, value)
           end
         end
@@ -580,6 +583,7 @@ class PentabarfController < ApplicationController
         if params[:internal_link]
           event_link_internal = Momomoto::Event_link_internal.new
           params[:internal_link].each do | key, value |
+            next if value[:url].to_s == ''
             modified = true if save_or_delete_record( event_link_internal, {:event_id => event.event_id, :event_link_internal_id => value[:internal_link_id]}, value)
           end
         end
@@ -653,7 +657,7 @@ class PentabarfController < ApplicationController
       next unless table.fields.member?( field_name.to_sym )
       table[field_name] = value
     end
-    yield( table ) if block_given? 
+    yield( table ) if block_given?
     return table.write
   end
 

@@ -63,7 +63,21 @@ module Momomoto
     undef type
 
     def fields
-      @fields.keys
+      real_fields = []
+      @fields.each do | field_name, value |
+        next if value.property(:virtual)
+        real_fields.push( field_name )
+      end
+      real_fields
+    end
+
+    def primary_key_fields
+      pk_fields = []
+      @fields.each do | field_name, value |
+        next unless value.property(:primary_key)
+        pk_fields.push( field_name )
+      end
+      pk_fields
     end
 
     def log_error( text )
@@ -257,11 +271,12 @@ module Momomoto
       false
     end
 
-    # has any of the non primary key fields data
-    def data?
+    # has any of the non primary key fields data except those in except
+    def data?( except = [] )
       @fields.each do | field_name, value |
-        next if value.property(:virtual)
-        next if value.property(:primary_key)
+        next if except.member?( field_name )
+        next if value.property( :virtual )
+        next if value.property( :primary_key )
         return true if value.value != nil
       end
       false
