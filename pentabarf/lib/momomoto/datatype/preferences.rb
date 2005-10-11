@@ -30,7 +30,11 @@ module Momomoto
 
       def filter_read( value )
         if value.to_s != ''
-          value = YAML.load(value.gsub('HashWithIndifferentAccess', 'Hash'))
+          begin
+            value = YAML.load(value.gsub('HashWithIndifferentAccess', 'Hash'))
+          rescue => e
+            value = {}
+          end
         else
           value = Hash.new
         end
