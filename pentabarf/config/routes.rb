@@ -16,4 +16,5 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default route as the lowest priority.
   map.connect '', :controller => 'pentabarf'
   map.connect ':controller/:action/:id'
+  map.connect 'scgi-bin/:controller/:action/:id'
 end

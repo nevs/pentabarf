@@ -18,11 +18,12 @@ Options +FollowSymLinks +ExecCGI
 # Example:
 #   RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
 RewriteEngine On
-#RewriteBase /~sven/
+RewriteBase /~sven/
 RewriteRule ^$ index.html [QSA]
 RewriteRule ^([^.]+)$ $1.html [QSA]
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
+#RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
+RewriteRule ^(.*)$ /scgi-bin/$1 [QSA,L]
 
 # In case Rails experiences terminal errors
 # Instead of displaying this message you can supply a file here which will be rendered instead

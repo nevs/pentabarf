@@ -34,7 +34,7 @@ module Momomoto
     protected
 
       # name of the table this class operates on
-      @table = ''
+      @table = nil
       # domain of the table this class belongs to
       @domain = nil
       # hash with the fields of the table with their name as key
@@ -209,8 +209,8 @@ module Momomoto
       end
       result = execute( "SELECT #{fields} FROM #{@table}" + 
                          compile_where( conditions ) + 
-                        ( @order != nil ? " ORDER BY #{@order}" : '' ) +
-                        ( @limit != nil ? " LIMIT #{@limit.to_s}" : '' ) +
+                        ( @order  ? " ORDER BY #{@order}" : '' ) +
+                        ( @limit  ? " LIMIT #{@limit.to_s}" : '' ) +
                         ";" )
       @resultset = []
       result.num_tuples.times do | i |
