@@ -1,0 +1,22 @@
+
+<table>
+  <thead>
+    <tr>
+      <th/>
+      <% for phase in phases = Momomoto::View_conference_phase.find( {:language_id => @preferences[:current_language_id]} ) %>
+      <th><%= phase.name %>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+  <% for conflict in Momomoto::Conflict.find( {} ) %>
+    <tr>
+      <td><%= conflict.tag %></td>
+      <% for phase in phases %>
+      <td><%= select_tag("", Momomoto::View_conflict_level.find( {:language_id => @preferences[:current_language_id]}, nil, "rank" ), :conflict_level_id, :name, nil, {:tabindex => 0}, false ) %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
