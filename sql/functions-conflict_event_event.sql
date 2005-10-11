@@ -6,7 +6,7 @@
 
 
 -- returns events with conflicting timeslots
-CREATE OR REPLACE FUNCTION conflict_event_time(integer) RETURNS SETOF conflict_event_event AS '
+CREATE OR REPLACE FUNCTION conflict_event_event_time(integer) RETURNS SETOF conflict_event_event AS '
   DECLARE 
     cur_conference_id ALIAS FOR $1;
     cur_event RECORD;
