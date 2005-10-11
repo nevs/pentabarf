@@ -906,5 +906,30 @@ CREATE TABLE conflict (
   PRIMARY KEY (conflict_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE conflict_localized (
+  conflict_id INTEGER NOT NULL,
+  language_id INTEGER NOT NULL,
+  name VARCHAR(64) NOT NULL,
+  FOREIGN KEY (conflict_id) REFERENCES conflict (conflict_id),
+  FOREIGN KEY (language_id) REFERENCES language (language_id),
+  PRIMARY KEY (conflict_id, language_id)
+) WITHOUT OIDS;
+
+CREATE TABLE conflict_level (
+  conflict_level_id SERIAL NOT NULL,
+  tag VARCHAR(64) NOT NULL UNIQUE,
+  rank INTEGER,
+  PRIMARY KEY (conflict_level_id)
+) WITHOUT OIDS;
+
+CREATE TABLE conflict_level_localized (
+  conflict_level_id INTEGER NOT NULL,
+  language_id INTEGER NOT NULL,
+  name VARCHAR(64) NOT NULL,
+  FOREIGN KEY (conflict_level_id) REFERENCES conflict_level (conflict_level_id),
+  FOREIGN KEY (language_id) REFERENCES language (language_id),
+  PRIMARY KEY (conflict_level_id, language_id)
+) WITHOUT OIDS;
+
 COMMIT;
 
