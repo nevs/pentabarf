@@ -244,13 +244,15 @@ module Momomoto
       raise "domain not set for class #{self.class.name}" unless @domain 
       if @new_record 
         if privilege?( 'create' )
-          execute( insert() )
+          result = execute( insert() )
+          result.clear
         else
           raise "not allowed to write table #{@table} domain #{@domain}\nPermissions: #{@@permissions.inspect}"
         end
       else 
         if privilege?( 'modify' )
-          execute( update() )
+          result = execute( update() )
+          result.clear
         else
           raise "not allowed to modify table #{@table} domain #{@domain}\nPermissions: #{@@permissions.inspect}"
         end
@@ -284,17 +286,20 @@ module Momomoto
     
     # begin a transaction
     def begin
-      execute( 'BEGIN TRANSACTION;' )
+      result = execute( 'BEGIN TRANSACTION;' )
+      result.clear
     end
 
     # commit a transaction
     def commit
-      execute( 'COMMIT TRANSACTION;' )
+      result = execute( 'COMMIT TRANSACTION;' )
+      result.clear
     end
 
     # roll a transaction back
     def rollback
-      execute( 'ROLLBACK TRANSACTION;' )
+      result = execute( 'ROLLBACK TRANSACTION;' )
+      result.clear
     end
 
     # delete current record
@@ -308,7 +313,8 @@ module Momomoto
         end
       end
       return false if conditions.length < 1
-      execute( "DELETE FROM #{@table}#{compile_where(conditions)};" )
+      result = execute( "DELETE FROM #{@table}#{compile_where(conditions)};" )
+      result.clear
       true
     end
 
@@ -322,7 +328,9 @@ module Momomoto
       fields, values = '', ''
       @resultset[@current_record].each do | field_name, value |
         if value.property(:serial)
-          value.value= execute("SELECT nextval('#{@table.to_s[0..28]}_#{field_name.to_s[0..28]}_seq');").to_a[0][0]
+          result = execute("SELECT nextval('#{@table.to_s[0..28]}_#{field_name.to_s[0..28]}_seq');")
+          value.value= result.to_a[0][0]
+          result.clear
         end
         next if value.property( :default ) && value.write_value == 'NULL'
         raise "not null field with null value in class #{self.class.name} field #{field_name} in insert" if value.property( :not_null ) && value.write_value == 'NULL'
