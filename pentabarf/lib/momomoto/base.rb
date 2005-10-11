@@ -58,7 +58,7 @@ module Momomoto
 
     attr_reader :limit, :current_record, :order, :new_record
 
-    # we don't want id and type to be handled by method_missing 
+    # we want id and type to be handled by method_missing 
     undef id
     undef type
 
