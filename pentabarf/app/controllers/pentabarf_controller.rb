@@ -91,17 +91,17 @@ class PentabarfController < ApplicationController
   def transform_advanced_search_conditions( search )
     conditions = {}
     search.each do | key, value |
-      if conditions[value['type'].to_sym]
-        if conditions[value['type'].to_sym].kind_of?(Array)
-          conditions[value['type'].to_sym].push(value['value'])
+      if conditions[value[:type].to_sym]
+        if conditions[value[:type].to_sym].kind_of?(Array)
+          conditions[value[:type].to_sym].push(value[:value])
         else
-          old_value = conditions[value['type'].to_sym]
-          conditions[value['type'].to_sym] = []
-          conditions[value['type'].to_sym].push( old_value )
-          conditions[value['type'].to_sym].push( value['value'])
+          old_value = conditions[value[:type].to_sym]
+          conditions[value[:type].to_sym] = []
+          conditions[value[:type].to_sym].push( old_value )
+          conditions[value[:type].to_sym].push( value[:value])
         end
       else
-        conditions[value['type'].to_sym] = value['value']
+        conditions[value[:type].to_sym] = value[:value]
       end
     end
     conditions 
