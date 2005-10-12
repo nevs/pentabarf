@@ -237,6 +237,17 @@ module Momomoto
       false
     end
 
+    # search for the first record with specific values
+    def find_by_value( values )
+      self.each do | record |
+        value.each do | key, value |
+          next if self[key] != value
+        end
+        return self
+      end
+      false
+    end
+
     # write record to database
     def write()
       raise "Views are not writable" if @table[0..4] == 'view_'
