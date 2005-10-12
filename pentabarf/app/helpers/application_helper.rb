@@ -10,11 +10,11 @@ module ApplicationHelper
     html += '<option value=""></option>' if with_empty == true
     for coll in collection do
       if coll.kind_of?(Hash)
-        html += "<option value=\"#{h(coll[key])}\" #{ coll[key] == selected ? 'selected=\"selected\"': ''}>#{ h(coll[value])}</option>"
+        html += "<option value=\"#{h(coll[key])}\" #{ coll[key] == selected ? 'selected="selected"': ''}>#{ h(coll[value])}</option>"
       elsif coll.kind_of?(String)
-        html += "<option value=\"#{h(coll)}\" #{ coll == selected ? 'selected=\"selected\"': ''}>#{h(coll)}</option>"
+        html += "<option value=\"#{h(coll)}\" #{ coll == selected ? 'selected="selected"': ''}>#{h(coll)}</option>"
       else
-        html += "<option value=\"#{ h(coll.send( key ))}\" #{ coll.send( key ) == selected ? 'selected=\"selected\"' : ''}>#{ h( coll.send( value ) )}</option>"
+        html += "<option value=\"#{ h(coll.send( key ))}\" #{ coll.send( key ) == selected ? 'selected="selected"' : ''}>#{ h( coll.send( value ) )}</option>"
       end
     end
     html += "</select>"
