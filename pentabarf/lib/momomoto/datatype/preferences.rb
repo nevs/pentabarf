@@ -60,10 +60,27 @@ module Momomoto
         value
       end
 
+      def scrub_preferences( value )
+        if value.kind_of?(Hash)
+          clean_hash = Hash.new
+          value.each do | key, value |
+            clean_hash[ scrub_preferences(key.to_s).to_sym ] = scrub_preferences( value )
+          end
+          return clean_hash
+        elsif value.kind_of?(String)
+          return value.gsub("'",'').gsub("\\",'')
+        elsif value.kind_of?(Integer) || value.kind_of?(Fixnum)
+          return value
+        else
+          raise "Unsupported Object in Preferences: #{value.class}\n#{value.inspect}"
+        end
+      end
+ 
       def filter_write( value )
+        value = scrub_preferences( value )
         if value != nil
           value = YAML.dump( value ).gsub('HashWithIndifferentAccess', 'Hash')
-          value = value.gsub(/\\/, '').gsub(/'/, "''")
+          value = value.gsub(/'/, "''")
           return "'#{value}'"
         end
         return "NULL"
@@ -73,5 +90,4 @@ module Momomoto
  
   end
 end
-
 
