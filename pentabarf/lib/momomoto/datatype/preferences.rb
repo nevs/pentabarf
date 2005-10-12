@@ -34,7 +34,7 @@ module Momomoto
             value = YAML.load(value.gsub('HashWithIndifferentAccess', 'Hash'))
           rescue => e
             begin
-              #Momomoto::Base.log_error("Exception while reading YAML: #{value.inspect}\n#{e}".gsub('`','') )
+              Momomoto::Base.log_error("Exception while reading YAML: #{value.inspect}\n#{e}")
             rescue
             end
             value = {}

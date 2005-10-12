@@ -406,7 +406,7 @@ module Momomoto
       begin
         @@connection.exec( sql )
       rescue => e
-        log_error("Query failed: #{sql}")
+        Base.log_error("Query failed: #{sql}")
         raise e 
       end
     end
