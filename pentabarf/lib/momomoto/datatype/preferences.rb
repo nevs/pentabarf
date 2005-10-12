@@ -33,6 +33,10 @@ module Momomoto
           begin
             value = YAML.load(value.gsub('HashWithIndifferentAccess', 'Hash'))
           rescue => e
+            begin
+              #Momomoto::Base.log_error("Exception while reading YAML: #{value.inspect}\n#{e}".gsub('`','') )
+            rescue
+            end
             value = {}
           end
         else
@@ -80,7 +84,8 @@ module Momomoto
         value = scrub_preferences( value )
         if value != nil
           value = YAML.dump( value ).gsub('HashWithIndifferentAccess', 'Hash')
-          value = value.gsub(/'/, "''")
+          value = value.gsub(/'/, "")
+          value = value.gsub("\\", "\\\\\\\\")
           return "'#{value}'"
         end
         return "NULL"

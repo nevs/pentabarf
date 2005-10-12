@@ -44,9 +44,11 @@ Thread.start do
         stanza = Jabber::Message.new.import(REXML::Document.new(text).root)
         received = true if text =~ /<\/message>$/
       rescue Exception => e
+        puts e
       end
     end
     puts text
+    puts stanza
     client.send(stanza)
     unixclient.close
   end

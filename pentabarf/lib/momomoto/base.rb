@@ -80,7 +80,7 @@ module Momomoto
       pk_fields
     end
 
-    def log_error( text )
+    def self.log_error( text )
       puts text
     end
 

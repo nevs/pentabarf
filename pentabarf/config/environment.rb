@@ -115,7 +115,7 @@ end
 
 module Momomoto
   class Base
-    def log_error( text )
+    def self.log_error( text )
       ApplicationController.jabber_message( text )
     end
   end
