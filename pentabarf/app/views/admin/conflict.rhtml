@@ -1,22 +1,35 @@
+<div id="data">
+  <%= start_form_tag({:action => :save_conflict}, {:id => :conflict_form}) %>
+  
+  <%= render(:partial => 'modification_buttons') %>
 
-<table>
-  <thead>
-    <tr>
-      <th/>
-      <% for phase in phases = Momomoto::View_conference_phase.find( {:language_id => @preferences[:current_language_id]} ) %>
-      <th><%= phase.name %>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-  <% for conflict in Momomoto::Conflict.find( {} ) %>
-    <tr>
-      <td><%= conflict.tag %></td>
-      <% for phase in phases %>
-      <td><%= select_tag("", Momomoto::View_conflict_level.find( {:language_id => @preferences[:current_language_id]}, nil, "rank" ), :conflict_level_id, :name, nil, {:tabindex => 0}, false ) %></td>
-      <% end %>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
+  <table>
+    <thead>
+      <tr>
+        <th/>
+        <% for phase in phases = Momomoto::View_conference_phase.find( {:language_id => @preferences[:current_language_id]} ) %>
+        <th><%= phase.name %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <% phase_conflict = Momomoto::Conference_phase_conflict.find({}) %>
+    <% for conflict in Momomoto::Conflict.find( {} ) %>
+      <tr>
+        <td><%= conflict.tag %></td>
+        <% for phase in phases %>
+        <td>
+          <%= select_tag("conference_phase_conflict[#{phase.conference_phase_id}][#{conflict.conflict_id}]", 
+                         Momomoto::View_conflict_level.find( {:language_id => @preferences[:current_language_id]}, nil, "rank" ), 
+                         :conflict_level_id, :name,
+                         phase_conflict.find_by_value({:conference_phase_id => phase.conference_phase_id,:conflict_id=>conflict.conflict_id}) ? phase_conflict.conflict_level_id : 0, 
+                         {:tabindex => 0}, false ) %>
+        </td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= end_form_tag() %>
+  <%= javascript_tag("new Form.EventObserver('conflict_form', function(element, value ) { enable_save_button() } )") %>
+</div>

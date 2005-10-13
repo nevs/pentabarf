@@ -10,6 +10,23 @@ class AdminController < ApplicationController
     @content_title = 'Conflict Setup'
   end
 
+  def save_conflict
+    phase_conflict = Momomoto::Conference_phase_conflict.new
+    params[:conference_phase_conflict].each do | phase_id, value |
+      value.each do | conflict_id, level |
+        phase_conflict.find({:conference_phase_id=>phase_id, :conflict_id=>conflict_id})
+        if phase_conflict.nil?
+          phase_conflict.create
+          phase_conflict.conference_phase_id = phase_id
+          phase_conflict.conflict_id = conflict_id
+        end
+        phase_conflict.conflict_level_id = level
+        phase_conflict.write
+      end
+    end
+    redirect_to({:action => :conflict})
+  end
+
 
   protected
 
