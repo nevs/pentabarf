@@ -55,6 +55,22 @@ CREATE OR REPLACE VIEW view_conference_phase AS
          ) AS all_lang 
          LEFT OUTER JOIN conference_phase_localized USING (language_id, conference_phase_id);
 
+-- view for conflicts with fallback to tag
+CREATE OR REPLACE VIEW view_conflict AS 
+  SELECT conflict_id, 
+         language_id, 
+         tag, 
+         coalesce(name,tag) AS name, 
+         language_tag
+    FROM ( SELECT language_id, 
+                  conflict_id, 
+                  conflict.tag, 
+                  language.tag AS language_tag 
+             FROM language 
+                  CROSS JOIN conflict
+         ) AS all_lang 
+         LEFT OUTER JOIN conflict_localized USING (language_id, conflict_id);
+
 -- view for conflict_level with fallback to tag
 CREATE OR REPLACE VIEW view_conflict_level AS 
   SELECT conflict_level_id, 
