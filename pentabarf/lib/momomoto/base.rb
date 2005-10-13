@@ -231,7 +231,7 @@ module Momomoto
     # search in the resultset for a record with a specific value
     def find_by_id( field_name, value )
       self.each do | record | 
-        return self if record[field_name.to_sym] == value
+        return true if record[field_name.to_sym] == value
       end
       @current_record = nil
       false
@@ -239,11 +239,19 @@ module Momomoto
 
     # search for the first record with specific values
     def find_by_value( values )
+      return false if length == 0 
+      return false unless values.kind_of?(Hash)
+      found = false
       self.each do | record |
-        value.each do | key, value |
-          next if self[key] != value
+        values.each do | key, value |
+          if self[key] == value
+            found = true
+          else
+            found = false
+            break
+          end
         end
-        return self
+        return true if found
       end
       false
     end
