@@ -118,4 +118,37 @@ class ApplicationController < ActionController::Base
     @user.write
   end
 
+  def save_or_delete_record( table, pkeys, values )
+    if values[:delete]
+      return delete_record( table, pkeys )
+    else
+      return save_record( table, pkeys, values )
+    end
+  end
+
+  def save_record( table, pkeys, values )
+    if table.select( pkeys ) != 1
+      table.create
+      pkeys.each do | field_name, value |
+        table[field_name] = value
+      end
+    end
+    values.each do | field_name, value |
+      next if pkeys.key?(field_name.to_sym)
+      next unless table.fields.member?( field_name.to_sym )
+      table[field_name] = value
+    end
+    yield( table ) if block_given?
+    return table.write
+  end
+
+  def delete_record( table, pkeys )
+    if table.select( pkeys ) == 1
+      return table.delete
+    elsif table.length > 1
+      raise "deleting multiple records is forbidden"
+    end
+    false
+  end
+
 end
