@@ -75,6 +75,8 @@ module Momomoto
           return value.gsub("'",'').gsub("\\",'')
         elsif value.kind_of?(Integer) || value.kind_of?(Fixnum)
           return value
+        elsif value.nil?
+          return nil
         else
           raise "Unsupported Object in Preferences: #{value.class}\n#{value.inspect}"
         end
