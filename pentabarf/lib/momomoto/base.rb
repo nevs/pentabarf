@@ -30,6 +30,8 @@ module Momomoto
       @@permissions = []
       # language_id of the user interface
       @@ui_language_id = 0
+      # person_id of the logged in user
+      @@person_id
 
     protected
 
@@ -341,7 +343,9 @@ module Momomoto
     protected
     
     def privilege?( action )
-      @@permissions.member?( "#{action}_#{@domain}")
+      return true if @@permissions.member?( "#{action}_#{@domain}")
+      return true if @domain == 'person' && @@person_id == self[:person_id] && @@permissions.member?("modify_own_person")
+      false
     end
 
     def insert()
