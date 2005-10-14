@@ -31,7 +31,7 @@ module Momomoto
       # language_id of the user interface
       @@ui_language_id = 0
       # person_id of the logged in user
-      @@person_id
+      @@person_id = 0
 
     protected
 
