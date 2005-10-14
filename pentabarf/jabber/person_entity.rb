@@ -1,4 +1,5 @@
 require 'entity'
+require 'momomoto/tables'
 require 'momomoto/views'
 require 'RMagick'
 require 'base64'
@@ -44,6 +45,8 @@ class PersonEntity < Entity
     fields = {}
 
     person = Momomoto::View_person.find({:person_id => @person_id}, 1)
+    conference_person = Momomoto::Conference_person.find({:conference_id => @conference_id, :person_id => @person_id}, 1)
+
     fields['FN'] = person.name
     fields['TITLE'] = person.title
     fields['NICKNAME'] = person.nickname
@@ -51,6 +54,7 @@ class PersonEntity < Entity
     fields['N/MIDDLE'] = person.middle_name
     fields['N/FAMILY'] = person.last_name
     fields['EMAIL'] = person.email_contact
+    fields['DESC'] = conference_person.abstract
 
     fields.merge!(photo)
     
