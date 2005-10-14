@@ -30,8 +30,8 @@ module Momomoto
                             salt[10..11].hex, salt[12..13].hex, salt[14..15].hex )
         if Digest::MD5.hexdigest( salt_bin + password ) == self[0].password[16..47]
           @current_record = 0;
-          @@person_id = self[:person_id]
-          @@permissions = execute("SELECT get_permissions from get_permissions(#{self[:person_id]});").to_a.flatten
+          @@person_id = self[:person_id].to_i
+          @@permissions = execute("SELECT get_permissions from get_permissions('#{@@person_id}');").to_a.flatten
           self.ui_language_id= self[:preferences][:current_language_id]
           return true
         end
