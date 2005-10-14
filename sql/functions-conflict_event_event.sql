@@ -1,9 +1,6 @@
 /*
- *
  * Conflicts concerning two events
- *
 */
-
 
 -- returns events with conflicting timeslots
 CREATE OR REPLACE FUNCTION conflict_event_event_time(integer) RETURNS SETOF conflict_event_event AS '

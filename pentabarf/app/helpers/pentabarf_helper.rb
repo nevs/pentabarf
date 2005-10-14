@@ -4,11 +4,11 @@ module PentabarfHelper
     conflicts.each do
       conflict = {}
       if conflicts.class == Momomoto::View_conflict_person
-        conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>conflicts.person_id})
+        conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>conflicts.person_id}) + "-24x24"
         conflict[:url] = url_for({:action=>:person,:id=>conflicts.person_id})
         conflict[:who] = link_to(h(conflicts.name), {:action=>:person,:id=>conflicts.person_id}) 
       elsif conflicts.class == Momomoto::View_conflict_event
-        conflict[:img] = url_for({:controller=>'image',:action=>:event,:id=>conflicts.event_id})
+        conflict[:img] = url_for({:controller=>'image',:action=>:event,:id=>conflicts.event_id}) + "-24x24"
         conflict[:url] = url_for({:action=>:event,:id=>conflicts.event_id})
         conflict[:who] = link_to(h(conflicts.title), {:action=>:event,:id=>conflicts.event_id}) 
       else
