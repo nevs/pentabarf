@@ -132,7 +132,7 @@
         </tr>
         <tr>
           <td><label>Conference</label></td>
-          <td><%= select_tag( 'event[conference_id]', Momomoto::Conference.find(), "conference_id", "acronym", @event.conference_id, { :tabindex => 0 } ) %></td>
+          <td><%= select_tag( 'event[conference_id]', Momomoto::Conference.find(), "conference_id", "acronym", @event.conference_id, { :tabindex => 0 }, false ) %></td>
         </tr>
       </table>
     </fieldset>
