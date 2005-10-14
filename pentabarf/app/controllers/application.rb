@@ -8,9 +8,6 @@ require 'xmpp4r'
 
 class ApplicationController < ActionController::Base
 
-  @@version = "0.2"
-  @@base_url = "https://pentabarf.cccv.de/"
-
   def get_auth_data 
     login_name, password = '', '' 
     # extract authorisation credentials 
