@@ -909,7 +909,7 @@ CREATE TABLE conflict (
 CREATE TABLE conflict_localized (
   conflict_id INTEGER NOT NULL,
   language_id INTEGER NOT NULL,
-  name VARCHAR(64) NOT NULL,
+  name TEXT NOT NULL,
   FOREIGN KEY (conflict_id) REFERENCES conflict (conflict_id),
   FOREIGN KEY (language_id) REFERENCES language (language_id),
   PRIMARY KEY (conflict_id, language_id)
