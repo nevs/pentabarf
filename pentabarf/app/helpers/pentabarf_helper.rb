@@ -3,12 +3,20 @@ module PentabarfHelper
   def process_conflicts( conflicts, processed_conflicts )
     conflicts.each do
       conflict = {}
-      conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>conflicts.person_id})
-      conflict[:url] = url_for({:action=>:person,:id=>conflicts.person_id})
+      if conflicts.class == Momomoto::View_conflict_person
+        conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>conflicts.person_id})
+        conflict[:url] = url_for({:action=>:person,:id=>conflicts.person_id})
+        conflict[:who] = link_to(h(conflicts.name), {:action=>:person,:id=>conflicts.person_id}) 
+      elsif conflicts.class == Momomoto::View_conflict_event
+        conflict[:img] = url_for({:controller=>'image',:action=>:event,:id=>conflicts.event_id})
+        conflict[:url] = url_for({:action=>:event,:id=>conflicts.event_id})
+        conflict[:who] = link_to(h(conflicts.title), {:action=>:event,:id=>conflicts.event_id}) 
+      else
+        raise "Unknown class #{conflicts.class} in process_conflicts"
+      end
       conflict[:level_tag] = conflicts.level_tag
       conflict[:level] = conflicts.level_name
       conflict[:desc] = conflicts.conflict_name
-      conflict[:who] = link_to(h(conflicts.name), {:action=>:person,:id=>conflicts.person_id}) 
       processed_conflicts.push( conflict )
     end 
   end

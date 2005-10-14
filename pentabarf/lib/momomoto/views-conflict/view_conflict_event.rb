@@ -17,7 +17,7 @@ module Momomoto
                        INNER JOIN conference_phase_conflict USING (conflict_id) 
                        INNER JOIN view_conflict USING (conflict_id) 
                        INNER JOIN view_conflict_level USING (conflict_level_id, language_id)
-                       INNER JOIN event USING (event_id)"
+                       INNER JOIN (SELECT event_id, title FROM event) AS event USING (event_id)"
       @fields = {
         :conference_id => Datatype::Integer.new({:parameter=>true}),
         :conflict_id => Datatype::Integer.new,
