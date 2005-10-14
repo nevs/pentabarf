@@ -4,7 +4,35 @@
  *
 */
 
--- returns all events without speaker/moderator
+-- returns all conclicts related to events
+CREATE OR REPLACE FUNCTION conflict_event(integer) RETURNS SETOF conflict_event_conflict AS '
+  DECLARE
+    cur_conference_id ALIAS FOR $1;
+    cur_conflict_event RECORD;
+    cur_conflict RECORD;
+
+  BEGIN
+
+    FOR cur_conflict IN
+      SELECT conflict.conflict_id, 
+             conflict.conflict_type_id, 
+             conflict.tag 
+        FROM conflict 
+             INNER JOIN conflict_type USING (conflict_type_id)
+       WHERE conflict_type.tag = ''event''
+    LOOP
+      FOR cur_conflict_event IN
+        EXECUTE ''SELECT conflict_id, event_id FROM conflict_'' || cur_conflict.tag || ''('' || cur_conference_id || ''), ( SELECT '' || cur_conflict.conflict_id || '' AS conflict_id) AS conflict_id; ''
+      LOOP
+        RETURN NEXT cur_conflict_event;
+      END LOOP;
+    END LOOP;
+
+    RETURN;
+  END;
+' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+
+-- returns all confirmed events without confirmed speaker/moderator
 CREATE OR REPLACE FUNCTION conflict_event_no_speaker(integer) RETURNS SETOF conflict_event AS '
   DECLARE
     cur_conference_id ALIAS FOR $1;
@@ -14,7 +42,7 @@ CREATE OR REPLACE FUNCTION conflict_event_no_speaker(integer) RETURNS SETOF conf
     FOR cur_event IN
       SELECT event_id FROM event INNER JOIN event_state USING (event_state_id)
         WHERE event.conference_id = cur_conference_id AND
-              event_state.tag = ''confirmed'' AND
+              event_state.tag = ''accepted'' AND
               event.f_public = TRUE 
     LOOP
       IF NOT EXISTS (SELECT 1 FROM event_person 
@@ -41,8 +69,7 @@ CREATE OR REPLACE FUNCTION conflict_event_no_coordinator(integer) RETURNS setof 
     -- Loop through all events
     FOR cur_event IN
       SELECT event_id FROM event INNER JOIN event_state USING (event_state_id)
-        WHERE event.conference_id = cur_conference_id AND
-              event_state.tag = ''confirmed''
+        WHERE event.conference_id = cur_conference_id
     LOOP
       IF NOT EXISTS (SELECT 1 FROM event_person 
                                    INNER JOIN event_role USING (event_role_id)
@@ -57,7 +84,7 @@ CREATE OR REPLACE FUNCTION conflict_event_no_coordinator(integer) RETURNS setof 
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
 
--- returns all events with incomplete day/time/room
+-- returns all accepted events with incomplete day/time/room
 CREATE OR REPLACE FUNCTION conflict_event_incomplete(INTEGER) RETURNS SETOF conflict_event AS '
   DECLARE
     cur_conference_id ALIAS FOR $1;
@@ -66,7 +93,7 @@ CREATE OR REPLACE FUNCTION conflict_event_incomplete(INTEGER) RETURNS SETOF conf
     FOR cur_event IN
       SELECT event_id FROM event INNER JOIN event_state USING (event_state_id)
         WHERE conference_id = cur_conference_id AND
-              event_state.tag = ''confirmed'' AND
+              event_state.tag = ''accepted'' AND
               (day IS NULL OR 
                room_id IS NULL OR 
                start_time IS NULL) AND
