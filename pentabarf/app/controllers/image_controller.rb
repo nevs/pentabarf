@@ -1,6 +1,6 @@
 require 'RMagick'
 
-class ImagesController < ApplicationController
+class ImageController < ApplicationController
   before_filter :authorize, :modified_since
 
   def conference
