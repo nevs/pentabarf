@@ -14,7 +14,7 @@
     <tr>
       <td>
         <% if conference.mime_type_id %>
-          <%= link_to( image_tag("/images/conference/#{conference.conference_id.to_s + '-24x24.' + conference.file_extension.to_s}", {:size => "24x24"} ), :action => 'conference', :id => conference.conference_id ) %>
+          <%= link_to( image_tag("/image/conference/#{conference.conference_id.to_s + '-24x24.' + conference.file_extension.to_s}", {:size => "24x24"} ), :action => 'conference', :id => conference.conference_id ) %>
         <% else %>
           <%= link_to( image_tag( "icon-conference-32x32.png", {:size => "24x24"} ), :action => 'conference', :id => conference.conference_id ) %>
         <% end %>
