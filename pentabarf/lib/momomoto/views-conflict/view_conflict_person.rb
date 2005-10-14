@@ -4,6 +4,11 @@ module Momomoto
       super
       @domain = 'conflict'
       @parameter = [:conference_id, :conference_phase_id, :language_id]
+      @parameter = {
+        :conference_id => Datatype::Integer.new,
+        :conference_phase_id => Datatype::Integer.new,
+        :language_id => Datatype::Integer.new
+      }
       @query = "SELECT conflict_person.conflict_id, 
                        conflict_person.person_id,
                        conference_phase_conflict.conference_phase_id,
@@ -12,12 +17,12 @@ module Momomoto
                        view_conflict.tag AS conflict_tag,
                        view_conflict.name AS conflict_name,
                        view_person.name, 
-                  FROM conflict_person('%1%') 
+                  FROM conflict_person(%conference_id%) 
                        INNER JOIN conference_phase_conflict USING (conflict_id) 
                        INNER JOIN view_conflict USING (conflict_id) 
                        INNER JOIN view_person USING (person_id) 
-                 WHERE view_conflict.language_id = '%3%' AND 
-                       conference_phase_id = '%2%';"
+                 WHERE view_conflict.language_id = %language_id% AND 
+                       conference_phase_id = %conference_phase_id%;"
       @fields = {
         :conflict_id => Datatype::Integer.new,
         :person_id => Datatype::Integer.new,

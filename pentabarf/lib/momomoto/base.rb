@@ -204,17 +204,23 @@ module Momomoto
     def select( conditions = {}, limit = nil, order = nil, distinct = nil ) 
       self.limit= limit if limit
       self.order= order if order
-      fields = ''
-      @fields.each do | key , value | 
-        next if value.property(:virtual)
-        fields += fields != '' ? ', ' : ''
-        fields += key.to_s
+      if @query.to_s.length > 0 && @parameter.kind_of?( Array )
+        sql = @query.dup
+        @parameter.each do | field_name, index |
+          raise "missing parameter #{field_name} in #{self.class.name}" if conditions[field_name].nil?
+          sql.gsub!("%#{field_name.to_s}%", @parameter[field_name].filter_write(conditions[field_name]))
+        end
+      else
+        fields = ''
+        @fields.each do | key , value | 
+          next if value.property(:virtual)
+          fields += fields != '' ? ', ' : ''
+          fields += key.to_s
+        end
+        sql = "SELECT #{fields} FROM #{@table}" + compile_where( conditions ) + 
+              ( @order  ? " ORDER BY #{@order}" : '' ) + ( @limit  ? " LIMIT #{@limit.to_s}" : '' ) + ";"
       end
-      result = execute( "SELECT #{fields} FROM #{@table}" + 
-                         compile_where( conditions ) + 
-                        ( @order  ? " ORDER BY #{@order}" : '' ) +
-                        ( @limit  ? " LIMIT #{@limit.to_s}" : '' ) +
-                        ";" )
+      result = execute( sql )
       @resultset = []
       result.num_tuples.times do | i |
         current = {}
