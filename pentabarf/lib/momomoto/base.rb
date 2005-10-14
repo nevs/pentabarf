@@ -204,11 +204,12 @@ module Momomoto
     def select( conditions = {}, limit = nil, order = nil, distinct = nil ) 
       self.limit= limit if limit
       self.order= order if order
-      if @query.to_s.length > 0 && @parameter.kind_of?( Hash )
+      if @query.to_s.length > 0 
         sql = @query.dup
-        @parameter.each do | field_name, index |
-          raise "missing parameter #{field_name} in #{self.class.name}" if conditions[field_name].nil?
-          sql.gsub!("%#{field_name.to_s}%", @parameter[field_name].filter_write(conditions[field_name]))
+        @fields.each do | key, value |
+          next unless value.property(:parameter)
+          raise "missing parameter #{field_name} in #{self.class.name}" if conditions[key].nil?
+          sql.gsub!("%#{key.to_s}%", value.filter_write(conditions[key]))
         end
       else
         fields = ''
@@ -217,9 +218,9 @@ module Momomoto
           fields += fields != '' ? ', ' : ''
           fields += key.to_s
         end
-        sql = "SELECT #{fields} FROM #{@table}" + compile_where( conditions ) + 
-              ( @order  ? " ORDER BY #{@order}" : '' ) + ( @limit  ? " LIMIT #{@limit.to_s}" : '' ) + ";"
+        sql = "SELECT #{fields} FROM #{@table}"
       end
+      sql += compile_where( conditions ) + ( @order  ? " ORDER BY #{@order}" : '' ) + ( @limit  ? " LIMIT #{@limit.to_s}" : '' ) + ";"
       result = execute( sql )
       @resultset = []
       result.num_tuples.times do | i |
@@ -390,7 +391,7 @@ module Momomoto
     def compile_where( conditions )
       where = ''
       conditions.each do | key , value | 
-        next if value.nil? || ( ( value.kind_of?(Array) || value.kind_of?(Hash) ) && value.length == 0 )
+        next if value.nil? || @fields[key].property(:parameter) || ( ( value.kind_of?(Array) || value.kind_of?(Hash) ) && value.length == 0 )
         raise "Unknown field #{key} in class #{self.class.name}" if @fields[key] == nil
         if @fields[key].property(:virtual)
           where = where_append( where, "#{@fields[key].filter_write(value)}" )
