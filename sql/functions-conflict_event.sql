@@ -38,10 +38,13 @@ CREATE OR REPLACE FUNCTION conflict_event_no_speaker(integer) RETURNS SETOF conf
   BEGIN
 -- Loop through all events
     FOR cur_event IN
-      SELECT event_id FROM event INNER JOIN event_state USING (event_state_id)
+      SELECT event_id 
+        FROM event 
+             INNER JOIN event_state USING (event_state_id)
+             INNER JOIN event_state_progress USING (event_state_progress_id)
         WHERE event.conference_id = cur_conference_id AND
               event_state.tag = ''accepted'' AND
-              event.f_public = TRUE 
+              event_state_progress.tag = ''confirmed''
     LOOP
       IF NOT EXISTS (SELECT 1 FROM event_person 
                               INNER JOIN event_role USING (event_role_id) 
@@ -88,9 +91,13 @@ CREATE OR REPLACE FUNCTION conflict_event_incomplete(INTEGER) RETURNS SETOF conf
     cur_event conflict_event%ROWTYPE;
   BEGIN
     FOR cur_event IN
-      SELECT event_id FROM event INNER JOIN event_state USING (event_state_id)
+      SELECT event_id 
+        FROM event 
+             INNER JOIN event_state USING (event_state_id)
+             INNER JOIN event_state_progress USING (event_state_progress_id)
         WHERE conference_id = cur_conference_id AND
               event_state.tag = ''accepted'' AND
+              event_state_progress.tag = ''confirmed'' AND
               (day IS NULL OR 
                room_id IS NULL OR 
                start_time IS NULL) AND
