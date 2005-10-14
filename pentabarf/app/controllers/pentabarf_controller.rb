@@ -258,8 +258,10 @@ class PentabarfController < ApplicationController
         person[:f_spam] = 'f' unless params[:person]['f_spam']
         if person.permission?('modify_login') || person.person_id == @user.person_id
           if params[:person][:password].to_s != ''
+            if params[:person][:password] != params[:password]
             @meditation_message = 'Passwords do not match'
-            raise "Passwords do not match" if params[:person][:password] != params[:password]
+            raise "Passwords do not match"
+            end
           end
           person.password= params[:person][:password]
         end
@@ -379,6 +381,7 @@ class PentabarfController < ApplicationController
           person.rollback
         end
       rescue => e
+        @meditation_message = 'Error while saving'
         person.rollback
         raise e
       end
