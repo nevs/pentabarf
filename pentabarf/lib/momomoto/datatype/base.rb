@@ -48,7 +48,7 @@ module Momomoto
         @dirty = false
       end
 
-      def initialize( properties )
+      def initialize( properties = {} )
         @properties = properties
       end
 

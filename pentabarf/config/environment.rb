@@ -55,6 +55,7 @@ require 'momomoto/momomoto'
 require 'momomoto/login'
 require 'momomoto/tables'
 require 'momomoto/views'
+require 'momomoto/views-conflict'
 require 'time'
 
 # Environment-specific configuration.

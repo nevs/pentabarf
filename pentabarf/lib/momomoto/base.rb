@@ -204,7 +204,7 @@ module Momomoto
     def select( conditions = {}, limit = nil, order = nil, distinct = nil ) 
       self.limit= limit if limit
       self.order= order if order
-      if @query.to_s.length > 0 && @parameter.kind_of?( Array )
+      if @query.to_s.length > 0 && @parameter.kind_of?( Hash )
         sql = @query.dup
         @parameter.each do | field_name, index |
           raise "missing parameter #{field_name} in #{self.class.name}" if conditions[field_name].nil?

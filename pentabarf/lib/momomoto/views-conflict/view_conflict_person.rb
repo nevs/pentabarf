@@ -3,7 +3,6 @@ module Momomoto
     def initialize
       super
       @domain = 'conflict'
-      @parameter = [:conference_id, :conference_phase_id, :language_id]
       @parameter = {
         :conference_id => Datatype::Integer.new,
         :conference_phase_id => Datatype::Integer.new,
@@ -12,11 +11,11 @@ module Momomoto
       @query = "SELECT conflict_person.conflict_id, 
                        conflict_person.person_id,
                        conference_phase_conflict.conference_phase_id,
-                       conference_phase_conflict.conflict_level_id 
+                       conference_phase_conflict.conflict_level_id,
                        view_conflict.language_id,
                        view_conflict.tag AS conflict_tag,
                        view_conflict.name AS conflict_name,
-                       view_person.name, 
+                       view_person.name 
                   FROM conflict_person(%conference_id%) 
                        INNER JOIN conference_phase_conflict USING (conflict_id) 
                        INNER JOIN view_conflict USING (conflict_id) 
