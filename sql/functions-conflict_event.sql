@@ -1,7 +1,5 @@
 /*
- *
  * Conflicts concerning one event
- *
 */
 
 -- returns all conclicts related to events
@@ -83,7 +81,6 @@ CREATE OR REPLACE FUNCTION conflict_event_no_coordinator(integer) RETURNS setof 
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
-
 -- returns all accepted events with incomplete day/time/room
 CREATE OR REPLACE FUNCTION conflict_event_incomplete(INTEGER) RETURNS SETOF conflict_event AS '
   DECLARE
@@ -106,5 +103,4 @@ CREATE OR REPLACE FUNCTION conflict_event_incomplete(INTEGER) RETURNS SETOF conf
     RETURN;
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
-
 
