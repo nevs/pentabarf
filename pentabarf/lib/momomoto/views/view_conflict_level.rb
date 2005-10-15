@@ -3,6 +3,7 @@ module Momomoto
     def initialize
       super
       @domain = 'valuelist'
+      @order = 'rank'
       @fields = {
         :conflict_level_id => Datatype::Integer.new( {} ),
         :language_id => Datatype::Integer.new( {} ),

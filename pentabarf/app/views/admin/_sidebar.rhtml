@@ -12,7 +12,7 @@
     </div>
     
     <div class="menu-item-group">
-      <%= link_to( '<[link::startpage]>', { :action => :index }, { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::startpage]>', {:controller => 'pentabarf', :action => :index }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::conflict_setup]>', { :action => :conflict }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::preferences]>', url_for({:controller => 'pentabarf', :action => :person, :id => @user.person_id}) + '#account', { :class => 'menu-item' } ) %>
     </div>
