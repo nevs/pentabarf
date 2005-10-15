@@ -152,6 +152,30 @@
       </table>
     </fieldset>
 
+    <fieldset>
+      <legend>Spoken Languages</legend>
+      <table class="hidden" id="person_language_table">
+        <thead>
+          <tr>
+            <th>Language</th>
+            <th>delete</th>
+          </tr>
+        </thead>
+        <tbody id="person_language_table_body">
+        </tbody>
+      </table>
+      <button type="button" onclick="window.add_person_language();">Add Language</button>
+      <script type="text/javascript">
+        var languages = new Array();
+        <% for language in Momomoto::View_language.find({:language_id => @current_language_id, :f_visible => 't'}) %>
+          languages[<%= language.translated_id %>] = '<%= escape_javascript(language.name) %>';
+        <% end %>
+        <% for person_lang in Momomoto::Person_language.find({:person_id => @person.person_id}) %>
+          add_person_language(<%= person_lang.language_id %>);
+        <% end %>
+      </script>
+    </fieldset>
+
   </div>
 
   <div id="content-contact" class="content_tab">

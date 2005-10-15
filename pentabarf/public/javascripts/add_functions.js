@@ -470,3 +470,22 @@ function add_related_event(related_event_id)
   enumerator();
 }
 
+var person_language_counter = 0;
+
+function add_person_language(language_id)
+{
+  var row;
+  var row_id = person_language_counter++;
+
+  document.getElementById('person_language_table').style.display = "block";
+  
+  row = document.createElement("tr");
+  row.setAttribute("id","row_"+row_id);
+  
+  row.appendChild(create_element("select", 0, "person_language["+row_id+"][language_id]", languages, language_id));
+  row.appendChild(create_element("input", "checkbox", "person_language["+row_id+"][delete]"));
+  row.appendChild(create_element("hidden", 0, "").firstChild);
+  document.getElementById('person_language_table_body').appendChild(row);
+  enumerator();
+}
+

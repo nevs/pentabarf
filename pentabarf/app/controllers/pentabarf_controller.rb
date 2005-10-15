@@ -354,6 +354,13 @@ class PentabarfController < ApplicationController
           end
         end
 
+        if params[:person_language]
+          language = Momomoto::Person_language.new
+          params[:person_language].each do | key, value |
+            modified = true if save_or_delete_record( language, {:person_id => person.person_id, :language_id => value[:language_id]}, value)
+          end
+        end
+
         if params[:link]
           person_link = Momomoto::Conference_person_link.new
           params[:link].each do | key, value |
