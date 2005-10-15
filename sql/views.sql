@@ -231,6 +231,7 @@ CREATE OR REPLACE VIEW view_find_event AS
          event.room_id,
          event.day,
          (event.start_time + conference.day_change)::interval AS start_time,
+         event.f_public,
          event_image.mime_type_id,
          mime_type.mime_type,
          mime_type.file_extension,
