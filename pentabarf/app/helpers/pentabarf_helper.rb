@@ -11,6 +11,16 @@ module PentabarfHelper
         conflict[:img] = url_for({:controller=>'image',:action=>:event,:id=>conflicts.event_id}) + "-24x24"
         conflict[:url] = url_for({:action=>:event,:id=>conflicts.event_id})
         conflict[:who] = link_to(h(conflicts.title), {:action=>:event,:id=>conflicts.event_id}) 
+      elsif conflicts.class == Momomoto::View_conflict_event_person
+        conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>conflicts.person_id}) + "-24x24"
+        conflict[:url] = url_for({:action=>:event,:id=>conflicts.event_id})
+        conflict[:who] = link_to(h(conflicts.name), {:action=>:person,:id=>conflicts.person_id}) + "<br/>"
+        conflict[:who] += link_to(h(conflicts.title), {:action=>:event,:id=>conflicts.event_id}) 
+      elsif conflicts.class == Momomoto::View_conflict_event_event
+        conflict[:img] = url_for({:controller=>'image',:action=>:event,:id=>conflicts.event_id1}) + "-24x24"
+        conflict[:url] = url_for({:action=>:event,:id=>conflicts.event_id1})
+        conflict[:who] = link_to(h(conflicts.title1), {:action=>:event,:id=>conflicts.event_id1}) + "<br/>"
+        conflict[:who] += link_to(h(conflicts.title2), {:action=>:event,:id=>conflicts.event_id2}) 
       else
         raise "Unknown class #{conflicts.class} in process_conflicts"
       end

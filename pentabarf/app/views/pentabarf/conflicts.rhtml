@@ -6,6 +6,8 @@
   conflicts = []
   process_conflicts( Momomoto::View_conflict_person.find({:conference_id => @current_conference_id, :language_id => @current_language_id, :conference_phase_id => conf.conference_phase_id}), conflicts )
   process_conflicts( Momomoto::View_conflict_event.find({:conference_id => @current_conference_id, :language_id => @current_language_id, :conference_phase_id => conf.conference_phase_id}), conflicts )
+  process_conflicts( Momomoto::View_conflict_event_event.find({:conference_id => @current_conference_id, :language_id => @current_language_id, :conference_phase_id => conf.conference_phase_id}), conflicts )
+  process_conflicts( Momomoto::View_conflict_event_person.find({:conference_id => @current_conference_id, :language_id => @current_language_id, :conference_phase_id => conf.conference_phase_id}), conflicts )
 %>
 <div id="data">
 
