@@ -31,7 +31,7 @@ class AdminController < ApplicationController
   protected
 
     def check_permission
-      if @user.permission?('login_allowed') || params[:action] == 'meditation'
+      if @user.permission?('admin_login') || params[:action] == 'meditation'
         @preferences = @user.preferences
         if params[:current_conference_id]
           conf = Momomoto::Conference.find({:conference_id => params[:current_conference_id]})
