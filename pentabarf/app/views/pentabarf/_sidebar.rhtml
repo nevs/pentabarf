@@ -16,7 +16,9 @@
       <%= link_to( '<[link::recent_changes]>', { :action => :recent_changes }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::reports]>', { :action => :reports }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::conflicts]>', { :action => :conflicts }, { :class => 'menu-item' } ) %>
-      <%= link_to_if( @user.permission?('admin_login'), '<[link::admin]>', url_for({:controller=>'admin'}), { :class => 'menu-item' } ) %>
+      <% if @user.permission?('admin_login') %>
+        <%= link_to( '<[link::admin]>', url_for({:controller=>'admin'}), { :class => 'menu-item' } ) %>
+      <% end %>
       <%= link_to( '<[link::preferences]>', url_for({:action => :person, :id => @user.person_id}) + '#account', { :class => 'menu-item' } ) %>
     </div>
   
