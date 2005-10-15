@@ -5,7 +5,7 @@ module Momomoto
     class Boolsearch < Base 
 
       def filter_write( data = '')
-        data = Array.new.append( data ) unless data.kind_of?( Array )
+        data = Array.new.push( data ) unless data.kind_of?( Array )
         sql = ''
         data.each do | value |
           if value == 't'

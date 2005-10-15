@@ -60,6 +60,10 @@
       criteria[7]['name'] = 'Event State and Progress';
       criteria[7]['value'] = 'event_state_progress_id';
       criteria[7]['type'] = 'keyword';
+      criteria[8] = new Array();
+      criteria[8]['name'] = 'Public Flag';
+      criteria[8]['value'] = 's_public';
+      criteria[8]['type'] = 'keyword';
 
       var valuelists = new Array();
       valuelists[1] = new Array();
@@ -86,6 +90,9 @@
       <% for progress in Momomoto::View_event_state_combined.find( {:language_id => @current_language_id} ) %>
         valuelists[7][<%= progress.event_state_progress_id %>] = '<%= progress.name %>';
       <% end %>
+        valuelists[8] = new Array();
+        valuelists[8]['t'] = 'set';
+        valuelists[8]['f'] = 'not set';
       <% if @preferences[:search_event_advanced].length > 0 %>
         <% @preferences[:search_event_advanced].each do | key, value | %>
         search_criteria_add('search_elements', 0, '<%= escape_javascript(value[:type]) %>', '<%= escape_javascript(value[:logic]) %>', '<%= escape_javascript(value[:value]) %>');
