@@ -81,8 +81,7 @@ var conference_track_counter = 0;
 function add_conference_track(conference_track_id, tag)
 {
   var table_row;
-  var row_id = conference_track_counter;
-  conference_track_counter++;
+  var row_id = conference_track_counter++;
 
   document.getElementById('conference_track_table').style.display = "block";
   table_row = document.createElement("tr");
@@ -101,8 +100,7 @@ var team_counter = 0;
 function add_team(team_id, tag)
 {
   var table_row;
-  var row_id = team_counter;
-  team_counter++;
+  var row_id = team_counter++;
 
   document.getElementById('team_table').style.display = "block";
   table_row = document.createElement("tr");
@@ -121,8 +119,7 @@ var room_counter = 0;
 function add_room(room_id, short_name, f_public, size, remark, rank)
 {
   var table_row;
-  var row_id = room_counter;
-  room_counter++;
+  var row_id = room_counter++;
 
   document.getElementById('room_table').style.display = "block";
   table_row = document.createElement("tr");
@@ -143,8 +140,7 @@ var person_im_counter = 0;
 function add_person_im(person_im_id, im_type_id, im_address)
 {
   var table_row;
-  var row_id = person_im_counter;
-  person_im_counter++;
+  var row_id = person_im_counter++;
   
   document.getElementById('im_table').style.display = "block";
   table_row = document.createElement("tr");
@@ -174,9 +170,7 @@ var person_phone_counter = 0;
 function add_person_phone(person_phone_id, phone_type_id, number)
 {
   var table_row;
-
-  var row_id = person_phone_counter;
-  person_phone_counter++;
+  var row_id = person_phone_counter++;
 
   document.getElementById('telephone_table').style.display = "block";
   table_row = document.createElement("tr");
@@ -206,9 +200,7 @@ var link_counter = 0;
 function add_link(link_id, url, description)
 {
   var table_row, table_data, element;
-  var row_id = link_counter;
-
-  link_counter++;
+  var row_id = link_counter++;
 
   document.getElementById('link_table').style.display = "block";
   table_row = document.createElement("tr");
@@ -237,9 +229,7 @@ var internal_link_counter = 0;
 function add_internal_link(link_id, link_type_id, url, description)
 {
   var table_row, table_data, element;
-
-  var row_id = internal_link_counter;
-  internal_link_counter++;
+  var row_id = internal_link_counter++;
 
   document.getElementById('internal_link_table').style.display = "block";
   table_row = document.createElement("tr");
@@ -274,9 +264,7 @@ function add_person_event(event_person_id, event_id, event_role_id, event_role_s
     return;
   }
   var table_row, table_data, element;
-
-  var row_id = person_event_counter;
-  person_event_counter++;
+  var row_id = person_event_counter++;
 
   document.getElementById('person_event_table').style.display = 'block';
   table_row = document.createElement("tr");
@@ -333,14 +321,13 @@ function add_person_event(event_person_id, event_id, event_role_id, event_role_s
 
 function person_event_role_changed(row_id,event_role_state_id)
 {
-	
   var select_role = document.getElementById("event_person["+row_id+"][event_role_id]");
   var select_state = document.getElementById("event_person["+row_id+"][event_role_state_id]");
   var select_state_new = create_element("select", 0, "event_person["+row_id+"][event_role_state_id]",event_role_states[select_role.value],event_role_state_id);
   
   select_state.parentNode.parentNode.replaceChild(select_state_new, select_state.parentNode);
   
-  if( event_role_states[select_role.value].length > 0 ) {
+  if ( event_role_states[select_role.value].length > 0 ) {
     select_state_new.firstChild.style.display = "block";
   } else {
     select_state_new.firstChild.style.display = "none";
@@ -353,9 +340,7 @@ var event_person_counter = 0;
 function add_event_person(event_person_id, person_id, event_role_id, event_role_state_id, remark)
 {
   var table_row, table_data, element;
-
-  var row_id = event_person_counter;
-  event_person_counter++;
+  var row_id = event_person_counter++;
 
   document.getElementById('persons_table').style.display = "block";
   table_row = document.createElement("tr");
@@ -405,17 +390,17 @@ function add_event_person(event_person_id, person_id, event_role_id, event_role_
 
 function event_person_role_changed(row_id,event_role_state_id)
 {
-	
   var select_role = document.getElementById("event_person["+row_id+"][event_role_id]");
   var select_state = document.getElementById("event_person["+row_id+"][event_role_state_id]");
   var select_state_new = create_element("select", 0, "event_person["+row_id+"][event_role_state_id]",event_role_states[select_role.value],event_role_state_id);
   
   select_state.parentNode.parentNode.replaceChild(select_state_new, select_state.parentNode);
   
-  if( event_role_states[select_role.value].length > 0 ) {
-  	select_state_new.firstChild.style.display = "block";
-  } else 
-  	select_state_new.firstChild.style.display = "none";
+  if ( event_role_states[select_role.value].length > 0 ) {
+    select_state_new.firstChild.style.display = "block";
+  } else {
+    select_state_new.firstChild.style.display = "none";
+  }
 }
 
 function event_state_changed()
@@ -432,9 +417,7 @@ var attachment_counter = 0;
 function add_attachment()
 {
   var table_row;
-
-  var row_id = attachment_counter;
-  attachment_counter++;
+  var row_id = attachment_counter++;
 
   document.getElementById('attachment_upload_table').style.display = "block";
   table_row = document.createElement("tr");
@@ -454,9 +437,7 @@ var related_event_counter = 0;
 function add_related_event(related_event_id)
 {
   var row;
-
-  var row_id = related_event_counter;
-  related_event_counter++;
+  var row_id = related_event_counter++;
 
   document.getElementById('related_event_table').style.display = "block";
   

@@ -8,6 +8,7 @@ module Momomoto
         :s_title => Datatype::Textsearch.new( {:virtual=>true,:field=>[:title,:subtitle]} ),
         :s_description => Datatype::Textsearch.new( {:virtual=>true,:field=>[:abstract,:description]} ),
         :s_coordinator => Datatype::Keysearch.new( {:virtual=>true,:key_field=>'event_id',:subselect=>"SELECT event_id FROM event_person INNER JOIN event_role USING(event_role_id) WHERE event_role.tag = 'coordinator' AND event_person.person_id IN (%%%)"} ),
+        :s_public => Datatype::Boolsearch.new( {:virtual=>true,:field=>:f_public} ),
         :event_id => Datatype::Integer.new( {} ),
         :conference_id => Datatype::Integer.new( {} ),
         :title => Datatype::Varchar.new( {:length=>128} ),
