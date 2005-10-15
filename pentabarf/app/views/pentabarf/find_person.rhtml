@@ -36,6 +36,10 @@
       criteria[1]['name'] = 'E-Mail';
       criteria[1]['value'] = 's_email';
       criteria[1]['type'] = 'text';
+      criteria[2] = new Array();
+      criteria[2]['name'] = 'Gender';
+      criteria[2]['value'] = 's_gender';
+      criteria[2]['type'] = 'keyword';
 
       var valuelists = new Array();
       <% if @preferences[:search_person_advanced].length > 0 %>
@@ -45,6 +49,11 @@
       <% else %>
         search_criteria_add('search_elements', 0);
       <% end %>
+        valuelists = new Array();
+        valuelists[2] = new Array();
+        valuelists[2]['NULL'] = 'not set'
+        valuelists[2]['t'] = 'male';
+        valuelists[2]['f'] = 'female';
     </script>
         <%= observe_form( :find_person_advanced, 
                            :frequency => 1, 

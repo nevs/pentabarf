@@ -263,6 +263,7 @@ CREATE OR REPLACE VIEW view_find_person AS
          view_person.public_name,
          view_person.login_name,
          view_person.email_contact,
+         view_person.gender,
          person_image.mime_type_id,
          mime_type.mime_type,
          mime_type.file_extension,
