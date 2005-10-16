@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <% for message in @tag_class.find( {}, nil, @localization_id.to_s) %>
+        <% for message in @tag_class.find( {}, nil, 'tag') %>
           <tr>
             <td><%= h(message.tag) %></td>
             <% for lang in @languages %>

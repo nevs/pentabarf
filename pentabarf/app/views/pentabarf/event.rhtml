@@ -23,7 +23,7 @@
   <div id="comment">
     <%= image_tag("/image/event/#{params[:id]}-128x128", {:size => "128x128", :style => "float: right;"} ) %>
     <fieldset>
-      <legend>Notes</legend>
+      <legend><[view_event::notes]></legend>
       <table>
         <tr>
           <td><%= text_area_tag('event[remark]', @event.remark, {:rows => 5, :cols => 60}) %></td>
@@ -34,15 +34,15 @@
 
   <div id="content-persons" class="content_tab">
     <fieldset>
-      <legend>Event Persons</legend>
+      <legend><[view_event::persons]></legend>
       <table id="persons_table" class="hidden">
         <thead>
           <tr>
-            <th colspan="2">Person</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Comment</th>
-            <th>Remove?</th>
+            <th colspan="2"><[view_event::event_person::person]></th>
+            <th><[view_event::event_person::role]></th>
+            <th><[view_event::event_person::role_state]></th>
+            <th><[view_event::event_person::comment]></th>
+            <th><[form::remove]></th>
           </tr>
         </thead>
         <tbody id="person_table_body">
@@ -77,18 +77,18 @@
 
   <div id="content-general" class="content_tab">
     <fieldset>
-      <legend>General</legend>
+      <legend><[view_event::tab_general]></legend>
       <table>
         <tr>
-          <td><label>Title</label></td>
+          <td><label><[view_event::title]></label></td>
           <td><%= text_field_tag('event[title]', @event.title, {:size => 60, :tabindex => 0} ) %></td>
         </tr>
         <tr>
-          <td><label>Subtitle</label></td>
+          <td><label><[view_event::subtitle]></label></td>
           <td><%= text_field_tag('event[subtitle]', @event.subtitle, {:size => 60, :tabindex => 0} ) %></td>
         </tr>
         <tr>
-          <td><label>Tag</label></td>
+          <td><label><[view_event::tag]></label></td>
           <td><%= text_field_tag('event[tag]', @event.tag, {:size => 32, :tabindex => 0} ) %></td>
         </tr>
         <tr>
