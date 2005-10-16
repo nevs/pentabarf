@@ -4,7 +4,7 @@ class AdminController < ApplicationController
 
   def initialize
     super
-    @allowed_classes = ['conflict', 'transport', 'ui_message']
+    @allowed_classes = ['conference_phase', 'conflict', 'transport', 'ui_message']
   end
   
   def index
@@ -16,13 +16,14 @@ class AdminController < ApplicationController
 
   def localization
     @content_title = 'Localization'
-    get_localization_classes(params[:id])
-
-    @languages = Momomoto::View_language.find({:language_id => @current_language_id, :f_localized => 't'})
-    @localization = []
-    for lang in @languages 
-      @localization[lang.translated_id] = @localization_class.find({:language_id => lang.translated_id})
-    end 
+    if params[:id]
+      get_localization_classes(params[:id])
+      @languages = Momomoto::View_language.find({:language_id => @current_language_id, :f_localized => 't'})
+      @localization = []
+      for lang in @languages 
+        @localization[lang.translated_id] = @localization_class.find({:language_id => lang.translated_id})
+      end 
+    end
   end
 
   def save_localization

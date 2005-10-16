@@ -7,27 +7,29 @@
     <%= link_to(table, {:id => table}) %>
   <% end %>
 
-  <table>
-    <thead>
-      <tr>
-        <th>tag</th>
-        <% for lang in @languages %>
-          <th><%= h(lang.name) %></th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <% for message in @tag_class.find( {}, nil, @localization_id.to_s) %>
+  <% if params[:id] %>
+    <table>
+      <thead>
         <tr>
-          <td><%= h(message.tag) %></td>
+          <th>tag</th>
           <% for lang in @languages %>
-            <% @localization[lang.translated_id].find_by_id(@localization_id, message[@localization_id]) %>
-            <td><%= text_field_tag("localization[#{message[@localization_id]}][#{lang.translated_id}]", @localization[lang.translated_id].current_record ? @localization[lang.translated_id].name : '', {:tabindex => 0, :size => 40}) %>
+            <th><%= h(lang.name) %></th>
           <% end %>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% for message in @tag_class.find( {}, nil, @localization_id.to_s) %>
+          <tr>
+            <td><%= h(message.tag) %></td>
+            <% for lang in @languages %>
+              <% @localization[lang.translated_id].find_by_id(@localization_id, message[@localization_id]) %>
+              <td><%= text_field_tag("localization[#{message[@localization_id]}][#{lang.translated_id}]", @localization[lang.translated_id].current_record ? @localization[lang.translated_id].name : '', {:tabindex => 0, :size => 40}) %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
   <%= end_form_tag() %>
   <%= javascript_tag("new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } )") %>
 </div>
