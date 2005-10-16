@@ -25,7 +25,7 @@ module Momomoto
     def authorize( login_name, password )
       if login_name.to_s != '' && password.to_s != '' && select( { :login_name => login_name } ) == 1
         if self.password.to_s == ''
-          log_error("User #{self.login_name} tried to login while no password was set.")
+          Base.log_error("User #{self.login_name} tried to login while no password was set.")
           return false
         end
         salt = self[0].password[0..15]
@@ -40,7 +40,7 @@ module Momomoto
           return true
         end
       end
-      log_error( "Authorization failed for user #{login_name}" )
+      Base.log_error( "Authorization failed for user #{login_name}" )
       return false
     end
 
