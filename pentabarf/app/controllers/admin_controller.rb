@@ -10,6 +10,10 @@ class AdminController < ApplicationController
     @content_title = 'Conflict Setup'
   end
 
+  def localization
+
+  end
+
   def save_conflict
     phase_conflict = Momomoto::Conference_phase_conflict.new
     params[:conference_phase_conflict].each do | phase_id, value |
@@ -26,7 +30,6 @@ class AdminController < ApplicationController
     end
     redirect_to({:action => :conflict})
   end
-
 
   protected
 
