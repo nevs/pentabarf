@@ -2,6 +2,11 @@ class AdminController < ApplicationController
   before_filter :authorize, :check_permission
   after_filter :compress
 
+  def initialize
+    super
+    @allowed_classes = ['conflict', 'transport', 'ui_message']
+  end
+  
   def index
   end
 
@@ -64,8 +69,7 @@ class AdminController < ApplicationController
   protected
 
     def get_localization_classes( tag )
-      allowed_classes = ['ui_message','conflict']
-      raise "Localization for this table is not allowed" unless allowed_classes.member?(tag)
+      raise "Localization for this table is not allowed" unless @allowed_classes.member?(tag)
       @tag_class = eval "Momomoto::#{tag.capitalize}"
       @localization_class = eval("Momomoto::#{tag.capitalize}_localized")
       @localization_id = "#{tag}_id".to_sym

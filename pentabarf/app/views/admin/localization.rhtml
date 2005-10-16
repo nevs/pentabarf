@@ -3,6 +3,10 @@
   
   <%= render(:partial => 'modification_buttons') %>
 
+  <% for table in @allowed_classes.sort %>
+    <%= link_to(table, {:id => table}) %>
+  <% end %>
+
   <table>
     <thead>
       <tr>
