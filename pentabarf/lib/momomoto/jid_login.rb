@@ -10,7 +10,8 @@ module Momomoto
         :person_im_id => Datatype::Integer.new( {:not_null=>true, :primary_key=>true, :serial=>true} ),
         :person_id => Datatype::Integer.new( {:not_null=>true} ),
         :im_address => Datatype::Varchar.new( {:not_null=>true, :length=>128} ),
-        :name => Datatype::Text.new( {} )
+        :name => Datatype::Text.new( {} ),
+        :preferences => Datatype::Preferences.new( {} )
       }
     end
 
