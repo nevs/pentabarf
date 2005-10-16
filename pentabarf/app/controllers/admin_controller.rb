@@ -2,7 +2,6 @@ class AdminController < ApplicationController
   before_filter :authorize, :check_permission
   after_filter :compress
 
-
   def index
   end
 
@@ -11,6 +10,18 @@ class AdminController < ApplicationController
   end
 
   def localization
+    @content_title = 'Localization'
+    @languages = Momomoto::View_language.find({:language_id => @current_language_id, :f_localized => 't'})
+    @tag_class = Momomoto::Ui_message.new
+    @localization_class = Momomoto::Ui_message_localized.new
+    @localization_id = :ui_message_id
+    @localization = []
+    for lang in @languages 
+      @localization[lang.translated_id] = @localization_class.find({:language_id => lang.translated_id})
+    end 
+  end
+
+  def save_localization
 
   end
 
@@ -36,16 +47,6 @@ class AdminController < ApplicationController
     def check_permission
       if @user.permission?('admin_login') || params[:action] == 'meditation'
         @preferences = @user.preferences
-        if params[:current_conference_id]
-          conf = Momomoto::Conference.find({:conference_id => params[:current_conference_id]})
-          if conf.length == 1
-            @preferences[:current_conference_id] = params[:current_conference_id].to_i
-            @user.preferences = @preferences
-            @user.write
-            redirect_to
-            return false
-          end
-        end
         @current_conference_id = @preferences[:current_conference_id]
         @current_language_id = @preferences[:current_language_id]
       else
