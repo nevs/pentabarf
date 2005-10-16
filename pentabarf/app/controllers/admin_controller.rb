@@ -64,9 +64,11 @@ class AdminController < ApplicationController
   protected
 
     def get_localization_classes( tag )
-      @tag_class = Momomoto::Ui_message
-      @localization_class = Momomoto::Ui_message_localized
-      @localization_id = :ui_message_id
+      allowed_classes = ['ui_message']
+      raise "Localization for this table is not allowed" unless allowed_classes.member?(tag)
+      @tag_class = eval "Momomoto::#{tag.capitalize}"
+      @localization_class = eval("Momomoto::#{tag.capitalize}_localized")
+      @localization_id = "#{tag}_id".to_sym
     end
 
     def check_permission

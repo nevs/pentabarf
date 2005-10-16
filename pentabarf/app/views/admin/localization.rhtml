@@ -1,5 +1,5 @@
 <div id="data">
-  <%= start_form_tag({:action => :save_localization}, {:id => :content_form}) %>
+  <%= start_form_tag({:action => :save_localization, :id => params[:id]}, {:id => :content_form}) %>
   
   <%= render(:partial => 'modification_buttons') %>
 
