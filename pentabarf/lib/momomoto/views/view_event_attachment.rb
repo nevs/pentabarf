@@ -13,7 +13,7 @@ module Momomoto
         :mime_type_tag => Datatype::Varchar.new( {:length=>128} ),
         :mime_type => Datatype::Varchar.new( {:length=>128} ),
         :filename => Datatype::Varchar.new( {:length=>256} ),
-        :title => Datatype::Varchar.new( {:length=>64} ),
+        :title => Datatype::Varchar.new( {:length=>256} ),
         :f_public => Datatype::Bool.new( {} ),
         :last_changed => Datatype::Timestamp.new( {} ),
         :filesize => Datatype::Integer.new( {} ),

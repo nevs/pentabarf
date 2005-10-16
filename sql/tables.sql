@@ -874,7 +874,7 @@ CREATE TABLE event_attachment (
   event_id INTEGER NOT NULL,
   mime_type_id INTEGER NOT NULL,
   filename VARCHAR(256),
-  title VARCHAR(64),
+  title VARCHAR(256),
   data BYTEA NOT NULL,
   f_public BOOL NOT NULL DEFAULT FALSE,
   last_changed TIMESTAMP NOT NULL DEFAULT 'now()',
