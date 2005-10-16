@@ -4,7 +4,7 @@ class AdminController < ApplicationController
 
   def initialize
     super
-    @allowed_classes = ['conference_phase', 'conflict', 'transport', 'ui_message']
+    @allowed_classes = ['conference_phase', 'im_type', 'phone_type', 'role', 'conflict', 'transport', 'ui_message']
   end
   
   def index
