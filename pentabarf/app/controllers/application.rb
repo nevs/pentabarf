@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
       # try to get it where mod_rewrite might have put it 
       authdata = @request.env['X-HTTP_AUTHORIZATION'].to_s.split 
     elsif request.env.has_key? 'HTTP_AUTHORIZATION' 
-      # this is the regular location 
+      # try to get it where fastcgi has put it
       authdata = @request.env['HTTP_AUTHORIZATION'].to_s.split  
     elsif request.env.has_key? 'Authorization' 
       # this is the regular location 

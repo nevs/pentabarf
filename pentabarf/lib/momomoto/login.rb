@@ -24,6 +24,10 @@ module Momomoto
 
     def authorize( login_name, password )
       if login_name.to_s != '' && password.to_s != '' && select( { :login_name => login_name } ) == 1
+        if self.password.to_s == ''
+          log_error("User #{self.login_name} tried to login while no password was set.")
+          return false
+        end
         salt = self[0].password[0..15]
         salt_bin = sprintf( "%c%c%c%c%c%c%c%c", salt[0..1].hex, salt[2..3].hex,
                             salt[4..5].hex, salt[6..7].hex, salt[8..9].hex,
@@ -36,6 +40,7 @@ module Momomoto
           return true
         end
       end
+      log_error( "Authorization failed for user #{login_name}" )
       return false
     end
 
