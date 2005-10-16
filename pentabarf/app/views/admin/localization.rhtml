@@ -18,7 +18,7 @@
           <td><%= h(message.tag) %></td>
           <% for lang in @languages %>
             <% @localization[lang.translated_id].find_by_id(@localization_id, message[@localization_id]) %>
-            <td><%= text_field_tag("localization[#{message[@localization_id]}][#{lang.translated_id}]", @localization[lang.translated_id].current_record ? @localization[lang.translated_id].name : '', {:tabindex => 0}) %>
+            <td><%= text_field_tag("localization[#{message[@localization_id]}][#{lang.translated_id}]", @localization[lang.translated_id].current_record ? @localization[lang.translated_id].name : '', {:tabindex => 0, :size => 40}) %>
           <% end %>
         </tr>
       <% end %>

@@ -64,7 +64,7 @@ class AdminController < ApplicationController
   protected
 
     def get_localization_classes( tag )
-      allowed_classes = ['ui_message']
+      allowed_classes = ['ui_message','conflict']
       raise "Localization for this table is not allowed" unless allowed_classes.member?(tag)
       @tag_class = eval "Momomoto::#{tag.capitalize}"
       @localization_class = eval("Momomoto::#{tag.capitalize}_localized")
