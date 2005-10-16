@@ -654,7 +654,7 @@ CREATE TABLE team_localized (
 CREATE TABLE event (
   event_id SERIAL NOT NULL,
   conference_id INTEGER NOT NULL,
-  tag VARCHAR(32),
+  tag VARCHAR(256),
   title VARCHAR(128) NOT NULL,
   subtitle VARCHAR(256),
   conference_track_id INTEGER,

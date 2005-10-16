@@ -7,7 +7,7 @@ module Momomoto
       @fields = {
         :event_id => Datatype::Integer.new( {} ),
         :conference_id => Datatype::Integer.new( {} ),
-        :tag => Datatype::Varchar.new( {:length=>32} ),
+        :tag => Datatype::Varchar.new( {:length=>256} ),
         :title => Datatype::Varchar.new( {:length=>128} ),
         :subtitle => Datatype::Varchar.new( {:length=>256} ),
         :conference_track_id => Datatype::Integer.new( {} ),
