@@ -11,10 +11,9 @@ class AdminController < ApplicationController
 
   def localization
     @content_title = 'Localization'
+    get_localization_classes(params[:id])
+
     @languages = Momomoto::View_language.find({:language_id => @current_language_id, :f_localized => 't'})
-    @tag_class = Momomoto::Ui_message.new
-    @localization_class = Momomoto::Ui_message_localized.new
-    @localization_id = :ui_message_id
     @localization = []
     for lang in @languages 
       @localization[lang.translated_id] = @localization_class.find({:language_id => lang.translated_id})
@@ -22,7 +21,27 @@ class AdminController < ApplicationController
   end
 
   def save_localization
-
+    get_localization_classes(params[:id])
+    message = @localization_class.new
+    params[:localization].each do | id , values |
+      values.each do | language_id, value |
+        message.select({@localization_id => id, :language_id => language_id})
+        if message.length == 1
+          if value.to_s == '' 
+            message.delete
+            next
+          end
+        else
+          next if value.to_s == ''
+          message.create
+          message[@localization_id]= id 
+          message.language_id = language_id
+        end
+        message.name = value
+        message.write
+      end
+    end
+    redirect_to :action => :localization, :id => params[:id]
   end
 
   def save_conflict
@@ -43,6 +62,12 @@ class AdminController < ApplicationController
   end
 
   protected
+
+    def get_localization_classes( tag )
+      @tag_class = Momomoto::Ui_message
+      @localization_class = Momomoto::Ui_message_localized
+      @localization_id = :ui_message_id
+    end
 
     def check_permission
       if @user.permission?('admin_login') || params[:action] == 'meditation'

@@ -264,6 +264,7 @@ module Momomoto
         end
         return true if found
       end
+      @current_record = nil
       false
     end
 
