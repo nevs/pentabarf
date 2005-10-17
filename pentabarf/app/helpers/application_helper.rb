@@ -44,7 +44,7 @@ module ApplicationHelper
     end
     if with_show_all == true
       show_all_msg = Momomoto::View_ui_message.find({:language_id => @current_language_id, :tag => "tabs::show_all"})
-      tabs.push({:tag=>'all',:url=>"javascript:switch_tab('all')", :class=>"tab inactive", :accesskey=>0, :text=> show_all_msg})
+      tabs.push({:tag=>'all',:url=>"javascript:switch_tab('all')", :class=>"tab inactive", :accesskey=>0, :text=> show_all_msg.name})
     end
     html += '</script>'
     
