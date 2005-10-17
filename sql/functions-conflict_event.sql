@@ -17,7 +17,12 @@ CREATE OR REPLACE FUNCTION conflict_event(integer) RETURNS SETOF conflict_event_
              conflict.tag 
         FROM conflict 
              INNER JOIN conflict_type USING (conflict_type_id)
-       WHERE conflict_type.tag = ''event''
+             INNER JOIN conference_phase_conflict USING (conflict_id)
+             INNER JOIN conference USING (conference_phase_id)
+             INNER JOIN conflict_level USING (conflict_level_id)
+       WHERE conflict_type.tag = ''event'' AND
+             conflict_level.tag <> ''silent'' AND
+             conference.conference_id = cur_conference_id
     LOOP
       FOR cur_conflict_event IN
         EXECUTE ''SELECT conflict_id, event_id FROM conflict_'' || cur_conflict.tag || ''('' || cur_conference_id || ''), ( SELECT '' || cur_conflict.conflict_id || '' AS conflict_id) AS conflict_id; ''
