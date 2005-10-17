@@ -23,7 +23,7 @@
     slots = ($1.to_i * 3600 + $2.to_i * 60)/timeslot_seconds
     event.start_time.match(/(\d+):(\d+):\d+/)
     start_seconds = $1.to_i * 3600 + $2.to_i * 60
-    table[event.day - 1][start_seconds/timeslot_seconds][event.room_id] = link_to( "#{event.title}<br/>#{event.subtitle}", url_for(:action=>:event,:id=>event.event_id))
+    table[event.day - 1][start_seconds/timeslot_seconds][event.room_id] = "<td rowspan=\"#{slots}\">" + link_to( "#{event.title}<br/>#{event.subtitle}", url_for(:action=>:event,:id=>event.event_id)) + "</td>"
     slots.times do | i |
       next if i < 1
       table[event.day - 1][start_seconds/timeslot_seconds + i][event.room_id] = 0
@@ -31,7 +31,8 @@
   end
 %>
 
-<% for day_table in table %>
+<% table.each_with_index do | day_table, index | %>
+<h3>Day <%= index + 1 %></h3>
 <table>
   <thead>
     <tr>
@@ -50,7 +51,7 @@
         <% if row[room.room_id].nil? %>
           <td/>
         <% else %>
-          <td><%= row[room.room_id] %></td>
+          <%= row[room.room_id] %>
         <% end %>
       <% end %>
     </tr>
