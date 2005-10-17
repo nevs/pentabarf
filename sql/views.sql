@@ -421,13 +421,10 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.f_public,
           view_language.tag AS language_tag,
           view_language.name AS language,
-          view_event_state.language_id AS translated_id,
-          view_event_state.language_tag AS translated_tag, 
-          view_event_state.tag AS event_state_tag, 
-          view_event_state.name AS event_state, 
-          view_event_state_progress.event_state_progress_id,
-          view_event_state_progress.tag AS event_state_progress_tag,
-          View_event_state_progress.name AS event_state_progress,
+          view_language.language_id AS translated_id,
+          event_state.tag AS event_state_tag, 
+          event_state_progress.event_state_progress_id,
+          event_state_progress.tag AS event_state_progress_tag,
           view_event_type.tag AS event_type_tag, 
           view_event_type.name AS event_type, 
           view_conference_track.tag AS conference_track_tag, 
@@ -435,26 +432,23 @@ CREATE OR REPLACE VIEW view_schedule AS
           (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
           event.start_time + conference.day_change AS real_starttime
      FROM event 
-          INNER JOIN view_event_state USING (event_state_id)
-          INNER JOIN view_event_state_progress ON (
-                event.event_state_progress_id = view_event_state_progress.event_state_progress_id AND
-                view_event_state.language_id = view_event_state_progress.language_id)
+          INNER JOIN event_state USING (event_state_id)
+          INNER JOIN event_state_progress USING (event_state_progress_id)
           INNER JOIN conference USING (conference_id)
-          INNER JOIN view_language ON (
-                event.language_id = view_language.translated_id AND
-                view_event_state.language_id = view_language.language_id)
+          INNER JOIN view_language ON ( 
+                event.language_id = view_language.translated_id )
           LEFT OUTER JOIN view_event_type ON (
                 event.event_type_id = view_event_type.event_type_id AND 
-                view_event_state.language_id = view_event_type.language_id)
+                view_event_type.language_id = view_language.language_id )
           LEFT OUTER JOIN view_conference_track ON (
                 event.conference_track_id = view_conference_track.conference_track_id AND 
-                view_conference_track.language_id = view_event_type.language_id)
+                view_conference_track.language_id = view_language.language_id )
           INNER JOIN view_room ON (
                 event.room_id = view_room.room_id AND
-                view_room.language_id = view_event_type.language_id)
+                view_room.language_id = view_language.language_id )
     WHERE event.day IS NOT NULL AND
           event.start_time IS NOT NULL AND
           event.room_id IS NOT NULL AND
-          view_event_state.tag = 'accepted'
+          event_state.tag = 'accepted'
 ;
-
+ 

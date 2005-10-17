@@ -9,7 +9,12 @@ class PentabarfController < ApplicationController
   end
 
   def index
-    @content_title ='Overview'
+    @content_title = 'Overview'
+  end
+
+  def schedule
+    @content_title = 'Schedule'
+    @events = Momomoto::View_schedule.find({:conference_id => @current_conference_id, :translated_id => @current_language_id})
   end
 
   def find_conference

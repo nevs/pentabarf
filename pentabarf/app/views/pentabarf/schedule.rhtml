@@ -1,0 +1,60 @@
+<% 
+  rooms = Momomoto::View_room.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id}, nil, 'rank')
+  conf = Momomoto::Conference.find({:conference_id=>@current_conference_id})
+  table = []
+  conf.timeslot_duration.match(/^(\d+):(\d+):\d+$/)
+  timeslot_seconds = $1.to_i * 3600 + $2.to_i * 60
+  conf.day_change.match(/^(\d+):(\d+):\d+$/)
+  start = ($1.to_i * 3600) + ($2.to_i * 60)
+  conf.days.times do | i |
+    table[i] = []
+  end
+  table.each_with_index do | day_table, day |
+    current = 0
+    while current < 24 * 60 * 60
+      item = []
+      item.push(sprintf("%02d:%02d", ((current + start)/3600)%24, ((current + start)%3600)/60 ))
+      table[day].push(item)
+      current += timeslot_seconds
+    end
+  end
+  @events.each do | event |
+    event.duration.match(/(\d+):(\d+):\d+/)
+    slots = ($1.to_i * 3600 + $2.to_i * 60)/timeslot_seconds
+    event.start_time.match(/(\d+):(\d+):\d+/)
+    start_seconds = $1.to_i * 3600 + $2.to_i * 60
+    table[event.day - 1][start_seconds/timeslot_seconds][event.room_id] = link_to( "#{event.title}<br/>#{event.subtitle}", url_for(:action=>:event,:id=>event.event_id))
+    slots.times do | i |
+      next if i < 1
+      table[event.day - 1][start_seconds/timeslot_seconds + i][event.room_id] = 0
+    end
+  end
+%>
+
+<% for day_table in table %>
+<table>
+  <thead>
+    <tr>
+      <th>Time</th>
+      <% for room in rooms %>
+        <th><%= h(room.name) %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% day_table.each do | row | %>
+    <tr>
+      <td><%= h(row[0])%></td>
+      <% for room in rooms %>
+        <% next if row[room.room_id] === 0 %>
+        <% if row[room.room_id].nil? %>
+          <td/>
+        <% else %>
+          <td><%= row[room.room_id] %></td>
+        <% end %>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
