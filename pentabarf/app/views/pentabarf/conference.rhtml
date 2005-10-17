@@ -41,7 +41,7 @@
   <div id="content-general" class="content_tab">
 
     <fieldset>
-      <legend>General</legend>
+      <legend><[view_conference::section_general]></legend>
       <table>
         <tr>
           <td><label><[view_conference::acronym]></label></td>
@@ -143,22 +143,21 @@
 
     <fieldset>
       <legend><[view_conference::logo]></legend>
-      (square)
       <%= file_field_tag('conference_image[image]', {:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>
       <%= check_box_tag('conference_image[delete]', 't', false, {:tabindex => 0}) %>
-      <label for="conference_image[delete]">delete picture</label>
+      <label for="conference_image[delete]"><[view_conference::remove_logo]></label>
     </fieldset>
 
   </div>
 
   <div id="content-persons">
     <fieldset>
-      <legend>Teams</legend>
+      <legend><[view_conference::teams]></legend>
       <table id="team_table" class="hidden">
         <thead>
           <tr>
-            <th>Team</th>
-            <th>remove</th>
+            <th><[view_conference::team]></th>
+            <th><[form::remove]></th>
           </tr>
         </thead>
         <tbody id="team_table_body">
@@ -172,18 +171,18 @@
       <button type="button" name="add_team" value="Add Team" title="Add a new team" tabindex="0" onClick="window.add_team();">Add Team</button>
     </fieldset>
     <fieldset>
-      <legend>Persons</legend>
+      <legend><[view_conference::persons]></legend>
     </fieldset>
   </div>
 
   <div id="content-tracks">
     <fieldset>
-      <legend>Tracks</legend>
+      <legend><[view_conference::tracks]></legend>
       <table id="conference_track_table" class="hidden">
         <thead>
           <tr>
-            <th>Track</th>
-            <th>remove</th>
+            <th><[view_conference::track]></th>
+            <th><[form::remove]></th>
           </tr>
         </thead>
         <tbody id="conference_track_table_body">
@@ -207,7 +206,7 @@
             <th>Short Name</th>
             <th>Order</th>
             <th>public</th>
-            <th>remove</th>
+            <th><[form::remove]></th>
           </tr>
         </thead>
         <tbody id="room_table_body">

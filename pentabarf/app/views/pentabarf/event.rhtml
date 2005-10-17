@@ -92,15 +92,15 @@
           <td><%= text_field_tag('event[tag]', @event.tag, {:size => 32, :tabindex => 0} ) %></td>
         </tr>
         <tr>
-          <td><label>Event Origin</label></td>
+          <td><label><[view_event::event_origin]></label></td>
           <td><%= select_tag( 'event[event_origin_id]', Momomoto::View_event_origin.find({:language_id => @current_language_id}), "event_origin_id", "name", @event.event_origin_id, { :tabindex => 0}, false ) %></td>
         </tr>
         <tr>
-          <td><label>Event State</label></td>
+          <td><label><[view_event::event_state]></label></td>
           <td><%= select_tag( 'event[event_state_id]', states = Momomoto::View_event_state.find({:language_id => @current_language_id}), "event_state_id", "name", @event.event_state_id, { :tabindex => 0, :onchange => 'event_state_changed()' }, false ) %></td>
         </tr>
         <tr>
-          <td><label>Event State Progress</label></td>
+          <td><label><[view_event::event_state_progress]></label></td>
           <td><%= select_tag( 'event[event_state_progress_id]', Momomoto::View_event_state_progress.find({:language_id => @current_language_id, :event_state_id => @event.event_state_id}), "event_state_progress_id", "name", @event.event_state_progress_id, { :tabindex => 0 }, false ) %></td>
         </tr>
         <script type="text/javascript">
@@ -113,7 +113,7 @@
           <% end %>
         </script>
         <tr>
-          <td><label>Team</label></td>
+          <td><label><[view_event::team]></label></td>
           <td><%= select_tag( 'event[team_id]', Momomoto::View_team.find({:language_id => @current_language_id, :conference_id => @event.conference_id}), "team_id", "name", @event.team_id, { :tabindex => 0 } ) %></td>
         </tr>
         <tr>
@@ -148,10 +148,10 @@
     </fieldset>
     
     <fieldset>
-      <legend>Fahrplan</legend>
+      <legend><[view_event::schedule]></legend>
       <table>
         <tr>
-          <td><label>Day</label></td>
+          <td><label><[view_event::day]></label></td>
           <td><%= select_tag( 'event[day]', 1..@conference.days, "to_i", "to_i", @event.day, { :tabindex => 0 } ) %></td>
         </tr>
         <tr>
@@ -224,7 +224,7 @@
             <th>Title</th>
             <th>MIME Type</th>
             <th>Upload Time</th>
-            <th>remove</th>
+            <th><[form::remove]></th>
           </tr>
         </thead>
         <tbody>
@@ -278,7 +278,7 @@
           <tr>
             <th colspan="2">URL</th>
             <th>Comment</th>
-            <th>remove</th>
+            <th><[form::remove]></th>
           </tr>
         </thead>
         <tbody id="link_table_body">
@@ -301,7 +301,7 @@
             <th>Link Type</th>
             <th>URL</th>
             <th>Comment</th>
-            <th>remove</th>
+            <th><[form::remove]></th>
           </tr>
         </thead>
         <tbody id="internal_link_table_body">
@@ -463,7 +463,7 @@
         <thead>
           <tr>
             <td>Event Title</td>
-            <td>remove</td>
+            <td><[form::remove]></td>
           </tr>
         </thead>
         <tbody id="related_event_table_body">
