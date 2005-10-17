@@ -147,7 +147,7 @@
       <table>
         <tr>
           <td><label>Gender</label></td>
-          <td><%= select('person', 'gender', {'male' => 't', 'female' => 'f'}, {:include_blank => true}) %></td>
+          <td><%= select('person', 'gender', {'male' => 't', 'female' => 'f'}, {:include_blank => true, :tabindex => 0}) %></td>
         </tr>
         <tr>
           <td><label>Foto</label> (square)</td>
@@ -235,7 +235,7 @@
           add_person_im(<%= person_im.person_im_id %>,<%= person_im.im_type_id %>, '<%= escape_javascript(person_im.im_address) %>');
         <% end %>
       </script>
-      <button type="button" name="add_person_im" value="Add IM Contact" title="Add a new IM contact to list" tabindex="0" onClick="window.add_person_im()">Add IM Address</button>
+      <button type="button" tabindex="0" name="add_person_im" value="Add IM Contact" title="Add a new IM contact to list" tabindex="0" onClick="window.add_person_im()">Add IM Address</button>
     </fieldset>
 
     <fieldset>
@@ -331,7 +331,7 @@
         <tbody id="link_table_body">
         </tbody>
       </table>
-      <button type="button" name="add_link" value="Add Links" title="Add a new link to list of links" tabindex="0" onClick="window.add_link();">Add Link</button>
+      <button type="button" tabindex="0" name="add_link" value="Add Links" title="Add a new link to list of links" onClick="window.add_link();">Add Link</button>
       <script type="text/javascript">
       <% for person_link in Momomoto::Conference_person_link.find( {:conference_person_id => @conference_person.conference_person_id} ) %>
         add_link(<%= person_link.conference_person_link_id  %>, '<%= escape_javascript(person_link.url) %>', '<%= escape_javascript(person_link.description) %>');
