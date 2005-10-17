@@ -176,7 +176,7 @@
         <tbody id="person_language_table_body">
         </tbody>
       </table>
-      <button type="button" onclick="window.add_person_language();">Add Language</button>
+      <button type="button" tabindex="0" onclick="window.add_person_language();">Add Language</button>
       <script type="text/javascript">
         var languages = new Array();
         <% for language in Momomoto::View_language.find({:language_id => @current_language_id, :f_visible => 't'}) %>
