@@ -1,4 +1,4 @@
-<%= content_tabs_js(['general','persons','description','links','rating','resources','related','feedback'],'view_event') %>
+<%= content_tabs_js(['general','persons','description','links','schedule', 'rating','resources','related','feedback'],'view_event') %>
 <script type="text/javascript">
   function send_content()
   {
@@ -148,49 +148,6 @@
     </fieldset>
     
     <fieldset>
-      <legend><[view_event::schedule]></legend>
-      <table>
-        <tr>
-          <td><label><[view_event::day]></label></td>
-          <td><%= select_tag( 'event[day]', 1..@conference.days, "to_i", "to_i", @event.day, { :tabindex => 0 } ) %></td>
-        </tr>
-        <tr>
-          <td><label>Start Time</label></td>
-          <% key = Time.parse("00:00:00")
-             current = Time.parse(@conference.day_change)
-             diff = Time.parse(@conference.timeslot_duration)
-             offset = diff.hour * 3600 + diff.min * 60 + diff.sec
-             start_times = []
-             passed = 0
-             while passed < (24*60*60)
-               start_times.push( { :key => key.strftime("%H:%M:%S"), :value => current.strftime("%H:%M")})
-               passed += offset
-               current += offset
-               key += offset
-             end
-          %>
-          <td><%= select_tag( 'event[start_time]', start_times, :key, :value, @event.start_time, { :tabindex => 0 } ) %></td>
-        </tr>
-        <tr>
-          <td><label>Duration</label></td>
-          <%  diff = Time.parse(@conference.timeslot_duration)
-              slot = diff.hour * 3600 + diff.min * 60 + diff.sec
-              durations = []
-              for i in 1..@conference.max_timeslot_duration
-                durations.push( { :key => diff.strftime("%H:%M:%S"), :value => diff.strftime("%H:%M")})
-                diff += slot
-              end
-          %>
-          <td><%= select_tag( 'event[duration]', durations, :key, :value, @event.duration, { :tabindex => 0 }, false ) %></td>
-        </tr>
-        <tr>
-          <td><label>Room</label></td>
-          <td><%= select_tag( 'event[room_id]', Momomoto::View_room.find({:language_id => @current_language_id, :conference_id => @event.conference_id}), :room_id, :name, @event.room_id, { :tabindex => 0 } ) %></td>
-        </tr>
-      </table>
-    </fieldset>
-
-    <fieldset>
       <legend>Logo</legend>
       (square)
       <%= file_field_tag('event_image[image]',{:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>
@@ -321,6 +278,52 @@
       <% end %>
     </script>
 
+  </div>
+
+  <div id="content-schedule" class="content_tab">
+
+    <fieldset>
+      <legend><[view_event::schedule]></legend>
+      <table>
+        <tr>
+          <td><label><[view_event::day]></label></td>
+          <td><%= select_tag( 'event[day]', 1..@conference.days, "to_i", "to_i", @event.day, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Start Time</label></td>
+          <% key = Time.parse("00:00:00")
+             current = Time.parse(@conference.day_change)
+             diff = Time.parse(@conference.timeslot_duration)
+             offset = diff.hour * 3600 + diff.min * 60 + diff.sec
+             start_times = []
+             passed = 0
+             while passed < (24*60*60)
+               start_times.push( { :key => key.strftime("%H:%M:%S"), :value => current.strftime("%H:%M")})
+               passed += offset
+               current += offset
+               key += offset
+             end
+          %>
+          <td><%= select_tag( 'event[start_time]', start_times, :key, :value, @event.start_time, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Duration</label></td>
+          <%  diff = Time.parse(@conference.timeslot_duration)
+              slot = diff.hour * 3600 + diff.min * 60 + diff.sec
+              durations = []
+              for i in 1..@conference.max_timeslot_duration
+                durations.push( { :key => diff.strftime("%H:%M:%S"), :value => diff.strftime("%H:%M")})
+                diff += slot
+              end
+          %>
+          <td><%= select_tag( 'event[duration]', durations, :key, :value, @event.duration, { :tabindex => 0 }, false ) %></td>
+        </tr>
+        <tr>
+          <td><label>Room</label></td>
+          <td><%= select_tag( 'event[room_id]', Momomoto::View_room.find({:language_id => @current_language_id, :conference_id => @event.conference_id}), :room_id, :name, @event.room_id, { :tabindex => 0 } ) %></td>
+        </tr>
+      </table>
+    </fieldset>
   </div>
 
   <div id="content-rating" class="content_tab">
