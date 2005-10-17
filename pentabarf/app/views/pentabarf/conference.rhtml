@@ -44,31 +44,31 @@
       <legend>General</legend>
       <table>
         <tr>
-          <td><label>Acronym</label></td>
+          <td><label><[view_event::acronym]></label></td>
           <td><%= text_field_tag('conference[acronym]', @conference.acronym, {:size => 10, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label>Title</label></td>
+          <td><label><[view_event::title]></label></td>
           <td><%= text_field_tag('conference[title]', @conference.title, {:size => 60, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label>Subtitle</label></td>
+          <td><label><[view_event::subtitle]></label></td>
           <td><%= text_field_tag('conference[subtitle]', @conference.subtitle, {:size => 60, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label>Conference Phase</label></td>
+          <td><label><[view_event::conference_phase]></label></td>
           <td><%= select_tag('conference[conference_phase_id]', Momomoto::View_conference_phase.find({:language_id => @current_language_id}), :conference_phase_id, :name, @conference.conference_phase_id, {:tabindex=>0}, false) %></td>
         </tr>
         <tr>
-          <td><label>Venue</label></td>
+          <td><label><[view_event::venue]></label></td>
           <td><%= text_field_tag('conference[venue]', @conference.venue, {:size => 40, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label>City</label></td>
+          <td><label><[view_event::city]></label></td>
           <td><%= text_field_tag('conference[city]', @conference.city, {:size => 40, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label>Country</label></td>
+          <td><label><[view_event::country]></label></td>
           <td>
             <%= select_tag( 'conference[country_id]', 
                         Momomoto::View_country.find( { :language_id => @current_language_id } ), 
@@ -79,7 +79,7 @@
           </td>
         </tr>
         <tr>
-          <td><label>Start Date</label></td>
+          <td><label><[view_event::start_date]></label></td>
           <td>
             <%= text_field_tag('conference[start_date]', @conference.start_date, { :size => 12, :tabindex => 0 } ) %>
             <button type="button" id="calendar_start_date">...</button>
@@ -95,19 +95,19 @@
           </td>
         </tr>
         <tr>
-          <td><label>Duration</label></td>
+          <td><label><[view_event::duration]></label></td>
           <td>
             <%= select_tag( 'conference[days]', 1..20, 'to_i', 'to_i', @conference.days, { :tabindex => 0 }, false ) %>
           </td>
         </tr>
         <tr>
-          <td><label>Time Zone</label></td>
+          <td><label><[view_event::time_zone]></label></td>
           <td>
             <%= select_tag( 'conference[time_zone_id]', Momomoto::View_time_zone.find( {:language_id => @current_language_id} ), 'time_zone_id', 'name', @conference.time_zone_id, { :tabindex => 0 } ) %>
           </td>
         </tr>
         <tr>
-          <td><label>Currency</label></td>
+          <td><label><[view_event::currency]></label></td>
           <td>
             <%= select_tag( 'conference[currency_id]', 
                             Momomoto::View_currency.find( {:language_id => @current_language_id} ), 
@@ -115,7 +115,7 @@
           </td>
         </tr>
         <tr>
-          <td><label>Timeslot Duration</label></td>
+          <td><label><[view_event::timeslot_duration]></label></td>
           <td>
             <%= select_tag( 'conference[timeslot_duration]', 
                             ['00:05:00', '00:10:00', '00:15:00', '00:20:00', '00:25:00', '00:30:00', '01:00:00'], 
@@ -123,7 +123,7 @@
           </td>
         </tr>
         <tr>
-          <td><label>Maximum Timeslots per Event</label></td>
+          <td><label><[view_event::max_timeslots_per_event]></label></td>
           <td>
             <%= select_tag( 'conference[max_timeslot_duration]', 1..20, 
                             'to_i', 'to_i', @conference.max_timeslot_duration, 
@@ -131,7 +131,7 @@
           </td>
         </tr>
         <tr>
-          <td><label>Day Change</label></td>
+          <td><label><[view_event::day_change]></label></td>
           <td>
             <%= select_tag( 'conference[day_change]', 
                             (0..23).to_a.collect {|x| sprintf('%02d:00:00',x)}, 
@@ -142,7 +142,7 @@
     </fieldset>
 
     <fieldset>
-      <legend>Logo</legend>
+      <legend><[view_event::logo]></legend>
       (square)
       <%= file_field_tag('conference_image[image]', {:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>
       <%= check_box_tag('conference_image[delete]', 't', false, {:tabindex => 0}) %>
