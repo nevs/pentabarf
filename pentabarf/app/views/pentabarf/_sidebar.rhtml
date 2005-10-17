@@ -16,6 +16,7 @@
       <%= link_to( '<[link::recent_changes]>', { :action => :recent_changes }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::reports]>', { :action => :reports }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::conflicts]>', { :action => :conflicts }, { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::schedule]>', { :action => :schedule}, { :class => 'menu-item' } ) %>
       <% if @user.permission?('admin_login') %>
         <%= link_to( '<[link::admin]>', url_for({:controller=>'admin'}), { :class => 'menu-item' } ) %>
       <% end %>
