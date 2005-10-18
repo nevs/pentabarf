@@ -229,7 +229,7 @@ module Momomoto
         @fields.each do | key , value | 
           next if value.property(:virtual)
           fields += fields != '' ? ', ' : ''
-          fields += key.to_s
+          fields += "\"#{key.to_s}\""
         end
         sql = "SELECT #{fields} FROM #{@table}"
       end
