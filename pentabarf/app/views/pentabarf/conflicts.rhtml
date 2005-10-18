@@ -1,9 +1,13 @@
-<%= content_tabs_js(['note','warning','error','fatal'],'conflicts') %>
 <div id="object-image">
   <%= image_tag('icon-list-64x64.png', { :class => 'object-image' } ) %>
 </div>
 <% 
-  levels = Momomoto::View_conflict_level.find({:language_id => @current_language_id})
+  levels = Momomoto::View_conflict_level.find({:language_id => @current_language_id}, nil, 'rank DESC')
+  level_tabs = []
+  levels.each do | level |
+    next if level.tag == 'silent'
+    level_tabs.push( level.tag )
+  end
   conf = Momomoto::Conference.find({:conference_id => @current_conference_id}) 
   conflicts = []
   process_conflicts( Momomoto::View_conflict_person.find({:conference_id => @current_conference_id, :language_id => @current_language_id, :conference_phase_id => conf.conference_phase_id}), conflicts )
@@ -12,30 +16,33 @@
   process_conflicts( Momomoto::View_conflict_event_person.find({:conference_id => @current_conference_id, :language_id => @current_language_id, :conference_phase_id => conf.conference_phase_id}), conflicts )
   process_conflicts( Momomoto::View_conflict_event_person_event.find({:conference_id => @current_conference_id, :language_id => @current_language_id, :conference_phase_id => conf.conference_phase_id}), conflicts )
 %>
+<%= content_tabs_js(level_tabs, 'view_conflict') %>
 
 <div id="data">
 
 <% for level in levels %>
   <% next if level.tag == 'silent' %>
-  <h3><%= h(level.name) %></h3>
-  <table>
-    <thead>
-      <tr>
-        <th colspan="2"></th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for conflict in conflicts %>
-        <% next unless conflict[:level] == level.tag %>
+  <div id="content-<%= h(level.tag) %>" class="content_tab">
+    <h3><%= h(level.name) %></h3>
+    <table>
+      <thead>
         <tr>
-          <td><a href="<%= conflict[:url]%>"><img src="<%= conflict[:img] %>" height="24" width="24"/></a></td>
-          <td><%= conflict[:who] %></td>
-          <td><a href="<%= conflict[:url]%>"><%= h(conflict[:desc]) %></a></td>
+          <th colspan="2"></th>
+          <th>Description</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% for conflict in conflicts %>
+          <% next unless conflict[:level] == level.tag %>
+          <tr>
+            <td><a href="<%= conflict[:url]%>"><img src="<%= conflict[:img] %>" height="24" width="24"/></a></td>
+            <td><%= conflict[:who] %></td>
+            <td><a href="<%= conflict[:url]%>"><%= h(conflict[:desc]) %></a></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>
-
+<%= javascript_tag('switch_tab();') %>
 </div>
