@@ -24,24 +24,28 @@ module ApplicationHelper
   def content_tabs_js( tabs_simple, environment = nil, with_show_all = true )
     html = '<script type="text/javascript">'
     html += 'var tab_name = new Array();'
+    tabs_ui = []
     if environment
-      tabs_ui = tabs_simple.collect { | tab_name | "#{environment}::tab_#{tab_name}" } 
-      tabs_ui.push( 'tabs::show_all' ) if with_show_all == true
-      tabs_local = Momomoto::View_ui_message.find({:language_id => @current_language_id, :tag => tabs_ui})
+      tabs_ui = tabs_simple.collect do | tab_name | 
+        "#{environment}::tab_#{tab_name.kind_of?(Hash) ? tab_name[:tag] : tab_name}"
+      end
     end
+    tabs_ui.push( 'tabs::show_all' ) if with_show_all == true
+    tabs_local = Momomoto::View_ui_message.find({:language_id => @current_language_id, :tag => tabs_ui}) if environment || with_show_all
     tabs = []
     tabs_simple.each_with_index do | tab_name, index |
       tabs[index] = {}
-      tabs[index][:tag] = tab_name
-      tabs[index][:url] = "javascript:switch_tab('#{tab_name}');"
+      cur_tab_name = tab_name.kind_of?(Hash) ? tab_name[:tag] : tab_name
+      tabs[index][:tag] = cur_tab_name
+      tabs[index][:url] = tab_name.kind_of?(Hash) && tab_name[:url] ? tab_name[:url] : "javascript:switch_tab('#{cur_tab_name}');"
       tabs[index][:class] = "tab inactive"
       tabs[index][:accesskey] = index + 1
       if environment && tabs_local.find_by_id(:tag, "#{environment}::tab_#{tab_name}")
         tabs[index][:text] = tabs_local.name
       else
-        tabs[index][:text] = tab_name
+        tabs[index][:text] = tab_name.kind_of?(Hash) && tab_name[:text] ? tab_name[:text] : cur_tab_name
       end
-      html += "tab_name[#{index}] = '#{tab_name}';"
+      html += "tab_name[#{index}] = '#{cur_tab_name}';"
     end
     if with_show_all == true
       tabs_local.find_by_id( :tag, 'tabs::show_all')
