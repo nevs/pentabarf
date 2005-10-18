@@ -1,0 +1,34 @@
+<h3>Expenses</h3>
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Name</th>
+      <th>Fee</th>
+      <th>Travel Cost</th>
+      <th>Accommodation Cost</th>
+      <th>Summe</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% for e in @expenses %>
+    <tr>
+      <td>
+        <%= link_to( image_tag("/image/person/#{e.person_id.to_s + '-24x24'}", {:size => "24x24"} ), :action => 'person', :id => e.person_id ) %>
+      </td>
+      <td><%= e.name %></td>
+      <td><%= e.fee %> <%= e.fee_currency_name if e.fee.to_f > 0.0 %></td>
+      <td><%= e.travel_cost %> <%= e.travel_currency_name if e.travel_cost.to_f > 0.0 %></td>
+      <td><%= e.accommodation_cost %> <%= e.accommodation_currency_name if e.accommodation_cost.to_f > 0.0 %></td>
+      <td><%= sum = e.travel_cost.to_f + e.accommodation_cost.to_f %></td>
+    </tr>
+  <% end %>
+    <tr>
+      <td>Summe</td>
+      <td/>
+      <td/>
+      <td/>
+      <td/>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
