@@ -26,13 +26,14 @@ module ApplicationHelper
     html += 'var tab_name = new Array();'
     if environment
       tabs_ui = tabs_simple.collect { | tab_name | "#{environment}::tab_#{tab_name}" } 
+      tabs_ui.push( 'tabs::show_all' ) if with_show_all == true
       tabs_local = Momomoto::View_ui_message.find({:language_id => @current_language_id, :tag => tabs_ui})
     end
     tabs = []
     tabs_simple.each_with_index do | tab_name, index |
       tabs[index] = {}
       tabs[index][:tag] = tab_name
-      tabs[index][:url] = "javascript:switch_tab('#{tab_name}')"
+      tabs[index][:url] = "javascript:switch_tab('#{tab_name}');"
       tabs[index][:class] = "tab inactive"
       tabs[index][:accesskey] = index + 1
       if environment && tabs_local.find_by_id(:tag, "#{environment}::tab_#{tab_name}")
@@ -43,8 +44,8 @@ module ApplicationHelper
       html += "tab_name[#{index}] = '#{tab_name}';"
     end
     if with_show_all == true
-      show_all_msg = Momomoto::View_ui_message.find({:language_id => @current_language_id, :tag => "tabs::show_all"})
-      tabs.push({:tag=>'all',:url=>"javascript:switch_tab('all')", :class=>"tab inactive", :accesskey=>0, :text=> show_all_msg.name})
+      tabs_local.find_by_id( :tag, 'tabs::show_all')
+      tabs.push({:tag=>'all',:url=>"javascript:switch_tab('all')", :class=>"tab inactive", :accesskey=>0, :text=> tabs_local.current_record ? tabs_local.name : 'show all'})
     end
     html += '</script>'
     
