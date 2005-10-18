@@ -2,6 +2,15 @@
   <%= image_tag('icon-list-64x64.png', { :class => 'object-image' } ) %>
 </div>
 
+<%= content_tabs_js([{:tag => 'expenses', :url => "javascript:b=new Ajax.Updater('report','#{url_for(:action=>:report_expenses)}');switch_tab('expenses');b.updateContent();"}, {:tag => 'pickup', :url => "javascript:b=new Ajax.Updater('report','#{url_for(:action=>:report_pickup,:id => -1)}');switch_tab('pickup');b.updateContent();"}], 'view_reports', false ) %>
+
 <div id="data">
-  
+  <fieldset id="report">
+    <script type="text/javascript">
+      <% tab = @request.env['HTTP_COOKIE'] && @request.env['HTTP_COOKIE'].match(/:reports=([a-z]+):/) ? $1 : 'expenses' %>
+      report = new Ajax.Updater('report', '<%= url_for(:action => "report_#{tab}") %>' );
+      switch_tab('<%= tab %>');
+      report.updateContent();
+    </script>
+  </fieldset>
 </div>
