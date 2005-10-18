@@ -6,8 +6,10 @@
   timeslot_seconds = $1.to_i * 3600 + $2.to_i * 60
   conf.day_change.match(/^(\d+):(\d+):\d+$/)
   start = ($1.to_i * 3600) + ($2.to_i * 60)
+  day_tabs = []
   conf.days.times do | i |
     table[i] = []
+    day_tabs.push({:tag => "day_#{i+1}", :text => "<[day]> #{i+1}"})
   end
   table.each_with_index do | day_table, day |
     current = 0
@@ -31,31 +33,38 @@
   end
 %>
 
+<div id="data">
+<%= content_tabs_js(day_tabs) %>
+
 <% table.each_with_index do | day_table, index | %>
-<h3>Day <%= index + 1 %></h3>
-<table>
-  <thead>
-    <tr>
-      <th>Time</th>
-      <% rooms.each do | room | %>
-        <th><%= h(room.name) %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% day_table.each do | row | %>
-    <tr>
-      <td><%= h(row[0])%></td>
-      <% rooms.each do | room | %>
-        <% next if row[room.room_id] === 0 %>
-        <% if row[room.room_id].nil? %>
-          <td/>
-        <% else %>
-          <%= row[room.room_id] %>
+<div id="content-day_<%= index + 1 %>" class="content_tab">
+  <h3>Day <%= index + 1 %></h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <% rooms.each do | room | %>
+          <th><%= h(room.name) %></th>
         <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% day_table.each do | row | %>
+      <tr>
+        <td><%= h(row[0])%></td>
+        <% rooms.each do | room | %>
+          <% next if row[room.room_id] === 0 %>
+          <% if row[room.room_id].nil? %>
+            <td/>
+          <% else %>
+            <%= row[room.room_id] %>
+          <% end %>
+        <% end %>
+      </tr>
       <% end %>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 <% end %>
+<%= javascript_tag("switch_tab('');") %>
+</div>
