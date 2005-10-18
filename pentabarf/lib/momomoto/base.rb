@@ -24,13 +24,13 @@ module Momomoto
   class Momomoto_Error < StandardError
   end
 
-  class Connection_failed < MomomotoError
+  class Connection_failed < Momomoto_Error
   end
 
-  class Connection_not_established < MomomotoError
+  class Connection_not_established < Momomoto_Error
   end
 
-  class Permission_Error < MomomotoError
+  class Permission_Error < Momomoto_Error
   end
 
   class Base
