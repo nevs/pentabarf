@@ -6,12 +6,6 @@
   <div id="menu">
   
     <div class="menu-item-group">
-      <%= start_form_tag( {}, { :class => "menu-text"} ) %>
-        <%= select_tag("current_conference_id", Momomoto::Conference.find(), :conference_id, :acronym, @current_conference_id, {:tabindex => 0, :onchange => "submit()"}, false ) %>
-      <%= end_form_tag() %>
-    </div>
-    
-    <div class="menu-item-group">
       <%= link_to( '<[link::startpage]>', {:controller => 'pentabarf', :action => :index }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::conflict_setup]>', { :action => :conflict }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::localization]>', { :action => :localization}, { :class => 'menu-item' } ) %>
@@ -19,7 +13,7 @@
     </div>
   
     <div class="menu-item-group">
-      <%= link_to( '<[link::pentabarf_wiki]>', 'https://pentabarf.org/wiki/', { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::pentabarf_wiki]>', 'https://pentabarf.org/mediawiki/', { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::pentabarf_bugtracker]>', 'https://trac.cccv.de/pentabarf/timeline', { :class => 'menu-item' } ) %>
     </div>
   </div>
