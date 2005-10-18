@@ -503,7 +503,7 @@
               </tr>
               <tr>
                 <td><label>Time</label></td>
-                <td><%= text_field_tag('person_travel[arrival_time]', @person_travel.arrival_time, {:tabindex => 0}) %></td>
+                <td><%= text_field_tag('person_travel[arrival_time]', @person_travel.arrival_time ? @person_travel.arrival_time.strftime('%H:%M:%S') : nil, {:tabindex => 0}) %></td>
               </tr>
               <tr>
                 <td><label>Number</label></td>
@@ -551,7 +551,7 @@
               </tr>
               <tr>
                 <td><label>Time</label></td>
-                <td><%= text_field_tag('person_travel[departure_time]', @person_travel.departure_time, {:tabindex => 0}) %></td>
+                <td><%= text_field_tag('person_travel[departure_time]', @person_travel.departure_time ? @person_travel.departure_time.strftime('%H:%M:%S') : nil, {:tabindex => 0}) %></td>
               </tr>
               <tr>
                 <td><label>Number</label></td>

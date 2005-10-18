@@ -135,7 +135,7 @@
           <td>
             <%= select_tag( 'conference[day_change]', 
                             (0..23).to_a.collect {|x| sprintf('%02d:00:00',x)}, 
-                            'to_s', 'to_s', @conference.day_change, { :tabindex => 0 } ) %>
+                            'to_s', 'to_s', @conference.day_change.strftime('%H:%M:%S'), { :tabindex => 0 } ) %>
           </td>
         </tr>
       </table>

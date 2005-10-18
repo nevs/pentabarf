@@ -292,7 +292,7 @@
         <tr>
           <td><label>Start Time</label></td>
           <% key = Time.parse("00:00:00")
-             current = Time.parse(@conference.day_change)
+             current = @conference.day_change
              diff = Time.parse(@conference.timeslot_duration)
              offset = diff.hour * 3600 + diff.min * 60 + diff.sec
              start_times = []

@@ -46,6 +46,7 @@ ADDITIONAL_LOAD_PATHS.reverse.each { |dir| $:.unshift(dir) if File.directory?(di
 # Require Rails libraries.
 require 'rubygems' unless File.directory?("#{RAILS_ROOT}/vendor/rails")
 
+require 'time'
 require 'active_support'
 require 'active_record'
 require 'action_controller'
@@ -56,7 +57,6 @@ require 'momomoto/login'
 require 'momomoto/tables'
 require 'momomoto/views'
 require 'momomoto/views-conflict'
-require 'time'
 
 # Environment-specific configuration.
 require_dependency "environments/#{RAILS_ENV}"
