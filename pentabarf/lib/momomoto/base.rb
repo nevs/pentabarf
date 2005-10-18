@@ -21,6 +21,18 @@ require 'datatype/varchar.rb'
 
 module Momomoto 
 
+  class Momomoto_Error < StandardError
+  end
+
+  class Connection_failed < MomomotoError
+  end
+
+  class Connection_not_established < MomomotoError
+  end
+
+  class Permission_Error < MomomotoError
+  end
+
   class Base
     
     private
@@ -131,7 +143,7 @@ module Momomoto
         @@connection = PGconn.connect( config['host'], config['port'], nil, nil, 
                                        config['database'], config['username'], config['password'])
       rescue => e
-        raise "Connection to Database failed." 
+        raise Connection_failed
       end
       true
     end
@@ -435,7 +447,7 @@ module Momomoto
     private
       
     def execute( sql )
-      raise "Connection to Database has not yet been established." if @@connection == nil
+      raise Connection_not_established if @@connection == nil
       begin
         @@connection.exec( sql )
       rescue => e
