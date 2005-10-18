@@ -54,7 +54,7 @@ function switch_tab( tag ) {
   }
   if (tag == "all" && document.getElementById("tab-all")) {
     document.getElementById("tab-all").setAttribute("class", "tab active");
-  } else {
+  } else if ( document.getElementById("tab-all") ) {
     document.getElementById("tab-all").setAttribute("class", "tab inactive");
   }
 }
