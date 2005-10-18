@@ -481,7 +481,7 @@ CREATE TABLE person_rating (
 CREATE TABLE person_travel (
   person_id INTEGER NOT NULL,
   conference_id INTEGER NOT NULL,
-  arrival_transport_id INTEGER,
+  arrival_transport_id INTEGER NOT NULL,
   arrival_from VARCHAR(64),
   arrival_to VARCHAR(64),
   arrival_number VARCHAR(32),
@@ -489,7 +489,7 @@ CREATE TABLE person_travel (
   arrival_time TIME(0) WITH TIME ZONE,
   f_arrival_pickup BOOL NOT NULL DEFAULT FALSE,
   f_departure_pickup BOOL NOT NULL DEFAULT FALSE,
-  departure_transport_id INTEGER,
+  departure_transport_id INTEGER NOT NULL,
   departure_from VARCHAR(64),
   departure_to VARCHAR(64),
   departure_number VARCHAR(32),

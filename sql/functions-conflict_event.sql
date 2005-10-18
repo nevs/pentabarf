@@ -10,7 +10,6 @@ CREATE OR REPLACE FUNCTION conflict_event(integer) RETURNS SETOF conflict_event_
     cur_conflict RECORD;
 
   BEGIN
-
     FOR cur_conflict IN
       SELECT conflict.conflict_id, 
              conflict.conflict_type_id, 
