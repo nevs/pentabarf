@@ -96,6 +96,7 @@ class PentabarfController < ApplicationController
   def transform_advanced_search_conditions( search )
     conditions = {}
     search.each do | key, value |
+      next if value[:type].nil?
       if conditions[value[:type].to_sym]
         if conditions[value[:type].to_sym].kind_of?(Array)
           conditions[value[:type].to_sym].push(value[:value])
