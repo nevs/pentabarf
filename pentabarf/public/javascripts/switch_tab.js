@@ -9,7 +9,7 @@ function switch_tab( tag ) {
   }
   
   // get variable name for cookie index
-  var cookieVarNameFilter = /^.*\/pentabarf\/([a-zA-Z0-9-_]+)\/.*$/;
+  var cookieVarNameFilter = /^.*\/pentabarf\/([a-zA-Z0-9-_]+).*$/;
   cookieVarNameFilter.exec(page_url);
   
   var realm = '';
