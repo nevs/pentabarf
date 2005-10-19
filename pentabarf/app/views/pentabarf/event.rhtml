@@ -304,7 +304,7 @@
                key += offset
              end
           %>
-          <td><%= select_tag( 'event[start_time]', start_times, :key, :value, @event.start_time.strftime('%H:%M:%S'), { :tabindex => 0 } ) %></td>
+          <td><%= select_tag( 'event[start_time]', start_times, :key, :value, @event.start_time ? @event.start_time.strftime('%H:%M:%S') : nil , { :tabindex => 0 } ) %></td>
         </tr>
         <tr>
           <td><label>Duration</label></td>
