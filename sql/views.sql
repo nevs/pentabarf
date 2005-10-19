@@ -430,7 +430,9 @@ CREATE OR REPLACE VIEW view_schedule AS
           view_conference_track.tag AS conference_track_tag, 
           view_conference_track.name AS conference_track, 
           (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
-          event.start_time + conference.day_change AS real_starttime
+          event.start_time + conference.day_change AS real_starttime,
+          view_room.tag AS room_tag,
+          view_room.name AS room
      FROM event 
           INNER JOIN event_state USING (event_state_id)
           INNER JOIN event_state_progress USING (event_state_progress_id)
@@ -458,10 +460,13 @@ CREATE OR REPLACE VIEW view_expenses AS
          conference_id,
          travel_cost,
          travel_currency_id,
+         travel_currency.name AS travel_currency_name,
          accommodation_cost,
          accommodation_currency_id,
+         accommodation_currency.name AS accommodation_currency_name,
          fee,
          fee_currency_id,
+         fee_currency.name AS fee_currency_name,
          travel_currency.language_id
     FROM person_travel
          INNER JOIN view_person USING (person_id)
