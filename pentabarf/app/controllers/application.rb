@@ -62,6 +62,20 @@ class ApplicationController < ActionController::Base
     end 
   end 
 
+  def fold 
+    max_octets = 70
+    folded_body = ""
+    response.body.each_line do | line |
+      while line.length > max_octets do
+        folded_body += line[0..(max_octets - 1)]
+        folded_body += "\r\n "
+        line = line[max_octets..line.length]
+      end
+      folded_body += line
+    end
+    response.body = folded_body
+  end 
+
   def rescue_action_in_public( exception )
     render :file => '../app/views/meditation.rhtml'
   end
