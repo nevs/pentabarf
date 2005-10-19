@@ -33,7 +33,7 @@
       </thead>
       <tbody>
         <% for conflict in conflicts %>
-          <% next unless conflict[:level] == level.tag %>
+          <% next unless conflict[:level_tag] == level.tag %>
           <tr>
             <td><a href="<%= conflict[:url]%>"><img src="<%= conflict[:img] %>" height="24" width="24"/></a></td>
             <td><%= conflict[:who] %></td>
