@@ -47,6 +47,7 @@ ADDITIONAL_LOAD_PATHS.reverse.each { |dir| $:.unshift(dir) if File.directory?(di
 require 'rubygems' unless File.directory?("#{RAILS_ROOT}/vendor/rails")
 
 require 'time'
+require 'date'
 require 'active_support'
 require 'active_record'
 require 'action_controller'

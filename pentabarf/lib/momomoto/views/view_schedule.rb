@@ -31,7 +31,7 @@ module Momomoto
         :event_type => Datatype::Varchar.new( {} ),
         :conference_track_tag => Datatype::Varchar.new( {:length=>32} ),
         :conference_track => Datatype::Varchar.new( {} ),
-        :start_datetime => Datatype::Timestamp.new( {} ),
+        :start_datetime => Datatype::Datetime.new( {} ),
         :real_starttime => Datatype::Time.new( {} )
       }
     end

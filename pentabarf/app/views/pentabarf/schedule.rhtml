@@ -2,8 +2,7 @@
   rooms = Momomoto::View_room.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id}, nil, 'rank')
   conf = Momomoto::Conference.find({:conference_id=>@current_conference_id})
   table = []
-  conf.timeslot_duration.match(/^(\d+):(\d+):\d+$/)
-  timeslot_seconds = $1.to_i * 3600 + $2.to_i * 60
+  timeslot_seconds = conf.timeslot_duration.hour * 3600 + conf.timeslot_duration.min * 60
   start = (conf.day_change.hour * 3600) + (conf.day_change.min * 60)
   day_tabs = []
   conf.days.times do | i |
@@ -20,10 +19,8 @@
     end
   end
   @events.each do | event |
-    event.duration.match(/(\d+):(\d+):\d+/)
-    slots = ($1.to_i * 3600 + $2.to_i * 60)/timeslot_seconds
-    event.start_time.match(/(\d+):(\d+):\d+/)
-    start_seconds = $1.to_i * 3600 + $2.to_i * 60
+    slots = (event.duration.hour * 3600 + event.duration.min * 60)/timeslot_seconds
+    start_seconds = event.start_time.hour * 3600 + event.start_time.min * 60
     table[event.day - 1][start_seconds/timeslot_seconds][event.room_id] = "<td rowspan=\"#{slots}\">" + link_to( "#{h(event.title)}<br/>#{(event.subtitle)}", url_for(:action=>:event,:id=>event.event_id)) + "</td>"
     slots.times do | i |
       next if i < 1

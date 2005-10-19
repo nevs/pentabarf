@@ -293,7 +293,7 @@
           <td><label>Start Time</label></td>
           <% key = Time.parse("00:00:00")
              current = @conference.day_change
-             diff = Time.parse(@conference.timeslot_duration)
+             diff = @conference.timeslot_duration
              offset = diff.hour * 3600 + diff.min * 60 + diff.sec
              start_times = []
              passed = 0
@@ -304,11 +304,11 @@
                key += offset
              end
           %>
-          <td><%= select_tag( 'event[start_time]', start_times, :key, :value, @event.start_time, { :tabindex => 0 } ) %></td>
+          <td><%= select_tag( 'event[start_time]', start_times, :key, :value, @event.start_time.strftime('%H:%M:%S'), { :tabindex => 0 } ) %></td>
         </tr>
         <tr>
           <td><label>Duration</label></td>
-          <%  diff = Time.parse(@conference.timeslot_duration)
+          <%  diff = @conference.timeslot_duration
               slot = diff.hour * 3600 + diff.min * 60 + diff.sec
               durations = []
               for i in 1..@conference.max_timeslot_duration
@@ -316,7 +316,7 @@
                 diff += slot
               end
           %>
-          <td><%= select_tag( 'event[duration]', durations, :key, :value, @event.duration, { :tabindex => 0 }, false ) %></td>
+          <td><%= select_tag( 'event[duration]', durations, :key, :value, @event.duration.strftime('%H:%M:%S'), { :tabindex => 0 }, false ) %></td>
         </tr>
         <tr>
           <td><label>Room</label></td>
