@@ -1,4 +1,9 @@
-<h3>Paper (<%= @paper.length %> Events)</h3>
+<% submit_count = 0
+   @paper.each do | p |
+    submit_count += 1 if p.paper_submitted > 0
+   end
+%>
+<h3>Paper (<%= submit_count %> / <%= @paper.length %>)</h3>
 <table>
   <thead>
     <tr>
