@@ -103,19 +103,25 @@ class ApplicationController < ActionController::Base
   end
 
   def self.jabber_message( text )
-    config = YAML.load_file( '../config/jabber.yml' )
+    begin
+      config = YAML.load_file( '../config/jabber.yml' )
+    rescue
+      return
+    end
 
-    config['recipients'].each do | recipient |
-      msg = Jabber::Message.new(Jabber::JID.new(recipient))
-      msg.set_type(:chat)
-      msg.set_body( text )
-      begin
-        sock = UNIXSocket.open(config['daemon']['socket_path'])
-        sock.send(msg.to_s, 0)
-        sock.close
-      rescue
-        sock.close
-        return
+    if config['recipients'] && config['daemon']['socket_path']
+      config['recipients'].each do | recipient |
+        msg = Jabber::Message.new(Jabber::JID.new(recipient))
+        msg.set_type(:chat)
+        msg.set_body( text )
+        begin
+          sock = UNIXSocket.open(config['daemon']['socket_path'])
+          sock.send(msg.to_s, 0)
+          sock.close
+        rescue
+          sock.close
+          return
+        end
       end
     end
   end
