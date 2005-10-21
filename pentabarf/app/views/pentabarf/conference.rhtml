@@ -246,6 +246,7 @@
   <div id="content-export" class="content_tab">
   <fieldset>
     <legend>Export</legend>
+      <a href="<%= url_for(:controller => 'ical',:action => :conference,:id => @conference.conference_id) %>"><button type="button">iCal</button></a>
       <table>
         <tr>
           <td><label>Release</label></td>
