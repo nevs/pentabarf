@@ -21,6 +21,7 @@ def udt_name_to_class( udt_name, properties )
     when 'inet'           then 'Inet'
     when 'int2'           then 'Smallint'
     when 'int4'           then 'Integer'
+    when 'int8'           then 'Integer'
     when 'interval'       then 'Interval'
     when 'numeric'        then 'Numeric'
     when 'varchar'        then 'Varchar'
