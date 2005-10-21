@@ -9,7 +9,8 @@ module Momomoto
         :title => Datatype::Varchar.new( {:length=>128} ),
         :subtitle => Datatype::Varchar.new( {:length=>256} ),
         :f_paper => Datatype::Bool.new( {} ),
-        :paper_submitted => Datatype::Integer.new( {} )
+        :paper_submitted => Datatype::Integer.new( {} ),
+        :pages => Datatype::Integer.new( {} )
       }
     end
   end

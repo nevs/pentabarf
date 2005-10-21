@@ -104,6 +104,7 @@ CREATE OR REPLACE VIEW view_event_attachment AS
          view_mime_type.name AS mime_type,
          filename,
          title,
+         pages,
          f_public,
          last_changed,
          octet_length( data ) AS filesize,
@@ -549,7 +550,13 @@ CREATE OR REPLACE VIEW view_paper AS
                  INNER JOIN attachment_type USING (attachment_type_id)
            WHERE event_id = event.event_id AND
                  attachment_type.tag = 'paper') 
-         AS paper_submitted
+         AS paper_submitted,
+         (SELECT sum(pages) 
+           FROM event_attachment
+                INNER JOIN attachment_type USING (attachment_type_id)
+          WHERE event_id = event.event_id AND
+                attachment_type.tag = 'paper')
+         AS pages
     FROM event
          INNER JOIN event_state USING (event_state_id)
          INNER JOIN event_state_progress USING (event_state_progress_id)
