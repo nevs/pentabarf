@@ -309,11 +309,11 @@ class PentabarfController < ApplicationController
           image.person_id = person.person_id
         end
         if image.length == 1
-          if params[:person_image][:delete]
+          if params[:person_image] && params[:person_image][:delete]
             modified = true if image.delete
           else
             image.f_public = ( params[:person_image] && params[:person_image][:f_public] ) ? 't' : 'f'
-            if params[:person_image][:image].size > 0
+            if params[:person_image] && params[:person_image][:image] && params[:person_image][:image].size > 0
               mime_type = Momomoto::Mime_type.find({:mime_type => params[:person_image][:image].content_type.chomp, :f_image => 't'})
               raise "mime-type not found #{params[:person_image][:image].content_type}" if mime_type.length != 1
               image.mime_type_id = mime_type.mime_type_id
