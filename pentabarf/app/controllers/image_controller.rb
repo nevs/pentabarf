@@ -82,7 +82,7 @@ class ImageController < ApplicationController
   def render_resized( image, query)
     image.x_resolution = 72
     image.y_resolution = 72
-    if query.match( /\d+-(\d+)x(\d+)/ )
+    if query.match( /^\d+-(\d+)x(\d+)/ ) || query.match( /^new-(\d+)x(\d+)/ )
       height = $1.to_i > 512 ? 32 : $1.to_i
       width = $2.to_i > 512 ? 32 : $2.to_i
     else
