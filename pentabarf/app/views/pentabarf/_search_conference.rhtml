@@ -5,6 +5,8 @@
       <th colspan="2">Acronym</th>
       <th>Title</th>
       <th>Subtitle</th>
+      <th>Start Date</th>
+      <th>Duration</th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +24,8 @@
       <td><%= link_to( h(conference.acronym), :action => 'conference', :id => conference.conference_id ) %></td>
       <td><%= link_to( h(conference.title), :action => 'conference', :id => conference.conference_id ) %></td>
       <td><%= link_to( h(conference.subtitle), :action => 'conference', :id => conference.conference_id ) %></td>
+      <td><%= link_to( conference.start_date.strftime('%Y-%m-%d'), :action => 'conference', :id => conference.conference_id ) %></td>
+      <td><%= link_to( conference.days, :action => 'conference', :id => conference.conference_id ) %></td>
     </tr>
   <% end %>
   </tbody>
