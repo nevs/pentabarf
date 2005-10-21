@@ -404,7 +404,6 @@ class PentabarfController < ApplicationController
           person.rollback
         end
       rescue => e
-        @meditation_message = 'Error while saving'
         person.rollback
         raise e
       end
