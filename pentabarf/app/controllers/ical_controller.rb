@@ -9,7 +9,6 @@ class IcalController < ApplicationController
     @timezone = 'Europe/Berlin'
     @response.headers['Content-Type'] = 'text/calendar'   
     @response.headers['Content-Disposition'] = "attachment; filename=\"#{@conference.acronym}.ics\""
-    render_text(file.data)
   end
   
   protected
