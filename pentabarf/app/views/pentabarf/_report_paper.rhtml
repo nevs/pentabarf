@@ -4,17 +4,25 @@
     <tr>
       <th colspan="2">Name</th>
       <th>Paper submitted</th>
+      <th>Pages</th>
     </tr>
   </thead>
   <tbody>
+  <% pages_total = 0 %>
   <% @paper.each do | p | %>
+  <% pages_total += p.pages.to_i %>
     <tr>
       <td>
         <%= link_to( image_tag("/image/event/#{p.event_id.to_s + '-24x24'}", {:size => "24x24"} ), :action => 'event', :id => p.event_id ) %>
       </td>
       <td><%= link_to( p.title, {:action => :event, :id => p.event_id}) %></td>
       <td><%= link_to( p.paper_submitted > 0 ? 'yes' : 'no', {:action => :event, :id => p.event_id }) %></td>
+      <td><%= link_to( p.pages.nil? ? '' : p.pages, {:action => :event, :id => p.event_id }) %></td>
     </tr>
   <% end %>
+    <tr>
+      <th colspan="3">Pages total:</th>
+      <th><%= pages_total %></th>
+    </tr>
   </tbody>
 </table>
