@@ -81,7 +81,7 @@
         <tr>
           <td><label><[view_conference::start_date]></label></td>
           <td>
-            <%= text_field_tag('conference[start_date]', @conference.start_date.strftime( '%Y-%m-%d' ), { :size => 12, :tabindex => 0 } ) %>
+            <%= text_field_tag('conference[start_date]', @conference.start_date ? @conference.start_date.strftime( '%Y-%m-%d' ) : nil, { :size => 12, :tabindex => 0 } ) %>
             <button type="button" id="calendar_start_date">...</button>
             <script type="text/javascript">
               Calendar.setup({
@@ -119,7 +119,7 @@
           <td>
             <%= select_tag( 'conference[timeslot_duration]', 
                             ['00:05:00', '00:10:00', '00:15:00', '00:20:00', '00:25:00', '00:30:00', '01:00:00'], 
-                            'to_s', 'to_s', @conference.timeslot_duration.strftime('%H:%M:%S'), { :tabindex => 0 } ) %>
+                            'to_s', 'to_s', @conference.timeslot_duration ? @conference.timeslot_duration.strftime('%H:%M:%S') : nil, { :tabindex => 0 } ) %>
           </td>
         </tr>
         <tr>
@@ -135,7 +135,7 @@
           <td>
             <%= select_tag( 'conference[day_change]', 
                             (0..23).to_a.collect {|x| sprintf('%02d:00:00',x)}, 
-                            'to_s', 'to_s', @conference.day_change.strftime('%H:%M:%S'), { :tabindex => 0 } ) %>
+                            'to_s', 'to_s', @conference.day_change ? @conference.day_change.strftime('%H:%M:%S') : nil, { :tabindex => 0 } ) %>
           </td>
         </tr>
       </table>
