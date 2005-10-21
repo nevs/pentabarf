@@ -555,4 +555,5 @@ CREATE OR REPLACE VIEW view_paper AS
          INNER JOIN event_state_progress USING (event_state_progress_id)
    WHERE event_state.tag = 'accepted' AND
          event.f_paper = 't'
+   ORDER BY lower(title), lower(subtitle)
 ;
