@@ -20,6 +20,10 @@ INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (2, 144, 
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (2, 120, 'Speaker or Moderator does not speak the language of the event');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (5, 120, 'Event without coordinator');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (5, 144, 'Veranstaltung ohne Koordinator');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (12, 120, 'Event with inconsistent public link');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (12, 144, 'Veranstaltung mit inkonsistentem öffentlichen Verweis');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (13, 120, 'Person with inconsistent public link');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (13, 144, 'Person mit inkonsistentem öffentlichen Verweis');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (6, 144, 'Akzeptierte Veranstaltung mit unvollständigen Angaben zu Tag, Raum oder Zeit');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (6, 120, 'Accepted event with data on incomplete day, room or time');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (7, 120, 'Two events at the same timeslot');

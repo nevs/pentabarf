@@ -127,6 +127,27 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (112, 'view_event::team');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (113, 'view_event::schedule');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (114, 'view_event::day');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (115, 'view_conference::im::add_im_address_title');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (116, 'table::event::title');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (117, 'table::event::subtitle');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (118, 'table::event::tag');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (119, 'table::event::event_origin');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (120, 'table::event::event_state');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (121, 'table::event::event_state_progress');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (122, 'table::event::team');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (123, 'table::event::f_public');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (124, 'table::event::f_paper');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (125, 'table::event::f_slides');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (126, 'table::event::language');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (127, 'table::event::track');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (128, 'table::event::type');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (129, 'table::event::conference');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (130, 'table::event_person::person');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (131, 'table::event_person::event_role');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (132, 'table::event_person::event_role_state');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (133, 'table::event_person::remark');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (134, 'table::event::abstract');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (135, 'table::event::description');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (136, 'day');
 
 
 --
@@ -134,6 +155,6 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (115, 'view_conference::im::a
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval('ui_message_ui_message_id_seq', 115, true);
+SELECT pg_catalog.setval('ui_message_ui_message_id_seq', 136, true);
 
 
