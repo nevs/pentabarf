@@ -29,3 +29,5 @@
 \i transport_localized.sql
 \i ui_message.sql
 \i ui_message_localized.sql
+\i conflict_level.sql
+\i conflict_level_localized.sql
