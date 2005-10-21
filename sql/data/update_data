@@ -1,34 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-database=pentabarf
-user=backup
+database = 'pentabarf'
+user = 'backup'
+tables = ["authorisation", "authorisation_localized", "conference_phase", "conference_phase_localized", "country", "country_localized", "currency", "currency_localized", "event_role", "event_role_localized", "event_role_state", "event_role_state_localized", "event_state", "event_state_localized", "event_state_progress", "event_state_progress_localized", "event_type", "event_type_localized", "language", "language_localized", "link_type", "link_type_localized", "role", "role_localized", "role_authorisation", "time_zone", "time_zone_localized", "transport", "transport_localized", "ui_message", "ui_message_localized"]
 
-pg_dump $database -a -D -O -x -U $user -t authorisation > authorisation.sql
-pg_dump $database -a -D -O -x -U $user -t authorisation_localized > authorisation_localized.sql
-pg_dump $database -a -D -O -x -U $user -t country > country.sql
-pg_dump $database -a -D -O -x -U $user -t country_localized > country_localized.sql
-pg_dump $database -a -D -O -x -U $user -t currency > currency.sql
-pg_dump $database -a -D -O -x -U $user -t event_role > event_role.sql
-pg_dump $database -a -D -O -x -U $user -t event_role_localized > event_role_localized.sql
-pg_dump $database -a -D -O -x -U $user -t event_role_state > event_role_state.sql
-pg_dump $database -a -D -O -x -U $user -t event_role_state_localized > event_role_state_localized.sql
-pg_dump $database -a -D -O -x -U $user -t event_state > event_state.sql
-pg_dump $database -a -D -O -x -U $user -t event_state_localized > event_state_localized.sql
-pg_dump $database -a -D -O -x -U $user -t event_state_progress > event_state_progress.sql
-pg_dump $database -a -D -O -x -U $user -t event_state_progress_localized > event_state_progress_localized.sql
-pg_dump $database -a -D -O -x -U $user -t event_type > event_type.sql
-pg_dump $database -a -D -O -x -U $user -t event_type_localized > event_type_localized.sql
-pg_dump $database -a -D -O -x -U $user -t language > language.sql
-pg_dump $database -a -D -O -x -U $user -t language_localized > language_localized.sql
-pg_dump $database -a -D -O -x -U $user -t link_type > link_type.sql
-pg_dump $database -a -D -O -x -U $user -t link_type_localized > link_type_localized.sql
-pg_dump $database -a -D -O -x -U $user -t role > role.sql
-pg_dump $database -a -D -O -x -U $user -t role_authorisation > role_authorisation.sql
-pg_dump $database -a -D -O -x -U $user -t role_localized > role_localized.sql
-pg_dump $database -a -D -O -x -U $user -t time_zone > time_zone.sql
-pg_dump $database -a -D -O -x -U $user -t time_zone_localized > time_zone_localized.sql
-pg_dump $database -a -D -O -x -U $user -t transport > transport.sql
-pg_dump $database -a -D -O -x -U $user -t transport_localized > transport_localized.sql
-pg_dump $database -a -D -O -x -U $user -t ui_message > ui_message.sql
-pg_dump $database -a -D -O -x -U $user -t ui_message_localized > ui_message_localized.sql
+
+import = File.open('import.sql', 'w')
+tables.each do | table | 
+  system("pg_dump #{database} -a -D -O -x -U #{user} -t #{table} > #{table}.sql")
+  import.puts("\\i #{table}.sql")
+end
+
 
