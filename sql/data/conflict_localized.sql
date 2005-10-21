@@ -14,6 +14,8 @@ SET search_path = public, pg_catalog;
 
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (4, 120, 'Accepted and confirmed event without confirmed speaker');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (4, 144, 'Akzeptierte und bestätigte Veranstaltung ohne bestätigten Referenten');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (11, 120, 'Accepted Event without paper');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (11, 144, 'Akzeptierte Veranstaltung ohne Paper');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (2, 144, 'Referent oder Moderator spricht nicht die Sprache der Veranstaltung');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (2, 120, 'Speaker or Moderator does not speak the language of the event');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (5, 120, 'Event without coordinator');

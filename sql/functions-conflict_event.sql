@@ -156,3 +156,27 @@ CREATE OR REPLACE FUNCTION conflict_event_inconsistent_tag(INTEGER) RETURNS SETO
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
+-- returns all accepted events with inconsistent tag
+CREATE OR REPLACE FUNCTION conflict_event_no_paper(INTEGER) RETURNS SETOF conflict_event AS '
+  DECLARE
+    cur_conference_id ALIAS FOR $1;
+    cur_event conflict_event%ROWTYPE;
+  BEGIN
+    FOR cur_event IN
+      SELECT event_id
+        FROM event
+             INNER JOIN event_state USING (event_state_id)
+       WHERE conference_id = cur_conference_id AND
+             event_state.tag = ''accepted'' AND
+             f_paper = ''t'' AND
+             NOT EXISTS (SELECT 1 FROM event_attachment
+                                       INNER JOIN attachment_type USING (attachment_type_id)
+                                 WHERE event_id = event.event_id AND
+                                       attachment_type.tag = ''paper'')
+    LOOP
+      RETURN NEXT cur_event;
+    END LOOP;
+    RETURN;
+  END;
+' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+
