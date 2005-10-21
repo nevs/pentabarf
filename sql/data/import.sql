@@ -32,3 +32,4 @@
 \i conflict_level.sql
 \i conflict_level_localized.sql
 \i conflict_type.sql
+\i conflict.sql
