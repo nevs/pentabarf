@@ -102,5 +102,9 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (29, 120, '
 INSERT INTO country_localized (country_id, language_id, name) VALUES (29, 144, 'Brasilien');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (171, 144, 'Pakistan');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (171, 120, 'Pakistan');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (151, 120, 'Malaysia');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (151, 144, 'Malaysia');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (98, 144, 'Indonesien');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (98, 120, 'Indonesia');
 
 

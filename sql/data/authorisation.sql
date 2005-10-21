@@ -38,6 +38,9 @@ INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (23, 'modify_own_
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (14, 'modify_valuelist', 14);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (30, 'write_valuelist', NULL);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (31, 'create_valuelist', NULL);
+INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (32, 'admin_login', NULL);
+INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (34, 'delete_localization', NULL);
+INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (33, 'create_localization', NULL);
 
 
 --
@@ -45,6 +48,6 @@ INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (31, 'create_valu
 -- Name: authorisation_authorisation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval('authorisation_authorisation_id_seq', 31, true);
+SELECT pg_catalog.setval('authorisation_authorisation_id_seq', 34, true);
 
 

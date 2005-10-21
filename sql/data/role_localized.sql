@@ -18,11 +18,11 @@ INSERT INTO role_localized (role_id, language_id, name) VALUES (1, 144, 'Entwick
 INSERT INTO role_localized (role_id, language_id, name) VALUES (2, 144, 'Administrator');
 INSERT INTO role_localized (role_id, language_id, name) VALUES (3, 144, 'Reviewer');
 INSERT INTO role_localized (role_id, language_id, name) VALUES (4, 144, 'Komitee');
-INSERT INTO role_localized (role_id, language_id, name) VALUES (5, 144, 'Referent');
 INSERT INTO role_localized (role_id, language_id, name) VALUES (1, 120, 'Developer');
 INSERT INTO role_localized (role_id, language_id, name) VALUES (2, 120, 'Administrator');
 INSERT INTO role_localized (role_id, language_id, name) VALUES (3, 120, 'Reviewer');
 INSERT INTO role_localized (role_id, language_id, name) VALUES (4, 120, 'committee');
 INSERT INTO role_localized (role_id, language_id, name) VALUES (5, 120, 'speaker');
+INSERT INTO role_localized (role_id, language_id, name) VALUES (5, 144, 'Referent');
 
 

@@ -21,6 +21,7 @@ INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, 
 INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (7, 2, 'canceled', 3);
 INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (8, 3, 'unconfirmed', 1);
 INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (9, 3, 'confirmed', 2);
+INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (10, 1, 'rejection-candidate', 5);
 
 
 --
@@ -28,6 +29,6 @@ INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, 
 -- Name: event_state_progress_event_state_progress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval('event_state_progress_event_state_progress_id_seq', 9, true);
+SELECT pg_catalog.setval('event_state_progress_event_state_progress_id_seq', 10, true);
 
 
