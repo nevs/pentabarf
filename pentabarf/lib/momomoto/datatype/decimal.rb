@@ -4,7 +4,7 @@ require 'datatype/base'
 module Momomoto 
   module Datatype
 
-    class Decimal < Base 
+    class Decimal < Numeric
 
     end
     
