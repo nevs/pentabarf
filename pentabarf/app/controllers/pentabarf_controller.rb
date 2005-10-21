@@ -545,16 +545,14 @@ class PentabarfController < ApplicationController
           image.event_id = event.event_id
         end
         if image.length == 1
-          if params[:event_image][:delete]
+          if params[:event_image] && params[:event_image][:delete]
             modified = true if image.delete
-          else
-            if params[:event_image][:image].size > 0
-              mime_type = Momomoto::Mime_type.find({:mime_type => params[:event_image][:image].content_type.chomp, :f_image => 't'})
-              raise "mime-type not found #{params[:event_image][:image].content_type}" if mime_type.length != 1
-              image.mime_type_id = mime_type.mime_type_id
-              image.image = process_image( params[:event_image][:image].read )
-              image.last_changed = 'now()'
-            end
+          elsif params[:event_image] && params[:event_image][:image] && params[:event_image][:image].size > 0
+            mime_type = Momomoto::Mime_type.find({:mime_type => params[:event_image][:image].content_type.chomp, :f_image => 't'})
+            raise "mime-type not found #{params[:event_image][:image].content_type}" if mime_type.length != 1
+            image.mime_type_id = mime_type.mime_type_id
+            image.image = process_image( params[:event_image][:image].read )
+            image.last_changed = 'now()'
             modified = true if image.write
           end
         end
