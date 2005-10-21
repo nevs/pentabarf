@@ -33,3 +33,5 @@
 \i conflict_level_localized.sql
 \i conflict_type.sql
 \i conflict.sql
+\i conflict_localized.sql
+\i conference_phase_conflict.sql
