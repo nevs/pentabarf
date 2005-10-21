@@ -227,6 +227,7 @@ class PentabarfController < ApplicationController
 
   def reports
     @content_title ='Reports'
+    
   end
 
   def report_expenses
@@ -237,6 +238,11 @@ class PentabarfController < ApplicationController
   def report_pickup
     @pickup = Momomoto::View_pickup.find({:conference_id => @current_conference_id, :language_id => @current_language_id})
     render(:partial => 'report_pickup')
+  end
+
+  def report_paper
+    @paper = Momomoto::View_paper.find({:conference_id => @current_conference_id})
+    render(:partial => 'report_paper')
   end
 
   def activity

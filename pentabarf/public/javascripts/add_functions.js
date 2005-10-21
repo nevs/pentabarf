@@ -303,9 +303,6 @@ function add_person_event(event_person_id, event_id, event_role_id, event_role_s
   }
   table_row.appendChild(table_data);
 
-  // display event state (placeholder)
-  table_row.appendChild( document.createElement("td") );
-
   var role_select = create_element("select", 0, "event_person["+row_id+"][event_role_id]",event_roles,event_role_id);
   role_select.setAttribute("onchange", "person_event_role_changed('"+row_id+"','"+event_role_state_id+"')");
   table_row.appendChild(role_select);  
