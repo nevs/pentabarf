@@ -8,6 +8,8 @@ class IcalController < ApplicationController
     @events = Momomoto::View_schedule.find({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
     @timezone = 'Europe/Berlin'
     @response.headers['Content-Type'] = 'text/calendar'   
+    @response.headers['Content-Disposition'] = "attachment; filename=\"#{@conference.acronym}.ics\""
+    render_text(file.data)
   end
   
   protected
