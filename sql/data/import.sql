@@ -35,3 +35,5 @@
 \i conflict.sql
 \i conflict_localized.sql
 \i conference_phase_conflict.sql
+\i attachment_type.sql
+\i attachment_type_localized.sql
