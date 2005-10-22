@@ -42,6 +42,11 @@
       criteria[2]['type'] = 'keyword';
 
       var valuelists = new Array();
+      valuelists[2] = new Array();
+      valuelists[2]['NULL'] = 'not set'
+      valuelists[2]['t'] = 'male';
+      valuelists[2]['f'] = 'female';
+
       <% if @preferences[:search_person_advanced].length > 0 %>
         <% @preferences[:search_person_advanced].each do | key, value | %>
         search_criteria_add('search_elements', 0, '<%= escape_javascript(value[:type]) %>', '<%= escape_javascript(value[:logic]) %>', '<%= escape_javascript(value[:value]) %>');
@@ -49,11 +54,6 @@
       <% else %>
         search_criteria_add('search_elements', 0);
       <% end %>
-        valuelists = new Array();
-        valuelists[2] = new Array();
-        valuelists[2]['NULL'] = 'not set'
-        valuelists[2]['t'] = 'male';
-        valuelists[2]['f'] = 'female';
     </script>
         <%= observe_form( :find_person_advanced, 
                            :frequency => 1, 

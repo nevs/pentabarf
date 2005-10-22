@@ -42,7 +42,7 @@ function search_criteria_add(id, elem_me, value1, value2, value3)
     var field_add = construct_element("span", "search_element", "span_search_fieldadd_" + search_counter);
     var field_remove = construct_element("span", "search_element", "span_search_fieldremove_"+search_counter);
   
-    /* Criterion */
+    /* Criteria */
     var dropdown_criteria = construct_element("select", 0, "select_search_field1_criteria"+search_counter, "search["+search_counter+"][type]");
     dropdown_criteria.setAttribute("size", "1");
     dropdown_criteria.setAttribute("onchange", "javascript:search_criteria_changed(\""+row.getAttribute("id")+"\", "+search_counter+");");
