@@ -15,17 +15,17 @@
   <tbody>
   <% @pickup.each do | p | %>
     <tr>
-      <td><%= p.date ? p.date.strftime('%Y-%m-%d') : nil %></td>
-      <td><%= p.time ? p.time.strftime('%H:%M') : nil %></td>
+      <td><a href="<%= url_for({:action=>:person,:id=>p.person_id}) %>"><%= p.date ? p.date.strftime('%Y-%m-%d') : nil %></a></td>
+      <td><a href="<%= url_for({:action=>:person,:id=>p.person_id}) %>"><%= p.time ? p.time.strftime('%H:%M') : nil %></a></td>
       <td>
         <%= link_to( image_tag("/image/person/#{p.person_id.to_s + '-24x24'}", {:size => "24x24"} ), :action => 'person', :id => p.person_id ) %>
       </td>
-      <td><%= p.name %></td>
-      <td><%= p.type %></td>
-      <td><%= p.from %></td>
-      <td><%= p.to %></td>
-      <td><%= p.transport %></td>
-      <td><%= p.number %></td>
+      <td><a href="<%= url_for({:action=>:person,:id=>p.person_id}) %>"><%= h( p.name ) %></a></td>
+      <td><a href="<%= url_for({:action=>:person,:id=>p.person_id}) %>"><%= h( p.type ) %></a></td>
+      <td><a href="<%= url_for({:action=>:person,:id=>p.person_id}) %>"><%= h( p.from ) %></a></td>
+      <td><a href="<%= url_for({:action=>:person,:id=>p.person_id}) %>"><%= h( p.to ) %></a></td>
+      <td><a href="<%= url_for({:action=>:person,:id=>p.person_id}) %>"><%= h( p.transport ) %></a></td>
+      <td><a href="<%= url_for({:action=>:person,:id=>p.person_id}) %>"><%= h( p.number ) %></a></td>
     </tr>
   <% end %>
   </tbody>
