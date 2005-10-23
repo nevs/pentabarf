@@ -38,7 +38,7 @@
         </td>
         <td><%= link_to( h(event.event_state), :action => :event, :id => event.event_id ) %></td>
         <td><%= link_to( h(event.event_state_progress), :action => :event, :id => event.event_id ) %></td>
-        <td><%= link_to( h(event.duration), :action => :event, :id => event.event_id ) %></td>
+        <td><%= link_to( h(event.duration.strftime('%k:%M')), :action => :event, :id => event.event_id ) %></td>
         <td><%= link_to( h(event.room), :action => :event, :id => event.event_id ) %></td>
         <td><%= link_to( h(event.day), :action => :event, :id => event.event_id ) %></td>
         <td><%= link_to( h(event.start_time), :action => :event, :id => event.event_id ) %></td>
