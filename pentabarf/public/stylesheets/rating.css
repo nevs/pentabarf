@@ -66,3 +66,41 @@ td.rating-bar span.p90 {
 td.rating-bar span.p100 {
   width: 150px;
 }
+
+td.rating-bar-small {
+  width: 20px;
+}
+
+td.rating-bar-small span {
+  display: block;
+  color: white;
+  height: 13px;
+}
+
+td.rating-bar-small span.negative {
+  background-color: red;
+  float: right;
+  text-align: right;
+  margin: 1px 0px 1px 1px;
+}
+
+td.rating-bar-small span.positive {
+  background-color: green;
+  float: left;
+  text-align: left;
+  margin: 1px 1px 1px 0px;
+}
+
+td.rating-bar-small span.p0 {
+  width: 0;
+}
+
+td.rating-bar-small span.p1 {
+  width: 10px;
+}
+
+td.rating-bar-small span.p2 {
+  width: 20px;
+}
+
+

@@ -235,14 +235,18 @@ class PentabarfController < ApplicationController
     render(:partial => 'report_expenses')
   end
 
+  def report_paper
+    @paper = Momomoto::View_paper.find({:conference_id => @current_conference_id})
+    render(:partial => 'report_paper')
+  end
+
   def report_pickup
     @pickup = Momomoto::View_pickup.find({:conference_id => @current_conference_id, :language_id => @current_language_id})
     render(:partial => 'report_pickup')
   end
 
-  def report_paper
-    @paper = Momomoto::View_paper.find({:conference_id => @current_conference_id})
-    render(:partial => 'report_paper')
+  def report_schedule
+    render(:partial => 'report_schedule')
   end
 
   def activity

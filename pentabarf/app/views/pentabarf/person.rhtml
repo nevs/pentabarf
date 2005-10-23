@@ -445,15 +445,18 @@
         <thead>
         <tr>
           <th colspan="2">Person</th>
+          <th colspan="2">Rating</th>
           <th>Opinion</th>
           <th>Timestamp</th>
         </tr>
         </thead>
         <tbody>
-        <% for rating in Momomoto::View_person_rating.find({:person_id => @person.person_id, :remark => true}) %>
+        <% for rating in Momomoto::View_person_rating.find({:person_id => @person.person_id }) %>
+        <% next if rating[:speaker_quality].nil? && rating[:competence].nil? && rating[:remark].nil? %>
         <tr>
           <td><a href="<%= url_for({:action => :person, :id => rating.evaluator_id}) %>" title="<%= h(rating.name) %>"><img src="<%= url_for({:controller => 'image', :action => :person, :id => rating.evaluator_id}) %>" class="small" alt="" /></a></td>
           <td><a href="<%= url_for({:action => :person, :id => rating.evaluator_id}) %>" title="<%= h(rating.name) %>"><%= h(rating.name) %></a></td>
+          <%= rating_bar_small( rating, [:speaker_quality, :competence]) %>
           <td><%= h(rating.remark) %></td>
           <td><%= h(rating.eval_time.gsub(/[+.].*/, '')) %></td>
         </tr>

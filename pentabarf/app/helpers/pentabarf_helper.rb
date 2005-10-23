@@ -62,6 +62,21 @@ module PentabarfHelper
     html
   end
 
+  def rating_bar_small( rating, fields)
+    html = '' 
+    html += '<td class="rating-bar-small">'
+    fields.each do | field |
+      html += "<span class=\"negative p#{ case rating[field] when 1 then '2' when 2 then '1' else '0' end }\"></span><br/>"
+    end
+    html += '</td>'
+    html += '<td class="rating-bar-small">'
+    fields.each do | field |
+      html += "<span class=\"positive p#{ case rating[field] when 4 then '1' when 5 then '2' else '0' end }\"></span><br/>"
+    end
+    html += '</td>'
+    html
+  end
+
   def pagination( total, hits_per_page, current_page )
     html = ''
     (total.to_f/hits_per_page.to_f).ceil.times do | i | 
