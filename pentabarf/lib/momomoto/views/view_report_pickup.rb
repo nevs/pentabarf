@@ -1,5 +1,5 @@
 module Momomoto
-  class View_pickup < Base
+  class View_report_pickup < Base
     def initialize
       super
       @domain = 'person'

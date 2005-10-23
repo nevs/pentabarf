@@ -484,7 +484,7 @@ CREATE OR REPLACE VIEW view_report_expenses AS
            fee IS NOT NULL )
 ;
  
-CREATE OR REPLACE VIEW view_pickup AS
+CREATE OR REPLACE VIEW view_report_pickup AS
   SELECT person_id,
          conference_id,
          language_id,

@@ -241,7 +241,7 @@ class PentabarfController < ApplicationController
   end
 
   def report_pickup
-    @pickup = Momomoto::View_pickup.find({:conference_id => @current_conference_id, :language_id => @current_language_id})
+    @pickup = Momomoto::View_report_pickup.find({:conference_id => @current_conference_id, :language_id => @current_language_id})
     render(:partial => 'report_pickup')
   end
 
