@@ -1,5 +1,6 @@
 require 'tables/conference'
 require 'tables/conference_image'
+require 'tables/conference_language'
 require 'tables/conference_link'
 require 'tables/conference_person'
 require 'tables/conference_person_link'
