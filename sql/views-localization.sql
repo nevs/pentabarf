@@ -458,3 +458,12 @@ CREATE OR REPLACE VIEW view_ui_message AS
          ) AS all_lang 
          LEFT OUTER JOIN ui_message_localized USING (language_id, ui_message_id);
 
+CREATE OR REPLACE VIEW view_conference_language AS
+  SELECT language_id,
+         conference_id,
+         tag,
+         name,
+         translated_id
+    FROM conference_language
+         INNER JOIN view_language USING (language_id)
+;
