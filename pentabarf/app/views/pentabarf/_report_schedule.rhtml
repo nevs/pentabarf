@@ -1,0 +1,54 @@
+<%
+  tracks = Momomoto::View_conference_track.find({:conference_id=>@current_conference_id,:language_id=>@current_language_id})
+  events = Momomoto::View_event.find({:conference_id=>@current_conference_id,:translated_id=>@current_language_id,:event_state_tag=>'accepted'})
+  track_events = []
+  tracks.each do | track | track_events[track.conference_track_id] = 0 end
+  track_events[0] = 0
+  events.each do | e | track_events[e.conference_track_id || 0] += 1 end
+%>
+<h3>Schedule</h3>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3">Events per Track</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% tracks.each do | track | %>
+    <tr>
+      <td><%= h(track.name) %></td>
+      <td style="text-align: right;"><%= track_events[track.conference_track_id] %></td>
+      <td style="text-align: right;"><%= sprintf('%3.1f', track_events[track.conference_track_id] * 100.0/ events.length ) %> %</td>
+    </tr>
+  <% end %>
+    <tr>
+      <td>without Track</td>
+      <td style="text-align: right;"><%= track_events[0] %></td>
+      <td style="text-align: right;"><%= sprintf('%3.1f', track_events[0] * 100.0/ events.length ) %> %</td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3">Speaker and moderator by gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>male</td>
+      <td style="text-align: right;"><%= @speaker_male %></td>
+      <td style="text-align: right;"><%= sprintf('%3.1f', @speaker_male * 100.0/@speaker_total) %> %</td>
+    </tr>
+    <tr>
+      <td>female</td>
+      <td style="text-align: right;"><%= @speaker_female %></td>
+      <td style="text-align: right;"><%= sprintf('%3.1f', @speaker_female * 100.0/@speaker_total) %> %</td>
+    </tr>
+    <tr>
+      <td>unknown</td>
+      <td style="text-align: right;"><%= @speaker_unknown %></td>
+      <td style="text-align: right;"><%= sprintf('%3.1f', @speaker_unknown * 100.0/@speaker_total) %> %</td>
+    </tr>
+  </tbody>
+</table>

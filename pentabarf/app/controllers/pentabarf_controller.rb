@@ -246,6 +246,10 @@ class PentabarfController < ApplicationController
   end
 
   def report_schedule
+    @speaker_male = Momomoto::View_report_schedule_gender.find({:conference_id=>@current_conference_id,:gender=>'t'}).length
+    @speaker_female = Momomoto::View_report_schedule_gender.find({:conference_id=>@current_conference_id,:gender=>'f'}).length
+    @speaker_unknown = Momomoto::View_report_schedule_gender.find({:conference_id=>@current_conference_id,:gender=>false}).length
+    @speaker_total = @speaker_male + @speaker_female + @speaker_unknown
     render(:partial => 'report_schedule')
   end
 
