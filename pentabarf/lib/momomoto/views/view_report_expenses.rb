@@ -1,8 +1,8 @@
 module Momomoto
-  class View_expenses < Base
+  class View_report_expenses < Base
     def initialize
       super
-      @domain = 'person'
+      @domain = 'event'
       @fields = {
         :person_id => Datatype::Integer.new( {} ),
         :name => Datatype::Varchar.new( {} ),

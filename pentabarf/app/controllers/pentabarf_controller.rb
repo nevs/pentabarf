@@ -231,7 +231,7 @@ class PentabarfController < ApplicationController
   end
 
   def report_expenses
-    @expenses = Momomoto::View_expenses.find({:conference_id => @current_conference_id, :language_id => @current_language_id})
+    @expenses = Momomoto::View_report_expenses.find({:conference_id => @current_conference_id, :language_id => @current_language_id})
     render(:partial => 'report_expenses')
   end
 

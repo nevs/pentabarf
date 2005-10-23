@@ -455,7 +455,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           event_state.tag = 'accepted'
 ;
 
-CREATE OR REPLACE VIEW view_expenses AS
+CREATE OR REPLACE VIEW view_report_expenses AS
   SELECT person_id,
          view_person.name,
          conference_id,
