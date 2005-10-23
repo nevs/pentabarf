@@ -1,10 +1,15 @@
 <%
   tracks = Momomoto::View_conference_track.find({:conference_id=>@current_conference_id,:language_id=>@current_language_id})
+  langs = Momomoto::View_conference_language.find({:conference_id=>@current_conference_id,:translated_id=>@current_language_id})
   events = Momomoto::View_event.find({:conference_id=>@current_conference_id,:translated_id=>@current_language_id,:event_state_tag=>'accepted'})
   track_events = []
   tracks.each do | track | track_events[track.conference_track_id] = 0 end
   track_events[0] = 0
   events.each do | e | track_events[e.conference_track_id || 0] += 1 end
+  lang_events = []
+  langs.each do | l | lang_events[l.language_id] = 0 end
+  lang_events[0] = 0
+  events.each do | e | lang_events[e.language_id || 0] += 1 end
 %>
 <h3>Schedule</h3>
 <table>
@@ -25,6 +30,27 @@
       <td>without Track</td>
       <td style="text-align: right;"><%= track_events[0] %></td>
       <td style="text-align: right;"><%= sprintf('%3.1f', track_events[0] * 100.0/ events.length ) %> %</td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th colspan="3">Events per Language</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% langs.each do | lang | %>
+    <tr>
+      <td><%= h(lang.name) %></td>
+      <td style="text-align: right;"><%= lang_events[lang.language_id] %></td>
+      <td style="text-align: right;"><%= sprintf('%3.1f', lang_events[lang.language_id] * 100.0/ events.length ) %> %</td>
+    </tr>
+  <% end %>
+    <tr>
+      <td>without Language</td>
+      <td style="text-align: right;"><%= lang_events[0] %></td>
+      <td style="text-align: right;"><%= sprintf('%3.1f', lang_events[0] * 100.0/ events.length ) %> %</td>
     </tr>
   </tbody>
 </table>
