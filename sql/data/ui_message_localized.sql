@@ -47,12 +47,12 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (87, 
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (91, 120, 'Day changes at');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (91, 144, 'Tageswechsel um');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (119, 120, 'Event Origin');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (134, 144, 'Kurzbeschreibung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (120, 120, 'Event state');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (120, 144, 'Veranstaltungsstatus');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (129, 120, 'Conference');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (129, 144, 'Konferenz');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (134, 120, 'Abstract');
-INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (134, 144, 'Kurzberschreibung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (135, 120, 'Description');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (135, 144, 'Beschreibung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (119, 144, 'Herkunft der Veranstaltung');
