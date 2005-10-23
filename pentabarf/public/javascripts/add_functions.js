@@ -469,3 +469,23 @@ function add_person_language(language_id)
   enumerator();
 }
 
+var conference_language_counter = 0;
+
+function add_conference_language( language_id )
+{
+  var row;
+  var row_id = conference_language_counter++;
+
+  document.getElementById('conference_language_table').style.display = "block";
+  
+  row = document.createElement("tr");
+  row.setAttribute("id","row_"+row_id);
+  
+  row.appendChild(create_element("select", 0, "conference_language["+row_id+"][language_id]", languages, language_id));
+  row.appendChild(create_element("input", "checkbox", "conference_language["+row_id+"][delete]"));
+  row.appendChild(create_element("hidden", 0, "").firstChild);
+  document.getElementById('conference_language_table_body').appendChild(row);
+  enumerator();
+}
+
+
