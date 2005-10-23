@@ -18,10 +18,10 @@ class AdminController < ApplicationController
     @content_title = 'Localization'
     if params[:id]
       get_localization_classes(params[:id])
-      @languages = Momomoto::View_language.find({:language_id => @current_language_id, :f_localized => 't'}, nil, 'translated_id')
+      @languages = Momomoto::View_language.find({:translated_id => @current_language_id, :f_localized => 't'}, nil, 'language_id')
       @localization = []
       for lang in @languages 
-        @localization[lang.translated_id] = @localization_class.find({:language_id => lang.translated_id})
+        @localization[lang.language_id] = @localization_class.find({:language_id => lang.language_id})
       end 
     end
   end

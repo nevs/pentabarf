@@ -261,7 +261,7 @@ CREATE OR REPLACE VIEW view_im_type AS
              
 -- view for languages
 CREATE OR REPLACE VIEW view_language AS
-  SELECT translated_id,
+  SELECT language_id,
          iso_639_code,
          tag,
          f_default,
@@ -269,16 +269,16 @@ CREATE OR REPLACE VIEW view_language AS
          f_visible,
          f_preferred,
          coalesce(name,tag) AS name,
-         language_id,
+         translated_id,
          language_tag
-    FROM ( SELECT language.language_id AS translated_id,
+    FROM ( SELECT language.language_id,
                   language.iso_639_code,
                   language.tag,
                   language.f_default,
                   language.f_localized,
                   language.f_visible,
                   language.f_preferred,
-                  lang.language_id,
+                  lang.language_id AS translated_id,
                   lang.tag AS language_tag
              FROM language 
                   CROSS JOIN language AS lang

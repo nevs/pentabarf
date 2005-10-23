@@ -87,7 +87,7 @@
         </tr>
         <tr>
           <td><label><[table::event::language]></label></td>
-          <td><%= select_tag( 'event[language_id]', Momomoto::View_language.find({:language_id => @current_language_id,:f_visible => 't'}), :translated_id, :name, @event.language_id, { :tabindex => 0 } ) %></td>
+          <td><%= select_tag( 'event[language_id]', Momomoto::View_language.find({:translated_id=> @current_language_id,:f_visible => 't'}), :language_id, :name, @event.language_id, { :tabindex => 0 } ) %></td>
         </tr>
         <tr>
           <td><label><[table::event::track]></label></td>

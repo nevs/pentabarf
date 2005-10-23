@@ -67,8 +67,8 @@
 
       var valuelists = new Array();
       valuelists[1] = new Array();
-      <% for language in Momomoto::View_language.find({:language_id => @current_language_id, :f_visible => 't'}) %>
-        valuelists[1][<%= language.translated_id %>] = '<%= escape_javascript(language.name) %>';
+      <% for language in Momomoto::View_language.find({:translated_id=> @current_language_id, :f_visible => 't'}) %>
+        valuelists[1][<%= language.language_id %>] = '<%= escape_javascript(language.name) %>';
       <% end %>
       valuelists[2] = new Array();
       <% for origin in Momomoto::View_event_origin.find({:language_id => @current_language_id}) %>
