@@ -539,7 +539,7 @@ CREATE OR REPLACE VIEW view_event_rating_public AS
          INNER JOIN event USING (event_id)
 ;
 
-CREATE OR REPLACE VIEW view_paper AS
+CREATE OR REPLACE VIEW view_report_paper AS
   SELECT event_id,
          conference_id,
          title,
@@ -577,7 +577,7 @@ CREATE OR REPLACE VIEW view_report_schedule_gender AS
          INNER JOIN event_role USING (event_role_id)
          INNER JOIN event_role_state USING (event_role_state_id)
    WHERE event_state.tag = 'accepted' AND
-         event_role.tag = 'speaker' AND
+         event_role.tag IN ('speaker','moderator') AND
          event_role_state.tag = 'confirmed'
 ;
 

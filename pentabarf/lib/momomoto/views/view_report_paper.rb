@@ -1,5 +1,5 @@
 module Momomoto
-  class View_paper < Base
+  class View_report_paper < Base
     def initialize
       super
       @domain = 'event'

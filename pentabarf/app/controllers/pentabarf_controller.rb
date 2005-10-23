@@ -236,7 +236,7 @@ class PentabarfController < ApplicationController
   end
 
   def report_paper
-    @paper = Momomoto::View_paper.find({:conference_id => @current_conference_id})
+    @paper = Momomoto::View_report_paper.find({:conference_id => @current_conference_id})
     render(:partial => 'report_paper')
   end
 
