@@ -26,6 +26,8 @@ INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (13, 120,
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (13, 144, 'Person mit inkonsistentem öffentlichen Verweis');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (14, 120, 'Accepted event with no language selected');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (14, 144, 'Akzeptierte Veranstaltung ohne eingetragene Sprache');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (15, 120, 'Accepted event without conference track');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (15, 144, 'Akzeptierte Veranstaltung ohne Track');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (6, 144, 'Akzeptierte Veranstaltung mit unvollständigen Angaben zu Tag, Raum oder Zeit');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (6, 120, 'Accepted event with data on incomplete day, room or time');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (7, 120, 'Two events at the same timeslot');

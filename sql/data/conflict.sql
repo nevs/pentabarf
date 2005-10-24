@@ -26,6 +26,7 @@ INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (9, 5, 'event_e
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (10, 4, 'event_inconsistent_tag');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (13, 1, 'person_inconsistent_public_link');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (14, 4, 'event_no_language');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (15, 4, 'event_no_track');
 
 
 --
@@ -33,6 +34,6 @@ INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (14, 4, 'event_
 -- Name: conflict_conflict_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval('conflict_conflict_id_seq', 14, true);
+SELECT pg_catalog.setval('conflict_conflict_id_seq', 15, true);
 
 
