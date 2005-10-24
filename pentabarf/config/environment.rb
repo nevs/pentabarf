@@ -113,32 +113,27 @@ module ActionView
       end
 
       # overwrite render function for rails 0.14.1
-      def compile_and_render_template(extension, template = nil, file_path = nil, local_assigns = {})
-        # compile the given template, if necessary
-        if compile_template?(template, file_path, local_assigns)
-          template ||= read_template_file(file_path, extension)
-          compile_template(extension, localize( template ), file_path, local_assigns)
-        end
+      begin
+        Base::instance_method("compile_template")
+        alias compile_template_default compile_template
+      rescue
+      end
 
-        # Get the method name for this template and run it
-        method_name = @@method_names[file_path || template]
-        evaluate_assigns
-
-        local_assigns = local_assigns.symbolize_keys if @@local_assigns_support_string_keys
-
-        send(method_name, local_assigns) do |*name|
-          instance_variable_get "@content_for_#{name.first || 'layout'}"
-        end
+      def compile_template( extension, template, file_path, local_assigns)
+        compile_template_default( extension, localize( template ), file_path, local_assigns )
       end
 
       # overwrite render function for rails 0.13.1
-      def rhtml_render(extension, template, local_assigns)
-        localize( template )
-        b = evaluate_locals(local_assigns)
-        @@compiled_erb_templates[template] ||= ERB.new(template, nil, '-')
-        @@compiled_erb_templates[template].result(b)
+      begin
+        Base::instance_method("rhtml_render")
+        alias rhtml_render_default rhtml_render
+      rescue
       end
 
+      def rhtml_render(extension, template, local_assigns)
+        rhtml_render_default(extension, localize(template), local_assigns)
+      end
+      
   end
 end
 
