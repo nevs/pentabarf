@@ -2,7 +2,7 @@ require 'RMagick'
 
 class ImageController < ApplicationController
   before_filter :authorize 
-  before_filter :modified_since, :except => [:events_per_track, :events_per_language, :speaker_per_gender]
+  before_filter :modified_since, :except => [:events_per_track, :events_per_language, :events_per_state, :speaker_per_gender]
 
   def conference
     image = Momomoto::View_conference_image.find( {:conference_id => extract_id( params[:id] ) } )
@@ -79,6 +79,21 @@ class ImageController < ApplicationController
     pieces = []
     pieces.push({:name=>'male',:angle=>((speaker_gender['t'].to_f * 2.0 * Math::PI)/speaker.length.to_f)})
     pieces.push({:name=>'female',:angle=>((speaker_gender['f'].to_f * 2.0 * Math::PI)/speaker.length.to_f)})
+    render_pie(pieces)
+  end
+
+  def events_per_state
+    states = Momomoto::View_event_state.find({:language_id=>@user.preferences[:current_language_id]})
+    state_events = []
+    total_events = 0
+    states.each do | s | 
+      state_events[s.event_state_id] = Momomoto::Event.find({:conference_id=>params[:id].to_s.gsub(/\..*$/, ''),:event_state_id=>s.event_state_id}).length
+      total_events += state_events[s.event_state_id]
+    end
+    pieces = []
+    states.each do | s |
+      pieces.push({:name=>s.name,:angle=>(state_events[s.event_state_id]*2*Math::PI/total_events)})
+    end
     render_pie(pieces)
   end
 
