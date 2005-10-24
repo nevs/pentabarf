@@ -3,6 +3,7 @@
   langs = Momomoto::View_conference_language.find({:conference_id=>@current_conference_id,:translated_id=>@current_language_id})
   events = Momomoto::View_event.find({:conference_id=>@current_conference_id,:translated_id=>@current_language_id,:event_state_tag=>'accepted'})
   states = Momomoto::View_event_state.find({:language_id=>@current_language_id})
+  coordinator = Momomoto::View_report_schedule_coordinator.find({:conference_id=>@current_conference_id})
   track_events = []
   tracks.each do | track | track_events[track.conference_track_id] = 0 end
   track_events[0] = 0
@@ -17,6 +18,8 @@
     state_events[s.event_state_id] = Momomoto::Event.find({:conference_id=>@current_conference_id,:event_state_id=>s.event_state_id}).length
     total_events += state_events[s.event_state_id]
   end
+  total_coordinated = 0
+  coordinator.each do | c | total_coordinated += c.count end
 %>
 <div>
   <h3>Events per Track</h3>
@@ -96,6 +99,22 @@
         <td><%= h(s.name) %></td>
         <td style="text-align: right;"><%= state_events[s.event_state_id] %></td>
         <td style="text-align: right;"><%= sprintf('%3.1f', state_events[s.event_state_id] * 100.0/ total_events) %> %</td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div style="clear: left;">
+  <h3>Events per coordinator</h3>
+  <img style="float: left; margin: 10px;" src="<%= url_for(:controller=>'image',:action=>:events_per_coordinator,:id=>@current_conference_id) %>"/>
+  <table>
+    <tbody>
+    <% coordinator.each do | c | %>
+      <tr>
+        <td><a href="<%= url_for(:action=>:person,:id=>c.person_id)%>"><%= h(c.name) %></a></td>
+        <td style="text-align: right;"><%= c.count %></td>
+        <td style="text-align: right;"><%= sprintf('%3.1f', c.count * 100.0/ total_coordinated) %> %</td>
       </tr>
     <% end %>
     </tbody>

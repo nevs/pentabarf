@@ -2,7 +2,7 @@ require 'RMagick'
 
 class ImageController < ApplicationController
   before_filter :authorize 
-  before_filter :modified_since, :except => [:events_per_track, :events_per_language, :events_per_state, :speaker_per_gender]
+  before_filter :modified_since, :except => [:events_per_coordinator, :events_per_track, :events_per_language, :events_per_state, :speaker_per_gender]
 
   def conference
     image = Momomoto::View_conference_image.find( {:conference_id => extract_id( params[:id] ) } )
@@ -34,6 +34,18 @@ class ImageController < ApplicationController
     GC.start
   end
 
+  def events_per_coordinator
+    coordinator = Momomoto::View_report_schedule_coordinator.find({:conference_id=>params[:id].to_s.gsub(/\..*$/, '')})
+    total_coordinated = 0
+    coordinator.each do | c | total_coordinated += c.count end
+    pieces = []
+    coordinator.each do | c |
+      next if c.count < 4
+      pieces.push({:name => c.name,:count => c.count,:total => total_coordinated})
+    end
+    render_pie(pieces)
+  end
+
   def events_per_track
     @current_language_id = @user.preferences[:current_language_id]
     params[:id] = params[:id].to_s.gsub(/\..*$/, '')
@@ -45,9 +57,8 @@ class ImageController < ApplicationController
     events.each do | e | track_events[e.conference_track_id || 0] += 1 end
     pieces = []
     tracks.each do | t |
-      pieces.push({:name => t.name, :angle => ( track_events[t.conference_track_id] * 2 * Math::PI / events.length )})
+      pieces.push({:name => t.name, :count => track_events[t.conference_track_id], :total => events.length})
     end
-    pieces.sort! do | a, b | b[:angle] <=> a[:angle] end
     render_pie(pieces)
   end
 
@@ -62,9 +73,8 @@ class ImageController < ApplicationController
     events.each do | e | lang_events[e.language_id || 0] += 1 end
     pieces = []
     langs.each do | l |
-      pieces.push({:name => l.name, :angle => ( lang_events[l.language_id] * 2 * Math::PI / events.length )})
+      pieces.push({:name => l.name, :count => lang_events[l.language_id], :total => events.length})
     end
-    pieces.sort! do | a, b | b[:angle] <=> a[:angle] end
     render_pie(pieces)
   end
 
@@ -77,8 +87,8 @@ class ImageController < ApplicationController
       speaker_gender[s.gender] += 1
     end
     pieces = []
-    pieces.push({:name=>'male',:angle=>((speaker_gender['t'].to_f * 2.0 * Math::PI)/speaker.length.to_f)})
-    pieces.push({:name=>'female',:angle=>((speaker_gender['f'].to_f * 2.0 * Math::PI)/speaker.length.to_f)})
+    pieces.push({:name=>'male',:count => speaker_gender['t'], :total => speaker.length})
+    pieces.push({:name=>'female',:count => speaker_gender['f'], :total => speaker.length})
     render_pie(pieces)
   end
 
@@ -92,7 +102,7 @@ class ImageController < ApplicationController
     end
     pieces = []
     states.each do | s |
-      pieces.push({:name=>s.name,:angle=>(state_events[s.event_state_id]*2*Math::PI/total_events)})
+      pieces.push({:name=>s.name,:count => state_events[s.event_state_id], :total => total_events})
     end
     render_pie(pieces)
   end
@@ -101,33 +111,37 @@ class ImageController < ApplicationController
 
   def render_pie( pieces, radius = 75 )
     colors = ['cornflowerblue', 'lime', 'orangered', 'yellow', 'lightseagreen', 'mediumorchid']
+    pieces.sort! do | a, b | b[:count] <=> a[:count] end
     pieces.each_with_index do | p, index |
       p[:color] = colors[ index % colors.length ]
     end
-    canvas = Magick::Image.new( radius * 3.5 , radius * 2.1 )
     gc = Magick::Draw.new
     gc.stroke('black')
     gc.stroke_width(1)
     offset = 0
     pieces.each do | p |
-      next if p[:angle] == 0.0
+      angle = p[:count] * 2 * Math::PI / p[:total]
+      next if angle == 0.0
       x0 = radius+(Math.sin(offset) * radius)
       y0 = radius-(Math.cos(offset) * radius)
-      x1 = radius+(Math.sin(offset + p[:angle]) * radius)
-      y1 = radius-(Math.cos(offset + p[:angle]) * radius)
+      x1 = radius+(Math.sin(offset + angle) * radius)
+      y1 = radius-(Math.cos(offset + angle) * radius)
       gc.fill(p[:color])
-      gc.path("M#{radius},#{radius} L#{x0},#{y0} A#{radius},#{radius} 0 #{p[:angle] > Math::PI ? '1' : '0'}, 1 #{x1},#{y1} z")
-      offset += p[:angle]
+      gc.path("M#{radius},#{radius} L#{x0},#{y0} A#{radius},#{radius} 0 #{angle > Math::PI ? '1' : '0'}, 1 #{x1},#{y1} z")
+      offset += angle
     end
     line = 15
     gc.stroke('black')
     gc.pointsize(14)
+    longest_name = 0
     pieces.each do | p |
+      longest_name = p[:name].length if p[:name].length > longest_name
       gc.text_undercolor(p[:color])
       gc.text( radius * 2 + 10, line, sprintf( ' %s %50s', p[:name], ' '))
       line += 18
     end
     
+    canvas = Magick::Image.new( radius * 2 + 10 + longest_name * 9 , radius * 2.1 > pieces.length * 19 ? radius * 2.1 : pieces.length * 19 )
     gc.draw(canvas)
     canvas.format = 'PNG'
     @response.headers['Content-Type'] = 'image/png'
