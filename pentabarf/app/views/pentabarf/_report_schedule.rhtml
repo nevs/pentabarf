@@ -11,70 +11,68 @@
   lang_events[0] = 0
   events.each do | e | lang_events[e.language_id || 0] += 1 end
 %>
-<h3>Schedule</h3>
-<table>
-  <thead>
-    <tr>
-      <th colspan="3">Events per Track</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% tracks.each do | track | %>
-    <tr>
-      <td><%= h(track.name) %></td>
-      <td style="text-align: right;"><%= track_events[track.conference_track_id] %></td>
-      <td style="text-align: right;"><%= sprintf('%3.1f', track_events[track.conference_track_id] * 100.0/ events.length ) %> %</td>
-    </tr>
-  <% end %>
-    <tr>
-      <td>without Track</td>
-      <td style="text-align: right;"><%= track_events[0] %></td>
-      <td style="text-align: right;"><%= sprintf('%3.1f', track_events[0] * 100.0/ events.length ) %> %</td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <thead>
-    <tr>
-      <th colspan="3">Events per Language</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% langs.each do | lang | %>
-    <tr>
-      <td><%= h(lang.name) %></td>
-      <td style="text-align: right;"><%= lang_events[lang.language_id] %></td>
-      <td style="text-align: right;"><%= sprintf('%3.1f', lang_events[lang.language_id] * 100.0/ events.length ) %> %</td>
-    </tr>
-  <% end %>
-    <tr>
-      <td>without Language</td>
-      <td style="text-align: right;"><%= lang_events[0] %></td>
-      <td style="text-align: right;"><%= sprintf('%3.1f', lang_events[0] * 100.0/ events.length ) %> %</td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <thead>
-    <tr>
-      <th colspan="3">Speaker and moderator by gender</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>male</td>
-      <td style="text-align: right;"><%= @speaker_male %></td>
-      <td style="text-align: right;"><%= sprintf('%3.1f', @speaker_male * 100.0/@speaker_total) %> %</td>
-    </tr>
-    <tr>
-      <td>female</td>
-      <td style="text-align: right;"><%= @speaker_female %></td>
-      <td style="text-align: right;"><%= sprintf('%3.1f', @speaker_female * 100.0/@speaker_total) %> %</td>
-    </tr>
-    <tr>
-      <td>unknown</td>
-      <td style="text-align: right;"><%= @speaker_unknown %></td>
-      <td style="text-align: right;"><%= sprintf('%3.1f', @speaker_unknown * 100.0/@speaker_total) %> %</td>
-    </tr>
-  </tbody>
-</table>
+<div>
+  <h3>Events per Track</h3>
+  <img style="float: left; margin: 10px;" src="<%= url_for(:controller=>'image',:action=>:events_per_track,:id=>@current_conference_id) %>"/>
+  <table>
+    <tbody>
+    <% tracks.each do | track | %>
+      <tr>
+        <td><%= h(track.name) %></td>
+        <td style="text-align: right;"><%= track_events[track.conference_track_id] %></td>
+        <td style="text-align: right;"><%= sprintf('%3.1f', track_events[track.conference_track_id] * 100.0/ events.length ) %> %</td>
+      </tr>
+    <% end %>
+      <tr>
+        <td>without Track</td>
+        <td style="text-align: right;"><%= track_events[0] %></td>
+        <td style="text-align: right;"><%= sprintf('%3.1f', track_events[0] * 100.0/ events.length ) %> %</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="clear: left;">
+  <h3>Events per Language</h3>
+  <img style="float: left; margin: 10px;" src="<%= url_for(:controller=>'image',:action=>:events_per_language,:id=>@current_conference_id) %>"/>
+  <table>
+    <tbody>
+    <% langs.each do | lang | %>
+      <tr>
+        <td><%= h(lang.name) %></td>
+        <td style="text-align: right;"><%= lang_events[lang.language_id] %></td>
+        <td style="text-align: right;"><%= sprintf('%3.1f', lang_events[lang.language_id] * 100.0/ events.length ) %> %</td>
+      </tr>
+    <% end %>
+      <tr>
+        <td>without Language</td>
+        <td style="text-align: right;"><%= lang_events[0] %></td>
+        <td style="text-align: right;"><%= sprintf('%3.1f', lang_events[0] * 100.0/ events.length ) %> %</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="clear: left;">
+  <h3>Speaker and Moderator by gender</h3>
+  <img style="float: left; margin: 10px;" src="<%= url_for(:controller=>'image',:action=>:speaker_per_gender,:id=>@current_conference_id) %>"/>
+  <table>
+    <tbody>
+      <tr>
+        <td>male</td>
+        <td style="text-align: right;"><%= @speaker_male %></td>
+        <td style="text-align: right;"><%= sprintf('%3.1f', @speaker_male * 100.0/@speaker_total) %> %</td>
+      </tr>
+      <tr>
+        <td>female</td>
+        <td style="text-align: right;"><%= @speaker_female %></td>
+        <td style="text-align: right;"><%= sprintf('%3.1f', @speaker_female * 100.0/@speaker_total) %> %</td>
+      </tr>
+      <tr>
+        <td>unknown</td>
+        <td style="text-align: right;"><%= @speaker_unknown %></td>
+        <td style="text-align: right;"><%= sprintf('%3.1f', @speaker_unknown * 100.0/@speaker_total) %> %</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

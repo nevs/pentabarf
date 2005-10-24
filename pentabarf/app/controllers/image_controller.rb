@@ -1,7 +1,8 @@
 require 'RMagick'
 
 class ImageController < ApplicationController
-  before_filter :authorize, :modified_since
+  before_filter :authorize 
+  before_filter :modified_since, :except => [:events_per_track, :events_per_language, :speaker_per_gender]
 
   def conference
     image = Momomoto::View_conference_image.find( {:conference_id => extract_id( params[:id] ) } )
@@ -33,7 +34,90 @@ class ImageController < ApplicationController
     GC.start
   end
 
+  def events_per_track
+    @current_language_id = @user.preferences[:current_language_id]
+    params[:id] = params[:id].to_s.gsub(/\..*$/, '')
+    tracks = Momomoto::View_conference_track.find({:conference_id=>params[:id],:language_id=>@current_language_id})
+    events = Momomoto::View_event.find({:conference_id=>params[:id],:translated_id=>@current_language_id,:event_state_tag=>'accepted'})
+    track_events = []
+    tracks.each do | track | track_events[track.conference_track_id] = 0 end
+    track_events[0] = 0
+    events.each do | e | track_events[e.conference_track_id || 0] += 1 end
+    pieces = []
+    tracks.each do | t |
+      pieces.push({:name => t.name, :angle => ( track_events[t.conference_track_id] * 2 * Math::PI / events.length )})
+    end
+    pieces.sort! do | a, b | b[:angle] <=> a[:angle] end
+    render_pie(pieces)
+  end
+
+  def events_per_language
+    @current_language_id = @user.preferences[:current_language_id]
+    params[:id] = params[:id].to_s.gsub(/\..*$/, '')
+    langs = Momomoto::View_conference_language.find({:conference_id=>params[:id],:translated_id=>@current_language_id})
+    events = Momomoto::View_event.find({:conference_id=>params[:id],:translated_id=>@current_language_id,:event_state_tag=>'accepted'})
+    lang_events = []
+    langs.each do | l | lang_events[l.language_id] = 0 end
+    lang_events[0] = 0
+    events.each do | e | lang_events[e.language_id || 0] += 1 end
+    pieces = []
+    langs.each do | l |
+      pieces.push({:name => l.name, :angle => ( lang_events[l.language_id] * 2 * Math::PI / events.length )})
+    end
+    pieces.sort! do | a, b | b[:angle] <=> a[:angle] end
+    render_pie(pieces)
+  end
+
+  def speaker_per_gender
+    speaker = Momomoto::View_report_schedule_gender.find({:conference_id=>params[:id].to_s.gsub(/\..*$/, '')})
+    speaker_gender = {}
+    speaker_gender['t'], speaker_gender['f'] = 0,0
+    speaker.each do | s | 
+      next unless s.gender
+      speaker_gender[s.gender] += 1
+    end
+    pieces = []
+    pieces.push({:name=>'male',:angle=>((speaker_gender['t'].to_f * 2.0 * Math::PI)/speaker.length.to_f)})
+    pieces.push({:name=>'female',:angle=>((speaker_gender['f'].to_f * 2.0 * Math::PI)/speaker.length.to_f)})
+    render_pie(pieces)
+  end
+
   protected
+
+  def render_pie( pieces, radius = 75 )
+    colors = ['cornflowerblue', 'lime', 'orangered', 'yellow', 'lightseagreen', 'mediumorchid']
+    pieces.each_with_index do | p, index |
+      p[:color] = colors[ index % colors.length ]
+    end
+    canvas = Magick::Image.new( radius * 3.5 , radius * 2.1 )
+    gc = Magick::Draw.new
+    gc.stroke('black')
+    gc.stroke_width(1)
+    offset = 0
+    pieces.each do | p |
+      next if p[:angle] == 0.0
+      x0 = radius+(Math.sin(offset) * radius)
+      y0 = radius-(Math.cos(offset) * radius)
+      x1 = radius+(Math.sin(offset + p[:angle]) * radius)
+      y1 = radius-(Math.cos(offset + p[:angle]) * radius)
+      gc.fill(p[:color])
+      gc.path("M#{radius},#{radius} L#{x0},#{y0} A#{radius},#{radius} 0 #{p[:angle] > Math::PI ? '1' : '0'}, 1 #{x1},#{y1} z")
+      offset += p[:angle]
+    end
+    line = 15
+    gc.stroke('black')
+    gc.pointsize(14)
+    pieces.each do | p |
+      gc.text_undercolor(p[:color])
+      gc.text( radius * 2 + 10, line, sprintf( ' %s %50s', p[:name], ' '))
+      line += 18
+    end
+    
+    gc.draw(canvas)
+    canvas.format = 'PNG'
+    @response.headers['Content-Type'] = 'image/png'
+    render_text(canvas.to_blob)
+  end
 
   def modified_since
     if action_name == 'conference'
