@@ -580,4 +580,17 @@ CREATE OR REPLACE VIEW view_report_schedule_gender AS
          event_role_state.tag = 'confirmed'
 ;
 
+CREATE OR REPLACE VIEW view_report_schedule_coordinator AS 
+  SELECT count(person_id) AS count,
+         person_id, 
+         conference_id,
+         name 
+    FROM event_person 
+         INNER JOIN event USING (event_id) 
+         INNER JOIN event_role USING (event_role_id) 
+         INNER JOIN view_person USING (person_id) 
+   WHERE event_role.tag = 'coordinator' 
+   GROUP BY person_id, name, conference_id 
+   ORDER BY count(person_id) DESC
+;
 
