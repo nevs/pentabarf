@@ -96,9 +96,10 @@ Controllers = Dependencies::LoadingModule.root(
 module ActionView
   class Base
     private
-      def rhtml_render(extension, template, local_assigns)
+
+      def localize( template )
         # lets do some localization
-        tags = template.scan(/<\[[a-z:_]+\]>/)
+        tags = template.to_s.scan(/<\[[a-z:_]+\]>/)
         tags.collect do | tag | 
           tag.delete!("<[]>")
         end
@@ -108,10 +109,36 @@ module ActionView
             template.gsub!( "<[" + msg.tag + "]>", h(msg.name) )
           end
         end
+        template
+      end
+
+      # overwrite render function for rails 0.14.1
+      def compile_and_render_template(extension, template = nil, file_path = nil, local_assigns = {})
+        # compile the given template, if necessary
+        if compile_template?(template, file_path, local_assigns)
+          template ||= read_template_file(file_path, extension)
+          compile_template(extension, localize( template ), file_path, local_assigns)
+        end
+
+        # Get the method name for this template and run it
+        method_name = @@method_names[file_path || template]
+        evaluate_assigns
+
+        local_assigns = local_assigns.symbolize_keys if @@local_assigns_support_string_keys
+
+        send(method_name, local_assigns) do |*name|
+          instance_variable_get "@content_for_#{name.first || 'layout'}"
+        end
+      end
+
+      # overwrite render function for rails 0.13.1
+      def rhtml_render(extension, template, local_assigns)
+        localize( template )
         b = evaluate_locals(local_assigns)
         @@compiled_erb_templates[template] ||= ERB.new(template, nil, '-')
         @@compiled_erb_templates[template].result(b)
       end
+
   end
 end
 

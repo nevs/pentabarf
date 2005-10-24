@@ -110,7 +110,7 @@ class ImageController < ApplicationController
   protected
 
   def render_pie( pieces, radius = 75 )
-    colors = ['cornflowerblue', 'lime', 'orangered', 'yellow', 'lightseagreen', 'mediumorchid']
+    colors = ['cornflowerblue', 'lime', 'orangered', 'lightseagreen', 'yellow', 'paleturquoise', 'mediumorchid', 'aqua', 'crimson', 'navy']
     pieces.sort! do | a, b | b[:count] <=> a[:count] end
     pieces.each_with_index do | p, index |
       p[:color] = colors[ index % colors.length ]
@@ -141,7 +141,7 @@ class ImageController < ApplicationController
       line += 18
     end
     
-    canvas = Magick::Image.new( radius * 2 + 10 + longest_name * 9 , radius * 2.1 > pieces.length * 19 ? radius * 2.1 : pieces.length * 19 )
+    canvas = Magick::Image.new( radius * 2 + 20 + longest_name * 8 , radius * 2.1 > pieces.length * 19 ? radius * 2.1 : pieces.length * 19 )
     gc.draw(canvas)
     canvas.format = 'PNG'
     @response.headers['Content-Type'] = 'image/png'
