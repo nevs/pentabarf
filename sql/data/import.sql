@@ -1,3 +1,6 @@
+BEGIN TRANSACTION;
+\i language.sql
+\i language_localized.sql
 \i authorisation.sql
 \i authorisation_localized.sql
 \i conference_phase.sql
@@ -16,8 +19,6 @@
 \i event_state_progress_localized.sql
 \i event_type.sql
 \i event_type_localized.sql
-\i language.sql
-\i language_localized.sql
 \i link_type.sql
 \i link_type_localized.sql
 \i role.sql
@@ -37,3 +38,4 @@
 \i conference_phase_conflict.sql
 \i attachment_type.sql
 \i attachment_type_localized.sql
+COMMIT TRANSACTION;
