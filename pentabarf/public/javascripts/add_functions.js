@@ -70,7 +70,7 @@ function create_element(type, subtype, name, values, selected, without_td)
   if ( without_td != null ) {
     return new_element;
   } else {
-    table_cell = document.createElement("td");
+    var table_cell = document.createElement("td");
     table_cell.appendChild(new_element);
     return table_cell;
   }
@@ -147,10 +147,10 @@ function add_person_im(person_im_id, im_type_id, im_address)
   table_row.setAttribute("id","row_"+row_id);
 
   if (person_im_id) {
-    element = create_element("a", 0,"person_im["+row_id+"][im_link]", im_scheme[im_type_id]+"://"+im_address, null, true);
+    var element = create_element("a", 0,"person_im["+row_id+"][im_link]", im_scheme[im_type_id]+"://"+im_address, null, true);
     element.setAttribute("title", im_address);
     element.appendChild(create_element("img", 0, "person_im["+row_id+"][image]", p_base + "images/icon-im-32x32.png", null, true));
-    table_data = document.createElement("td");
+    var table_data = document.createElement("td");
     table_data.appendChild(element);
     table_row.appendChild(table_data);
   } else {
@@ -169,7 +169,7 @@ var person_phone_counter = 0;
 
 function add_person_phone(person_phone_id, phone_type_id, number)
 {
-  var table_row;
+  var table_row, element, table_data;
   var row_id = person_phone_counter++;
 
   document.getElementById('telephone_table').style.display = "block";

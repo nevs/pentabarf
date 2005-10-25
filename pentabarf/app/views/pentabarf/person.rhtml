@@ -489,12 +489,12 @@
               <tr>
                 <td><label>Date</label></td>
                 <td>
-                  <%= text_field_tag('person_travel[arrival_date]', @person_travel.arrival_date ? @person_travel.arrival_date.strftime('%Y-%m-%d') : nil, {:id => :arrival_date,:tabindex => 0,:size => 10}) %>
+                  <%= text_field_tag('person_travel[arrival_date]', @person_travel.arrival_date ? @person_travel.arrival_date.strftime('%Y-%m-%d') : nil, {:tabindex => 0,:size => 10}) %>
                   <button type="button" id="calendar_arrival_date">...</button>
                   <script type="text/javascript">
                     Calendar.setup({
                       firstDay     :  1,
-                      inputField   :  "arrival_date",
+                      inputField   :  "person_travel[arrival_date]",
                       ifFormat     :  "%Y-%m-%d",
                       button       :  "calendar_arrival_date",
                       showOthers   :  true,
@@ -542,7 +542,7 @@
                   <script type="text/javascript">
                     Calendar.setup({
                       firstDay     :  1,
-                      inputField   :  "departure_date",
+                      inputField   :  "person_travel[departure_date]",
                       ifFormat     :  "%Y-%m-%d",
                       button       :  "calendar_departure_date",
                       showOthers   :  true,
