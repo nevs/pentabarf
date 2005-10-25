@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
     super( exception )
 
     message = ''
-    message += "User: #{@user.login_name}\n" unless @user && @user.nil?
+    message += "User: #{@user.login_name}\n" if @user
     message += "Time: #{Time.now.to_s}\n"
     message += "UA: #{@request.env['HTTP_USER_AGENT']}\n"
     message += "IP: #{@request.remote_ip}\n"
