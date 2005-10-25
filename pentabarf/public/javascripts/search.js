@@ -185,7 +185,7 @@ function search_criteria_changed(id_row, counter, value2, value3)
       dropdown.setAttribute("onchange", "javascript:search_criteria2_changed(\""+row.getAttribute("id")+"\","+counter+");"); 
       
       for (var i in attribute["keyword"]) {
-        if ( i in Object.prototype ) {
+        if ( i in Object.prototype || i in Array.prototype ) {
           continue;
         }
         var option_text = d.createTextNode(attribute["keyword"][i]);
@@ -256,7 +256,7 @@ function search_criteria2_changed(id_row, counter, value3)
       dropdown.setAttribute("name", "search["+counter+"][value]");
      
       for (var i in valuelists[dropdown_first.selectedIndex]) {
-        if ( i in Object.prototype ) {
+        if ( i in Object.prototype || i in Array.prototype ) {
           continue;
         }
         var option_text = d.createTextNode(valuelists[dropdown_first.selectedIndex][i]);
