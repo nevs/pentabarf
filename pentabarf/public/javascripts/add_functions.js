@@ -50,7 +50,7 @@ function create_element(type, subtype, name, values, selected, without_td)
     case "select":
       new_element.setAttribute("tabindex", 0);
       for (key in values) {
-        if ( key in Object.prototype ) {
+        if ( key in Object.prototype || key in Array.prototype ) {
           continue;
         }
         var current = document.createElement("option");
