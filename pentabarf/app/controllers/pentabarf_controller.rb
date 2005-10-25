@@ -22,7 +22,7 @@ class PentabarfController < ApplicationController
   end
 
   def search_conference
-    @preferences[:search_conference] = request.raw_post unless params[:id]
+    @preferences[:search_conference] = request.raw_post.to_s.gsub(/&.*$/, '') unless params[:id]
     @preferences[:search_conference_type] = 'simple'
     if params[:id] && params[:id] != '-1'
       @preferences[:search_conference_page] = params[:id].to_i
@@ -44,7 +44,7 @@ class PentabarfController < ApplicationController
   end
 
   def search_event
-    @preferences[:search_event] = request.raw_post unless params[:id] 
+    @preferences[:search_event] = request.raw_post.to_s.gsub(/&.*$/, '') unless params[:id] 
     @preferences[:search_event_type] = 'simple'
     if params[:id] && params[:id] != '-1'
       @preferences[:search_event_page] = params[:id].to_i
@@ -118,7 +118,7 @@ class PentabarfController < ApplicationController
   end
 
   def search_person
-    @preferences[:search_person] = request.raw_post unless params[:id]
+    @preferences[:search_person] = request.raw_post.to_s.gsub(/&.*$/,'') unless params[:id]
     @preferences[:search_person_type] = 'simple'
     if params[:id] && params[:id] != '-1'
       @preferences[:search_person_page] = params[:id].to_i
