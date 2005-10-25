@@ -380,6 +380,7 @@ class PentabarfController < ApplicationController
         if params[:person_phone]
           person_phone = Momomoto::Person_phone.new
           params[:person_phone].each do | key, value |
+            next if value[:phone_number].to_s == ''
             modified = true if save_or_delete_record( person_phone, {:person_id => person.person_id, :person_phone_id => value[:person_phone_id]}, value) 
           end
         end
