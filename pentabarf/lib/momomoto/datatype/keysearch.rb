@@ -7,6 +7,7 @@ module Momomoto
       def filter_write( data = '')
         data = {:eq => [data]} if data.kind_of?(String) || data.kind_of?(Integer)
         data = {:eq => data} if data.kind_of?(Array)
+        fields = []
         data.each do | op, values |
           values.collect! do | val | "'#{val.to_i}'" end
           cond = property(:subselect).gsub( /%%%/, data.join( ', ') )
@@ -14,8 +15,9 @@ module Momomoto
                                      when :ne then 'NOT IN' 
                                      else raise "Unsupported operator #{op} in keysearch" 
                                      end
-          "#{property(:key_field)} #{operation} (#{cond})"
+          fields.push("#{property(:key_field)} #{operation} (#{cond})")
         end
+        fields.join(" AND ")
       end
   
     end

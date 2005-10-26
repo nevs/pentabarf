@@ -5,19 +5,29 @@ module Momomoto
     class Boolsearch < Base 
 
       def filter_write( data = '')
-        data = Array.new.push( data ) unless data.kind_of?( Array )
-        sql = ''
-        data.each do | value |
-          if value == 't'
-            cond = "#{property(:field)} = 't'"
-          elsif value == 'f'
-            cond = "#{property(:field)} = 'f'"
+        data = {:eq => [data]} if data.kind_of?(String) || data.kind_of?(Integer)
+        data = {:eq => data} if data.kind_of?(Array)
+        fields = []
+        data.each do | op, values |
+          if op.to_sym == :ne
+            cond = []
+            values.each do | val |
+              cond.push(case val when 't',true,1 then "#{property(:field)} <> 't'"
+                                 when 'f',false,0 then "#{property(:field)} <> 'f'"
+                                 else "#{property(:field)} IS NOT NULL" end )
+            end
+            fields.push( cond.join(" AND "))
           else
-            cond = "#{property(:field)} IS NULL"
+            cond = []
+            values.each do | val |
+              cond.push(case val when 't',true,1 then "#{property(:field)} = 't'"
+                                 when 'f',false,0 then "#{property(:field)} = 'f'"
+                                 else "#{property(:field)} IS NULL" end )
+            end
+            fields.push( "(" + cond.join(" OR ") + ")" )
           end
-          sql += sql != '' ? ' AND ' + cond : cond
         end
-        sql
+        fields.join(" AND ")
       end
   
     end
