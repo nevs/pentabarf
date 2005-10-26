@@ -660,7 +660,7 @@ CREATE TABLE event (
   conference_track_id INTEGER,
   team_id INTEGER,
   event_type_id INTEGER,
-  duration INTERVAL,
+  duration INTERVAL NOT NULL,
   event_origin_id INTEGER NOT NULL,
   event_state_id INTEGER NOT NULL,
   event_state_progress_id INTEGER NOT NULL,
