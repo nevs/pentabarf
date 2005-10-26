@@ -8,6 +8,7 @@ attribute['text'] = new Array();
 attribute['text'][0] = 'contains';
 attribute['keyword'] = new Array();
 attribute['keyword'][0] = 'is';
+attribute['keyword'][1] = 'is not';
 
 
 function construct_element(tag, css_class, id, name)
