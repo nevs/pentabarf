@@ -414,14 +414,9 @@ module Momomoto
           where = where_append( where, "#{key} IS NOT NULL" )
         elsif value === false
           where = where_append( where, "#{key} IS NULL" )
-        elsif value.instance_of?( Array )
-          values = ''
-          value.each do | v |
-            values += values == '' ? '' : ', '
-            values += @fields[key].filter_write( v )
-          end
-          where = where_append( where, "#{key} IN (#{values})" )
-        elsif value.kind_of?(Hash)
+        else
+          value = {:eq => [value]} if value.kind_of?(String) || value.kind_of?(Integer)
+          value = {:eq => value} if value.kind_of?(Array)
           value.each do | op, val |
             operator = case op.to_sym 
                          when :lt then '<' 
@@ -432,10 +427,9 @@ module Momomoto
                          when :ne then '<>'
                          else next
                        end
-            where = where_append( where, "#{key} #{operator} #{@fields[key].filter_write(val)}")
+            val.collect! do | v | "#{key} #{operator} #{@fields[key].filter_write(v)}" end
+            where = where_append( where, "( " + val.join(" OR ") + ")")
           end
-        else
-          where = where_append( where, "#{key} = #{@fields[key].filter_write(value)}" )
         end
       end
       where
