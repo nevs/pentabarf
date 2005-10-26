@@ -41,7 +41,7 @@
         <td><%= link_to( h(event.duration.strftime('%k:%M')), :action => :event, :id => event.event_id ) %></td>
         <td><%= link_to( h(event.room), :action => :event, :id => event.event_id ) %></td>
         <td><%= link_to( h(event.day), :action => :event, :id => event.event_id ) %></td>
-        <td><%= link_to( h(event.start_time), :action => :event, :id => event.event_id ) %></td>
+        <td><%= link_to( event.start_time ? h(event.start_time.strftime('%k:%M')) : '', :action => :event, :id => event.event_id ) %></td>
       </tr>
     <% end %>
   </tbody>
