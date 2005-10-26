@@ -3,6 +3,7 @@ module Momomoto
     def initialize
       super
       @domain = 'conflict'
+      @order = 'conflict_id, title1, title2, name'
       @query = "SELECT conflict_event_person_event.conflict_id, 
                        conflict_event_person_event.person_id,
                        conflict_event_person_event.event_id1,
