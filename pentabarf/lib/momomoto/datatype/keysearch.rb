@@ -5,16 +5,17 @@ module Momomoto
     class Keysearch < Base 
 
       def filter_write( data = '')
-        if data.kind_of?( Array )
-          data.collect do | val |
-            "'#{val.to_i}'"
-          end
-          fields = data.join(', ')
-        else
-          fields = "'#{data.to_i}'"
+        data = {:eq => [data]} if data.kind_of?(String) || data.kind_of?(Integer)
+        data = {:eq => data} if data.kind_of?(Array)
+        data.each do | op, values |
+          values.collect do | val | "'#{val.to_i}'" end
+          cond = property(:subselect).gsub( /%%%/, data.join( ', ') )
+          operation = case op.to_sym when :eq then 'IN' 
+                                     when :ne then 'NOT IN' 
+                                     else raise "Unsupported operator #{op} in keysearch" 
+                                     end
+          "#{property(:key_field)} #{operation} (#{cond})"
         end
-        cond = property(:subselect).gsub( /%%%/, fields )
-        "#{property(:key_field)} IN (#{cond})"
       end
   
     end
