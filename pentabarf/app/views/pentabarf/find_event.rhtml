@@ -95,7 +95,7 @@
         valuelists[8]['f'] = 'not set';
       <% if @preferences[:search_event_advanced].length > 0 %>
         <% @preferences[:search_event_advanced].each do | key, value | %>
-        search_criteria_add('search_elements', 0, '<%= escape_javascript(value[:type]) %>', '<%= escape_javascript(value[:logic]) %>', '<%= escape_javascript(value[:value]) %>');
+        search_criteria_add('search_elements', 0, '<%= escape_javascript(value[:type].to_s) %>', '<%= escape_javascript(value[:logic].to_s) %>', '<%= escape_javascript(value[:value].to_s) %>');
         <% end %>
       <% else %>
         search_criteria_add('search_elements', 0);
