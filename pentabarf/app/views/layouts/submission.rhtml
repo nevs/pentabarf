@@ -3,15 +3,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Pentabarf Paper Submission</title>
+    <title><%= h(@content_title) %> - Pentabarf <%= get_version() %> (r<%= get_revision() %>)</title>
     <link rel="shortcut icon" href="/favicon.ico">
-    <%= javascript_include_tag 'prototype', 'effects' %>
+    <%= javascript_include_tag( 'prototype', 'effects', 'switch_tab', 'cookie', 'tainted', 'add_functions' ) %>
+    <%= javascript_tag( "var p_base = '#{escape_javascript(get_base_url())}';" ) %>
+    <%= stylesheet_link_tag 'main' %>
   </head>
   <body id="body">
+    <%= render(:partial => 'sidebar') %>
     <div id="main">
+      <div id="context">
+        <h1><%= h(@content_title) %></h1>
+        <em><%= h(@content_subtitle) %></em>
+      </div>
       <div id="content">
         <%= @content_for_layout %>
       </div>
     </div>
+    <%= javascript_tag("init_done = true;enumerator();") %>
   </body>
 </html>

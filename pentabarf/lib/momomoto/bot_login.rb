@@ -22,7 +22,7 @@ module Momomoto
       if login_name.to_s != '' && select( { :login_name => login_name } ) == 1
         @@person_id = self[:person_id].to_i
         @@permissions = execute("SELECT get_permissions from get_permissions('#{@@person_id}');").to_a.flatten
-        self.ui_language_id= self[:preferences][:current_language_id]
+        Base.ui_language_id= self[:preferences][:current_language_id]
         return true
       end
       false

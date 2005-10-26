@@ -1,0 +1,17 @@
+<div id="sidebar">
+  <div id="logo">
+    <%= image_tag("erisdiscordia-160x160.png") %>
+  </div>
+
+  <div id="menu">
+  
+    <div class="menu-item-group">
+      <%= link_to( '<[link::startpage]>', {:controller => 'pentabarf', :action => :index }, { :class => 'menu-item' } ) %>
+    </div>
+  
+    <div class="menu-item-group">
+      <%= link_to( '<[link::pentabarf_wiki]>', 'https://pentabarf.org/mediawiki/', { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::pentabarf_bugtracker]>', 'https://trac.cccv.de/pentabarf/timeline', { :class => 'menu-item' } ) %>
+    </div>
+  </div>
+</div>

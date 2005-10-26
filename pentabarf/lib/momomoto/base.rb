@@ -66,7 +66,7 @@ module Momomoto
       # order for selects
       @order = nil
 
-      def ui_language_id=( value )
+      def self.ui_language_id=( value )
         @@ui_language_id = value.to_i
       end
 
