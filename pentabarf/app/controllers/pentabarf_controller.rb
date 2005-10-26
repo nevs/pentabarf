@@ -94,8 +94,9 @@ class PentabarfController < ApplicationController
 
   # transforms request from advanced search into a form understandable by momomoto
   def transform_advanced_search_conditions( search )
-    conditions = {}
+    search = search.dup
     ApplicationController.jabber_message( search.inspect )
+    conditions = {}
     search.each do | row_number, value |
       next if value[:type].nil?
       value[:type] = value[:type].to_sym
@@ -103,10 +104,11 @@ class PentabarfController < ApplicationController
                                          when 'is not' then :ne
                                          else :eq
                                          end
-      conditions[value[:type]] = {value[:logic] => Array.new} unless conditions[value[:type]] && conditions[value[:type]][value[:logic]]
+      conditions[value[:type]] = {} unless conditions[value[:type]]
+      conditions[value[:type]][value[:logic]] = Array.new unless conditions[value[:type]][value[:logic]]
       conditions[value[:type]][value[:logic]].push( value[:value])
     end
-    ApplicationController.jabber_message(conditions.inspect)
+    ApplicationController.jabber_message( conditions.inspect )
     conditions 
   end
 
