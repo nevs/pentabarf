@@ -8,7 +8,7 @@ module Momomoto
         data = {:eq => [data]} if data.kind_of?(String) || data.kind_of?(Integer)
         data = {:eq => data} if data.kind_of?(Array)
         data.each do | op, values |
-          values.collect do | val | "'#{val.to_i}'" end
+          values.collect! do | val | "'#{val.to_i}'" end
           cond = property(:subselect).gsub( /%%%/, data.join( ', ') )
           operation = case op.to_sym when :eq then 'IN' 
                                      when :ne then 'NOT IN' 
