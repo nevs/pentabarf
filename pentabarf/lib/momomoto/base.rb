@@ -429,6 +429,7 @@ module Momomoto
                          when :gt then '>'
                          when :ge then '>='
                          when :eq then '='
+                         when :ne then '<>'
                          else next
                        end
             where = where_append( where, "#{key} #{operator} #{@fields[key].filter_write(val)}")
