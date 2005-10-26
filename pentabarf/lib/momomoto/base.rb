@@ -428,7 +428,7 @@ module Momomoto
                          else next
                        end
             val.collect! do | v | "#{key} #{operator} #{@fields[key].filter_write(v)}" end
-            where = where_append( where, "( " + val.join(" OR ") + ")")
+            where = where_append( where, "( " + val.join( op.to_sym == :ne ? " AND " : " OR ") + ")")
           end
         end
       end
