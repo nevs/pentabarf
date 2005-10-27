@@ -82,13 +82,13 @@ CREATE OR REPLACE VIEW view_event AS
              view_event_state.language_id = view_event_type.language_id)
        LEFT OUTER JOIN view_conference_track ON (
              event.conference_track_id = view_conference_track.conference_track_id AND 
-             view_conference_track.language_id = view_event_type.language_id)
+             view_conference_track.language_id = view_event_state.language_id)
        LEFT OUTER JOIN view_team ON (
              event.team_id = view_team.team_id AND
-             view_team.language_id = view_event_type.language_id)
+             view_team.language_id = view_event_state.language_id)
        LEFT OUTER JOIN view_room ON (
              event.room_id = view_room.room_id AND
-             view_room.language_id = view_event_type.language_id)
+             view_room.language_id = view_event_state.language_id)
        LEFT OUTER JOIN event_image USING (event_id)
        LEFT OUTER JOIN mime_type USING (mime_type_id)
 ;
@@ -593,4 +593,31 @@ CREATE OR REPLACE VIEW view_report_schedule_coordinator AS
    GROUP BY person_id, name, conference_id 
    ORDER BY count(person_id) DESC
 ;
+
+CREATE OR REPLACE VIEW view_schedule_person AS
+  SELECT view_person.person_id,
+         view_person.name,
+         conference_person.conference_id,
+         conference_person.abstract,
+         conference_person.description,
+         conference_person.email_public
+    FROM view_person
+         INNER JOIN conference_person USING (person_id)
+         INNER JOIN ( 
+             SELECT DISTINCT ON (person_id, conference_id)
+                    person_id,
+                    conference_id
+               FROM event_person
+                    INNER JOIN event_role USING (event_role_id)
+                    INNER JOIN event_role_state USING (event_role_state_id)
+                    INNER JOIN event USING (event_id)
+                    INNER JOIN event_state USING (event_state_id)
+                    INNER JOIN event_state_progress USING (event_state_progress_id)
+              WHERE event_role.tag IN ('speaker', 'moderator') AND
+                    event_role_state.tag = 'confirmed' AND
+                    event_state.tag = 'accepted' AND
+                    event_state_progress.tag = 'confirmed'
+         ) AS speaker USING (person_id, conference_id)
+;
+
 
