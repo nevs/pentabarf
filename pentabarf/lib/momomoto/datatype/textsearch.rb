@@ -18,7 +18,7 @@ module Momomoto
               "#{field_name} #{operation} '%#{val.to_s.gsub(/[%\\']/, '')}%'"
             end
             cond += ' AND ' if cond != ''
-            cond += '(' + fields.join(' OR ') + ')'
+            cond += '(' + fields.join( op.to_sym == :ne ? ' AND ' : ' OR ') + ')'
           end
         end
         cond
