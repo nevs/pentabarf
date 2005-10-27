@@ -99,8 +99,8 @@ class PentabarfController < ApplicationController
     search.each do | row_number, value |
       next if value[:type].nil?
       value[:type] = value[:type].to_sym
-      value[:logic] = case value[:logic] when 'is' then :eq
-                                         when 'is not' then :ne
+      value[:logic] = case value[:logic] when 'is','contains' then :eq
+                                         when 'is not', "doesn't contain" then :ne
                                          else :eq
                                          end
       conditions[value[:type]] = {} unless conditions[value[:type]]

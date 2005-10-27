@@ -6,6 +6,7 @@ var elements = 0;
 var attribute = new Array();
 attribute['text'] = new Array();
 attribute['text'][0] = 'contains';
+attribute['text'][1] = 'doesn\'t contain';
 attribute['keyword'] = new Array();
 attribute['keyword'][0] = 'is';
 attribute['keyword'][1] = 'is not';
