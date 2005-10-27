@@ -427,6 +427,7 @@ module Momomoto
                          when :ne then '<>'
                          else next
                        end
+            val = [val] unless val.kind_of?(Array)
             val.collect! do | v | "#{key} #{operator} #{@fields[key].filter_write(v)}" end
             where = where_append( where, "( " + val.join( op.to_sym == :ne ? " AND " : " OR ") + ")")
           end
