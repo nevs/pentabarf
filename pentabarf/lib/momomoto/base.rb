@@ -406,8 +406,8 @@ module Momomoto
     def compile_where( conditions )
       where = ''
       conditions.each do | key , value | 
-        next if value.nil? || @fields[key].property(:parameter) || ( ( value.kind_of?(Array) || value.kind_of?(Hash) ) && value.length == 0 )
         raise "Unknown field #{key} in class #{self.class.name}" if @fields[key] == nil
+        next if value.nil? || @fields[key].property(:parameter) || ( ( value.kind_of?(Array) || value.kind_of?(Hash) ) && value.length == 0 )
         if @fields[key].property(:virtual)
           where = where_append( where, "#{@fields[key].filter_write(value)}" )
         elsif value === true 
