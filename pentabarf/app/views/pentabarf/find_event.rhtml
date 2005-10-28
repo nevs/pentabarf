@@ -113,7 +113,7 @@
   <fieldset id="results">
     <script type="text/javascript">
       switch_tab('<%= @preferences[:search_event_type] %>');
-      set = new Ajax.Updater('results', '<%= @preferences[:search_event_type] == 'simple' ? url_for(:action => :search_event, :id => -1) : url_for(:action => :search_event_advanced) %>');
+      set = new Ajax.Updater('results', '<%= @preferences[:search_event_type] == 'simple' ? url_for(:action => :search_event, :id => -1) : url_for(:action => :search_event_advanced, :id => -1) %>');
       set.updateContent();
     </script>
   </fieldset>
