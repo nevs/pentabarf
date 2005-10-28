@@ -13,4 +13,9 @@ class PdfController < ApplicationController
     end
   end
 
+  def pentacards
+      #search_event()  
+      pc = Pentacards.new(@events,2,2)
+      send_data(pc.render, :filename => 'pentacards.pdf', :type => 'application/pdf', :disposition => 'attachment')		    
+  end
 end
