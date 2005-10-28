@@ -59,7 +59,7 @@ module ApplicationHelper
   def content_tabs( tabs, html = '' )
     html += '<div id="tabs">'
     tabs.each_with_index do | tab, index |
-      html += "<span>#{ link_to(tab[:text],  tab[:url], {:accesskey => ( tab[:accesskey] || ( index + 1 )), :class => tab[:class], :id => 'tab-'+tab[:tag]})}</span>"
+      html += "<span>#{ link_to(h(tab[:text]),  tab[:url], {:accesskey => ( tab[:accesskey] || ( index + 1 )), :class => tab[:class], :id => 'tab-'+tab[:tag]})}</span>"
     end
     html += '</div>'
     html

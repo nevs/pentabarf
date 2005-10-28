@@ -21,6 +21,10 @@ class PentabarfController < ApplicationController
     @content_title ='Find Conference'
   end
 
+  def review
+    @content_title = 'Review'
+  end
+
   def search_conference
     @preferences[:search_conference] = request.raw_post.to_s.gsub(/&.*$/, '') unless params[:id]
     @preferences[:search_conference_type] = 'simple'
@@ -90,24 +94,6 @@ class PentabarfController < ApplicationController
     @persons = Momomoto::View_find_person.find( transform_advanced_search_conditions(@preferences[:search_person_advanced]), nil, nil, :person_id )
     @current_page = 0 if @persons.length < (@preferences[:hits_per_page] * @current_page)
     render(:partial => 'search_person')
-  end
-
-  # transforms request from advanced search into a form understandable by momomoto
-  def transform_advanced_search_conditions( search )
-    search = search.dup
-    conditions = {}
-    search.each do | row_number, value |
-      next if value[:type].nil?
-      value[:type] = value[:type].to_sym
-      value[:logic] = case value[:logic] when 'is','contains' then :eq
-                                         when 'is not', "doesn't contain" then :ne
-                                         else :eq
-                                         end
-      conditions[value[:type]] = {} unless conditions[value[:type]]
-      conditions[value[:type]][value[:logic]] = Array.new unless conditions[value[:type]][value[:logic]]
-      conditions[value[:type]][value[:logic]].push( value[:value])
-    end
-    conditions 
   end
 
   def find_person
@@ -656,6 +642,24 @@ class PentabarfController < ApplicationController
   end
 
   protected
+
+  # transforms request from advanced search into a form understandable by momomoto
+  def transform_advanced_search_conditions( search )
+    search = search.dup
+    conditions = {}
+    search.each do | row_number, value |
+      next if value[:type].nil?
+      value[:type] = value[:type].to_sym
+      value[:logic] = case value[:logic] when 'is','contains' then :eq
+                                         when 'is not', "doesn't contain" then :ne
+                                         else :eq
+                                         end
+      conditions[value[:type]] = {} unless conditions[value[:type]]
+      conditions[value[:type]][value[:logic]] = Array.new unless conditions[value[:type]][value[:logic]]
+      conditions[value[:type]][value[:logic]].push( value[:value])
+    end
+    conditions 
+  end
 
   def check_permission
     #redirect_to :action => :meditation if params[:action] != 'meditation'
