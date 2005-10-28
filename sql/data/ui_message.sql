@@ -148,6 +148,10 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (133, 'table::event_person::r
 INSERT INTO ui_message (ui_message_id, tag) VALUES (134, 'table::event::abstract');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (135, 'table::event::description');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (136, 'day');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (137, 'table::event::day');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (138, 'table::event::room');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (140, 'table::event::duration');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (141, 'table::event::start_time');
 
 
 --
@@ -155,6 +159,6 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (136, 'day');
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval('ui_message_ui_message_id_seq', 136, true);
+SELECT pg_catalog.setval('ui_message_ui_message_id_seq', 141, true);
 
 

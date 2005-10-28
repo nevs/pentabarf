@@ -53,6 +53,7 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (120,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (129, 120, 'Conference');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (129, 144, 'Konferenz');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (134, 120, 'Abstract');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (140, 120, 'Duration');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (135, 120, 'Description');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (135, 144, 'Beschreibung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (119, 144, 'Herkunft der Veranstaltung');
@@ -135,11 +136,13 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (23, 
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (121, 120, 'Progress');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (121, 144, 'Stand der Dinge');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (25, 120, 'Account');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (140, 144, 'Dauer');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (18, 120, 'General');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (18, 144, 'Allgemein');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (20, 120, 'Contact');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (20, 144, 'Kontakt');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (19, 120, 'Events');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (141, 120, 'Start time');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (21, 120, 'Description');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (21, 144, 'Beschreibung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (26, 120, 'Participant');
@@ -148,6 +151,7 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (27, 
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (27, 144, 'Koordinator');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (33, 120, 'Advanced');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (33, 144, 'Erweitert');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (141, 144, 'Zeit');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (32, 120, 'Simple');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (32, 144, 'Einfach');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (34, 120, 'General');
@@ -159,6 +163,7 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (36, 
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (37, 120, 'Rooms');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (37, 144, 'Räume');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (38, 120, 'Events');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (137, 120, 'Day');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (39, 120, 'Export');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (39, 144, 'Export');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (40, 120, 'Feedback');
@@ -187,6 +192,8 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (29, 
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (29, 144, 'Detailsuche');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (31, 120, 'Advanced Search');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (31, 144, 'Detailsuche');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (137, 144, 'Tag');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (138, 120, 'Room');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (48, 144, 'Reaktionen');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (55, 144, 'Status');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (56, 120, 'Comment');
@@ -213,6 +220,8 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (58, 
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (58, 144, 'Allgemeine Notizen zur Veranstaltung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (71, 120, 'Time zone');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (71, 144, 'Zeitzone');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (138, 144, 'Raum');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (70, 144, 'Dauer');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (38, 144, 'Veranstaltungen');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (105, 120, 'Conference');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (105, 144, 'Konferenz');
@@ -251,7 +260,6 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (111,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (114, 120, 'Day');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (114, 144, 'Tag');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (70, 120, 'Duration');
-INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (70, 144, 'Dauer der Konferenz (in Tagen)');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (100, 120, 'Event state');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (100, 144, 'Status Veranstaltung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (112, 120, 'Assigned team');
