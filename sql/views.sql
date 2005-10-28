@@ -633,4 +633,41 @@ CREATE OR REPLACE VIEW view_schedule_person AS
          ) AS speaker USING (person_id, conference_id)
 ;
 
+CREATE OR REPLACE VIEW view_review AS
+  SELECT event.event_id,
+         event.conference_id,
+         event.title,
+         event.subtitle,
+         event.event_state_id,
+         event.event_state_progress_id,
+         rating.relevance,
+         rating.relevance_count,
+         rating.actuality,
+         rating.actuality_count,
+         rating.acceptance,
+         rating.acceptance_count,
+         view_event_state.language_id AS translated_id,
+         view_event_state.tag AS event_state_tag,
+         view_event_state.name AS event_state,
+         view_event_state_progress.tag AS event_state_progress_tag,
+         view_event_state_progress.name AS event_state_progress
+    FROM event
+         INNER JOIN (
+           SELECT event_id,
+                  coalesce( sum((relevance - 3) * 50 )/ count(relevance), 0) AS relevance,
+                  count(relevance) AS relevance_count,
+                  coalesce( sum((actuality - 3) * 50 )/ count(actuality), 0) AS actuality,
+                  count(actuality) AS actuality_count,
+                  coalesce( sum((acceptance - 3) * 50 ) / count(acceptance), 0) AS acceptance,
+                  count(acceptance) AS acceptance_count
+             FROM event_rating
+            GROUP BY event_id
+         ) AS rating USING (event_id)
+         INNER JOIN view_event_state USING (event_state_id)
+         INNER JOIN view_event_state_progress ON (
+           view_event_state.language_id = view_event_state_progress.language_id AND
+           event.event_state_progress_id = view_event_state_progress.event_state_progress_id )
+   ORDER BY acceptance DESC, relevance DESC, actuality DESC
+;
+ 
 
