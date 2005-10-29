@@ -16,5 +16,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # Install the default route as the lowest priority.
   map.connect '', :controller => 'pentabarf'
+  map.connect 'schedule/final/:conference_id/:action/:id', :controller => 'schedule'
   map.connect ':controller/:action/:id'
 end

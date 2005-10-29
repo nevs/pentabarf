@@ -15,6 +15,7 @@
       <%= link_to( '<[link::startpage]>', {:controller => 'pentabarf', :action => :index }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::recent_changes]>', { :action => :recent_changes }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::reports]>', { :action => :reports }, { :class => 'menu-item' } ) %>
+      <%= link_to( '<[link::review]>', { :action => :review}, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::conflicts]>', { :action => :conflicts }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::schedule]>', { :action => :schedule}, { :class => 'menu-item' } ) %>
       <% if @user.permission?('admin_login') %>

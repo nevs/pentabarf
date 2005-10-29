@@ -1,11 +1,12 @@
-<%= 
+<% 
   tabs = []
   for state in Momomoto::View_event_state.find({:language_id=>@current_language_id}, nil, 'rank')
     tabs.push({:text=>state.name,:url=>url_for(:id=>state.tag),:class=>state.tag == params[:id] ? 'tab active' : 'tab inactive',:tag=>state.tag})
   end
   tabs.push({:text=>'Show All',:url=>url_for(:id=>nil),:class=> params[:id].nil? ? 'tab active' : 'tab inactive',:tag=>'all',:accesskey=>0})
-  content_tabs(tabs) 
+  ratings = Momomoto::View_event_rating.find({:person_id=>@user.person_id})
 %>
+<%= content_tabs( tabs ) %>
 <div id="data">
   <table>
     <thead>
@@ -13,6 +14,7 @@
         <th><[table::event::title]></th>
         <th><[table::event::event_state]></th>
         <th><[table::event::event_state_progress]></th>
+        <th><[table::event::track]></th>
         <th>Acceptance</th>
         <th>Relevance</th>
         <th>Actuality</th>
@@ -20,10 +22,11 @@
     </thead>
     <tbody>
     <% for event in Momomoto::View_review.find({:conference_id => @current_conference_id, :translated_id => @current_language_id, :event_state_tag => params[:id]}) %>
-      <tr>
+      <tr style="<%= ratings.find_by_value({:event_id=>event.event_id}) && (ratings.acceptance || ratings.relevance || ratings.actuality) ? '' : 'background-color: moccasin;'%>">
         <td><a href="<%= url_for({:action=>:event,:id=>event.event_id}) %>"><%= h(event.title) %></a></td>
         <td><a href="<%= url_for({:action=>:event,:id=>event.event_id}) %>"><%= h(event.event_state) %></a></td>
         <td><a href="<%= url_for({:action=>:event,:id=>event.event_id}) %>"><%= h(event.event_state_progress) %></a></td>
+        <td><a href="<%= url_for({:action=>:event,:id=>event.event_id}) %>"><%= h(event.conference_track) %></a></td>
         <td><a href="<%= url_for({:action=>:event,:id=>event.event_id}) %>"><%= event.acceptance %>/<%= event.acceptance_count %></a></td>
         <td><a href="<%= url_for({:action=>:event,:id=>event.event_id}) %>"><%= event.relevance %>/<%= event.relevance_count %></a></td>
         <td><a href="<%= url_for({:action=>:event,:id=>event.event_id}) %>"><%= event.actuality %>/<%= event.actuality_count %></a></td>
