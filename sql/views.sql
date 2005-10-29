@@ -650,7 +650,9 @@ CREATE OR REPLACE VIEW view_review AS
          view_event_state.tag AS event_state_tag,
          view_event_state.name AS event_state,
          view_event_state_progress.tag AS event_state_progress_tag,
-         view_event_state_progress.name AS event_state_progress
+         view_event_state_progress.name AS event_state_progress,
+         view_conference_track.tag AS conference_track_tag,
+         view_conference_track.name AS conference_track
     FROM event
          INNER JOIN (
            SELECT event_id,
@@ -667,6 +669,9 @@ CREATE OR REPLACE VIEW view_review AS
          INNER JOIN view_event_state_progress ON (
            view_event_state.language_id = view_event_state_progress.language_id AND
            event.event_state_progress_id = view_event_state_progress.event_state_progress_id )
+         LEFT OUTER JOIN view_conference_track ON (
+           view_event_state.language_id = view_conference_track.language_id AND
+           event.conference_track_id = view_conference_track.conference_track_id)
    ORDER BY acceptance DESC, relevance DESC, actuality DESC
 ;
  

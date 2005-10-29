@@ -20,7 +20,9 @@ module Momomoto
         :event_state_tag => Datatype::Varchar.new( {:length=>32} ),
         :event_state => Datatype::Varchar.new( {} ),
         :event_state_progress_tag => Datatype::Varchar.new( {:length=>32} ),
-        :event_state_progress => Datatype::Varchar.new( {} )
+        :event_state_progress => Datatype::Varchar.new( {} ),
+        :conference_track_tag => Datatype::Varchar.new( {:length=>32} ),
+        :conference_track => Datatype::Varchar.new( {} )
       }
     end
   end
