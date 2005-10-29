@@ -10,7 +10,7 @@ module Momomoto
         fields = []
         data.each do | op, values |
           values.collect! do | val | "'#{val.to_i}'" end
-          cond = property(:subselect).gsub( /%%%/, values.join( ', ') )
+          cond = property(:subselect).gsub( /%%%/, data.join( ', ') )
           operation = case op.to_sym when :eq then 'IN' 
                                      when :ne then 'NOT IN' 
                                      else raise "Unsupported operator #{op} in keysearch" 
