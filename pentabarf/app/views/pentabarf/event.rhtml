@@ -292,17 +292,11 @@
         </tr>
         <tr>
           <td><label>Start Time</label></td>
-          <% key = Time.parse("00:00:00")
-             current = @conference.day_change
-             diff = @conference.timeslot_duration
-             offset = diff.hour * 3600 + diff.min * 60 + diff.sec
+          <% t = Time.parse('2000-1-1 00:00:00')
              start_times = []
-             passed = 0
-             while passed < (24*60*60)
-               start_times.push( { :key => key.strftime("%H:%M:%S"), :value => current.strftime("%H:%M")})
-               passed += offset
-               current += offset
-               key += offset
+             while (t.day < 2)
+               start_times.push({:key => t.strftime('%H:%M:%S'), :value => (t + @conference.day_change.hour * 3600 + @conference.day_change.min * 60 + @conference.day_change.sec).strftime('%H:%M')})
+               t = t + @conference.timeslot_duration.hour * 3600 + @conference.timeslot_duration.min * 60 + @conference.timeslot_duration.sec
              end
           %>
           <td><%= select_tag( 'event[start_time]', start_times, :key, :value, @event.start_time ? @event.start_time.strftime('%H:%M:%S') : nil , { :tabindex => 0 } ) %></td>
