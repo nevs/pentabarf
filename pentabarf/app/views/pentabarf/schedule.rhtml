@@ -21,7 +21,7 @@
   @events.each do | event |
     slots = (event.duration.hour * 3600 + event.duration.min * 60)/timeslot_seconds
     start_seconds = event.start_time.hour * 3600 + event.start_time.min * 60
-    table[event.day - 1][start_seconds/timeslot_seconds][event.room_id] = "<td rowspan=\"#{slots}\">" + link_to( "#{h(event.title)}<br/>#{(event.subtitle)}", url_for(:action=>:event,:id=>event.event_id)) + "</td>"
+    table[event.day - 1][start_seconds/timeslot_seconds][event.room_id] = "<td rowspan=\"#{slots}\">" + link_to( "<strong>#{h(event.title)}</strong><br/><em>#{(event.subtitle)}</em>", url_for(:action=>:event,:id=>event.event_id)) + "</td>"
     slots.times do | i |
       next if i < 1
       table[event.day - 1][start_seconds/timeslot_seconds + i][event.room_id] = 0
