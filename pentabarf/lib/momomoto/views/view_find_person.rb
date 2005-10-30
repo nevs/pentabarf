@@ -22,7 +22,8 @@ module Momomoto
         :email_contact => Datatype::Varchar.new( {:length=>64} ),
         :mime_type_id => Datatype::Integer.new( {} ),
         :mime_type => Datatype::Varchar.new( {:length=>128} ),
-        :file_extension => Datatype::Varchar.new( {:length=>16} )
+        :file_extension => Datatype::Varchar.new( {:length=>16} ),
+        :conference_id => Datatype::Integer.new( {} )
       }
     end
   end
