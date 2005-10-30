@@ -57,6 +57,10 @@ module ActionView
         compile_template_default( extension, localize( template ), file_path, local_assigns )
       end
 
+      def compile_template?( template, file_name, local_assigns )
+        true
+      end
+
       # overwrite render function for rails 0.13.1
       begin
         Base::instance_method("rhtml_render")
