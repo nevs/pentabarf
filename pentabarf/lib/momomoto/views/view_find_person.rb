@@ -7,6 +7,9 @@ module Momomoto
       @fields = {
         :search => Datatype::Textsearch.new( {:virtual=>true,:field=>[:first_name, :last_name, :nickname, :login_name, :public_name, :email_contact]} ),
         :s_name => Datatype::Textsearch.new( {:virtual=>true,:field=>[:first_name, :last_name, :nickname, :login_name, :public_name]} ),
+        :s_first_name => Datatype::Textsearch.new( {:virtual=>true,:field=>[:first_name]} ),
+        :s_last_name => Datatype::Textsearch.new( {:virtual=>true,:field=>[:last_name]} ),
+        :s_nickname => Datatype::Textsearch.new( {:virtual=>true,:field=>[:nickname]} ),
         :s_email => Datatype::Textsearch.new( {:virtual=>true,:field=>[:email_contact]} ),
         :s_gender => Datatype::Boolsearch.new( {:virtual=>true,:field=>:gender} ),
         :person_id => Datatype::Integer.new( {} ),
