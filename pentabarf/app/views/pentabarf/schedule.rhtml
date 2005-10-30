@@ -23,6 +23,7 @@
     table[event.day - 1][start_seconds/timeslot_seconds][event.room_id] = {:event_id => event.event_id, :slots => slots}
     slots.times do | i |
       next if i < 1
+      next unless table[event.day - 1][start_seconds/timeslot_seconds + i] 
       table[event.day - 1][start_seconds/timeslot_seconds + i][event.room_id] = 0
     end
   end
