@@ -27,4 +27,45 @@ class ConferenceEntity < Entity
     }
     items
   end
+
+  def handle_search(iq)
+    if iq.type == :get
+      answer = iq.answer
+      answer.type = :result
+
+      answer.query.replace_element_text('instructions', 'Please enter Pentabarf personae search criteria (42 results max.)')
+      answer.query.replace_element_text('first', nil)
+      answer.query.replace_element_text('last', nil)
+      answer.query.replace_element_text('nick', nil)
+
+      send(answer)
+    elsif iq.type == :set
+      answer = iq.answer(false)
+      answer.type = :result
+      answer.add(REXML::Element.new('query')).add_namespace('jabber:iq:search')
+      
+      first = (iq.query.first_element_text('first').to_s == '') ? nil : iq.query.first_element_text('first')
+      last = (iq.query.first_element_text('last').to_s == '') ? nil : iq.query.first_element_text('last')
+      nick = (iq.query.first_element_text('nick').to_s == '') ? nil : iq.query.first_element_text('nick')
+      
+      Momomoto::View_find_person.find({ :conference_id => @conference_id,
+                                        :s_first_name => first,
+                                        :s_last_name => last,
+                                        :s_nickname => nick}, 42).each { |person|
+        item = REXML::Element.new('item')
+        item.attributes['jid'] = Jabber::JID.new("person-#{person.person_id}", @jid.domain).to_s
+        item.replace_element_text('first', person.first_name)
+        item.replace_element_text('last', person.last_name)
+        item.replace_element_text('nick', person.nickname)
+
+        answer.query.add(item)
+      }
+
+      send(answer)
+    end
+  end
+
+  def disco_features
+    super + ['jabber:iq:search']
+  end
 end

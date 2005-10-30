@@ -56,6 +56,8 @@ class Entity
     if stanza.kind_of?(Jabber::Iq)
       if stanza.type == :get
         handle_iq_get(stanza)
+      elsif stanza.type == :set
+        handle_iq_set(stanza)
       end
     elsif stanza.kind_of?(Jabber::Presence)
       handle_presence(stanza)
@@ -94,6 +96,24 @@ class Entity
         answer.type = :error
         answer.add(Jabber::Error.new('feature-not-implemented'))
       end
+    elsif iq.queryns == 'jabber:iq:search' and respond_to?('handle_search')
+      handle_search(iq)
+    else
+      answer.type = :error
+      answer.add(Jabber::Error.new('feature-not-implemented'))
+    end
+
+    @stream.send(answer)
+  end
+
+  ##
+  # Handle <tt><iq type='set'/></tt>
+  def handle_iq_set(iq)
+    answer = iq.answer
+    answer.type = :result
+
+    if iq.queryns == 'jabber:iq:search' and respond_to?('handle_search')
+      handle_search(iq)
     else
       answer.type = :error
       answer.add(Jabber::Error.new('feature-not-implemented'))

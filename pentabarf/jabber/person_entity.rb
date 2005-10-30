@@ -53,7 +53,7 @@ class PersonEntity < Entity
     fields['N/GIVEN'] = person.first_name
     fields['N/MIDDLE'] = person.middle_name
     fields['N/FAMILY'] = person.last_name
-    fields['EMAIL'] = person.email_contact
+    fields['EMAIL'] = conference_person.email_public
     fields['DESC'] = conference_person.abstract
 
     fields.merge!(photo)
