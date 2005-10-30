@@ -63,7 +63,7 @@ class Multiboy
 
     @poll_thread.kill
 
-    puts "Broadcasting subscribed presences"
+    puts "Broadcasting subscribed presences... PLEASE STAND BY!"
     Dir.new('subscriptions').each { |filename|
       next if filename =~ /^\./
       ent = entity(Jabber::JID.new(filename))
@@ -194,5 +194,7 @@ class Multiboy
     unless ent.nil?
       ent.notify_change(change)
     end
+
+    entity(@stream.jid).notify_change(change)
   end
 end

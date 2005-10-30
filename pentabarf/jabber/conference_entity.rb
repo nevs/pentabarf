@@ -11,6 +11,10 @@ class ConferenceEntity < Entity
     end
   end
 
+  def handle_subscription_request(from)
+    true
+  end
+
   def disco_identity
     conference = Momomoto::Conference.find({:conference_id => @conference_id, :f_deleted => 'f'}, 1)
     name = conference.nil? ? 'Unknown conference' : conference.title
@@ -26,6 +30,18 @@ class ConferenceEntity < Entity
       items.push(Jabber::DiscoItem.new(Jabber::JID.new("day-#{day + 1}", @jid.domain), "Day #{day + 1}"))
     }
     items
+  end
+
+  def notify_change(change)
+    broadcast_presence
+  end
+
+  def presence
+    lines = []
+    Momomoto::View_recent_changes.find({}, 5, 'changed_when desc').each { |change|
+      lines.push("#{change.type} #{change.title} by #{change.name}")
+    }
+    Jabber::Presence.new.set_status(lines.join("\n"))
   end
 
   def handle_search(iq)

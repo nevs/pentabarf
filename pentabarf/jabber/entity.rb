@@ -175,7 +175,9 @@ class Entity
     end
 
     subscriptions.each_element('item') { |item|
-      send(pres.set_to(item.jid))
+      if item.subscription == :from or item.subscription == :both
+        send(pres.set_to(item.jid))
+      end
     }
   end
 
