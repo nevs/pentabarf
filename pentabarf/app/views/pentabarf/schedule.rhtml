@@ -3,6 +3,7 @@
   conf = Momomoto::Conference.find({:conference_id=>@current_conference_id})
   table = []
   timeslot_seconds = conf.timeslot_duration.hour * 3600 + conf.timeslot_duration.min * 60
+  slots_per_day = 24 * 60 * 60 / timeslot_seconds
   start = (conf.day_change.hour * 3600) + (conf.day_change.min * 60)
   day_tabs = []
   conf.days.times do | i |
@@ -16,17 +17,24 @@
       current += timeslot_seconds
     end
   end
-  colors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
   @events.each do | event |
     slots = (event.duration.hour * 3600 + event.duration.min * 60)/timeslot_seconds
-    start_seconds = event.start_time.hour * 3600 + event.start_time.min * 60
-    table[event.day - 1][start_seconds/timeslot_seconds][event.room_id] = {:event_id => event.event_id, :slots => slots}
+    start_slot = (event.start_time.hour * 3600 + event.start_time.min * 60) / timeslot_seconds
+    table[event.day - 1][start_slot][event.room_id] = {:event_id => event.event_id, :slots => slots}
     slots.times do | i |
       next if i < 1
-      next unless table[event.day - 1][start_seconds/timeslot_seconds + i] 
-      table[event.day - 1][start_seconds/timeslot_seconds + i][event.room_id] = 0
+      if (start_slot + i) >= slots_per_day
+        if (start_slot + i)%slots_per_day == 0
+          table[event.day - 1 + (start_slot + i)/slots_per_day][(start_slot + i)%slots_per_day][event.room_id] = {:event_id => event.event_id, :slots => slots - i}
+        else
+          table[event.day - 1 + (start_slot + i)/slots_per_day][(start_slot + i)%slots_per_day][event.room_id] = 0
+        end
+      else 
+        table[event.day - 1][start_slot + i][event.room_id] = 0
+      end
     end
   end
+  colors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
 %>
 
 <div id="data">
