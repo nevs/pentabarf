@@ -80,7 +80,7 @@
 
       <fieldset>
         <legend><[view_person::other_events]></legend>
-        <% events = Momomoto::View_event_person.find({:person_id => @person.person_id, :language_id => @current_language_id, :event_role_state => true}, nil, 'acronym, lower(title), lower(subtitle)')
+        <% events = Momomoto::View_event_person.find({:person_id => @person.person_id, :language_id => @current_language_id, :event_role_tag => ['speaker','moderator']}, nil, 'acronym, lower(title), lower(subtitle)')
         %>
         <table>
           <thead>
