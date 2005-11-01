@@ -5,7 +5,7 @@
     if ( !document.getElementsByName('person[last_name]')[0].value &&
          !document.getElementsByName('person[nickname]')[0].value &&
          !document.getElementsByName('person[public_name]')[0].value ) {
-      alert('You have to fill in a Last name, nickname or public name.');
+      alert('You have to fill in a <[table::person::last_name]>, <[table::person::nickname]> or <[table::person::public_name]>.');
     } else {
       document.forms['content_form'].submit();
     }
@@ -115,27 +115,27 @@
       <legend>Names</legend>
       <table>
         <tr>
-          <td><label>First Name</label></td>
+          <td><label><[table::person::first_name]></label></td>
           <td><%= text_field_tag('person[first_name]', @person.first_name, { :tabindex => 0 }) %></td>
         <tr>
         <tr>
-          <td><label>Last Name</label></td>
+          <td><label><[table::person::last_name]></label></td>
           <td><%= text_field_tag('person[last_name]', @person.last_name, { :tabindex => 0 }) %></td>
         </tr>
         <tr>
-          <td><label>Nickname</label></td>
+          <td><label><[table::person::nickname]></label></td>
           <td><%= text_field_tag('person[nickname]', @person.nickname, { :tabindex => 0 }) %></td>
         </tr>
         <tr>
-          <td><label>Public Name</label></td>
+          <td><label><[table::person::public_name]></label></td>
           <td><%= text_field_tag('person[public_name]', @person.public_name, { :tabindex => 0 }) %></td>
         </tr>
         <tr>
-          <td><label>Title</label></td>
+          <td><label><[table::person::title]></label></td>
           <td><%= text_field_tag('person[title]', @person.title, { :tabindex => 0 }) %></td>
         </tr>
         <tr>
-          <td><label for="f_arrived">Arrived</label></td>
+          <td><label for="f_arrived"><[table::person_travel::f_arrived]></label></td>
           <td><%= check_box_tag('person_travel[f_arrived]', 't', @person_travel.f_arrived == 't' ? true : false, {:tabindex => 0} ) %></td>
         </tr>
       </table>
@@ -145,7 +145,7 @@
       <legend>Properties</legend>
       <table>
         <tr>
-          <td><label>Gender</label></td>
+          <td><label><[table::person::gender]></label></td>
           <td><%= select('person', 'gender', {'male' => 't', 'female' => 'f'}, {:include_blank => true}, {:tabindex => 0}) %></td>
         </tr>
         <tr>
