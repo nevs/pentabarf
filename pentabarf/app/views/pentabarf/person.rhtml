@@ -70,7 +70,7 @@
             event_role_states[<%= event_role_state.event_role_id %>][<%= event_role_state.event_role_state_id %>] = '<%= escape_javascript(event_role_state.name) %>';
           <% end %>
 
-          <% for event in Momomoto::View_event_person.find({:conference_id => @current_conference_id, :person_id => @person.person_id, :language_id => @current_language_id}) %>
+          <% for event in Momomoto::View_event_person.find({:conference_id => @current_conference_id, :person_id => @person.person_id, :language_id => @current_language_id}, nil, 'event_role_tag, event_role_state, lower(title), lower(subtitle)') %>
             add_person_event(<%= event.event_person_id %>, <%= event.event_id %>, <%= event.event_role_id %>, '<%= event.event_role_state_id %>', '<%= escape_javascript(event.remark) %>');
           <% end %>
           
