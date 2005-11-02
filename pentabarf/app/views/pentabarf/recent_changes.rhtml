@@ -1,3 +1,10 @@
+<%
+  tabs = []
+  [25,50,100].each do | count |
+    tabs.push({:text=>count,:url=>url_for({:id=>count}),:class=> params[:id].to_i == count ? 'tab active' : 'tab inactive',:tag=>count})
+  end
+%>
+<%= content_tabs( tabs ) %>
 <div id="object-image">
   <%= image_tag('icon-list-64x64.png', { :class => 'object-image' } ) %>
 </div>
