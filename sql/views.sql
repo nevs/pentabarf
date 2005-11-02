@@ -617,6 +617,9 @@ CREATE OR REPLACE VIEW view_report_schedule_coordinator AS
 CREATE OR REPLACE VIEW view_schedule_person AS
   SELECT view_person.person_id,
          view_person.name,
+         speaker.event_id,
+         speaker.title,
+         speaker.subtitle,
          conference_person.conference_id,
          conference_person.abstract,
          conference_person.description,
@@ -624,9 +627,11 @@ CREATE OR REPLACE VIEW view_schedule_person AS
     FROM view_person
          INNER JOIN conference_person USING (person_id)
          INNER JOIN ( 
-             SELECT DISTINCT ON (person_id, conference_id)
-                    person_id,
-                    conference_id
+             SELECT person_id,
+                    conference_id,
+                    event.event_id,
+                    event.title,
+                    event.subtitle
                FROM event_person
                     INNER JOIN event_role USING (event_role_id)
                     INNER JOIN event_role_state USING (event_role_state_id)
