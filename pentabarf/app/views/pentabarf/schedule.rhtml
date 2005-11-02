@@ -2,9 +2,7 @@
   rooms = Momomoto::View_room.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id}, nil, 'rank')
   conf = Momomoto::Conference.find({:conference_id=>@current_conference_id})
   day_tabs = []
-  conf.days.times do | i |
-    day_tabs.push({:tag => "day_#{i+1}", :text => "<[day]> #{i+1}"})
-  end
+  conf.days.times do | i | day_tabs.push({:tag => "day_#{i+1}", :text => "<[day]> #{i+1}"}) end
   table = schedule_table( conf, @events )  
   colors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
 %>
@@ -17,7 +15,7 @@
   <% for track in Momomoto::View_conference_track.find({:conference_id => @current_conference_id, :language_id => @current_language_id}, nil, 'name') %>
     <% track_color[track.conference_track_id] = colors[track.current_record % colors.length] %>
     <span style="margin: 20px 3px; padding: 5px 15px; background-color: <%= track_color[track.conference_track_id] %>;">
-      <strong><%= track.name %></strong>
+      <strong><%= h(track.name) %></strong>
     </span>
   <% end %>
 </div>
