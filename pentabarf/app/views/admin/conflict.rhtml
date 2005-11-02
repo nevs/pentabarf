@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     <% phase_conflict = Momomoto::Conference_phase_conflict.find({}) %>
-    <% for conflict in Momomoto::View_conflict.find( {:language_id => @preferences[:current_language_id]} ) %>
+    <% for conflict in Momomoto::View_conflict.find( {:language_id => @preferences[:current_language_id]}, nil, 'conflict_id' ) %>
       <tr>
         <td><%= conflict.name %></td>
         <% for phase in phases %>
