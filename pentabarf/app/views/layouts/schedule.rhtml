@@ -9,14 +9,7 @@
     <link href="<%= url_for({:action=>:css}) %>" rel="Stylesheet" media="screen" type="text/css" />
   </head>
   <body>
-    <div id="menu">
-      <ul>
-        <li><a href="<%= url_for({:action=>:index}) %>"><span class="normal">Index</span></a></li>
-        <li><a href="<%= url_for({:action=>:index}) %>"><span class="normal">Index</span></a></li>
-        <li><a href="<%= url_for({:action=>:index}) %>"><span class="normal">Index</span></a></li>
-        <li><a href="<%= url_for({:action=>:index}) %>"><span class="normal">Index</span></a></li>
-      </ul>
-    </div>
+    <%= render(:partial => 'sidebar') %>
 
     <div id="content">
       <p class="release"><%= h(@conference.acronym) %> <%= h(@conference.release) %></p>

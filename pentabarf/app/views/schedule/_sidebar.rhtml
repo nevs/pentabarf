@@ -1,0 +1,10 @@
+<div id="menu">
+  <ul>
+    <li><a href="<%= url_for({:action=>:index}) %>"><span class="normal">Index</span></a></li>
+    <% @conference.days.times do | day | %>
+      <li><a href="<%= url_for({:action=>:day,:id=>day + 1}) %>"><span class="normal">Day <%= day + 1 %></span></a></li>
+    <% end %>
+    <li><a href="<%= url_for({:action=>:speaker}) %>"><span class="normal">Speaker</span></a></li>
+    <li><a href="<%= url_for({:action=>:events}) %>"><span class="normal">Events</span></a></li>
+  </ul>
+</div>
