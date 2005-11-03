@@ -1,0 +1,49 @@
+<div id="schedule" class="section">
+
+  <h1>Overview Day <%= h(@day) %></h1>
+  <% table = schedule_table( @conference, @events )[@day - 1] %>
+
+  <table>
+    <thead>
+      <tr class="odd">
+        <th class="time"><strong>Time</strong></th>
+
+        <% @rooms.each do | room | %>
+        <th><strong><%= h(room.name) %></strong></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% table.each do | row | %>
+      <tr>
+        <td class="time"><%= h(row[0])%></td>
+        <% @rooms.each do | room | %>
+          <% next if row[room.room_id] === 0 %>
+          <% if row[room.room_id].nil? %>
+            <td class="room empty"/>
+          <% else %>
+            <% @events.find_by_value({:event_id =>  row[room.room_id][:event_id] }) %>
+            <td class="room event" rowspan="<%= row[room.room_id][:slots] %>">
+              <p class="title"><a href=""><%= @events.title %></a></p> 
+              <p class="subtitle"><a href=""><%= @events.subtitle %></a></p> 
+              <ul class="speakers">
+                <% @events.each_by_value({:event_id=>row[room.room_id][:event_id]}) do | speaker | %>
+                  <li><a href=""><%= h(speaker.name) %></a></li>
+                <% end %>
+              </ul>
+              <p class="info">
+                <a href="<%= url_for({:action=>:event,:id=>row[room.room_id][:event_id]}) %>">
+                  Language: <span class="language"><%= h(@events.language) %></span><br/>
+                  Type: <span class="type"><%= h(@events.event_type) %></span><br/>
+                  Track: <span class="track"><%= h(@events.conference_track) %></span><br/>
+                </a>
+              </p>
+            </td>
+          <% end %>
+        <% end %>
+        </tr>
+      <% end %>
+    </tbody>    
+  </table>
+
+</div>

@@ -32,7 +32,6 @@
       </tr>
     </thead>
     <tbody>
-      <% i = 0 %>
       <% day_table.each do | row | %>
       <tr>
         <td><%= h(row[0])%></td>
@@ -47,7 +46,6 @@
                 <strong><%= h(@events.title) %></strong><br/><em><%= h(@events.subtitle) %></em>
               </a>
             </td>
-        <% i += 1 %>
           <% end %>
         <% end %>
       </tr>
