@@ -2,13 +2,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title><%= h(@content_title) %> - Pentabarf <%= get_version() %> (r<%= get_revision() %>)</title>
-    <link rel="shortcut icon" href="/favicon.ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="generator" content="Pentabarf"/>
+    <title><%= h(@conference.acronym) %>: <%= h(@content_title) %></title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link href="<%= url_for({:action=>:css}) %>" rel="Stylesheet" media="screen" type="text/css" />
   </head>
-  <body id="body">
-      <div id="content">
-        <%= @content_for_layout %>
-      </div>
+  <body>
+    <div id="menu">
+      <ul>
+        <li><a href="<%= url_for({:action=>:index}) %>"><span class="normal">Index</span></a></li>
+        <li><a href="<%= url_for({:action=>:index}) %>"><span class="normal">Index</span></a></li>
+        <li><a href="<%= url_for({:action=>:index}) %>"><span class="normal">Index</span></a></li>
+        <li><a href="<%= url_for({:action=>:index}) %>"><span class="normal">Index</span></a></li>
+      </ul>
+    </div>
+
+    <div id="content">
+      <p class="release"><%= h(@conference.acronym) %> <%= h(@conference.release) %></p>
+      <p class="intro"><strong><%= h(@conference.title) %></strong><br/><em><%= h(@content_title) %></em>
+      <%= @content_for_layout %>
+    </div>
   </body>
 </html>

@@ -1,0 +1,31 @@
+<div id="speaker-index" class="action">
+<table class="speaker-index">
+  <thead>
+    <tr>
+      <th class="speaker"><strong>Speaker</strong></th>
+      <th class="events"><strong>Events</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @speaker.each_unique(:person_id) do | person | %>
+    <tr>
+      <td class="speaker">
+        <a href="">
+          <img src="<%= url_for({:controller=>'image',:action=>:person,:id=>person.person_id}) %>-64x64" class="speaker-image" />
+        </a>
+        <a href="">
+          <%= person.name %><br/>
+        </a>
+      </td>
+      <td class="events">
+        <ul class="events">
+          <% @speaker.each_by_value({:person_id=>person.person_id}) do | event | %>
+            <li><a href=""><%= event.title %></a></li>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
