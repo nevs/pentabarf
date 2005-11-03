@@ -34,6 +34,14 @@ module ApplicationHelper
         end
       end
     end
+    table.each do | day_table | 
+      while day_table.first.length == 1
+        day_table.delete(day_table.first)
+      end
+      while day_table.last.length == 1
+        day_table.delete(day_table.last)
+      end
+    end
     table
   end
 
