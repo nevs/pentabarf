@@ -14,6 +14,7 @@ CREATE OR REPLACE VIEW view_attachment_type AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN attachment_type
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN attachment_type_localized USING (language_id, attachment_type_id);
 
@@ -34,6 +35,7 @@ CREATE OR REPLACE VIEW view_conference_track AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN conference_track
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN conference_track_localized USING (language_id, conference_track_id);
 
@@ -52,6 +54,7 @@ CREATE OR REPLACE VIEW view_conference_phase AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN conference_phase
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN conference_phase_localized USING (language_id, conference_phase_id);
 
@@ -68,6 +71,7 @@ CREATE OR REPLACE VIEW view_conflict AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN conflict
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN conflict_localized USING (language_id, conflict_id);
 
@@ -86,6 +90,7 @@ CREATE OR REPLACE VIEW view_conflict_level AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN conflict_level
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN conflict_level_localized USING (language_id, conflict_level_id);
 
@@ -103,7 +108,8 @@ CREATE OR REPLACE VIEW view_country AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN country 
-             WHERE country.f_visible = 't' 
+            WHERE language.f_localized = 't' AND
+                  country.f_visible = 't' 
          ) AS all_lang 
          LEFT OUTER JOIN country_localized USING (language_id, country_id) 
     ORDER BY lower(name);
@@ -123,7 +129,8 @@ CREATE OR REPLACE VIEW view_currency AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN currency 
-             WHERE currency.f_visible = 't' 
+            WHERE language.f_localized = 't' AND
+                  currency.f_visible = 't' 
          ) AS all_lang 
          LEFT OUTER JOIN currency_localized USING (language_id, currency_id);
 
@@ -142,6 +149,7 @@ CREATE OR REPLACE VIEW view_event_origin AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN event_origin
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN event_origin_localized USING (language_id, event_origin_id);
 
@@ -160,6 +168,7 @@ CREATE OR REPLACE VIEW view_event_role AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN event_role
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN event_role_localized USING (language_id, event_role_id);
 
@@ -180,6 +189,7 @@ CREATE OR REPLACE VIEW view_event_role_state AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN event_role_state
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN event_role_state_localized USING (language_id, event_role_state_id);
 
@@ -198,6 +208,7 @@ CREATE OR REPLACE VIEW view_event_state AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN event_state
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN event_state_localized USING (language_id, event_state_id);
 
@@ -216,6 +227,7 @@ CREATE OR REPLACE VIEW view_event_type AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN event_type
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN event_type_localized USING (language_id, event_type_id);
 
@@ -236,6 +248,7 @@ CREATE OR REPLACE VIEW view_event_state_progress AS
                    language.tag AS language_tag 
               FROM language 
                    CROSS JOIN event_state_progress
+            WHERE language.f_localized = 't'
           ) AS all_lang 
           LEFT OUTER JOIN event_state_progress_localized USING (language_id, event_state_progress_id);
 
@@ -256,6 +269,7 @@ CREATE OR REPLACE VIEW view_im_type AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN im_type
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN im_type_localized USING (language_id, im_type_id);
              
@@ -282,6 +296,7 @@ CREATE OR REPLACE VIEW view_language AS
                   lang.tag AS language_tag
              FROM language 
                   CROSS JOIN language AS lang
+            WHERE lang.f_localized = 't'
          ) AS all_lang
          LEFT OUTER JOIN language_localized USING (language_id, translated_id);
          
@@ -302,6 +317,7 @@ CREATE OR REPLACE VIEW view_link_type AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN link_type
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN link_type_localized USING (language_id, link_type_id);
              
@@ -323,6 +339,7 @@ CREATE OR REPLACE VIEW view_mime_type AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN mime_type
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN mime_type_localized USING (language_id, mime_type_id);
 
@@ -343,6 +360,7 @@ CREATE OR REPLACE VIEW view_phone_type AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN phone_type
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN phone_type_localized USING (language_id, phone_type_id);
 
@@ -359,6 +377,7 @@ CREATE OR REPLACE VIEW view_role AS
                   language.tag AS 
                   language_tag FROM 
                   language CROSS JOIN role
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN role_localized USING (language_id, role_id);
 
@@ -385,6 +404,7 @@ CREATE OR REPLACE VIEW view_room AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN room
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN room_localized USING (language_id, room_id);
 
@@ -405,6 +425,7 @@ CREATE OR REPLACE VIEW view_team AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN team
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN team_localized USING (language_id, team_id);
 
@@ -421,6 +442,7 @@ CREATE OR REPLACE VIEW view_time_zone AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN time_zone 
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN time_zone_localized USING (language_id, time_zone_id);
 
@@ -439,6 +461,7 @@ CREATE OR REPLACE VIEW view_transport AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN transport
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN transport_localized USING (language_id, transport_id);
 
@@ -455,6 +478,7 @@ CREATE OR REPLACE VIEW view_ui_message AS
                   language.tag AS language_tag 
              FROM language 
                   CROSS JOIN ui_message
+            WHERE language.f_localized = 't'
          ) AS all_lang 
          LEFT OUTER JOIN ui_message_localized USING (language_id, ui_message_id);
 
