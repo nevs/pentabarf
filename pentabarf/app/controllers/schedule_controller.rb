@@ -11,6 +11,11 @@ class ScheduleController < ApplicationController
     @speaker = Momomoto::View_schedule_person.find({:conference_id=>params[:conference_id]}, nil, 'lower(name)')
   end
 
+  def events
+    @content_title = "Lectures and workshops"
+    @events = Momomoto::View_schedule_event.find({:conference_id=>params[:conference_id],:translated_id=>120}, nil, 'lower(title),lower(subtitle)' )
+  end
+
   def css
     conference = Momomoto::Conference.find({:conference_id=>params[:conference_id]})
     @response.headers['Content-Type'] = 'text/css'

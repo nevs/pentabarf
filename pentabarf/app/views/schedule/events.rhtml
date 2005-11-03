@@ -1,0 +1,35 @@
+<div id="event-index" class="section">
+  <table class="event-index">
+    <thead>
+      <tr>
+        <th class="event">Event</th>
+        <th class="speaker">Speaker</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @events.each_unique(:event_id) do |event | %>
+      <tr>
+        <td class="event">
+          <a href=""><img src="<%= url_for({:controller=>'image',:action=>:event,:id=>event.event_id}) + '-48x48' %>" /></a>
+          <p class="title"><a href=""><%= h(event.title) %></a></p>
+          <p class="subtitle"><a href=""><%= h(event.subtitle) %></a></p>
+          <p>
+            <a href="">
+              <strong>Type</strong>: <span class="type"><%= h(event.event_type) %></span><br/>
+              <strong>Track</strong>: <span class="track"><%= h(event.conference_track) %></span><br/>
+              <strong>Language</strong>: <span class="language"><%= h(event.language) %></span><br/>
+            </a>
+          </p>
+        </td>
+        <td class="speakers">
+          <ul class="speakers">
+            <% @events.each_by_value({:event_id=>event.event_id}) do | speaker | %>
+              <li><a href=""><%= h(speaker.name) %></a></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
