@@ -645,6 +645,51 @@ CREATE OR REPLACE VIEW view_schedule_person AS
          ) AS speaker USING (person_id, conference_id)
 ;
 
+CREATE OR REPLACE VIEW view_schedule_event AS
+  SELECT event.event_id,
+         event.conference_id,
+         event.title,
+         event.subtitle,
+         view_event_state.language_id AS translated_id,
+         view_event_type.event_type_id,
+         view_event_type.name AS event_type,
+         view_event_type.tag AS event_type_tag,
+         view_conference_track.conference_track_id,
+         view_conference_track.name AS conference_track,
+         view_conference_track.tag AS conference_track_tag,
+         view_language.language_id,
+         view_language.name AS language,
+         view_language.tag AS language_tag,
+         speaker.person_id,
+         speaker.name
+    FROM event_person
+         INNER JOIN event USING (event_id)
+         INNER JOIN view_event_state USING (event_state_id)
+         INNER JOIN event_state_progress USING (event_state_progress_id)
+         INNER JOIN (
+             SELECT event_id,
+                    person_id,
+                    name
+               FROM event_person
+                    INNER JOIN event_role USING (event_role_id)
+                    INNER JOIN event_role_state USING (event_role_state_id)
+                    INNER JOIN view_person USING (person_id)
+              WHERE event_role.tag IN ('speaker', 'moderator') AND
+                    event_role_state.tag = 'confirmed'
+         ) AS speaker USING (person_id, event_id)
+         LEFT OUTER JOIN view_conference_track ON (
+             view_conference_track.conference_track_id = event.conference_track_id AND
+             view_conference_track.language_id = view_event_state.language_id)
+         LEFT OUTER JOIN view_event_type ON (
+             view_event_type.event_type_id = event.event_type_id AND
+             view_event_type.language_id = view_event_state.language_id)
+         LEFT OUTER JOIN view_language ON (
+             view_language.language_id = event.language_id AND
+             view_language.translated_id = view_event_state.language_id)
+   WHERE view_event_state.tag = 'accepted' AND
+         event_state_progress.tag = 'confirmed'
+;
+
 CREATE OR REPLACE VIEW view_review AS
   SELECT event.event_id,
          event.conference_id,
