@@ -281,6 +281,34 @@ module Momomoto
       false
     end
 
+    # iterate over records with specific values of a resultset 
+    def each_by_value( values )
+      return false unless values.kind_of?(Hash)
+      found = false
+      self.each do | record |
+        values.each do | key, value |
+          if self[key] == value
+            found = true
+          else
+            found = false
+            break
+          end
+        end
+        yield( record ) if found
+      end
+    end
+
+    def each_unique( field )
+      return unless @fields.member?(field.to_sym)
+      done = []
+      self.each do | record | 
+        next if done.member?( record[field] )
+        done.push( record[field])
+        yield( record )
+      end
+    end
+
+
     # write record to database
     def write()
       raise "Views are not writable" if @table[0..4] == 'view_'
