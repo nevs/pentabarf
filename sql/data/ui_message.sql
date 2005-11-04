@@ -150,8 +150,15 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (135, 'table::event::descript
 INSERT INTO ui_message (ui_message_id, tag) VALUES (136, 'day');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (137, 'table::event::day');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (138, 'table::event::room');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (142, 'link::review');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (140, 'table::event::duration');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (141, 'table::event::start_time');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (143, 'table::person::nickname');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (144, 'table::person::public_name');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (145, 'table::person::last_name');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (146, 'table::person::first_name');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (147, 'table::person::title');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (149, 'table::person::gender');
 
 
 --
@@ -159,6 +166,6 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (141, 'table::event::start_ti
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval('ui_message_ui_message_id_seq', 141, true);
+SELECT pg_catalog.setval('ui_message_ui_message_id_seq', 149, true);
 
 

@@ -106,5 +106,7 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (151, 120, 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (151, 144, 'Malaysia');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (98, 144, 'Indonesien');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (98, 120, 'Indonesia');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (109, 120, 'Japan');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (109, 144, 'Japan');
 
 

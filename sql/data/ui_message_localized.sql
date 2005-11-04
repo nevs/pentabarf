@@ -152,6 +152,12 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (27, 
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (33, 120, 'Advanced');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (33, 144, 'Erweitert');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (141, 144, 'Zeit');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (143, 120, 'Nickname');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (143, 144, 'Nick');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (144, 120, 'Public Name');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (144, 144, 'Public Name');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (145, 120, 'Last Name');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (145, 144, 'Nachname');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (32, 120, 'Simple');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (32, 144, 'Einfach');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (34, 120, 'General');
@@ -260,11 +266,17 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (111,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (114, 120, 'Day');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (114, 144, 'Tag');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (70, 120, 'Duration');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (142, 120, 'Review');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (100, 120, 'Event state');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (100, 144, 'Status Veranstaltung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (112, 120, 'Assigned team');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (112, 144, 'Zuständiges Team');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (47, 120, 'Related');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (47, 144, 'Verweise');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (142, 144, 'Review');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (146, 120, 'First Name');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (146, 144, 'Vorname');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (147, 120, 'Title');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (147, 144, 'Titel');
 
 
