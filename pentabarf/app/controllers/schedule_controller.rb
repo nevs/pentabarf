@@ -9,8 +9,8 @@ class ScheduleController < ApplicationController
   def day
     @day = params[:id].to_i
     @content_title = "Day #{@day}"
-    @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id=>120}, nil, 'rank')
-    @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>120}, nil, 'lower(title),lower(subtitle)' )
+    @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id=>120, :f_public=>'t'}, nil, 'rank')
+    @events = Momomoto::View_schedule_event.find({:day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated_id=>120}, nil, 'lower(title),lower(subtitle)' )
   end
   
   def speaker
