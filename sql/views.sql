@@ -659,6 +659,8 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          event.day,
          event.duration,
          event.start_time,
+         (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
+         event.start_time + conference.day_change AS real_starttime,
          event.room_id,
          view_event_state.language_id AS translated_id,
          view_event_type.event_type_id,
@@ -674,6 +676,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          speaker.name
     FROM event_person
          INNER JOIN event USING (event_id)
+         INNER JOIN conference USING (conference_id)
          INNER JOIN view_event_state USING (event_state_id)
          INNER JOIN event_state_progress USING (event_state_progress_id)
          INNER JOIN (
