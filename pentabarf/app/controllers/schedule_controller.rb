@@ -13,9 +13,20 @@ class ScheduleController < ApplicationController
     @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>120}, nil, 'lower(title),lower(subtitle)' )
   end
   
-  def speaker 
-    @content_title = "Speaker and moderators"
-    @speaker = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id}, nil, 'lower(name)')
+  def speaker
+
+  end
+  
+  def speakers 
+    @content_title = "Speakers and moderators"
+    @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id}, nil, 'lower(name)')
+  end
+
+  def event
+    @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>120}, nil, 'lower(title),lower(subtitle)' )
+    @event = Momomoto::View_event.find({:conference_id=>@conference.conference_id,:translated_id=>120,:event_id=>params[:id]})
+    render_text("") unless @events.find_by_value(:event_id => @event.event_id)
+    @content_title = @event.title
   end
 
   def events
