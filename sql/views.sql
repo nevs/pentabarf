@@ -642,6 +642,7 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                     event_role_state.tag = 'confirmed' AND
                     event_state.tag = 'accepted' AND
                     event_state_progress.tag = 'confirmed' AND
+                    event.f_public = 't' AND
                     event.day IS NOT NULL AND
                     event.start_time IS NOT NULL AND
                     event.room_id IS NOT NULL
@@ -697,6 +698,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
              view_language.translated_id = view_event_state.language_id)
    WHERE view_event_state.tag = 'accepted' AND
          event_state_progress.tag = 'confirmed' AND
+         event.f_public = 't' AND
          event.day IS NOT NULL AND
          event.start_time IS NOT NULL AND
          event.room_id IS NOT NULL
