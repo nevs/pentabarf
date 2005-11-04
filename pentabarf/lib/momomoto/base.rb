@@ -122,7 +122,7 @@ module Momomoto
     end
 
     # get number of records in resultset
-    def length()
+    def length
       return @resultset.length if @resultset
       0
     end
@@ -185,6 +185,7 @@ module Momomoto
 
     def method_missing( method_name, value = nil )
       if method_name.to_s =~ /^(.*)=$/
+        raise "Unknown field #{$1} in #{self.class.name}" unless @fields.keys.member?($1.to_sym)
         @resultset[@current_record][$1.to_sym].value= value
       else
         self[method_name]

@@ -1,31 +1,33 @@
-<div id="speaker-index" class="section">
-<table class="speaker-index">
-  <thead>
-    <tr>
-      <th class="speaker"><strong>Speaker</strong></th>
-      <th class="events"><strong>Events</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @speaker.each_unique(:person_id) do | person | %>
-    <tr>
-      <td class="speaker">
-        <a href="">
-          <img src="<%= url_for({:controller=>'image',:action=>:person,:id=>person.person_id}) %>-64x64" class="speaker-image" />
-        </a>
-        <a href="">
-          <%= person.name %><br/>
-        </a>
-      </td>
-      <td class="events">
-        <ul class="events">
-          <% @speaker.each_by_value({:person_id=>person.person_id}) do | event | %>
-            <li><a href=""><%= event.title %></a></li>
-          <% end %>
-        </ul>
-      </td>
-    </tr>
+<div id="speaker" class="section">
+  
+  <div id="infobox">
+    <table>
+      <tr>
+        <th colspan="2">Events</th>
+      <tr>
+      <% @speakers.each_by_value({:person_id=>@speaker.person_id}) do | event | %>
+        <tr>
+          <td>
+            <a href="<%= url_for(:action=>:event,:id=>event.event_id) %>">
+              <img src="<%= url_for(:controller=>'image',:action=>:event,:id=>event.event_id) %>" />
+            </a>
+          </td>
+          <td><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.title) %></a></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <h1><%= h(@speaker.name) %></h1>
+  
+  <img class="speaker-image" src="<%= url_for(:controller=>'image',:action=>:person,:id=>@speaker.person_id) + '-128x128' %>" />
+
+  <div class="abstract"><%= h(@speaker.abstract) %></div>
+
+  <div class="description"><%= h(@speaker.description) %></div>
+
+  <% if @speaker.email_public %>
+    <h2>Contact</h2>
+    <p><%= h(@speaker.email_public.gsub(/@/, ' at ').gsub(/\./, ' dot ')) %></p>
   <% end %>
-  </tbody>
-</table>
 </div>

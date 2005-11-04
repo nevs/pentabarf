@@ -8,12 +8,12 @@
       <% @events.each_by_value({:event_id=>@event.event_id}) do | speaker | %>
         <tr>
           <td>
-            <a href="<%= url_for(:action=>:person,:id=>speaker.person_id) %>">
+            <a href="<%= url_for(:action=>:speaker,:id=>speaker.person_id) %>">
               <img src="<%= url_for(:controller=>'image',:action=>:person,:id=>speaker.person_id) %>"/>
             </a>
           </td>
           <td>
-            <a href="<%= url_for(:action=>:person,:id=>speaker.person_id) %>"><%= h(speaker.name) %></a>
+            <a href="<%= url_for(:action=>:speaker,:id=>speaker.person_id) %>"><%= h(speaker.name) %></a>
           </td>
         </tr>
       <% end %>
