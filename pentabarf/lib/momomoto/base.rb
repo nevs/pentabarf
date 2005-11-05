@@ -213,6 +213,16 @@ module Momomoto
       end
     end
 
+    # iterate over resultset with additional index element
+    def each_with_index
+      @resultset.length.times do | i |
+        element = copy_member( self.class.new )
+        element.instance_variable_set('@current_record', 0)
+        element.instance_variable_set('@resultset', [@resultset[i]])
+        yield( element, i )
+      end
+    end
+
     def nil?
       length > 0 ? false : true
     end
