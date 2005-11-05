@@ -12,8 +12,8 @@
 
 <div id="colors">
   <% track_color = [] %>
-  <% for track in Momomoto::View_conference_track.find({:conference_id => @current_conference_id, :language_id => @current_language_id}, nil, 'name') %>
-    <% track_color[track.conference_track_id] = colors[track.current_record % colors.length] %>
+  <% Momomoto::View_conference_track.find({:conference_id => @current_conference_id, :language_id => @current_language_id}, nil, 'name').each_with_index do | track, index | %>
+    <% track_color[track.conference_track_id] = colors[index % colors.length] %>
     <span style="margin: 20px 3px; padding: 5px 15px; background-color: <%= track_color[track.conference_track_id] %>;">
       <strong><%= h(track.name) %></strong>
     </span>
