@@ -123,6 +123,14 @@
           </td>
         </tr>
         <tr>
+          <td><label><[table::conference::default_timeslots]></label></td>
+          <td>
+            <%= select_tag( 'conference[default_timeslots]', 1..20, 
+                            'to_i', 'to_i', @conference.default_timeslots, 
+                            { :tabindex => 0 }, false ) %>
+          </td>
+        </tr>
+        <tr>
           <td><label><[view_conference::max_timeslots_per_event]></label></td>
           <td>
             <%= select_tag( 'conference[max_timeslot_duration]', 1..20, 
