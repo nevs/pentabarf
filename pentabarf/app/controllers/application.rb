@@ -7,6 +7,7 @@ require 'socket'
 require 'xmpp4r'
 
 class ApplicationController < ActionController::Base
+  session :off
 
   def get_auth_data 
     login_name, password = '', '' 
