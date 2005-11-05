@@ -127,8 +127,19 @@ module Momomoto
       0
     end
 
-    def initialize()
+    def initialize
       @table = self.class.name.downcase.gsub( /^.*::/, '') unless @table
+    end
+
+    # copy all instance variables except resultset and current_record
+    def copy_member( copy )
+      self.instance_variables.each do | var |
+        next if var == '@resultset' || var == '@current_record'
+        copy.instance_variable_set( var, self.instance_variable_get( var ) )
+      end
+      copy.instance_variable_set( '@resultset', [] )
+      copy.instance_variable_set( '@current_record', nil )
+      copy
     end
 
     # returns an instance of the class with one new entry
@@ -192,10 +203,13 @@ module Momomoto
       end
     end
 
+    # iterate over resultset
     def each
       @resultset.length.times do | i |
-        @current_record = i
-        yield( self )
+        element = copy_member( self.class.new )
+        element.instance_variable_set('@current_record', 0)
+        element.instance_variable_set('@resultset', [@resultset[i]])
+        yield( element )
       end
     end
 
@@ -285,8 +299,8 @@ module Momomoto
     # iterate over records with specific values of a resultset 
     def each_by_value( values )
       return false unless values.kind_of?(Hash)
-      found = false
       self.each do | record |
+        found = false
         values.each do | key, value |
           if self[key] == value
             found = true

@@ -13,7 +13,7 @@ module Momomoto
         :day => Datatype::Smallint.new( {} ),
         :duration => Datatype::Interval.new( {} ),
         :start_time => Datatype::Interval.new( {} ),
-        :start_datetime => Datatype::Timestamp.new( {} ),
+        :start_datetime => Datatype::Datetime.new( {} ),
         :real_starttime => Datatype::Time.new( {} ),
         :room_id => Datatype::Integer.new( {} ),
         :translated_id => Datatype::Integer.new( {} ),
