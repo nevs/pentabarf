@@ -269,8 +269,11 @@ module Momomoto
     
     # search in the resultset for a record with a specific value
     def find_by_id( field_name, value )
-      self.each do | record | 
-        return true if record[field_name.to_sym] == value
+      @resultset.length.times do | i |
+        if @resultset[i][field_name.to_sym].value == value
+          @current_record = i
+          return true
+        end
       end
       @current_record = nil
       false
@@ -281,15 +284,16 @@ module Momomoto
       return false if length == 0 
       return false unless values.kind_of?(Hash)
       found = false
-      self.each do | record |
+      @resultset.length.times do | i |
         values.each do | key, value |
-          if self[key] == value
+          if @resultset[i][key].value == value
             found = true
           else
             found = false
             break
           end
         end
+        @current_record = i
         return true if found
       end
       @current_record = nil
@@ -302,7 +306,7 @@ module Momomoto
       self.each do | record |
         found = false
         values.each do | key, value |
-          if self[key] == value
+          if record[key] == value
             found = true
           else
             found = false
