@@ -5,10 +5,11 @@ class IcalController < ApplicationController
 
   def conference
     @conference = Momomoto::Conference.find({:conference_id => params[:id]})
-    @events = Momomoto::View_schedule.find({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
+    @rooms = Momomoto::View_room.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id})
+    @events = Momomoto::View_schedule_event.find({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
     @timezone = 'Europe/Berlin'
-    @response.headers['Content-Type'] = 'text/calendar'   
-    @response.headers['Content-Disposition'] = "attachment; filename=\"#{@conference.acronym}.ics\""
+#    @response.headers['Content-Type'] = 'text/calendar'   
+#    @response.headers['Content-Disposition'] = "attachment; filename=\"#{@conference.acronym}.ics\""
   end
   
   protected

@@ -1,4 +1,4 @@
-<% for event in @events -%>
+<% @events.each_unique(:event_id) do | event | -%>
 BEGIN:VEVENT
 METHOD:PUBLISH
 UID:<%= event.event_id -%>@<%= @conference.acronym -%>@pentabarf.org
@@ -9,8 +9,13 @@ SUMMARY:<%= event.title.to_s.gsub(/[\r\n]/,'') %>
 <% end -%>
 CLASS:PUBLIC
 STATUS:CONFIRMED
+<% @events.each_by_value({:event_id=>event.event_id}) do | speaker | -%>
+ATTENDEE;ROLE=REQ-PARTICIPANT;CUTYPE=INDIVIDUAL;CN="<%= speaker.name -%>":invalid:nomail
+<% end -%>
 CATEGORY:Lecture
 URL:<%= @conference.export_base_url -%>event/<%= event.event_id -%>.html
-LOCATION:<%= event.room %>
+<% if @rooms.find_by_value(:room_id=>event.room_id) -%>
+LOCATION:<%= @rooms.name %>
+<% end -%>
 END:VEVENT
 <% end -%>
