@@ -20,9 +20,9 @@
     </tr>
   </thead>
   <tbody>
-    <% for event in @events %>
-    <% next if event.current_record < (@preferences[:hits_per_page] * @current_page) %>
-    <% next if event.current_record > ((@preferences[:hits_per_page] * (@current_page + 1)) - 1) %>
+    <% @events.each_with_index do | event, index | %>
+    <% next if index < (@preferences[:hits_per_page] * @current_page) %>
+    <% next if index > ((@preferences[:hits_per_page] * (@current_page + 1)) - 1) %>
       <tr>
         <td>
           <% if event.mime_type_id %>

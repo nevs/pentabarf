@@ -11,9 +11,9 @@
     </tr>
   </thead>
   <tbody>
-  <% for person in @persons %>
-    <% next if person.current_record < (@preferences[:hits_per_page] * @current_page) %>
-    <% next if person.current_record > ((@preferences[:hits_per_page] * (@current_page + 1)) - 1) %>
+  <% @persons.each_with_index do | person, index | %>
+    <% next if index < (@preferences[:hits_per_page] * @current_page) %>
+    <% next if index > ((@preferences[:hits_per_page] * (@current_page + 1)) - 1) %>
     <tr>
       <td>
         <% if person.mime_type_id %>
