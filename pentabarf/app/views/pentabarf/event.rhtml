@@ -316,7 +316,7 @@
                 diff += slot
               end
           %>
-          <td><%= select_tag( 'event[duration]', durations, :key, :value, @event.duration ? @event.duration.strftime('%H:%M:%S') : nil, { :tabindex => 0 }, false ) %></td>
+          <td><%= select_tag( 'event[duration]', durations, :key, :value, @event.duration ? @event.duration.strftime('%H:%M:%S') : durations[@conference.default_timeslots - 1][:key], { :tabindex => 0 }, false ) %></td>
         </tr>
         <tr>
           <td><label>Room</label></td>
