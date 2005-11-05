@@ -1,38 +1,38 @@
 module PentabarfHelper
 
   def process_conflicts( conflicts, processed_conflicts )
-    conflicts.each do
+    conflicts.each do | c |
       conflict = {}
-      if conflicts.class == Momomoto::View_conflict_person
-        conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>conflicts.person_id}) + "-24x24"
-        conflict[:url] = url_for({:action=>:person,:id=>conflicts.person_id})
-        conflict[:who] = link_to(h(conflicts.name), {:action=>:person,:id=>conflicts.person_id}) 
-      elsif conflicts.class == Momomoto::View_conflict_event
-        conflict[:img] = url_for({:controller=>'image',:action=>:event,:id=>conflicts.event_id}) + "-24x24"
-        conflict[:url] = url_for({:action=>:event,:id=>conflicts.event_id})
-        conflict[:who] = link_to(h(conflicts.title), {:action=>:event,:id=>conflicts.event_id}) 
-      elsif conflicts.class == Momomoto::View_conflict_event_person
-        conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>conflicts.person_id}) + "-24x24"
-        conflict[:url] = url_for({:action=>:person,:id=>conflicts.person_id})
-        conflict[:who] = link_to(h(conflicts.name), {:action=>:person,:id=>conflicts.person_id}) + "<br/>"
-        conflict[:who] += link_to(h(conflicts.title), {:action=>:event,:id=>conflicts.event_id}) 
-      elsif conflicts.class == Momomoto::View_conflict_event_person_event
-        conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>conflicts.person_id}) + "-24x24"
-        conflict[:url] = url_for({:action=>:person,:id=>conflicts.person_id})
-        conflict[:who] = link_to(h(conflicts.name), {:action=>:person,:id=>conflicts.person_id}) + "<br/>" 
-        conflict[:who] += link_to(h(conflicts.title1), {:action=>:event,:id=>conflicts.event_id1}) + "<br/>"
-        conflict[:who] += link_to(h(conflicts.title2), {:action=>:event,:id=>conflicts.event_id2}) 
-      elsif conflicts.class == Momomoto::View_conflict_event_event
-        conflict[:img] = url_for({:controller=>'image',:action=>:event,:id=>conflicts.event_id1}) + "-24x24"
-        conflict[:url] = url_for({:action=>:event,:id=>conflicts.event_id1})
-        conflict[:who] = link_to(h(conflicts.title1), {:action=>:event,:id=>conflicts.event_id1}) + "<br/>"
-        conflict[:who] += link_to(h(conflicts.title2), {:action=>:event,:id=>conflicts.event_id2}) 
+      if c.class == Momomoto::View_conflict_person
+        conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>c.person_id}) + "-24x24"
+        conflict[:url] = url_for({:action=>:person,:id=>c.person_id})
+        conflict[:who] = link_to(h(c.name), {:action=>:person,:id=>c.person_id}) 
+      elsif c.class == Momomoto::View_conflict_event
+        conflict[:img] = url_for({:controller=>'image',:action=>:event,:id=>c.event_id}) + "-24x24"
+        conflict[:url] = url_for({:action=>:event,:id=>c.event_id})
+        conflict[:who] = link_to(h(c.title), {:action=>:event,:id=>c.event_id}) 
+      elsif c.class == Momomoto::View_conflict_event_person
+        conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>c.person_id}) + "-24x24"
+        conflict[:url] = url_for({:action=>:person,:id=>c.person_id})
+        conflict[:who] = link_to(h(c.name), {:action=>:person,:id=>c.person_id}) + "<br/>"
+        conflict[:who] += link_to(h(c.title), {:action=>:event,:id=>c.event_id}) 
+      elsif c.class == Momomoto::View_conflict_event_person_event
+        conflict[:img] = url_for({:controller=>'image',:action=>:person,:id=>c.person_id}) + "-24x24"
+        conflict[:url] = url_for({:action=>:person,:id=>c.person_id})
+        conflict[:who] = link_to(h(c.name), {:action=>:person,:id=>c.person_id}) + "<br/>" 
+        conflict[:who] += link_to(h(c.title1), {:action=>:event,:id=>c.event_id1}) + "<br/>"
+        conflict[:who] += link_to(h(c.title2), {:action=>:event,:id=>c.event_id2}) 
+      elsif c.class == Momomoto::View_conflict_event_event
+        conflict[:img] = url_for({:controller=>'image',:action=>:event,:id=>c.event_id1}) + "-24x24"
+        conflict[:url] = url_for({:action=>:event,:id=>c.event_id1})
+        conflict[:who] = link_to(h(c.title1), {:action=>:event,:id=>c.event_id1}) + "<br/>"
+        conflict[:who] += link_to(h(c.title2), {:action=>:event,:id=>c.event_id2}) 
       else
-        raise "Unknown class #{conflicts.class} in process_conflicts"
+        raise "Unknown class #{c.class} in process_conflicts"
       end
-      conflict[:level_tag] = conflicts.level_tag
-      conflict[:level] = conflicts.level_name
-      conflict[:desc] = conflicts.conflict_name
+      conflict[:level_tag] = c.level_tag
+      conflict[:level] = c.level_name
+      conflict[:desc] = c.conflict_name
       processed_conflicts.push( conflict )
     end 
   end
