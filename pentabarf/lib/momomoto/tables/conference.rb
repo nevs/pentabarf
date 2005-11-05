@@ -18,6 +18,7 @@ module Momomoto
         :time_zone_id => Datatype::Integer.new( {} ),
         :currency_id => Datatype::Integer.new( {} ),
         :timeslot_duration => Datatype::Interval.new( {} ),
+        :default_timeslots => Datatype::Integer.new( {:not_null=>true, :default=>true} ),
         :max_timeslot_duration => Datatype::Integer.new( {} ),
         :day_change => Datatype::Time.new( {:not_null=>true, :default=>true} ),
         :remark => Datatype::Text.new( {} ),
