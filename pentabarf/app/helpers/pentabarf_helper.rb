@@ -1,5 +1,9 @@
 module PentabarfHelper
 
+  def conflicts_event( event_id )
+    return unless event_id.to_i > 0
+  end
+
   def process_conflicts( conflicts, processed_conflicts )
     conflicts.each do | c |
       conflict = {}

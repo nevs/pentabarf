@@ -111,19 +111,3 @@ li {
   width: 128px;
 }
 
-/* errors */
-
-#error {
-  position: fixed;
-  overflow: auto;
-  bottom: 0px;
-  left: 155px;
-  width: 640px;
-  height: 90px; 
-  padding: 0px 10px 0px 10px;
-  margin: 0;
-  color: black;
-  background-color: red;
-}
-
-
