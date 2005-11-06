@@ -83,7 +83,7 @@ CREATE TABLE ui_message (
 CREATE TABLE ui_message_localized (
   ui_message_id INTEGER NOT NULL,
   language_id INTEGER NOT NULL,
-  name TEXT NOT NULL,
+  name TEXT NOT NULL check (name NOT ILIKE '%`%' AND name NOT ILIKE '%#{%');,
   FOREIGN KEY (ui_message_id) REFERENCES ui_message (ui_message_id),
   FOREIGN KEY (language_id) REFERENCES language (language_id),
   PRIMARY KEY (ui_message_id, language_id)

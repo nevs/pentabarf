@@ -22,24 +22,12 @@
           <%= link_to( image_tag( "icon-person-32x32.png", {:size => "24x24"} ), :action => 'person', :id => person.person_id ) %>
         <% end %>
       </td>
-      <td>
-        <%= link_to( h( person.name ), :action => 'person', :id => person.person_id ) %>
-      </td>
-      <td>
-        <%= link_to( h( person.first_name ), :action => 'person', :id => person.person_id ) %>
-      </td>
-      <td>
-        <%= link_to( h( person.last_name ), :action => 'person', :id => person.person_id ) %>
-      </td>
-      <td>
-        <%= link_to( h( person.nickname ), :action => 'person', :id => person.person_id ) %>
-      </td>
-      <td>
-        <%= link_to( h( person.email_contact ), :action => 'person', :id => person.person_id ) %>
-      </td>
-      <td>
-        <%= link_to( h( person.login_name ), :action => 'person', :id => person.person_id ) %>
-      </td>
+      <td><%= link_to( h( person.name ), :action => 'person', :id => person.person_id ) %></td>
+      <td><%= link_to( h( person.first_name ), :action => 'person', :id => person.person_id ) %></td>
+      <td><%= link_to( h( person.last_name ), :action => 'person', :id => person.person_id ) %></td>
+      <td><%= link_to( h( person.nickname ), :action => 'person', :id => person.person_id ) %></td>
+      <td><%= link_to( h( person.email_contact ), :action => 'person', :id => person.person_id ) %></td>
+      <td><%= link_to( h( person.login_name ), :action => 'person', :id => person.person_id ) %></td>
     </tr>
   <% end %>
   </tbody>
