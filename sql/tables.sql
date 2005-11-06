@@ -274,7 +274,7 @@ CREATE TABLE conference (
   country_id INTEGER,
   time_zone_id INTEGER,
   currency_id INTEGER,
-  timeslot_duration INTERVAL,
+  timeslot_duration INTERVAL NOT NULL,
   default_timeslots INTEGER NOT NULL DEFAULT 1,
   max_timeslot_duration INTEGER NOT NULL,
   day_change TIME WITHOUT TIME ZONE NOT NULL DEFAULT '0:00:00',
