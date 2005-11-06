@@ -119,7 +119,7 @@
           <td>
             <%= select_tag( 'conference[timeslot_duration]', 
                             ['00:05:00', '00:10:00', '00:15:00', '00:20:00', '00:25:00', '00:30:00', '01:00:00'], 
-                            'to_s', 'to_s', @conference.timeslot_duration ? @conference.timeslot_duration.strftime('%H:%M:%S') : nil, { :tabindex => 0 } ) %>
+                            'to_s', 'to_s', @conference.timeslot_duration ? @conference.timeslot_duration.strftime('%H:%M:%S') : nil, { :tabindex => 0 }, false ) %>
           </td>
         </tr>
         <tr>
