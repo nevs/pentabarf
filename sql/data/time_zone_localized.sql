@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 66391)
--- Name: time_zone_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: time_zone_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (1, 120, 'London');
@@ -19,4 +19,8 @@ INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (1, 144
 INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (2, 144, 'Berlin');
 INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (3, 144, 'Wilna');
 
+
+--
+-- PostgreSQL database dump complete
+--
 

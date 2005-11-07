@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 66151)
--- Name: country_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: country_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (41, 144, 'Schweiz');
@@ -109,4 +109,8 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (98, 120, '
 INSERT INTO country_localized (country_id, language_id, name) VALUES (109, 120, 'Japan');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (109, 144, 'Japan');
 
+
+--
+-- PostgreSQL database dump complete
+--
 

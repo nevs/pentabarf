@@ -4,12 +4,19 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 3 (OID 67036)
--- Name: event_role_state; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Name: event_role_state_event_role_state_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+--
+
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('event_role_state', 'event_role_state_id'), 15, true);
+
+
+--
+-- Data for Name: event_role_state; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO event_role_state (event_role_state_id, event_role_id, tag, rank) VALUES (9, 3, 'idea', 1);
@@ -29,10 +36,6 @@ INSERT INTO event_role_state (event_role_state_id, event_role_id, tag, rank) VAL
 
 
 --
--- TOC entry 2 (OID 67034)
--- Name: event_role_state_event_role_state_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+-- PostgreSQL database dump complete
 --
-
-SELECT pg_catalog.setval('event_role_state_event_role_state_id_seq', 15, true);
-
 

@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 66828)
--- Name: event_type_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: event_type_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO event_type_localized (event_type_id, language_id, name) VALUES (1, 120, 'Lecture');
@@ -29,4 +29,8 @@ INSERT INTO event_type_localized (event_type_id, language_id, name) VALUES (9, 1
 INSERT INTO event_type_localized (event_type_id, language_id, name) VALUES (10, 120, 'Contest');
 INSERT INTO event_type_localized (event_type_id, language_id, name) VALUES (10, 144, 'Wettkampf');
 
+
+--
+-- PostgreSQL database dump complete
+--
 

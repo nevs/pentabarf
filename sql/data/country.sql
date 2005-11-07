@@ -4,12 +4,19 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 3 (OID 66142)
--- Name: country; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Name: country_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+--
+
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('country', 'country_id'), 240, true);
+
+
+--
+-- Data for Name: country; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (183, 'ru', NULL, true, false);
@@ -255,10 +262,6 @@ INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_prefe
 
 
 --
--- TOC entry 2 (OID 66140)
--- Name: country_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+-- PostgreSQL database dump complete
 --
-
-SELECT pg_catalog.setval('country_country_id_seq', 240, true);
-
 

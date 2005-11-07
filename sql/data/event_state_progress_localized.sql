@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 86879)
--- Name: event_state_progress_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: event_state_progress_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (2, 144, 'In Rezension');
@@ -33,4 +33,8 @@ INSERT INTO event_state_progress_localized (event_state_progress_id, language_id
 INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (5, 120, 'Unconfirmed');
 INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (5, 144, 'Unbestätigt');
 
+
+--
+-- PostgreSQL database dump complete
+--
 

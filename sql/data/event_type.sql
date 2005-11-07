@@ -4,12 +4,19 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 3 (OID 66821)
--- Name: event_type; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Name: event_type_event_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+--
+
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('event_type', 'event_type_id'), 10, true);
+
+
+--
+-- Data for Name: event_type; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO event_type (event_type_id, tag, rank) VALUES (6, 'podium', NULL);
@@ -23,10 +30,6 @@ INSERT INTO event_type (event_type_id, tag, rank) VALUES (10, 'contest', NULL);
 
 
 --
--- TOC entry 2 (OID 66819)
--- Name: event_type_event_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+-- PostgreSQL database dump complete
 --
-
-SELECT pg_catalog.setval('event_type_event_type_id_seq', 10, true);
-
 

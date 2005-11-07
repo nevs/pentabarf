@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 66426)
--- Name: role_authorisation; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: role_authorisation; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (1, 2);
@@ -91,4 +91,8 @@ INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (1, 34);
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (2, 34);
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (2, 33);
 
+
+--
+-- PostgreSQL database dump complete
+--
 

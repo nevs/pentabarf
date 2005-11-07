@@ -4,12 +4,19 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 3 (OID 66255)
--- Name: authorisation; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Name: authorisation_authorisation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+--
+
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('authorisation', 'authorisation_id'), 34, true);
+
+
+--
+-- Data for Name: authorisation; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (24, 'login_allowed', 24);
@@ -44,10 +51,6 @@ INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (33, 'create_loca
 
 
 --
--- TOC entry 2 (OID 66253)
--- Name: authorisation_authorisation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+-- PostgreSQL database dump complete
 --
-
-SELECT pg_catalog.setval('authorisation_authorisation_id_seq', 34, true);
-
 

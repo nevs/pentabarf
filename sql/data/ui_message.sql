@@ -4,12 +4,19 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 3 (OID 66210)
--- Name: ui_message; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+--
+
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 149, true);
+
+
+--
+-- Data for Name: ui_message; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO ui_message (ui_message_id, tag) VALUES (49, 'link::conflict_setup');
@@ -162,10 +169,6 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (149, 'table::person::gender'
 
 
 --
--- TOC entry 2 (OID 66208)
--- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+-- PostgreSQL database dump complete
 --
-
-SELECT pg_catalog.setval('ui_message_ui_message_id_seq', 149, true);
-
 

@@ -4,12 +4,19 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 3 (OID 66189)
--- Name: transport; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Name: transport_transport_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+--
+
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('transport', 'transport_id'), 1, false);
+
+
+--
+-- Data for Name: transport; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO transport (transport_id, tag, rank) VALUES (1, 'train', NULL);
@@ -20,10 +27,6 @@ INSERT INTO transport (transport_id, tag, rank) VALUES (5, 'submarine', NULL);
 
 
 --
--- TOC entry 2 (OID 66187)
--- Name: transport_transport_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+-- PostgreSQL database dump complete
 --
-
-SELECT pg_catalog.setval('transport_transport_id_seq', 1, false);
-
 

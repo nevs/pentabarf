@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 66262)
--- Name: authorisation_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: authorisation_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO authorisation_localized (authorisation_id, language_id, name) VALUES (1, 144, 'Anlegen einer Person');
@@ -32,4 +32,8 @@ INSERT INTO authorisation_localized (authorisation_id, language_id, name) VALUES
 INSERT INTO authorisation_localized (authorisation_id, language_id, name) VALUES (22, 144, 'Modifizierung der Daten zur eigenen Person');
 INSERT INTO authorisation_localized (authorisation_id, language_id, name) VALUES (23, 144, 'Modifizierung der Daten an der die Person beteiligt ist');
 
+
+--
+-- PostgreSQL database dump complete
+--
 

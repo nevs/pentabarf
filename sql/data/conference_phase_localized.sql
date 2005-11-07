@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 88971)
--- Name: conference_phase_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: conference_phase_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (4, 144, '[4] Konferenzphase');
@@ -23,4 +23,8 @@ INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) 
 INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (5, 120, '[5] Postprocessing Phase');
 INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (5, 144, '[5] Nachbearbeitungsphase');
 
+
+--
+-- PostgreSQL database dump complete
+--
 

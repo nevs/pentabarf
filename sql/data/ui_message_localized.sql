@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 66217)
--- Name: ui_message_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: ui_message_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (7, 144, 'Veranstaltung finden');
@@ -279,4 +279,8 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (146,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (147, 120, 'Title');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (147, 144, 'Titel');
 
+
+--
+-- PostgreSQL database dump complete
+--
 

@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 66241)
--- Name: role_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: role_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO role_localized (role_id, language_id, name) VALUES (6, 144, 'Besucher');
@@ -25,4 +25,8 @@ INSERT INTO role_localized (role_id, language_id, name) VALUES (4, 120, 'committ
 INSERT INTO role_localized (role_id, language_id, name) VALUES (5, 120, 'speaker');
 INSERT INTO role_localized (role_id, language_id, name) VALUES (5, 144, 'Referent');
 
+
+--
+-- PostgreSQL database dump complete
+--
 

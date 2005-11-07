@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 89296)
--- Name: conflict_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: conflict_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (4, 120, 'Accepted and confirmed event without confirmed speaker');
@@ -42,5 +42,11 @@ INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (3, 120, 
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (3, 144, 'Referent oder Moderator für zwei parallel stattfindende Veranstaltungen eingetragen');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (10, 120, 'Event with incorrectly named tag');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (10, 144, 'Veranstaltung mit fehlerhafter Kennung');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (16, 120, 'Speaker or moderator is visitor of another event at the same time');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (16, 144, 'Referent oder Moderator ist gleichzeitig bei einer anderen Veranstaltung Besucher');
 
+
+--
+-- PostgreSQL database dump complete
+--
 

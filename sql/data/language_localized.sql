@@ -4,12 +4,12 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 2 (OID 66128)
--- Name: language_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Data for Name: language_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (223, 144, 'koreanisch');
@@ -53,4 +53,8 @@ INSERT INTO language_localized (language_id, translated_id, name) VALUES (76, 14
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (431, 120, 'turkish');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (431, 144, 'tuerkisch');
 
+
+--
+-- PostgreSQL database dump complete
+--
 

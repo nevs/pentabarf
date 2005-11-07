@@ -4,12 +4,19 @@
 
 SET client_encoding = 'UNICODE';
 SET check_function_bodies = false;
+SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
 --
--- Data for TOC entry 3 (OID 66165)
--- Name: currency; Type: TABLE DATA; Schema: public; Owner: pentabarf
+-- Name: currency_currency_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+--
+
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('currency', 'currency_id'), 173, true);
+
+
+--
+-- Data for Name: currency; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (1, 'AED', false, false, false, NULL);
@@ -188,10 +195,6 @@ INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_prefer
 
 
 --
--- TOC entry 2 (OID 66163)
--- Name: currency_currency_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
+-- PostgreSQL database dump complete
 --
-
-SELECT pg_catalog.setval('currency_currency_id_seq', 173, true);
-
 
