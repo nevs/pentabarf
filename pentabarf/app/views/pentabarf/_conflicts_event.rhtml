@@ -1,0 +1,22 @@
+<% ce = Momomoto::View_conflict_event.find({:conference_id => @current_conference_id, :language_id => @current_language_id, :event_id => params[:id] })
+   cee = Momomoto::View_conflict_event_event.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id, :event_id1=>params[:id] })
+   cep = Momomoto::View_conflict_event_person.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id, :event_id=>params[:id]})
+   cepe = Momomoto::View_conflict_event_person_event.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id, :event_id1=>params[:id]})
+%>
+<% if ce.length > 0 || cee.length > 0 || cep.length > 0 || cepe.length > 0 %>
+<fieldset class="conflicts">
+  <legend>Conflicts</legend>
+  <% ce.each do | c | %>
+    <span><%= h( c.conflict_name ) %></span><br/>
+  <% end %>
+  <% cee.each do | c | %>
+    <span><a href="<%= url_for(:action=>:event,:id=>c.event_id2) %>"><%= h(c.conflict_name) %> <%= h(c.title2) %></a></span><br/>
+  <% end %>
+  <% cep.each do | c | %>
+    <span><a href="<%= url_for(:action=>:person,:id=>c.person_id) %>"><%= h(c.conflict_name) %> <%= h(c.name) %></a></span>
+  <% end %>
+  <% cepe.each do | c | %>
+    <span><a href="<%= url_for(:action=>:event,:id=>c.event_id2) %>"><%= h(c.conflict_name) %> <%= h(c.title2) %></a></span>
+  <% end %>
+</fieldset>
+<% end %>

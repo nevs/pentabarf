@@ -208,6 +208,22 @@ class PentabarfController < ApplicationController
     @content_title = 'Conflicts'
   end
 
+  def conflicts_event
+    if params[:id].to_i > 0
+      render(:partial => 'conflicts_event')
+    else
+      redirect_to(:action=>:meditation)
+    end
+  end
+
+  def conflicts_person
+    if params[:id].to_i > 0
+      render(:partial => 'conflicts_person')
+    else
+      redirect_to(:action=>:meditation)
+    end
+  end
+
   def reports
     @content_title ='Reports'
     
