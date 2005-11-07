@@ -10,13 +10,13 @@
     <span><%= h( c.conflict_name ) %></span><br/>
   <% end %>
   <% cee.each do | c | %>
-    <span><a href="<%= url_for(:action=>:event,:id=>c.event_id2) %>"><%= h(c.conflict_name) %> <%= h(c.title2) %></a></span><br/>
+    <span><a href="<%= url_for(:action=>:event,:id=>c.event_id2) %>"><%= h(c.conflict_name) %>: <%= h(c.title2) %></a></span><br/>
   <% end %>
   <% cep.each do | c | %>
-    <span><a href="<%= url_for(:action=>:person,:id=>c.person_id) %>"><%= h(c.conflict_name) %> <%= h(c.name) %></a></span>
+    <span><a href="<%= url_for(:action=>:person,:id=>c.person_id) %>"><%= h(c.conflict_name) %>: <%= h(c.name) %></a></span><br/>
   <% end %>
   <% cepe.each do | c | %>
-    <span><a href="<%= url_for(:action=>:event,:id=>c.event_id2) %>"><%= h(c.conflict_name) %> <%= h(c.title2) %></a></span>
+    <span><a href="<%= url_for(:action=>:event,:id=>c.event_id2) %>"><%= h(c.conflict_name) %>: <%= h(c.title2) %></a></span><br/>
   <% end %>
 </fieldset>
 <% end %>

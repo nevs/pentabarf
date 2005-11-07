@@ -1,0 +1,19 @@
+<% cp = Momomoto::View_conflict_person.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id, :person_id=>params[:id] })
+   cep = Momomoto::View_conflict_event_person.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id, :person_id=>params[:id]})
+   cepe = Momomoto::View_conflict_event_person_event.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id, :person_id=>params[:id]})
+%>
+<% if cp.length > 0 || cep.length > 0 || cepe.length > 0 %>
+<fieldset class="conflicts">
+  <legend>Conflicts</legend>
+  <% cp.each do | c | %>
+    <span><%= h( c.conflict_name ) %></span><br/>
+  <% end %>
+  <% cep.each do | c | %>
+    <span><a href="<%= url_for(:action=>:event,:id=>c.event_id) %>"><%= h(c.conflict_name) %> <%= h(c.title) %></a></span><br/>
+  <% end %>
+  <% cepe.each do | c | %>
+    <span><a href="<%= url_for(:action=>:event,:id=>c.event_id2) %>"><%= h(c.conflict_name) %> <%= h(c.title2) %></a></span><br/>
+  <% end %>
+</fieldset>
+<% end %>
+

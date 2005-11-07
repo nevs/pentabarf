@@ -37,6 +37,12 @@
     </fieldset>
   </div>
 
+  <% if @person.person_id > 0 %>
+  <div id="conflicts">
+    <script type="text/javascript">var b = new Ajax.Updater('conflicts', '<%= url_for(:action=>:conflicts_person,:id =>@person.person_id) %>');b.updateContent();</script>
+  </div>
+  <% end %>
+
   <div id="content-events" class="content_tab">
       <fieldset>
         <legend><[view_person::tab_events]></legend>
