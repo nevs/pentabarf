@@ -40,7 +40,6 @@ class ImageController < ApplicationController
     coordinator.each do | c | total_coordinated += c.count end
     pieces = []
     coordinator.each do | c |
-      next if c.count < 4
       pieces.push({:name => c.name,:count => c.count,:total => total_coordinated})
     end
     render_pie(pieces)
@@ -120,6 +119,7 @@ class ImageController < ApplicationController
     gc.stroke_width(1)
     offset = 0
     pieces.each do | p |
+      next if p[:count].to_f/p[:total].to_f < 0.01
       angle = p[:count] * 2 * Math::PI / p[:total]
       next if angle == 0.0
       x0 = radius+(Math.sin(offset) * radius)
@@ -135,6 +135,7 @@ class ImageController < ApplicationController
     gc.pointsize(14)
     longest_name = 0
     pieces.each do | p |
+      next if p[:count].to_f/p[:total].to_f < 0.01
       longest_name = p[:name].length if p[:name].length > longest_name
       gc.text_undercolor(p[:color])
       gc.text( radius * 2 + 10, line, sprintf( ' %s %50s', p[:name], ' '))
