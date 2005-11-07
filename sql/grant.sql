@@ -1,5 +1,5 @@
  -- create this list with this queryg
- -- SELECT 'GRANT SELECT ON '|| relname ||' TO backup;' AS statement FROM pg_class WHERE relkind IN ('r', 'S', 'V') AND relname NOT LIKE 'pg_%' AND relname NOT LIKE 'sql_%' ORDER BY statement;
+ -- SELECT 'GRANT SELECT ON '|| table_name ||' TO backup;' AS statement FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_namE;
  --
  
  GRANT SELECT ON attachment_type TO backup;
