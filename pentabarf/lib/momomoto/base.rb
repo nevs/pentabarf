@@ -431,7 +431,7 @@ module Momomoto
       fields, values = '', ''
       @resultset[@current_record].each do | field_name, value |
         if value.property(:serial)
-          result = execute("SELECT nextval('#{@table.to_s[0..28]}_#{field_name.to_s[0..28]}_seq');")
+          result = execute("SELECT nextval(pg_get_serial_sequence('#{table.to_s}', '#{field_name.to_s}'));")
           value.value= result.to_a[0][0]
           result.clear
         end
