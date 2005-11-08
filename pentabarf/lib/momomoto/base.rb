@@ -467,9 +467,9 @@ module Momomoto
         next if value.nil? || @fields[key].property(:parameter) || ( ( value.kind_of?(Array) || value.kind_of?(Hash) ) && value.length == 0 )
         if @fields[key].property(:virtual)
           where = where_append( where, "#{@fields[key].filter_write(value)}" )
-        elsif value === true 
+        elsif value == true 
           where = where_append( where, "#{key} IS NOT NULL" )
-        elsif value === false
+        elsif value == false
           where = where_append( where, "#{key} IS NULL" )
         else
           value = {:eq => [value]} if value.kind_of?(String) || value.kind_of?(Integer)

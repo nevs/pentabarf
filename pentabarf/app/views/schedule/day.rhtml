@@ -18,7 +18,7 @@
       <tr>
         <td class="time"><%= h(row[0])%></td>
         <% @rooms.each do | room | %>
-          <% next if row[room.room_id] === 0 %>
+          <% next if row[room.room_id] == 0 %>
           <% if row[room.room_id].nil? %>
             <td class="room empty"/>
           <% else %>
