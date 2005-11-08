@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 149, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 153, true);
 
 
 --
@@ -166,6 +166,10 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (145, 'table::person::last_na
 INSERT INTO ui_message (ui_message_id, tag) VALUES (146, 'table::person::first_name');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (147, 'table::person::title');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (149, 'table::person::gender');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (150, 'table::conference_person_link::title');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (151, 'table::conference::default_timeslots');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (152, 'table::event_link::url');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (153, 'table::event_link::title');
 
 
 --
