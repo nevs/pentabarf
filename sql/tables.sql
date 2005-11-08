@@ -306,7 +306,7 @@ CREATE TABLE conference_link (
   conference_link_id SERIAL NOT NULL,
   conference_id INTEGER NOT NULL,
   url VARCHAR(1024) NOT NULL,
-  description VARCHAR(256),
+  title VARCHAR(256),
   rank INTEGER,
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
   PRIMARY KEY (conference_link_id)
