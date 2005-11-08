@@ -44,6 +44,8 @@ INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (10, 120,
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (10, 144, 'Veranstaltung mit fehlerhafter Kennung');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (16, 120, 'Speaker or moderator is visitor of another event at the same time');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (16, 144, 'Referent oder Moderator ist gleichzeitig bei einer anderen Veranstaltung Besucher');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (17, 120, 'Event has a language set which is not a conference language');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (17, 144, 'Eine Veranstaltung ist in einer Sprache die keine Konferenzsprache ist');
 
 
 --

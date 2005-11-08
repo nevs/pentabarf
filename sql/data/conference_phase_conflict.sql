@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: conference_phase_conflict_conference_phase_conflict_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conference_phase_conflict', 'conference_phase_conflict_id'), 85, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conference_phase_conflict', 'conference_phase_conflict_id'), 90, true);
 
 
 --
@@ -99,6 +99,11 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (83, 3, 16, 3);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (84, 4, 16, 3);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (85, 5, 16, 3);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (86, 1, 17, 5);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (87, 2, 17, 5);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (88, 3, 17, 5);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (89, 4, 17, 5);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (90, 5, 17, 5);
 
 
 --
