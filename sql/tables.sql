@@ -438,7 +438,7 @@ CREATE TABLE conference_person_link (
     conference_person_link_id SERIAL NOT NULL,
     conference_person_id INTEGER NOT NULL,
     url TEXT NOT NULL,
-    description VARCHAR(256),
+    title VARCHAR(256),
     rank INTEGER,
     FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
     PRIMARY KEY (conference_person_link_id)
@@ -756,7 +756,7 @@ CREATE TABLE event_link (
   event_link_id SERIAL NOT NULL,
   event_id INTEGER NOT NULL,
   url VARCHAR(1024) NOT NULL,
-  description VARCHAR(256),
+  title VARCHAR(256),
   rank INTEGER,
   FOREIGN KEY (event_id) REFERENCES event (event_id),
   PRIMARY KEY (event_link_id)
