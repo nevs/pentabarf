@@ -197,7 +197,7 @@ function add_person_phone(person_phone_id, phone_type_id, number)
 
 var link_counter = 0;
 
-function add_link(link_id, url, description)
+function add_link(link_id, url, title)
 {
   var table_row, table_data, element;
   var row_id = link_counter++;
@@ -218,7 +218,7 @@ function add_link(link_id, url, description)
   }
   table_row.appendChild(create_element("input", "hidden", "link["+row_id+"][link_id]", link_id));
   table_row.appendChild(create_element("input", "text", "link["+row_id+"][url]", url));
-  table_row.appendChild(create_element("input", "text", "link["+row_id+"][description]", description));
+  table_row.appendChild(create_element("input", "text", "link["+row_id+"][title]", title));
   table_row.appendChild(create_element("input", "checkbox", "link["+row_id+"][delete]"));
   document.getElementById("link_table_body").appendChild(table_row);
   enumerator();
