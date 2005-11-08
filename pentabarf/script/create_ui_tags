@@ -38,10 +38,14 @@ if @tags.length > 0
     ui_message.find({:tag => tag})
     if ui_message.nil?
       # tag does not yet exist
-      puts "adding tag: #{tag}"
-      ui_message.create
-      ui_message.tag = tag
-      ui_message.write
+      puts "Add tag '#{tag}'?" 
+      answer = gets
+      if answer.match(/[Yy](es)?/)
+        puts "adding tag: #{tag}"
+        ui_message.create
+        ui_message.tag = tag
+        ui_message.write
+      end
     end
   end
 end
