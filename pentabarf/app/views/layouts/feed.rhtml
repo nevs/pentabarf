@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="<%= h(@content_lang) %>" >
+<feed version="0.3" xml:lang="<%= h(@content_lang) %>" >
 
-  <id><%= h(@content_feed_url) %></id>
   <title><%= h(@content_title) %></title>
-  <link rel="self" type="text/html" href="<%= h(@content_feed_url) %>" />
-  <link rel="alternate" type="text/html" href="<%= h(@content_pentabarf_url) %>" />
-  <subtitle><%= h(@content_subtitle) %></subtitle>
-  <updated><%= xmlschema(@content_updated) %></updated>
-  <generator uri="http://pentabarf.org/" version="0.2">Pentabarf</generator>
-
-<!--
-  <icon></icon>
-  <logo></logo>
-  <rights></rights>
--->
+  <link rel="alternate" type="text/html" href="<%= url_for(:controller=>:pentabarf,:action=>:recent_changes) %>" />
+  <modified><%= @last_modified %></modified>
 
   <%= @content_for_layout %>
 </feed>
