@@ -22,12 +22,40 @@
   
   <img class="speaker-image" src="<%= url_for(:controller=>'image',:action=>:person,:id=>@speaker.person_id) + '-128x128' %>" />
 
-  <div class="abstract"><%= h(@speaker.abstract) %></div>
+  <div class="abstract"><%= markup(@speaker.abstract) %></div>
 
-  <div class="description"><%= h(@speaker.description) %></div>
+  <div class="description"><%= markup(@speaker.description) %></div>
 
   <% if @speaker.email_public %>
     <h2>Contact</h2>
     <p><%= h(@speaker.email_public.gsub(/@/, ' at ').gsub(/\./, ' dot ')) %></p>
   <% end %>
+
+  <% links = Momomoto::Conference_person_link.find({:conference_person_id=>@speaker.conference_person_id}) %>
+  <% if links.length > 0 %>
+  <div class="links">
+    <h2>Links</h2>
+    <ul>
+      <% links.each do | link | %>
+      <li><a href="<%= link.url %>"><%= h(link.title ? link.title : link.url) %></a></li>
+       <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div id="navigation">
+    <% @speakers.find_by_value({:person_id=>@speaker.person_id})
+       while @speakers.current_record > 0 && @speakers[@speakers.current_record - 1] do break if @speakers.person_id != @speaker.person_id end
+       if @speakers.person_id != @speaker.person_id
+    %>
+      <a href="<%= url_for({:action=>:speaker,:id=>@speakers.person_id})%>"><span class="previous" title="<%= h(@speakers.name) %>">&lt;&lt;&lt;</span></a>
+    <% end %>
+    <% @speakers.find_by_value({:person_id=>@speaker.person_id})
+       while @speakers.current_record + 1 < @speakers.length && @speakers[@speakers.current_record + 1] do break if @speakers.person_id != @speaker.person_id end
+       if @speakers.person_id != @speaker.person_id
+    %>
+      <a href="<%= url_for({:action=>:speaker,:id=>@speakers.person_id})%>"><span class="next" title="<%= h(@speakers.name) %>">&gt;&gt;&gt;</span></a>
+    <% end %>
+  </div>
+    
 </div>

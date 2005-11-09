@@ -1,6 +1,10 @@
 # The methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def markup( text )
+    h(text).gsub("\n", "<br/>")
+  end
+
   def localize_tag( tag )
     localized = Momomoto::View_ui_message.find({:tag=>tag, :language_id=>Momomoto::ui_language_id})
     localized.length == 1 ? localized.name : tag

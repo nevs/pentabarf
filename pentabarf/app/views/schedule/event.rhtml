@@ -66,9 +66,9 @@
   <p class="subtitle"><%= h(@event.subtitle) %></p>
   <img src="<%= url_for(:controller=>'image',:action=>:event,:id=>@event.event_id) + '-128x128' %>" />
   
-  <div class="abstract"><%= h(@event.abstract).gsub("\n", "<br/>") %></div>
+  <div class="abstract"><%= markup(@event.abstract) %></div>
 
-  <div class="description"><%= h(@event.description).gsub("\n", "<br/>") %></div>
+  <div class="description"><%= markup(@event.description) %></div>
 
   <% files = Momomoto::View_event_attachment.find({:event_id=>@event.event_id,:language_id=>120}) %>
   <% if files.length > 0 %>
@@ -93,5 +93,20 @@
     </ul>
   </div>
   <% end %>
+
+  <div id="navigation">
+    <% @events.find_by_value({:event_id=>@event.event_id})
+       while @events.current_record > 0 && @events[@events.current_record - 1] do break if @events.event_id != @event.event_id end
+       if @events.event_id != @event.event_id
+    %>
+      <a href="<%= url_for({:action=>:event,:id=>@events.event_id})%>"><span class="previous" title="<%= h(@events.title) %>">&lt;&lt;&lt;</span></a>
+    <% end %>
+    <% @events.find_by_value({:event_id=>@event.event_id})
+       while @events.current_record + 1 < @events.length && @events[@events.current_record + 1] do break if @events.event_id != @event.event_id end
+       if @events.event_id != @event.event_id
+    %>
+      <a href="<%= url_for({:action=>:event,:id=>@events.event_id})%>"><span class="next" title="<%= h(@events.title) %>">&gt;&gt;&gt;</span></a>
+    <% end %>
+  </div>
     
 </div>
