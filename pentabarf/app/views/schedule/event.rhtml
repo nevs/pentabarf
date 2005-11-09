@@ -65,19 +65,33 @@
   <h1 class="title"><%= h(@event.title) %></h1>
   <p class="subtitle"><%= h(@event.subtitle) %></p>
   <img src="<%= url_for(:controller=>'image',:action=>:event,:id=>@event.event_id) + '-128x128' %>" />
-  <div class="abstract"><%= h(@event.abstract) %></div>
-  <div class="description"><%= h(@event.description) %></div>
+  
+  <div class="abstract"><%= h(@event.abstract).gsub("\n", "<br/>") %></div>
 
-  <% links = Momomoto::Event_link.find({:event_id=>@event.event_id}) %>
-  <% if links.length > 0 %>
-  <% links.each do | link | %>
-  <div class="links">
-    <h2>Links</h2>
+  <div class="description"><%= h(@event.description).gsub("\n", "<br/>") %></div>
+
+  <% files = Momomoto::View_event_attachment.find({:event_id=>@event.event_id,:language_id=>120}) %>
+  <% if files.length > 0 %>
+  <div class="attachments">
+    <h2>Attachments</h2>
     <ul>
-      <li><a href="<%= link.url %>"><%= h(link.title ? link.title : link.url) %></a></li>
+      <% files.each do | file | %>
+        <li><a href="<%= url_for({:controller=>'file',:action=>:event_attachment,:id=>file.event_attachment_id}) %>"><%= h(file.title) %> (<%= human_size(file.filesize) %>)</a></li>
+      <% end %>
     </ul>
   </div>
   <% end %>
+
+  <% links = Momomoto::Event_link.find({:event_id=>@event.event_id}) %>
+  <% if links.length > 0 %>
+  <div class="links">
+    <h2>Links</h2>
+    <ul>
+      <% links.each do | link | %>
+      <li><a href="<%= link.url %>"><%= h(link.title ? link.title : link.url) %></a></li>
+       <% end %>
+    </ul>
+  </div>
   <% end %>
     
 </div>
