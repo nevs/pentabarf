@@ -9,8 +9,8 @@ class ScheduleController < ApplicationController
   def day
     @day = params[:id].to_i
     @content_title = "Day #{@day}"
-    @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id=>120, :f_public=>'t'}, nil, 'rank')
-    @events = Momomoto::View_schedule_event.find({:day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated_id=>120}, nil, 'lower(title),lower(subtitle)' )
+    @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id=>@current_language_id, :f_public=>'t'}, nil, 'rank')
+    @events = Momomoto::View_schedule_event.find({:day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated_id=>@current_language_id}, nil, 'lower(title),lower(subtitle)' )
   end
   
   def speaker
@@ -26,15 +26,15 @@ class ScheduleController < ApplicationController
   end
 
   def event
-    @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>120},nil,'lower(title),lower(subtitle),lower(name)')
-    @event = Momomoto::View_event.find({:conference_id=>@conference.conference_id,:translated_id=>120,:event_id=>params[:id]})
+    @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},nil,'lower(title),lower(subtitle),lower(name)')
+    @event = Momomoto::View_event.find({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id,:event_id=>params[:id]})
     render_text("") unless @event.length == 1 && @events.find_by_value(:event_id => @event.event_id)
     @content_title = @event.title
   end
 
   def events
     @content_title = "Lectures and workshops"
-    @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>120}, nil, 'lower(title),lower(subtitle)' )
+    @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id}, nil, 'lower(title),lower(subtitle)' )
   end
 
   def css
@@ -44,6 +44,7 @@ class ScheduleController < ApplicationController
 
   def check_permission
     @conference = Momomoto::Conference.new
+    @current_language_id = @user.preferences[:current_language_id]
     if params[:conference_id].to_s.match(/^\d+$/)
       @conference.select({:conference_id => params[:conference_id]})
     else
