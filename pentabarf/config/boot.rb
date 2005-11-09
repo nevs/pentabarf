@@ -46,30 +46,16 @@ module ActionView
         template
       end
 
-      # overwrite render function for rails 0.14.1
-      begin
-        Base::instance_method("compile_template")
-        alias compile_template_default compile_template
-      rescue
-      end
+      # overwrite render function for rails 0.14.x
+      alias compile_template_default compile_template
+      alias compile_template_default? compile_template?
 
-      def compile_template( extension, template, file_path, local_assigns)
-        compile_template_default( extension, localize( template ), file_path, local_assigns )
+      def compile_template( extension, template, file_name, local_assigns)
+        compile_template_default( extension, localize( template ), file_name, local_assigns )
       end
 
       def compile_template?( template, file_name, local_assigns )
-        true
-      end
-
-      # overwrite render function for rails 0.13.1
-      begin
-        Base::instance_method("rhtml_render")
-        alias rhtml_render_default rhtml_render
-      rescue
-      end
-
-      def rhtml_render(extension, template, local_assigns)
-        rhtml_render_default(extension, localize(template), local_assigns)
+        compile_template_default?( template, nil, local_assigns )
       end
 
   end
