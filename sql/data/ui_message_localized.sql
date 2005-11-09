@@ -278,6 +278,16 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (146,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (146, 144, 'Vorname');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (147, 120, 'Title');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (147, 144, 'Titel');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (149, 120, 'Gender');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (149, 144, 'Geschlecht');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (150, 120, 'Title');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (150, 144, 'Titel');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (151, 120, 'Default Timeslots');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (151, 144, 'Default Timeslots');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (152, 120, 'URL');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (152, 144, 'URL');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (153, 120, 'Title');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (153, 144, 'Titel');
 
 
 --
