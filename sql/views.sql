@@ -621,6 +621,7 @@ CREATE OR REPLACE VIEW view_schedule_person AS
          speaker.title,
          speaker.subtitle,
          conference_person.conference_id,
+         conference_person.conference_person_id,
          conference_person.abstract,
          conference_person.description,
          conference_person.email_public
