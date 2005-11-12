@@ -624,8 +624,18 @@ CREATE OR REPLACE VIEW view_schedule_person AS
          conference_person.conference_person_id,
          conference_person.abstract,
          conference_person.description,
-         conference_person.email_public
+         conference_person.email_public,
+         person_image.f_public,
+         person_image.file_extension
     FROM view_person
+         LEFT OUTER JOIN (
+             SELECT person_id,
+                    f_public,
+                    file_extension
+               FROM person_image
+                    INNER JOIN mime_type USING (mime_type_id)
+              WHERE f_public = 't'
+         ) AS person_image USING (person_id)
          INNER JOIN conference_person USING (person_id)
          INNER JOIN ( 
              SELECT person_id,

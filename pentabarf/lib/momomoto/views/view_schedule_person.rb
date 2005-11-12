@@ -3,7 +3,6 @@ module Momomoto
     def initialize
       super
       @domain = 'person'
-      @order = "lower(name), lower(title), lower(subtitle)"
       @fields = {
         :person_id => Datatype::Integer.new( {} ),
         :name => Datatype::Varchar.new( {} ),
@@ -14,7 +13,9 @@ module Momomoto
         :conference_person_id => Datatype::Integer.new( {} ),
         :abstract => Datatype::Text.new( {} ),
         :description => Datatype::Text.new( {} ),
-        :email_public => Datatype::Varchar.new( {:length=>64} )
+        :email_public => Datatype::Varchar.new( {:length=>64} ),
+        :f_public => Datatype::Bool.new( {} ),
+        :file_extension => Datatype::Varchar.new( {:length=>16} )
       }
     end
   end
