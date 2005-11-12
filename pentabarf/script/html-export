@@ -64,14 +64,16 @@ class HTML_Export
         break
       end
       Dir.mkdir('events') unless File.exist?('events')
-      @events.each_unique(:event_id) do | @event |
+      @events.each_unique(:event_id) do | event |
+        @event = Momomoto::View_event.find({:event_id=>event.event_id,:translated_id=>@language.language_id})
         write_file("events/#{@event.event_id}.#{@language.tag}.html", render('event') )
       end
       Dir.mkdir('speakers') unless File.exist?('speakers')
       @speakers.each_unique(:person_id) do | @speaker |
-        write_file("speakers/#{@speaker.person_id}.#{@language.tag}.html", "abc")
+        write_file("speakers/#{@speaker.person_id}.#{@language.tag}.html", render('speaker'))
       end
     end
+    puts "Export done."
   end
 
   def method_missing( name )
@@ -85,8 +87,18 @@ class HTML_Export
   end
 
   def url_for( url )
-    case url[:action]
-      when css then "stylesheet.css"
+    "url"
+  end
+
+  def human_size( size )
+    begin
+      return "%d Bytes" % size                if size < 1024
+      return "%.1f KB" % (size/1024).to_f if size < 1024 * 1024
+      return "%.1f MB" % (size/(1024*1024)).to_f if size < 1024 * 1024 * 1024
+      return "%.1f GB" % (size/(1024*1024*1024)).to_f if size < 1024 * 1024 * 1024 * 1024
+      return "%.1f TB" % (size/(1024*1024*1024*10)).to_f 
+    rescue
+      # just return nothing
     end
   end
 
