@@ -60,7 +60,7 @@ class HTML_Export
       write_file("index.#{@language.tag}.html", render('index')) 
       @conference.days.times do | day |
         @day = day + 1
-        # write_file("day_#{@day}.#{@language.tag}.html", render('day'))
+        write_file("day_#{@day}.#{@language.tag}.html", render('day'))
         break
       end
       Dir.mkdir('events') unless File.exist?('events')
