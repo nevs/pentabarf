@@ -1,4 +1,6 @@
 require 'postgres'
+require 'date'
+require 'time'
 require 'datatype/bool.rb'
 require 'datatype/boolsearch.rb'
 require 'datatype/bytea.rb'
