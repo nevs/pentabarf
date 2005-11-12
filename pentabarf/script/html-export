@@ -1,0 +1,106 @@
+#!/usr/bin/env ruby
+require 'yaml'
+require 'lib/momomoto/momomoto'
+require 'lib/momomoto/tables'
+require 'lib/momomoto/views'
+require 'app/helpers/application_helper'
+require 'app/helpers/schedule_helper'
+require 'erb'
+
+if ARGV.length != 1
+  puts "Usage: #{$0} <conference-id>"
+  exit
+end
+
+
+class HTML_Export
+  include ERB::Util
+  include ApplicationHelper
+  include ScheduleHelper
+
+  LOCK_FILE = '.lockfile'
+
+  def initialize( conference_id )
+    @rails_root = Dir.getwd
+    Momomoto::Base.connect(YAML::load_file("config/database.yml")['production'])
+    @conference = Momomoto::Conference.find({:conference_id=>conference_id})
+    raise ArgumentError, "Conference with id #{conference_id} not found" unless @conference.length == 1
+    @languages = Momomoto::View_conference_language.find({:conference_id=>@conference.conference_id,:translated_id=>120})
+    raise ArgumentError, "no conference language set to export to." unless @languages.length > 0
+    Dir.chdir('tmp/html-export')
+    begin
+      Dir.chdir(conference_id.to_s)
+    rescue Errno::ENOENT
+      Dir.mkdir(conference_id.to_s)
+      Dir.chdir(conference_id.to_s)
+    end
+    raise StandardError, "this conference is currently being exported" if File.exist?( LOCK_FILE )
+    File.new( LOCK_FILE, File::CREAT )
+  end
+
+  def render( options )
+    puts "rendering #{options.inspect}"
+    if options.is_a?(String)
+      filename = "#{@rails_root}/app/views/schedule/#{options}.rhtml"
+    end
+    if filename.to_s.length > 0
+      raise ArgumentError, "file #{filename} does not exist." unless File.exist?(filename)
+      template = ERB.new( File.new( filename, "r" ).read )
+      return template.result( binding )
+    end
+  end
+  
+  def export
+    write_file( "stylesheet.css", @conference.css )
+    # export loop for each language
+    @languages.each do | @language |
+      @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id => @language.language_id})
+      @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@language.language_id}, nil, 'lower(title),lower(subtitle)' )
+      @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id})
+      write_file("index.#{@language.tag}.html", render('index')) 
+      @conference.days.times do | day |
+        @day = day + 1
+        # write_file("day_#{@day}.#{@language.tag}.html", render('day'))
+        break
+      end
+      Dir.mkdir('events') unless File.exist?('events')
+      @events.each_unique(:event_id) do | @event |
+        write_file("events/#{@event.event_id}.#{@language.tag}.html", render('event') )
+      end
+      Dir.mkdir('speakers') unless File.exist?('speakers')
+      @speakers.each_unique(:person_id) do | @speaker |
+        write_file("speakers/#{@speaker.person_id}.#{@language.tag}.html", "abc")
+      end
+    end
+  end
+
+  def method_missing( name )
+    "<b>missing method #{name}</b>"
+  end
+
+  def write_file( filename, content )
+    file = File.open( filename , File::CREAT | File::WRONLY | File::TRUNC )
+    file.write( content )
+    file.close
+  end
+
+  def url_for( url )
+    case url[:action]
+      when css then "stylesheet.css"
+    end
+  end
+
+  def cleanup
+    File.delete( LOCK_FILE )
+  end
+  
+end
+
+export = HTML_Export.new(ARGV[0])
+begin
+  export.export
+  export.cleanup
+rescue
+  export.cleanup
+end
+
