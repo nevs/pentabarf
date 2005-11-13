@@ -182,7 +182,8 @@ export = HTML_Export.new(ARGV[0])
 begin
   export.export
   export.cleanup
-rescue
+rescue => e
   export.cleanup
+  raise e
 end
 
