@@ -119,7 +119,20 @@ class HTML_Export
   end
 
   def url_for( url )
-    "url"
+    if url[:controller]
+      if url[:controller].to_sym == :image
+        url[:action] = :speaker if url[:action] == :person
+        return "#{@conference.export_base_url}images/#{url[:action]}#{url[:id] && url[:id] != 0 ? '-' + url[:id].to_s : ''}"
+      end
+    else
+      return case url[:action]
+        when :speaker then "#{@conference.export_base_url}speakers/#{url[:id]}.#{@language.tag}.html"
+        when :speakers then "#{@conference.export_base_url}speakers.#{@language.tag}.html"
+        when :event then "#{@conference.export_base_url}events/#{url[:id]}.#{@language.tag}.html"
+        when :events then "#{@conference.export_base_url}events.#{@language.tag}.html"
+        else "unkown url #{url.inspect}" end
+    end
+    "unkown url #{url.inspect}"
   end
 
   def human_size( size )
