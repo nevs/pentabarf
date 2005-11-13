@@ -54,6 +54,15 @@ class HTML_Export
   def export
     write_file( "stylesheet.css", @conference.css )
     make_images = true
+    
+    # export generic person and event image
+    image = File.new( @rails_root + '/public/images/icon-event-128x128.png').read
+    write_file("images/event-48x48.png", resize_image( image, 48 ) )
+    write_file("images/event-128x128.png", resize_image( image, 128 ) )
+    image = File.new( @rails_root + '/public/images/icon-person-128x128.png').read
+    write_file("images/speaker-48x48.png", resize_image( image, 48 ) )
+    write_file("images/speaker-128x128.png", resize_image( image, 128 ) )
+        
     # export loop for each language
     @languages.each do | @language |
       @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id => @language.language_id})
