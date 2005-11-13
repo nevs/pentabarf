@@ -6,7 +6,7 @@
   <table>
     <thead>
       <tr class="odd">
-        <th class="time"><strong>Time</strong></th>
+        <th class="time"/>
 
         <% @rooms.each do | room | %>
         <th><strong><%= h(room.name) %></strong></th>
@@ -33,9 +33,9 @@
               </ul>
               <p class="info">
                 <a href="<%= url_for({:action=>:event,:id=>row[room.room_id][:event_id]}) %>">
-                  Language: <span class="language"><%= h(@events.language) %></span><br/>
-                  Type: <span class="type"><%= h(@events.event_type) %></span><br/>
-                  Track: <span class="track"><%= h(@events.conference_track) %></span><br/>
+                  <[table::event::language]>: <span class="language"><%= h(@events.language) %></span><br/>
+                  <[table::event::type]>: <span class="type"><%= h(@events.event_type) %></span><br/>
+                  <[table::event::track]>: <span class="track"><%= h(@events.conference_track) %></span><br/>
                 </a>
               </p>
             </td>

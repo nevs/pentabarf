@@ -24,7 +24,7 @@
         <th colspan="2">Schedule</th>
       </tr>
       <tr>
-        <td class="keyword">Day</td>
+        <td class="keyword"><[day]></td>
         <td class="value"><%= h(@event.day) %></td>
       </tr>
       <tr>
@@ -32,11 +32,11 @@
         <td class="value"><%= h(@event.room) %></td>
       </tr>
       <tr>
-        <td class="keyword">Start Time</td>
+        <td class="keyword"><[table::event::start_time]></td>
         <td class="value"><%= h(@event.real_starttime.strftime('%H:%M')) %></td>
       </tr>
       <tr>
-        <td class="keyword">Duration</td>
+        <td class="keyword"><[table::event::duration]></td>
         <td class="value"><%= h(@event.duration.strftime('%H:%M')) %></td>
       </tr>
       <tr>
@@ -48,15 +48,15 @@
         <td class="value"><%= h(@events.event_id) %></td>
       </tr>
       <tr>
-        <td class="keyword">Type</td>
+        <td class="keyword"><[table::event::type]></td>
         <td class="value"><%= h(@events.event_type) %></td>
       </tr>
       <tr>
-        <td class="keyword">Track</td>
+        <td class="keyword"><[table::event::track]></td>
         <td class="value"><%= h(@events.conference_track) %></td>
       </tr>
       <tr>
-        <td class="keyword">Language</td>
+        <td class="keyword"><[table::event::language]></td>
         <td class="value"><%= h(@events.language) %></td>
       </tr>
     </table>
