@@ -79,6 +79,7 @@ class HTML_Export
         write_file("day_#{@day}.#{@language.tag}.html", render('day'))
       end
 
+      # create all event pages and event images
       @events.each_unique(:event_id) do | event |
         @event = Momomoto::View_event.find({:event_id=>event.event_id,:translated_id=>@language.language_id})
         if make_images
@@ -90,6 +91,8 @@ class HTML_Export
         end
         write_file("events/#{@event.event_id}.#{@language.tag}.html", render('event') )
       end
+
+      # create all speaker pages and images
       @speakers.each_unique(:person_id) do | @speaker |
         if @speaker.f_public == 't' && make_images
           image = Momomoto::Person_image.find({:person_id=>@speaker.person_id})
@@ -135,6 +138,16 @@ class HTML_Export
         else "unkown url #{url.inspect}" end
     end
     "unkown url #{url.inspect}"
+  end
+
+  def person_image( person_id = 0, size = 32, extension = nil )
+    size = 500 if size > 500
+    "#{@conference.export_base_url}images/speaker#{person_id != 0 ? '-' + person_id.to_s : '' }-#{size}x#{size}" + ( extension ? ".#{extension}" : 'jpg')
+  end
+
+  def event_image( event_id = 0, size = 32, extension = nil )
+    size = 500 if size > 500
+    "#{@conference.export_base_url}images/event#{event_id != 0 ? '-' + event_id.to_s : '' }-#{size}x#{size}" + ( extension ? ".#{extension}" : 'png')
   end
 
   def human_size( size )
