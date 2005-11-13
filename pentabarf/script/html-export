@@ -25,6 +25,7 @@ class HTML_Export
     @rails_root = Dir.getwd
     Momomoto::Base.connect(YAML::load_file("config/database.yml")['production'])
     @conference = Momomoto::Conference.find({:conference_id=>conference_id})
+    @timezone = 'Europe/Berlin'
     raise ArgumentError, "Conference with id #{conference_id} not found" unless @conference.length == 1
     @languages = Momomoto::View_conference_language.find({:conference_id=>@conference.conference_id,:translated_id=>120})
     raise ArgumentError, "no conference language set to export to." unless @languages.length > 0
@@ -42,7 +43,11 @@ class HTML_Export
 
   def render( options )
     puts "rendering #{options.inspect}"
-    if options.is_a?(String)
+    if options == 'ical'
+      filename = "#{@rails_root}/app/views/ical/conference.rhtml"
+      @content_for_layout = render_template( filename )
+      render_template("#{@rails_root}/app/views/layouts/ical.rhtml")
+    elsif options.is_a?(String)
       filename = "#{@rails_root}/app/views/schedule/#{options}.rhtml"
       @content_for_layout = render_template( filename )
       render_template("#{@rails_root}/app/views/layouts/schedule.rhtml")
@@ -77,7 +82,11 @@ class HTML_Export
       @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id => @language.language_id})
       @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@language.language_id}, nil, 'lower(title),lower(subtitle)' )
       @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id})
+
+      # create index page
       write_file("index.#{@language.tag}.html", render('index')) 
+
+      write_file("schedule.ics", fold(render('ical')))
       
       # create schedule tables for every day
       @conference.days.times do | day |
@@ -157,6 +166,7 @@ class HTML_Export
 
   def localize( template )
     # lets do some localization
+    template.gsub!('-%>', '%>')
     tags = template.to_s.scan(/<\[[a-z:_]+\]>/)
     tags.collect do | tag |
       tag.delete!("<[]>")
@@ -196,6 +206,20 @@ class HTML_Export
     File.delete( LOCK_FILE )
   end
   
+  def fold( message )
+    max_octets = 70
+    folded_body = ""
+    message.each_line do | line |
+      while line.length > max_octets do
+        folded_body += line[0..(max_octets - 1)]
+        folded_body += "\r\n "
+        line = line[max_octets..line.length]
+      end
+      folded_body += line
+    end
+    folded_body
+  end 
+
 end
 
 export = HTML_Export.new(ARGV[0])
