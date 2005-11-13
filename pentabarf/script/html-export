@@ -67,14 +67,6 @@ class HTML_Export
     Dir.mkdir('events') unless File.exist?('events')
     Dir.mkdir('speakers') unless File.exist?('speakers')
 
-    # export generic person and event image
-    image = File.new( @rails_root + '/public/images/icon-event-128x128.png').read
-    write_file("images/event-48x48.png", resize_image( image, 48 ) )
-    write_file("images/event-128x128.png", resize_image( image, 128 ) )
-    image = File.new( @rails_root + '/public/images/icon-person-128x128.png').read
-    write_file("images/speaker-48x48.png", resize_image( image, 48 ) )
-    write_file("images/speaker-128x128.png", resize_image( image, 128 ) )
-        
     # export loop for each language
     @languages.each do | @language |
       @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id => @language.language_id})
@@ -82,30 +74,36 @@ class HTML_Export
       @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id})
       write_file("index.#{@language.tag}.html", render('index')) 
       
+      # create schedule tables for every day
       @conference.days.times do | day |
         @day = day + 1
         write_file("day_#{@day}.#{@language.tag}.html", render('day'))
       end
+
+      write_file("speakers.#{@language.tag}.html", render('speakers'))
+      write_file("events.#{@language.tag}.html", render('events'))
 
       # create all event pages and event images
       @events.each_unique(:event_id) do | event |
         @event = Momomoto::View_event.find({:event_id=>event.event_id,:translated_id=>@language.language_id})
         if make_images
           image = Momomoto::Event_image.find({:event_id=>event.event_id})
-          if image.length == 1
-            write_file("images/event-#{@event.event_id}-48x48.#{@event.file_extension}", resize_image( image.image, 48 ) )
-            write_file("images/event-#{@event.event_id}-128x128.#{@event.file_extension}", resize_image( image.image, 128 ) )
-          end
+          image = image.length == 1 ? image.image : File.new( @rails_root + '/public/images/icon-event-128x128.png').read
+          write_file("images/event-#{@event.event_id}-32x32.png", resize_image( image, 32, 'PNG' ) )
+          write_file("images/event-#{@event.event_id}-48x48.png", resize_image( image, 48, 'PNG' ) )
+          write_file("images/event-#{@event.event_id}-128x128.png", resize_image( image, 128, 'PNG' ) )
         end
         write_file("events/#{@event.event_id}.#{@language.tag}.html", render('event') )
       end
 
       # create all speaker pages and images
       @speakers.each_unique(:person_id) do | @speaker |
-        if @speaker.f_public == 't' && make_images
+        if make_images
           image = Momomoto::Person_image.find({:person_id=>@speaker.person_id})
-          write_file("images/speaker-#{@speaker.person_id}-48x48.#{@speaker.file_extension}", resize_image( image.image, 48 ) )
-          write_file("images/speaker-#{@speaker.person_id}-128x128.#{@speaker.file_extension}", resize_image( image.image, 128 ) )
+          image = image.length == 1 && image.f_public ? image.image : File.new( @rails_root + '/public/images/icon-person-128x128.png').read
+          write_file("images/speaker-#{@speaker.person_id}-32x32.jpg", resize_image( image, 32, 'JPG' ) )
+          write_file("images/speaker-#{@speaker.person_id}-48x48.jpg", resize_image( image, 48, 'JPG' ) )
+          write_file("images/speaker-#{@speaker.person_id}-128x128.jpg", resize_image( image, 128, 'JPG' ) )
         end
         write_file("speakers/#{@speaker.person_id}.#{@language.tag}.html", render('speaker'))
       end
@@ -124,10 +122,11 @@ class HTML_Export
     file.close
   end
 
-  def resize_image( image, size )
+  def resize_image( image, size, format = nil )
     resized = Magick::Image.from_blob( image )[0]
     resized.x_resolution = 72
     resized.y_resolution = 72
+    resized.format = format if format
     resized.resize!( size, size ).strip!.to_blob
   end
 
@@ -144,6 +143,8 @@ class HTML_Export
         when :event then "#{@conference.export_base_url}events/#{url[:id]}.#{@language.tag}.html"
         when :events then "#{@conference.export_base_url}events.#{@language.tag}.html"
         when :css then "#{@conference.export_base_url}stylesheet.css"
+        when :day then "#{@conference.export_base_url}day_#{url[:id]}.#{@language.tag}.html"
+        when :index then "#{@conference.export_base_url}index.#{@language.tag}.html"
         else "unkown url #{url.inspect}" end
     end
     "unkown url #{url.inspect}"
@@ -151,12 +152,12 @@ class HTML_Export
 
   def person_image( person_id = 0, size = 32, extension = nil )
     size = 500 if size > 500
-    "#{@conference.export_base_url}images/speaker#{person_id != 0 ? '-' + person_id.to_s : '' }-#{size}x#{size}" + ( extension ? ".#{extension}" : 'jpg')
+    "#{@conference.export_base_url}images/speaker#{person_id != 0 ? '-' + person_id.to_s : '' }-#{size}x#{size}" + ( extension ? ".#{extension}" : '.jpg')
   end
 
   def event_image( event_id = 0, size = 32, extension = nil )
     size = 500 if size > 500
-    "#{@conference.export_base_url}images/event#{event_id != 0 ? '-' + event_id.to_s : '' }-#{size}x#{size}" + ( extension ? ".#{extension}" : 'png')
+    "#{@conference.export_base_url}images/event#{event_id != 0 ? '-' + event_id.to_s : '' }-#{size}x#{size}" + ( extension ? ".#{extension}" : '.png')
   end
 
   def human_size( size )

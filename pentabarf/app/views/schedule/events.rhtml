@@ -10,7 +10,7 @@
       <% @events.each_unique(:event_id) do |event | %>
       <tr>
         <td class="event">
-          <a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><img src="<%= url_for({:controller=>'image',:action=>:event,:id=>event.event_id}) + '-48x48' %>" /></a>
+          <a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><img src="<%= event_image(event.event_id, 48) %>" /></a>
           <p class="title"><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.title) %></a></p>
           <p class="subtitle"><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.subtitle) %></a></p>
           <p>

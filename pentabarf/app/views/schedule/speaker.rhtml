@@ -9,7 +9,7 @@
         <tr>
           <td>
             <a href="<%= url_for(:action=>:event,:id=>event.event_id) %>">
-              <img src="<%= url_for(:controller=>'image',:action=>:event,:id=>event.event_id) %>" />
+              <img src="<%= event_image(event.event_id, 32) %>" />
             </a>
           </td>
           <td><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.title) %></a></td>
@@ -20,7 +20,7 @@
 
   <h1><%= h(@speaker.name) %></h1>
   <% @speakers.find_by_value(:person_id=>@speaker.person_id) %>
-  <img class="speaker-image" src="<%= url_for(:controller=>'image',:action=>:person,:id=>(@speakers.f_public == 't' ? @speakers.person_id : 0) ) + '-128x128' + (@speakers.f_public == 't' ? @speakers.file_extension : 'png' ) %>" />
+  <img class="speaker-image" src="<%= person_image(@speaker.person_id, 128) %>" />
 
   <div class="abstract"><%= markup(@speaker.abstract) %></div>
 

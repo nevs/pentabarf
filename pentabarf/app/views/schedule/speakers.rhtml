@@ -11,7 +11,7 @@
     <tr>
       <td class="speaker">
         <a href="<%= url_for(:action=>:speaker,:id=>person.person_id) %>">
-          <img class="speaker-image" src="<%= url_for(:controller=>'image',:action=>:person,:id=>person.f_public == 't' ? person.person_id : 0 ) + '-128x128' + ( person.f_public == 't' ? person.file_extension : 'png') %>" />
+          <img class="speaker-image" src="<%= person_image(person.person_id, 48) %>" />
         </a>
         <a href="<%= url_for(:action=>:speaker,:id=>person.person_id) %>">
           <%= person.name %><br/>
