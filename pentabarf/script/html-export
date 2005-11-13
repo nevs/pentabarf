@@ -43,12 +43,17 @@ class HTML_Export
     puts "rendering #{options.inspect}"
     if options.is_a?(String)
       filename = "#{@rails_root}/app/views/schedule/#{options}.rhtml"
+      @content_for_layout = render_template( filename )
+      render_template("#{@rails_root}/app/views/layouts/schedule.rhtml")
+    else
+      "unknown options for render #{options.inspect}"
     end
-    if filename.to_s.length > 0
-      raise ArgumentError, "file #{filename} does not exist." unless File.exist?(filename)
-      template = ERB.new( File.new( filename, "r" ).read )
-      return template.result( binding )
-    end
+  end
+
+  def render_template( filename )
+    raise ArgumentError, "file #{filename} does not exist." unless File.exist?(filename)
+    template = ERB.new( File.new( filename, "r" ).read )
+    template.result( binding )
   end
   
   def export
@@ -135,6 +140,7 @@ class HTML_Export
         when :speakers then "#{@conference.export_base_url}speakers.#{@language.tag}.html"
         when :event then "#{@conference.export_base_url}events/#{url[:id]}.#{@language.tag}.html"
         when :events then "#{@conference.export_base_url}events.#{@language.tag}.html"
+        when :css then "#{@conference.export_base_url}stylesheet.css"
         else "unkown url #{url.inspect}" end
     end
     "unkown url #{url.inspect}"
