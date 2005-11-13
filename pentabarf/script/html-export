@@ -45,6 +45,9 @@ class HTML_Export
       filename = "#{@rails_root}/app/views/schedule/#{options}.rhtml"
       @content_for_layout = render_template( filename )
       render_template("#{@rails_root}/app/views/layouts/schedule.rhtml")
+    elsif options.is_a?(Hash) && options[:partial]
+      filename = "#{@rails_root}/app/views/schedule/_#{options[:partial]}.rhtml"
+      render_template( filename )
     else
       "unknown options for render #{options.inspect}"
     end

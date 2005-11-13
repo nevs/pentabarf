@@ -196,9 +196,14 @@ class ImageController < ApplicationController
   def render_resized( image, query)
     image.x_resolution = 72
     image.y_resolution = 72
-    if query.match( /^\d+-(\d+)x(\d+)/ ) || query.match( /^new-(\d+)x(\d+)/ )
+    format = nil
+    if query.match( /^\d+-(\d+)x(\d+)(\.[a-z]+)?/ ) || query.match( /^new-(\d+)x(\d+)(\.[a-z]+)?/ )
       height = $1.to_i > 512 ? 32 : $1.to_i
       width = $2.to_i > 512 ? 32 : $2.to_i
+      format = case $3 
+               when 'JPG', 'JPEG', 'jpg', 'jpeg' then 'JPG'
+               when 'GIF', 'gif' then 'GIF' 
+               else nil end
     else
       height = 32
       width = 32
