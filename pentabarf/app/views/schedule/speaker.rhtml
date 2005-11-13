@@ -19,8 +19,8 @@
   </div>
 
   <h1><%= h(@speaker.name) %></h1>
-  
-  <img class="speaker-image" src="<%= url_for(:controller=>'image',:action=>:person,:id=>@speaker.f_public == 't' ? @speaker.person_id : 0 ) + '-128x128' + @speaker.f_public == 't' ? @speaker.file_extension : 'png' %>" />
+  <% @speakers.find_by_value(:person_id=>@speaker.person_id) %>
+  <img class="speaker-image" src="<%= url_for(:controller=>'image',:action=>:person,:id=>(@speakers.f_public == 't' ? @speakers.person_id : 0) ) + '-128x128' + (@speakers.f_public == 't' ? @speakers.file_extension : 'png' ) %>" />
 
   <div class="abstract"><%= markup(@speaker.abstract) %></div>
 
