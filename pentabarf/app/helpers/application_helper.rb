@@ -10,6 +10,21 @@ module ApplicationHelper
     localized.length == 1 ? localized.name : tag
   end
 
+  def person_image( person_id = 0, size = 32, extension = nil )
+    size = 500 if size > 500
+    url_for({:controller=>'image',:action=>:person,:id=>person_id}) + "-#{size}x#{size}" + ( extension ? ".#{extension}" : '')
+  end
+
+  def event_image( event_id = 0, size = 32, extension = nil )
+    size = 500 if size > 500
+    url_for({:controller=>'image',:action=>:event,:id=>event_id}) + "-#{size}x#{size}" + ( extension ? ".#{extension}" : '')
+  end
+
+  def conference_image( conference_id = 0, size = 32, extension = nil )
+    size = 500 if size > 500
+    url_for({:controller=>'image',:action=>:conference,:id=>event_id}) + "-#{size}x#{size}" + ( extension ? ".#{extension}" : '')
+  end
+
   def schedule_table( conference, events )
     table = []
     timeslot_seconds = conference.timeslot_duration.hour * 3600 + conference.timeslot_duration.min * 60
