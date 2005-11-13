@@ -37,6 +37,7 @@ class HTML_Export
     end
     raise StandardError, "this conference is currently being exported" if File.exist?( LOCK_FILE )
     File.new( LOCK_FILE, File::CREAT )
+    @template_cache = {}
   end
 
   def render( options )
@@ -54,9 +55,12 @@ class HTML_Export
   end
 
   def render_template( filename )
-    raise ArgumentError, "file #{filename} does not exist." unless File.exist?(filename)
-    template = ERB.new( localize( File.new( filename, "r" ).read ) )
-    template.result( binding )
+    if not @template_cache[filename]
+      raise ArgumentError, "file #{filename} does not exist." unless File.exist?(filename)
+      template = ERB.new( localize( File.new( filename, "r" ).read ) )
+      @template_cache[filename] = template.src
+    end
+    eval( @template_cache[filename], binding )
   end
   
   def export
@@ -69,6 +73,7 @@ class HTML_Export
 
     # export loop for each language
     @languages.each do | @language |
+      @template_cache = {}
       @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id => @language.language_id})
       @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@language.language_id}, nil, 'lower(title),lower(subtitle)' )
       @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id})

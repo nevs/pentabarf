@@ -15,8 +15,8 @@
           <p class="subtitle"><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.subtitle) %></a></p>
           <p>
             <a href="<%= url_for(:action=>:event,:id=>event.event_id) %>">
-              <strong><[table::event::event_type]></strong>: <span class="type"><%= h(event.event_type) %></span><br/>
-              <strong><[table::event::conference_track]></strong>: <span class="track"><%= h(event.conference_track) %></span><br/>
+              <strong><[table::event::type]></strong>: <span class="type"><%= h(event.event_type) %></span><br/>
+              <strong><[table::event::track]></strong>: <span class="track"><%= h(event.conference_track) %></span><br/>
               <strong><[table::event::language]></strong>: <span class="language"><%= h(event.language) %></span><br/>
             </a>
           </p>
