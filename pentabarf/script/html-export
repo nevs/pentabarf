@@ -55,7 +55,7 @@ class HTML_Export
 
   def render_template( filename )
     raise ArgumentError, "file #{filename} does not exist." unless File.exist?(filename)
-    template = ERB.new( File.new( filename, "r" ).read )
+    template = ERB.new( localize( File.new( filename, "r" ).read ) )
     template.result( binding )
   end
   
@@ -148,6 +148,21 @@ class HTML_Export
         else "unkown url #{url.inspect}" end
     end
     "unkown url #{url.inspect}"
+  end
+
+  def localize( template )
+    # lets do some localization
+    tags = template.to_s.scan(/<\[[a-z:_]+\]>/)
+    tags.collect do | tag |
+      tag.delete!("<[]>")
+    end
+    if tags.length > 0
+      Momomoto::View_ui_message.find({:language_id => @language.language_id, :tag => tags}).each do | msg |
+        next if msg.name.match(/[{}<>]/)
+        template.gsub!( "<[" + msg.tag + "]>", h(msg.name) )
+      end
+    end
+    template
   end
 
   def person_image( person_id = 0, size = 32, extension = nil )
