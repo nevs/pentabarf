@@ -69,6 +69,13 @@ class HTML_Export
       Dir.mkdir('events') unless File.exist?('events')
       @events.each_unique(:event_id) do | event |
         @event = Momomoto::View_event.find({:event_id=>event.event_id,:translated_id=>@language.language_id})
+        if make_images
+          image = Momomoto::Event_image.find({:event_id=>event.event_id})
+          if image.length == 1
+            write_file("images/event-#{@event.event_id}-48x48.#{@event.file_extension}", resize_image( image.image, 48 ) )
+            write_file("images/event-#{@event.event_id}-128x128.#{@event.file_extension}", resize_image( image.image, 128 ) )
+          end
+        end
         write_file("events/#{@event.event_id}.#{@language.tag}.html", render('event') )
       end
       Dir.mkdir('speakers') unless File.exist?('speakers')
