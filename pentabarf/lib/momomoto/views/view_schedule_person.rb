@@ -3,6 +3,7 @@ module Momomoto
     def initialize
       super
       @domain = 'person'
+      @order = 'lower(name), lower(title), lower(subtitle)'
       @fields = {
         :person_id => Datatype::Integer.new( {} ),
         :name => Datatype::Varchar.new( {} ),

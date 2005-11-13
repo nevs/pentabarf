@@ -684,8 +684,15 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          view_language.name AS language,
          view_language.tag AS language_tag,
          speaker.person_id,
-         speaker.name
+         speaker.name,
+         event_image.file_extension
     FROM event_person
+         LEFT OUTER JOIN (
+             SELECT event_id,
+                    file_extension
+               FROM event_image
+                    INNER JOIN mime_type USING (mime_type_id)
+         ) AS event_image USING (event_id)
          INNER JOIN event USING (event_id)
          INNER JOIN conference USING (conference_id)
          INNER JOIN view_event_state USING (event_state_id)

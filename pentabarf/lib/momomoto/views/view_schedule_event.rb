@@ -3,6 +3,7 @@ module Momomoto
     def initialize
       super
       @domain = 'event'
+      @order = 'lower(title), lower(subtitle), lower(name)'
       @fields = {
         :event_id => Datatype::Integer.new( {} ),
         :conference_id => Datatype::Integer.new( {} ),
@@ -13,7 +14,7 @@ module Momomoto
         :day => Datatype::Smallint.new( {} ),
         :duration => Datatype::Interval.new( {} ),
         :start_time => Datatype::Interval.new( {} ),
-        :start_datetime => Datatype::Datetime.new( {} ),
+        :start_datetime => Datatype::Timestamp.new( {} ),
         :real_starttime => Datatype::Time.new( {} ),
         :room_id => Datatype::Integer.new( {} ),
         :translated_id => Datatype::Integer.new( {} ),
@@ -27,7 +28,8 @@ module Momomoto
         :language => Datatype::Varchar.new( {} ),
         :language_tag => Datatype::Varchar.new( {:length=>32} ),
         :person_id => Datatype::Integer.new( {} ),
-        :name => Datatype::Varchar.new( {} )
+        :name => Datatype::Varchar.new( {} ),
+        :file_extension => Datatype::Varchar.new( {:length=>16} )
       }
     end
   end
