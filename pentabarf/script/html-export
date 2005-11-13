@@ -55,6 +55,10 @@ class HTML_Export
     write_file( "stylesheet.css", @conference.css )
     make_images = true
     
+    Dir.mkdir('images') unless File.exist?('images')
+    Dir.mkdir('events') unless File.exist?('events')
+    Dir.mkdir('speakers') unless File.exist?('speakers')
+
     # export generic person and event image
     image = File.new( @rails_root + '/public/images/icon-event-128x128.png').read
     write_file("images/event-48x48.png", resize_image( image, 48 ) )
@@ -69,13 +73,12 @@ class HTML_Export
       @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@language.language_id}, nil, 'lower(title),lower(subtitle)' )
       @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id})
       write_file("index.#{@language.tag}.html", render('index')) 
+      
       @conference.days.times do | day |
         @day = day + 1
         write_file("day_#{@day}.#{@language.tag}.html", render('day'))
-        break
       end
-      Dir.mkdir('images') unless File.exist?('images')
-      Dir.mkdir('events') unless File.exist?('events')
+
       @events.each_unique(:event_id) do | event |
         @event = Momomoto::View_event.find({:event_id=>event.event_id,:translated_id=>@language.language_id})
         if make_images
@@ -87,7 +90,6 @@ class HTML_Export
         end
         write_file("events/#{@event.event_id}.#{@language.tag}.html", render('event') )
       end
-      Dir.mkdir('speakers') unless File.exist?('speakers')
       @speakers.each_unique(:person_id) do | @speaker |
         if @speaker.f_public == 't' && make_images
           image = Momomoto::Person_image.find({:person_id=>@speaker.person_id})
