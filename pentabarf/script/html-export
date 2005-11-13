@@ -6,6 +6,7 @@ require 'lib/momomoto/views'
 require 'app/helpers/application_helper'
 require 'app/helpers/schedule_helper'
 require 'erb'
+require 'RMagick'
 
 if ARGV.length != 1
   puts "Usage: #{$0} <conference-id>"
@@ -52,6 +53,7 @@ class HTML_Export
   
   def export
     write_file( "stylesheet.css", @conference.css )
+    make_images = true
     # export loop for each language
     @languages.each do | @language |
       @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id => @language.language_id})
@@ -63,6 +65,7 @@ class HTML_Export
         write_file("day_#{@day}.#{@language.tag}.html", render('day'))
         break
       end
+      Dir.mkdir('images') unless File.exist?('images')
       Dir.mkdir('events') unless File.exist?('events')
       @events.each_unique(:event_id) do | event |
         @event = Momomoto::View_event.find({:event_id=>event.event_id,:translated_id=>@language.language_id})
@@ -70,8 +73,14 @@ class HTML_Export
       end
       Dir.mkdir('speakers') unless File.exist?('speakers')
       @speakers.each_unique(:person_id) do | @speaker |
+        if @speaker.f_public == 't' && make_images
+          image = Momomoto::Person_image.find({:person_id=>@speaker.person_id})
+          write_file("images/speaker-#{@speaker.person_id}-48x48.#{@speaker.file_extension}", resize_image( image.image, 48 ) )
+          write_file("images/speaker-#{@speaker.person_id}-128x128.#{@speaker.file_extension}", resize_image( image.image, 128 ) )
+        end
         write_file("speakers/#{@speaker.person_id}.#{@language.tag}.html", render('speaker'))
       end
+      make_images = false
     end
     puts "Export done."
   end
@@ -84,6 +93,13 @@ class HTML_Export
     file = File.open( filename , File::CREAT | File::WRONLY | File::TRUNC )
     file.write( content )
     file.close
+  end
+
+  def resize_image( image, size )
+    resized = Magick::Image.from_blob( image )[0]
+    resized.x_resolution = 72
+    resized.y_resolution = 72
+    resized.resize!( size, size ).strip!.to_blob
   end
 
   def url_for( url )
