@@ -16,10 +16,10 @@
         <%= link_to( image_tag("/image/person/#{e.person_id.to_s + '-24x24'}", {:size => "24x24"} ), :action => 'person', :id => e.person_id ) %>
       </td>
       <td><a href="<%= url_for({:action=>:person,:id=>e.person_id}) %>"><%= h(e.name) %></a></td>
-      <td><a href="<%= url_for({:action=>:person,:id=>e.person_id}) %>"><%= e.fee %> <%= e.fee_currency_name if e.fee.to_f > 0.0 %></a></td>
-      <td><a href="<%= url_for({:action=>:person,:id=>e.person_id}) %>"><%= e.travel_cost.to_f %> <%= h(e.travel_currency_name) if e.travel_cost.to_f > 0.0 %></a></td>
-      <td><a href="<%= url_for({:action=>:person,:id=>e.person_id}) %>"><%= e.accommodation_cost %> <%= e.accommodation_currency_name if e.accommodation_cost.to_f > 0.0 %></a></td>
-      <td><a href="<%= url_for({:action=>:person,:id=>e.person_id}) %>"><%= sum = e.travel_cost.to_f + e.accommodation_cost.to_f %></a></td>
+      <td style="text-align: right;"><a href="<%= url_for({:action=>:person,:id=>e.person_id}) %>"><%= sprintf( "%.2f", e.fee) if e.fee %> <%= e.fee_currency_name if e.fee %></a></td>
+      <td style="text-align: right;"><a href="<%= url_for({:action=>:person,:id=>e.person_id}) %>"><%= sprintf( "%.2f", e.travel_cost) if e.travel_cost %> <%= h(e.travel_currency_name) if e.travel_cost %></a></td>
+      <td style="text-align: right;"><a href="<%= url_for({:action=>:person,:id=>e.person_id}) %>"><%= sprintf( "%.2f", e.accommodation_cost) if e.accommodation_cost %> <%= e.accommodation_currency_name if e.accommodation_cost %></a></td>
+      <td style="text-align: right;"><a href="<%= url_for({:action=>:person,:id=>e.person_id}) %>"><%= sprintf( "%.2f", e.fee.to_f + e.travel_cost.to_f + e.accommodation_cost.to_f ) %></a></td>
     </tr>
   <% end %>
     <tr>
