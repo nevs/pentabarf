@@ -354,6 +354,8 @@ class PentabarfController < ApplicationController
           table.f_arrived = 'f' unless params[:person_travel]['f_arrived']
           table.f_arrival_pickup = 'f' unless params[:person_travel]['f_arrival_pickup']
           table.f_departure_pickup = 'f' unless params[:person_travel]['f_departure_pickup']
+          table.f_need_travel_cost = 'f' unless params[:person_travel]['f_need_travel_cost']
+          table.f_need_accommodation_cost = 'f' unless params[:person_travel]['f_need_accommodation_cost']
         end
 
         if params[:event_person]
