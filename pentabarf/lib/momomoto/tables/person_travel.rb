@@ -6,7 +6,7 @@ module Momomoto
       @fields = {
         :person_id => Datatype::Integer.new( {:not_null=>true, :primary_key=>true} ),
         :conference_id => Datatype::Integer.new( {:not_null=>true, :primary_key=>true} ),
-        :arrival_transport_id => Datatype::Integer.new( {} ),
+        :arrival_transport_id => Datatype::Integer.new( {:not_null=>true} ),
         :arrival_from => Datatype::Varchar.new( {:length=>64} ),
         :arrival_to => Datatype::Varchar.new( {:length=>64} ),
         :arrival_number => Datatype::Varchar.new( {:length=>32} ),
@@ -14,7 +14,7 @@ module Momomoto
         :arrival_time => Datatype::Time.new( {:with_timezone=>true} ),
         :f_arrival_pickup => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :f_departure_pickup => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
-        :departure_transport_id => Datatype::Integer.new( {} ),
+        :departure_transport_id => Datatype::Integer.new( {:not_null=>true} ),
         :departure_from => Datatype::Varchar.new( {:length=>64} ),
         :departure_to => Datatype::Varchar.new( {:length=>64} ),
         :departure_number => Datatype::Varchar.new( {:length=>32} ),
@@ -32,7 +32,9 @@ module Momomoto
         :accommodation_phone_room => Datatype::Varchar.new( {:length=>32} ),
         :f_arrived => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :fee => Datatype::Numeric.new( {} ),
-        :fee_currency_id => Datatype::Integer.new( {:not_null=>true} )
+        :fee_currency_id => Datatype::Integer.new( {:not_null=>true} ),
+        :f_need_travel_cost => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
+        :f_need_accommodation_cost => Datatype::Bool.new( {:not_null=>true, :default=>true} )
       }
     end
   end

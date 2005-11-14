@@ -509,6 +509,8 @@ CREATE TABLE person_travel (
   f_arrived BOOL NOT NULL DEFAULT FALSE,
   fee DECIMAL(16,2),
   fee_currency_id INTEGER NOT NULL,
+  f_need_travel_cost BOOL NOT NULL DEFAULT FALSE,
+  f_need_accommodation_cost BOOL NOT NULL DEFAULT FALSE,
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
   FOREIGN KEY (arrival_transport_id) REFERENCES transport (transport_id),
