@@ -498,7 +498,9 @@ CREATE OR REPLACE VIEW view_report_expenses AS
          INNER JOIN view_currency AS fee_currency ON (
              person_travel.fee_currency_id = fee_currency.currency_id AND
              fee_currency.language_id = travel_currency.language_id)
-   WHERE ( travel_cost IS NOT NULL OR
+   WHERE ( f_need_travel_cost = 't' OR
+           f_need_accommodation_cost = 't' OR
+           travel_cost IS NOT NULL OR
            accommodation_cost IS NOT NULL OR
            fee IS NOT NULL )
 ;
