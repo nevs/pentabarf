@@ -9,7 +9,15 @@ module ApplicationHelper
     # **bold**
     text.gsub!( /\*\*([^*]+)\*\*/, '<b>\1</b>' )
     # __underlined__
-    text.gsub!( /__([^_]+)__/, '<u>\1</u>')
+    text.gsub!( /__([^_]+)__/, '<u>\1</u>' )
+    # ====Header 4====
+    text.gsub!( /====([^=]+)====/, '<h4>\1</h4>' )
+    # ===Header 3===
+    text.gsub!( /===([^=]+)===/, '<h3>\1</h3>' )
+    # ==Header 2==
+    text.gsub!( /==([^=]+)==/, '<h2>\1</h2>' )
+    # =Header 1=
+    text.gsub!( /=([^=]+)=/, '<h1>\1</h1>' )
     # internal links [[type:id]] or [[type:id label]]
     text.gsub!( /\[\[[^\]]+\]\]/ ) do | ilink |
       ilink = ilink[2..-3]
