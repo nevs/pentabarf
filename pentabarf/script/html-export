@@ -25,8 +25,9 @@ class HTML_Export
     @rails_root = Dir.getwd
     Momomoto::Base.connect(YAML::load_file("config/database.yml")['production'])
     @conference = Momomoto::Conference.find({:conference_id=>conference_id})
-    @timezone = 'Europe/Berlin'
     raise ArgumentError, "Conference with id #{conference_id} not found" unless @conference.length == 1
+    @content_title = @conference.subtitle
+    @timezone = 'Europe/Berlin'
     @languages = Momomoto::View_conference_language.find({:conference_id=>@conference.conference_id,:translated_id=>120})
     raise ArgumentError, "no conference language set to export to." unless @languages.length > 0
     Dir.chdir('tmp/html-export')
@@ -42,7 +43,6 @@ class HTML_Export
   end
 
   def render( options )
-    puts "rendering #{options.inspect}"
     if options == 'ical'
       filename = "#{@rails_root}/app/views/ical/conference.rhtml"
       @content_for_layout = render_template( filename )
@@ -78,15 +78,14 @@ class HTML_Export
 
     # export loop for each language
     @languages.each do | @language |
+      puts "creating files for language #{@language.tag}"
       @template_cache = {}
       @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id => @language.language_id})
       @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@language.language_id}, nil, 'lower(title),lower(subtitle)' )
       @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id})
 
-      # create index page
+      write_file("schedule.ics", fold(render('ical'))) if make_images
       write_file("index.#{@language.tag}.html", render('index')) 
-
-      write_file("schedule.ics", fold(render('ical')))
       
       # create schedule tables for every day
       @conference.days.times do | day |
@@ -98,6 +97,7 @@ class HTML_Export
       write_file("events.#{@language.tag}.html", render('events'))
 
       # create all event pages and event images
+      puts "  creating event files"
       @events.each_unique(:event_id) do | event |
         @event = Momomoto::View_event.find({:event_id=>event.event_id,:translated_id=>@language.language_id})
         if make_images
@@ -111,6 +111,7 @@ class HTML_Export
       end
 
       # create all speaker pages and images
+      puts "  creating speaker files"
       @speakers.each_unique(:person_id) do | @speaker |
         if make_images
           image = Momomoto::Person_image.find({:person_id=>@speaker.person_id})
@@ -149,6 +150,8 @@ class HTML_Export
       if url[:controller].to_sym == :image
         url[:action] = :speaker if url[:action] == :person
         return "#{@conference.export_base_url}images/#{url[:action]}#{url[:id] && url[:id] != 0 ? '-' + url[:id].to_s : ''}"
+      elsif url[:controller].to_sym == :ical 
+        return "#{@conference.export_base_url}schedule.ics"
       end
     else
       return case url[:action]
@@ -210,6 +213,7 @@ class HTML_Export
     max_octets = 70
     folded_body = ""
     message.each_line do | line |
+      next if line == ""
       while line.length > max_octets do
         folded_body += line[0..(max_octets - 1)]
         folded_body += "\r\n "
