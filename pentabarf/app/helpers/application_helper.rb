@@ -2,7 +2,33 @@
 module ApplicationHelper
 
   def markup( text )
-    h(text).gsub("\n", "<br/>")
+    text = h( text )
+    allowed_protocols = ['http', 'https', 'mailto', 'svn', 'jabber']
+    # //italics//
+    text.gsub!( /\/\/([^\/]+)\/\//, '<i>\1</i>' )
+    # **bold**
+    text.gsub!( /\*\*([^*]+)\*\*/, '<b>\1</b>' )
+    # __underlined__
+    text.gsub!( /__([^_]+)__/, '<u>\1</u>')
+    # internal links [[type:id]] or [[type:id label]]
+    text.gsub!( /\[\[[^\]]+\]\]/ ) do | ilink |
+      ilink = ilink[2..-3]
+      if match = ilink.match( /^([^: ]+):([^: ]+)( (.+))?$/ )
+        ilink = "<a href=\"#{url_for(:action=>match[1],:id=>match[2])}\">#{match[4] ? match[4] : match[1] + ':' + match[2]}</a>"
+      end
+      ilink
+    end
+    # external links [url] or [url label]
+    text.gsub!( /\[[^\]]+\]/ ) do | elink |
+      elink = elink[1..-2]
+      if match = elink.match( /^(([a-z]+):(\/\/)?([^ ]+))( (.+))?$/ ) 
+        if allowed_protocols.member?(match[2])
+          elink = "<a href=\"#{match[1]}\">#{match[6] ? match[6] : match[1]}</a>"
+        end
+      end
+      elink
+    end
+    text.gsub!( "\n", "<br/>")
   end
 
   def localize_tag( tag )
