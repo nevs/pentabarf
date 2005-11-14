@@ -10,6 +10,10 @@ module ApplicationHelper
     text.gsub!( /\*\*([^*]+)\*\*/, '<b>\1</b>' )
     # __underlined__
     text.gsub!( /__([^_]+)__/, '<u>\1</u>' )
+    # ======Header 6======
+    text.gsub!( /======([^=]+)======/, '<h6>\1</h6>' )
+    # =====Header 5=====
+    text.gsub!( /=====([^=]+)=====/, '<h5>\1</h5>' )
     # ====Header 4====
     text.gsub!( /====([^=]+)====/, '<h4>\1</h4>' )
     # ===Header 3===
