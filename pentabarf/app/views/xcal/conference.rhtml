@@ -1,12 +1,12 @@
 <% @events.each_unique(:event_id) do | event | -%>
 <vevent>
   <method>PUBLISH</method>
-  <uid><%= event.event_id -%>@<%= @conference.acronym -%>@pentabarf.org</uid>
+  <uid><%= event.event_id -%>@<%= h(@conference.acronym) %>@pentabarf.org</uid>
   <dtstart><%= event.start_datetime.strftime('%Y%m%dT%H%M%S') %></dtstart>
   <duration><%= event.duration.hour.to_s + 'H' %></duration>
-  <summary><%= event.title.to_s.gsub(/[\r\n]/,'') %></summary>
+  <summary><%= h(event.title.to_s.gsub(/[\r\n]/,'')) %></summary>
 <% if event.abstract.to_s.length > 0 %>
-  <description><%= event.abstract.to_s.gsub(/[\r\n]/,'') %></description>
+  <description><%= h(event.abstract.to_s.gsub(/[\r\n]/,'')) %></description>
 <% end %>
   <class>PUBLIC</class>
   <status>CONFIRMED</status>
@@ -16,7 +16,7 @@
   <category>Lecture</category>
   <url><%= @conference.export_base_url -%>event/<%= event.event_id %>.en.html</url>
 <% if @rooms.find_by_value(:room_id=>event.room_id) %>
-  <location><%= @rooms.name %></location>
+  <location><%= h(@rooms.name) %></location>
 <% end -%>
 </vevent>
 <% end -%>
