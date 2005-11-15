@@ -47,6 +47,10 @@ class HTML_Export
       filename = "#{@rails_root}/app/views/ical/conference.rhtml"
       @content_for_layout = render_template( filename )
       render_template("#{@rails_root}/app/views/layouts/ical.rhtml")
+    elsif options == 'xcal'
+      filename = "#{@rails_root}/app/views/xcal/conference.rhtml"
+      @content_for_layout = render_template( filename )
+      render_template("#{@rails_root}/app/views/layouts/xcal.rhtml")
     elsif options.is_a?(String)
       filename = "#{@rails_root}/app/views/schedule/#{options}.rhtml"
       @content_for_layout = render_template( filename )
@@ -85,6 +89,7 @@ class HTML_Export
       @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id})
 
       write_file("schedule.ics", fold(render('ical'))) if make_images
+      write_file("schedule.xcs", render('xcal')) if make_images
       write_file("index.#{@language.tag}.html", render('index')) 
       
       # create schedule tables for every day
@@ -152,6 +157,8 @@ class HTML_Export
         return "#{@conference.export_base_url}images/#{url[:action]}#{url[:id] && url[:id] != 0 ? '-' + url[:id].to_s : ''}"
       elsif url[:controller].to_sym == :ical 
         return "#{@conference.export_base_url}schedule.ics"
+      elsif url[:controller].to_sym == :xcal 
+        return "#{@conference.export_base_url}schedule.xcs"
       end
     else
       return case url[:action]

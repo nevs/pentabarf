@@ -2,7 +2,9 @@
 <iCalendar xmlns:xCal="urn:ietf:params:xml:ns:xcal">
   <vcalendar>
     <version>2.0</version>
-    <prodid>-//Pentabarf//Schedule 0.3//EN</prodid>
+    <prodid>-//Pentabarf//Schedule <%= h(@conference.release) %>//EN</prodid>
+    <x-wr-caldesc><%= h(@conference.acronym) %> Schedule Release <%= h(@conference.release) %></x-wr-caldesc>
+    <x-wr-calname><%= h(@conference.acronym) %> Schedule</x-wr-calname>
 <%= @content_for_layout -%>
   </vcalendar>
 </iCalendar>
