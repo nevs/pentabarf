@@ -16,7 +16,7 @@ class ScheduleController < ApplicationController
   def speaker
     @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id}, nil, 'lower(name)')
     @speaker = Momomoto::View_conference_person.find({:conference_id=>@conference.conference_id,:person_id=>params[:id]})
-    render_text("") unless @speaker.length == 1 && @speakers.find_by_value(:person_id=>@speaker.person_id)
+    return render_text("") unless @speaker.length == 1 && @speakers.find_by_value(:person_id=>@speaker.person_id)
     @content_title = @speaker.name
   end
  
@@ -28,7 +28,7 @@ class ScheduleController < ApplicationController
   def event
     @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},nil,'lower(title),lower(subtitle),lower(name)')
     @event = Momomoto::View_event.find({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id,:event_id=>params[:id]})
-    render_text("") unless @event.length == 1 && @events.find_by_value(:event_id => @event.event_id)
+    return render_text("") unless @event.length == 1 && @events.find_by_value(:event_id => @event.event_id)
     @content_title = @event.title
   end
 

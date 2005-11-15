@@ -10,37 +10,58 @@ module ApplicationHelper
     text.gsub!( /\*\*([^*]+)\*\*/, '<b>\1</b>' )
     # __underlined__
     text.gsub!( /__([^_]+)__/, '<u>\1</u>' )
-    # ======Header 6======
-    text.gsub!( /======([^=]+)======/, '<h6>\1</h6>' )
-    # =====Header 5=====
-    text.gsub!( /=====([^=]+)=====/, '<h5>\1</h5>' )
-    # ====Header 4====
-    text.gsub!( /====([^=]+)====/, '<h4>\1</h4>' )
-    # ===Header 3===
-    text.gsub!( /===([^=]+)===/, '<h3>\1</h3>' )
-    # ==Header 2==
-    text.gsub!( /==([^=]+)==/, '<h2>\1</h2>' )
-    # =Header 1=
-    text.gsub!( /=([^=]+)=/, '<h1>\1</h1>' )
     # internal links [[type:id]] or [[type:id label]]
     text.gsub!( /\[\[[^\]]+\]\]/ ) do | ilink |
-      ilink = ilink[2..-3]
-      if match = ilink.match( /^([^: ]+):([^: ]+)( (.+))?$/ )
+      if match = ilink[2..-3].match( /^([^: ]+):([^: ]+)( (.+))?$/ )
         ilink = "<a href=\"#{url_for(:action=>match[1],:id=>match[2])}\">#{match[4] ? match[4] : match[1] + ':' + match[2]}</a>"
       end
       ilink
     end
     # external links [url] or [url label]
     text.gsub!( /\[[^\]]+\]/ ) do | elink |
-      elink = elink[1..-2]
-      if match = elink.match( /^(([a-z]+):(\/\/)?([^ ]+))( (.+))?$/ ) 
-        if allowed_protocols.member?(match[2])
-          elink = "<a href=\"#{match[1]}\">#{match[6] ? match[6] : match[1]}</a>"
-        end
+      if match = elink[1..-2].match( /^(([a-z]+):(\/\/)?([^ ]+))( (.+))?$/ ) 
+        elink = "<a href=\"#{match[1]}\">#{match[6] ? match[6] : match[1]}</a>" if allowed_protocols.member?(match[2])
       end
       elink
     end
-    text.gsub!( "\n", "<br/>")
+
+    new_text = ''
+    nesting = ''
+    text.each_line do | line |
+      new_nesting = line.match(/^[*#]+/).to_s
+      if new_nesting != nesting
+        pointer = 0
+        while new_nesting != nesting
+          #ApplicationController.jabber_message("new: #{new_nesting} old #{nesting} new_p: #{new_nesting[pointer]} old_p: #{nesting[pointer]}")
+          if nesting[pointer] != '' && new_nesting[pointer].to_s == ''
+            new_text += ( nesting[pointer] == '#'[0] ? '<ol>' : '</ul>' )
+          elsif new_nesting[pointer] != '' && nesting[pointer].to_s == ''
+            new_text += ( new_nesting[pointer] == '#'[0] ? '<ol>' : '<ul>' )
+          end
+          nesting = new_nesting[0..pointer]
+          pointer += 1
+        end
+      end
+      # lists # and *
+      line.gsub!( /^[#*]+(.*)$/, '<li>\1</li>')
+      # ======Header 6======
+      line.gsub!( /^======([^=]+)======/, '<h6>\1</h6>' )
+      # =====Header 5=====
+      line.gsub!( /^=====([^=]+)=====/, '<h5>\1</h5>' )
+      # ====Header 4====
+      line.gsub!( /^====([^=]+)====/, '<h4>\1</h4>' )
+      # ===Header 3===
+      line.gsub!( /^===([^=]+)===/, '<h3>\1</h3>' )
+      # ==Header 2==
+      line.gsub!( /^==([^=]+)==/, '<h2>\1</h2>' )
+      # =Header 1=
+      line.gsub!( /^=([^=]+)=/, '<h1>\1</h1>' )
+      # :blockquote
+      line.gsub!( /^:(.*)$/, '<dd>\1</dd>')
+      # # ordered lists
+      new_text += line
+    end
+    new_text
   end
 
   def localize_tag( tag )

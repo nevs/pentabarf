@@ -172,6 +172,7 @@ module Momomoto
         end
       else
         raise "resultset empty while trying to get #{key}" if @resultset.nil?
+        raise "@current_record nil in table #{self.class.name} field #{key}" unless @current_record
         raise "field #{key} does not exist in table #{self.class.name}[]" if @resultset[@current_record][key.to_sym] == nil
         return @resultset[@current_record][ key.to_sym ].value()
       end
