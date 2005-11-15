@@ -471,7 +471,8 @@ CREATE OR REPLACE VIEW view_schedule AS
     WHERE event.day IS NOT NULL AND
           event.start_time IS NOT NULL AND
           event.room_id IS NOT NULL AND
-          event_state.tag = 'accepted'
+          event_state.tag = 'accepted' AND
+          view_event_state_progress.tag != 'canceled'
 ;
 
 CREATE OR REPLACE VIEW view_report_expenses AS
