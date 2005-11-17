@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: conflict_conflict_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conflict', 'conflict_id'), 17, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conflict', 'conflict_id'), 18, true);
 
 
 --
@@ -21,7 +21,6 @@ SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conflict', 'conflict
 
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (1, 1, 'person_no_email');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (2, 2, 'event_person_language');
-INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (3, 3, 'event_person_event_time');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (4, 4, 'event_no_speaker');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (5, 4, 'event_no_coordinator');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (6, 4, 'event_incomplete');
@@ -34,8 +33,10 @@ INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (10, 4, 'event_
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (13, 1, 'person_inconsistent_public_link');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (14, 4, 'event_no_language');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (15, 4, 'event_no_track');
-INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (16, 3, 'event_person_event_time_visitor');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (17, 4, 'event_conference_language');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (3, 3, 'event_person_event_time_speaker_speaker');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (16, 3, 'event_person_event_time_speaker_visitor');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (18, 3, 'event_person_event_time_visitor_visitor');
 
 
 --
