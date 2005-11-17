@@ -70,10 +70,7 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_speaker_speaker(inte
                 event.day = cur_speaker.day AND 
                 event.event_id <> cur_speaker.event_id AND
                 event.conference_id = cur_conference_id AND
-                (( event.start_time >= cur_speaker.start_time AND
-                   event.start_time < cur_speaker.start_time + cur_speaker.duration ) OR
-                 ( event.start_time + event.duration > cur_speaker.start_time AND
-                   event.start_time + event.duration <= cur_speaker.start_time + cur_speaker.duration )) AND
+                ( event.start_time::time, event.duration ) OVERLAPS ( cur_speaker.start_time::time, cur_speaker.duration ) AND
                 event_state.tag = ''accepted'' AND
                 event_role.tag IN (''speaker'', ''moderator'') AND
                 event_role_state.tag = ''confirmed'' AND
@@ -135,10 +132,7 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_speaker_visitor(inte
                 event.day = cur_speaker.day AND 
                 event.event_id <> cur_speaker.event_id AND
                 event.conference_id = cur_conference_id AND
-                (( event.start_time >= cur_speaker.start_time AND
-                   event.start_time < cur_speaker.start_time + cur_speaker.duration ) OR
-                 ( event.start_time + event.duration > cur_speaker.start_time AND
-                   event.start_time + event.duration <= cur_speaker.start_time + cur_speaker.duration )) AND
+                ( event.start_time::time, event.duration ) OVERLAPS ( cur_speaker.start_time::time, cur_speaker.duration ) AND
                 event_state.tag = ''accepted'' AND
                 (( cur_speaker.event_role_tag = ''visitor'' AND 
                    event_role.tag IN (''speaker'', ''moderator'') AND
@@ -193,10 +187,7 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(inte
                 event.day = cur_speaker.day AND 
                 event.event_id <> cur_speaker.event_id AND
                 event.conference_id = cur_conference_id AND
-                (( event.start_time >= cur_speaker.start_time AND
-                   event.start_time < cur_speaker.start_time + cur_speaker.duration ) OR
-                 ( event.start_time + event.duration > cur_speaker.start_time AND
-                   event.start_time + event.duration <= cur_speaker.start_time + cur_speaker.duration )) AND
+                ( event.start_time::time, event.duration ) OVERLAPS ( cur_speaker.start_time::time, cur_speaker.duration ) AND
                 event_state.tag = ''accepted'' AND
                 event_role.tag = ''visitor'' AND
                 event_person.person_id = cur_speaker.person_id
