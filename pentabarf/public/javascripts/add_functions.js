@@ -78,7 +78,7 @@ function create_element(type, subtype, name, values, selected, without_td)
 
 var conference_track_counter = 0;
 
-function add_conference_track(conference_track_id, tag)
+function add_conference_track(conference_track_id, tag, color)
 {
   var table_row;
   var row_id = conference_track_counter++;
@@ -89,6 +89,7 @@ function add_conference_track(conference_track_id, tag)
 
   table_row.appendChild(create_element("input", "hidden", "conference_track[" + row_id + "][conference_track_id]", conference_track_id));
   table_row.appendChild(create_element("input", "text", "conference_track[" + row_id + "][tag]", tag));
+  table_row.appendChild(create_element("input", "text", "conference_track[" + row_id + "][color]", color));
   table_row.appendChild(create_element("input", "checkbox", "conference_track[" + row_id + "][delete]"));
 
   document.getElementById("conference_track_table_body").appendChild(table_row);

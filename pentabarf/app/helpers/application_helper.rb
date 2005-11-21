@@ -13,13 +13,15 @@ module ApplicationHelper
         pointer = 0
         while new_nesting != nesting
           if nesting[pointer] && new_nesting[pointer].to_s == ''
-            new_text += ( nesting[pointer].chr == '#' ? '<ol>' : '</ul>' )
+            new_text += ( nesting[pointer].chr == '#' ? '</ol>' : '</ul>' )
             nesting[pointer] = new_nesting[pointer].to_s
           elsif new_nesting[pointer] && nesting[pointer].to_s == ''
             new_text += ( new_nesting[pointer].chr == '#' ? '<ol>' : '<ul>' )
             nesting += new_nesting[pointer].chr
+          elsif new_nesting[pointer] == nesting[pointer] && pointer < 10
+            
           else
-            ApplicationController.jabber_message("new: #{new_nesting} old #{nesting} new_p: #{new_nesting[pointer]} old_p: #{nesting[pointer]} pointer: #{pointer}")
+            ApplicationController.jabber_message("new_nesting: #{new_nesting} nesting: #{nesting} new_p: #{new_nesting[pointer]} old_p: #{nesting[pointer]} pointer: #{pointer} line: #{line}")
             nesting = new_nesting
           end
           pointer += 1
