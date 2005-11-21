@@ -1,6 +1,10 @@
 # The methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def js( text )
+    escape_javascript( js )
+  end
+
   def markup( text )
     text = h( text )
     allowed_protocols = ['http', 'https', 'mailto', 'svn', 'jabber']
