@@ -207,7 +207,7 @@ module Momomoto
     end
 
     # iterate over resultset
-    def each
+    def slow_each
       @resultset.length.times do | i |
         element = copy_member( self.class.new )
         element.instance_variable_set('@current_record', 0)
@@ -216,13 +216,27 @@ module Momomoto
       end
     end
 
+    def each
+      @resultset.length.times do | i |
+        @current_record = i
+        yield( self )
+      end
+    end
+
     # iterate over resultset with additional index element
-    def each_with_index
+    def slow_each_with_index
       @resultset.length.times do | i |
         element = copy_member( self.class.new )
         element.instance_variable_set('@current_record', 0)
         element.instance_variable_set('@resultset', [@resultset[i]])
         yield( element, i )
+      end
+    end
+    
+    def each_with_index
+      @resultset.length.times do | i |
+        @current_record = i
+        yield( self, i )
       end
     end
 
