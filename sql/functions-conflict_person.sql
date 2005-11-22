@@ -150,4 +150,4 @@ CREATE OR REPLACE FUNCTION conflict_person_no_description(INTEGER) RETURNS SETOF
     RETURN;
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
-  
+ 

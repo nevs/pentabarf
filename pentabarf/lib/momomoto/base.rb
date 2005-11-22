@@ -217,10 +217,12 @@ module Momomoto
     end
 
     def each
+      old_record = @current_record
       @resultset.length.times do | i |
         @current_record = i
         yield( self )
       end
+      @current_record = old_record
     end
 
     # iterate over resultset with additional index element
@@ -330,6 +332,7 @@ module Momomoto
     # iterate over records with specific values of a resultset 
     def each_by_value( values )
       return false unless values.kind_of?(Hash)
+      old_record = @current_record
       self.each do | record |
         found = false
         values.each do | key, value |
@@ -342,16 +345,19 @@ module Momomoto
         end
         yield( record ) if found
       end
+      @current_record = old_record
     end
 
     def each_unique( field )
       return unless @fields.member?(field.to_sym)
+      old_record = @current_record
       done = []
       self.each do | record | 
         next if done.member?( record[field] )
         done.push( record[field])
         yield( record )
       end
+      @current_record = old_record
     end
 
 
