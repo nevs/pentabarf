@@ -10,7 +10,7 @@ SUMMARY:<%= event.title.to_s.gsub(/[\r\n]/,'') %>
 CLASS:PUBLIC
 STATUS:CONFIRMED
 CATEGORY:Lecture
-URL:<%= @conference.export_base_url -%>event/<%= event.event_id -%>.html
+URL:<%= @conference.export_base_url -%>events/<%= event.event_id -%>.html
 <% if @rooms.find_by_value(:room_id=>event.room_id) -%>
 LOCATION:<%= @rooms.name %>
 <% end -%>

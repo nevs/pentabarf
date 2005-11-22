@@ -11,7 +11,7 @@
   <class>PUBLIC</class>
   <status>CONFIRMED</status>
   <category>Lecture</category>
-  <url><%= @conference.export_base_url -%>event/<%= event.event_id %>.en.html</url>
+  <url><%= @conference.export_base_url -%>events/<%= event.event_id %>.en.html</url>
 <% if @rooms.find_by_value(:room_id=>event.room_id) -%>
   <location><%= h(@rooms.name) %></location>
 <% end -%>
