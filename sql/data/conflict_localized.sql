@@ -48,6 +48,14 @@ INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (17, 120,
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (17, 144, 'Eine Veranstaltung ist in einer Sprache die keine Konferenzsprache ist');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (18, 120, 'A person is visitor of two simultaneous events');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (18, 144, 'Eine Person ist bei 2 parallelen Veranstaltungen als Besucher eingetragen');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (22, 120, 'Accepted speaker or moderator without description');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (22, 144, 'Akzeptierter Referent oder Moderator ohne Langbeschreibung');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (20, 120, 'Accepted event without description');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (20, 144, 'Akzeptierte Veranstaltung ohne Langbeschreibung');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (19, 120, 'Accepted event without abstract');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (19, 144, 'Akzeptierte Veranstaltung ohne Kurzbeschreibung');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (21, 120, 'Accepted speaker or moderator without abstract');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (21, 144, 'Akzeptierter Referent oder Moderator ohne Kurzbeschreibung');
 
 
 --
