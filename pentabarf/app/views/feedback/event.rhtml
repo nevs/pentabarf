@@ -1,0 +1,88 @@
+<div id="event" class="section">
+  <p>Welcome to our feedback system. It collects your feedback so that we have a chance to know what you think about the events of this conference.</p>
+  <h1 class="title"><%= h(@event.title) %></h1>
+  <p class="subtitle"><%= h(@event.subtitle) %></p>
+  
+  <div class="abstract"><%= markup(@event.abstract) %></div>
+  
+  <%= start_form_tag({:action=>:save_event,:id=>@event_id}) %>
+  <fieldset>
+    <legend>My Rating</legend>
+    <p>Please answer up to five questions regarding you and your personal perception of the event under discussion. If you don't know an answer to a particular question, just leave it as it is.</p>
+    <table class="rating">
+      <colgroup>
+        <col class="label" />
+        <col class="ratings" span="5" />
+        <col class="no-rating" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th class="pre">--</th>
+          <th class="pre">-</th>
+          <th class="pre">o</th>
+          <th class="pre">+</th>
+          <th class="pre">++</th>
+          <th>No Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><label>How would you rate your personal knowledge about this topic?</label></td>
+          <td><input type="radio" name="participant_knowledge" value="1" tabindex="1" /></td>
+          <td><input type="radio" name="participant_knowledge" value="2" tabindex="2" /></td>
+          <td><input type="radio" name="participant_knowledge" value="3" tabindex="3" /></td>
+          <td><input type="radio" name="participant_knowledge" value="4" tabindex="4" /></td>
+          <td><input type="radio" name="participant_knowledge" value="5" tabindex="5" /></td>
+          <td><input type="radio" name="participant_knowledge" value="6" tabindex="6" checked="checked" /></td>
+        </tr>
+        <tr>
+          <td><label>How important is this topic for this conference?</label></td>
+          <td><input type="radio" name="topic_importance" value="1" tabindex="7" /></td>
+          <td><input type="radio" name="topic_importance" value="2" tabindex="8" /></td>
+          <td><input type="radio" name="topic_importance" value="3" tabindex="9" /></td>
+          <td><input type="radio" name="topic_importance" value="4" tabindex="10" /></td>
+          <td><input type="radio" name="topic_importance" value="5" tabindex="11" /></td>
+          <td><input type="radio" name="topic_importance" value="6" tabindex="12" checked="checked" /></td>
+        </tr>
+        <tr>
+          <td><label>What is your impression of the quality of the content?</label></td>
+          <td><input type="radio" name="content_quality" value="1" tabindex="13" /></td>
+          <td><input type="radio" name="content_quality" value="2" tabindex="14" /></td>
+          <td><input type="radio" name="content_quality" value="3" tabindex="15" /></td>
+          <td><input type="radio" name="content_quality" value="4" tabindex="16" /></td>
+          <td><input type="radio" name="content_quality" value="5" tabindex="17" /></td>
+          <td><input type="radio" name="content_quality" value="6" tabindex="18" checked="checked" /></td>
+        </tr>
+        <tr>
+          <td><label>What is your impression of the content of the presentation?</label></td>
+          <td><input type="radio" name="presentation_quality" value="1" tabindex="19" /></td>
+          <td><input type="radio" name="presentation_quality" value="2" tabindex="20" /></td>
+          <td><input type="radio" name="presentation_quality" value="3" tabindex="21" /></td>
+          <td><input type="radio" name="presentation_quality" value="4" tabindex="22" /></td>
+          <td><input type="radio" name="presentation_quality" value="5" tabindex="23" /></td>
+          <td><input type="radio" name="presentation_quality" value="6" tabindex="24" checked="checked" /></td>
+        </tr>
+        <tr>
+          <td><label>How big was the involvement/integration of the audience?</label></td>
+          <td><input type="radio" name="audience_involvement" value="1" tabindex="25" /></td>
+          <td><input type="radio" name="audience_involvement" value="2" tabindex="26" /></td>
+          <td><input type="radio" name="audience_involvement" value="3" tabindex="27" /></td>
+          <td><input type="radio" name="audience_involvement" value="4" tabindex="28" /></td>
+          <td><input type="radio" name="audience_involvement" value="5" tabindex="29" /></td>
+          <td><input type="radio" name="audience_involvement" value="6" tabindex="30" checked="checked" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>My Opinion</legend>
+    <p>If you have anything particular to say about this event feel free to do so. Criticism, suggestions for improvement or other notes are very welcome.</p>
+    <textarea name="remark" cols="80" rows="7" tabindex="31"></textarea>
+  </fieldset>
+  <fieldset>
+  <input type="submit"  value="Send" tabindex="32" />
+  </fieldset>
+  <%= end_form_tag() %>
+</div>

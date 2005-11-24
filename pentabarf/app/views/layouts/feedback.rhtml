@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="generator" content="Pentabarf"/>
+    <title><%= h(@conference.acronym) %>: <%= h(@content_title) %></title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link href="<%= url_for({:action=>:css}) %>" rel="Stylesheet" media="screen" type="text/css" />
+  </head>
+  <body>
+    <%= render(:partial => 'sidebar') %>
+
+    <div id="content">
+      <p class="release"><%= h(@conference.acronym) %> <%= h(@conference.release) %></p>
+      <p class="intro"><strong><%= h(@conference.title) %></strong><br/><em><%= h(@content_title) %></em>
+      <%= @content_for_layout %>
+    </div>
+  </body>
+</html>
