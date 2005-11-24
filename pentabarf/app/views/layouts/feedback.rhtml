@@ -12,7 +12,7 @@
     <%= render(:partial => 'sidebar') %>
 
     <div id="content">
-      <p class="release"><%= h(@conference.acronym) %> <%= h(@conference.release) %></p>
+      <p class="release"><%= h(@conference.acronym) %></p>
       <p class="intro"><strong><%= h(@conference.title) %></strong><br/><em><%= h(@content_title) %></em>
       <%= @content_for_layout %>
     </div>

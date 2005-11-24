@@ -18,5 +18,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '', :controller => 'pentabarf'
   map.connect 'schedule/:conference_id/stylesheet.css', :controller => 'schedule', :action => 'css'
   map.connect 'schedule/:conference_id/:action/:id', :controller => 'schedule'
+  map.connect 'feedback/:conference_id/:action/:id', :controller => 'feedback'
   map.connect ':controller/:action/:id'
 end

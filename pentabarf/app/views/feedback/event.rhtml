@@ -5,7 +5,7 @@
   
   <div class="abstract"><%= markup(@event.abstract) %></div>
   
-  <%= start_form_tag({:action=>:save_event,:id=>@event_id}) %>
+  <%= start_form_tag({:action=>:save_event,:id=>@event.event_id}) %>
   <fieldset>
     <legend>My Rating</legend>
     <p>Please answer up to five questions regarding you and your personal perception of the event under discussion. If you don't know an answer to a particular question, just leave it as it is.</p>
