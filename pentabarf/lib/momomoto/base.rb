@@ -445,6 +445,7 @@ module Momomoto
     protected
     
     def privilege?( action )
+      return true if @domain == 'public'
       return true if @@permissions.member?( "#{action}_#{@domain}")
       return true if @domain == 'person' && @@person_id == self[:person_id] && @@permissions.member?("modify_own_person")
       false
