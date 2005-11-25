@@ -375,6 +375,7 @@ module Momomoto
         end
       else 
         if privilege?( 'modify' )
+          execute( log_changes() ) if @log_changes
           result = execute( update() )
           result.clear
         else
@@ -428,7 +429,7 @@ module Momomoto
 
     # delete current record
     def delete()
-      return false unless privilege?( 'create' )
+      return false unless privilege?( 'delete' )
       conditions = {}
       @resultset[@current_record].each do | field_name, value |
         if value.property( :primary_key ) 
@@ -437,6 +438,7 @@ module Momomoto
         end
       end
       return false if conditions.length < 1
+      execute( log_changes() ) if @log_changes
       result = execute( "DELETE FROM #{@table}#{compile_where(conditions)};" )
       result.clear
       true
@@ -480,8 +482,18 @@ module Momomoto
         sets += sets == '' ? '' : ', '
         sets += "#{field_name.to_s} = #{value.write_value}"
       end
-      return "" unless conditions.length 
       "UPDATE #{@table} SET #{sets} #{compile_where(conditions)};"
+    end
+
+    def log_changes()
+      sets, primary_keys = '', {}
+      @resultset[@current_record].each do | field_name, value |
+        next unless value.property( :primary_key ) 
+        raise "empty primary key field in class #{self.class.name} field #{field_name} in log_changes" if value.write_value == 'NULL'
+        primary_keys[field_name] = value.value
+      end
+      fields = @fields.keys.join(', ')
+      "INSERT INTO #{@table}_logging(#{fields}) SELECT #{fields} FROM #{@table} #{compile_where(primary_keys)};"
     end
 
     def compile_where( conditions )
