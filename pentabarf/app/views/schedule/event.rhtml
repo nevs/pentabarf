@@ -70,7 +70,7 @@
 
   <div class="description"><%= markup(@event.description) %></div>
 
-  <% files = Momomoto::View_event_attachment.find({:event_id=>@event.event_id,:language_id=>120}) %>
+  <% files = Momomoto::View_event_attachment.find({:event_id=>@event.event_id,:language_id=>120,:f_public=>'t'}) %>
   <% if files.length > 0 %>
   <div class="attachments">
     <h2>Attachments</h2>
