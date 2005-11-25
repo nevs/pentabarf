@@ -12,7 +12,7 @@ module ApplicationHelper
     new_text = ''
     nesting = ''
     text.each_line do | line |
-      new_nesting = line.match(/^[*#]+/).to_s
+      new_nesting = line.match(/^[*#-]+/).to_s
       if new_nesting != nesting
         pointer = 0
         while new_nesting != nesting
@@ -32,7 +32,7 @@ module ApplicationHelper
         end
       end
       # lists # and *
-      line.gsub!( /^[#*]+(.*)$/, '<li>\1</li>')
+      line.gsub!( /^[#*-]+(.*)$/, '<li>\1</li>')
       # internal links [[type:id]] or [[type:id label]]
       line.gsub!( /\[\[[^\]]+\]\]/ ) do | ilink |
         if match = ilink[2..-3].match( /^([^: ]+):([^: ]+)( (.+))?$/ )
