@@ -418,7 +418,7 @@ CREATE TABLE person (
   f_deleted BOOL NOT NULL DEFAULT FALSE,
   f_spam BOOL NOT NULL DEFAULT FALSE,
   last_login TIMESTAMP WITH TIME ZONE,
-  last_modified TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
+  last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   FOREIGN KEY (country_id) REFERENCES country (country_id),
   PRIMARY KEY (person_id)
 ) WITHOUT OIDS;
