@@ -72,9 +72,9 @@ module Momomoto
           end
           return clean_hash
         elsif value.kind_of?(String)
-          return value.gsub("'",'').gsub("\\",'')
+          return value.gsub("'",'').gsub('"','').gsub("\\",'')
         elsif value.kind_of?(Symbol)
-          return value.to_s.gsub("'",'').gsub("\\",'').to_sym
+          return value.to_s.gsub("'",'').gsub('"','').gsub("\\",'').to_sym
         elsif value.kind_of?(Integer) || value.kind_of?(Fixnum)
           return value
         elsif value.nil?
