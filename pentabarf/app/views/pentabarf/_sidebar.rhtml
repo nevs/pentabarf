@@ -18,9 +18,6 @@
       <%= link_to( '<[link::review]>', { :action => :review}, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::conflicts]>', { :action => :conflicts }, { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::schedule]>', { :action => :schedule}, { :class => 'menu-item' } ) %>
-      <% if @user.permission?('admin_login') %>
-        <%= link_to( '<[link::admin]>', url_for({:controller=>'admin'}), { :class => 'menu-item' } ) %>
-      <% end %>
       <%= link_to( '<[link::preferences]>', url_for({:action => :person, :id => @user.person_id}) + '#account', { :class => 'menu-item' } ) %>
     </div>
   
@@ -43,6 +40,9 @@
     </div>
     
     <div class="menu-item-group">
+      <% if @user.permission?('admin_login') %>
+        <%= link_to( '<[link::admin]>', url_for({:controller=>'admin'}), { :class => 'menu-item' } ) %>
+      <% end %>
       <%= link_to( '<[link::pentabarf_wiki]>', 'https://pentabarf.org/', { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::pentabarf_bugtracker]>', 'https://trac.cccv.de/pentabarf/', { :class => 'menu-item' } ) %>
     </div>
