@@ -1,5 +1,3 @@
-require 'digest/md5'
-
 module Momomoto
   class Person < Base
     def initialize
@@ -8,7 +6,7 @@ module Momomoto
       @fields = {
         :person_id => Datatype::Integer.new( {:not_null=>true, :default=>true, :primary_key=>true, :serial=>true} ),
         :login_name => Datatype::Varchar.new( {:length=>32} ),
-        :password => Datatype::Password.new( {:length=>48} ),
+        :password => Datatype::Char.new( {:length=>48} ),
         :title => Datatype::Varchar.new( {:length=>32} ),
         :gender => Datatype::Bool.new( {} ),
         :first_name => Datatype::Varchar.new( {:length=>64} ),
@@ -16,7 +14,6 @@ module Momomoto
         :last_name => Datatype::Varchar.new( {:length=>64} ),
         :public_name => Datatype::Varchar.new( {:length=>64} ),
         :nickname => Datatype::Varchar.new( {:length=>64} ),
-        :address => Datatype::Varchar.new( {:length=>256} ),
         :street => Datatype::Varchar.new( {:length=>64} ),
         :street_postcode => Datatype::Varchar.new( {:length=>10} ),
         :po_box => Datatype::Varchar.new( {:length=>10} ),
@@ -28,14 +25,15 @@ module Momomoto
         :bank_name => Datatype::Varchar.new( {:length=>128} ),
         :account_owner => Datatype::Varchar.new( {:length=>128} ),
         :gpg_key => Datatype::Text.new( {} ),
-        :preferences => Datatype::Preferences.new( {} ),
+        :preferences => Datatype::Text.new( {} ),
         :f_conflict => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :f_deleted => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
-        :f_spam => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :last_login => Datatype::Timestamp.new( {:with_timezone=>true} ),
-        :bic => Datatype::Varchar.new( {:length=>32} )
+        :f_spam => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
+        :address => Datatype::Varchar.new( {:length=>256} ),
+        :bic => Datatype::Varchar.new( {:length=>32} ),
+        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true} )
       }
     end
-
   end
 end
