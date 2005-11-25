@@ -437,7 +437,7 @@ module Momomoto
           conditions[field_name] = value.value
         end
       end
-      return false if conditions.length < 1
+      raise "deleting without constraints is probably a bad idea in table #{@table}" if conditions.length < 1
       execute( log_changes() ) if @log_changes
       result = execute( "DELETE FROM #{@table}#{compile_where(conditions)};" )
       result.clear
@@ -482,6 +482,7 @@ module Momomoto
         sets += sets == '' ? '' : ', '
         sets += "#{field_name.to_s} = #{value.write_value}"
       end
+      raise "updating without constraints is probably a bad idea in table #{@table}" if conditions.length < 1
       "UPDATE #{@table} SET #{sets} #{compile_where(conditions)};"
     end
 
@@ -493,6 +494,7 @@ module Momomoto
         primary_keys[field_name] = value.value
       end
       fields = @fields.keys.join(', ')
+      raise "logging without constraints is probably a bad idea in table #{@table}" if primary_keys.length < 1
       "INSERT INTO #{@table}_logging(#{fields}) SELECT #{fields} FROM #{@table} #{compile_where(primary_keys)};"
     end
 
