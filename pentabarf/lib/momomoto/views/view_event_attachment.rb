@@ -9,6 +9,7 @@ module Momomoto
         :attachment_type => Datatype::Varchar.new( {} ),
         :attachment_type_tag => Datatype::Varchar.new( {:length=>32} ),
         :event_id => Datatype::Integer.new( {} ),
+        :conference_id => Datatype::Integer.new( {} ),
         :mime_type_id => Datatype::Integer.new( {} ),
         :mime_type_tag => Datatype::Varchar.new( {:length=>128} ),
         :mime_type => Datatype::Varchar.new( {:length=>128} ),
