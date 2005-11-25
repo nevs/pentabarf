@@ -79,6 +79,14 @@ class HTML_Export
     Dir.mkdir('images') unless File.exist?('images')
     Dir.mkdir('events') unless File.exist?('events')
     Dir.mkdir('speakers') unless File.exist?('speakers')
+    Dir.mkdir('attachments') unless File.exist?('attachments')
+
+    puts "writing attachments"
+    @attachments = Momomoto::View_event_attachment.find({:conference_id => @conference.conference_id, :f_public => 't'})
+    @attachments.each do | a |
+      file = Momomoto::Event_attachment.find({:event_attachment_id=>a.event_attachment_id,:f_public=>'t',:filename=>true})
+      write_file("attachments/#{file.event_attachment_id}-#{file.filename}", file.data) unless file.nil?
+    end
 
     # export loop for each language
     @languages.each do | @language |
@@ -155,6 +163,9 @@ class HTML_Export
       if url[:controller].to_sym == :image
         url[:action] = :speaker if url[:action] == :person
         return "#{@conference.export_base_url}images/#{url[:action]}#{url[:id] && url[:id] != 0 ? '-' + url[:id].to_s : ''}"
+      elsif url[:controller].to_sym == :file
+        return "" unless @attachments.find_by_value({:event_attachment_id=>url[:id]})
+        return "#{@conference.export_base_url}attachments/#{@attachments.event_attachment_id}-#{@attachments.filename}"
       elsif url[:controller].to_sym == :ical 
         return "#{@conference.export_base_url}schedule.ics"
       elsif url[:controller].to_sym == :xcal 
