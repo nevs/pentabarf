@@ -5,7 +5,7 @@ module Momomoto
       @domain = 'person'
       @fields = {
         :person_id => Datatype::Integer.new( {} ),
-        :last_changed => Datatype::Timestamp.new( {} )
+        :last_modified=> Datatype::Timestamp.new( {} )
       }
     end
   end

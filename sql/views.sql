@@ -321,7 +321,7 @@ CREATE OR REPLACE VIEW view_person_image AS
          person_image.mime_type_id, 
          mime_type.mime_type, 
          person_image.image,
-         person_image.last_changed
+         person_image.last_modified
     FROM person_image 
          INNER JOIN mime_type USING (mime_type_id);
 
@@ -337,7 +337,7 @@ CREATE OR REPLACE VIEW view_event_image_modification AS
 
 CREATE OR REPLACE VIEW view_person_image_modification AS
   SELECT person_image.person_id,
-         person_image.last_changed
+         person_image.last_modified
     FROM person_image;
 
 CREATE OR REPLACE VIEW view_event_link_internal AS
