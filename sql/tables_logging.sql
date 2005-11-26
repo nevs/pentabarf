@@ -33,3 +33,35 @@ CREATE TABLE person_logging (
   PRIMARY KEY (person_logging_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE event_logging (
+  event_logging_id SERIAL NOT NULL,
+  event_id INTEGER NOT NULL,
+  conference_id INTEGER NOT NULL,
+  tag VARCHAR(256),
+  title VARCHAR(128) NOT NULL,
+  subtitle VARCHAR(256),
+  conference_track_id INTEGER,
+  team_id INTEGER,
+  event_type_id INTEGER,
+  duration INTERVAL NOT NULL,
+  event_origin_id INTEGER NOT NULL,
+  event_state_id INTEGER NOT NULL,
+  event_state_progress_id INTEGER NOT NULL,
+  language_id INTEGER,
+  room_id INTEGER,
+  day SMALLINT,
+  start_time INTERVAL,
+  abstract TEXT,
+  description TEXT,
+  resources TEXT,
+  f_public BOOL,
+  f_paper BOOL,
+  f_slides BOOL,
+  f_conflict BOOL,
+  f_deleted BOOL,
+  f_unmoderated BOOL,
+  remark TEXT,
+  last_modified TIMESTAMP WITH TIME ZONE,
+  PRIMARY KEY (event_logging_id)
+) WITHOUT OIDS;
+
