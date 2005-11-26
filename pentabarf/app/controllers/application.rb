@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
       # the user does not exist or the password was wrong 
       @response.headers["Status"] = "Unauthorized" 
       @response.headers["WWW-Authenticate"] = "Basic realm=\"#{realm}\"" 
+      ApplicationController.jabber_message( "Authorization failed for user #{login_name} from #{@request.env['REMOTE_ADDR']}" ) if login_name.to_s.length > 0
       render_text(errormessage, 401)       
     end 
     return false

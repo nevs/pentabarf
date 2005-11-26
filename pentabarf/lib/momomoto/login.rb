@@ -40,7 +40,6 @@ module Momomoto
           return true
         end
       end
-      Base.log_error( "Authorization failed for user #{login_name}" ) if login_name.to_s.length > 0
       return false
     end
 
