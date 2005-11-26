@@ -573,7 +573,6 @@ class PentabarfController < ApplicationController
             raise "mime-type not found #{params[:event_image][:image].content_type}" if mime_type.length != 1
             image.mime_type_id = mime_type.mime_type_id
             image.image = process_image( params[:event_image][:image].read )
-            image.last_changed = 'now()'
             modified = true if image.write
           end
         end

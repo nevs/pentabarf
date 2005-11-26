@@ -725,7 +725,7 @@ CREATE TABLE event_image (
   event_id INTEGER NOT NULL,
   mime_type_id INTEGER NOT NULL,
   image BYTEA NOT NULL,
-  last_changed TIMESTAMP NOT NULL DEFAULT now(),
+  last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   FOREIGN KEY (event_id) REFERENCES event (event_id),
   FOREIGN KEY (mime_type_id) REFERENCES mime_type (mime_type_id),
   PRIMARY KEY (event_id)
