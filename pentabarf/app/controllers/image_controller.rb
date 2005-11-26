@@ -180,7 +180,6 @@ class ImageController < ApplicationController
   end
 
   def deliver_image( image, query )
-    @response.headers['Content-Type'] = image.mime_type
     @response.headers['Last-Modified'] = @timestamp
     # render_text(image.image)
     render_resized( Magick::Image.from_blob( image.image )[0], query )
@@ -197,17 +196,21 @@ class ImageController < ApplicationController
     image.x_resolution = 72
     image.y_resolution = 72
     format = nil
-    if query.match( /^\d+-(\d+)x(\d+)(\.[a-z]+)?/ ) || query.match( /^new-(\d+)x(\d+)(\.[a-z]+)?/ )
-      height = $1.to_i > 512 ? 32 : $1.to_i
-      width = $2.to_i > 512 ? 32 : $2.to_i
-      format = case $3 
-               when 'JPG', 'JPEG', 'jpg', 'jpeg' then 'JPG'
-               when 'GIF', 'gif' then 'GIF' 
+    if match = query.match( /^\d+-(\d+)x(\d+)(\.([a-z]+))?/i ) || match = query.match( /^new-(\d+)x(\d+)(\.([a-z]+))?/i )
+      height = match[1].to_i > 512 ? 512 : match[1].to_i
+      width = match[2].to_i > 512 ? 512 : match[2].to_i
+      format = case match[4].to_s.upcase
+               when 'JPG', 'JPEG' then 'JPEG'
+               when 'PNG' then 'PNG' 
+               when 'GIF' then 'GIF' 
                else nil end
     else
       height = 32
       width = 32
+      format = nil
     end
+    image.format=format if format
+    @response.headers['Content-Type'] = "image/#{image.format.downcase}"
     render_text( image.resize!( height, width ).strip!.to_blob )
   end
 
