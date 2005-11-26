@@ -7,7 +7,7 @@
   
     <div class="menu-item-group">
       <%= start_form_tag( {}, { :class => "menu-text"} ) %>
-        <%= select_tag("current_conference_id", Momomoto::Conference.find(), :conference_id, :acronym, @current_conference_id, {:tabindex => 0, :onchange => "submit()"}, false ) %>
+        <%= select_tag("current_conference_id", Momomoto::Conference.find(), :conference_id, :acronym, @current_conference_id, {:onchange => "submit()"}, false ) %>
       <%= end_form_tag() %>
     </div>
     

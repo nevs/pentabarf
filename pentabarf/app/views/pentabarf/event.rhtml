@@ -29,7 +29,7 @@
       <legend><[view_event::notes]></legend>
       <table>
         <tr>
-          <td><%= text_area_tag('event[remark]', @event.remark, {:rows => 5, :cols => 60}) %></td>
+          <td><%= text_area_tag('event[remark]', @event.remark, {:rows => 5, :cols => 60, :tabindex => 0}) %></td>
         </tr>
       </table>
     </fieldset>
