@@ -88,3 +88,12 @@ CREATE TABLE person_image_logging (
   PRIMARY KEY (person_image_logging_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE event_image_logging (
+  event_image_logging_id SERIAL NOT NULL,
+  event_id INTEGER NOT NULL,
+  mime_type_id INTEGER NOT NULL,
+  image BYTEA NOT NULL,
+  last_modified TIMESTAMP WITH TIME ZONE,
+  PRIMARY KEY (event_image_logging_id)
+) WITHOUT OIDS;
+
