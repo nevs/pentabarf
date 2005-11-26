@@ -3,11 +3,12 @@ module Momomoto
     def initialize
       super
       @domain = 'conference'
+      @log_changes = true
       @fields = {
         :conference_id => Datatype::Integer.new( {:not_null=>true, :primary_key=>true} ),
         :mime_type_id => Datatype::Integer.new( {:not_null=>true} ),
         :image => Datatype::Bytea.new( {:not_null=>true} ),
-        :last_changed => Datatype::Timestamp.new( {:not_null=>true, :default=>true} )
+        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} )
       }
     end
   end

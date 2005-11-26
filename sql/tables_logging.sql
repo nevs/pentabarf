@@ -97,3 +97,12 @@ CREATE TABLE event_image_logging (
   PRIMARY KEY (event_image_logging_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE conference_image_logging (
+  conference_image_logging_id SERIAL NOT NULL,
+  conference_id INTEGER NOT NULL,
+  mime_type_id INTEGER NOT NULL,
+  image BYTEA NOT NULL,
+  last_modified TIMESTAMP WITH TIME ZONE,
+  PRIMARY KEY (conference_image_logging_id)
+) WITHOUT OIDS;
+

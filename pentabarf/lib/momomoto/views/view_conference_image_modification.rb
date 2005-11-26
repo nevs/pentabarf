@@ -5,7 +5,7 @@ module Momomoto
       @domain = 'conference'
       @fields = {
         :conference_id => Datatype::Integer.new( {} ),
-        :last_changed => Datatype::Timestamp.new( {} )
+        :last_modified=> Datatype::Timestamp.new( {} )
       }
     end
   end

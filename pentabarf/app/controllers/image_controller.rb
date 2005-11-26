@@ -153,7 +153,7 @@ class ImageController < ApplicationController
     if action_name == 'conference'
       modification = Momomoto::View_conference_image_modification.find( {:conference_id => extract_id( @params[:id] )} )
       if modification.length == 1
-        @timestamp = modification.last_changed
+        @timestamp = modification.last_modified
       else
         @timestamp = File.ctime( RAILS_ROOT + '/public/images/icon-conference-128x128.png' )
       end
