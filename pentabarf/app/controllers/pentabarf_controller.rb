@@ -590,7 +590,6 @@ class PentabarfController < ApplicationController
             file.title = value[:title]
             file.data = value[:data].read
             file.f_public = value[:f_public] ? 't' : 'f'
-            file.last_changed = 'now'
             modified = true if file.write
           end
         end

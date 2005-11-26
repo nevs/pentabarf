@@ -107,7 +107,7 @@ CREATE OR REPLACE VIEW view_event_attachment AS
          title,
          pages,
          f_public,
-         last_changed,
+         last_modified,
          octet_length( data ) AS filesize,
          view_attachment_type.language_id
     FROM event_attachment

@@ -208,7 +208,7 @@
             <td><%= text_field_tag("event_attachment[#{attachment.event_attachment_id}][title]", attachment.title, {:tabindex => 0}) %></td>
             <td><%= text_field_tag("event_attachment[#{attachment.event_attachment_id}][pages]", attachment.pages, {:tabindex => 0,:size=>5}) %></td>
             <td><%= select_tag("event_attachment[#{attachment.event_attachment_id}][mime_type_id]", Momomoto::View_mime_type.find({:language_id => @current_language_id}), :mime_type_id, :name, attachment.mime_type_id, {:tabindex => 0}, false) %></td>
-            <td><%= h( attachment.last_changed.gsub(/[+.].*/, '')) %></td>
+            <td><%= h( attachment.last_modified.gsub(/[+.].*/, '')) %></td>
             <td><%= check_box_tag("event_attachment[#{attachment.event_attachment_id}][delete]", 't', false, {:tabindex => 0}) %>
           </tr>
           <% end %>

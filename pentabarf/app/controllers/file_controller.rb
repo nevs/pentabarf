@@ -15,7 +15,7 @@ class FileController < ApplicationController
     @response.headers['Content-Disposition'] = "attachment; filename=\"#{file.filename}\""
     @response.headers['Content-Type'] = data.mime_type
     @response.headers['Content-Length'] = data.filesize
-    @response.headers['Last-Modified'] = file.last_changed
+    @response.headers['Last-Modified'] = file.last_modified
     render_text(file.data)
   end
 

@@ -106,3 +106,18 @@ CREATE TABLE conference_image_logging (
   PRIMARY KEY (conference_image_logging_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE event_attachment_logging (
+  event_attachment_logging_id SERIAL NOT NULL,
+  event_attachment_id INTEGER NOT NULL,
+  attachment_type_id INTEGER NOT NULL,
+  event_id INTEGER NOT NULL,
+  mime_type_id INTEGER NOT NULL,
+  filename VARCHAR(256),
+  title VARCHAR(256),
+  pages INTEGER,
+  data BYTEA NOT NULL,
+  f_public BOOL,
+  last_modified TIMESTAMP WITH TIME ZONE,
+  PRIMARY KEY (event_attachment_logging_id)
+) WITHOUT OIDS;
+
