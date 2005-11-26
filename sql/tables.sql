@@ -431,6 +431,7 @@ CREATE TABLE conference_person (
   description TEXT,
   remark TEXT,
   email_public VARCHAR(64),
+  last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   PRIMARY KEY (conference_person_id)
