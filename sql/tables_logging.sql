@@ -33,6 +33,19 @@ CREATE TABLE person_logging (
   PRIMARY KEY (person_logging_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE conference_person_logging (
+  conference_person_logging_id SERIAL,
+  conference_person_id INTEGER NOT NULL,
+  conference_id INTEGER NOT NULL,
+  person_id INTEGER NOT NULL,
+  abstract TEXT,
+  description TEXT,
+  remark TEXT,
+  email_public VARCHAR(64),
+  last_modified TIMESTAMP WITH TIME ZONE,
+  PRIMARY KEY (conference_person_logging_id)
+) WITHOUT OIDS;
+
 CREATE TABLE event_logging (
   event_logging_id SERIAL NOT NULL,
   event_id INTEGER NOT NULL,

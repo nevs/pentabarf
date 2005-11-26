@@ -3,6 +3,7 @@ module Momomoto
     def initialize
       super
       @domain = 'person'
+      @log_changes = true
       @fields = {
         :conference_person_id => Datatype::Integer.new( {:not_null=>true, :default=>true, :primary_key=>true, :serial=>true} ),
         :conference_id => Datatype::Integer.new( {:not_null=>true} ),
