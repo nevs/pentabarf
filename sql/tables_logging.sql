@@ -121,3 +121,32 @@ CREATE TABLE event_attachment_logging (
   PRIMARY KEY (event_attachment_logging_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE conference_logging (
+  conference_logging_id SERIAL NOT NULL,
+  conference_id INTEGER NOT NULL,
+  acronym VARCHAR(16) NOT NULL,
+  title VARCHAR(128) NOT NULL,
+  subtitle VARCHAR(128),
+  conference_phase_id INTEGER NOT NULL,
+  start_date DATE NOT NULL,
+  days SMALLINT,
+  venue VARCHAR(64),
+  city VARCHAR(64),
+  country_id INTEGER,
+  time_zone_id INTEGER,
+  currency_id INTEGER,
+  timeslot_duration INTERVAL NOT NULL,
+  default_timeslots INTEGER,
+  max_timeslot_duration INTEGER NOT NULL,
+  day_change TIME WITHOUT TIME ZONE NOT NULL,
+  remark TEXT,
+  f_deleted BOOL,
+  release VARCHAR(32),
+  export_base_url VARCHAR(256),
+  export_css_file VARCHAR(256),
+  feedback_base_url VARCHAR(256),
+  css TEXT,
+  last_modified TIMESTAMP WITH TIME ZONE,
+  PRIMARY KEY (conference_logging_id)
+) WITHOUT OIDS;
+

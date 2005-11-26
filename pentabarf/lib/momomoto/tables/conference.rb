@@ -4,6 +4,7 @@ module Momomoto
       super
       @domain = 'conference'
       @order = 'lower(acronym)'
+      @log_changes = true
       @fields = {
         :conference_id => Datatype::Integer.new( {:not_null=>true, :default=>true, :primary_key=>true, :serial=>true} ),
         :acronym => Datatype::Varchar.new( {:not_null=>true, :length=>16} ),
@@ -27,7 +28,8 @@ module Momomoto
         :export_base_url => Datatype::Varchar.new( {:length=>256} ),
         :export_css_file => Datatype::Varchar.new( {:length=>256} ),
         :feedback_base_url => Datatype::Varchar.new( {:length=>256} ),
-        :css => Datatype::Text.new( {} )
+        :css => Datatype::Text.new( {} ),
+        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} )
       }
     end
   end
