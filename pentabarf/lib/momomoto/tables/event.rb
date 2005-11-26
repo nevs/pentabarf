@@ -4,6 +4,7 @@ module Momomoto
       super
       @domain = 'event'
       @order = 'lower(title), lower(subtitle)'
+      @log_changes = true
       @fields = {
         :event_id => Datatype::Integer.new( {:not_null=>true, :default=>true, :primary_key=>true, :serial=>true} ),
         :conference_id => Datatype::Integer.new( {:not_null=>true} ),
@@ -30,7 +31,8 @@ module Momomoto
         :remark => Datatype::Text.new( {} ),
         :event_origin_id => Datatype::Integer.new( {:not_null=>true} ),
         :f_unmoderated => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
-        :event_state_progress_id => Datatype::Integer.new( {:not_null=>true} )
+        :event_state_progress_id => Datatype::Integer.new( {:not_null=>true} ),
+        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} )
       }
     end
   end
