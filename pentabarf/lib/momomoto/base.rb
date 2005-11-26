@@ -393,6 +393,7 @@ module Momomoto
     # has the record been modified
     def dirty?
       @resultset[@current_record].each do | field_name, value |
+        next if value.property(:auto_update)
         return true if value.dirty?
       end
       false
