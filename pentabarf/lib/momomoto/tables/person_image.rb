@@ -3,6 +3,7 @@ module Momomoto
     def initialize
       super
       @domain = 'person'
+      @log_changes = true
       @fields = {
         :person_id => Datatype::Integer.new( {:not_null=>true, :primary_key=>true} ),
         :mime_type_id => Datatype::Integer.new( {:not_null=>true} ),
