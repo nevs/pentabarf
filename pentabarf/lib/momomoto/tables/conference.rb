@@ -29,6 +29,7 @@ module Momomoto
         :export_css_file => Datatype::Varchar.new( {:length=>256} ),
         :feedback_base_url => Datatype::Varchar.new( {:length=>256} ),
         :css => Datatype::Text.new( {} ),
+        :f_feedback_enabled => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} )
       }
     end
