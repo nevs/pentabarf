@@ -12,23 +12,15 @@ module ApplicationHelper
     new_text = ''
     nesting = ''
     text.each_line do | line |
-      new_nesting = line.match(/^[*#-]+/).to_s
+      new_nesting = line.match(/^[*#-]+/).to_s.gsub('-','*')
       if new_nesting != nesting
-        pointer = 0
+        while nesting != new_nesting[0...nesting.length].to_s
+          new_text += nesting[nesting.length - 1].chr == '#' ? '</ol>' : '</ul>'
+          nesting[nesting.length - 1] = ''
+        end
         while new_nesting != nesting
-          if nesting[pointer] && new_nesting[pointer].to_s == ''
-            new_text += ( nesting[pointer].chr == '#' ? '</ol>' : '</ul>' )
-            nesting[pointer] = new_nesting[pointer].to_s
-          elsif new_nesting[pointer] && nesting[pointer].to_s == ''
-            new_text += ( new_nesting[pointer].chr == '#' ? '<ol>' : '<ul>' )
-            nesting += new_nesting[pointer].chr
-          elsif new_nesting[pointer] == nesting[pointer] && pointer < 10
-            
-          else
-            ApplicationController.jabber_message("new_nesting: #{new_nesting} nesting: #{nesting} new_p: #{new_nesting[pointer]} old_p: #{nesting[pointer]} pointer: #{pointer} line: #{line}")
-            nesting = new_nesting
-          end
-          pointer += 1
+          new_text += new_nesting[nesting.length].chr == '#' ? '<ol>' : '<ul>'
+          nesting += new_nesting[nesting.length].chr
         end
       end
       # lists # and *
