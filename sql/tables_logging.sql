@@ -146,6 +146,7 @@ CREATE TABLE conference_logging (
   export_css_file VARCHAR(256),
   feedback_base_url VARCHAR(256),
   css TEXT,
+  f_feedback_enabled BOOL,
   last_modified TIMESTAMP WITH TIME ZONE,
   PRIMARY KEY (conference_logging_id)
 ) WITHOUT OIDS;

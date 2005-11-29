@@ -285,6 +285,7 @@ CREATE TABLE conference (
   export_css_file VARCHAR(256),
   feedback_base_url VARCHAR(256),
   css TEXT,
+  f_feedback_enabled BOOL NOT NULL DEFAULT FALSE,
   last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   FOREIGN KEY (conference_phase_id) REFERENCES conference_phase (conference_phase_id),
   FOREIGN KEY (country_id) REFERENCES country (country_id),
