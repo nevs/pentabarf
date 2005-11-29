@@ -7,6 +7,7 @@ require 'app/helpers/application_helper'
 require 'app/helpers/schedule_helper'
 require 'erb'
 require 'RMagick'
+require 'uri'
 
 if ARGV.length != 1
   puts "Usage: #{$0} <conference-id>"
@@ -159,27 +160,28 @@ class HTML_Export
   end
 
   def url_for( url )
+    base = URI.parse(@conference.export_base_url).path
     if url[:controller]
       if url[:controller].to_sym == :image
         url[:action] = :speaker if url[:action] == :person
-        return "#{@conference.export_base_url}images/#{url[:action]}#{url[:id] && url[:id] != 0 ? '-' + url[:id].to_s : ''}"
+        return "#{base}images/#{url[:action]}#{url[:id] && url[:id] != 0 ? '-' + url[:id].to_s : ''}"
       elsif url[:controller].to_sym == :file
         return "" unless @attachments.find_by_value({:event_attachment_id=>url[:id]})
-        return "#{@conference.export_base_url}attachments/#{@attachments.event_attachment_id}-#{@attachments.filename}"
+        return "#{base}attachments/#{@attachments.event_attachment_id}-#{@attachments.filename}"
       elsif url[:controller].to_sym == :ical 
-        return "#{@conference.export_base_url}schedule.ics"
+        return "#{base}schedule.ics"
       elsif url[:controller].to_sym == :xcal 
-        return "#{@conference.export_base_url}schedule.xcs"
+        return "#{base}schedule.xcs"
       end
     else
       return case url[:action]
-        when :speaker then "#{@conference.export_base_url}speakers/#{url[:id]}.#{@language.tag}.html"
-        when :speakers then "#{@conference.export_base_url}speakers.#{@language.tag}.html"
-        when :event then "#{@conference.export_base_url}events/#{url[:id]}.#{@language.tag}.html"
-        when :events then "#{@conference.export_base_url}events.#{@language.tag}.html"
-        when :css then "#{@conference.export_base_url}stylesheet.css"
-        when :day then "#{@conference.export_base_url}day_#{url[:id]}.#{@language.tag}.html"
-        when :index then "#{@conference.export_base_url}index.#{@language.tag}.html"
+        when :speaker then "#{base}speakers/#{url[:id]}.#{@language.tag}.html"
+        when :speakers then "#{base}speakers.#{@language.tag}.html"
+        when :event then "#{base}events/#{url[:id]}.#{@language.tag}.html"
+        when :events then "#{base}events.#{@language.tag}.html"
+        when :css then "#{base}stylesheet.css"
+        when :day then "#{base}day_#{url[:id]}.#{@language.tag}.html"
+        when :index then "#{base}index.#{@language.tag}.html"
         else "unkown url #{url.inspect}" end
     end
     "unkown url #{url.inspect}"
