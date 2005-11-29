@@ -161,13 +161,15 @@ class HTML_Export
 
   def url_for( url )
     base = URI.parse(@conference.export_base_url).path
-    if url[:controller]
+    if url[:controller] 
       if url[:controller].to_sym == :image
         url[:action] = :speaker if url[:action] == :person
         return "#{base}images/#{url[:action]}#{url[:id] && url[:id] != 0 ? '-' + url[:id].to_s : ''}"
       elsif url[:controller].to_sym == :file
         return "" unless @attachments.find_by_value({:event_attachment_id=>url[:id]})
         return "#{base}attachments/#{@attachments.event_attachment_id}-#{@attachments.filename}"
+      elsif url[:controller].to_sym == :feedback
+        return "#{@conference.feedback_base_url}feedback/#{@conference.acronym}/#{url[:id]}" 
       elsif url[:controller].to_sym == :ical 
         return "#{base}schedule.ics"
       elsif url[:controller].to_sym == :xcal 
@@ -184,7 +186,7 @@ class HTML_Export
         when :index then "#{base}index.#{@language.tag}.html"
         else "unkown url #{url.inspect}" end
     end
-    "unkown url #{url.inspect}"
+    raise "unkown url #{url.inspect}"
   end
 
   def localize( template )

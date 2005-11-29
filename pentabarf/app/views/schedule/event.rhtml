@@ -60,6 +60,19 @@
         <td class="value"><%= h(@events.language) %></td>
       </tr>
     </table>
+    <% if @conference.f_feedback_enabled == 't' && @conference.feedback_base_url %>
+    <table>
+      <tr>
+        <th colspan="2">FEEDBACK</th>
+      </tr>
+      <tr>
+        <td colspan="2" class="feedback">
+          Did you attend this event?<br/>
+          <a href="<%= url_for({:controller=>'feedback',:action=>:event,:id=>@event.event_id}) %>">Give Feedback</a>
+        </td>
+      </tr>
+    </table>
+    <% end %>
   </div>
 
   <h1 class="title"><%= h(@event.title) %></h1>

@@ -455,6 +455,7 @@ class PentabarfController < ApplicationController
         params[:conference].each do | key, value |
           conference[key]= value
         end
+        conference.f_feedback_enabled = 'f' unless params[:conference]['f_feedback_enabled']
         modified = true if conference.write
 
         image = Momomoto::Conference_image.new
