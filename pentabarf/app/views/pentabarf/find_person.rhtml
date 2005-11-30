@@ -1,5 +1,5 @@
 <%= javascript_include_tag('search') %>
-<%= content_tabs_js([{:tag => 'simple', :url => "javascript:b=new Ajax.Updater('results','#{url_for(:action=>:search_person,:id => -1)}');switch_tab('simple');b.updateContent();"}, {:tag => 'advanced', :url => "javascript:b=new Ajax.Updater('results','#{url_for(:action=>:search_person_advanced,:id => -1)}');switch_tab('advanced');b.updateContent();"}], 'view_find_person', false ) %>
+<%= content_tabs_js([{:tag => 'simple', :url => "javascript:b=new Ajax.Updater('results','#{url_for(:action=>:search_person,:id => -1)}');switch_tab('simple');b.updateContent();"}, {:tag => 'advanced', :url => "javascript:b=new Ajax.Updater('results','#{url_for(:action=>:search_person_advanced,:id => -1)}');switch_tab('advanced');b.updateContent();"}], 'view::pentabarf::find_person::tab', false ) %>
 <div id="data">
 
   <div id="content-simple" class="content_tab">

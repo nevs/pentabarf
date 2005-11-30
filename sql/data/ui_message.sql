@@ -42,12 +42,6 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (14, 'sidebar::find');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (15, 'sidebar::new');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (16, 'form::cancel');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (17, 'form::save');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (28, 'view_find_person::tab_simple');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (29, 'view_find_person::tab_advanced');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (30, 'view_find_event::tab_simple');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (31, 'view_find_event::tab_advanced');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (32, 'view_find_conference::tab_simple');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (33, 'view_find_conference::tab_advanced');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (116, 'table::event::title');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (117, 'table::event::subtitle');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (118, 'table::event::tag');
@@ -156,6 +150,12 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (190, 'table::person::po_box_
 INSERT INTO ui_message (ui_message_id, tag) VALUES (191, 'table::person::city');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (192, 'table::person::country');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (193, 'view::pentabarf::person::address');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (28, 'view::pentabarf::find_person::tab::simple');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (29, 'view::pentabarf::find_person::tab::advanced');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (30, 'view::pentabarf::find_event::tab::simple');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (31, 'view::pentabarf::find_event::tab::advanced');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (32, 'view::pentabarf::find_conference::tab::simple');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (33, 'view::pentabarf::find_conference::tab::advanced');
 
 
 --

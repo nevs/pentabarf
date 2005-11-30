@@ -162,7 +162,7 @@ module ApplicationHelper
       tabs[index][:url] = tab_name.kind_of?(Hash) && tab_name[:url] ? tab_name[:url] : "javascript:switch_tab('#{cur_tab_name}');"
       tabs[index][:class] = "tab inactive"
       tabs[index][:accesskey] = index + 1
-      if environment && tabs_local.find_by_id(:tag, "#{environment}::#{tab_name}")
+      if environment && tabs_local.find_by_id(:tag, "#{environment}::#{tabs[index][:tag]}")
         tabs[index][:text] = tabs_local.name
       else
         tabs[index][:text] = tab_name.kind_of?(Hash) && tab_name[:text] ? tab_name[:text] : cur_tab_name
