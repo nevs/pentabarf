@@ -255,12 +255,9 @@ function add_internal_link(link_id, link_type_id, url, description)
   enumerator();
 }
 
-
-var person_event_counter = 0;
-
 function add_person_event(event_person_id, event_id, event_role_id, event_role_state_id, remark)
 {
-  if ( event_names.length == 0 ) {
+  if ( event_titles.length == 0 ) {
     alert('You have not yet added events to this conference.');
     return;
   }
@@ -271,41 +268,18 @@ function add_person_event(event_person_id, event_id, event_role_id, event_role_s
   table_row = document.createElement("tr");
   table_row.setAttribute("id","row_"+row_id);
 
-  if (event_id) {
-    element = create_element("a", 0, "event_person[" + row_id + "][link]", p_base + "pentabarf/event/" + event_id, null, false );
-    element.setAttribute("title", "Go to \""+event_names[event_id]+"\"");
-    //element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/icon-event-32x32.png", null, false ));
-    element.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "image/event/" + event_id, null, false ));
-    table_data = document.createElement("td");
-    table_data.appendChild(element);
-    table_row.appendChild(table_data);
-  } else {
-    table_row.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/icon-event-32x32.png"));
-  }
-  
+  table_row.appendChild(create_element("img", 0, "event_person["+row_id+"][image]", p_base + "images/icon-event-32x32.png"));
   table_row.appendChild(create_element("input", "hidden", "event_person["+row_id+"][event_person_id]", event_person_id));
 
-  if (event_id) {
-    element = create_element("input", "hidden", "event_person["+row_id+"][event_id]", event_id, null, false);
-  } else {
-    element = create_element("select", 0, "event_person["+row_id+"][event_id]", event_names, event_id, null, false);
-  }
 
   table_data = document.createElement("td");
+  element = create_element("select", 0, "event_person["+row_id+"][event_id]", event_titles, event_id, null, false);
   table_data.appendChild(element);
-  if (event_id) {
-    // include title in <strong> and put subtitle behind <br/>
-    strong = document.createElement("strong");
-    strong.appendChild( document.createTextNode(event_names[event_id]) );
-    table_data.appendChild(strong);
-
-    table_data.appendChild( document.createElement("br") );
-    table_data.appendChild( document.createTextNode(event_subtitles[event_id]) );
-  }
   table_row.appendChild(table_data);
+  table_row.appendChild(document.createElement("td"));
 
   var role_select = create_element("select", 0, "event_person["+row_id+"][event_role_id]",event_roles,event_role_id);
-  role_select.setAttribute("onchange", "person_event_role_changed('"+row_id+"','"+event_role_state_id+"')");
+  role_select.setAttribute("onchange", "person_event_role_changed('"+row_id+"','"+event_role_id+"')");
   table_row.appendChild(role_select);  
   table_row.appendChild(create_element("select", 0, "event_person["+row_id+"][event_role_state_id]",event_role_states[event_role_id],event_role_state_id));
   
@@ -445,7 +419,7 @@ function add_related_event(related_event_id)
   row = document.createElement("tr");
   row.setAttribute("id","row_"+row_id);
   
-  row.appendChild(create_element("select", 0, "related_event["+row_id+"][related_event_id]", event_names, related_event_id));
+  row.appendChild(create_element("select", 0, "related_event["+row_id+"][related_event_id]", event_titles, related_event_id));
   row.appendChild(create_element("input", "checkbox", "related_event["+row_id+"][delete]"));
   row.appendChild(create_element("hidden", 0, "").firstChild);
   document.getElementById('related_event_table_body').appendChild(row);

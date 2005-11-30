@@ -483,9 +483,9 @@
       </table>
       <button type="button" name="add_related_event" tabindex="0" onclick="window.add_related_event();">Add Related Event</button>
       <script type="text/javascript">
-        event_names = new Array();
+        event_titles = new Array();
       <% for event in Momomoto::Event.find({:conference_id => @event.conference_id}) %>
-        event_names[<%= event.event_id %>] = '<%= escape_javascript(event.title) %>';
+        event_titles[<%= event.event_id %>] = '<%= escape_javascript(event.title) %>';
       <% end %>
       </script>
     </fieldset>

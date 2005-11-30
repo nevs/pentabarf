@@ -2,7 +2,7 @@
 module ApplicationHelper
 
   def js( text )
-    escape_javascript( js )
+    escape_javascript( text )
   end
 
   def markup( text )
