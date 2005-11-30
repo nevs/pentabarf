@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 167, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 193, true);
 
 
 --
@@ -42,23 +42,12 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (14, 'sidebar::find');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (15, 'sidebar::new');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (16, 'form::cancel');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (17, 'form::save');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (18, 'view_person::tab_general');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (19, 'view_person::tab_events');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (20, 'view_person::tab_contact');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (21, 'view_person::tab_description');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (22, 'view_person::tab_links');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (23, 'view_person::tab_rating');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (24, 'view_person::tab_travel');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (25, 'view_person::tab_account');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (26, 'view_home::tab_participant');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (27, 'view_home::tab_coordinator');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (28, 'view_find_person::tab_simple');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (29, 'view_find_person::tab_advanced');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (30, 'view_find_event::tab_simple');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (31, 'view_find_event::tab_advanced');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (32, 'view_find_conference::tab_simple');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (33, 'view_find_conference::tab_advanced');
-INSERT INTO ui_message (ui_message_id, tag) VALUES (104, 'view_person::other_events');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (116, 'table::event::title');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (117, 'table::event::subtitle');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (118, 'table::event::tag');
@@ -131,6 +120,42 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (40, 'view::pentabarf::confer
 INSERT INTO ui_message (ui_message_id, tag) VALUES (165, 'table::team::tag');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (166, 'table::conference_track::tag');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (167, 'table::conference_track::color');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (18, 'view::pentabarf::person::tab::general');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (19, 'view::pentabarf::person::tab::events');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (20, 'view::pentabarf::person::tab::contact');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (21, 'view::pentabarf::person::tab::description');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (22, 'view::pentabarf::person::tab::links');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (23, 'view::pentabarf::person::tab::rating');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (24, 'view::pentabarf::person::tab::travel');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (25, 'view::pentabarf::person::tab::account');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (27, 'view::pentabarf::index::tab::coordinator');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (26, 'view::pentabarf::index::tab::participant');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (168, 'view::pentabarf::person::other_events');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (169, 'table::person::remark');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (170, 'view::pentabarf::person::spoken_languages');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (171, 'view::pentabarf::person::add_language');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (172, 'table::person_language::language');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (173, 'view::pentabarf::person::add_event');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (174, 'view::pentabarf::person::email');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (175, 'view::pentabarf::person::add_phone_number');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (176, 'view::pentabarf::person::phone');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (177, 'view::pentabarf::person::add_im_address');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (178, 'view::pentabarf::person::instant_messaging');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (179, 'table::person::email_contact');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (180, 'table::person::f_spam');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (181, 'table::conference_person::email_public');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (182, 'table::person_im::im_type');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (183, 'table::person_im::im_address');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (184, 'table::person_phone::phone_type');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (185, 'table::person_phone::phone_number');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (186, 'table::person::address');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (187, 'table::person::street');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (188, 'table::person::street_postcode');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (189, 'table::person::po_box');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (190, 'table::person::po_box_postcode');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (191, 'table::person::city');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (192, 'table::person::country');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (193, 'view::pentabarf::person::address');
 
 
 --

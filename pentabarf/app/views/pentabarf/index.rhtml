@@ -1,15 +1,15 @@
-<%= content_tabs_js(['participant', 'coordinator'], 'view_home') %>
+<%= content_tabs_js(['participant', 'coordinator'], 'view::pentabarf::index::tab') %>
 <div id="data">
   <div id="content-participant" class="content_tab">
     <fieldset>
-      <legend><[view_home::tab_participant]></legend>
+      <legend><[view::pentabarf::index::tab::participant]></legend>
       <table>
         <thead>
           <tr>
-            <th colspan="2">Title</th>
-            <th>Event State</th>
-            <th>Role</th>
-            <th>Role State</th>
+            <th colspan="2"><[table::event::title]></th>
+            <th><[table::event::event_state]></th>
+            <th><[table::event_person::event_role]></th>
+            <th><[table::event_person::event_role_state]></th>
           </tr>
         </thead>
         <tbody>
@@ -33,13 +33,13 @@
 
   <div id="content-coordinator" class="content_tab">
     <fieldset>
-      <legend><[view_home::tab_coordinator]></legend>
+      <legend><[view::pentabarf::index::tab::coordinator]></legend>
       <table>
         <thead>
           <tr>
-            <th colspan="2">Title</th>
-            <th>Event State</th>
-            <th>Role</th>
+            <th colspan="2"><[table::event::title]></th>
+            <th><[table::event::event_state]></th>
+            <th><[table::event_person::event_role]></th>
           </tr>
         </thead>
         <tbody>
