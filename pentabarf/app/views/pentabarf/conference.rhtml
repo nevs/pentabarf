@@ -11,7 +11,7 @@
     }
   }
 </script>
-<%= content_tabs_js(['general','persons','tracks','rooms','events','export','feedback'],'view_conference') %>
+<%= content_tabs_js(['general','persons','tracks','rooms','events','export','feedback'],'view::pentabarf::conference::tab') %>
 <div id="object-image">
   <%= image_tag('icon-conference-64x64.png', { :class => 'object-image' } ) %>
 </div>
@@ -28,7 +28,7 @@
     <%= image_tag("/image/conference/#{params[:id]}-128x128", {:size => '128x128', :style => 'float: right;'} ) %>
     
     <fieldset>
-      <legend><[view_conference::notes]></legend>
+      <legend><[table::conference::remark]></legend>
       <table>
         <tr>
           <td><%= text_area_tag('conference[remark]', @conference.remark, {:rows => 5, :cols => 60, :tabindex => 0}) %></td>
@@ -41,34 +41,34 @@
   <div id="content-general" class="content_tab">
 
     <fieldset>
-      <legend><[view_conference::section_general]></legend>
+      <legend><[view::pentabarf::conference::tab::general]></legend>
       <table>
         <tr>
-          <td><label><[view_conference::acronym]></label></td>
+          <td><label><[table::conference::acronym]></label></td>
           <td><%= text_field_tag('conference[acronym]', @conference.acronym, {:size => 10, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label><[view_conference::title]></label></td>
+          <td><label><[table::conference::title]></label></td>
           <td><%= text_field_tag('conference[title]', @conference.title, {:size => 60, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label><[view_conference::subtitle]></label></td>
+          <td><label><[table::conference::subtitle]></label></td>
           <td><%= text_field_tag('conference[subtitle]', @conference.subtitle, {:size => 60, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label><[view_conference::conference_phase]></label></td>
+          <td><label><[table::conference::conference_phase]></label></td>
           <td><%= select_tag('conference[conference_phase_id]', Momomoto::View_conference_phase.find({:language_id => @current_language_id}), :conference_phase_id, :name, @conference.conference_phase_id, {:tabindex=>0}, false) %></td>
         </tr>
         <tr>
-          <td><label><[view_conference::venue]></label></td>
+          <td><label><[table::conference::venue]></label></td>
           <td><%= text_field_tag('conference[venue]', @conference.venue, {:size => 40, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label><[view_conference::city]></label></td>
+          <td><label><[table::conference::city]></label></td>
           <td><%= text_field_tag('conference[city]', @conference.city, {:size => 40, :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label><[view_conference::country]></label></td>
+          <td><label><[table::conference::country]></label></td>
           <td>
             <%= select_tag( 'conference[country_id]', 
                         Momomoto::View_country.find( { :language_id => @current_language_id } ), 
@@ -79,7 +79,7 @@
           </td>
         </tr>
         <tr>
-          <td><label><[view_conference::start_date]></label></td>
+          <td><label><[table::conference::start_date]></label></td>
           <td>
             <%= text_field_tag('conference[start_date]', @conference.start_date ? @conference.start_date.strftime( '%Y-%m-%d' ) : nil, { :size => 12, :tabindex => 0 } ) %>
             <button type="button" id="calendar_start_date">...</button>
@@ -95,19 +95,19 @@
           </td>
         </tr>
         <tr>
-          <td><label><[view_conference::duration]></label></td>
+          <td><label><[table::conference::duration]></label></td>
           <td>
             <%= select_tag( 'conference[days]', 1..20, 'to_i', 'to_i', @conference.days, { :tabindex => 0 }, false ) %>
           </td>
         </tr>
         <tr>
-          <td><label><[view_conference::time_zone]></label></td>
+          <td><label><[table::conference::time_zone]></label></td>
           <td>
             <%= select_tag( 'conference[time_zone_id]', Momomoto::View_time_zone.find( {:language_id => @current_language_id} ), 'time_zone_id', 'name', @conference.time_zone_id, { :tabindex => 0 } ) %>
           </td>
         </tr>
         <tr>
-          <td><label><[view_conference::currency]></label></td>
+          <td><label><[table::conference::currency]></label></td>
           <td>
             <%= select_tag( 'conference[currency_id]', 
                             Momomoto::View_currency.find( {:language_id => @current_language_id} ), 
@@ -115,7 +115,7 @@
           </td>
         </tr>
         <tr>
-          <td><label><[view_conference::timeslot_duration]></label></td>
+          <td><label><[table::conference::timeslot_duration]></label></td>
           <td>
             <%= select_tag( 'conference[timeslot_duration]', 
                             ['00:05:00', '00:10:00', '00:15:00', '00:20:00', '00:25:00', '00:30:00', '01:00:00'], 
@@ -131,7 +131,7 @@
           </td>
         </tr>
         <tr>
-          <td><label><[view_conference::max_timeslots_per_event]></label></td>
+          <td><label><[table::conference::max_timeslots_per_event]></label></td>
           <td>
             <%= select_tag( 'conference[max_timeslot_duration]', 1..20, 
                             'to_i', 'to_i', @conference.max_timeslot_duration, 
@@ -139,7 +139,7 @@
           </td>
         </tr>
         <tr>
-          <td><label><[view_conference::day_change]></label></td>
+          <td><label><[table::conference::day_change]></label></td>
           <td>
             <%= select_tag( 'conference[day_change]', 
                             (0..23).to_a.collect {|x| sprintf('%02d:00:00',x)}, 
@@ -174,21 +174,21 @@
     </fieldset>
 
     <fieldset>
-      <legend><[view_conference::logo]></legend>
+      <legend>Logo</legend>
       <%= file_field_tag('conference_image[image]', {:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>
       <%= check_box_tag('conference_image[delete]', 't', false, {:tabindex => 0}) %>
-      <label for="conference_image[delete]"><[view_conference::remove_logo]></label>
+      <label for="conference_image[delete]">Remove Logo</label>
     </fieldset>
 
   </div>
 
   <div id="content-persons" class="content_tab">
     <fieldset>
-      <legend><[view_conference::teams]></legend>
+      <legend>Teams</legend>
       <table id="team_table" class="hidden">
         <thead>
           <tr>
-            <th><[view_conference::team]></th>
+            <th><[table::team::tag]></th>
             <th><[form::remove]></th>
           </tr>
         </thead>
@@ -203,17 +203,17 @@
       <button type="button" name="add_team" value="Add Team" title="Add a new team" tabindex="0" onClick="window.add_team();">Add Team</button>
     </fieldset>
     <fieldset>
-      <legend><[view_conference::persons]></legend>
+      <legend><[view::pentabarf::conference::tab::persons]></legend>
     </fieldset>
   </div>
 
   <div id="content-tracks" class="content_tab">
     <fieldset>
-      <legend><[view_conference::tracks]></legend>
+      <legend><[view::pentabarf::conference::tab::tracks]></legend>
       <table id="conference_track_table" class="hidden">
         <thead>
           <tr>
-            <th><[view_conference::track]></th>
+            <th><[table::conference_track::tag]></th>
             <th><[table::conference_track::color]></th>
             <th><[form::remove]></th>
           </tr>

@@ -149,7 +149,7 @@ module ApplicationHelper
     tabs_ui = []
     if environment
       tabs_ui = tabs_simple.collect do | tab_name | 
-        "#{environment}::tab_#{tab_name.kind_of?(Hash) ? tab_name[:tag] : tab_name}"
+        "#{environment}::#{tab_name.kind_of?(Hash) ? tab_name[:tag] : tab_name}"
       end
     end
     tabs_ui.push( 'tabs::show_all' ) if with_show_all == true
@@ -162,7 +162,7 @@ module ApplicationHelper
       tabs[index][:url] = tab_name.kind_of?(Hash) && tab_name[:url] ? tab_name[:url] : "javascript:switch_tab('#{cur_tab_name}');"
       tabs[index][:class] = "tab inactive"
       tabs[index][:accesskey] = index + 1
-      if environment && tabs_local.find_by_id(:tag, "#{environment}::tab_#{tab_name}")
+      if environment && tabs_local.find_by_id(:tag, "#{environment}::#{tab_name}")
         tabs[index][:text] = tabs_local.name
       else
         tabs[index][:text] = tab_name.kind_of?(Hash) && tab_name[:text] ? tab_name[:text] : cur_tab_name

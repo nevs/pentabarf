@@ -1,4 +1,4 @@
-<%= content_tabs_js(['general','persons','description','links','schedule', 'rating','resources','related','feedback'],'view_event') %>
+<%= content_tabs_js(['general','persons','description','links','schedule', 'rating','resources','related','feedback'],'view::pentabarf::event::tab') %>
 
 <script type="text/javascript">
   function send_content()
@@ -26,7 +26,7 @@
   <div id="comment">
     <%= image_tag("/image/event/#{params[:id]}-128x128", {:size => "128x128", :style => "float: right;"} ) %>
     <fieldset>
-      <legend><[view_event::notes]></legend>
+      <legend><[table::event::remark]></legend>
       <table>
         <tr>
           <td><%= text_area_tag('event[remark]', @event.remark, {:rows => 5, :cols => 60, :tabindex => 0}) %></td>
@@ -43,7 +43,7 @@
 
   <div id="content-general" class="content_tab">
     <fieldset>
-      <legend><[view_event::tab_general]></legend>
+      <legend><[view::pentabarf::event::tab::general]></legend>
       <table>
         <tr>
           <td><label><[table::event::title]></label></td>
@@ -125,7 +125,7 @@
 
   <div id="content-persons" class="content_tab">
     <fieldset>
-      <legend><[view_event::persons]></legend>
+      <legend><[view::pentabarf::event::tab::persons]></legend>
       <table id="persons_table" class="hidden">
         <thead>
           <tr>
@@ -295,10 +295,10 @@
   <div id="content-schedule" class="content_tab">
 
     <fieldset>
-      <legend><[view_event::schedule]></legend>
+      <legend><[view::pentabarf::event::tab::schedule]></legend>
       <table>
         <tr>
-          <td><label><[view_event::day]></label></td>
+          <td><label><[table::event::day]></label></td>
           <td><%= select_tag( 'event[day]', 1..@conference.days, "to_i", "to_i", @event.day, { :tabindex => 0 } ) %></td>
         </tr>
         <tr>
