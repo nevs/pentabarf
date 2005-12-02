@@ -9,10 +9,16 @@ module ApplicationHelper
     text = h( text )
     allowed_protocols = ['http', 'https', 'mailto', 'svn', 'jabber']
 
-    new_text = ''
-    nesting = ''
+    nesting, new_text, p_open = '', '', false
     text.each_line do | line |
+      # close <p> tag for lists
+      if line.match(/^[*#-]/) and p_open
+        new_text += '</p>'
+        p_open = false
+      end
+    
       new_nesting = line.match(/^[*#-]+/).to_s.gsub('-','*')
+      # lists #,- and * with nesting
       if new_nesting != nesting
         while nesting != new_nesting[0...nesting.length].to_s
           new_text += nesting[nesting.length - 1].chr == '#' ? '</ol>' : '</ul>'
@@ -23,8 +29,9 @@ module ApplicationHelper
           nesting += new_nesting[nesting.length].chr
         end
       end
-      # lists # and *
+
       line.gsub!( /^[#*-]+(.*)$/, '<li>\1</li>')
+
       # internal links [[type:id]] or [[type:id label]]
       line.gsub!( /\[\[[^\]]+\]\]/ ) do | ilink |
         if match = ilink[2..-3].match( /^([^: ]+):([^: ]+)( (.+))?$/ )
@@ -44,17 +51,36 @@ module ApplicationHelper
       line.gsub!( /\*\*([^*]+)\*\*/, '<b>\1</b>' )
       line.gsub!( /__([^_]+)__/, '<u>\1</u>' )
       # Header 1 - 6
-      line.gsub!( /^======([^=]+)======/, '<h6>\1</h6>' )
-      line.gsub!( /^=====([^=]+)=====/, '<h5>\1</h5>' )
-      line.gsub!( /^====([^=]+)====/, '<h4>\1</h4>' )
-      line.gsub!( /^===([^=]+)===/, '<h3>\1</h3>' )
-      line.gsub!( /^==([^=]+)==/, '<h2>\1</h2>' )
-      line.gsub!( /^=([^=]+)=/, '<h1>\1</h1>' )
+      line.gsub!( /^======([^=]+)======$/, '<h6>\1</h6>' )
+      line.gsub!( /^=====([^=]+)=====$/, '<h5>\1</h5>' )
+      line.gsub!( /^====([^=]+)====$/, '<h4>\1</h4>' )
+      line.gsub!( /^===([^=]+)===$/, '<h3>\1</h3>' )
+      line.gsub!( /^==([^=]+)==$/, '<h2>\1</h2>' )
+      line.gsub!( /^=([^=]+)=$/, '<h1>\1</h1>' )
       # :blockquote
       line.gsub!( /^:(.*)$/, '<dd>\1</dd>')
 
+      # empty line forces new <paragraph>
+      if line.strip.match(/^$/) and p_open
+        new_text += '</p>'
+        p_open = false
+      end
+
+      # close <p> tag for header and blockquote
+      if line.match(/^<(h[1-6]|dd)>/) and p_open
+        new_text += '</p>'
+        p_open = false
+      end
+
+      # open <p> tag unless header, blockquote or listelement
+      if not p_open and not line.match(/^<(h[1-6]|dd|li)>/) and line.strip.length > 0
+        new_text += '<p>'
+        p_open = true
+      end
+
       new_text += line
     end
+    new_text += '</p>' if p_open
     new_text
   end
 
