@@ -956,7 +956,7 @@ CREATE TABLE conference_phase_conflict(
 CREATE TABLE changeset( 
   changeset_id SERIAL NOT NULL,
   person_id INTEGER NOT NULL, 
-  changed_when TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+  changed_when TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   PRIMARY KEY (changeset_id)
 ) WITHOUT OIDS;
