@@ -13,24 +13,16 @@ class Pentcards
    DEBUG = true
  
    def initialize(mo_events, rows, cols, paper_dimensions=[21.0, 29.7])
-      event_count = 0
-      mo_events.each do |item|
-        event_count +=1
-      end
-      
+      @converter = Iconv.new('iso-8859-15', 'UTF-8')
       @border_between_cards = 1 #in cm
       
       # we ignore custom col and row settigns for now, till the layout can cope with it.
       @cols = 2
       @rows = 2
-      @pages = 1 + (event_count / (cols * rows)).round.to_i # number of pages in the final pentacards
+      @pages = ( mo_events.length / ( cols * rows )).ceil
       
       # select optimal orientation
-      if cols >= rows 
-         oritentation = :landscape
-      else
-         oritentation = :portrait
-      end
+      orientation = cols >= rows ? :landscape : :portrait
       
       @paper_dimensions = {:width => paper_dimensions[1], :height => paper_dimensions[0]}
       
@@ -41,7 +33,7 @@ class Pentcards
       @card_height = (PDF::Writer.cm2pts(@paper_dimensions[:height] - @border_between_cards)  - @margin*2) / @rows
       
       #FIXME DEBUG
-      @pdf = PDF::Writer.new(:paper => paper_dimensions, :orientation => oritentation)
+      @pdf = PDF::Writer.new(:paper => paper_dimensions, :orientation => orientation)
       @pdf.select_font "Helvetica"
       @pdf.margins_pt(@margin)
       
@@ -196,8 +188,10 @@ class Pentcards
 
         persons = speakers + moderators +coordinators
         persons_str = persons.join.to_str
+
+      persons_str = Iconv.new('iso-8859-15', 'UTF-8').iconv(persons_str)
      
-     draw_text_box(col,row,{:text => Iconv.iconv("iso-8859-1","UTF-8",persons_str)[0],
+     draw_text_box(col,row,{:text => persons_str,
                              :width => 130,
                              :height => 70,
                              :x => 0,
@@ -208,6 +202,7 @@ class Pentcards
                              :border_size => 0,
                              :align => :left,
                              :font_size => 10})
+
 #                             :bgcolor => '#ababab',
      # write abstarct
      #FIXME
