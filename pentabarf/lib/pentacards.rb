@@ -80,14 +80,13 @@ class Pentcards
     tid = 120 # translation_id 
     e = Momomoto::View_event.find({:translated_id=> tid, :conference_id=>event.conference_id, :event_id => event.event_id})
 
-    this_event = {'event_type' => escape_str(e.event_type),
-            'event_state' => escape_str(e.event_state),
+    this_event = {'event_type' => convert(e.event_type),
+            'event_state' => convert(e.event_state),
             'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => tid, :event_state_id => e.event_state_id}).name,
-            'conference_track' => escape_str(e.conference_track),
-            'subtitle' => escape_str(e.subtitle),
-            'title' => escape_str(e.title),
+            'subtitle' => convert(e.subtitle),
+            'title' => convert(e.title),
             'id' => e.event_id.to_s,
-            'tag' => escape_str(e.tag),
+            'tag' => convert(e.tag),
             'duration' => "#{e.duration.hour.to_s unless e.duration.nil?}#{e.duration.nil? ? '': ':'}#{if e.duration.min<10 then '0'+ e.duration.min.to_s else e.duration.min.to_s end unless e.duration.nil?}",
             'start_time' => "#{e.start_time.hour.to_s unless e.start_time.nil?}#{e.start_time.nil? ? '' : ':'}#{if e.start_time.min<10 then '0'+ e.start_time.min.to_s else e.start_time.min.to_s end unless e.start_time.nil?}",
             'day' => "#{e.day}",
@@ -109,7 +108,7 @@ class Pentcards
     langs_str = Momomoto::View_conference_language.find({:language_id => event.language_id, :translated_id=> tid, :conference_id=>event.conference_id}).name
     
     # keep in mind that these have to be ordered the same way
-    last_row_content = [ this_event['conference_track'],
+    last_row_content = [ e.conference_track.to_s ,
                          "#{this_event['event_state']}\n#{this_event['event_state_progress']}",
                          langs_str,
                          this_event['event_type'] ]
@@ -289,29 +288,28 @@ class Pentcards
     #             :border_size => 0
      #            }) #if args[:card_border]
   end
-  
-  def escape_str(str)
-    begin
-      rstr = Iconv.iconv("iso-8859-1","UTF-8",str)
-    rescue
-      array = str.split(/./)
-      array.each_with_index do | item, index |
-        begin
-          array[index] = Iconv.iconv("iso-8859-1","UTF-8",item)
-        rescue
-          # could not convert char so replacing with " "
-          array[index] = " "
-        end
-      end
-      rstr = array.join
-    end
-    return rstr[0] 
-  end
 
+  # converts a string and replaces unconvertable characters with whitespace
+  def convert( text )
+    begin
+      converted = @converter.iconv( text.to_s )
+    rescue
+      converted = ''
+      text.to_s.each_byte do | byte |
+        begin
+          byte = @converter.iconv( text )
+        rescue
+          byte = ' '
+        end
+        converted += byte
+      end
+    end
+    return converted
+  end
+  
   def draw_text_box(col,row,args={})
-    ## Set up defaults or user defined setitngs
-    # text 
-    text = args[:text] || ''
+  
+    text = convert( args[:text] )
     
     # default text align is left
     text_align = args[:align] || :left
