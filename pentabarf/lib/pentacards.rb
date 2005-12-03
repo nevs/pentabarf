@@ -59,22 +59,8 @@ class Pentacards
     event = Momomoto::View_event.find({:translated_id=> @language_id, :event_id => event_id})
 
     this_event = {
-            'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => @language_id, :event_state_id => event.event_state_id}).name,
-            'subtitle' => convert(event.subtitle),
-            'title' => convert(event.title),
-            'id' => event.event_id.to_s,
-            'tag' => convert(event.tag),
-            'abstract' => event.abstract.to_s
+            'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => @language_id, :event_state_id => event.event_state_id}).name
             }
-    
-    this_event.each do | key, value |
-      puts "#{key}: #{value}"
-      begin
-        value = @converter.iconv( value.to_s )
-      rescue
-        next
-      end
-    end
      
     # compose the display sting for all languages:
     langs_str = ""
@@ -85,14 +71,14 @@ class Pentacards
                    "#{event.event_state}\n#{this_event['event_state_progress']}",
                    langs_str,
                    event.event_type ]
-    
+
+
     output_row.each_with_index do | item, index |
       draw_text_box( col, row, { :text => @converter.iconv( item ),
                                  :width => (@card_width / output_row.size),
                                  :height => 26,
                                  :x => 0 + ((@card_width / output_row.size ) * index) ,
                                  :y => 0,
-                                 :bgcolor => '#fff',
                                  :left_margin => 0,
                                  :top_margin => 0,
                                  :border_color => '#000',
@@ -100,7 +86,7 @@ class Pentacards
                                  :align => :center,
                                  :font_size => 12 } )  
     end
-    
+
     output_row = [ event.day, 
                    event.room, 
                    event.start_time ? event.start_time.strftime('%H:%M') : '', 
@@ -121,11 +107,10 @@ class Pentacards
                                  :font_size => 18})
     end
         
-    # Draw Perosns box
+    # Draw Persons box
     persons = Momomoto::View_event_person.find({:event_id => event.event_id, :language_id => @language_id})
 
-    speakers, moderators, coordinators = Array.new, Array.new, Array.new
-    
+    speakers, moderators, coordinators = [], [], []
     persons.each do |person|
       speakers << "<b>#{person.event_role_tag.capitalize[0..0]}</b>: #{person.name}\n" if person.event_role_tag == 'speaker'
       moderators << "<b>#{person.event_role_tag.capitalize[0..0]}</b>: #{person.name}\n" if person.event_role_tag == 'moderator'
@@ -146,107 +131,78 @@ class Pentacards
                                :align => :left,
                                :font_size => 10 } )
  
-#                    :bgcolor => '#ababab',
-    # write abstarct
-    #FIXME
-    abstract_title = ""
-    abstract_text =  this_event['abstract']
-  
-  #HACK HACK HACK WORKAROUND for the UTF -> ISO conversion problems.   
-  begin
-    abstract_str = "<b>#{Iconv.iconv("iso-8859-1","UTF-8",abstract_title)}</b>\n#{Iconv.iconv("iso-8859-1","UTF-8",abstract_text)}"
-  rescue
-    
-      array = "<b>#{abstract_title}</b>\n#{abstract_text}".split(/./)
-      array.each_with_index do |item,index|
-       begin
-        array[index] = Iconv.iconv("iso-8859-1","UTF-8",item)
-       rescue
-        # could not convert char so replacing with " "
-        array[index] = " "
-       end
-      end
-      abstract_str = array.join
-  end
-    
-    draw_text_box(col,row,{  :text => abstract_str,
-                    :width => 236,
-                    :height => 83,
-                    :x => 131,
-                    :y => 91,
-                    :text_color => '#000',
-                    :bgcolor => '#fff',
-                    :left_margin => 0.2,
-                    :top_margin => 0.3,
-                    :border_color => '#00f',
-                    :border_size => 0,
-                    :align => :left,
-                    :font_size => 9})
-    
-    
-    # Subtitle 
-    draw_text_box(col,row,{  :text => this_event['subtitle'],
-                    :width => 296,
-                    :height => 37,
-                    :x => 70,
-                    :y => @card_height - 34 - 36 - 4,
-                    :text_color => '#000',
-                    :left_margin => 0.2,
-                    :top_margin => 0,
-                    :border_size => 0,
-                    :align => :left,
-                    :font_size => 15})
+    draw_text_box( col, row, { :text => event.abstract,
+                               :width => 236,
+                               :height => 83,
+                               :x => 131,
+                               :y => 91,
+                               :text_color => '#000',
+                               :bgcolor => '#fff',
+                               :left_margin => 0.2,
+                               :top_margin => 0.3,
+                               :border_color => '#00f',
+                               :border_size => 0,
+                               :align => :left,
+                               :font_size => 9 } )
+ 
+    draw_text_box( col, row, { :text => event.subtitle,
+                               :width => 296,
+                               :height => 37,
+                               :x => 70,
+                               :y => @card_height - 34 - 36 - 4,
+                               :text_color => '#000',
+                               :left_margin => 0.2,
+                               :top_margin => 0,
+                               :border_size => 0,
+                               :align => :left,
+                               :font_size => 15})
                     
-   #title in the top
-   draw_text_box(col,row,{  :text => "<b>#{this_event['title']}</b>",
-                    :width => 225,
-                    :height => 36,
-                    :x => 70,
-                    :y => @card_height - 32 ,
-                    :text_color => '#000',
-                    :left_margin => 0.2,
-                    :top_margin => 0.1,
-                    :border_size => 0,
-                    :align => :left,
-                    :font_size => 18}) 
-                    
+    #title in the top
+    draw_text_box( col, row, { :text => "<b>#{event.title}</b>",
+                               :width => 225,
+                               :height => 36,
+                               :x => 70,
+                               :y => @card_height - 32 ,
+                               :text_color => '#000',
+                               :left_margin => 0.2,
+                               :top_margin => 0.1,
+                               :border_size => 0,
+                               :align => :left,
+                               :font_size => 18}) 
 
-                    
-   #ID top right corner
-   if this_event['id']
-   draw_text_box(col,row,{  :text => "<b>#{this_event['id']}</b>".strip,
-                    :width => 80,
-                    :height => 34,
-                    :x => @card_width - 79,
-                    :y => (@card_height - 34).abs,
-                    :text_color => '#fff',
-                    :bgcolor => '#000',
-                    :left_margin => 0,
-                    :top_margin => 0.1,
-                    :border_size => 0,
-                    :align => :center,
-                    :font_size => 21})
-  end
-  # HACK should be definde some reasonable palce not hardcoded:
-  $site_url = "pentabarf.cccv.de"
-  # insert image
-  puts (this_event['id']).to_i
-  begin
-   # pdf-writer does not like png tranparency
-   event_image = Momomoto::View_event_image.find( {:event_id => (this_event['id']).to_i } ).image
-   add_image(col,row,event_image,5,@card_height - 50,60,60,"http://#{$site_url}/pentabarf/event/#{this_event['id']}")
-  rescue
-  end
-  
-                    
-  # Draw a border around the boxes for cutting
-  # - this is done last, to darw above al whitend borders that may have been drawn before
-  #draw_text_box(col,row,{:x => 0,
-  #               :y => 0,
-   #              :width => @card_width,
-    #              :height => @card_height,
-    #             :border_size => 0
-     #            }) #if args[:card_border]
+    #ID top right corner
+    draw_text_box( col, row, { :text => "<b>#{event.event_id}</b>",
+                               :width => 80,
+                               :height => 34,
+                               :x => @card_width - 79,
+                               :y => (@card_height - 34).abs,
+                               :text_color => '#fff',
+                               :bgcolor => '#000',
+                               :left_margin => 0,
+                               :top_margin => 0.1,
+                               :border_size => 0,
+                               :align => :center,
+                               :font_size => 21 } )
+
+    # HACK should be definde some reasonable palce not hardcoded:
+    $site_url = "pentabarf.cccv.de"
+    # insert image
+    begin
+      # pdf-writer does not like png tranparency
+      event_image = Momomoto::View_event_image.find( {:event_id => event.event_id } ).image
+      add_image( col, row, event_image, 5, @card_height - 50, 60, 60, "http://#{$site_url}/pentabarf/event/#{event.event_id}" )
+    rescue
+    end
+    
+                      
+    # Draw a border around the boxes for cutting
+    # - this is done last, to darw above al whitend borders that may have been drawn before
+    #draw_text_box(col,row,{:x => 0,
+    #                       :y => 0,
+    #                       :width => @card_width,
+    #                       :height => @card_height,
+    #                       :border_size => 0
+    #                       }) #if args[:card_border]
   end
 
   # converts a string and replaces unconvertable characters with whitespace
@@ -276,16 +232,12 @@ class Pentacards
     
     # default placing of text is top left
     align = args[:align] || 'left'
-    vlaign = args[:vlaign] || 'top'
+    valign = args[:valign] || 'top'
     
     # set colors or set to default colorset:
-    
     text_color =  args[:text_color]  || '#000'
     
-    if args[:bgcolor] =~ /#0(000)?00/
-        puts "schwarz x: #{args[:x]} y: #{args[:y]}"
-    end
-    if  args[:bgcolor] then
+    if args[:bgcolor] then
       @pdf.fill_color(Color::RGB.from_html(args[:bgcolor]))  
       fill = true 
     else
@@ -324,16 +276,16 @@ class Pentacards
     
     draw_rect(x,y,width,height,fill,border)
 
-    render_text({:text => text,
-             :text_color => text_color,
-             :font_size => font_size,
-             :text_align => text_align,
-             :x => x + left_margin,
-             :y => y + height - font_size + (@line_thick * 2 - top_margin),
-             :width => width - ((@line_thick + left_margin) * 2),
-             :height => height,
-             :top_margin => top_margin,
-             :left_margin => left_margin})
+    render_text( {:text => text,
+                  :text_color => text_color,
+                  :font_size => font_size,
+                  :text_align => text_align,
+                  :x => x + left_margin,
+                  :y => y + height - font_size + (@line_thick * 2 - top_margin),
+                  :width => width - ((@line_thick + left_margin) * 2),
+                  :height => height,
+                  :top_margin => top_margin,
+                  :left_margin => left_margin})
   end
 
   def render_text(args={})
