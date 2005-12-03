@@ -96,15 +96,14 @@ class Pentcards
      e = Momomoto::View_event.find({:translated_id=> tid, :conference_id=>event.conference_id, :event_id => event.event_id})
 
      #TODO: Next version: parse layout xml here
-     this_event = {'event_type' => e.event_type,
-                  'event_state' => e.event_state,
+     this_event = {'event_type' => escape_str(e.event_type),
+                  'event_state' => escape_str(e.event_state),
                   'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => tid, :event_state_id => e.event_state_id}).name,
-                  'conference_track' => e.conference_track,
-                  'subtitle' => e.subtitle,
-                  'title' => e.title,
+                  'conference_track' => escape_str(e.conference_track),
+                  'subtitle' => escape_str(e.subtitle),
+                  'title' => escape_str(e.title),
                   'id' => e.event_id.to_s,
-                  'tag' => e.tag,
-                  'acronym' =>  Momomoto::View_find_conference.find({:conference_id => e.conference_id}).acronym,
+                  'tag' => escape_str(e.tag),
                   'duration' => "#{e.duration.hour.to_s unless e.duration.nil?}#{e.duration.nil? ? '': ':'}#{if e.duration.min<10 then '0'+ e.duration.min.to_s else e.duration.min.to_s end unless e.duration.nil?}",
                   'start_time' => "#{e.start_time.hour.to_s unless e.start_time.nil?}#{e.start_time.nil? ? '' : ':'}#{if e.start_time.min<10 then '0'+ e.start_time.min.to_s else e.start_time.min.to_s end unless e.start_time.nil?}",
                   'day' => "#{e.day}",
@@ -208,7 +207,7 @@ class Pentcards
                              :top_margin => 0,
                              :border_size => 0,
                              :align => :left,
-                             :font_size => 12})
+                             :font_size => 10})
 #                             :bgcolor => '#ababab',
      # write abstarct
      #FIXME
@@ -221,7 +220,7 @@ class Pentcards
    rescue
       
         array = "<b>#{abstract_title}</b>\n#{abstract_text}".split(/./)
-        array.each_with_inex do |item,index|
+        array.each_with_index do |item,index|
           begin
             array[index] = Iconv.iconv("iso-8859-1","UTF-8",item)
           rescue
@@ -247,7 +246,7 @@ class Pentcards
                               :font_size => 9})
      
      
-     # Subtitle
+     # Subtitle 
      draw_text_box(col,row,{  :text => this_event['subtitle'],
                               :width => 296,
                               :height => 37,
@@ -265,7 +264,7 @@ class Pentcards
                              :width => 225,
                              :height => 36,
                              :x => 70,
-                             :y => @card_height - 36 ,
+                             :y => @card_height - 32 ,
                              :text_color => '#000',
                              :left_margin => 0.2,
                              :top_margin => 0.1,
@@ -276,11 +275,12 @@ class Pentcards
 
                               
     #ID top right corner
-    draw_text_box(col,row,{   :text => "<b>#{this_event['id']}</b>",
+    if this_event['id']
+    draw_text_box(col,row,{   :text => "<b>#{this_event['id']}</b>".strip,
                               :width => 80,
                               :height => 34,
-                              :x => @card_width - 80,
-                              :y => @card_height - 34,
+                              :x => @card_width - 79,
+                              :y => (@card_height - 34).abs,
                               :text_color => '#fff',
                               :bgcolor => '#000',
                               :left_margin => 0,
@@ -288,26 +288,45 @@ class Pentcards
                               :border_size => 0,
                               :align => :center,
                               :font_size => 21})
-  
+  end
   # HACK should be definde some reasonable palce not hardcoded:
   $site_url = "pentabarf.cccv.de"
   # insert image
   puts (this_event['id']).to_i
-  
-  event_image = Momomoto::View_event_image.find( {:event_id => (this_event['id']).to_i } ).image
-
-  add_image(col,row,event_image,5,@card_height - 60,nil,60,"http://#{$site_url}/pentabarf/event/#{this_event['id']}")
-  
+  begin
+    # pdf-writer does not like png tranparency
+    event_image = Momomoto::View_event_image.find( {:event_id => (this_event['id']).to_i } ).image
+    add_image(col,row,event_image,5,@card_height - 50,60,60,"http://#{$site_url}/pentabarf/event/#{this_event['id']}")
+  rescue
+  end
   
                               
   # Draw a border around the boxes for cutting
   # - this is done last, to darw above al whitend borders that may have been drawn before
-  draw_text_box(col,row,{:x => 0,
-                         :y => 0,
-                         :width => @card_width,
-                         :height => @card_height,
-                         :border_size => 0
-                        }) #if args[:card_border]
+  #draw_text_box(col,row,{:x => 0,
+   #                      :y => 0,
+    #                     :width => @card_width,
+     #                    :height => @card_height,
+      #                   :border_size => 0
+       #                 }) #if args[:card_border]
+   end
+   
+   def escape_str(str)
+    begin
+         rstr = Iconv.iconv("iso-8859-1","UTF-8",str)
+    rescue
+	 array = str.split(/./)
+	 array.each_with_index do |item,index|
+	           begin
+	                array[index] = Iconv.iconv("iso-8859-1","UTF-8",item)
+	           rescue
+	                # could not convert char so replacing with " "
+	           	array[index] = " "		
+		   end
+	end
+        rstr = array.join
+     end
+     return rstr[0] 
    end
 
    def draw_text_box(col,row,args={})
@@ -323,11 +342,14 @@ class Pentcards
       vlaign = args[:vlaign] || 'top'
       
       # set colors or set to default colorset:
-      
-      
-      text_color = args[:text_color] || '#000000'
+     
+      text_color =  args[:text_color]  || '#000'
+     
+      if args[:bgcolor] =~ /#0(000)?00/
+           puts "schwarz x: #{args[:x]} y: #{args[:y]}"
+      end
       if  args[:bgcolor] then
-        @pdf.fill_color(Color::RGB.from_html(args[:bgcolor] || '#ffffff'))  
+        @pdf.fill_color(Color::RGB.from_html(args[:bgcolor]))  
         fill = true 
       else
         fill = false

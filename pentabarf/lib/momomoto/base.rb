@@ -206,7 +206,7 @@ module Momomoto
       end
     end
 
-    # iterate over resultset
+    # iterate over resultset and return a new object
     def slow_each
       @resultset.length.times do | i |
         element = copy_member( self.class.new )
@@ -216,6 +216,7 @@ module Momomoto
       end
     end
 
+    # for performance reasons we don't create new objects while iterating
     def each
       old_record = @current_record
       @resultset.length.times do | i |
@@ -236,10 +237,12 @@ module Momomoto
     end
     
     def each_with_index
+      old_record = @current_record
       @resultset.length.times do | i |
         @current_record = i
         yield( self, i )
       end
+      @current_record = old_record
     end
 
     def nil?
