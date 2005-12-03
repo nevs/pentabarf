@@ -64,7 +64,7 @@ class Pentacards
      
     # compose the display sting for all languages:
     langs_str = ""
-    langs_str = Momomoto::View_conference_language.find({:language_id => event.language_id, :translated_id=> @language_id, :conference_id=>event.conference_id}).name
+    langs_str = Momomoto::View_language.find({:language_id => event.language_id, :translated_id=> @language_id } ).name
     
     # this is the bottom line with track, state language and event type
     output_row = [ event.conference_track ,
