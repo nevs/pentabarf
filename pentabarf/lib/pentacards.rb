@@ -60,22 +60,23 @@ class Pentcards
   end
   
   protected
+
   def create_card(event,args={})  
-  return
-  1.upto(@pages) do |page|
-    0.upto(@cols-1) do |col|
-      0.upto(@rows-1) do |row|
-        draw_layout(event,col,row,
-                {:card_border => true})
-        #draw_page(col,row)
-      end  
+    return
+    1..@pages.each do | page |
+      0...@cols.each do |col|
+        0...@rows.each do |row|
+          draw_layout(event,col,row,
+                  {:card_border => true})
+          #draw_page(col,row)
+        end  
+      end
+      # start a new page and move the writing pointer to thenew pages top margin
+      @pdf.start_new_page if page > 1
     end
-    # start a new page and move the writing pointer to thenew pages top margin
-    @pdf.start_new_page if page > 1
-  end
   end
   
-  def draw_layout(event,col,row,args={})
+  def draw_layout( event, col, row, args={})
     tid = 120 # translation_id 
     e = Momomoto::View_event.find({:translated_id=> tid, :conference_id=>event.conference_id, :event_id => event.event_id})
 
@@ -94,47 +95,39 @@ class Pentcards
             'abstract' => e.abstract.to_s
             }
     
-   this_event.each do | key, value |
-    puts "#{key}: #{value}"
-    begin
-      value = @converter.iconv( value.to_s )
-    rescue
-      next
+    this_event.each do | key, value |
+      puts "#{key}: #{value}"
+      begin
+        value = @converter.iconv( value.to_s )
+      rescue
+        next
+      end
     end
-   end
      
     # compose the display sting for all languages:
     langs_str = ""
     langs_str = Momomoto::View_conference_language.find({:language_id => event.language_id, :translated_id=> tid, :conference_id=>event.conference_id}).name
-    # add commas
-#    langs.each{|lang| langs_str += "#{lang['tag'].upcase + ', '}"}
-    # and strip the last one of
- #   langs_str.reverse!
-  #  langs_str.sub!(' ,','')
-  #  langs_str.reverse!
-
     
     # keep in mind that these have to be ordered the same way
-    last_row_content = [this_event['conference_track'],
-            "#{this_event['event_state']}\n#{this_event['event_state_progress']}",
-            langs_str,
-            this_event['event_type']
-           ]
+    last_row_content = [ this_event['conference_track'],
+                         "#{this_event['event_state']}\n#{this_event['event_state_progress']}",
+                         langs_str,
+                         this_event['event_type'] ]
     
-    last_row_content.each_with_index do |item,index|
-     draw_text_box(col,row,{:text => Iconv.iconv("iso-8859-1","UTF-8",item)[0],
-                    :width => (@card_width / last_row_content.size),
-                    :height => 26,
-                    :x => 0 + ((@card_width /last_row_content.size ) * index) ,
-                    :y => 0,
-                    :bgcolor => '#fff',
-                    :left_margin => 0,
-                    :top_margin => 0,
-                    :border_color => '#000',
-                    :border_size => 0,
-                    :align => :center,
-                    :font_size => 12})  
-                  end
+    last_row_content.each_with_index do | item, index |
+      draw_text_box( col, row, { :text => @converter.iconv( item ),
+                                 :width => (@card_width / last_row_content.size),
+                                 :height => 26,
+                                 :x => 0 + ((@card_width /last_row_content.size ) * index) ,
+                                 :y => 0,
+                                 :bgcolor => '#fff',
+                                 :left_margin => 0,
+                                 :top_margin => 0,
+                                 :border_color => '#000',
+                                 :border_size => 0,
+                                 :align => :center,
+                                 :font_size => 12 } )  
+    end
     
     annote_row_prelimanary = [this_event['day'],this_event['room'],this_event['start_time'],this_event['duration']]
     
