@@ -13,6 +13,7 @@ class Pentcards
  
   def initialize(mo_events, rows, cols, paper_dimensions=[21.0, 29.7])
     @converter = Iconv.new('iso-8859-15', 'UTF-8')
+    @language_id = 120
     @border_between_cards = 1 #in cm
     
     # we ignore custom col and row settigns for now, till the layout can cope with it.
@@ -77,12 +78,11 @@ class Pentcards
   end
   
   def draw_layout( event, col, row, args={})
-    tid = 120 # translation_id 
-    e = Momomoto::View_event.find({:translated_id=> tid, :conference_id=>event.conference_id, :event_id => event.event_id})
+    e = Momomoto::View_event.find({:translated_id=> @language_id, :conference_id=>event.conference_id, :event_id => event.event_id})
 
     this_event = {'event_type' => convert(e.event_type),
             'event_state' => convert(e.event_state),
-            'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => tid, :event_state_id => e.event_state_id}).name,
+            'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => @language_id, :event_state_id => e.event_state_id}).name,
             'subtitle' => convert(e.subtitle),
             'title' => convert(e.title),
             'id' => e.event_id.to_s,
@@ -105,7 +105,7 @@ class Pentcards
      
     # compose the display sting for all languages:
     langs_str = ""
-    langs_str = Momomoto::View_conference_language.find({:language_id => event.language_id, :translated_id=> tid, :conference_id=>event.conference_id}).name
+    langs_str = Momomoto::View_conference_language.find({:language_id => event.language_id, :translated_id=> @language_id, :conference_id=>event.conference_id}).name
     
     # keep in mind that these have to be ordered the same way
     last_row_content = [ e.conference_track.to_s ,
@@ -149,7 +149,7 @@ class Pentcards
     
     # Draw Perosns box
     #FIXME
-    persons = Momomoto::View_event_person.find({:event_id => e.event_id, :language_id => tid})
+    persons = Momomoto::View_event_person.find({:event_id => e.event_id, :language_id => @language_id})
     job = ["Vordtragender","Betreuer"]
 
     #HACK
@@ -157,7 +157,7 @@ class Pentcards
          "coordinator" => "C",
           "moderator" => "M"}    
     
-    persons_title = Momomoto::View_ui_message.find({:tag=>'table::event_person::person', :language_id => 144}).name
+    persons_title = Momomoto::View_ui_message.find({:tag=>'table::event_person::person', :language_id => @language_id}).name
     
     persons_str = ""
     
@@ -169,23 +169,21 @@ class Pentcards
       coordinators << "<b>#{role_acros[person.event_role_tag]}</b>: #{person.name}\n" if person.event_role_tag == 'coordinator' and not role_acros[person.event_role_tag].nil?
     end
 
-      persons = speakers + moderators +coordinators
+      persons = speakers + moderators + coordinators
       persons_str = persons.join.to_str
 
-    persons_str = Iconv.new('iso-8859-15', 'UTF-8').iconv(persons_str)
-    
-    draw_text_box(col,row,{:text => persons_str,
-                    :width => 130,
-                    :height => 70,
-                    :x => 0,
-                    :y =>88,
-                    :text_color => '#000',
-                    :left_margin => 0.2,
-                    :top_margin => 0,
-                    :border_size => 0,
-                    :align => :left,
-                    :font_size => 10})
-
+    draw_text_box( col, row, { :text => persons_str,
+                               :width => 130,
+                               :height => 70,
+                               :x => 0,
+                               :y =>88,
+                               :text_color => '#000',
+                               :left_margin => 0.2,
+                               :top_margin => 0,
+                               :border_size => 0,
+                               :align => :left,
+                               :font_size => 10 } )
+ 
 #                    :bgcolor => '#ababab',
     # write abstarct
     #FIXME
