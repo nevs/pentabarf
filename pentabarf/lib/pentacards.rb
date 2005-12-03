@@ -148,25 +148,16 @@ class Pentcards
     annote_row_title = ['table::event::day','table::event::room','table::event::start_time','table::event::duration']
     
     # Draw Perosns box
-    #FIXME
     persons = Momomoto::View_event_person.find({:event_id => e.event_id, :language_id => @language_id})
-    job = ["Vordtragender","Betreuer"]
 
-    #HACK
-    role_acros = {"speaker" => "S",
-         "coordinator" => "C",
-          "moderator" => "M"}    
-    
-    persons_title = Momomoto::View_ui_message.find({:tag=>'table::event_person::person', :language_id => @language_id}).name
-    
     persons_str = ""
     
     speakers, moderators, coordinators = Array.new, Array.new, Array.new
     
     persons.each do |person|
-      speakers << "<b>#{role_acros[person.event_role_tag]}</b>: #{person.name}\n" if person.event_role_tag == 'speaker' and not role_acros[person.event_role_tag].nil?
-      moderators << "<b>#{role_acros[person.event_role_tag]}</b>: #{person.name}\n" if person.event_role_tag == 'moderator' and not role_acros[person.event_role_tag].nil?
-      coordinators << "<b>#{role_acros[person.event_role_tag]}</b>: #{person.name}\n" if person.event_role_tag == 'coordinator' and not role_acros[person.event_role_tag].nil?
+      speakers << "<b>#{person.event_role_tag.capitalize[0..0]}</b>: #{person.name}\n" if person.event_role_tag == 'speaker'
+      moderators << "<b>#{person.event_role_tag.capitalize[0..0]}</b>: #{person.name}\n" if person.event_role_tag == 'moderator'
+      coordinators << "<b>#{person.event_role_tag.capitalize[0..0]}</b>: #{person.name}\n" if person.event_role_tag == 'coordinator'
     end
 
       persons = speakers + moderators + coordinators
