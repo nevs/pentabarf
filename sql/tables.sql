@@ -828,6 +828,7 @@ CREATE TABLE event_person (
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   FOREIGN KEY (event_role_id) REFERENCES event_role (event_role_id),
   FOREIGN KEY (event_role_state_id) REFERENCES event_role_state (event_role_state_id),
+  UNIQUE (event_id, person_id, event_role_id),
   PRIMARY KEY (event_person_id)
 ) WITHOUT OIDS;
 
