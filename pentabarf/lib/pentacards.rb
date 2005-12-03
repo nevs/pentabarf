@@ -1,10 +1,10 @@
 # Pentacard generator v0.1
 # Thomas Kollbach <toto@bitfever.de>
-# completely rewritten by Sven Klemm <sven@c3d2.de>
+# major rewrite by Sven Klemm <sven@c3d2.de>
 #
 # CAUTION: This file has to be ISO Latin 1. Don't convert to UTF-8 as PDF::Writer does not support Unicode.
-# USES ONLY DUMMY DATA - NO LIVE DATA YET
 # 
+
 require 'config/environment.rb'
 require 'rubygems'
 require 'iconv'
@@ -16,7 +16,7 @@ class Pentacards
     @converter = Iconv.new('iso-8859-15', 'UTF-8')
     @language_id = 120
     @border_between_cards = 1 #in cm
-    
+ 
     # we ignore custom col and row settigns for now, till the layout can cope with it.
     @cols = 2
     @rows = 2
@@ -44,11 +44,7 @@ class Pentacards
       draw_layout( event.event_id, col, row )
     end
   end
-  
-  def write_text(col,row,page)
-    
-  end
-  
+ 
   def render
     return @pdf.render
   end
@@ -58,20 +54,14 @@ class Pentacards
   def draw_layout( event_id, col, row, args={})
     event = Momomoto::View_event.find({:translated_id=> @language_id, :event_id => event_id})
 
-    this_event = {
-            'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => @language_id, :event_state_id => event.event_state_id}).name
-            }
-     
-    # compose the display sting for all languages:
-    langs_str = ""
-    langs_str = Momomoto::View_language.find({:language_id => event.language_id, :translated_id=> @language_id } ).name
-    
+    language = Momomoto::View_language.find({:language_id => event.language_id, :translated_id => @language_id})
+    progress = Momomoto::View_event_state_progress.find({:language_id=>@language_id, :event_state_progress_id => event.event_state_progress_id})
+      
     # this is the bottom line with track, state language and event type
     output_row = [ event.conference_track ,
-                   "#{event.event_state}\n#{this_event['event_state_progress']}",
-                   langs_str,
+                   "#{event.event_state}\n#{progress.name}",
+                   language.length == 1 ? language.name : '',
                    event.event_type ]
-
 
     output_row.each_with_index do | item, index |
       draw_text_box( col, row, { :text => @converter.iconv( item ),
@@ -157,7 +147,7 @@ class Pentacards
                                :align => :left,
                                :font_size => 15})
                     
-    #title in the top
+    # title in the top
     draw_text_box( col, row, { :text => "<b>#{event.title}</b>",
                                :width => 225,
                                :height => 36,
@@ -170,7 +160,7 @@ class Pentacards
                                :align => :left,
                                :font_size => 18}) 
 
-    #ID top right corner
+    # event_id top right corner
     draw_text_box( col, row, { :text => "<b>#{event.event_id}</b>",
                                :width => 80,
                                :height => 34,
@@ -194,15 +184,6 @@ class Pentacards
     rescue
     end
     
-                      
-    # Draw a border around the boxes for cutting
-    # - this is done last, to darw above al whitend borders that may have been drawn before
-    #draw_text_box(col,row,{:x => 0,
-    #                       :y => 0,
-    #                       :width => @card_width,
-    #                       :height => @card_height,
-    #                       :border_size => 0
-    #                       }) #if args[:card_border]
   end
 
   # converts a string and replaces unconvertable characters with whitespace
@@ -256,7 +237,7 @@ class Pentacards
       border = true
       @pdf.stroke_style(PDF::Writer::StrokeStyle.new(@line_thick)) # in pixes
     end
-    # inner margins in centimeterss
+    # inner margins in centimeter
     top_margin = PDF::Writer.cm2pts(args[:top_margin] || 0.2)
     left_margin = PDF::Writer.cm2pts(args[:left_margin] || 0.2)
     
@@ -290,48 +271,44 @@ class Pentacards
 
   def render_text(args={})
     if args[:text] != ""
-    # get ready for front writing
+      # get ready for front writing
       @pdf.fill_color(Color::RGB.from_html(args[:text_color])) 
       @pdf.stroke_color(Color::RGB.from_html(args[:text_color]))
-
 
       org_text = args[:text]
       
       # make paragraphs
       if org_text.rindex("\n") && org_text.rindex("\n") > 0 
-       text = org_text[0,org_text.index("\n")]
+        text = org_text[0,org_text.index("\n")]
        
-       #render this line
-       rest_text = @pdf.add_text_wrap( args[:x],
+        #render this line
+        rest_text = @pdf.add_text_wrap( args[:x],
                             args[:y],
                             args[:width],
                             text,
                             args[:font_size],
                             args[:text_align])
-       rest_text =  rest_text + org_text[org_text.index("\n")+1,org_text.size-1]
+        rest_text =  rest_text + org_text[org_text.index("\n")+1,org_text.size-1]
 
       else
 
-       text = args[:text]
+        text = args[:text]
        
-       #render this line
-       rest_text = @pdf.add_text_wrap( args[:x],
+        #render this line
+        rest_text = @pdf.add_text_wrap( args[:x],
                             args[:y],
                             args[:width],
                             text,
                             args[:font_size],
                             args[:text_align])
       end
-
-
-
-      
+     
       # render everything but the last lines that fits or overflow if said to
       if args[:overflow] || args[:height] >= args[:font_size]
-       line_space = args[:font_size] * (args[:line_spacing] || 1)
-       line_space = line_space.round + 1
+        line_space = args[:font_size] * (args[:line_spacing] || 1)
+        line_space = line_space.round + 1
 
-       render_text({:text => rest_text,
+        render_text({:text => rest_text,
                 :text_color => args[:text_color] || '#000000',
                 :x => args[:x],
                 :y => args[:y] - line_space,
@@ -341,14 +318,14 @@ class Pentacards
                 :left_margin => 0,
                 :font_size => args[:font_size],
                 :text_align => args[:text_align]}) 
-     # append three dots to the last line and render it
+      # append three dots to the last line and render it
 
-     else
-      # or break recursion
-      return
-     end
+      else
+        # or break recursion
+        return
+      end
     else
-     return
+      return
     end
   end
 
@@ -363,4 +340,5 @@ class Pentacards
    
     @pdf.add_image(image,x,y,width,height,nil,link)
   end
+
 end
