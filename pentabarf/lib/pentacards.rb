@@ -55,21 +55,6 @@ class Pentacards
   
   protected
 
-  def create_card(event,args={})  
-    return
-    1..@pages.each do | page |
-      0...@cols.each do |col|
-        0...@rows.each do |row|
-          draw_layout(event,col,row,
-                  {:card_border => true})
-          #draw_page(col,row)
-        end  
-      end
-      # start a new page and move the writing pointer to thenew pages top margin
-      @pdf.start_new_page if page > 1
-    end
-  end
-  
   def draw_layout( event_id, col, row, args={})
     event = Momomoto::View_event.find({:translated_id=> @language_id, :event_id => event_id})
 
@@ -79,10 +64,6 @@ class Pentacards
             'title' => convert(event.title),
             'id' => event.event_id.to_s,
             'tag' => convert(event.tag),
-            'duration' => "#{event.duration.hour.to_s unless event.duration.nil?}#{event.duration.nil? ? '': ':'}#{if event.duration.min<10 then '0'+ event.duration.min.to_s else event.duration.min.to_s end unless event.duration.nil?}",
-            'start_time' => "#{event.start_time.hour.to_s unless event.start_time.nil?}#{event.start_time.nil? ? '' : ':'}#{if event.start_time.min<10 then '0'+ event.start_time.min.to_s else event.start_time.min.to_s end unless event.start_time.nil?}",
-            'day' => "#{event.day}",
-            'room' => event.room.to_s,
             'abstract' => event.abstract.to_s
             }
     
@@ -99,17 +80,17 @@ class Pentacards
     langs_str = ""
     langs_str = Momomoto::View_conference_language.find({:language_id => event.language_id, :translated_id=> @language_id, :conference_id=>event.conference_id}).name
     
-    # keep in mind that these have to be ordered the same way
-    last_row_content = [ event.conference_track ,
-                         "#{event.event_state}\n#{this_event['event_state_progress']}",
-                         langs_str,
-                         event.event_type ]
+    # this is the bottom line with track, state language and event type
+    output_row = [ event.conference_track ,
+                   "#{event.event_state}\n#{this_event['event_state_progress']}",
+                   langs_str,
+                   event.event_type ]
     
-    last_row_content.each_with_index do | item, index |
+    output_row.each_with_index do | item, index |
       draw_text_box( col, row, { :text => @converter.iconv( item ),
-                                 :width => (@card_width / last_row_content.size),
+                                 :width => (@card_width / output_row.size),
                                  :height => 26,
-                                 :x => 0 + ((@card_width /last_row_content.size ) * index) ,
+                                 :x => 0 + ((@card_width / output_row.size ) * index) ,
                                  :y => 0,
                                  :bgcolor => '#fff',
                                  :left_margin => 0,
@@ -120,13 +101,16 @@ class Pentacards
                                  :font_size => 12 } )  
     end
     
-    annote_row_prelimanary = [this_event['day'],this_event['room'],this_event['start_time'],this_event['duration']]
-    
-    annote_row_prelimanary.each_with_index do |item,index|
+    output_row = [ event.day, 
+                   event.room, 
+                   event.start_time ? event.start_time.strftime('%H:%M') : '', 
+                   event.duration.strftime('%H:%M') ]
+                                                                                                     
+    output_row.each_with_index do | item, index |
         draw_text_box(col,row,{:text =>item,
-                       :width => (@card_width / annote_row_prelimanary.size),
+                       :width => (@card_width / output_row.size),
                        :height => 42,
-                       :x => 0 + ((@card_width /annote_row_prelimanary.size ) * index) ,
+                       :x => 0 + ((@card_width / output_row.size ) * index) ,
                        :y => 43,
                        :left_margin => 0,
                        :top_margin => 0.4,
