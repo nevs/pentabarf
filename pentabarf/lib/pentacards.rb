@@ -1,5 +1,6 @@
 # Pentacard generator v0.1
 # Thomas Kollbach <toto@bitfever.de>
+# completely rewritten by Sven Klemm <sven@c3d2.de>
 #
 # CAUTION: This file has to be ISO Latin 1. Don't convert to UTF-8 as PDF::Writer does not support Unicode.
 # USES ONLY DUMMY DATA - NO LIVE DATA YET
@@ -9,9 +10,9 @@ require 'rubygems'
 require 'iconv'
 require_gem 'pdf-writer'
 
-class Pentcards
+class Pentacards
  
-  def initialize(mo_events, rows, cols, paper_dimensions=[21.0, 29.7])
+  def initialize( events, rows, cols, paper_dimensions=[21.0, 29.7])
     @converter = Iconv.new('iso-8859-15', 'UTF-8')
     @language_id = 120
     @border_between_cards = 1 #in cm
@@ -19,7 +20,7 @@ class Pentcards
     # we ignore custom col and row settigns for now, till the layout can cope with it.
     @cols = 2
     @rows = 2
-    @pages = ( mo_events.length / ( @cols * @rows )).ceil
+    @pages = ( events.length / ( @cols * @rows )).ceil
     
     # select optimal orientation
     orientation = @cols >= @rows ? :landscape : :portrait
@@ -34,21 +35,13 @@ class Pentcards
     @pdf.select_font "Helvetica"
     @pdf.margins_pt(@margin)
  
-    counter, page = 0, 0
-    
-    mo_events.each do | event |
-    
-      if counter == 4
-        page += 1 
-        @pdf.start_new_page 
-        counter = 0 
+    events.each_with_index do | event, index |
+      @pdf.start_new_page if index % (@cols * @rows) == 0 and index > 0
 
-      end
-      col = (counter) % 2
-      row = (counter) / 2
+      col = index % 2
+      row = (index % 4)/ 2
       
       draw_layout( event.event_id, col, row )
-      counter += 1
     end
   end
   
@@ -80,8 +73,7 @@ class Pentcards
   def draw_layout( event_id, col, row, args={})
     event = Momomoto::View_event.find({:translated_id=> @language_id, :event_id => event_id})
 
-    this_event = {'event_type' => convert(event.event_type),
-            'event_state' => convert(event.event_state),
+    this_event = {
             'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => @language_id, :event_state_id => event.event_state_id}).name,
             'subtitle' => convert(event.subtitle),
             'title' => convert(event.title),
@@ -108,10 +100,10 @@ class Pentcards
     langs_str = Momomoto::View_conference_language.find({:language_id => event.language_id, :translated_id=> @language_id, :conference_id=>event.conference_id}).name
     
     # keep in mind that these have to be ordered the same way
-    last_row_content = [ event.conference_track.to_s ,
-                         "#{this_event['event_state']}\n#{this_event['event_state_progress']}",
+    last_row_content = [ event.conference_track ,
+                         "#{event.event_state}\n#{this_event['event_state_progress']}",
                          langs_str,
-                         this_event['event_type'] ]
+                         event.event_type ]
     
     last_row_content.each_with_index do | item, index |
       draw_text_box( col, row, { :text => @converter.iconv( item ),

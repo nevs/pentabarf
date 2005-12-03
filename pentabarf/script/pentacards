@@ -11,11 +11,11 @@ end
 Momomoto::Base.connect(YAML::load_file("#{RAILS_ROOT}/config/database.yml")[RAILS_ENV])
 
 # find all events 
-events = Momomoto::View_find_event.find({:translated_id => 144 ,:conference_id => ARGV[0], :event_id => 564})
+events = Momomoto::View_find_event.find({:translated_id => 144 ,:conference_id => ARGV[0]})
 
 puts "creating pentacards for #{events.length} events"
 
-pc = Pentcards.new( events, 2, 2 )
+pc = Pentacards.new( events, 2, 2 )
 
 File.open("pentacards.pdf", "wb") do |f| 
   f.write( pc.render ) 
