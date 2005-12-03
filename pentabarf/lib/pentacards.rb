@@ -47,7 +47,7 @@ class Pentcards
       col = (counter) % 2
       row = (counter) / 2
       
-      draw_layout(event,col,row)
+      draw_layout( event.event_id, col, row )
       counter += 1
     end
   end
@@ -77,21 +77,21 @@ class Pentcards
     end
   end
   
-  def draw_layout( event, col, row, args={})
-    e = Momomoto::View_event.find({:translated_id=> @language_id, :conference_id=>event.conference_id, :event_id => event.event_id})
+  def draw_layout( event_id, col, row, args={})
+    event = Momomoto::View_event.find({:translated_id=> @language_id, :event_id => event_id})
 
-    this_event = {'event_type' => convert(e.event_type),
-            'event_state' => convert(e.event_state),
-            'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => @language_id, :event_state_id => e.event_state_id}).name,
-            'subtitle' => convert(e.subtitle),
-            'title' => convert(e.title),
-            'id' => e.event_id.to_s,
-            'tag' => convert(e.tag),
-            'duration' => "#{e.duration.hour.to_s unless e.duration.nil?}#{e.duration.nil? ? '': ':'}#{if e.duration.min<10 then '0'+ e.duration.min.to_s else e.duration.min.to_s end unless e.duration.nil?}",
-            'start_time' => "#{e.start_time.hour.to_s unless e.start_time.nil?}#{e.start_time.nil? ? '' : ':'}#{if e.start_time.min<10 then '0'+ e.start_time.min.to_s else e.start_time.min.to_s end unless e.start_time.nil?}",
-            'day' => "#{e.day}",
-            'room' => e.room.to_s,
-            'abstract' => e.abstract.to_s
+    this_event = {'event_type' => convert(event.event_type),
+            'event_state' => convert(event.event_state),
+            'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => @language_id, :event_state_id => event.event_state_id}).name,
+            'subtitle' => convert(event.subtitle),
+            'title' => convert(event.title),
+            'id' => event.event_id.to_s,
+            'tag' => convert(event.tag),
+            'duration' => "#{event.duration.hour.to_s unless event.duration.nil?}#{event.duration.nil? ? '': ':'}#{if event.duration.min<10 then '0'+ event.duration.min.to_s else event.duration.min.to_s end unless event.duration.nil?}",
+            'start_time' => "#{event.start_time.hour.to_s unless event.start_time.nil?}#{event.start_time.nil? ? '' : ':'}#{if event.start_time.min<10 then '0'+ event.start_time.min.to_s else event.start_time.min.to_s end unless event.start_time.nil?}",
+            'day' => "#{event.day}",
+            'room' => event.room.to_s,
+            'abstract' => event.abstract.to_s
             }
     
     this_event.each do | key, value |
@@ -108,7 +108,7 @@ class Pentcards
     langs_str = Momomoto::View_conference_language.find({:language_id => event.language_id, :translated_id=> @language_id, :conference_id=>event.conference_id}).name
     
     # keep in mind that these have to be ordered the same way
-    last_row_content = [ e.conference_track.to_s ,
+    last_row_content = [ event.conference_track.to_s ,
                          "#{this_event['event_state']}\n#{this_event['event_state_progress']}",
                          langs_str,
                          this_event['event_type'] ]
@@ -148,7 +148,7 @@ class Pentcards
     annote_row_title = ['table::event::day','table::event::room','table::event::start_time','table::event::duration']
     
     # Draw Perosns box
-    persons = Momomoto::View_event_person.find({:event_id => e.event_id, :language_id => @language_id})
+    persons = Momomoto::View_event_person.find({:event_id => event.event_id, :language_id => @language_id})
 
     persons_str = ""
     
