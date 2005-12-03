@@ -10,7 +10,6 @@ require 'iconv'
 require_gem 'pdf-writer'
 
 class Pentcards
-   DEBUG = true
  
    def initialize(mo_events, rows, cols, paper_dimensions=[21.0, 29.7])
       @converter = Iconv.new('iso-8859-15', 'UTF-8')
@@ -19,18 +18,17 @@ class Pentcards
       # we ignore custom col and row settigns for now, till the layout can cope with it.
       @cols = 2
       @rows = 2
-      @pages = ( mo_events.length / ( cols * rows )).ceil
+      @pages = ( mo_events.length / ( @cols * @rows )).ceil
       
       # select optimal orientation
-      orientation = cols >= rows ? :landscape : :portrait
+      orientation = @cols >= @rows ? :landscape : :portrait
       
       @margin = 40
       
-      # claculate sizes of a single card
+      # calculate sizes of a single card
       @card_width = (PDF::Writer.cm2pts(paper_dimensions[1] - @border_between_cards) - @margin*2) / @cols
       @card_height = (PDF::Writer.cm2pts(paper_dimensions[0] - @border_between_cards)  - @margin*2) / @rows
       
-      #FIXME DEBUG
       @pdf = PDF::Writer.new(:paper => paper_dimensions, :orientation => orientation)
       @pdf.select_font "Helvetica"
       @pdf.margins_pt(@margin)
@@ -77,11 +75,9 @@ class Pentcards
    end
    
    def draw_layout(event,col,row,args={})
-     tid = 144 # translation_id 
-#     e = Momomoto::View_event.find({:translated_id=> tid,:conference_id=>event.conference_id})
+     tid = 120 # translation_id 
      e = Momomoto::View_event.find({:translated_id=> tid, :conference_id=>event.conference_id, :event_id => event.event_id})
 
-     #TODO: Next version: parse layout xml here
      this_event = {'event_type' => escape_str(e.event_type),
                   'event_state' => escape_str(e.event_state),
                   'event_state_progress' => Momomoto::View_event_state_progress.find({:language_id => tid, :event_state_id => e.event_state_id}).name,
@@ -97,14 +93,14 @@ class Pentcards
                   'abstract' => e.abstract.to_s
                   }
       
-     this_event.each{|item|
-       p item
-       begin
-         item[1] = Iconv.iconv("iso-8859-1","UTF-8",item[1].gsub(/\\342\\200\\[0-9][0-9][0-9]/,'')) unless item[1].nil?
-       rescue
-         next
-       end
-       }              
+    this_event.each do | key, value |
+      puts "#{key}: #{value}"
+      begin
+        value = @converter.iconv( value.to_s )
+      rescue
+        next
+      end
+    end
        
      # compose the display sting for all languages:
      langs_str = ""
