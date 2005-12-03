@@ -107,27 +107,23 @@ class Pentacards
                    event.duration.strftime('%H:%M') ]
                                                                                                      
     output_row.each_with_index do | item, index |
-        draw_text_box(col,row,{:text =>item,
-                       :width => (@card_width / output_row.size),
-                       :height => 42,
-                       :x => 0 + ((@card_width / output_row.size ) * index) ,
-                       :y => 43,
-                       :left_margin => 0,
-                       :top_margin => 0.4,
-                       :border_size => 1,
-                       :border_color => '#ababab',
-                       :text_color => '#ababab',
-                       :align => :center,
-                       :font_size => 18})
-                     end
+      draw_text_box( col, row, { :text =>item,
+                                 :width => (@card_width / output_row.size),
+                                 :height => 42,
+                                 :x => 0 + ((@card_width / output_row.size ) * index) ,
+                                 :y => 43,
+                                 :left_margin => 0,
+                                 :top_margin => 0.4,
+                                 :border_size => 1,
+                                 :border_color => '#ababab',
+                                 :text_color => '#ababab',
+                                 :align => :center,
+                                 :font_size => 18})
+    end
         
-    annote_row_title = ['table::event::day','table::event::room','table::event::start_time','table::event::duration']
-    
     # Draw Perosns box
     persons = Momomoto::View_event_person.find({:event_id => event.event_id, :language_id => @language_id})
 
-    persons_str = ""
-    
     speakers, moderators, coordinators = Array.new, Array.new, Array.new
     
     persons.each do |person|
@@ -136,10 +132,9 @@ class Pentacards
       coordinators << "<b>#{person.event_role_tag.capitalize[0..0]}</b>: #{person.name}\n" if person.event_role_tag == 'coordinator'
     end
 
-      persons = speakers + moderators + coordinators
-      persons_str = persons.join.to_str
+    persons = speakers + moderators + coordinators
 
-    draw_text_box( col, row, { :text => persons_str,
+    draw_text_box( col, row, { :text => persons.join(''),
                                :width => 130,
                                :height => 70,
                                :x => 0,
