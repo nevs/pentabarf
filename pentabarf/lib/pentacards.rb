@@ -24,21 +24,18 @@ class Pentcards
       # select optimal orientation
       orientation = cols >= rows ? :landscape : :portrait
       
-      @paper_dimensions = {:width => paper_dimensions[1], :height => paper_dimensions[0]}
-      
       @margin = 40
       
       # claculate sizes of a single card
-      @card_width = (PDF::Writer.cm2pts(@paper_dimensions[:width] - @border_between_cards) - @margin*2) / @cols
-      @card_height = (PDF::Writer.cm2pts(@paper_dimensions[:height] - @border_between_cards)  - @margin*2) / @rows
+      @card_width = (PDF::Writer.cm2pts(paper_dimensions[1] - @border_between_cards) - @margin*2) / @cols
+      @card_height = (PDF::Writer.cm2pts(paper_dimensions[0] - @border_between_cards)  - @margin*2) / @rows
       
       #FIXME DEBUG
       @pdf = PDF::Writer.new(:paper => paper_dimensions, :orientation => orientation)
       @pdf.select_font "Helvetica"
       @pdf.margins_pt(@margin)
       
-      counter,page = 0,0
-      
+      counter, page = 0, 0
       
       mo_events.each do |event|
          if counter == 4
@@ -51,9 +48,6 @@ class Pentcards
          row = (counter) / 2
          
          draw_layout(event,col,row)
-         
-         
-         
          counter += 1
       end
    end
