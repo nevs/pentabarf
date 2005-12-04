@@ -20,6 +20,8 @@ INSERT INTO conflict_level_localized (conflict_level_id, language_id, name) VALU
 INSERT INTO conflict_level_localized (conflict_level_id, language_id, name) VALUES (5, 120, 'Must be fixed');
 INSERT INTO conflict_level_localized (conflict_level_id, language_id, name) VALUES (5, 144, 'Muss behoben werden');
 INSERT INTO conflict_level_localized (conflict_level_id, language_id, name) VALUES (3, 144, 'Bitte beachten');
+INSERT INTO conflict_level_localized (conflict_level_id, language_id, name) VALUES (1, 120, 'silent');
+INSERT INTO conflict_level_localized (conflict_level_id, language_id, name) VALUES (1, 144, 'still');
 
 
 --

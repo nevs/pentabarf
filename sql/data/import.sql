@@ -38,4 +38,6 @@ BEGIN TRANSACTION;
 \i conference_phase_conflict.sql
 \i attachment_type.sql
 \i attachment_type_localized.sql
+\i event_origin.sql
+\i event_origin_localized.sql
 COMMIT TRANSACTION;
