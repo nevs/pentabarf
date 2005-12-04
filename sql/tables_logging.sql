@@ -44,6 +44,7 @@ CREATE TABLE conference_person_logging (
   remark TEXT,
   email_public VARCHAR(64),
   last_modified TIMESTAMP WITH TIME ZONE,
+  last_modified_by INTEGER,
   PRIMARY KEY (conference_person_logging_id)
 ) WITHOUT OIDS;
 

@@ -12,7 +12,8 @@ module Momomoto
         :description => Datatype::Text.new( {} ),
         :remark => Datatype::Text.new( {} ),
         :email_public => Datatype::Varchar.new( {:length=>64} ),
-        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} )
+        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} ),
+        :last_modified_by => Datatype::Integer.new( {} )
       }
     end
   end
