@@ -43,6 +43,7 @@ CREATE OR REPLACE VIEW view_event AS
           event.event_type_id, 
           event.duration, 
           event.event_state_id, 
+          event.event_state_progress_id, 
           event.language_id, 
           event.room_id, 
           event.day, 

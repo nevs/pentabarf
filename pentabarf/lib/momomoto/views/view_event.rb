@@ -15,6 +15,7 @@ module Momomoto
         :event_type_id => Datatype::Integer.new( {} ),
         :duration => Datatype::Interval.new( {} ),
         :event_state_id => Datatype::Integer.new( {} ),
+        :event_state_progress_id => Datatype::Integer.new( {} ),
         :language_id => Datatype::Integer.new( {} ),
         :room_id => Datatype::Integer.new( {} ),
         :day => Datatype::Smallint.new( {} ),
