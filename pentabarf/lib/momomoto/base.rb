@@ -465,6 +465,7 @@ module Momomoto
           value.value= result.to_a[0][0]
           result.clear
         end
+        value.value= @@person_id if field_name == :last_modified_by
         next if value.property( :default ) && value.write_value == 'NULL'
         raise "not null field with null value in class #{self.class.name} field #{field_name} in insert" if value.property( :not_null ) && value.write_value == 'NULL'
         fields += fields == '' ? '' : ', '
@@ -479,6 +480,7 @@ module Momomoto
       sets, conditions = '', {}
       @resultset[@current_record].each do | field_name, value |
         raise "not null field with null value in class #{self.class.name} field #{field_name} in update" if value.property( :not_null ) && value.write_value == 'NULL'
+        value.value= @@person_id if field_name == :last_modified_by
         if value.property( :primary_key ) 
           conditions[field_name] = value.value
         end

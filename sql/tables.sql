@@ -421,7 +421,9 @@ CREATE TABLE person (
   f_spam BOOL NOT NULL DEFAULT FALSE,
   last_login TIMESTAMP WITH TIME ZONE,
   last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  last_modified_by INTEGER,
   FOREIGN KEY (country_id) REFERENCES country (country_id),
+  FOREIGN KEY (last_modified_by) REFERENCES person (person_id),
   PRIMARY KEY (person_id)
 ) WITHOUT OIDS;
 

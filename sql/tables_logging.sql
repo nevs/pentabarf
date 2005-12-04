@@ -30,6 +30,7 @@ CREATE TABLE person_logging (
   f_spam BOOL,
   last_login TIMESTAMP WITH TIME ZONE,
   last_modified TIMESTAMP WITH TIME ZONE,
+  last_modified_by INTEGER,
   PRIMARY KEY (person_logging_id)
 ) WITHOUT OIDS;
 
