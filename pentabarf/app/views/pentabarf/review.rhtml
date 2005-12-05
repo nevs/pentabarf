@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-    <% for event in Momomoto::View_review.find({:conference_id => @current_conference_id, :translated_id => @current_language_id, :event_state_tag => params[:id]}) %>
+    <% for event in Momomoto::View_review.find({:conference_id => @current_conference_id, :translated_id => @current_language_id, :event_state_tag => params[:id] || true }) %>
       <tr style="<%= ratings.find_by_value({:event_id=>event.event_id}) && (ratings.acceptance || ratings.relevance || ratings.actuality) ? '' : 'background-color: moccasin;'%>">
         <td><a href="<%= url_for({:action=>:event,:id=>event.event_id}) %>"><%= h(event.title) %></a></td>
         <td><a href="<%= url_for({:action=>:event,:id=>event.event_id}) %>"><%= h(event.event_state) %></a></td>
