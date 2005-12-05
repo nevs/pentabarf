@@ -443,6 +443,9 @@ CREATE TABLE conference_person (
   PRIMARY KEY (conference_person_id)
 ) WITHOUT OIDS;
 
+CREATE INDEX conference_person_conference_id_index ON conference_person(conference_id);
+CREATE INDEX conference_person_person_id_index ON conference_person(person_id);
+
 CREATE TABLE conference_person_link (
     conference_person_link_id SERIAL NOT NULL,
     conference_person_id INTEGER NOT NULL,
@@ -703,6 +706,10 @@ CREATE TABLE event (
   PRIMARY KEY (event_id)
 ) WITHOUT OIDS;
 
+CREATE INDEX event_conference_id_index ON event(conference_id);
+CREATE INDEX event_event_state_id_index ON event(event_state_id);
+CREATE INDEX event_event_state_progress_id_index ON event(event_state_progress_id);
+
 CREATE TABLE event_audience (
   event_id INTEGER NOT NULL,
   audience_id INTEGER NOT NULL,
@@ -835,6 +842,11 @@ CREATE TABLE event_person (
   UNIQUE (event_id, person_id, event_role_id),
   PRIMARY KEY (event_person_id)
 ) WITHOUT OIDS;
+
+CREATE INDEX event_person_event_id_index ON event_person(event_id);
+CREATE INDEX event_person_person_id_index ON event_person(person_id);
+CREATE INDEX event_person_event_role_id_index ON event_person(event_role_id);
+CREATE INDEX event_person_event_role_state_id_index ON event_person(event_role_state_id);
 
 CREATE TABLE conference_transaction (
   conference_id INTEGER NOT NULL,
