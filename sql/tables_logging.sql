@@ -108,6 +108,7 @@ CREATE TABLE conference_image_logging (
   mime_type_id INTEGER NOT NULL,
   image BYTEA NOT NULL,
   last_modified TIMESTAMP WITH TIME ZONE,
+  last_modified_by INTEGER,
   PRIMARY KEY (conference_image_logging_id)
 ) WITHOUT OIDS;
 
