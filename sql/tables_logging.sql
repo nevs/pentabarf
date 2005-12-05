@@ -124,6 +124,7 @@ CREATE TABLE event_attachment_logging (
   data BYTEA NOT NULL,
   f_public BOOL,
   last_modified TIMESTAMP WITH TIME ZONE,
+  last_modified_by INTEGER,
   PRIMARY KEY (event_attachment_logging_id)
 ) WITHOUT OIDS;
 

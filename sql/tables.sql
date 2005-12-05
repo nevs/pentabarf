@@ -913,9 +913,11 @@ CREATE TABLE event_attachment (
   data BYTEA NOT NULL,
   f_public BOOL NOT NULL DEFAULT FALSE,
   last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  last_modified_by INTEGER,
   FOREIGN KEY (attachment_type_id) REFERENCES attachment_type (attachment_type_id),
   FOREIGN KEY (event_id) REFERENCES event (event_id),
   FOREIGN KEY (mime_type_id) REFERENCES mime_type (mime_type_id),
+  FOREIGN KEY (last_modified_by) REFERENCES person (person_id),
   PRIMARY KEY (event_attachment_id)
 ) WITHOUT OIDS;
 

@@ -14,7 +14,8 @@ module Momomoto
         :f_public => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :title => Datatype::Varchar.new( {:length=>256} ),
         :pages => Datatype::Integer.new( {} ),
-        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} )
+        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} ),
+        :last_modified_by => Datatype::Integer.new( {} )
       }
     end
   end
