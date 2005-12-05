@@ -694,6 +694,7 @@ CREATE TABLE event (
   f_unmoderated BOOL NOT NULL DEFAULT FALSE,
   remark TEXT,
   last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  last_modified_by INTEGER,
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
   FOREIGN KEY (conference_track_id) REFERENCES conference_track (conference_track_id),
   FOREIGN KEY (team_id) REFERENCES team(team_id),
@@ -703,6 +704,7 @@ CREATE TABLE event (
   FOREIGN KEY (event_state_progress_id) REFERENCES event_state_progress (event_state_progress_id),
   FOREIGN KEY (language_id) REFERENCES language (language_id),
   FOREIGN KEY (room_id) REFERENCES room (room_id),
+  FOREIGN KEY (last_modified_by) REFERENCES person (person_id),
   PRIMARY KEY (event_id)
 ) WITHOUT OIDS;
 

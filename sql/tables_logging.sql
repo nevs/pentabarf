@@ -77,6 +77,7 @@ CREATE TABLE event_logging (
   f_unmoderated BOOL,
   remark TEXT,
   last_modified TIMESTAMP WITH TIME ZONE,
+  last_modified_by INTEGER,
   PRIMARY KEY (event_logging_id)
 ) WITHOUT OIDS;
 
