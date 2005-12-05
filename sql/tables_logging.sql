@@ -88,6 +88,7 @@ CREATE TABLE person_image_logging (
   f_public BOOL,
   image BYTEA NOT NULL,
   last_modified TIMESTAMP WITH TIME ZONE,
+  last_modified_by INTEGER,
   PRIMARY KEY (person_image_logging_id)
 ) WITHOUT OIDS;
 

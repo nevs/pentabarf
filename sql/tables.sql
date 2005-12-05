@@ -568,8 +568,10 @@ CREATE TABLE person_image (
   f_public BOOL NOT NULL DEFAULT FALSE,
   image BYTEA NOT NULL,
   last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  last_modified_by INTEGER,
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   FOREIGN KEY (mime_type_id) REFERENCES mime_type (mime_type_id),
+  FOREIGN KEY (last_modified_by) REFERENCES person (person_id),
   PRIMARY KEY (person_id)
 ) WITHOUT OIDS;
 
