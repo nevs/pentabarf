@@ -67,7 +67,7 @@
         </tr>
         <tr>
           <td><label><[table::event::event_state_progress]></label></td>
-          <td><%= select_tag( 'event[event_state_progress_id]', Momomoto::View_event_state_progress.find({:language_id => @current_language_id, :event_state_id => @event.event_state_id}), "event_state_progress_id", "name", @event.event_state_progress_id, { :tabindex => 0 }, false ) %></td>
+          <td><%= select_tag( 'event[event_state_progress_id]', Momomoto::View_event_state_progress.find({:language_id => @current_language_id, :event_state_id => @event.event_state_id || states[0].event_state_id }), "event_state_progress_id", "name", @event.event_state_progress_id, { :tabindex => 0 }, false ) %></td>
         </tr>
         <script type="text/javascript">
           var event_state_progress = new Array();
