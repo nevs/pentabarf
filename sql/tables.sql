@@ -287,10 +287,12 @@ CREATE TABLE conference (
   css TEXT,
   f_feedback_enabled BOOL NOT NULL DEFAULT FALSE,
   last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  last_modified_by INTEGER,
   FOREIGN KEY (conference_phase_id) REFERENCES conference_phase (conference_phase_id),
   FOREIGN KEY (country_id) REFERENCES country (country_id),
   FOREIGN KEY (time_zone_id) REFERENCES time_zone (time_zone_id),
   FOREIGN KEY (currency_id) REFERENCES currency (currency_id),
+  FOREIGN KEY (last_modified_by) REFERENCES person (person_id),
   PRIMARY KEY (conference_id)
 ) WITHOUT OIDS;
 

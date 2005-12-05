@@ -155,6 +155,7 @@ CREATE TABLE conference_logging (
   css TEXT,
   f_feedback_enabled BOOL,
   last_modified TIMESTAMP WITH TIME ZONE,
+  last_modified_by INTEGER,
   PRIMARY KEY (conference_logging_id)
 ) WITHOUT OIDS;
 
