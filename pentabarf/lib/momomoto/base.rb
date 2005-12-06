@@ -374,7 +374,7 @@ module Momomoto
           result = execute( insert() )
           result.clear
         else
-          raise "not allowed to write table #{@table} domain #{@domain}\nPermissions: #{@@permissions.inspect}"
+          raise Permission_Error, "not allowed to write table #{@table} domain #{@domain}\nPermissions: #{@@permissions.inspect}"
         end
       else 
         if privilege?( 'modify' )
@@ -382,7 +382,7 @@ module Momomoto
           result = execute( update() )
           result.clear
         else
-          raise "not allowed to modify table #{@table} domain #{@domain}\nPermissions: #{@@permissions.inspect}"
+          raise Permission_Error, "not allowed to modify table #{@table} domain #{@domain}\nPermissions: #{@@permissions.inspect}"
         end
       end
       true
