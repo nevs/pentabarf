@@ -420,6 +420,7 @@ class PentabarfController < ApplicationController
         end
       rescue => e
         person.rollback
+        @meditation_message = "You are not allowed to do this." if e.class == Momomoto::Permission_Error
         raise e
       end
       save_record( Momomoto::Person_rating.new, {:person_id => person.person_id, :evaluator_id => @user.person_id}, 
@@ -518,6 +519,7 @@ class PentabarfController < ApplicationController
         end
       rescue => e
         conference.rollback
+        @meditation_message = "You are not allowed to do this." if e.class == Momomoto::Permission_Error
         raise e
       end
       redirect_to({:action => :conference, :id => conference.conference_id})
@@ -643,6 +645,7 @@ class PentabarfController < ApplicationController
         end
       rescue => e
         event.rollback
+        @meditation_message = "You are not allowed to do this." if e.class == Momomoto::Permission_Error
         raise e
       end
       
