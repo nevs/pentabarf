@@ -23,6 +23,7 @@ require 'momomoto/login'
 require 'momomoto/tables'
 require 'momomoto/views'
 require 'momomoto/views-conflict'
+require 'momomoto/views-procedures'
 
 Momomoto::Base.connect(YAML::load_file("#{RAILS_ROOT}/config/database.yml")[RAILS_ENV])
 
