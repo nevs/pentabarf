@@ -3,6 +3,7 @@ BEGIN:VEVENT
 METHOD:PUBLISH
 UID:<%= event.event_id -%>@<%= @conference.acronym -%>@pentabarf.org
 DTSTART;TZID=<%= @timezone %>:<%= event.start_datetime.strftime('%Y%m%dT%H%M%S') %>
+DTEND;TZID=<%= @timezone %>:<%= event.end_datetime.strftime('%Y%m%dT%H%M%S') %>
 DURATION:PT<%= event.duration.hour.to_s + 'H' %>
 SUMMARY:<%= event.title.to_s.gsub(/[\r\n]/,'') %>
 <% if event.abstract.to_s.length > 0 -%>DESCRIPTION: <%= event.abstract.to_s.gsub(/[\r\n]/,'') %>

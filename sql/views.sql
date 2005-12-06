@@ -681,6 +681,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          event.duration,
          event.start_time,
          (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
+         (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change + event.duration)::timestamp AS end_datetime,
          event.start_time + conference.day_change AS real_starttime,
          event.room_id,
          view_event_state.language_id AS translated_id,
