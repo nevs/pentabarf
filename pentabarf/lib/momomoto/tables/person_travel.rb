@@ -34,7 +34,9 @@ module Momomoto
         :fee => Datatype::Numeric.new( {} ),
         :fee_currency_id => Datatype::Integer.new( {:not_null=>true} ),
         :f_need_travel_cost => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
-        :f_need_accommodation_cost => Datatype::Bool.new( {:not_null=>true, :default=>true} )
+        :f_need_accommodation_cost => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
+        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} ),
+        :last_modified_by => Datatype::Integer.new( {} )
       }
     end
   end
