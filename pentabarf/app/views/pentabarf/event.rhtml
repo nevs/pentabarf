@@ -508,7 +508,7 @@
             <td>
               <ul>
                 <% event.each_by_value({:event_id => event.event_id}) do | speaker | %>
-                  <li><%= h(speaker.name) %></li>
+                  <li><a href="<%= url_for(:action=>:person,:id=>speaker.person_id) %>"><%= h(speaker.name) %></a></li>
                 <% end %>
               </ul>
             </td>

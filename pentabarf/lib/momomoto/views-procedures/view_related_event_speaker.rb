@@ -3,7 +3,7 @@ module Momomoto
     def initialize
       super
       @domain = 'event'
-      @order = 'lower(title), lower(subtitle), lower(name)'
+      @order = 'lower(event.title), lower(event.subtitle), lower(name)'
       @query = "SELECT related_event_speaker.event_id, 
                        event.title,
                        event.subtitle,
