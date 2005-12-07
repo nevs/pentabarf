@@ -527,6 +527,8 @@ CREATE TABLE person_travel (
   fee_currency_id INTEGER NOT NULL,
   f_need_travel_cost BOOL NOT NULL DEFAULT FALSE,
   f_need_accommodation_cost BOOL NOT NULL DEFAULT FALSE,
+  last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  last_modified_by INTEGER,
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
   FOREIGN KEY (arrival_transport_id) REFERENCES transport (transport_id),
@@ -534,6 +536,7 @@ CREATE TABLE person_travel (
   FOREIGN KEY (travel_currency_id) REFERENCES currency (currency_id),
   FOREIGN KEY (accommodation_currency_id) REFERENCES currency (currency_id),
   FOREIGN KEY (fee_currency_id) REFERENCES currency (currency_id),
+  FOREIGN KEY (last_modified_by) REFERENCES person (person_id),
   PRIMARY KEY (person_id, conference_id)
 ) WITHOUT OIDS;
 
