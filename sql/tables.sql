@@ -897,7 +897,7 @@ CREATE TABLE event_attachment (
   attachment_type_id INTEGER NOT NULL,
   event_id INTEGER NOT NULL,
   mime_type_id INTEGER NOT NULL,
-  filename VARCHAR(256),
+  filename VARCHAR(256) CHECK (filename NOT LIKE '%/%'),
   title VARCHAR(256),
   pages INTEGER,
   data BYTEA NOT NULL,
