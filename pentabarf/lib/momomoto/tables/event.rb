@@ -32,6 +32,8 @@ module Momomoto
         :event_origin_id => Datatype::Integer.new( {:not_null=>true} ),
         :f_unmoderated => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :event_state_progress_id => Datatype::Integer.new( {:not_null=>true} ),
+        :actual_start => Datatype::Timestamp.new( {:with_timezone=>true} ),
+        :actual_end => Datatype::Timestamp.new( {:with_timezone=>true} ),
         :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} ),
         :last_modified_by => Datatype::Integer.new( {} )
       }

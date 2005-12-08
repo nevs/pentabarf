@@ -685,6 +685,8 @@ CREATE TABLE event (
   f_deleted BOOL NOT NULL DEFAULT FALSE,
   f_unmoderated BOOL NOT NULL DEFAULT FALSE,
   remark TEXT,
+  actual_start TIMESTAMP WITH TIME ZONE,
+  actual_end TIMESTAMP WITH TIME ZONE,
   last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   last_modified_by INTEGER,
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),

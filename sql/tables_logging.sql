@@ -76,6 +76,8 @@ CREATE TABLE event_logging (
   f_deleted BOOL,
   f_unmoderated BOOL,
   remark TEXT,
+  actual_start TIMESTAMP WITH TIME ZONE,
+  actual_end TIMESTAMP WITH TIME ZONE,
   last_modified TIMESTAMP WITH TIME ZONE,
   last_modified_by INTEGER,
   PRIMARY KEY (event_logging_id)
