@@ -378,23 +378,6 @@ CREATE TABLE room_localized (
   PRIMARY KEY (room_id, language_id)
 ) WITHOUT OIDS;
 
-CREATE TABLE room_availability (
-  room_id INTEGER NOT NULL,
-  start_time INTERVAL NOT NULL,
-  duration INTERVAL NOT NULL,
-  FOREIGN KEY (room_id) REFERENCES room (room_id),
-  PRIMARY KEY (room_id, start_time)
-) WITHOUT OIDS;
-
-CREATE TABLE room_image (
-  room_id INTEGER NOT NULL,
-  mime_type_id INTEGER NOT NULL,
-  image BYTEA NOT NULL,
-  FOREIGN KEY (room_id) REFERENCES room (room_id),
-  FOREIGN KEY (mime_type_id) REFERENCES mime_type (mime_type_id),
-  PRIMARY KEY (room_id)
-) WITHOUT OIDS;
-
 CREATE TABLE person (
   person_id SERIAL NOT NULL,
   login_name VARCHAR(32) UNIQUE,
