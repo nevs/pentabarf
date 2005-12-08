@@ -143,15 +143,15 @@ class ApplicationController < ActionController::Base
     @user.write
   end
 
-  def save_or_delete_record( table, pkeys, values )
+  def save_or_delete_record( table, pkeys, values, &block )
     if values[:delete]
       return delete_record( table, pkeys )
     else
-      return save_record( table, pkeys, values )
+      return save_record( table, pkeys, values, &block )
     end
   end
 
-  def save_record( table, pkeys, values )
+  def save_record( table, pkeys, values, &block )
     if table.select( pkeys ) != 1
       table.create
       pkeys.each do | field_name, value |
