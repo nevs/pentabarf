@@ -152,7 +152,7 @@
           event_roles[<%= event_role.event_role_id %>] = '<%= escape_javascript(event_role.name) %>';
           event_role_states[<%= event_role.event_role_id %>] = new Array();
         <% end %>
-        <% for event_role_state in Momomoto::View_event_role_state.find({:language_id => @current_language_id}) %>
+        <% for event_role_state in Momomoto::View_event_role_state.find({:language_id => @current_language_id}, nil, "event_role_id, rank") %>
           event_role_states[<%= event_role_state.event_role_id %>][<%= event_role_state.event_role_state_id %>] = '<%= escape_javascript(event_role_state.name) %>';
         <% end %>
         <% for person in Momomoto::View_event_person.find({:event_id => @event.event_id, :language_id => @current_language_id}, nil, "event_role_id, lower(name)") %>
