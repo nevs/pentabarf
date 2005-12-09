@@ -206,13 +206,15 @@ class HTML_Export
   end
 
   def person_image( person_id = 0, size = 32, extension = nil )
+    base = URI.parse(@conference.export_base_url).path
     size = 500 if size > 500
-    "#{@conference.export_base_url}images/speaker#{person_id != 0 ? '-' + person_id.to_s : '' }-#{size}x#{size}" + ( extension ? ".#{extension}" : '.jpg')
+    "#{base}images/speaker#{person_id != 0 ? '-' + person_id.to_s : '' }-#{size}x#{size}" + ( extension ? ".#{extension}" : '.jpg')
   end
 
   def event_image( event_id = 0, size = 32, extension = nil )
+    base = URI.parse(@conference.export_base_url).path
     size = 500 if size > 500
-    "#{@conference.export_base_url}images/event#{event_id != 0 ? '-' + event_id.to_s : '' }-#{size}x#{size}" + ( extension ? ".#{extension}" : '.png')
+    "#{base}images/event#{event_id != 0 ? '-' + event_id.to_s : '' }-#{size}x#{size}" + ( extension ? ".#{extension}" : '.png')
   end
 
   def human_size( size )
@@ -221,7 +223,7 @@ class HTML_Export
       return "%.1f KB" % (size/1024).to_f if size < 1024 * 1024
       return "%.1f MB" % (size/(1024*1024)).to_f if size < 1024 * 1024 * 1024
       return "%.1f GB" % (size/(1024*1024*1024)).to_f if size < 1024 * 1024 * 1024 * 1024
-      return "%.1f TB" % (size/(1024*1024*1024*10)).to_f 
+      return "%.1f TB" % (size/(1024*1024*1024*1024)).to_f 
     rescue
       # just return nothing
     end
