@@ -708,17 +708,17 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          INNER JOIN conference USING (conference_id)
          INNER JOIN view_event_state USING (event_state_id)
          INNER JOIN event_state_progress USING (event_state_progress_id)
+         INNER JOIN event_role ON (
+             event_person.event_role_id = event_role.event_role_id AND
+             event_role.tag IN ('speaker', 'moderator') )
+         INNER JOIN event_role_state ON (
+             event_person.event_role_state_id = event_role_state.event_role_state_id AND
+             event_role_state.tag = 'confirmed' )
          INNER JOIN (
-             SELECT event_id,
-                    person_id,
+             SELECT person_id,
                     name
-               FROM event_person
-                    INNER JOIN event_role USING (event_role_id)
-                    INNER JOIN event_role_state USING (event_role_state_id)
-                    INNER JOIN view_person USING (person_id)
-              WHERE event_role.tag IN ('speaker', 'moderator') AND
-                    event_role_state.tag = 'confirmed'
-         ) AS speaker USING (person_id, event_id)
+               FROM view_person
+         ) AS speaker USING (person_id)
          LEFT OUTER JOIN view_conference_track ON (
              view_conference_track.conference_track_id = event.conference_track_id AND
              view_conference_track.language_id = view_event_state.language_id)
