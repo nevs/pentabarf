@@ -303,6 +303,7 @@ CREATE TABLE conference_language (
   rank INTEGER,
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
   FOREIGN KEY (language_id) REFERENCES language (language_id),
+  UNIQUE (conference_id, language_id),
   PRIMARY KEY (conference_language_id)
 ) WITHOUT OIDS;
 
