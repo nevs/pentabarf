@@ -161,3 +161,17 @@ CREATE TABLE conference_logging (
   PRIMARY KEY (conference_logging_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE event_person_logging (
+  event_person_logging_id SERIAL NOT NULL,
+  event_person_id INTEGER NOT NULL,
+  event_id INTEGER NOT NULL,
+  person_id INTEGER NOT NULL,
+  event_role_id INTEGER NOT NULL,
+  event_role_state_id INTEGER,
+  remark TEXT,
+  rank INTEGER,
+  last_modified TIMESTAMP WITH TIME ZONE NOT NULL,
+  last_modified_by INTEGER,
+  PRIMARY KEY (event_person_logging_id)
+) WITHOUT OIDS;
+
