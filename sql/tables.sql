@@ -833,10 +833,13 @@ CREATE TABLE event_person (
   event_role_state_id INTEGER,
   remark TEXT,
   rank INTEGER,
+  last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  last_modified_by INTEGER,
   FOREIGN KEY (event_id) REFERENCES event (event_id),
   FOREIGN KEY (person_id) REFERENCES person (person_id),
   FOREIGN KEY (event_role_id) REFERENCES event_role (event_role_id),
   FOREIGN KEY (event_role_state_id) REFERENCES event_role_state (event_role_state_id),
+  FOREIGN KEY (last_modified_by) REFERENCES person (person_id),
   UNIQUE (event_id, person_id, event_role_id),
   PRIMARY KEY (event_person_id)
 ) WITHOUT OIDS;
