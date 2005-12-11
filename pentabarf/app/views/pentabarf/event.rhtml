@@ -110,9 +110,14 @@
           <td><label><[table::event::conference]></label></td>
           <td><%= select_tag( 'event[conference_id]', Momomoto::Conference.find(), "conference_id", "acronym", @event.conference_id, { :tabindex => 0 }, false ) %></td>
         </tr>
+        <tr>
+          <td><label>Created at</label></td>
+          <% first_log = Momomoto::Event_transaction.find({:event_id => @event.event_id},1,'changed_when') %>
+          <td><%= first_log.length == 1 ? first_log.changed_when.gsub(/[.+].*$/, '') : '' %></td>
+        </tr>
       </table>
     </fieldset>
-    
+                 
     <fieldset>
       <legend>Logo</legend>
       (square)
