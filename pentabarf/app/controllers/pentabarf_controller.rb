@@ -163,7 +163,7 @@ class PentabarfController < ApplicationController
       end
       @conference = Momomoto::Conference.find( {:conference_id => @event.conference_id } )
     else
-      render( :template => 'meditation', :layout => false )
+      redirect_to(:action => :meditation)
     end
   end
 

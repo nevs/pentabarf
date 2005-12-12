@@ -129,7 +129,7 @@ class HTML_Export
       @speakers.each_unique(:person_id) do | @speaker |
         if make_images
           image = Momomoto::Person_image.find({:person_id=>@speaker.person_id})
-          image = image.length == 1 && image.f_public ? image.image : File.new( @rails_root + '/public/images/icon-person-128x128.png').read
+          image = image.length == 1 && image.f_public == 't' ? image.image : File.new( @rails_root + '/public/images/icon-person-128x128.png').read
           write_file("images/speaker-#{@speaker.person_id}-32x32.jpg", resize_image( image, 32, 'JPG' ) )
           write_file("images/speaker-#{@speaker.person_id}-48x48.jpg", resize_image( image, 48, 'JPG' ) )
           write_file("images/speaker-#{@speaker.person_id}-128x128.jpg", resize_image( image, 128, 'JPG' ) )
