@@ -4,9 +4,8 @@ require 'datatype/base'
 module Momomoto 
   module Datatype
 
-    class Varchar < Base 
+    class Varchar < Text
 
- 
     end
     
   end

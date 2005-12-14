@@ -4,7 +4,7 @@ require 'datatype/base'
 module Momomoto 
   module Datatype
 
-    class Char < Base 
+    class Char < Text
 
  
     end
