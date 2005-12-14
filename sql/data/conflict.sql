@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-SET client_encoding = 'UNICODE';
+SET client_encoding = 'UTF8';
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
@@ -12,14 +12,13 @@ SET search_path = public, pg_catalog;
 -- Name: conflict_conflict_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conflict', 'conflict_id'), 22, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conflict', 'conflict_id'), 24, true);
 
 
 --
 -- Data for Name: conflict; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
-INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (1, 1, 'person_no_email');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (2, 2, 'event_person_language');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (4, 4, 'event_no_speaker');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (5, 4, 'event_no_coordinator');
@@ -41,6 +40,9 @@ INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (19, 4, 'event_
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (20, 4, 'event_no_description');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (21, 1, 'person_no_abstract');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (22, 1, 'person_no_description');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (1, 1, 'person_no_email');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (23, 2, 'event_person_event_before_arrival');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (24, 2, 'event_person_event_after_departure');
 
 
 --

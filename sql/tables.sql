@@ -435,25 +435,25 @@ CREATE INDEX conference_person_conference_id_index ON conference_person(conferen
 CREATE INDEX conference_person_person_id_index ON conference_person(person_id);
 
 CREATE TABLE conference_person_link (
-    conference_person_link_id SERIAL NOT NULL,
-    conference_person_id INTEGER NOT NULL,
-    url TEXT NOT NULL,
-    title VARCHAR(256),
-    rank INTEGER,
-    FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
-    PRIMARY KEY (conference_person_link_id)
+  conference_person_link_id SERIAL NOT NULL,
+  conference_person_id INTEGER NOT NULL,
+  url TEXT NOT NULL,
+  title VARCHAR(256),
+  rank INTEGER,
+  FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
+  PRIMARY KEY (conference_person_link_id)
 ) WITHOUT OIDS;
 
 CREATE TABLE conference_person_link_internal (
-    conference_person_link_internal_id SERIAL NOT NULL,
-    conference_person_id INTEGER NOT NULL,
-    link_type_id INTEGER NOT NULL,
-    url TEXT NOT NULL,
-    description VARCHAR(256),
-    rank INTEGER,
-    FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
-    FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
-    PRIMARY KEY (conference_person_link_internal_id)
+  conference_person_link_internal_id SERIAL NOT NULL,
+  conference_person_id INTEGER NOT NULL,
+  link_type_id INTEGER NOT NULL,
+  url TEXT NOT NULL,
+  description VARCHAR(256),
+  rank INTEGER,
+  FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id),
+  FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id),
+  PRIMARY KEY (conference_person_link_internal_id)
 ) WITHOUT OIDS;
 
 CREATE TABLE person_phone (

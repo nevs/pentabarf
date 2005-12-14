@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-SET client_encoding = 'UNICODE';
+SET client_encoding = 'UTF8';
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
@@ -50,12 +50,16 @@ INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (18, 120,
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (18, 144, 'Eine Person ist bei 2 parallelen Veranstaltungen als Besucher eingetragen');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (22, 120, 'Accepted speaker or moderator without description');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (22, 144, 'Akzeptierter Referent oder Moderator ohne Langbeschreibung');
-INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (20, 120, 'Accepted event without description');
-INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (20, 144, 'Akzeptierte Veranstaltung ohne Langbeschreibung');
-INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (19, 120, 'Accepted event without abstract');
-INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (19, 144, 'Akzeptierte Veranstaltung ohne Kurzbeschreibung');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (21, 120, 'Accepted speaker or moderator without abstract');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (21, 144, 'Akzeptierter Referent oder Moderator ohne Kurzbeschreibung');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (20, 120, 'event without description');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (20, 144, 'Veranstaltung ohne Langbeschreibung');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (19, 120, 'event without abstract');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (19, 144, 'Veranstaltung ohne Kurzbeschreibung');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (23, 120, 'Accepted event before arrival of speaker');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (23, 144, 'Akzeptierter Event vor der Ankunft des Referenten');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (24, 120, 'Accepted event after departure of speaker');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (24, 144, 'Akzeptierter Event nach der Abreise des Referenten');
 
 
 --
