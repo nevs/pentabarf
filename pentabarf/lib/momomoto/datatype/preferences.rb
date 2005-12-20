@@ -50,10 +50,12 @@ module Momomoto
         value[:search_event_advanced] = {} unless value[:search_event_advanced]
         value[:search_event_advanced_page] = 0 unless value[:search_event_advanced_page] && value[:search_event_advanced_page] > 0
         value[:search_event_type] = 'simple' unless value[:search_event_type]
+        value[:saved_event_search] = {} unless value[:saved_event_search].class == Hash
         value[:search_person] = "" unless value[:search_person]
         value[:search_person_page] = 0 unless value[:search_person_page] && value[:search_person_page] > 0
         value[:search_person_advanced] = {} unless value[:search_person_advanced]
         value[:search_person_advanced_page] = 0 unless value[:search_person_advanced_page] && value[:search_person_advanced_page] > 0
+        value[:saved_person_search] = {} unless value[:saved_person_search].class == Hash
         value[:search_person_type] = 'simple' unless value[:search_person_type]
         value[:search_conference] = "" unless value[:search_conference]
         value[:search_conference_page] = 0 unless value[:search_conference_page] && value[:search_conference_page] > 0
@@ -89,6 +91,7 @@ module Momomoto
         if value != nil
           value = YAML.dump( value ).gsub('HashWithIndifferentAccess', 'Hash')
           value = value.gsub(/'/, "")
+          value = value.gsub('"\"', '"')
           value = value.gsub("\\", "\\\\\\\\")
           return "'#{value}'"
         end
