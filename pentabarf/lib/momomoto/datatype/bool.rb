@@ -25,6 +25,17 @@ module Momomoto
         end
       end
 
+      def filter_write( value )
+        case value
+          when 't', true, 1
+            then "'t'"
+          when 'f', false, 0
+            then "'f'"
+          else
+            'NULL'
+        end
+      end
+
     end
     
   end

@@ -54,7 +54,7 @@ module Momomoto
 
       # this filter is applied before writing to the database to escape data properly
       def filter_write( data )
-        return 'NULL' if data == nil || data == false
+        return 'NULL' unless data
         data = data.gsub( /\\/, '' )
         data = data.gsub( /'/, "''" )
         "'" + data + "'"
