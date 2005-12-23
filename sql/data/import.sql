@@ -40,4 +40,6 @@ BEGIN TRANSACTION;
 \i attachment_type_localized.sql
 \i event_origin.sql
 \i event_origin_localized.sql
+\i mime_type.sql
+\i mime_type_localized.sql
 COMMIT TRANSACTION;
