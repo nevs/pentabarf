@@ -6,7 +6,7 @@
     <meta name="generator" content="Pentabarf"/>
     <title><%= h(@conference.acronym) %>: <%= h(@content_title) %></title>
     <link rel="shortcut icon" href="/favicon.ico" />
-    <link href="<%= url_for({:action=>:css}) %>" rel="Stylesheet" media="screen" type="text/css" />
+    <link href="<%= url_for({:action=>:css}) %>" rel="Stylesheet" media="screen, print" type="text/css" />
   </head>
   <body>
     <%= render(:partial => 'sidebar') %>
