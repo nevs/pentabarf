@@ -82,6 +82,11 @@ class PentabarfController < ApplicationController
     render(:partial => 'search_event')
   end
 
+  def save_person_search
+    @preferences[:saved_person_search][params[:save_person_search][:name]] = @preferences[:search_person_advanced].dup if params[:save_person_search][:name]
+    redirect_to( {:action => :find_person} )
+  end
+
   def search_person_advanced
     @preferences[:search_person_advanced] = params[:search] if params[:search]
     @preferences[:search_person_type] = 'advanced'
@@ -227,6 +232,16 @@ class PentabarfController < ApplicationController
   def reports
     @content_title ='Reports'
     
+  end
+
+  def report_not_arrived
+    @arrived = Momomoto::View_arrived.find({:conference_id => @current_conference_id, :f_arrived => 'f'})
+    render(:partial => 'report_not_arrived')
+  end
+
+  def report_arrived
+    @arrived = Momomoto::View_arrived.find({:conference_id => @current_conference_id, :f_arrived => 't'})
+    render(:partial => 'report_arrived')
   end
 
   def report_expenses

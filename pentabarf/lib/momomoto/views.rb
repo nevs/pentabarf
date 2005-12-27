@@ -1,3 +1,4 @@
+require 'views/view_arrived'
 require 'views/view_attachment_type'
 require 'views/view_conference_track'
 require 'views/view_conference_image'
