@@ -44,7 +44,7 @@ class FeedbackController < ApplicationController
   end
 
   def check_event
-    if match = params[:id].match(/^(\d+)(\.([a-z]+))?(\.html)?/)
+    if match = params[:id].to_s.match(/^(\d+)(\.([a-z]+))?(\.html)?/)
       if match[3]
         @language = Momomoto::Language.find({:tag => match[3], :f_localized => 't'})
       else
