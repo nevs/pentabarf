@@ -8,6 +8,10 @@ class FeedbackController < ApplicationController
     render_text(@conference.css.nil? ? "" : @conference.css)
   end
 
+  def index
+    render_text("")
+  end
+
   def event
     @content_title = "Feedback"
   end
@@ -60,3 +64,4 @@ class FeedbackController < ApplicationController
   end
 
 end
+
