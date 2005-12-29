@@ -704,7 +704,7 @@ class PentabarfController < ApplicationController
   def check_permission
     #redirect_to :action => :meditation if params[:action] != 'meditation'
     if @user.permission?('login_allowed') || params[:action] == 'meditation'
-      @preferences = @user.preferences
+      @preferences = @user.preferences.dup
       if params[:current_conference_id]
         conf = Momomoto::Conference.find({:conference_id => params[:current_conference_id]})
         if conf.length == 1
