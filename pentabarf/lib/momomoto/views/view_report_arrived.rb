@@ -1,5 +1,5 @@
 module Momomoto
-  class View_arrived < Base
+  class View_report_arrived < Base
     def initialize
       super
       @domain = 'person'

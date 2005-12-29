@@ -1,97 +1,97 @@
 -- view for persons with name
 CREATE OR REPLACE VIEW view_person AS 
-   SELECT person_id, 
-          login_name, 
-          coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname, person.login_name) AS name, 
-          password, 
-          title, 
-          gender, 
-          first_name, 
-          middle_name, 
-          last_name, 
-          public_name, 
-          nickname, 
-          address, 
-          street, 
-          street_postcode, 
-          po_box, 
-          po_box_postcode, 
-          city, 
-          country_id, 
-          email_contact, 
-          iban, 
-          bic, 
-          bank_name, 
-          account_owner, 
-          gpg_key, 
-          preferences, 
-          f_conflict, 
-          f_deleted, 
-          f_spam, 
-          last_login 
-     FROM person;
+  SELECT person_id, 
+         login_name, 
+         coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname, person.login_name) AS name, 
+         password, 
+         title, 
+         gender, 
+         first_name, 
+         middle_name, 
+         last_name, 
+         public_name, 
+         nickname, 
+         address, 
+         street, 
+         street_postcode, 
+         po_box, 
+         po_box_postcode, 
+         city, 
+         country_id, 
+         email_contact, 
+         iban, 
+         bic, 
+         bank_name, 
+         account_owner, 
+         gpg_key, 
+         preferences, 
+         f_conflict, 
+         f_deleted, 
+         f_spam, 
+         last_login 
+    FROM person;
 
 -- view for events 
 CREATE OR REPLACE VIEW view_event AS 
-   SELECT event.event_id, 
-          event.conference_id, 
-          event.tag,
-          event.title, 
-          event.subtitle, 
-          event.conference_track_id, 
-          event.team_id, 
-          event.event_type_id, 
-          event.duration, 
-          event.event_state_id, 
-          event.event_state_progress_id, 
-          event.language_id, 
-          event.room_id, 
-          event.day, 
-          event.start_time, 
-          event.abstract, 
-          event.description, 
-          event.resources, 
-          event.f_public, 
-          event.f_paper, 
-          event.f_slides, 
-          event.f_conflict, 
-          event.f_deleted, 
-          event.remark, 
-          view_event_state.language_id AS translated_id, 
-          view_event_state.language_tag AS translated_tag, 
-          view_event_state.tag AS event_state_tag, 
-          view_event_state.name AS event_state, 
-          view_event_type.tag AS event_type_tag, 
-          view_event_type.name AS event_type, 
-          view_conference_track.tag AS conference_track_tag, 
-          view_conference_track.name AS conference_track, 
-          view_team.tag AS team_tag, 
-          view_team.name as team, 
-          view_room.tag AS room_tag, 
-          view_room.name AS room, 
-          conference.acronym, 
-          (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
-          event.start_time + conference.day_change AS real_starttime,
-          event_image.mime_type_id,
-          mime_type.mime_type,
-          mime_type.file_extension
-  FROM event 
-       INNER JOIN view_event_state USING (event_state_id)
-       INNER JOIN conference USING (conference_id)
-       LEFT OUTER JOIN view_event_type ON (
+  SELECT event.event_id, 
+         event.conference_id, 
+         event.tag,
+         event.title, 
+         event.subtitle, 
+         event.conference_track_id, 
+         event.team_id, 
+         event.event_type_id, 
+         event.duration, 
+         event.event_state_id, 
+         event.event_state_progress_id, 
+         event.language_id, 
+         event.room_id, 
+         event.day, 
+         event.start_time, 
+         event.abstract, 
+         event.description, 
+         event.resources, 
+         event.f_public, 
+         event.f_paper, 
+         event.f_slides, 
+         event.f_conflict, 
+         event.f_deleted, 
+         event.remark, 
+         view_event_state.language_id AS translated_id, 
+         view_event_state.language_tag AS translated_tag, 
+         view_event_state.tag AS event_state_tag, 
+         view_event_state.name AS event_state, 
+         view_event_type.tag AS event_type_tag, 
+         view_event_type.name AS event_type, 
+         view_conference_track.tag AS conference_track_tag, 
+         view_conference_track.name AS conference_track, 
+         view_team.tag AS team_tag, 
+         view_team.name as team, 
+         view_room.tag AS room_tag, 
+         view_room.name AS room, 
+         conference.acronym, 
+         (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
+         event.start_time + conference.day_change AS real_starttime,
+         event_image.mime_type_id,
+         mime_type.mime_type,
+         mime_type.file_extension
+    FROM event 
+         INNER JOIN view_event_state USING (event_state_id)
+         INNER JOIN conference USING (conference_id)
+         LEFT OUTER JOIN view_event_type ON (
              event.event_type_id = view_event_type.event_type_id AND 
              view_event_state.language_id = view_event_type.language_id)
-       LEFT OUTER JOIN view_conference_track ON (
+         LEFT OUTER JOIN view_conference_track ON (
              event.conference_track_id = view_conference_track.conference_track_id AND 
              view_conference_track.language_id = view_event_state.language_id)
-       LEFT OUTER JOIN view_team ON (
+         LEFT OUTER JOIN view_team ON (
              event.team_id = view_team.team_id AND
              view_team.language_id = view_event_state.language_id)
-       LEFT OUTER JOIN view_room ON (
+         LEFT OUTER JOIN view_room ON (
              event.room_id = view_room.room_id AND
              view_room.language_id = view_event_state.language_id)
-       LEFT OUTER JOIN event_image USING (event_id)
-       LEFT OUTER JOIN mime_type USING (mime_type_id)
+         LEFT OUTER JOIN event_image USING (event_id)
+         LEFT OUTER JOIN mime_type USING (mime_type_id)
 ;
 
 CREATE OR REPLACE VIEW view_event_attachment AS
@@ -791,7 +791,7 @@ CREATE OR REPLACE VIEW view_conference_person AS
          INNER JOIN view_person USING (person_id)
 ;
          
-CREATE OR REPLACE VIEW view_arrived AS
+CREATE OR REPLACE VIEW view_report_arrived AS
   SELECT view_person.person_id,
          view_person.name,
          person_travel.conference_id,

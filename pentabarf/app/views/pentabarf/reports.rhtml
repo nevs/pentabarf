@@ -16,7 +16,7 @@
     <script type="text/javascript">
       <% tab = @request.env['HTTP_COOKIE'] && @request.env['HTTP_COOKIE'].match(/:reports=([a-z]+):/) ? $1 : 'expenses' %>
       report = new Ajax.Updater('report', '<%= url_for(:action => "report_#{tab}") %>' );
-      switch_tab('<%= tab %>');
+      switch_tab('<%= js(tab) %>');
       report.updateContent();
     </script>
   </fieldset>

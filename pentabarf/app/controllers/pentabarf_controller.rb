@@ -240,12 +240,12 @@ class PentabarfController < ApplicationController
   end
 
   def report_not_arrived
-    @arrived = Momomoto::View_arrived.find({:conference_id => @current_conference_id, :f_arrived => 'f'})
+    @arrived = Momomoto::View_report_arrived.find({:conference_id => @current_conference_id, :f_arrived => 'f'})
     render(:partial => 'report_not_arrived')
   end
 
   def report_arrived
-    @arrived = Momomoto::View_arrived.find({:conference_id => @current_conference_id, :f_arrived => 't'})
+    @arrived = Momomoto::View_report_arrived.find({:conference_id => @current_conference_id, :f_arrived => 't'})
     render(:partial => 'report_arrived')
   end
 
