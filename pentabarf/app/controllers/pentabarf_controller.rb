@@ -87,6 +87,11 @@ class PentabarfController < ApplicationController
     redirect_to( {:action => :find_person} )
   end
 
+  def restore_person_search
+    @preferences[:search_person_advanced] = @preferences[:saved_person_search][id] if @preferences[:saved_person_search][id]
+    redirect_to( {:action => :find_person} )
+  end
+
   def search_person_advanced
     @preferences[:search_person_advanced] = params[:search] if params[:search]
     @preferences[:search_person_type] = 'advanced'
