@@ -25,6 +25,7 @@ puts "connected"
 client.add_message_callback { |msg|
   reply = Jabber::XMLStanza.answer(msg, false)
   reply.type = msg.type
+  puts "Message from #{msg.from}: #{msg.body}"
   reply.set_body("All answers shall be shallow")
   client.send(reply)
 }
