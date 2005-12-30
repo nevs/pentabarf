@@ -700,7 +700,7 @@ class PentabarfController < ApplicationController
       t_value = {}
       t_value[:type] = value[:type].to_sym
       t_value[:logic] = case value[:logic] when 'is','contains' then :eq
-                                         when 'is not', "doesn't contain" then :ne
+                                         when 'is not', "does not contain" then :ne
                                          else :eq
                                          end
       conditions[t_value[:type]] = {} unless conditions[value[:type]]
