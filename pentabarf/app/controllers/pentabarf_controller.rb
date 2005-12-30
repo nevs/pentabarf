@@ -4,8 +4,8 @@ class PentabarfController < ApplicationController
   after_filter :compress
 
   def initialize
-    @content_title ='@content_title'
-    @content_subtitle =''
+    @content_title = '@content_title'
+    @content_subtitle = ''
   end
 
   def index
@@ -83,12 +83,20 @@ class PentabarfController < ApplicationController
   end
 
   def save_person_search
-    @preferences[:saved_person_search][params[:save_person_search][:name]] = @preferences[:search_person_advanced].dup if params[:save_person_search][:name]
+    if params[:save_person_search][:name]
+      params[:save_person_search][:name].gsub!( /\W/, '' )
+      @preferences[:saved_person_search][params[:save_person_search][:name]] = @preferences[:search_person_advanced].dup
+    end
+    redirect_to( {:action => :find_person} )
+  end
+
+  def delete_person_search
+    @preferences[:saved_person_search].delete(params[:id].to_sym) if @preferences[:saved_person_search][params[:id].to_sym]
     redirect_to( {:action => :find_person} )
   end
 
   def restore_person_search
-    @preferences[:search_person_advanced] = @preferences[:saved_person_search][id] if @preferences[:saved_person_search][id]
+    @preferences[:search_person_advanced] = @preferences[:saved_person_search][params[:id].to_sym] if @preferences[:saved_person_search][params[:id].to_sym]
     redirect_to( {:action => :find_person} )
   end
 
@@ -685,19 +693,22 @@ class PentabarfController < ApplicationController
 
   # transforms request from advanced search into a form understandable by momomoto
   def transform_advanced_search_conditions( search )
+    ApplicationController.jabber_message( "before transform: #{search.inspect}" )
     search = search.dup
     conditions = {}
     search.each do | row_number, value |
       next if value[:type].nil?
-      value[:type] = value[:type].to_sym
-      value[:logic] = case value[:logic] when 'is','contains' then :eq
+      t_value = {}
+      t_value[:type] = value[:type].to_sym
+      t_value[:logic] = case value[:logic] when 'is','contains' then :eq
                                          when 'is not', "doesn't contain" then :ne
                                          else :eq
                                          end
-      conditions[value[:type]] = {} unless conditions[value[:type]]
-      conditions[value[:type]][value[:logic]] = Array.new unless conditions[value[:type]][value[:logic]]
-      conditions[value[:type]][value[:logic]].push( value[:value])
+      conditions[t_value[:type]] = {} unless conditions[value[:type]]
+      conditions[t_value[:type]][t_value[:logic]] = Array.new unless conditions[t_value[:type]][t_value[:logic]]
+      conditions[t_value[:type]][t_value[:logic]].push( value[:value].dup)
     end
+    ApplicationController.jabber_message( "after transform: #{search.inspect}" )
     conditions 
   end
 
