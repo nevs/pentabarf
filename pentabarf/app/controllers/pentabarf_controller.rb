@@ -693,7 +693,6 @@ class PentabarfController < ApplicationController
 
   # transforms request from advanced search into a form understandable by momomoto
   def transform_advanced_search_conditions( search )
-    ApplicationController.jabber_message( "before transform: #{search.inspect}" )
     search = search.dup
     conditions = {}
     search.each do | row_number, value |
@@ -708,7 +707,6 @@ class PentabarfController < ApplicationController
       conditions[t_value[:type]][t_value[:logic]] = Array.new unless conditions[t_value[:type]][t_value[:logic]]
       conditions[t_value[:type]][t_value[:logic]].push( value[:value].dup)
     end
-    ApplicationController.jabber_message( "after transform: #{search.inspect}" )
     conditions 
   end
 
