@@ -60,6 +60,8 @@ INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (23, 120,
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (23, 144, 'Akzeptierter Event vor der Ankunft des Referenten');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (24, 120, 'Accepted event after departure of speaker');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (24, 144, 'Akzeptierter Event nach der Abreise des Referenten');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (25, 120, 'Accepted Event without slides');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (25, 144, 'Akzeptierte Veranstaltung ohne Folien');
 
 
 --

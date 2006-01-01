@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: mime_type_mime_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('mime_type', 'mime_type_id'), 19, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('mime_type', 'mime_type_id'), 20, true);
 
 
 --
@@ -38,6 +38,7 @@ INSERT INTO mime_type (mime_type_id, mime_type, file_extension, f_image) VALUES 
 INSERT INTO mime_type (mime_type_id, mime_type, file_extension, f_image) VALUES (17, 'application/rtf', 'rtf', false);
 INSERT INTO mime_type (mime_type_id, mime_type, file_extension, f_image) VALUES (18, 'application/x-bzip2', 'bz2', false);
 INSERT INTO mime_type (mime_type_id, mime_type, file_extension, f_image) VALUES (19, 'application/x-bittorrent', 'torrent', false);
+INSERT INTO mime_type (mime_type_id, mime_type, file_extension, f_image) VALUES (20, 'text/rtf', 'rtf', false);
 
 
 --

@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: conference_phase_conflict_conference_phase_conflict_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conference_phase_conflict', 'conference_phase_conflict_id'), 125, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conference_phase_conflict', 'conference_phase_conflict_id'), 130, true);
 
 
 --
@@ -51,7 +51,6 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (62, 2, 12, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (63, 3, 12, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (59, 4, 11, 4);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (60, 5, 11, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (56, 1, 11, 1);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (57, 2, 11, 2);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (6, 1, 4, 5);
@@ -139,6 +138,12 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (123, 4, 24, 5);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (124, 5, 23, 1);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (125, 5, 24, 1);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (60, 5, 11, 5);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (126, 1, 25, 2);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (127, 2, 25, 2);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (128, 3, 25, 2);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (129, 4, 25, 5);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (130, 5, 25, 5);
 
 
 --
