@@ -4,6 +4,7 @@
 
 <%= content_tabs_js([
 {:tag => 'expenses', :url => "javascript:b=new Ajax.Updater('report','#{url_for(:action=>:report_expenses)}');switch_tab('expenses');b.updateContent();"}, 
+{:tag => 'feedback', :url => "javascript:b=new Ajax.Updater('report','#{url_for(:action=>:report_feedback)}');switch_tab('feedback');b.updateContent();"}, 
 {:tag => 'paper', :url => "javascript:b=new Ajax.Updater('report','#{url_for(:action=>:report_paper)}');switch_tab('paper');b.updateContent();"}, 
 {:tag => 'pickup', :url => "javascript:b=new Ajax.Updater('report','#{url_for(:action=>:report_pickup)}');switch_tab('pickup');b.updateContent();"}, 
 {:tag => 'arrived', :url => "javascript:b=new Ajax.Updater('report','#{url_for(:action=>:report_arrived)}');switch_tab('arrived');b.updateContent();"}, 

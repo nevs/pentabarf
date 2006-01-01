@@ -819,4 +819,19 @@ CREATE OR REPLACE VIEW view_report_arrived AS
    ORDER BY lower(name)
 ;
 
-
+CREATE OR REPLACE VIEW view_report_feedback AS
+  SELECT event_id,
+         conference_id,
+         title,
+         subtitle,
+         count(event_id) AS votes,
+         count(event_rating_public.remark) AS comments,
+         sum(4 * coalesce(participant_knowledge,0))/count(participant_knowledge) AS participant_knowledge,
+         sum(4 * coalesce(topic_importance,0))/count(topic_importance) AS topic_importance,
+         sum(4 * coalesce(content_quality,0))/count(content_quality) AS content_quality,
+         sum(4 * coalesce(presentation_quality,0))/count(presentation_quality) AS presentation_quality,
+         sum(4 * coalesce(audience_involvement,0))/count(audience_involvement) AS audience_involvement
+    FROM event_rating_public
+         INNER JOIN event USING (event_id)
+   GROUP BY event_id, conference_id, title, subtitle
+;

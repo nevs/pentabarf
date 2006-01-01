@@ -247,6 +247,11 @@ class PentabarfController < ApplicationController
     
   end
 
+  def report_feedback
+    @feedback = Momomoto::View_report_feedback.find({:conference_id => @current_conference_id}, nil, "lower(title), lower(subtitle)")
+    render(:partial => 'report_feedback')
+  end
+
   def report_not_arrived
     @arrived = Momomoto::View_report_arrived.find({:conference_id => @current_conference_id, :f_arrived => 'f'})
     render(:partial => 'report_not_arrived')
