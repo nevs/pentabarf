@@ -433,7 +433,7 @@ module Momomoto
 
     # delete current record
     def delete()
-      return false unless privilege?( 'delete' )
+      raise Permission_Error, "Not allowed to delete from #{@table}" unless privilege?( 'delete' )
       conditions = {}
       @resultset[@current_record].each do | field_name, value |
         if value.property( :primary_key ) 
@@ -453,6 +453,7 @@ module Momomoto
     def privilege?( action )
       return true if @domain == 'public'
       return true if @@permissions.member?( "#{action}_#{@domain}")
+      return true if action == 'delete' && @domain != @table && @@permissions.member?( "modify_#{@domain}" )
       return true if @domain == 'person' && @@person_id == self[:person_id] && @@permissions.member?("modify_own_person")
       false
     end
