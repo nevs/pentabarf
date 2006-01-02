@@ -378,7 +378,6 @@ CREATE TABLE conference_track (
   conference_track_id SERIAL NOT NULL,
   conference_id INTEGER NOT NULL,
   tag VARCHAR(32) NOT NULL,
-  color VARCHAR(64) CHECK (color NOT LIKE '%<%' AND color NOT LIKE '%>%' AND color NOT LIKE '%"%' AND color NOT LIKE '%''%'),
   rank INTEGER,
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id),
   PRIMARY KEY (conference_track_id)
