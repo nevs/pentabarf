@@ -214,7 +214,6 @@
         <thead>
           <tr>
             <th><[table::conference_track::tag]></th>
-            <th><[table::conference_track::color]></th>
             <th><[form::remove]></th>
           </tr>
         </thead>
@@ -223,7 +222,7 @@
       </table>
       <script type="text/javascript">
       <% for track in Momomoto::Conference_track.find( {:conference_id => @conference.conference_id } ) %>
-        <%= "add_conference_track(#{track.conference_track_id}, '#{escape_javascript(track.tag)}', '#{escape_javascript(track.color)}');" %>
+        <%= "add_conference_track(#{track.conference_track_id}, '#{js(track.tag)}');" %>
       <% end %>
       </script>
       <button type="button" name="add_conference_track" value="Add Track" title="Add a new track to list of tracks" tabindex="0" onClick="window.add_conference_track();">Add Track</button>
