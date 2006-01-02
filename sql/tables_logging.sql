@@ -175,3 +175,15 @@ CREATE TABLE event_person_logging (
   PRIMARY KEY (event_person_logging_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE event_link_logging (
+  event_link_logging_id SERIAL NOT NULL,
+  event_link_id INTEGER NOT NULL,
+  event_id INTEGER NOT NULL,
+  url VARCHAR(1024) NOT NULL,
+  title VARCHAR(256),
+  rank INTEGER,
+  last_modified TIMESTAMP WITH TIME ZONE NOT NULL,
+  last_modified_by INTEGER,
+  PRIMARY KEY (event_link_logging_id)
+) WITHOUT OIDS;
+

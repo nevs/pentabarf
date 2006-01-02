@@ -3,6 +3,7 @@ module Momomoto
     def initialize
       super
       @domain = 'event'
+      @log_changes = true
       @fields = {
         :event_link_id => Datatype::Integer.new( {:not_null=>true, :default=>true, :primary_key=>true, :serial=>true} ),
         :event_id => Datatype::Integer.new( {:not_null=>true} ),
