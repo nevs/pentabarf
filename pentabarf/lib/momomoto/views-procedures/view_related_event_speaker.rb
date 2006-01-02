@@ -15,9 +15,6 @@ module Momomoto
                        INNER JOIN event_role ON (
                            event_person.event_role_id = event_role.event_role_id AND 
                            event_role.tag IN ('speaker', 'moderator'))
-                       INNER JOIN event_role_state ON (
-                           event_person.event_role_state_id = event_role_state.event_role_state_id AND
-                           event_role_state.tag = 'confirmed')
                        INNER JOIN (SELECT person_id, name FROM view_person) AS person USING (person_id)"
       @fields = {
         :event_id => Datatype::Integer.new({:parameter=>true}),
