@@ -83,10 +83,15 @@ class PentabarfController < ApplicationController
   end
 
   def save_person_search
-    if params[:save_person_search][:name]
-      params[:save_person_search][:name].gsub!( /\W/, '' )
+    params[:save_person_search][:name].gsub!( /\W/, '' )
+    if params[:save_person_search][:name].to_s != ''
       @preferences[:saved_person_search][params[:save_person_search][:name]] = @preferences[:search_person_advanced].dup
     end
+    redirect_to( {:action => :find_person} )
+  end
+
+  def restore_person_search
+    @preferences[:search_person_advanced] = @preferences[:saved_person_search][params[:id].to_sym] if @preferences[:saved_person_search][params[:id].to_sym]
     redirect_to( {:action => :find_person} )
   end
 
@@ -95,9 +100,22 @@ class PentabarfController < ApplicationController
     redirect_to( {:action => :find_person} )
   end
 
-  def restore_person_search
-    @preferences[:search_person_advanced] = @preferences[:saved_person_search][params[:id].to_sym] if @preferences[:saved_person_search][params[:id].to_sym]
-    redirect_to( {:action => :find_person} )
+  def save_event_search
+    params[:save_event_search][:name].gsub!( /\W/, '' )
+    if params[:save_event_search][:name].to_s != ''
+      @preferences[:saved_event_search][params[:save_event_search][:name]] = @preferences[:search_event_advanced].dup
+    end
+    redirect_to( {:action => :find_event} )
+  end
+
+  def restore_event_search
+    @preferences[:search_event_advanced] = @preferences[:saved_event_search][params[:id].to_sym] if @preferences[:saved_event_search][params[:id].to_sym]
+    redirect_to( {:action => :find_event} )
+  end
+
+  def delete_event_search
+    @preferences[:saved_event_search].delete(params[:id].to_sym) if @preferences[:saved_event_search][params[:id].to_sym]
+    redirect_to( {:action => :find_event} )
   end
 
   def search_person_advanced
@@ -584,7 +602,7 @@ class PentabarfController < ApplicationController
           next if key == :conference_id
           event[key]= value
         end
-        event.conference_id = params[:conference_id] if @user.permission?( 'move_event' )
+        event.conference_id = params[:event][:conference_id] if @user.permission?( 'move_event' )
         event.f_public = 'f' unless params[:event]['f_public']
         event.f_paper = 'f' unless params[:event]['f_paper']
         event.f_slides = 'f' unless params[:event]['f_slides']
