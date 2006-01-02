@@ -581,8 +581,10 @@ class PentabarfController < ApplicationController
       
       begin
         params[:event].each do | key, value |
+          next if key == :conference_id
           event[key]= value
         end
+        event.conference_id = params[:conference_id] if @user.permission?( 'move_event' )
         event.f_public = 'f' unless params[:event]['f_public']
         event.f_paper = 'f' unless params[:event]['f_paper']
         event.f_slides = 'f' unless params[:event]['f_slides']
