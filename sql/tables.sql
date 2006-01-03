@@ -278,6 +278,7 @@ CREATE TABLE person (
   last_modified_by INTEGER,
   FOREIGN KEY (country_id) REFERENCES country (country_id),
   FOREIGN KEY (last_modified_by) REFERENCES person (person_id),
+  CHECK (login_name IS NOT NULL OR last_name IS NOT NULL OR nickname IS NOT NULL OR public_name IS NOT NULL),
   PRIMARY KEY (person_id)
 ) WITHOUT OIDS;
 
