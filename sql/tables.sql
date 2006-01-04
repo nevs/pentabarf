@@ -922,6 +922,7 @@ CREATE TABLE event_related (
   event_id2 INTEGER NOT NULL,
   FOREIGN KEY (event_id1) REFERENCES event (event_id),
   FOREIGN KEY (event_id2) REFERENCES event (event_id),
+  CHECK (event_id1 <> event_id2),
   PRIMARY KEY (event_id1, event_id2)
 ) WITHOUT OIDS;
 
