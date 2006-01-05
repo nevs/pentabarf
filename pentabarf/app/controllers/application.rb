@@ -85,6 +85,7 @@ class ApplicationController < ActionController::Base
   end 
 
   def rescue_action_in_public( exception )
+    @meditation_message = exception.message
     render :file => '../app/views/meditation.rhtml'
   end
 
