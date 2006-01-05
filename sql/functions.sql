@@ -172,6 +172,8 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
                        FROM event_link
                       WHERE event_id = cur_event_id;
 
+    INSERT INTO event_related( event_id1, event_id2 ) VALUES( cur_event_id, new_event_id );
+
     RETURN new_event_id;
 
   END;
