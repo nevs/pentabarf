@@ -8,11 +8,12 @@ module Momomoto
       super
       @table = 'person'
       @domain = 'own_person'
-      @fields = { :person_id    => Datatype::Integer.new( {:primary_key => true, :not_null => true, :serial => true} ),
-                  :login_name   => Datatype::Varchar.new( {} ),
-                  :password     => Datatype::Password.new( {:length => 48} ),
-                  :preferences  => Datatype::Preferences.new( {:auto_update => true} ),
-                  :last_login   => Datatype::Timestamp.new( {:auto_update => true} )
+      @fields = { :person_id     => Datatype::Integer.new( {:primary_key => true, :not_null => true, :serial => true} ),
+                  :login_name    => Datatype::Varchar.new( {:length => 32} ),
+                  :email_contact => Datatype::Varchar.new( {:length => 64} ),
+                  :password      => Datatype::Password.new( {:length => 48} ),
+                  :preferences   => Datatype::Preferences.new( {:auto_update => true} ),
+                  :last_login    => Datatype::Timestamp.new( {:auto_update => true} )
       }
     end
 
