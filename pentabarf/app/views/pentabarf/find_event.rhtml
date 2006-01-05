@@ -19,6 +19,24 @@
   
   <div id="content-advanced" class="content_tab">
     <fieldset>
+      <legend>Restore Search</legend>
+        <% @preferences[:saved_event_search].each do | key, value | %>
+          <span>
+            <a href="<%= url_for({:action=>:restore_event_search, :id=>key}) %>"><%= h(key.to_s) %></a>
+            &nbsp;
+            <a href="<%= url_for({:action=>:delete_event_search,:id=>key}) %>">delete</a>
+          </span>
+          <br/>
+        <% end %>
+    </fieldset>
+    <fieldset>
+      <legend>Save Search</legend>
+      <%= start_form_tag( {:action => :save_event_search} ) %>
+        <%= text_field_tag( 'save_event_search[name]' ) %>
+        <%= submit_tag("Save search", {:tabindex => 0}) %>
+      <%= end_form_tag() %>
+    </fieldset>
+    <fieldset>
       <legend>Find</legend>
         <%= start_form_tag( {:action => :search_event_advanced}, {:id => 'find_event_advanced'} ) %>
           <div id="search_elements">
