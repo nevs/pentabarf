@@ -50,3 +50,4 @@ end
 
 # Include your application configuration below
 
+ActionMailer::Base.server_settings = YAML.load_file(File.join(File.dirname(__FILE__), 'mail.yml')) if File.exists?(File.join(File.dirname(__FILE__), 'mail.yml'))
