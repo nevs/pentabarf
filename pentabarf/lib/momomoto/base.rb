@@ -125,8 +125,7 @@ module Momomoto
 
     # get number of records in resultset
     def length
-      return @resultset.length if @resultset
-      0
+      return @resultset ? @resultset.length : 0
     end
 
     def initialize

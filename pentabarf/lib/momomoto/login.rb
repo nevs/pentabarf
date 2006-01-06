@@ -41,6 +41,7 @@ module Momomoto
           return true
         end
       end
+      @resultset = []
       return false
     end
 

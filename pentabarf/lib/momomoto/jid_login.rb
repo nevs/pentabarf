@@ -28,6 +28,7 @@ module Momomoto
         Base.ui_language_id= self[:preferences][:current_language_id]
         return true
       end
+      @resultset = []
       false
     end
 
