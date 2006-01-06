@@ -217,10 +217,12 @@ module ApplicationHelper
     radio_button_tag( name, value, value.to_s == checked.to_s, options )
   end
 
+  # returns the current version of pentabarf
   def get_version()
     "0.2"
   end
 
+  # tries to read the current revision of pentabarf from a file named revision.txt otherwise returns 2342
   def get_revision()
     revision_file = '../../revision.txt'
     if File.exists?( revision_file ) && File.readable_real?( revision_file )
