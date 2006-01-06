@@ -21,4 +21,13 @@
 require File.dirname(__FILE__) + "/../config/environment"
 require 'fcgi_handler'
 
+class RailsFCGIHandler
+
+  # disable periodic GC startup
+  def run_gc!
+  end
+  
+end
+
+
 RailsFCGIHandler.process!
