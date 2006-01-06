@@ -1,13 +1,21 @@
 <div id="sidebar">
   <div id="logo">
-    <%= image_tag("erisdiscordia-160x160.png") %>
+    <%= image_tag("erisdiscordia-128x128.png") %>
   </div>
 
   <div id="menu">
   
     <div class="menu-item-group">
-      <%= link_to( '<[link::startpage]>', {:controller => 'pentabarf', :action => :index }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Index', {:action => :index }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Login', {:action => :login }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Create account', {:action => :create_account}, { :class => 'menu-item' } ) %>
+    <% if @user %>
+      <%= link_to( 'Event', {:action => :event }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Logout', {:action => :logout}, { :class => 'menu-item' } ) %>
+    <% end %>
     </div>
+
+    <hr/>
   
     <div class="menu-item-group">
       <%= link_to( '<[link::pentabarf_wiki]>', 'https://pentabarf.org/', { :class => 'menu-item' } ) %>
