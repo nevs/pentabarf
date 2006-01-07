@@ -977,6 +977,15 @@ CREATE TABLE conference_phase_conflict(
   PRIMARY KEY (conference_phase_conflict_id)
 ) WITHOUT OIDS;
 
+CREATE TABLE new_account(
+  new_account_id SERIAL NOT NULL,
+  login_name VARCHAR(32) NOT NULL UNIQUE,
+  email_contact VARCHAR(64) NOT NULL UNIQUE,
+  password CHAR(48) NOT NULL,
+  activation_string CHAR(64) NOT NULL UNIQUE,
+  account_creation TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  PRIMARY KEY (new_account_id)
+) WITHOUT OIDS;
 
 COMMIT;
 

@@ -1,5 +1,5 @@
 
--- returns all conclicts related to events
+-- returns all conclicts related to events, persons and events
 CREATE OR REPLACE FUNCTION conflict_event_person_event(integer) RETURNS SETOF conflict_event_person_event_conflict AS '
   DECLARE
     cur_conference_id ALIAS FOR $1;
