@@ -99,6 +99,7 @@ class ApplicationController < ActionController::Base
     message += "IP: #{@request.remote_ip}\n"
     message += "URL: https://#{@request.host + @request.request_uri}\n"
     message += "Exception: #{exception.to_s}\n"
+    message += "Exception Class: #{exception.class}\n"
     message += "Backtrace:\n"
     message += clean_backtrace(exception).join("\n")
     message += "\n"
