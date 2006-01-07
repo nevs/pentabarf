@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
     if authdata and authdata[0] == 'Basic' 
       login_name, password = Base64.decode64(authdata[1]).split(':')[0..1] 
     end 
-    return [login_name, password] 
+    return [login_name.to_s, password.to_s] 
   end 
 
   def authorize( realm='Pentabarf', errormessage='Authentication failed')
