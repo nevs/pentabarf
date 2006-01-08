@@ -5,6 +5,11 @@ module Momomoto
   module Datatype
 
     class Bool < Base 
+
+      def value
+        filter_get(@value)
+      end
+
       def filter_set( value )
         if property(:not_null)
           case value
