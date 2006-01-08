@@ -13,6 +13,7 @@ module Momomoto
   
       public
 
+      # has this field been modified
       def dirty?
         if property(:auto_update)
           return true
@@ -21,28 +22,34 @@ module Momomoto
         end
       end
 
+      # default value for new fields of this type
       def new_value
         nil
       end
 
+      # get a property
       def property( name )
         @properties[name]
       end
 
-      def value()
+      # get the value
+      def value
         filter_get(@value).clone if @value
       end
 
-      def write_value()
+      # prepare value for writing into database
+      def write_value
         filter_write(@value)
       end
 
+      # assign a value to this field
       def value=( new_value )
         new_value = filter_set( new_value )
         @dirty = true unless @value == new_value
         @value = new_value
       end
 
+      # filter function applied to data coming from the database
       def import( value )
         @value = filter_read( value )
         @dirty = false
@@ -56,8 +63,7 @@ module Momomoto
       def filter_write( data )
         return 'NULL' unless data
         data = data.gsub( /\\/, '' )
-        data = data.gsub( /'/, "''" )
-        "'" + data + "'"
+        "'" + PGconn.escape( data ) + "'"
       end
   
       protected
