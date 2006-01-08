@@ -80,14 +80,14 @@ class ImageController < ApplicationController
   def speaker_per_gender
     speaker = Momomoto::View_report_schedule_gender.find({:conference_id=>params[:id].to_s.gsub(/\..*$/, '')})
     speaker_gender = {}
-    speaker_gender['t'], speaker_gender['f'] = 0,0
+    speaker_gender[true], speaker_gender[false] = 0,0
     speaker.each do | s | 
-      next unless s.gender
+      next if s.gender.nil?
       speaker_gender[s.gender] += 1
     end
     pieces = []
-    pieces.push({:name=>'male',:count => speaker_gender['t'], :total => speaker.length})
-    pieces.push({:name=>'female',:count => speaker_gender['f'], :total => speaker.length})
+    pieces.push({:name=>'male',:count => speaker_gender[true], :total => speaker.length})
+    pieces.push({:name=>'female',:count => speaker_gender[false], :total => speaker.length})
     render_pie(pieces)
   end
 
