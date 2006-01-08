@@ -84,15 +84,15 @@
         </tr>
         <tr>
           <td><label for="f_public"><[table::event::f_public]></label></td>
-          <td><%= check_box_tag( 'event[f_public]', 't', @event.f_public == 't' ? true : false, { :tabindex => 0 } ) %></td>
+          <td><%= check_box_tag( 'event[f_public]', 't', @event.f_public, { :tabindex => 0 } ) %></td>
         </tr>
         <tr>
           <td><label for="f_paper"><[table::event::f_paper]></label></td>
-          <td><%= check_box_tag( 'event[f_paper]', 't', @event.f_paper == 't' ? true : false, { :tabindex => 0 } ) %></td>
+          <td><%= check_box_tag( 'event[f_paper]', 't', @event.f_paper, { :tabindex => 0 } ) %></td>
         </tr>
         <tr>
           <td><label for="f_slides"><[table::event::f_slides]></label></td>
-          <td><%= check_box_tag( 'event[f_slides]', 't', @event.f_slides == 't' ? true : false, { :tabindex => 0 } ) %></td>
+          <td><%= check_box_tag( 'event[f_slides]', 't', @event.f_slides, { :tabindex => 0 } ) %></td>
         </tr>
         <tr>
           <td><label><[table::event::language]></label></td>
@@ -115,7 +115,7 @@
         <tr>
           <td><label>Created at</label></td>
           <% first_log = Momomoto::Event_transaction.find({:event_id => @event.event_id},1,'changed_when') %>
-          <td><%= first_log.length == 1 ? first_log.changed_when.gsub(/[.+].*$/, '') : '' %></td>
+          <td><%= first_log.length == 1 ? first_log.changed_when : '' %></td>
         </tr>
       </table>
     </fieldset>
@@ -210,12 +210,12 @@
               </a>
             </td>
             <td><%= select_tag("event_attachment[#{attachment.event_attachment_id}][attachment_type_id]", Momomoto::View_attachment_type.find({:language_id => @current_language_id}), :attachment_type_id, :name, attachment.attachment_type_id, {:tabindex => 0}, false ) %></td>
-            <td><%= check_box_tag("event_attachment[#{attachment.event_attachment_id}][f_public]", 't', attachment.f_public == 't' ? true : false, {:tabindex => 0}) %></td>
+            <td><%= check_box_tag("event_attachment[#{attachment.event_attachment_id}][f_public]", 't', attachment.f_public, {:tabindex => 0}) %></td>
             <td><%= text_field_tag("event_attachment[#{attachment.event_attachment_id}][filename]", attachment.filename, {:tabindex => 0}) %></td>
             <td><%= text_field_tag("event_attachment[#{attachment.event_attachment_id}][title]", attachment.title, {:tabindex => 0}) %></td>
             <td><%= text_field_tag("event_attachment[#{attachment.event_attachment_id}][pages]", attachment.pages, {:tabindex => 0,:size=>5}) %></td>
             <td><%= select_tag("event_attachment[#{attachment.event_attachment_id}][mime_type_id]", Momomoto::View_mime_type.find({:language_id => @current_language_id}), :mime_type_id, :name, attachment.mime_type_id, {:tabindex => 0}, false) %></td>
-            <td><%= h( attachment.last_modified.gsub(/[+.].*/, '')) %></td>
+            <td><%= h( attachment.last_modified ) %></td>
             <td><%= check_box_tag("event_attachment[#{attachment.event_attachment_id}][delete]", 't', false, {:tabindex => 0}) %>
           </tr>
           <% end %>
@@ -369,30 +369,30 @@
         <tbody>
           <tr>
             <td><label>Relevance</label></td>
-            <td><%= radio_button('rating[relevance]', '1', @rating.relevance, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[relevance]', '2', @rating.relevance, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[relevance]', '3', @rating.relevance, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[relevance]', '4', @rating.relevance, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[relevance]', '5', @rating.relevance, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[relevance]', '', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[relevance]', '1', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[relevance]', '2', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[relevance]', '3', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[relevance]', '4', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[relevance]', '5', @rating.relevance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[relevance]', '', @rating.relevance, {:tabindex => 0}) %></td>
           </tr>
           <tr>
             <td><label>Actuality</label></td>
-            <td><%= radio_button('rating[actuality]', '1', @rating.actuality, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[actuality]', '2', @rating.actuality, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[actuality]', '3', @rating.actuality, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[actuality]', '4', @rating.actuality, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[actuality]', '5', @rating.actuality, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[actuality]', '', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[actuality]', '1', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[actuality]', '2', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[actuality]', '3', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[actuality]', '4', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[actuality]', '5', @rating.actuality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[actuality]', '', @rating.actuality, {:tabindex => 0}) %></td>
           </tr>
           <tr>
             <td><label>Acceptance</label></td>
-            <td><%= radio_button('rating[acceptance]', '1', @rating.acceptance, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[acceptance]', '2', @rating.acceptance, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[acceptance]', '3', @rating.acceptance, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[acceptance]', '4', @rating.acceptance, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[acceptance]', '5', @rating.acceptance, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[acceptance]', '', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[acceptance]', '1', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[acceptance]', '2', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[acceptance]', '3', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[acceptance]', '4', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[acceptance]', '5', @rating.acceptance, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[acceptance]', '', @rating.acceptance, {:tabindex => 0}) %></td>
           </tr>
         </tbody>
       </table>

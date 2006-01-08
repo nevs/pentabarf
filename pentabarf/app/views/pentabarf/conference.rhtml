@@ -296,7 +296,7 @@
         </tr>
         <tr>
           <td><label>Enable Feedback</label></td>
-          <td><%= check_box_tag('conference[f_feedback_enabled]', 't', @conference.f_feedback_enabled == 't' ? true : false, {:tabindex => 0} ) %></td>
+          <td><%= check_box_tag('conference[f_feedback_enabled]', 't', @conference.f_feedback_enabled, {:tabindex => 0} ) %></td>
         </tr>
       </table>
    </fieldset>

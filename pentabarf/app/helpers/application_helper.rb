@@ -213,10 +213,6 @@ module ApplicationHelper
     html
   end
 
-  def radio_button( name, value, checked, options = {} )
-    radio_button_tag( name, value, value.to_s == checked.to_s, options )
-  end
-
   # returns the current version of pentabarf
   def get_version()
     "0.2"

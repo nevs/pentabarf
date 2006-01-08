@@ -214,7 +214,7 @@ class PentabarfController < ApplicationController
         @content_title ='New Person'
         @person = Momomoto::View_person.new_record
         @person.person_id = 0
-        @person.f_spam = 't'
+        @person.f_spam = true
         @conference_person = Momomoto::Conference_person.new_record
         @conference_person.conference_person_id = 0
         @conference_person.conference_id = @current_conference_id
@@ -381,7 +381,7 @@ class PentabarfController < ApplicationController
           if params[:person_image] && params[:person_image][:delete]
             modified = true if image.delete
           else
-            image.f_public = ( params[:person_image] && params[:person_image][:f_public] ) ? 't' : 'f'
+            image.f_public = ( params[:person_image] && params[:person_image][:f_public] ) ? true : false
             if params[:person_image] && params[:person_image][:image] && params[:person_image][:image].size > 0
               mime_type = Momomoto::Mime_type.find({:mime_type => params[:person_image][:image].content_type.chomp, :f_image => 't'})
               raise "mime-type not found #{params[:person_image][:image].content_type}" if mime_type.length != 1
@@ -468,7 +468,7 @@ class PentabarfController < ApplicationController
           transaction = Momomoto::Person_transaction.new_record
           transaction.person_id = person.person_id
           transaction.changed_by = @user.person_id
-          transaction.f_create = 't' if params[:id] == 'new'
+          transaction.f_create = true if params[:id] == 'new'
           transaction.write
           person.commit
         else
@@ -567,7 +567,7 @@ class PentabarfController < ApplicationController
           transaction = Momomoto::Conference_transaction.new_record
           transaction.conference_id = conference.conference_id
           transaction.changed_by = @user.person_id
-          transaction.f_create = 't' if params[:id] == 'new'
+          transaction.f_create = true if params[:id] == 'new'
           transaction.write
           conference.commit
         else
@@ -651,7 +651,7 @@ class PentabarfController < ApplicationController
             file.filename = value[:filename].to_s != '' ? value[:filename] : File.basename(value[:data].original_filename).gsub(/[^\w0-9.-_]/, '')
             file.title = value[:title]
             file.data = value[:data].read
-            file.f_public = value[:f_public] ? 't' : 'f'
+            file.f_public = value[:f_public] ? true : false
             modified = true if file.write
           end
         end
@@ -660,7 +660,7 @@ class PentabarfController < ApplicationController
           attachment = Momomoto::Event_attachment.new
           params[:event_attachment].each do | key, value |
             modified = true if save_or_delete_record( attachment, {:event_attachment_id => key, :event_id => event.event_id}, value ) { | t |
-              t.f_public = value[:f_public] ? 't' : 'f'
+              t.f_public = value[:f_public] ? true : false
             }
           end
         end
@@ -698,7 +698,7 @@ class PentabarfController < ApplicationController
           transaction = Momomoto::Event_transaction.new_record
           transaction.event_id = event.event_id
           transaction.changed_by = @user.person_id
-          transaction.f_create = 't' if params[:id] == 'new'
+          transaction.f_create = true if params[:id] == 'new'
           transaction.write
           event.commit
         else

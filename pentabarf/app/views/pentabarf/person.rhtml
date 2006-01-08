@@ -69,7 +69,7 @@
         </tr>
         <tr>
           <td><label for="f_arrived"><[table::person_travel::f_arrived]></label></td>
-          <td><%= check_box_tag('person_travel[f_arrived]', 't', @person_travel.f_arrived == 't' ? true : false, {:tabindex => 0} ) %></td>
+          <td><%= check_box_tag('person_travel[f_arrived]', 't', @person_travel.f_arrived, {:tabindex => 0} ) %></td>
         </tr>
       </table>
     </fieldset>
@@ -87,7 +87,7 @@
             <%= file_field_tag('person_image[image]', {:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>
             <% image = Momomoto::Person_image.find({:person_id => @person.person_id}) 
                image.create if image.length != 1 %>
-            <%= check_box_tag('person_image[f_public]', 't', image.f_public == 't' ? true : false , {:tabindex => 0}) %>
+            <%= check_box_tag('person_image[f_public]', 't', image.f_public, {:tabindex => 0}) %>
             <label for="image_public">public</label><br />
             <%= check_box_tag('person_image[delete]', 't', false, {:tabindex => 0}) %>
             <label for="person_image[delete]">delete picture</label>
@@ -223,7 +223,7 @@
         </tr>
         <tr>
           <td><label><[table::person::f_spam]></label>
-          <td><%= check_box_tag('person[f_spam]', 't', @person.f_spam == 't' ? true : false, {:tabindex => 0}) %></td>
+          <td><%= check_box_tag('person[f_spam]', 't', @person.f_spam, {:tabindex => 0}) %></td>
         </tr>
       </table>
     </fieldset>
@@ -412,21 +412,21 @@
         <tbody>
           <tr>
             <td><label>Speaker Quality</label></td>
-            <td><%= radio_button('rating[speaker_quality]', '1', @rating.speaker_quality, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[speaker_quality]', '2', @rating.speaker_quality, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[speaker_quality]', '3', @rating.speaker_quality, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[speaker_quality]', '4', @rating.speaker_quality, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[speaker_quality]', '5', @rating.speaker_quality, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[speaker_quality]', '', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[speaker_quality]', '1', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[speaker_quality]', '2', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[speaker_quality]', '3', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[speaker_quality]', '4', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[speaker_quality]', '5', @rating.speaker_quality, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[speaker_quality]', '', @rating.speaker_quality, {:tabindex => 0}) %></td>
           </tr>
           <tr>
             <td><label>Speaker Competence</label></td>
-            <td><%= radio_button('rating[competence]', '1', @rating.competence, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[competence]', '2', @rating.competence, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[competence]', '3', @rating.competence, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[competence]', '4', @rating.competence, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[competence]', '5', @rating.competence, {:tabindex => 0}) %></td>
-            <td><%= radio_button('rating[competence]', '', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[competence]', '1', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[competence]', '2', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[competence]', '3', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[competence]', '4', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[competence]', '5', @rating.competence, {:tabindex => 0}) %></td>
+            <td><%= radio_button_tag('rating[competence]', '', @rating.competence, {:tabindex => 0}) %></td>
           </tr>
         </tbody>
       </table>
@@ -477,7 +477,7 @@
           <td><a href="<%= url_for({:action => :person, :id => rating.evaluator_id}) %>" title="<%= h(rating.name) %>"><%= h(rating.name) %></a></td>
           <%= rating_bar_small( rating, [:speaker_quality, :competence]) %>
           <td><%= h(rating.remark) %></td>
-          <td><%= h(rating.eval_time.gsub(/[+.].*/, '')) %></td>
+          <td><%= h(rating.eval_time) %></td>
         </tr>
         <% end %>
         </tbody>
@@ -536,7 +536,7 @@
               </tr>
               <tr>
                 <td><label>Pickup</label></td>
-                <td><%= check_box_tag('person_travel[f_arrival_pickup]', 't', @person_travel.f_arrival_pickup == 't' ? true : false, {:tabindex => 0} )%></td>
+                <td><%= check_box_tag('person_travel[f_arrival_pickup]', 't', @person_travel.f_arrival_pickup, {:tabindex => 0} )%></td>
               </tr>
             </table>
           </td>
@@ -584,14 +584,14 @@
               </tr>
               <tr>
                 <td><label>Pickup</label></td>
-                <td><%= check_box_tag('person_travel[f_departure_pickup]', 't', @person_travel.f_departure_pickup == 't' ? true : false, {:tabindex => 0})%></td>
+                <td><%= check_box_tag('person_travel[f_departure_pickup]', 't', @person_travel.f_departure_pickup, {:tabindex => 0})%></td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
           <td><label>Need travel Costs:</label></td>
-          <td><%= check_box_tag('person_travel[f_need_travel_cost]', 't', @person_travel.f_need_travel_cost == 't' ? true : false, {:tabindex => 0})%></td>
+          <td><%= check_box_tag('person_travel[f_need_travel_cost]', 't', @person_travel.f_need_travel_cost, {:tabindex => 0})%></td>
         </tr>
         <tr>
           <td><label>Total travel Costs:</label></td>
@@ -637,7 +637,7 @@
         </tr>
         <tr>
           <td><label>Need Accommodation Cost:</label></td>
-          <td><%= check_box_tag('person_travel[f_need_accommodation_cost]', 't', @person_travel.f_need_accommodation_cost == 't' ? true : false, {:tabindex => 0})%></td>
+          <td><%= check_box_tag('person_travel[f_need_accommodation_cost]', 't', @person_travel.f_need_accommodation_cost, {:tabindex => 0})%></td>
         </tr>
         <tr>
           <td><label>Total accommodation cost</label></td>

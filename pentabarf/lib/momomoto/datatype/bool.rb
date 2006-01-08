@@ -10,20 +10,26 @@ module Momomoto
         filter_get(@value)
       end
 
+      # filter function applied to data coming from the database
+      def import( value )
+        @value = filter_set( value )
+        @dirty = false
+      end
+
       def filter_set( value )
         if property(:not_null)
           case value
             when 't', '1', 1, true
-              then 't'
+              then true
             else
-              'f'
+              false
           end
         else
           case value
             when 't', '1', 1, true 
-              then 't'
+              then true
             when 'f', '0', 0, false
-              then 'f'
+              then false
             else 
               nil
           end

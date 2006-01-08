@@ -43,7 +43,7 @@ class FeedbackController < ApplicationController
     else
       @conference = Momomoto::Conference.find({:acronym => params[:conference_id]})
     end
-    return true if @conference.length == 1 && @conference.f_feedback_enabled == 't'
+    return true if @conference.length == 1 && @conference.f_feedback_enabled
     false
   end
 

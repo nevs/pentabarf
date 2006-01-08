@@ -60,7 +60,7 @@
         <td class="value"><%= h(@events.language) %></td>
       </tr>
     </table>
-    <% if @conference.f_feedback_enabled == 't' && @conference.feedback_base_url %>
+    <% if @conference.f_feedback_enabled && @conference.feedback_base_url %>
     <table>
       <tr>
         <th colspan="2">FEEDBACK</th>
