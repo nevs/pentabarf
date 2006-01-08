@@ -79,7 +79,7 @@
       <table>
         <tr>
           <td><label><[table::person::gender]></label></td>
-          <td><%= select('person', 'gender', {'male' => 't', 'female' => 'f'}, {:include_blank => true}, {:tabindex => 0}) %></td>
+          <td><%= select('person', 'gender', {'male' => true, 'female' => false}, {:include_blank => true}, {:tabindex => 0}) %></td>
         </tr>
         <tr>
           <td><label>Foto</label> (square)</td>
