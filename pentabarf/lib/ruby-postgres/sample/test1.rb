@@ -33,7 +33,7 @@ def main
 
     res.result.each do |tupl|
       tupl.each do |fld|
-	printf("%-15s",fld)
+        printf("%-15s",fld)
       end
       printf("\n")
     end

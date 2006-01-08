@@ -27,12 +27,12 @@ DEFAULT_EDITOR   = "vi"
 DEFAULT_FIELD_SEP= "|"
 
 PsqlSettings = Struct.new("PsqlSettings", :db, :queryFout, :opt, :prompt,
-			  :gfname, :notty,:pipe, :echoQuery,:quiet,
-			  :singleStep, :singleLineMode, :useReadline)
-			  
+                          :gfname, :notty,:pipe, :echoQuery,:quiet,
+                          :singleStep, :singleLineMode, :useReadline)
+
 PrintOpt = Struct.new("PrintOpt", :header, :align, :standard, :html3,
-		      :expanded, :pager, :fieldSep, :tableOpt,
-		      :caption, :fieldName)
+                      :expanded, :pager, :fieldSep, :tableOpt,
+                      :caption, :fieldName)
 
 $readline_ok = TRUE
 
@@ -126,7 +126,7 @@ def gets(prompt, source)
   else
     if line.length > MAX_QUERY_BUFFER
       printf(STDERR, "line read exceeds maximum length.  Truncating at %d\n",
-	     MAX_QUERY_BUFFER)
+             MAX_QUERY_BUFFER)
       return line[0..MAX_QUERY_BUFFER-1]
     else
       return line
@@ -142,7 +142,7 @@ def PSQLexec(ps, query)
 
   else
     if (res.status() == PGresult::COMMAND_OK ||
-	res.status() == PGresult::TUPLES_OK)
+        res.status() == PGresult::TUPLES_OK)
       return res
     end
 
@@ -206,7 +206,7 @@ def tableList(ps, deep_tablelist, info_type, system_tables)
       table = res.result
       res.clear
       for i in 0..nColumns-1
-	tableDesc(ps, table[i][1])
+        tableDesc(ps, table[i][1])
       end
     else
       # Display the information
@@ -218,16 +218,16 @@ def tableList(ps, deep_tablelist, info_type, system_tables)
 
       # next, print out the instances
       for i in 0..res.num_tuples-1
-	printf(" | %-16.16s", res.getvalue(i, 0))
-	printf(" | %-32.32s | ", res.getvalue(i, 1))
-	rk = res.getvalue(i, 2)
-	rr = res.getvalue(i, 3)
-	if (rk.eql?("r"))
-	  printf("%-8.8s |", if (rr[0] == 't') then "view?" else "table" end)
-	else
-	  printf("%-8.8s |", "index")
-	end
-	printf("\n")
+        printf(" | %-16.16s", res.getvalue(i, 0))
+        printf(" | %-32.32s | ", res.getvalue(i, 1))
+        rk = res.getvalue(i, 2)
+        rr = res.getvalue(i, 3)
+        if (rk.eql?("r"))
+          printf("%-8.8s |", if (rr[0] == 't') then "view?" else "table" end)
+        else
+          printf("%-8.8s |", "index")
+        end
+        printf("\n")
       end
       printf(" +------------------+----------------------------------+----------+\n")
       res.clear()
@@ -273,27 +273,27 @@ def tableDesc(ps, table)
       rsize = res.getvalue(i, 3).to_i
 
       if (rtype.eql?("text"))
-	printf("%-32.32s |", rtype)
-	printf("%6s |", "var")
+        printf("%-32.32s |", rtype)
+        printf("%6s |", "var")
       elsif (rtype.eql?("bpchar"))
-	printf("%-32.32s |", "(bp)char")
-	printf("%6i |", if (rsize > 0) then rsize - 4 else 0 end)
+        printf("%-32.32s |", "(bp)char")
+        printf("%6i |", if (rsize > 0) then rsize - 4 else 0 end)
       elsif  (rtype.eql?("varchar"))
-	printf("%-32.32s |", rtype)
-	printf("%6d |", if (rsize > 0) then rsize - 4 else 0 end)
+        printf("%-32.32s |", rtype)
+        printf("%6d |", if (rsize > 0) then rsize - 4 else 0 end)
       else
-	# array types start with an underscore
-	if (rtype[0, 1] != '_')
-	  printf("%-32.32s |", rtype)
-	else
-	  newname = rtype + "[]"
-	  printf("%-32.32s |", newname)
-	end
-	if (rsize > 0)
-	  printf("%6d |", rsize)
-	else
-	  printf("%6s |", "var")
-	end
+        # array types start with an underscore
+        if (rtype[0, 1] != '_')
+          printf("%-32.32s |", rtype)
+        else
+          newname = rtype + "[]"
+          printf("%-32.32s |", newname)
+        end
+        if (rsize > 0)
+          printf("%6d |", rsize)
+        else
+          printf("%6s |", "var")
+        end
       end
       printf("\n")
     end
@@ -343,16 +343,16 @@ def do_help(topic)
     for i in 0..QL_HELP.length-1
       case left_center_right
       when  'L'
-	printf("    %-25s", QL_HELP[i][0])
-	left_center_right = 'C'
+        printf("    %-25s", QL_HELP[i][0])
+        left_center_right = 'C'
 
       when 'C'
-	printf("%-25s", QL_HELP[i][0])
-	left_center_right = 'R'
+        printf("%-25s", QL_HELP[i][0])
+        left_center_right = 'R'
 
       when 'R'
-	printf("%-25s\n", QL_HELP[i][0])
-	left_center_right = 'L'
+        printf("%-25s\n", QL_HELP[i][0])
+        left_center_right = 'L'
 
       end
     end
@@ -364,12 +364,12 @@ def do_help(topic)
     help_found = FALSE
     for i in 0..QL_HELP.length-1
       if QL_HELP[i][0] == topic || topic == "*"
-	help_found = TRUE
-	printf("Command: %s\n", QL_HELP[i][0])
-	printf("Description: %s\n", QL_HELP[i][1])
-	printf("Syntax:\n")
-	printf("%s\n", QL_HELP[i][2])
-	printf("\n")
+        help_found = TRUE
+        printf("Command: %s\n", QL_HELP[i][0])
+        printf("Description: %s\n", QL_HELP[i][1])
+        printf("Syntax:\n")
+        printf("%s\n", QL_HELP[i][2])
+        printf("\n")
       end
     end
     if !help_found
@@ -392,20 +392,20 @@ def do_edit(filename_arg, query)
 
     if query
       begin
-	fd = File.new(fname, "w")
-	if query[query.length-1, 1] != "\n"
-	  query += "\n"
-	end
-	if fd.print(query) != query.length
-	  fd.close
-	  File.unlink(fname)
-	  error = TRUE
-	else
-	  error = FALSE
-	end
-	fd.close
+        fd = File.new(fname, "w")
+        if query[query.length-1, 1] != "\n"
+          query += "\n"
+        end
+        if fd.print(query) != query.length
+          fd.close
+          File.unlink(fname)
+          error = TRUE
+        else
+          error = FALSE
+        end
+        fd.close
       rescue
-	error = TRUE
+        error = TRUE
       end
     else
       error = FALSE
@@ -421,23 +421,23 @@ def do_edit(filename_arg, query)
       query = fd.read
       fd.close
       if query == nil
-	status = 1
+        status = 1
       else
-	query.sub!(/[ \t\f\r\n]*$/, "")
-	if query.length != 0
-	  status = 3
-	else
-	  query  = nil
-	  status = 1
-	end
+        query.sub!(/[ \t\f\r\n]*$/, "")
+        if query.length != 0
+          status = 3
+        else
+          query  = nil
+          status = 1
+        end
       end
     rescue
       status = 1
     ensure
       if !filename_arg
-	if test(?e, fname)
-	  File.unlink(fname)
-	end
+        if test(?e, fname)
+          File.unlink(fname)
+        end
       end
     end
   end
@@ -503,14 +503,14 @@ def do_copy(settings, table, from_p, file)
     copystream.close
     if !settings.quiet
       if success
-	printf("Successfully copied.\n");
+        printf("Successfully copied.\n");
       else
-	printf("Copy failed.\n");
+        printf("Copy failed.\n");
       end
     end
   rescue
     printf(STDERR, "Unable to open file %s which to copy.",
-	   if from then "from" else "to" end)
+           if from then "from" else "to" end)
   end
 end
 
@@ -524,9 +524,9 @@ def handleCopyOut(settings, copystream)
       copydone = TRUE
     else
       if copybuf == "\\."
-	copydone = TRUE
+        copydone = TRUE
       else
-	copystream.print(copybuf + "\n")
+        copystream.print(copybuf + "\n")
       end
     end
   end
@@ -573,11 +573,11 @@ def setFout(ps, fname)
   else
     begin 
       if fname[0, 1] == "|"
-	dumy, ps.queryFout = pipe(fname)
-	ps.pipe = TRUE
+        dumy, ps.queryFout = pipe(fname)
+        ps.pipe = TRUE
       else
-	ps.queryFout = File.new(fname, "w+")
-	ps.pipe = FALSE
+        ps.queryFout = File.new(fname, "w+")
+        ps.pipe = FALSE
       end
     rescue
       ps.queryFout = STDOUT
@@ -659,22 +659,22 @@ def HandleSlashCmds(settings, line, query)
   when 'E'
     if args[1]
       begin
-	lastfile = args[1]
-	File.file?(lastfile) && (mt = File.mtime(lastfile))
-	editFile(lastfile)
-	File.file?(lastfile) && (mt2 = File.mtime(lastfile))
-	fd = File.new(lastfile, "r")
-	if mt != mt2
-	  MainLoop(settings, fd)
-	  fd.close()
-	else
-	  if !settings.quiet
-	    printf(STDERR, "warning: %s not modified. query not executed\n", lastfile)
-	  end
-	  fd.close()
-	end
+        lastfile = args[1]
+        File.file?(lastfile) && (mt = File.mtime(lastfile))
+        editFile(lastfile)
+        File.file?(lastfile) && (mt2 = File.mtime(lastfile))
+        fd = File.new(lastfile, "r")
+        if mt != mt2
+          MainLoop(settings, fd)
+          fd.close()
+        else
+          if !settings.quiet
+            printf(STDERR, "warning: %s not modified. query not executed\n", lastfile)
+          end
+          fd.close()
+        end
       rescue
-	#
+        #
       end
     else
       printf(STDERR, "\\r must be followed by a file name initially\n");
@@ -683,7 +683,7 @@ def HandleSlashCmds(settings, line, query)
     if args[1]
       settings.opt.fieldSep = args[1]
       if !settings.quiet
-	printf(STDERR, "field separater changed to '%s'\n", settings.opt.fieldSep)
+        printf(STDERR, "field separater changed to '%s'\n", settings.opt.fieldSep)
       end
     end
 
@@ -704,11 +704,11 @@ def HandleSlashCmds(settings, line, query)
   when 'i' # \i is include file
     if args[1]
       begin
-	fd = File.open(args[1], "r")
-	MainLoop(settings, fd)
-	fd.close()
+        fd = File.open(args[1], "r")
+        MainLoop(settings, fd)
+        fd.close()
       rescue Errno::ENOENT
-	printf(STDERR, "file named %s could not be opened\n", args[1])
+        printf(STDERR, "file named %s could not be opened\n", args[1])
       end
     else
       printf(STDERR, "\\i must be followed by a file name\n")
@@ -745,17 +745,17 @@ def HandleSlashCmds(settings, line, query)
   when 's' # \s is save history to a file
     begin
       if (args[1])
-	fd = File.open(args[1], "w")
+        fd = File.open(args[1], "w")
       else
-	fd = STDOUT
+        fd = STDOUT
       end
       Readline::HISTORY.each do |his|
-	fd.write (his + "\n")
+        fd.write (his + "\n")
       end
       if !fd.tty?
-	begin
-	  fd.close
-	end
+        begin
+          fd.close
+        end
       end
     rescue
       printf(STDERR, "cannot write history \n");
@@ -770,19 +770,19 @@ def HandleSlashCmds(settings, line, query)
       settings.opt.align = TRUE
       settings.opt.header = TRUE
       if settings.opt.fieldSep
-	settings.opt.fieldSep = ""
+        settings.opt.fieldSep = ""
       end
       settings.opt.fieldSep = "|"
       if !settings.quiet
-	printf(STDERR, "field separater changed to '%s'\n", settings.opt.fieldSep)
+        printf(STDERR, "field separater changed to '%s'\n", settings.opt.fieldSep)
       end
     else
       if settings.opt.fieldSep
-	settings.opt.fieldSep = ""
+        settings.opt.fieldSep = ""
       end
       settings.opt.fieldSep = DEFAULT_FIELD_SEP
       if !settings.quiet
-	printf(STDERR, "field separater changed to '%s'\n", settings.opt.fieldSep)
+        printf(STDERR, "field separater changed to '%s'\n", settings.opt.fieldSep)
       end
     end
 
@@ -835,17 +835,17 @@ def SendQuery(settings, query, copy_in, copy_out, copystream)
     when PGresult::TUPLES_OK
       success = TRUE
       if settings.gfname
-	setFout(settings, settings.gfname)
-	settings.gfname = nil
-	results.print(settings.queryFout, settings.opt)
-	settings.queryFout.flush
-	if settings.queryFout != STDOUT
-	  settings.queryFout.close
-	  settings.queryFout = STDOUT
-	end
+        setFout(settings, settings.gfname)
+        settings.gfname = nil
+        results.print(settings.queryFout, settings.opt)
+        settings.queryFout.flush
+        if settings.queryFout != STDOUT
+          settings.queryFout.close
+          settings.queryFout = STDOUT
+        end
       else
-	results.print(settings.queryFout, settings.opt)
-	settings.queryFout.flush
+        results.print(settings.queryFout, settings.opt)
+        settings.queryFout.flush
       end
       results.clear
 
@@ -855,27 +855,27 @@ def SendQuery(settings, query, copy_in, copy_out, copystream)
     when PGresult::COMMAND_OK
       success = TRUE
       if !settings.quiet
-	printf("%s\n", results.cmdstatus)
+        printf("%s\n", results.cmdstatus)
       end
 
     when PGresult::COPY_OUT
       success = TRUE
       if copy_out
-	  handleCopyOut(settings, copystream)
+          handleCopyOut(settings, copystream)
       else
-	if !settings.quiet
-	  printf("Copy command returns...\n")
-	end
+        if !settings.quiet
+          printf("Copy command returns...\n")
+        end
 
-	handleCopyOut(settings, STDOUT)
+        handleCopyOut(settings, STDOUT)
       end
 
     when PGresult::COPY_IN
       success = TRUE
       if copy_in
-	handleCopyIn(settings, FALSE, copystream)
+        handleCopyIn(settings, FALSE, copystream)
       else
-	handleCopyIn(settings, !settings.quiet, STDIN)
+        handleCopyIn(settings, !settings.quiet, STDIN)
       end
     end
 
@@ -926,13 +926,13 @@ def MainLoop(settings, source)
       query = nil
     else
       if interactive && !settings.quiet
-	if insideQuote
-	  settings.prompt[settings.prompt.length-3,1] = "\'"
-	elsif (queryWaiting != nil && !querySent)
-	  settings.prompt[settings.prompt.length-3,1] = "-"
-	else
-	  settings.prompt[settings.prompt.length-3,1] = "="
-	end
+        if insideQuote
+          settings.prompt[settings.prompt.length-3,1] = "\'"
+        elsif (queryWaiting != nil && !querySent)
+          settings.prompt[settings.prompt.length-3,1] = "-"
+        else
+          settings.prompt[settings.prompt.length-3,1] = "="
+        end
       end
       line = gets(settings.prompt, source)
     end
@@ -944,67 +944,67 @@ def MainLoop(settings, source)
 
       ### debbegging information ###
       if !interactive && !settings.singleStep && !settings.quiet
-	printf(STDERR, "%s\n", line)
+        printf(STDERR, "%s\n", line)
       end
 
       ### ommit comment ###
       begin_comment = line.index("--")
       if begin_comment
-	line = line[0, begin_comment]
+        line = line[0, begin_comment]
       end
 
       ### erase unnecessary characters ###
       line.gsub!(/[ \t\f\n\r]+\z/, "")
       if line.length == 0
-	next
+        next
       end
       ### begin slash command handling ###
       if line[0, 1] == "\\"
-	query = line
-	slashCmdStatus, query = HandleSlashCmds(settings, line, nil)
-	if slashCmdStatus == 0 && query != nil
-	  success = SendQuery(settings, query, FALSE, FALSE, 0) && success
-	  querySent = TRUE
-	elsif slashCmdStatus == 1
-	  query = nil
-	elsif slashCmdStatus == 2
-	  break
-	end
-	line = nil
-	next
+        query = line
+        slashCmdStatus, query = HandleSlashCmds(settings, line, nil)
+        if slashCmdStatus == 0 && query != nil
+          success = SendQuery(settings, query, FALSE, FALSE, 0) && success
+          querySent = TRUE
+        elsif slashCmdStatus == 1
+          query = nil
+        elsif slashCmdStatus == 2
+          break
+        end
+        line = nil
+        next
       end
 
       ### begin query command handling ###
       slashCmdStatus = -1
       if settings.singleLineMode
-	success = SendQuery(settings, line, FALSE, FALSE, 0) && success
-	querySent = TRUE
+        success = SendQuery(settings, line, FALSE, FALSE, 0) && success
+        querySent = TRUE
       else
 
-	if queryWaiting 
-	  queryWaiting += " " + line 
+        if queryWaiting 
+          queryWaiting += " " + line 
         else
-	  queryWaiting =  line
+          queryWaiting =  line
         end
       
         for i in 0..line.length-1
-	  if line[i, 1] == "\'"
-	    insideQuote = !insideQuote
-	  end
+          if line[i, 1] == "\'"
+            insideQuote = !insideQuote
+          end
         end
 
         if !insideQuote
-	  if line[line.length-1, 1] == ";"
-	    query = queryWaiting
-	    queryWaiting = nil
+          if line[line.length-1, 1] == ";"
+            query = queryWaiting
+            queryWaiting = nil
 
-	    success = SendQuery(settings, query, FALSE, FALSE, 0) && success
-	    querySent = TRUE
-	  else
-	    querySent = FALSE
-	  end
+            success = SendQuery(settings, query, FALSE, FALSE, 0) && success
+            querySent = TRUE
+          else
+            querySent = FALSE
+          end
         else
-	  querySent = FALSE
+          querySent = FALSE
         end
       end
     end
@@ -1020,9 +1020,9 @@ def main
 
   singleQuery = nil
   settings = PsqlSettings.new(nil, nil, nil, nil, nil, FALSE, FALSE, 
-			      FALSE, FALSE, FALSE, FALSE, FALSE)
+                              FALSE, FALSE, FALSE, FALSE, FALSE)
   settings.opt = PrintOpt.new(FALSE, FALSE, FALSE, FALSE, FALSE,
-			      FALSE, nil, nil, nil, nil)
+                              FALSE, nil, nil, nil, nil)
 
   listDatabases = FALSE
   successResult = TRUE
@@ -1038,7 +1038,7 @@ def main
   settings.useReadline = TRUE
 
   parsed = parseArgs(0, nil, "AelHnsqStx", "a:", "c:", "d:", "f:", "F:",
-		     "h:", "o:", "p:", "T:")
+                     "h:", "o:", "p:", "T:")
 
   if $OPT_A
     settings.opt.align = FALSE
@@ -1158,10 +1158,10 @@ def main
   else
     if settings.useReadline
       begin
-	require "readline"
-	$readline_ok = TRUE
+        require "readline"
+        $readline_ok = TRUE
       rescue
-	$readline_ok = FALSE
+        $readline_ok = FALSE
       end
     else
       $readline_ok = FALSE
