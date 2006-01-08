@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>set_client_encoding (PGconn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    conn.set_client_encoding( encoding )
+ * 
+ * Sets the client encoding to the _encoding_ String.
+ */
+static VALUE
+pgconn_set_client_encoding(obj, str)
+    VALUE obj, str;
+{
+    Check_Type(str, T_STRING);
+    if ((PQsetClientEncoding(get_pgconn(obj), StringValuePtr(str))) == -1){
+        rb_raise(rb_ePGError, &quot;invalid encoding name %s&quot;,str);
+    }
+    return Qnil;
+}</pre>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>escape (PGconn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    PGconn.escape( str )
+ *
+ * Returns a SQL-safe version of the String _str_. Unlike #quote, does not wrap the String in '...'.
+ */
+static VALUE
+pgconn_s_escape(self, obj)
+    VALUE self;
+    VALUE obj;
+{
+    char *to;
+    long len;
+    VALUE ret;
+    
+    Check_Type(obj, T_STRING);
+    
+    to = ALLOCA_N(char, RSTRING(obj)-&gt;len * 2);
+    
+    len = PQescapeString(to, RSTRING(obj)-&gt;ptr, RSTRING(obj)-&gt;len);
+    
+    ret = rb_str_new(to, len);
+    OBJ_INFECT(ret, obj);
+    
+    return ret;
+}</pre>
+</body>
+</html>

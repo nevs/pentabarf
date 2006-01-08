@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>fieldname (PGresult)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    res.fieldname( index )
+ *
+ * Returns the name of the field (column) corresponding to the index.
+ *
+ *   res=conn.exec(&quot;SELECT foo,bar AS biggles,jim,jam FROM mytable;&quot;)
+ *   puts res.fieldname(2) =&gt; 'jim'
+ *   puts res.fieldname(1) =&gt; 'biggles'
+ *
+ * Equivalent to &lt;tt&gt;res.fields[_index_]&lt;/tt&gt;.
+ */
+static VALUE
+pgresult_fieldname(obj, index)
+    VALUE obj, index;
+{
+    PGresult *result;
+    int i = NUM2INT(index);
+    char *name;
+
+    result = get_pgresult(obj);
+    if (i &lt; 0 || i &gt;= PQnfields(result)) {
+        rb_raise(rb_eArgError,&quot;invalid field number %d&quot;, i);
+    }
+    name = PQfname(result, i);
+    return rb_tainted_str_new2(name);
+}</pre>
+</body>
+</html>

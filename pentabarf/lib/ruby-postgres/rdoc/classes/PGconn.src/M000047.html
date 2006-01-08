@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>lo_open (PGconn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    conn.lo_open( oid, [mode] ) =&gt; pglarge
+ *
+ * Open a large object of _oid_. Returns a PGlarge instance on success.
+ * The _mode_ argument specifies the mode for the opened large object,
+ * which is either +INV_READ+, or +INV_WRITE+.
+ * * If _mode_ On failure, it raises a PGError exception.
+ * * If _mode_ is omitted, the default is +INV_READ+.
+ */
+static VALUE
+pgconn_loopen(argc, argv, obj)
+    int argc;
+    VALUE *argv;
+    VALUE obj;
+{
+    Oid lo_oid;
+    int fd, mode;
+    VALUE nmode, objid;
+    PGconn *conn = get_pgconn(obj);
+
+    switch (rb_scan_args(argc, argv, &quot;02&quot;, &amp;objid, &amp;nmode)) {
+    case 1:
+      lo_oid = NUM2INT(objid);
+      mode = INV_READ;
+      break;
+    case 2:
+      lo_oid = NUM2INT(objid);
+      mode = FIX2INT(nmode);
+      break;
+    default:
+      mode = INV_READ;
+      lo_oid = lo_creat(conn, mode);
+      if (lo_oid == 0){
+          rb_raise(rb_ePGError, &quot;can't creat large object&quot;);
+      }
+    }
+    if((fd = lo_open(conn, lo_oid, mode)) &lt; 0) {
+        rb_raise(rb_ePGError, &quot;can't open large object&quot;);
+    }
+    return pglarge_new(conn, lo_oid, fd);
+}</pre>
+</body>
+</html>

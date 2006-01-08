@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>fields (PGresult)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    res.fields()
+ *
+ * Returns an array of Strings representing the names of the fields in the result.
+ *
+ *   res=conn.exec(&quot;SELECT foo,bar AS biggles,jim,jam FROM mytable;&quot;)
+ *   res.fields =&gt; [ 'foo' , 'biggles' , 'jim' , 'jam' ]
+ */
+static VALUE
+pgresult_fields(obj)
+    VALUE obj;
+{
+    PGresult *result;
+    VALUE ary;
+    int n, i;
+
+    result = get_pgresult(obj);
+    n = PQnfields(result);
+    ary = rb_ary_new2(n);
+    for (i=0;i&lt;n;i++) {
+        rb_ary_push(ary, rb_tainted_str_new2(PQfname(result, i)));
+    }
+    return ary;
+}</pre>
+</body>
+</html>

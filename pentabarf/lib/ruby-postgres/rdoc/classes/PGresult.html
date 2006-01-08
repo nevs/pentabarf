@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: PGresult</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">PGresult</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/postgres_c.html">
+                postgres.c
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+The class to represent the query result tuples (rows). An instance of this
+class is created as the result of every query. You may need to invoke the
+<a href="PGresult.html#M000084">clear</a> method of the instance when
+finished with the result for better memory performance.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000068">[]</a>&nbsp;&nbsp;
+      <a href="#M000084">clear</a>&nbsp;&nbsp;
+      <a href="#M000085">close</a>&nbsp;&nbsp;
+      <a href="#M000081">cmdstatus</a>&nbsp;&nbsp;
+      <a href="#M000080">cmdtuples</a>&nbsp;&nbsp;
+      <a href="#M000067">each</a>&nbsp;&nbsp;
+      <a href="#M000072">fieldname</a>&nbsp;&nbsp;
+      <a href="#M000073">fieldnum</a>&nbsp;&nbsp;
+      <a href="#M000069">fields</a>&nbsp;&nbsp;
+      <a href="#M000079">getisnull</a>&nbsp;&nbsp;
+      <a href="#M000078">getlength</a>&nbsp;&nbsp;
+      <a href="#M000076">getvalue</a>&nbsp;&nbsp;
+      <a href="#M000077">getvalue_byname</a>&nbsp;&nbsp;
+      <a href="#M000071">num_fields</a>&nbsp;&nbsp;
+      <a href="#M000070">num_tuples</a>&nbsp;&nbsp;
+      <a href="#M000082">oid</a>&nbsp;&nbsp;
+      <a href="#M000083">print</a>&nbsp;&nbsp;
+      <a href="#M000075">size</a>&nbsp;&nbsp;
+      <a href="#M000066">status</a>&nbsp;&nbsp;
+      <a href="#M000074">type</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">Enumerable</span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+    <div id="aliases-list">
+      <h3 class="section-bar">External Aliases</h3>
+
+      <div class="name-list">
+                        <table summary="aliases">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">entries</td>
+          <td>-></td>
+          <td class="context-item-value">result</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">entries</td>
+          <td>-></td>
+          <td class="context-item-value">rows</td>
+        </tr>
+                        </table>
+      </div>
+    </div>
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000068" class="method-detail">
+        <a name="M000068"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000068.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000068.html');return false;">
+          <span class="method-name">res[ n ]<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the tuple (row) corresponding to <em>n</em>. Returns <tt>nil</tt>
+if <tt><em>n</em> &gt;= res.num_tuples</tt>.
+</p>
+<p>
+Equivalent to <tt>res.result[n]</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000084" class="method-detail">
+        <a name="M000084"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000084.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000084.html');return false;">
+          <span class="method-name">res.clear()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Clears the <a href="PGresult.html">PGresult</a> object as the result of the
+query.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000085" class="method-detail">
+        <a name="M000085"></a>
+
+        <div class="method-heading">
+          <span class="method-name">close</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="PGresult.html#M000084">clear</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000081" class="method-detail">
+        <a name="M000081"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000081.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000081.html');return false;">
+          <span class="method-name">res.cmdstatus()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the status string of the last query command.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000080" class="method-detail">
+        <a name="M000080"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000080.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000080.html');return false;">
+          <span class="method-name">res.cmdtuples()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the number of tuples (rows) affected by the SQL command.
+</p>
+<p>
+If the SQL command that generated the <a href="PGresult.html">PGresult</a>
+was not one of <tt>INSERT</tt>, <tt>UPDATE</tt>, <tt>DELETE</tt>,
+<tt>MOVE</tt>, or <tt>FETCH</tt>, or if no tuples (rows) were affected, +0+
+is returned.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000067" class="method-detail">
+        <a name="M000067"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000067.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000067.html');return false;">
+          <span class="method-name">res.each{ |tuple| ... }<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Invokes the block for each tuple (row) in the result.
+</p>
+<p>
+Equivalent to <tt>res.result.each{ |tuple| &#8230; }</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000072" class="method-detail">
+        <a name="M000072"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000072.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000072.html');return false;">
+          <span class="method-name">res.fieldname( index )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the name of the field (column) corresponding to the index.
+</p>
+<pre>
+  res=conn.exec(&quot;SELECT foo,bar AS biggles,jim,jam FROM mytable;&quot;)
+  puts res.fieldname(2) =&gt; 'jim'
+  puts res.fieldname(1) =&gt; 'biggles'
+</pre>
+<p>
+Equivalent to <tt>res.fields[<em>index</em>]</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000073" class="method-detail">
+        <a name="M000073"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000073.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000073.html');return false;">
+          <span class="method-name">res.fieldnum( name )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the index of the field specified by the string <em>name</em>.
+</p>
+<pre>
+  res=conn.exec(&quot;SELECT foo,bar AS biggles,jim,jam FROM mytable;&quot;)
+  puts res.fieldnum('foo') =&gt; 0
+</pre>
+<p>
+Raises an ArgumentError if the specified <em>name</em> isn&#8217;t one of
+the field names; raises a TypeError if <em>name</em> is not a String.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000069" class="method-detail">
+        <a name="M000069"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000069.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000069.html');return false;">
+          <span class="method-name">res.fields()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an array of Strings representing the names of the fields in the
+result.
+</p>
+<pre>
+  res=conn.exec(&quot;SELECT foo,bar AS biggles,jim,jam FROM mytable;&quot;)
+  res.fields =&gt; [ 'foo' , 'biggles' , 'jim' , 'jam' ]
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000079" class="method-detail">
+        <a name="M000079"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000079.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000079.html');return false;">
+          <span class="method-name">res.getisnull( tup_num, field_num ) => true or false<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns <tt>true</tt> if the specified value is <tt>nil</tt>;
+<tt>false</tt> otherwise.
+</p>
+<p>
+Equivalent to <tt>res.value(<em>tup_num</em>,<em>field_num</em>)==nil</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000078" class="method-detail">
+        <a name="M000078"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000078.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000078.html');return false;">
+          <span class="method-name">res.getlength( tup_num, field_num )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the (String) length of the field in bytes.
+</p>
+<p>
+Equivalent to
+<tt>res.value(<em>tup_num</em>,<em>field_num</em>).length</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000076" class="method-detail">
+        <a name="M000076"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000076.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000076.html');return false;">
+          <span class="method-name">res.value( tup_num, field_num )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the value in tuple number <em>tup_num</em>, field number
+<em>field_num</em>. (Row <em>tup_num</em>, column <em>field_num</em>.)
+</p>
+<p>
+Equivalent to <tt>res.result[<em>tup_num</em>][<em>field_num</em>]</tt>
+(but faster).
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000077" class="method-detail">
+        <a name="M000077"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000077.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000077.html');return false;">
+          <span class="method-name">res.value_byname( tup_num, field_name )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the value in tuple number <em>tup_num</em>, for the field named
+<em>field_name</em>.
+</p>
+<p>
+Equivalent to (but faster than) either of:
+</p>
+<pre>
+   res.result[&lt;i&gt;tup_num&lt;/i&gt;][ res.fieldnum(&lt;i&gt;field_name&lt;/i&gt;) ]
+   res.value( &lt;i&gt;tup_num&lt;/i&gt;, res.fieldnum(&lt;i&gt;field_name&lt;/i&gt;) )
+</pre>
+<p>
+<em>(This method internally calls value as like the second example above;
+it is slower than using the field index directly.)</em>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000071" class="method-detail">
+        <a name="M000071"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000071.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000071.html');return false;">
+          <span class="method-name">res.num_fields()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the number of fields (columns) in the query result.
+</p>
+<p>
+Similar to <tt>res.result[0].length</tt> (but faster).
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000070" class="method-detail">
+        <a name="M000070"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000070.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000070.html');return false;">
+          <span class="method-name">res.num_tuples()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the number of tuples (rows) in the query result.
+</p>
+<p>
+Similar to <tt>res.result.length</tt> (but faster).
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000082" class="method-detail">
+        <a name="M000082"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000082.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000082.html');return false;">
+          <span class="method-name">res.oid()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <tt>oid</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000083" class="method-detail">
+        <a name="M000083"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000083.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000083.html');return false;">
+          <span class="method-name">res.print( file, opt )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+MISSING: Documentation
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000075" class="method-detail">
+        <a name="M000075"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000075.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000075.html');return false;">
+          <span class="method-name">res.size( index )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the size of the field type in bytes. Returns <tt>-1</tt> if the
+field is variable sized.
+</p>
+<pre>
+  res = conn.exec(&quot;SELECT myInt, myVarChar50 FROM foo;&quot;)
+  res.size(0) =&gt; 4
+  res.size(1) =&gt; -1
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000066" class="method-detail">
+        <a name="M000066"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000066.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000066.html');return false;">
+          <span class="method-name">res.status()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the status of the query. The status value is one of:
+</p>
+<ul>
+<li><tt>EMPTY_QUERY</tt>
+
+</li>
+<li><tt>COMMAND_OK</tt>
+
+</li>
+<li><tt>TUPLES_OK</tt>
+
+</li>
+<li><tt>COPY_OUT</tt>
+
+</li>
+<li><tt>COPY_IN</tt>
+
+</li>
+</ul>
+        </div>
+      </div>
+
+      <div id="method-M000074" class="method-detail">
+        <a name="M000074"></a>
+
+        <div class="method-heading">
+          <a href="PGresult.src/M000074.html" target="Code" class="method-signature"
+            onclick="popupCode('PGresult.src/M000074.html');return false;">
+          <span class="method-name">res.type( index )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the data type associated with the given column number.
+</p>
+<p>
+The integer returned is the internal <tt>OID</tt> number (in PostgreSQL) of
+the type. If you have the PostgreSQL source available, you can see the OIDs
+for every column type in the file <tt>src/include/catalog/pg_type.h</tt>.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

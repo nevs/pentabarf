@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>getisnull (PGresult)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    res.getisnull( tup_num, field_num ) =&gt; true or false
+ *
+ * Returns +true+ if the specified value is +nil+; +false+ otherwise.
+ *
+ * Equivalent to &lt;tt&gt;res.value(&lt;i&gt;tup_num&lt;/i&gt;,&lt;i&gt;field_num&lt;/i&gt;)==+nil+&lt;/tt&gt;.
+ */
+static VALUE
+pgresult_getisnull(obj, tup_num, field_num)
+    VALUE obj, tup_num, field_num;
+{
+    PGresult *result;
+    int i = NUM2INT(tup_num);
+    int j = NUM2INT(field_num);
+
+    result = get_pgresult(obj);
+    if (i &lt; 0 || i &gt;= PQntuples(result)) {
+        rb_raise(rb_eArgError,&quot;invalid tuple number %d&quot;, i);
+    }
+    if (j &lt; 0 || j &gt;= PQnfields(result)) {
+        rb_raise(rb_eArgError,&quot;invalid field number %d&quot;, j);
+    }
+    return PQgetisnull(result, i, j) ? Qtrue : Qfalse;
+}</pre>
+</body>
+</html>

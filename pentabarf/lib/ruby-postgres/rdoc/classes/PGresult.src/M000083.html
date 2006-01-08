@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>print (PGresult)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    res.print( file, opt )
+ *
+ * MISSING: Documentation
+ */
+static VALUE
+pgresult_print(obj, file, opt)
+    VALUE obj, file, opt;
+{
+    VALUE value;
+    ID mem;
+    OpenFile* fp;
+    PQprintOpt po;
+
+    Check_Type(file, T_FILE);
+    Check_Type(opt,  T_STRUCT);
+    GetOpenFile(file, fp);
+
+    memset(&amp;po, 0, sizeof(po));
+
+    mem = rb_intern(&quot;header&quot;);
+    value = rb_struct_getmember(opt, mem);
+    po.header = value == Qtrue ? 1 : 0;
+
+    mem = rb_intern(&quot;align&quot;);
+    value = rb_struct_getmember(opt, mem);
+    po.align = value == Qtrue ? 1 : 0;
+
+    mem = rb_intern(&quot;standard&quot;);
+    value = rb_struct_getmember(opt, mem);
+    po.standard = value == Qtrue ? 1 : 0;
+
+    mem = rb_intern(&quot;html3&quot;);
+    value = rb_struct_getmember(opt, mem);
+    po.html3 = value == Qtrue ? 1 : 0;
+
+    mem = rb_intern(&quot;expanded&quot;);
+    value = rb_struct_getmember(opt, mem);
+    po.expanded = value == Qtrue ? 1 : 0;
+
+    mem = rb_intern(&quot;pager&quot;);
+    value = rb_struct_getmember(opt, mem);
+    po.pager = value == Qtrue ? 1 : 0;
+
+    mem = rb_intern(&quot;fieldSep&quot;);
+    value = rb_struct_getmember(opt, mem);
+    if (!NIL_P(value)) {
+        Check_Type(value, T_STRING);
+        po.fieldSep = StringValuePtr(value);
+    }
+
+    mem = rb_intern(&quot;tableOpt&quot;);
+    value = rb_struct_getmember(opt, mem);
+    if (!NIL_P(value)) {
+        Check_Type(value, T_STRING);
+        po.tableOpt = StringValuePtr(value);
+    }
+
+    mem = rb_intern(&quot;caption&quot;);
+    value = rb_struct_getmember(opt, mem);
+    if (!NIL_P(value)) {
+        Check_Type(value, T_STRING);
+        po.caption = StringValuePtr(value);
+    }
+
+    PQprint(fp-&gt;f2?fp-&gt;f2:fp-&gt;f, get_pgresult(obj), &amp;po);
+    return obj;
+}</pre>
+</body>
+</html>

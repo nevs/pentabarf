@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>exec (PGconn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    conn.exec( sql )
+ *
+ * Sends SQL query request specified by _sql_ to the PostgreSQL.
+ * Returns a PGresult instance on success.
+ * On failure, it raises a PGError exception.
+ */
+static VALUE
+pgconn_exec(obj, str)
+    VALUE obj, str;
+{
+    PGconn *conn = get_pgconn(obj);
+    PGresult *result;
+    int status;
+    char *msg;
+
+    Check_Type(str, T_STRING);
+
+    result = PQexec(conn, StringValuePtr(str));
+    if (!result) {
+        rb_raise(rb_ePGError, PQerrorMessage(conn));
+    }
+    status = PQresultStatus(result);
+
+    switch (status) {
+    case PGRES_TUPLES_OK:
+    case PGRES_COPY_OUT:
+    case PGRES_COPY_IN:
+    case PGRES_EMPTY_QUERY:
+    case PGRES_COMMAND_OK:      /* no data will be received */
+      return pgresult_new(result);
+
+    case PGRES_BAD_RESPONSE:
+    case PGRES_FATAL_ERROR:
+    case PGRES_NONFATAL_ERROR:
+      msg = PQerrorMessage(conn);
+      break;
+    default:
+      msg = &quot;internal error : unknown result status.&quot;;
+      break;
+    }
+    PQclear(result);
+    rb_raise(rb_ePGError, msg);
+}</pre>
+</body>
+</html>

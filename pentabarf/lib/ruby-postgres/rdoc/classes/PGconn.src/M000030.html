@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>trace (PGconn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    conn.trace( port )
+ * 
+ * Enables tracing message passing between backend.
+ * The trace message will be written to the _port_ object,
+ * which is an instance of the class +File+.
+ */
+static VALUE
+pgconn_trace(obj, port)
+    VALUE obj, port;
+{
+    OpenFile* fp;
+
+    Check_Type(port, T_FILE);
+    GetOpenFile(port, fp);
+
+    PQtrace(get_pgconn(obj), fp-&gt;f2?fp-&gt;f2:fp-&gt;f);
+
+    return obj;
+}</pre>
+</body>
+</html>

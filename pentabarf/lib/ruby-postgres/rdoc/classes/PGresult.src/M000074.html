@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>type (PGresult)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    res.type( index )
+ *
+ * Returns the data type associated with the given column number.
+ *
+ * The integer returned is the internal +OID+ number (in PostgreSQL) of the type.
+ * If you have the PostgreSQL source available, you can see the OIDs for every column type in the file &lt;tt&gt;src/include/catalog/pg_type.h&lt;/tt&gt;.
+ */
+static VALUE
+pgresult_type(obj, index)
+    VALUE obj, index;
+{
+    PGresult *result;
+    int i = NUM2INT(index);
+    int type;
+
+    result = get_pgresult(obj);
+    if (i &lt; 0 || i &gt;= PQnfields(result)) {
+        rb_raise(rb_eArgError,&quot;invalid field number %d&quot;, i);
+    }
+    type = PQftype(result, i);
+    return INT2NUM(type);
+}</pre>
+</body>
+</html>

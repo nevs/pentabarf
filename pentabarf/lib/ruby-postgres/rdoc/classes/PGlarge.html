@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: PGlarge</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">PGlarge</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/postgres_c.html">
+                postgres.c
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+The class to access large objects. An instance of this class is created as
+the result of <a href="PGconn.html#M000045">PGconn#lo_import</a>, <a
+href="PGconn.html#M000046">PGconn#lo_create</a>, and <a
+href="PGconn.html#M000047">PGconn#lo_open</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000058">close</a>&nbsp;&nbsp;
+      <a href="#M000064">export</a>&nbsp;&nbsp;
+      <a href="#M000056">oid</a>&nbsp;&nbsp;
+      <a href="#M000057">open</a>&nbsp;&nbsp;
+      <a href="#M000059">read</a>&nbsp;&nbsp;
+      <a href="#M000061">seek</a>&nbsp;&nbsp;
+      <a href="#M000063">size</a>&nbsp;&nbsp;
+      <a href="#M000062">tell</a>&nbsp;&nbsp;
+      <a href="#M000065">unlink</a>&nbsp;&nbsp;
+      <a href="#M000060">write</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000058" class="method-detail">
+        <a name="M000058"></a>
+
+        <div class="method-heading">
+          <a href="PGlarge.src/M000058.html" target="Code" class="method-signature"
+            onclick="popupCode('PGlarge.src/M000058.html');return false;">
+          <span class="method-name">lrg.close()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Closes a large object. Closed when they are garbage-collected.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000064" class="method-detail">
+        <a name="M000064"></a>
+
+        <div class="method-heading">
+          <a href="PGlarge.src/M000064.html" target="Code" class="method-signature"
+            onclick="popupCode('PGlarge.src/M000064.html');return false;">
+          <span class="method-name">lrg.export( file )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Saves the large object to a file.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000056" class="method-detail">
+        <a name="M000056"></a>
+
+        <div class="method-heading">
+          <a href="PGlarge.src/M000056.html" target="Code" class="method-signature"
+            onclick="popupCode('PGlarge.src/M000056.html');return false;">
+          <span class="method-name">lrg.oid()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the large object&#8217;s <tt>oid</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000057" class="method-detail">
+        <a name="M000057"></a>
+
+        <div class="method-heading">
+          <a href="PGlarge.src/M000057.html" target="Code" class="method-signature"
+            onclick="popupCode('PGlarge.src/M000057.html');return false;">
+          <span class="method-name">lrg.open( [mode] )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Opens a large object. The <em>mode</em> argument specifies the mode for the
+opened large object, which is either <tt>INV_READ</tt> or
+<tt>INV_WRITE</tt>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000059" class="method-detail">
+        <a name="M000059"></a>
+
+        <div class="method-heading">
+          <a href="PGlarge.src/M000059.html" target="Code" class="method-signature"
+            onclick="popupCode('PGlarge.src/M000059.html');return false;">
+          <span class="method-name">lrg.read( [length] )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Attempts to read <em>length</em> bytes from large object. If no
+<em>length</em> is given, reads all data.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000061" class="method-detail">
+        <a name="M000061"></a>
+
+        <div class="method-heading">
+          <a href="PGlarge.src/M000061.html" target="Code" class="method-signature"
+            onclick="popupCode('PGlarge.src/M000061.html');return false;">
+          <span class="method-name">lrg.seek( offset, whence )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Move the large object pointer to the <em>offset</em>. Valid values for
+<em>whence</em> are <tt>SEEK_SET</tt>, <tt>SEEK_CUR</tt>, and
+<tt>SEEK_END</tt>. (Or 0, 1, or 2.)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000063" class="method-detail">
+        <a name="M000063"></a>
+
+        <div class="method-heading">
+          <a href="PGlarge.src/M000063.html" target="Code" class="method-signature"
+            onclick="popupCode('PGlarge.src/M000063.html');return false;">
+          <span class="method-name">lrg.size()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the size of the large object.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000062" class="method-detail">
+        <a name="M000062"></a>
+
+        <div class="method-heading">
+          <a href="PGlarge.src/M000062.html" target="Code" class="method-signature"
+            onclick="popupCode('PGlarge.src/M000062.html');return false;">
+          <span class="method-name">lrg.tell()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the current position of the large object pointer.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000065" class="method-detail">
+        <a name="M000065"></a>
+
+        <div class="method-heading">
+          <a href="PGlarge.src/M000065.html" target="Code" class="method-signature"
+            onclick="popupCode('PGlarge.src/M000065.html');return false;">
+          <span class="method-name">lrg.unlink()<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Deletes the large object.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000060" class="method-detail">
+        <a name="M000060"></a>
+
+        <div class="method-heading">
+          <a href="PGlarge.src/M000060.html" target="Code" class="method-signature"
+            onclick="popupCode('PGlarge.src/M000060.html');return false;">
+          <span class="method-name">lrg.write( str )<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Writes the string <em>str</em> to the large object. Returns the number of
+bytes written.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

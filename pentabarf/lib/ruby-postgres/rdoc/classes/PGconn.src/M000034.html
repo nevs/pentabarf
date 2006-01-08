@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>async_exec (PGconn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    conn.async_exec( sql )
+ *
+ * Sends an asyncrhonous SQL query request specified by _sql_ to the PostgreSQL.
+ * Returns a PGresult instance on success.
+ * On failure, it raises a PGError exception.
+ */
+static VALUE
+pgconn_async_exec(obj, str)
+    VALUE obj, str;
+{
+    PGconn *conn = get_pgconn(obj);
+    PGresult *result;
+    int status;
+    char *msg;
+
+    int cs;
+    int ret;
+    fd_set rset;
+
+    Check_Type(str, T_STRING);
+        
+    while(result = PQgetResult(conn)) {
+        PQclear(result);
+    }
+
+    if (!PQsendQuery(conn, RSTRING(str)-&gt;ptr)) {
+        rb_raise(rb_ePGError, PQerrorMessage(conn));
+    }
+
+    cs = PQsocket(conn);
+    for(;;) {
+        FD_ZERO(&amp;rset);
+        FD_SET(cs, &amp;rset);
+        ret = rb_thread_select(cs + 1, &amp;rset, NULL, NULL, NULL);
+        if (ret &lt; 0) {
+            rb_sys_fail(0);
+        }
+                
+        if (ret == 0) {
+            continue;
+        }
+
+        if (PQconsumeInput(conn) == 0) {
+            rb_raise(rb_ePGError, PQerrorMessage(conn));
+        }
+
+        if (PQisBusy(conn) == 0) {
+            break;
+        }
+    }
+
+    result = PQgetResult(conn);
+
+    if (!result) {
+        rb_raise(rb_ePGError, PQerrorMessage(conn));
+    }
+    status = PQresultStatus(result);
+
+    switch (status) {
+    case PGRES_TUPLES_OK:
+    case PGRES_COPY_OUT:
+    case PGRES_COPY_IN:
+    case PGRES_EMPTY_QUERY:
+    case PGRES_COMMAND_OK:      /* no data will be received */
+      return pgresult_new(result);
+
+    case PGRES_BAD_RESPONSE:
+    case PGRES_FATAL_ERROR:
+    case PGRES_NONFATAL_ERROR:
+      msg = PQerrorMessage(conn);
+      break;
+    default:
+      msg = &quot;internal error : unknown result status.&quot;;
+      break;
+    }
+    PQclear(result);
+    rb_raise(rb_ePGError, msg);
+}</pre>
+</body>
+</html>

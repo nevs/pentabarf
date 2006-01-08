@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>export (PGlarge)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    lrg.export( file )
+ *
+ * Saves the large object to a file.
+ */
+static VALUE
+pglarge_export(obj, filename)
+    VALUE obj, filename;
+{
+    PGlarge *pglarge = get_pglarge(obj);
+
+    Check_Type(filename, T_STRING);
+
+    if (!lo_export(pglarge-&gt;pgconn, pglarge-&gt;lo_oid, StringValuePtr(filename))){
+        rb_raise(rb_ePGError, PQerrorMessage(pglarge-&gt;pgconn));
+    }
+
+    return Qnil;
+}</pre>
+</body>
+</html>

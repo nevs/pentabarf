@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>lo_unlink (PGconn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    conn.lo_unlink( oid )
+ *
+ * Unlinks (deletes) the postgres large object of _oid_.
+ */
+static VALUE
+pgconn_lounlink(obj, lo_oid)
+    VALUE obj, lo_oid;
+{
+    PGconn *conn;
+    int oid = NUM2INT(lo_oid);
+    int result;
+    
+    if (oid &lt; 0){
+        rb_raise(rb_ePGError, &quot;invalid oid %d&quot;,oid);
+    }
+    conn = get_pgconn(obj);
+    result = lo_unlink(conn,oid);
+
+    return Qnil;
+}</pre>
+</body>
+</html>

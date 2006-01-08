@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>each (PGresult)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    res.each{ |tuple| ... }
+ *
+ * Invokes the block for each tuple (row) in the result.
+ *
+ * Equivalent to &lt;tt&gt;res.result.each{ |tuple| ... }&lt;/tt&gt;.
+ */
+static VALUE
+pgresult_each(self)
+    VALUE self;
+{
+    int i, j;
+
+    PGresult *result = get_pgresult(self);
+    int nt = PQntuples(result);
+    int nf = PQnfields(result);
+    VALUE fields[1] = { rb_ary_new2(nf) };
+
+    for (i = 0; i &lt; nf; i++)
+        rb_ary_push(fields[0], rb_tainted_str_new2(PQfname(result, i)));
+
+    for (i=0; i&lt;nt; i++) {
+        VALUE row = rb_funcall2(rb_cPGrow, rb_intern(&quot;new&quot;), 1, fields);
+        for (j=0; j&lt;nf; j++) {
+            rb_ary_store(row, j, fetch_pgresult(result, i, j));
+        }
+        rb_yield(row);
+    }
+
+    return self;
+}</pre>
+</body>
+</html>

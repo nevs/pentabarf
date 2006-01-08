@@ -115,6 +115,7 @@ module Momomoto
     end
 
     # set order for queries
+    # TODO: improve checking
     def order=( value )
       if value.match( /[a-zA-Z,.()0-9]+/ )
         @order = value

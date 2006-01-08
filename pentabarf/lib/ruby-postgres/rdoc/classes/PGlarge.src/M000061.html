@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>seek (PGlarge)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    lrg.seek( offset, whence )
+ *
+ * Move the large object pointer to the _offset_.
+ * Valid values for _whence_ are +SEEK_SET+, +SEEK_CUR+, and +SEEK_END+.
+ * (Or 0, 1, or 2.)
+ */
+static VALUE
+pglarge_seek(obj, offset, whence)
+    VALUE obj, offset, whence;
+{
+    PGlarge *pglarge = get_pglarge(obj);
+    int ret;
+    
+    if((ret = lo_lseek(pglarge-&gt;pgconn, pglarge-&gt;lo_fd, NUM2INT(offset), NUM2INT(whence))) == -1) {
+        rb_raise(rb_ePGError, &quot;error while moving cursor&quot;);
+    }
+
+    return INT2NUM(ret);
+}</pre>
+</body>
+</html>

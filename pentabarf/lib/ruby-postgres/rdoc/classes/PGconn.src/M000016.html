@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>quote (PGconn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    PGConn.quote( obj )
+ *    PGConn.quote( obj ){ |obj| ... }
+ * 
+ * If _obj_ is a Number, String, Array, +nil+, +true+, or +false+ then
+ * #quote returns a String representation of that object safe for use in PostgreSQL.
+ * 
+ * If _obj_ is not one of the above classes and a block is supplied to #quote,
+ * the block is invoked, passing along the object. The return value from the
+ * block is returned as a string.
+ *
+ * If _obj_ is not one of the recognized classes andno block is supplied,
+ * a PGError is raised.
+ */
+static VALUE
+pgconn_s_quote(self, obj)
+    VALUE self;
+    VALUE obj;
+{
+    VALUE ret;
+    char *to;
+    long len;
+    long idx;
+    
+    switch(TYPE(obj)) {
+    case T_STRING:
+      ret = quote_string(obj);
+      break;
+      
+    case T_FIXNUM:
+    case T_BIGNUM:
+    case T_FLOAT:
+      ret = rb_obj_as_string(obj);
+      break;
+      
+    case T_NIL:
+      ret = rb_str_new2(&quot;NULL&quot;);
+      break;
+      
+    case T_TRUE:
+      ret = rb_str_new2(&quot;'t'&quot;);
+      break;
+      
+    case T_FALSE:
+      ret = rb_str_new2(&quot;'f'&quot;);
+      break;
+      
+    case T_ARRAY:
+      ret = rb_str_new(0,0);
+      len = RARRAY(obj)-&gt;len;
+      for(idx=0; idx&lt;len; idx++) {
+          rb_str_concat(ret, pgconn_s_quote(self, rb_ary_entry(obj, idx)));
+          if (idx&lt;len-1) {
+              rb_str_cat2(ret, &quot;, &quot;);
+          }
+      }
+      break;
+    default:
+      if (rb_block_given_p()==Qtrue) {
+          ret = rb_yield(obj);
+      } else {
+          rb_raise(rb_ePGError, &quot;can't quote&quot;);
+      }
+    }
+    
+    return ret;
+}</pre>
+</body>
+</html>

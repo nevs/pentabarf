@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>size (PGresult)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    res.size( index )
+ *
+ * Returns the size of the field type in bytes.  Returns &lt;tt&gt;-1&lt;/tt&gt; if the field is variable sized.
+ *
+ *   res = conn.exec(&quot;SELECT myInt, myVarChar50 FROM foo;&quot;)
+ *   res.size(0) =&gt; 4
+ *   res.size(1) =&gt; -1
+ */
+static VALUE
+pgresult_size(obj, index)
+    VALUE obj, index;
+{
+    PGresult *result;
+    int i = NUM2INT(index);
+    int size;
+
+    result = get_pgresult(obj);
+    if (i &lt; 0 || i &gt;= PQnfields(result)) {
+        rb_raise(rb_eArgError,&quot;invalid field number %d&quot;, i);
+    }
+    size = PQfsize(result, i);
+    return INT2NUM(size);
+}</pre>
+</body>
+</html>

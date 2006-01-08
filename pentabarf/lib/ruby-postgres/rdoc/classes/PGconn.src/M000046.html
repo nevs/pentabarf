@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>lo_create (PGconn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *    conn.lo_create( [mode] ) =&gt; pglarge
+ *
+ * Returns a PGlarge instance on success. On failure, it raises PGError exception.
+ * &lt;i&gt;(See #lo_open for information on _mode_.)&lt;/i&gt;
+ */
+static VALUE
+pgconn_locreate(argc, argv, obj)
+    int argc;
+    VALUE *argv;
+    VALUE obj;
+{
+    Oid lo_oid;
+    int mode;
+    VALUE nmode;
+    PGconn *conn;
+    
+    if (rb_scan_args(argc, argv, &quot;01&quot;, &amp;nmode) == 0) {
+        mode = INV_READ;
+    }
+    else {
+        mode = FIX2INT(nmode);
+    }
+  
+    conn = get_pgconn(obj);
+    lo_oid = lo_creat(conn, mode);
+    if (lo_oid == 0){
+        rb_raise(rb_ePGError, &quot;can't creat large object&quot;);
+    }
+
+    return pglarge_new(conn, lo_oid, -1);
+}</pre>
+</body>
+</html>
