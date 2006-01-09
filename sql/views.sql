@@ -617,6 +617,9 @@ CREATE OR REPLACE VIEW view_report_schedule_coordinator AS
          name 
     FROM event_person 
          INNER JOIN event USING (event_id) 
+         INNER JOIN event_state ON (
+             event.event_state_id = event_state.event_state_id AND
+             event_state.tag = 'accepted' )
          INNER JOIN event_role USING (event_role_id) 
          INNER JOIN view_person USING (person_id) 
    WHERE event_role.tag = 'coordinator' 
