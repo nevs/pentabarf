@@ -9,7 +9,7 @@
       <%= link_to( 'Index', {:action => :index }, { :class => 'menu-item' } ) %>
     <% unless @user %>
       <%= link_to( 'Login', {:action => :login }, { :class => 'menu-item' } ) %>
-      <%= link_to( 'Create account', {:action => :create_account}, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Create account', {:action => :new_account}, { :class => 'menu-item' } ) %>
     <% end %>
     <% if @user %>
       <%= link_to( 'Event', {:action => :event }, { :class => 'menu-item' } ) %>
