@@ -42,6 +42,8 @@ class ScheduleController < ApplicationController
     render_text(@conference.css.nil? ? "" : @conference.css)
   end
 
+  protected
+
   def check_permission
     @conference = Momomoto::Conference.new
     @current_language_id = @user.preferences[:current_language_id]
