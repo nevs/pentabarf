@@ -20,10 +20,10 @@ class IcalController < ApplicationController
       @preferences = @user.preferences
       @current_conference_id = @preferences[:current_conference_id]
       @current_language_id = @preferences[:current_language_id]
-    else
-      redirect_to( :action => :meditation )
-      false
+      return true
     end
+    redirect_to( :action => :meditation )
+    false
   end
 
 end

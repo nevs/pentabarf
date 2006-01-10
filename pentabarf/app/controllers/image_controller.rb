@@ -2,6 +2,7 @@ require 'RMagick'
 
 class ImageController < ApplicationController
   before_filter :authorize 
+  before_filter :check_permission
   before_filter :modified_since, :except => [:events_per_coordinator, :events_per_track, :events_per_language, :events_per_state, :speaker_per_gender]
 
   def conference
@@ -216,6 +217,10 @@ class ImageController < ApplicationController
 
   def extract_id( query )
     query.gsub( /[.-].*/, '')
+  end
+  
+  def check_permission
+    return @user.permission?('pentabarf_login')
   end
 
 end

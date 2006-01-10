@@ -1,5 +1,6 @@
 class FeedController < ApplicationController
   before_filter :authorize
+  before_filter :check_permission
   after_filter :compress
 
   def index
@@ -16,6 +17,12 @@ class FeedController < ApplicationController
 
     # the first element is the most recent one
     @content_updated = @changes.changed_when
+  end
+
+  protected
+
+  def check_permission
+    false
   end
 
 end
