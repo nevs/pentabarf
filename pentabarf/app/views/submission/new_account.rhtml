@@ -1,0 +1,25 @@
+<div id="data">
+<p>Enter your data to create an account. All fields are mandatory. The email address will be used for activating your account.</p>
+  <%= start_form_tag({:action=>:create_account}) %>
+  <table>
+    <tr>
+      <td>Login name</td>
+      <td><%= text_field_tag('person[login_name]') %></td>
+    </tr>
+    <tr>
+      <td>Email address</td>
+      <td><%= text_field_tag('person[email_contact]') %></td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td><%= password_field_tag('person[password]') %></td>
+    </tr>
+    <tr>
+      <td>Repeat Password</td>
+      <td><%= password_field_tag('password') %></td>
+    </tr>
+
+  </table>
+  <%= submit_tag("Create") %>
+  <%= end_form_tag() %>
+</div>
