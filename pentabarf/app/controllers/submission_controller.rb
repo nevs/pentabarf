@@ -1,7 +1,7 @@
 class SubmissionController < ApplicationController
-  before_filter :check_conference, :except => [:new_account, :create_account, :activate_account, :logout, :login]
-  before_filter :authorize, :except => [:index, :create_account, :new_account, :activate_account, :logout]
-  before_filter :check_permission, :except => [:index, :create_account, :new_account, :activate_account, :logout]
+  before_filter :check_conference, :except => [:new_account, :create_account, :activate_account, :account_done, :logout, :login]
+  before_filter :authorize, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout]
+  before_filter :check_permission, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout]
   before_filter :transparent_authorize
   after_filter :compress
 
@@ -25,7 +25,11 @@ class SubmissionController < ApplicationController
     account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>random_string})
 
     Notifier::deliver_activate_account( account.login_name, account.email_contact, url_for({:action=>:activate_account,:id=>account.activation_string}) )
-    render_text("account created") 
+    redirect_to({:action=>:account_done})
+  end
+
+  def account_done
+
   end
 
   def activate_account
