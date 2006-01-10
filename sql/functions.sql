@@ -40,6 +40,25 @@ CREATE OR REPLACE FUNCTION create_account(varchar(32),varchar(64),char(48), char
   END;
 $$ LANGUAGE plpgsql RETURNS NULL ON NULL INPUT;
 
+CREATE OR REPLACE FUNCTION activate_account(char(64)) RETURNS INTEGER AS $$
+  DECLARE
+    cur_activation_string ALIAS FOR $1;
+    cur_person_id INTEGER;
+  BEGIN
+    -- cleanup obsolete activation stuff
+    DELETE FROM person WHERE person_id IN (SELECT person_id FROM account_activation WHERE account_creation < (now() + '-1 day')::timestamptz);
+    DELETE FROM account_activation WHERE account_creation < (now() + '-1 day')::timestamptz;
+
+    SELECT INTO cur_person_id person_id FROM account_activation WHERE activation_string = cur_activation_string;
+    IF FOUND THEN
+      INSERT INTO person_role(person_id, role_id) VALUES (cur_person_id, (SELECT role_id FROM role WHERE tag = 'submitter'));
+      DELETE FROM account_activation WHERE activation_string = cur_activation_string;
+    ELSE
+      RAISE EXCEPTION 'invalid activation string';
+    END IF;
+    RETURN cur_person_id;
+  END;
+$$ LANGUAGE plpgsql RETURNS NULL ON NULL INPUT;
 
 CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER AS '
   DECLARE

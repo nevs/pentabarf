@@ -16,7 +16,6 @@ class SubmissionController < ApplicationController
 
   def new_account
     @content_title = 'Create account'
-    
   end
 
   def create_account
@@ -33,9 +32,9 @@ class SubmissionController < ApplicationController
   end
 
   def activate_account
-    account = Momomoto::Account_activation.find({:activation_string=>params[:id]})
-    raise "Unknown activation sequence." unless account.length == 1
-    redirect_to({:action=>:login}) 
+    raise "Invalid activation sequence." unless params[:id].length == 64
+    Momomoto::Activate_account(:activation_string=>params[:id])
+    redirect_to({:action=>:login})
   end
 
   def person
