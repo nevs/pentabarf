@@ -36,6 +36,7 @@ CREATE OR REPLACE FUNCTION create_account(varchar(32),varchar(64),char(48), char
     SELECT INTO new_person_id nextval(pg_get_serial_sequence('person', 'person_id'));
     INSERT INTO person(person_id, login_name, email_contact, password) VALUES (new_person_id, cur_login_name, cur_email_contact, cur_password);
     INSERT INTO account_activation(person_id, activation_string) VALUES (new_person_id, cur_activation_string);
+    RETURN new_person_id;
   END;
 $$ LANGUAGE plpgsql RETURNS NULL ON NULL INPUT;
 
