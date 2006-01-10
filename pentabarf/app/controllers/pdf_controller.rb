@@ -3,7 +3,7 @@ class PdfController < ApplicationController
 
   def check_permission
     #redirect_to :action => :meditation if params[:action] != 'meditation'
-    if @user.permission?('login_allowed') 
+    if @user.permission?('pentabarf_login') 
       @preferences = @user.preferences
       @current_conference_id = @preferences[:current_conference_id]
       @current_language_id = @preferences[:current_language_id]
@@ -16,6 +16,6 @@ class PdfController < ApplicationController
   def pentacards
       #search_event()  
       pc = Pentacards.new(@events,2,2)
-      send_data(pc.render, :filename => 'pentacards.pdf', :type => 'application/pdf', :disposition => 'attachment')		    
+      send_data(pc.render, :filename => 'pentacards.pdf', :type => 'application/pdf', :disposition => 'attachment')    
   end
 end

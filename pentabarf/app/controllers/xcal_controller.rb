@@ -16,7 +16,7 @@ class XcalController < ApplicationController
 
   def check_permission
     #redirect_to :action => :meditation if params[:action] != 'meditation'
-    if @user.permission?('login_allowed') || params[:action] == 'meditation'
+    if @user.permission?('pentabarf_login') || params[:action] == 'meditation'
       @preferences = @user.preferences
       @current_conference_id = @preferences[:current_conference_id]
       @current_language_id = @preferences[:current_language_id]
