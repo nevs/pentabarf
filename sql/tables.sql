@@ -323,6 +323,7 @@ CREATE TABLE conference (
   feedback_base_url VARCHAR(256),
   css TEXT,
   f_feedback_enabled BOOL NOT NULL DEFAULT FALSE,
+  f_submission_enabled BOOL NOT NULL DEFAULT FALSE,
   last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   last_modified_by INTEGER,
   FOREIGN KEY (conference_phase_id) REFERENCES conference_phase (conference_phase_id),
