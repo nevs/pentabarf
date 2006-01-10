@@ -19,6 +19,25 @@ CREATE OR REPLACE FUNCTION get_permissions(INTEGER) RETURNS SETOF TEXT AS '
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
+-- create new account to be activated 
+-- the parameter are login_name, email_contact, password, activation_string
+CREATE OR REPLACE FUNCTION create_account(varchar(32),varchar(64),char(48), char(64)) RETURNS INTEGER AS $$
+  DECLARE 
+    cur_login_name ALIAS FOR $1;
+    cur_email_contact ALIAS FOR $2;
+    cur_password ALIAS FOR $3;
+    cur_activation_string ALIAS FOR $4;
+    new_person_id INTEGER;
+  BEGIN
+    -- cleanup obsolete activation stuff
+    DELETE FROM account_activation WHERE account_creation < (now() + '-1 day')::timestamptz;
+
+    SELECT INTO new_person_id nextval(pg_get_serial_sequence('person', 'person_id'));
+    INSERT INTO person(person_id, login_name, email_contact, password) VALUES (new_person_id, cur_login_name, cur_email_contact, cur_password);
+    INSERT INTO account_activation(person_id, activation_string) VALUES (new_person_id, cur_activation_string);
+  END;
+$$ LANGUAGE plpgsql RETURNS NULL ON NULL INPUT;
+
 
 CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER AS '
   DECLARE
