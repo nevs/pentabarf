@@ -57,9 +57,9 @@ class SubmissionController < ApplicationController
     return true if params[:conference].nil? && params[:action].to_sym == :index
     @conference = Momomoto::Conference.new
     if params[:conference].to_s.match(/^\d+$/)
-      @conference.select({:conference_id => params[:conference]})
+      @conference.select({:conference_id => params[:conference], :f_submission_enabled => 't'})
     else
-      @conference.select({:acronym => params[:conference]})
+      @conference.select({:acronym => params[:conference], :f_submission_enabled => 't'})
     end
     return @conference.length == 1 ? true : redirect_to({:action=>:index,:conference=>nil})
   end

@@ -620,9 +620,10 @@ CREATE OR REPLACE VIEW view_report_schedule_coordinator AS
          INNER JOIN event_state ON (
              event.event_state_id = event_state.event_state_id AND
              event_state.tag = 'accepted' )
-         INNER JOIN event_role USING (event_role_id) 
+         INNER JOIN event_role ON (
+             event_person.event_role_id = event_role.event_role_id AND
+             event_role.tag = 'coordinator' )
          INNER JOIN view_person USING (person_id) 
-   WHERE event_role.tag = 'coordinator' 
    GROUP BY person_id, name, conference_id 
    ORDER BY count(person_id) DESC
 ;
@@ -657,19 +658,26 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                     event.title,
                     event.subtitle
                FROM event_person
-                    INNER JOIN event_role USING (event_role_id)
-                    INNER JOIN event_role_state USING (event_role_state_id)
-                    INNER JOIN event USING (event_id)
-                    INNER JOIN event_state USING (event_state_id)
-                    INNER JOIN event_state_progress USING (event_state_progress_id)
-              WHERE event_role.tag IN ('speaker', 'moderator') AND
-                    event_role_state.tag = 'confirmed' AND
-                    event_state.tag = 'accepted' AND
-                    event_state_progress.tag = 'confirmed' AND
-                    event.f_public = 't' AND
-                    event.day IS NOT NULL AND
-                    event.start_time IS NOT NULL AND
-                    event.room_id IS NOT NULL
+                    INNER JOIN event_role ON (
+                        event_person.event_role_id = event_role.event_role_id AND
+                        event_role.tag IN ('speaker', 'moderator'))
+                    INNER JOIN event_role_state ON (
+                        event_person.event_role_state_id = event_role_state.event_role_state_id AND
+                        event_role_state.event_role_id = event_role.event_role_id AND
+                        event_role_state.tag = 'confirmed' )
+                    INNER JOIN event ON (
+                        event_person.event_id = event.event_id AND
+                        event.f_public = 't' AND
+                        event.day IS NOT NULL AND
+                        event.start_time IS NOT NULL AND
+                        event.room_id IS NOT NULL )
+                    INNER JOIN event_state ON (
+                        event.event_state_id = event_state.event_state_id AND
+                        event_state.tag = 'accepted' )
+                    INNER JOIN event_state_progress ON (
+                        event.event_state_progress_id = event_state_progress.event_state_progress_id AND
+                        event_state_progress.event_state_id = event.event_state_id AND
+                        event_state_progress.tag = 'confirmed' )
          ) AS speaker USING (person_id, conference_id)
 ;
 
