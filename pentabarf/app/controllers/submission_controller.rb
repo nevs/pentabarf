@@ -38,7 +38,9 @@ class SubmissionController < ApplicationController
   end
 
   def person
-
+    @person = Momomoto::Person.find({:person_id=>@user.person_id})
+    @person_travel = Momomoto::Person_travel.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
+    @conference_person = Momomoto::Conference_person.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
   end
 
   def event
