@@ -30,7 +30,7 @@ CREATE OR REPLACE FUNCTION create_account(varchar(32),varchar(64),char(48), char
     new_person_id INTEGER;
   BEGIN
     -- cleanup obsolete activation stuff
-    DELETE FROM person WHERE person_id IN (SELECT person_id FROM account_creation < (now() + '-1 day')::timestamptz);
+    DELETE FROM person WHERE person_id IN (SELECT person_id FROM account_activation WHERE account_creation < (now() + '-1 day')::timestamptz);
     DELETE FROM account_activation WHERE account_creation < (now() + '-1 day')::timestamptz;
 
     SELECT INTO new_person_id nextval(pg_get_serial_sequence('person', 'person_id'));

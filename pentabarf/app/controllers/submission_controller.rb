@@ -21,17 +21,10 @@ class SubmissionController < ApplicationController
 
   def create_account
     raise "Passwords do not match" if params[:person][:password] != params[:password]
-    person = Momomoto::View_account.new_record
-    [:login_name, :password, :email_contact].each do | field |
-      raise "Field #{field} is mandatory!" if params[:person][field].to_s.empty?
-      person[field]= params[:person][field]
-    end
-    raise "Invalid email address" unless person.email_contact.match(/[\w.+-]+@([\w]+\.)+\w{2,3}$/)
-    #person.write
-    account = Momomoto::Account_activation.new_record
-    account.activation_string = random_string
+    raise "Invalid email address" unless params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,3}$/)
+    account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>random_string})
 
-    Notifier::deliver_activate_account( person.login_name, person.email_contact, url_for({:action=>:activate_account,:id=>account.activation_string}) )
+    Notifier::deliver_activate_account( account.login_name, account.email_contact, url_for({:action=>:activate_account,:id=>account.activation_string}) )
     render_text("account created") 
   end
 
