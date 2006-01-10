@@ -1,10 +1,10 @@
 
 require 'datatype/base'
 
-module Momomoto 
+module Momomoto
   module Datatype
 
-    class Bool < Base 
+    class Bool < Base
 
       def value
         filter_get(@value)
@@ -19,18 +19,18 @@ module Momomoto
       def filter_set( value )
         if property(:not_null)
           case value
-            when 't', '1', 1, true
+            when 't', '1', 1, true, 'true'
               then true
             else
               false
           end
         else
           case value
-            when 't', '1', 1, true 
+            when 't', '1', 1, true, 'true'
               then true
-            when 'f', '0', 0, false
+            when 'f', '0', 0, false, 'false'
               then false
-            else 
+            else
               nil
           end
         end
