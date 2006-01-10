@@ -263,7 +263,7 @@ CREATE TABLE person (
   po_box_postcode VARCHAR(10),
   city VARCHAR(64),
   country_id INTEGER,
-  email_contact VARCHAR(64),
+  email_contact VARCHAR(64) UNIQUE,
   iban VARCHAR(128),
   bic VARCHAR(32),
   bank_name VARCHAR(128),
