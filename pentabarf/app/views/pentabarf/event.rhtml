@@ -187,6 +187,8 @@
 
     <fieldset>
       <legend>Attachments</legend>
+      <% attachments = Momomoto::View_event_attachment.find({:event_id => @event.event_id, :language_id => @current_language_id}) %>
+      <% unless attachments.nil? %>
       <table id="attachment_table">
         <thead>
           <tr>
@@ -202,7 +204,7 @@
           </tr>
         </thead>
         <tbody>
-          <% for attachment in Momomoto::View_event_attachment.find({:event_id => @event.event_id, :language_id => @current_language_id}) %>
+          <% attachments.each do | attachment | %>
           <tr>
             <td>
               <a href="<%= url_for({:controller => 'file', :action => :event_attachment, :id => attachment.event_attachment_id}) %>">
@@ -221,6 +223,8 @@
           <% end %>
         </tbody>
       </table>
+      <% end %>
+
       <table id="attachment_upload_table" class="hidden">
         <thead>
           <tr>
