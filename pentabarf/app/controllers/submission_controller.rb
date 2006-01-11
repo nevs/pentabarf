@@ -1,5 +1,5 @@
 class SubmissionController < ApplicationController
-  before_filter :check_conference
+  before_filter :check_conference, :except => :index
   before_filter :authorize, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout]
   before_filter :check_permission, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout]
   before_filter :transparent_authorize
@@ -11,7 +11,7 @@ class SubmissionController < ApplicationController
   end
 
   def login
-    redirect_to({:action=>:index})
+    redirect_to({:action=>:index,:conference=>@conference.acronym})
   end
 
   def new_account
@@ -24,7 +24,7 @@ class SubmissionController < ApplicationController
     account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>random_string})
 
     Notifier::deliver_activate_account( account.login_name, account.email_contact, url_for({:action=>:activate_account,:conference=>@conference.acronym,:id=>account.activation_string}) )
-    redirect_to({:action=>:account_done})
+    redirect_to({:action=>:account_done,:conference=>@conference.acronym})
   end
 
   def account_done
@@ -34,7 +34,7 @@ class SubmissionController < ApplicationController
   def activate_account
     raise "Invalid activation sequence." unless params[:id].length == 64
     Momomoto::Activate_account(:activation_string=>params[:id])
-    redirect_to({:action=>:login})
+    redirect_to({:action=>:login,:conference=>@conference.acronym})
   end
 
   def person
@@ -99,7 +99,11 @@ class SubmissionController < ApplicationController
   end
 
   def events
-    
+    ApplicationController.jabber_message("Person_id: #{@user.person_id}")
+    @events = Momomoto::Own_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
+    event_ids = []
+    @events.each do | event | event_ids.push(event.event_id) end
+    @events = Momomoto::View_event.find({:event_id=>event_ids})
   end
 
   def event
