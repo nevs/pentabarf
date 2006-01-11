@@ -92,6 +92,9 @@ INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (2, 34);
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (2, 33);
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (1, 35);
 INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (2, 35);
+INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (7, 36);
+INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (7, 22);
+INSERT INTO role_authorisation (role_id, authorisation_id) VALUES (7, 23);
 
 
 --

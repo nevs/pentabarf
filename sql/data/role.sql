@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: role_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('"role"', 'role_id'), 6, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('"role"', 'role_id'), 7, true);
 
 
 --
@@ -25,6 +25,7 @@ INSERT INTO "role" (role_id, tag, rank) VALUES (4, 'committee', 3);
 INSERT INTO "role" (role_id, tag, rank) VALUES (3, 'reviewer', 4);
 INSERT INTO "role" (role_id, tag, rank) VALUES (5, 'speaker', 5);
 INSERT INTO "role" (role_id, tag, rank) VALUES (6, 'visitor', 6);
+INSERT INTO "role" (role_id, tag, rank) VALUES (7, 'submitter', 7);
 
 
 --

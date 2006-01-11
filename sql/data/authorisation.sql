@@ -12,14 +12,13 @@ SET search_path = public, pg_catalog;
 -- Name: authorisation_authorisation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('authorisation', 'authorisation_id'), 35, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('authorisation', 'authorisation_id'), 36, true);
 
 
 --
 -- Data for Name: authorisation; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
-INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (24, 'login_allowed', 24);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (25, 'create_rating', NULL);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (26, 'modify_rating', NULL);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (27, 'delete_rating', NULL);
@@ -49,6 +48,8 @@ INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (32, 'admin_login
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (34, 'delete_localization', NULL);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (33, 'create_localization', NULL);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (35, 'move_event', NULL);
+INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (24, 'pentabarf_login', 24);
+INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (36, 'submission_login', NULL);
 
 
 --
