@@ -1,7 +1,7 @@
-
 require 'datatype/base'
+require 'digest/md5'
 
-module Momomoto 
+module Momomoto
   module Datatype
 
     class Password < Char
@@ -14,7 +14,7 @@ module Momomoto
         for i in 0..7
           salt[i] = rand(256)
         end
-        salt_bin, salt_hex = '', '' 
+        salt_bin, salt_hex = '', ''
         for number in salt
           salt_bin += sprintf('%c', number)
           salt_hex += sprintf('%02x', number)
@@ -23,9 +23,9 @@ module Momomoto
         return salt_hex + hash
       end
 
- 
+
     end
- 
+
   end
 end
 

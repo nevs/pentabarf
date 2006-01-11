@@ -1,16 +1,16 @@
 
-module Momomoto 
+module Momomoto
   module Datatype
 
     class Base
-    
+
       protected
 
         @value = nil
         @dirty = false
 
         @properties = {}
-  
+
       public
 
       # has this field been modified
@@ -65,9 +65,9 @@ module Momomoto
         data = data.gsub( /\\/, '' )
         "'" + PGconn.escape( data ) + "'"
       end
-  
+
       protected
-  
+
       # this filter is applied when trying to get a value of this datatype
       def filter_get( data )
         data
@@ -78,7 +78,7 @@ module Momomoto
         return nil if data == ''
         data.gsub( /\\/, '' ) unless data == nil
       end
-      
+
       # this filter is applied after reading from the database
       def filter_read( data )
         data

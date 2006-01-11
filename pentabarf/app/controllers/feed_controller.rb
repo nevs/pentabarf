@@ -13,7 +13,6 @@ class FeedController < ApplicationController
     @content_title ='Pentabarf Recent Changes'
 
     @changes = Momomoto::View_recent_changes.find( {}, 25 )
-    @last_modified = 
 
     # the first element is the most recent one
     @content_updated = @changes.changed_when
