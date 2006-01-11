@@ -1,5 +1,5 @@
 class SubmissionController < ApplicationController
-  before_filter :check_conference, :except => :index
+  before_filter :check_conference
   before_filter :authorize, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout]
   before_filter :check_permission, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout]
   before_filter :transparent_authorize

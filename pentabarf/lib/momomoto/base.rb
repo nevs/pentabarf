@@ -455,7 +455,7 @@ module Momomoto
       return true if @@permissions.member?( "#{action}_#{@domain}")
       return true if action == 'delete' && @domain != @table && @@permissions.member?( "modify_#{@domain}" )
       return true if @domain == 'person' && @@person_id == self[:person_id] && @@permissions.member?("modify_own_person")
-#     return true if @domain == 'event' && @@permissions.member?('modify_own_event') && Momomoto::Own_events.find()
+      return true if @domain == 'event' && @@permissions.member?('modify_own_event') && Momomoto::Own_events.find({:person_id=>@@person_id,:event_id=>self[:event_id]}).length == 1
       false
     end
 
