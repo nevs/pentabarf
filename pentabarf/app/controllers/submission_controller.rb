@@ -99,7 +99,7 @@ class SubmissionController < ApplicationController
   end
 
   def events
-    @events = Momomoto::Own_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
+    @events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
     event_ids = []
     @events.each do | event | event_ids.push(event.event_id) end
     @events = Momomoto::View_event.find({:event_id=>event_ids,:translated_id=>@current_language_id})
@@ -107,7 +107,7 @@ class SubmissionController < ApplicationController
 
   def event
     if params[:id]
-      @events = Momomoto::Own_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
+      @events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
       return redirect_to(:action=>:events,:conference=>@conference.acronym) unless @events.length == 1
       @event = Momomoto::Event.find({:event_id=>params[:id]})
     else
@@ -120,15 +120,12 @@ class SubmissionController < ApplicationController
                             :language_id, :conference_track_id, :event_type_id,
                             :abstract, :description, :resources, :duration]
     if params[:id]
-      events = Momomoto::Own_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
+      events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
       return redirect_to(:action=>:events,:conference=>@conference.acronym) unless events.length == 1
       event = Momomoto::Event.find({:event_id=>params[:id]})
     else
-      event = Momomoto::Event.new_record
-      event.conference_id = @conference.conference_id
-      event.event_origin_id = Momomoto::Event_origin.find({:tag=>'submission'}).event_origin_id
-      event.event_state_id = Momomoto::Event_state.find({:tag=>'undecided'}).event_state_id
-      event.event_state_progress_id = Momomoto::Event_state_progress.find({:tag=>'new',:event_state_id=>event.event_state_id}).event_state_progress_id
+      new_event = Momomoto::Submit_event.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:title=>params[:event][:title]})
+      event = Momomoto::Event.find({:event_id=>new_event.new_event_id})
     end
     event.begin
     allowed_event_fields.each do | field |
@@ -136,13 +133,12 @@ class SubmissionController < ApplicationController
     end
     event.write
 
-    unless params[:id] # add ourself as speaker for new events
-      event_person = Momomoto::Event_person.new_record
-      event_person.event_id = event.event_id
-      event_person.person_id = @user.person_id
-      event_person.event_role_id = Momomoto::Event_role.find({:tag=>'speaker'}).event_role_id
-      event_person.event_role_state_id = Momomoto::Event_role_state.find({:tag=>'offer',:event_role_id=>event_person.event_role_id}).event_role_state_id
-      event_person.write
+    if params[:link]
+      event_link = Momomoto::Event_link.new
+      params[:link].each do | key, value |
+        next if value[:url].to_s == ''
+        modified = true if save_or_delete_record( event_link, {:event_id => event.event_id, :event_link_id => value[:link_id]}, value)
+      end
     end
 
     if params[:attachment_upload]
