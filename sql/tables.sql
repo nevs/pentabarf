@@ -244,7 +244,7 @@ CREATE TABLE role_authorisation (
   FOREIGN KEY (authorisation_id) REFERENCES authorisation (authorisation_id),
   PRIMARY KEY (role_id, authorisation_id)
 ) WITHOUT OIDS;
-  
+
 CREATE TABLE person (
   person_id SERIAL NOT NULL,
   login_name VARCHAR(32) UNIQUE,
@@ -810,7 +810,7 @@ CREATE TABLE event_role_localized (
   FOREIGN KEY (language_id) REFERENCES language (language_id),
   PRIMARY KEY (event_role_id, language_id)
 ) WITHOUT OIDS;
-  
+
 CREATE TABLE event_role_state (
   event_role_state_id SERIAL NOT NULL,
   event_role_id INTEGER NOT NULL,

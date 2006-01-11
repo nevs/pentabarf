@@ -44,6 +44,9 @@ class SubmissionController < ApplicationController
   end
 
   def save_person
+    transaction = Momomoto::Person_transaction.find( {:person_id => person.person_id} )
+    raise "Outdated Data!" if transaction.length == 1 && transaction.changed_when != params[:changed_when]
+
     raise "Passwords do not match" if params[:person][:password] != params[:password]
     person_allowed_fields = [:first_name, :last_name, :nickname, :public_name,
                              :title, :gender, :f_spam, :address, :street,
@@ -56,13 +59,14 @@ class SubmissionController < ApplicationController
       person[field] = params[:person][field]
     end
     person.password = params[:person][:password] if params[:person][:password].to_s.length > 0
-    person.write
+    modified = true if person.write
+
     conference_person = Momomoto::Conference_person.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
     conference_person.create if conference_person.nil?
     conference_person_allowed_fields.each do | field |
       conference_person[field] = params[:conference_person][field]
     end
-    conference_person.write
+    modified = true if conference_person.write
 
     if params[:person_im]
       person_im = Momomoto::Person_im.new
@@ -94,6 +98,13 @@ class SubmissionController < ApplicationController
       end
     end
 
+    if modified
+      transaction = Momomoto::Person_transaction.new_record
+      transaction.person_id = @user.person_id
+      transaction.changed_by = @user.person_id
+      transaction.write
+    end
+
     person.commit
     redirect_to({:action=>:person, :conference=>@conference.acronym})
   end
@@ -119,19 +130,26 @@ class SubmissionController < ApplicationController
     allowed_event_fields = [:title, :subtitle, :tag, :f_paper, :f_slides,
                             :language_id, :conference_track_id, :event_type_id,
                             :abstract, :description, :resources, :duration]
+    modified = false
     if params[:id]
       events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
       return redirect_to(:action=>:events,:conference=>@conference.acronym) unless events.length == 1
+
+      # check for outdated data
+      transaction = Momomoto::Event_transaction.find( {:event_id => params[:id]} )
+      raise "Outdated Data!" if transaction.length == 1 && transaction.changed_when != params[:changed_when]
+
       event = Momomoto::Event.find({:event_id=>params[:id]})
     else
       new_event = Momomoto::Submit_event.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:title=>params[:event][:title]})
       event = Momomoto::Event.find({:event_id=>new_event.new_event_id})
+      modified = true
     end
     event.begin
     allowed_event_fields.each do | field |
       event[field] = params[:event][field]
     end
-    event.write
+    modified = true if event.write
 
     if params[:link]
       event_link = Momomoto::Event_link.new
@@ -166,6 +184,13 @@ class SubmissionController < ApplicationController
           t.f_public = value[:f_public] ? true : false
         }
       end
+    end
+
+    if modified
+      transaction = Momomoto::Event_transaction.new_record
+      transaction.event_id = event.event_id
+      transaction.changed_by = @user.person_id
+      transaction.write
     end
 
     event.commit
