@@ -846,3 +846,4 @@ CREATE OR REPLACE VIEW view_report_feedback AS
          INNER JOIN event USING (event_id)
    GROUP BY event_id, conference_id, title, subtitle
 ;
+

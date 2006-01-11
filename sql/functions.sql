@@ -60,6 +60,18 @@ CREATE OR REPLACE FUNCTION activate_account(char(64)) RETURNS INTEGER AS $$
   END;
 $$ LANGUAGE plpgsql RETURNS NULL ON NULL INPUT;
 
+CREATE OR REPLACE FUNCTION own_events(integer, integer) RETURNS SETOF INTEGER AS $$
+  SELECT event_id
+    FROM event
+   WHERE conference_id = $2 AND 
+         EXISTS (SELECT 1 
+                   FROM event_person
+                        INNER JOIN event_role ON (
+                            event_person.event_role_id = event_role.event_role_id AND
+                            event_role.tag = 'speaker' )
+                  WHERE event_person.person_id = $1 AND event_person.event_id = event.event_id);
+$$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
+
 CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER AS '
   DECLARE
     cur_event_id ALIAS FOR $1;
