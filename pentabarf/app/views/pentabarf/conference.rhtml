@@ -146,6 +146,10 @@
                             'to_s', 'to_s', @conference.day_change ? @conference.day_change.strftime('%H:%M:%S') : nil, { :tabindex => 0 }, false ) %>
           </td>
         </tr>
+        <tr>
+          <td><label>Enable Submission</label></td>
+          <td><%= check_box_tag('conference[f_submission_enabled]', 't', @conference.f_submission_enabled, {:tabindex => 0} ) %></td>
+        </tr>
       </table>
     </fieldset>
 

@@ -44,7 +44,7 @@ class SubmissionController < ApplicationController
   end
 
   def save_person
-    transaction = Momomoto::Person_transaction.find( {:person_id => person.person_id} )
+    transaction = Momomoto::Person_transaction.find( {:person_id => @user.person_id} )
     raise "Outdated Data!" if transaction.length == 1 && transaction.changed_when != params[:changed_when]
 
     raise "Passwords do not match" if params[:person][:password] != params[:password]

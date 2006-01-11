@@ -156,6 +156,7 @@ CREATE TABLE conference_logging (
   feedback_base_url VARCHAR(256),
   css TEXT,
   f_feedback_enabled BOOL,
+  f_submission_enabled BOOL,
   last_modified TIMESTAMP WITH TIME ZONE,
   last_modified_by INTEGER,
   PRIMARY KEY (conference_logging_id)
