@@ -269,7 +269,7 @@ module Momomoto
         sql = @query.dup
         @fields.each do | key, value |
           next unless value.property(:parameter)
-          raise "missing parameter #{field_name} in #{self.class.name}" if conditions[key].nil?
+          raise "missing parameter #{key} in #{self.class.name}" if conditions[key].nil?
           sql.gsub!("%#{key.to_s}%", value.filter_write(conditions[key]))
         end
       else
