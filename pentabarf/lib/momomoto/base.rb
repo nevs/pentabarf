@@ -261,20 +261,20 @@ module Momomoto
       select( conditions, limit, order, distinct )
       self
     end
-    
-    def select( conditions = {}, limit = nil, order = nil, distinct = nil ) 
+
+    def select( conditions = {}, limit = nil, order = nil, distinct = nil )
       self.limit= limit if limit
       self.order= order if order
-      if @query.to_s.length > 0 
+      if @query.to_s.length > 0
         sql = @query.dup
         @fields.each do | key, value |
           next unless value.property(:parameter)
           raise "missing parameter #{key} in #{self.class.name}" if conditions[key].nil?
-          sql.gsub!("%#{key.to_s}%", value.filter_write(conditions[key]))
+          sql.gsub!("%#{key.to_s}%", value.filter_write(value.filter_set(conditions[key])))
         end
       else
         fields = ''
-        @fields.each do | key , value | 
+        @fields.each do | key , value |
           next if value.property(:virtual)
           fields += fields != '' ? ', ' : ''
           fields += "\"#{key.to_s}\""
@@ -295,10 +295,10 @@ module Momomoto
       end
       result.clear
       @new_record = false
-      @current_record = @resultset.length > 0 ? 0 : nil 
+      @current_record = @resultset.length > 0 ? 0 : nil
       @resultset.length
     end
-    
+
     # search in the resultset for a record with a specific value
     def find_by_id( field_name, value )
       @resultset.length.times do | i |
@@ -455,6 +455,7 @@ module Momomoto
       return true if @@permissions.member?( "#{action}_#{@domain}")
       return true if action == 'delete' && @domain != @table && @@permissions.member?( "modify_#{@domain}" )
       return true if @domain == 'person' && @@person_id == self[:person_id] && @@permissions.member?("modify_own_person")
+#     return true if @domain == 'event' && @@permissions.member?('modify_own_event') && Momomoto::Own_events.find()
       false
     end
 
