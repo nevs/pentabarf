@@ -127,15 +127,24 @@ class SubmissionController < ApplicationController
       event = Momomoto::Event.new_record
       event.conference_id = @conference.conference_id
       event.event_origin_id = Momomoto::Event_origin.find({:tag=>'submission'}).event_origin_id
-      event_state = Momomoto::Event_state.find({:tag=>'undecided'})
-      event.event_state_id = event_state.event_state_id
-      event.event_state_progress_id = Momomoto::Event_state_progress.find({:tag=>'new',:event_state_id=>event_state.event_state_id}).event_state_progress_id
+      event.event_state_id = Momomoto::Event_state.find({:tag=>'undecided'}).event_state_id
+      event.event_state_progress_id = Momomoto::Event_state_progress.find({:tag=>'new',:event_state_id=>event.event_state_id}).event_state_progress_id
     end
     event.begin
     allowed_event_fields.each do | field |
       event[field] = params[:event][field]
     end
     event.write
+
+    unless params[:id] # add ourself as speaker for new events
+      event_person = Momomoto::Event_person.new_record
+      event_person.event_id = event.event_id
+      event_person.person_id = @user.person_id
+      event_person.event_role_id = Momomoto::Event_role.find({:tag=>'speaker'}).event_role_id
+      event_person.event_role_state_id = Momomoto::Event_role_state.find({:tag=>'offer',:event_role_id=>event_person.event_role_id}).event_role_state_id
+      event_person.write
+    end
+
 
     event.commit
     redirect_to({:action=>:event,:id=>event.event_id,:conference=>@conference.acronym})
