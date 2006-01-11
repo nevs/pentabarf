@@ -1,5 +1,5 @@
 class SubmissionController < ApplicationController
-  before_filter :check_conference, :except => [:new_account, :create_account, :activate_account, :account_done, :logout, :login]
+  before_filter :check_conference
   before_filter :authorize, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout]
   before_filter :check_permission, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout]
   before_filter :transparent_authorize
@@ -23,7 +23,7 @@ class SubmissionController < ApplicationController
     raise "Invalid email address" unless params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,3}$/)
     account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>random_string})
 
-    Notifier::deliver_activate_account( account.login_name, account.email_contact, url_for({:action=>:activate_account,:id=>account.activation_string}) )
+    Notifier::deliver_activate_account( account.login_name, account.email_contact, url_for({:action=>:activate_account,:conference=>@conference.acronym,:id=>account.activation_string}) )
     redirect_to({:action=>:account_done})
   end
 
@@ -44,6 +44,7 @@ class SubmissionController < ApplicationController
   end
 
   def save_person
+    raise "Passwords do not match" if params[:person][:password] != params[:password]
     person_allowed_fields = [:first_name, :last_name, :nickname, :public_name,
                              :title, :gender, :f_spam, :address, :street,
                              :street_postcode, :po_box, :po_box_postcode,
@@ -54,6 +55,7 @@ class SubmissionController < ApplicationController
     person_allowed_fields.each do | field |
       person[field] = params[:person][field]
     end
+    person.password = params[:person][:password] if params[:person][:password].to_s.length > 0
     person.write
     conference_person = Momomoto::Conference_person.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
     conference_person.create if conference_person.nil?
@@ -94,6 +96,10 @@ class SubmissionController < ApplicationController
 
     person.commit
     redirect_to({:action=>:person, :conference=>@conference.acronym})
+  end
+
+  def events
+    
   end
 
   def event

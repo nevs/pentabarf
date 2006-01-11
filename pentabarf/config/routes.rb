@@ -20,7 +20,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'schedule/:conference_id/:action/:id', :controller => 'schedule'
   map.connect 'feedback/:conference_id/:action/:id', :controller => 'feedback'
   map.connect 'submission/activate_account/:id', :controller => 'submission', :action => 'activate_account'
-  map.connect 'submission/:action', :controller => 'submission'
   map.connect 'submission/:conference/:action/:id', :controller => 'submission'
   map.connect ':controller/:action/:id'
 end
