@@ -70,10 +70,10 @@ class PentabarfController < ApplicationController
     @preferences[:search_event_type] = 'advanced'
     if params[:id] && params[:id] != '-1'
       @preferences[:search_event_advanced_page] = params[:id].to_i
-    elsif params[:id].nil? 
+    elsif params[:id].nil?
       @preferences[:search_event_advanced_page] = 0
     end
-    @current_page = @preferences[:search_event_advanced_page] 
+    @current_page = @preferences[:search_event_advanced_page]
     conditions = transform_advanced_search_conditions( @preferences[:search_event_advanced] )
     conditions[:translated_id] = @current_language_id
     conditions[:conference_id] = @current_conference_id
@@ -330,12 +330,12 @@ class PentabarfController < ApplicationController
           return
         end
       end
-    
+
       modified = false
       person.begin
 
       begin
-        
+
         params[:person].each do | key, value |
           next if key.to_sym == :preferences || key.to_sym == :password
           person[key]= value
@@ -365,12 +365,12 @@ class PentabarfController < ApplicationController
         modified = true if person.write
 
         conference_person = Momomoto::Conference_person.new
-        modified = true if save_record( conference_person, 
+        modified = true if save_record( conference_person,
                                        {:conference_person_id => params[:conference_person][:conference_person_id],
                                         :person_id => person.person_id,
-                                        :conference_id => params[:conference_person][:conference_id] }, 
+                                        :conference_id => params[:conference_person][:conference_id] },
                                         params[:conference_person] )
-        
+
         image = Momomoto::Person_image.new
         image.select({:person_id => person.person_id})
         if image.length != 1 && params[:person_image] && params[:person_image][:image] && params[:person_image][:image].size > 0
@@ -425,7 +425,7 @@ class PentabarfController < ApplicationController
             end
           end
         end
-        
+
         if params[:person_im]
           person_im = Momomoto::Person_im.new
           params[:person_im].each do | key, value |
@@ -738,7 +738,7 @@ class PentabarfController < ApplicationController
       conditions[t_value[:type]][t_value[:logic]] = Array.new unless conditions[t_value[:type]][t_value[:logic]]
       conditions[t_value[:type]][t_value[:logic]].push( value[:value].dup)
     end
-    conditions 
+    conditions
   end
 
   def check_permission

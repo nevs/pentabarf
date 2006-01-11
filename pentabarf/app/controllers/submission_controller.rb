@@ -43,9 +43,64 @@ class SubmissionController < ApplicationController
     @conference_person = Momomoto::Conference_person.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
   end
 
+  def save_person
+    person_allowed_fields = [:first_name, :last_name, :nickname, :public_name,
+                             :title, :gender, :f_spam, :address, :street,
+                             :street_postcode, :po_box, :po_box_postcode,
+                             :city, :country_id]
+    conference_person_allowed_fields = [:abstract, :description, :remark, :email_public]
+    person = Momomoto::Person.find({:person_id=>@user.person_id})
+    person.begin
+    person_allowed_fields.each do | field |
+      person[field] = params[:person][field]
+    end
+    person.write
+    conference_person = Momomoto::Conference_person.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
+    conference_person.create if conference_person.nil?
+    conference_person_allowed_fields.each do | field |
+      conference_person[field] = params[:conference_person][field]
+    end
+    conference_person.write
+
+    if params[:person_im]
+      person_im = Momomoto::Person_im.new
+      params[:person_im].each do | key, value |
+        modified = true if save_or_delete_record( person_im, {:person_id => person.person_id, :person_im_id => value[:person_im_id]}, value)
+      end
+    end
+
+    if params[:person_phone]
+      person_phone = Momomoto::Person_phone.new
+      params[:person_phone].each do | key, value |
+        next if value[:phone_number].to_s == ''
+        modified = true if save_or_delete_record( person_phone, {:person_id => person.person_id, :person_phone_id => value[:person_phone_id]}, value)
+      end
+    end
+
+    if params[:person_language]
+      language = Momomoto::Person_language.new
+      params[:person_language].each do | key, value |
+        modified = true if save_or_delete_record( language, {:person_id => person.person_id, :language_id => value[:language_id]}, value)
+      end
+    end
+
+    if params[:link]
+      person_link = Momomoto::Conference_person_link.new
+      params[:link].each do | key, value |
+        next if value[:url].to_s == ''
+        modified = true if save_or_delete_record( person_link, {:conference_person_id => conference_person.conference_person_id, :conference_person_link_id => value[:link_id]}, value)
+      end
+    end
+
+    person.commit
+    redirect_to({:action=>:person, :conference=>@conference.acronym})
+  end
+
   def event
-    #Notifier::deliver_signup_thanks(@user.login_name, @user.email_contact)
     @event = Momomoto::Event.new_record
+  end
+
+  def save_event
 
   end
 
@@ -69,12 +124,11 @@ class SubmissionController < ApplicationController
   # authorize users transparently if login_name and password are sent
   def transparent_authorize()
     login_name, password = get_auth_data
-    @user = nil
 
-    if !login_name.empty? && !password.empty?
+    if @user.nil? && !login_name.empty? && !password.empty?
       @user = Momomoto::Login.authorize( login_name, password )
       @user = nil if @user.nil?
-    end 
+    end
     if @user
       Momomoto::Base.ui_language_id = @user.preferences[:current_language_id]
     else

@@ -22,7 +22,7 @@ require 'datatype/time.rb'
 require 'datatype/timestamp.rb'
 require 'datatype/varchar.rb'
 
-module Momomoto 
+module Momomoto
 
   class Momomoto_Error < StandardError
   end
@@ -37,7 +37,7 @@ module Momomoto
   end
 
   class Base
-    
+
     private
 
       # connection to the database
@@ -185,7 +185,7 @@ module Momomoto
     end
 
     # create a new record
-    def create()
+    def create
       @resultset = []
       @resultset[0] = {}
       @fields.each do | field_name, field | 
@@ -449,7 +449,7 @@ module Momomoto
     end
 
     protected
-    
+
     def privilege?( action )
       return true if @domain == 'public'
       return true if @@permissions.member?( "#{action}_#{@domain}")
@@ -472,7 +472,7 @@ module Momomoto
         fields += fields == '' ? '' : ', '
         fields += field_name.to_s
         values += values == '' ? '' : ', '
-        values += value.write_value() 
+        values += value.write_value()
       end
       "INSERT INTO #{@table}(#{fields}) VALUES(#{values});"
     end
@@ -482,7 +482,7 @@ module Momomoto
       @resultset[@current_record].each do | field_name, value |
         raise "not null field with null value in class #{self.class.name} field #{field_name} in update" if value.property( :not_null ) && value.write_value == 'NULL'
         value.value= @@person_id if field_name == :last_modified_by
-        if value.property( :primary_key ) 
+        if value.property( :primary_key )
           conditions[field_name] = value.value
         end
         next unless value.dirty?
@@ -496,7 +496,7 @@ module Momomoto
     def log_changes()
       sets, primary_keys = '', {}
       @resultset[@current_record].each do | field_name, value |
-        next unless value.property( :primary_key ) 
+        next unless value.property( :primary_key )
         raise "empty primary key field in class #{self.class.name} field #{field_name} in log_changes" if value.write_value == 'NULL'
         primary_keys[field_name] = value.value
       end
@@ -507,7 +507,7 @@ module Momomoto
 
     def compile_where( conditions )
       where = ''
-      conditions.each do | key , value | 
+      conditions.each do | key , value |
         raise "Unknown field #{key} in class #{self.class.name}" if @fields[key] == nil
         next if @fields[key].property(:parameter) || ( ( value.kind_of?(Array) || value.kind_of?(Hash) ) && value.length == 0 )
         if @fields[key].property(:virtual)

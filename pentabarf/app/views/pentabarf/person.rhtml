@@ -22,7 +22,7 @@
   <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
   <%= hidden_field_tag('conference_person[conference_person_id]', @conference_person.conference_person_id) %>
   <%= hidden_field_tag('conference_person[conference_id]', @conference_person.conference_id) %>
-  
+
   <%= render(:partial => 'modification_buttons') %>
 
   <div id="comment">
