@@ -1,17 +1,17 @@
 class XcalController < ApplicationController
   before_filter :authorize, :check_permission
   after_filter :compress
-  
+
   def conference
     @conference = Momomoto::Conference.find({:conference_id => params[:id]})
     @rooms = Momomoto::View_room.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id})
     @events = Momomoto::View_schedule_event.find({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
     @timezone = 'Europe/Berlin'
-    @response.headers['Content-Type'] = 'application/calendar+xml'   
+    @response.headers['Content-Type'] = 'application/calendar+xml'
     @response.headers['Content-Disposition'] = "attachment; filename=\"#{@conference.acronym}.xcs\""
 
   end
-  
+
   protected
 
   def check_permission

@@ -16,7 +16,7 @@ module ApplicationHelper
         new_text += '</p>'
         p_open = false
       end
-    
+
       new_nesting = line.match(/^[*#-]+/).to_s.gsub('-','*')
       # lists #,- and * with nesting
       if new_nesting != nesting
@@ -41,7 +41,7 @@ module ApplicationHelper
       end
       # external links [url] or [url label]
       line.gsub!( /\[[^\]]+\]/ ) do | elink |
-        if match = elink[1..-2].match( /^(([a-z]+):(\/\/)?([^ ]+))( (.+))?$/ ) 
+        if match = elink[1..-2].match( /^(([a-z]+):(\/\/)?([^ ]+))( (.+))?$/ )
           elink = "<a href=\"#{match[1]}\">#{match[6] ? match[6] : match[1]}</a>" if allowed_protocols.member?(match[2])
         end
         elink
@@ -133,12 +133,12 @@ module ApplicationHelper
           else
             table[event.day - 1 + (start_slot + i)/slots_per_day][(start_slot + i)%slots_per_day][event.room_id] = 0
           end
-        else 
+        else
           table[event.day - 1][start_slot + i][event.room_id] = 0
         end
       end
     end
-    table.each do | day_table | 
+    table.each do | day_table |
       while day_table.first && day_table.first.length == 1
         day_table.delete(day_table.first)
       end
@@ -174,7 +174,7 @@ module ApplicationHelper
     html += 'var tab_name = new Array();'
     tabs_ui = []
     if environment
-      tabs_ui = tabs_simple.collect do | tab_name | 
+      tabs_ui = tabs_simple.collect do | tab_name |
         "#{environment}::#{tab_name.kind_of?(Hash) ? tab_name[:tag] : tab_name}"
       end
     end
@@ -200,10 +200,10 @@ module ApplicationHelper
       tabs.push({:tag=>'all',:url=>"javascript:switch_tab('all')", :class=>"tab inactive", :accesskey=>0, :text=> tabs_local.current_record ? tabs_local.name : 'show all'})
     end
     html += '</script>'
-    
+
     content_tabs( tabs, html )
   end
-  
+
   def content_tabs( tabs, html = '' )
     html += '<div id="tabs">'
     tabs.each_with_index do | tab, index |
@@ -222,7 +222,7 @@ module ApplicationHelper
   def get_revision()
     revision_file = '../../revision.txt'
     if File.exists?( revision_file ) && File.readable_real?( revision_file )
-      rev = File.open( revision_file, 'r').gets.chomp 
+      rev = File.open( revision_file, 'r').gets.chomp
     end
     rev = 2342 if rev.to_s == ''
     rev.to_s

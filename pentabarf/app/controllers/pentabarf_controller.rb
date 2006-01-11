@@ -30,10 +30,10 @@ class PentabarfController < ApplicationController
     @preferences[:search_conference_type] = 'simple'
     if params[:id] && params[:id] != '-1'
       @preferences[:search_conference_page] = params[:id].to_i
-    elsif params[:id].nil? 
+    elsif params[:id].nil?
       @preferences[:search_conference_page] = 0
     end
-    @current_page = @preferences[:search_conference_page] 
+    @current_page = @preferences[:search_conference_page]
     if @preferences[:search_conference].match(/^ *(\d+ *)+$/)
       @conferences = Momomoto::View_find_conference.find( {:conference_id => @preferences[:search_conference].split(' ')} )
     else
@@ -48,14 +48,14 @@ class PentabarfController < ApplicationController
   end
 
   def search_event
-    @preferences[:search_event] = request.raw_post.to_s.gsub(/&.*$/, '') unless params[:id] 
+    @preferences[:search_event] = request.raw_post.to_s.gsub(/&.*$/, '') unless params[:id]
     @preferences[:search_event_type] = 'simple'
     if params[:id] && params[:id] != '-1'
       @preferences[:search_event_page] = params[:id].to_i
-    elsif params[:id].nil? 
+    elsif params[:id].nil?
       @preferences[:search_event_page] = 0
     end
-    @current_page = @preferences[:search_event_page] 
+    @current_page = @preferences[:search_event_page]
     if @preferences[:search_event].match(/^ *(\d+ *)+$/)
       @events = Momomoto::View_find_event.find( {:event_id => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
     else
@@ -126,7 +126,7 @@ class PentabarfController < ApplicationController
     elsif params[:id].nil?
       @preferences[:search_person_advanced_page] = 0
     end
-    @current_page = @preferences[:search_person_advanced_page] 
+    @current_page = @preferences[:search_person_advanced_page]
     @persons = Momomoto::View_find_person.find( transform_advanced_search_conditions(@preferences[:search_person_advanced]), nil, nil, :person_id )
     @current_page = 0 if @persons.length < (@preferences[:hits_per_page] * @current_page)
     render(:partial => 'search_person')
@@ -141,10 +141,10 @@ class PentabarfController < ApplicationController
     @preferences[:search_person_type] = 'simple'
     if params[:id] && params[:id] != '-1'
       @preferences[:search_person_page] = params[:id].to_i
-    elsif params[:id].nil? 
+    elsif params[:id].nil?
       @preferences[:search_person_page] = 0
     end
-    @current_page = @preferences[:search_person_page] 
+    @current_page = @preferences[:search_person_page]
     if @preferences[:search_person].match(/^ *(\d+ *)+$/)
       @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split(' ')}, nil, nil, :person_id )
     else
@@ -267,7 +267,7 @@ class PentabarfController < ApplicationController
 
   def reports
     @content_title ='Reports'
-    
+
   end
 
   def report_feedback
@@ -403,8 +403,8 @@ class PentabarfController < ApplicationController
           end
         end
 
-        modified = true if save_record( Momomoto::Person_travel.new, 
-                                       {:person_id => person.person_id, :conference_id => @current_conference_id}, 
+        modified = true if save_record( Momomoto::Person_travel.new,
+                                       {:person_id => person.person_id, :conference_id => @current_conference_id},
                                         params[:person_travel]) do | table |
           table.f_arrived = 'f' unless params[:person_travel]['f_arrived']
           table.f_arrival_pickup = 'f' unless params[:person_travel]['f_arrival_pickup']
@@ -437,7 +437,7 @@ class PentabarfController < ApplicationController
           person_phone = Momomoto::Person_phone.new
           params[:person_phone].each do | key, value |
             next if value[:phone_number].to_s == ''
-            modified = true if save_or_delete_record( person_phone, {:person_id => person.person_id, :person_phone_id => value[:person_phone_id]}, value) 
+            modified = true if save_or_delete_record( person_phone, {:person_id => person.person_id, :person_phone_id => value[:person_phone_id]}, value)
           end
         end
 
@@ -479,11 +479,11 @@ class PentabarfController < ApplicationController
         @meditation_message = "You are not allowed to do this." if e.class == Momomoto::Permission_Error
         raise e
       end
-      save_record( Momomoto::Person_rating.new, {:person_id => person.person_id, :evaluator_id => @user.person_id}, 
+      save_record( Momomoto::Person_rating.new, {:person_id => person.person_id, :evaluator_id => @user.person_id},
                    params[:rating]) do | table |
         table.eval_time = 'now()' if table.dirty?
       end
-        
+
       redirect_to({:action => :person, :id => person.person_id})
     else
       redirect_to({:action => :person, :id => params[:id]})
@@ -598,10 +598,10 @@ class PentabarfController < ApplicationController
           return
         end
       end
-    
+
       modified = false
       event.begin
-      
+
       begin
         params[:event].each do | key, value |
           next if key == :conference_id
@@ -613,7 +613,7 @@ class PentabarfController < ApplicationController
         event.f_paper = 'f' unless params[:event]['f_paper']
         event.f_slides = 'f' unless params[:event]['f_slides']
         modified = true if event.write
-        
+
         if params[:related_event]
           params[:related_event].each do | key, value |
             modified = true if save_or_delete_record(Momomoto::Event_related.new, {:event_id1 => event.event_id, :event_id2 => value[:related_event_id]}, value)
@@ -640,7 +640,7 @@ class PentabarfController < ApplicationController
 
         if params[:attachment_upload]
           file = Momomoto::Event_attachment.new
-          params[:attachment_upload].each do | key, value | 
+          params[:attachment_upload].each do | key, value |
             next unless value[:data].size > 0
             file.create
             file.event_id = event.event_id
@@ -677,7 +677,7 @@ class PentabarfController < ApplicationController
             end
           end
         end
-        
+
         if params[:link]
           event_link = Momomoto::Event_link.new
           params[:link].each do | key, value |
@@ -709,7 +709,7 @@ class PentabarfController < ApplicationController
         @meditation_message = "You are not allowed to do this." if e.class == Momomoto::Permission_Error
         raise e
       end
-      
+
       save_record(Momomoto::Event_rating.new, {:person_id => @user.person_id, :event_id => event.event_id}, params[:rating]) do | t |
         t.eval_time = 'now()' if t.dirty?
       end

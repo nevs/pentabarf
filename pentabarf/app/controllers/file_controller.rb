@@ -21,7 +21,7 @@ class FileController < ApplicationController
   end
 
   protected
-  
+
   def check_permission
     return @user.permission?('pentabarf_login')
   end

@@ -9,68 +9,68 @@ require 'xmpp4r'
 class ApplicationController < ActionController::Base
   session :off
 
-  def get_auth_data 
-    login_name, password = '', '' 
-    # extract authorisation credentials 
-    if request.env.has_key? 'X-HTTP_AUTHORIZATION' 
-      # try to get it where mod_rewrite might have put it 
-      authdata = @request.env['X-HTTP_AUTHORIZATION'].to_s.split 
-    elsif request.env.has_key? 'HTTP_AUTHORIZATION' 
+  def get_auth_data
+    login_name, password = '', ''
+    # extract authorisation credentials
+    if request.env.has_key? 'X-HTTP_AUTHORIZATION'
+      # try to get it where mod_rewrite might have put it
+      authdata = @request.env['X-HTTP_AUTHORIZATION'].to_s.split
+    elsif request.env.has_key? 'HTTP_AUTHORIZATION'
       # try to get it where fastcgi has put it
-      authdata = @request.env['HTTP_AUTHORIZATION'].to_s.split  
-    elsif request.env.has_key? 'Authorization' 
-      # this is the regular location 
-      authdata = @request.env['Authorization'].to_s.split  
-    end 
-     
-    # at the moment we only support basic authentication 
-    if authdata and authdata[0] == 'Basic' 
-      login_name, password = Base64.decode64(authdata[1]).split(':')[0..1] 
-    end 
-    return [login_name.to_s, password.to_s] 
-  end 
+      authdata = @request.env['HTTP_AUTHORIZATION'].to_s.split
+    elsif request.env.has_key? 'Authorization'
+      # this is the regular location
+      authdata = @request.env['Authorization'].to_s.split
+    end
+
+    # at the moment we only support basic authentication
+    if authdata and authdata[0] == 'Basic'
+      login_name, password = Base64.decode64(authdata[1]).split(':')[0..1]
+    end
+    return [login_name.to_s, password.to_s]
+  end
 
   def authorize( realm='Pentabarf', errormessage='Authentication failed')
     login_name, password = get_auth_data
     @user = Momomoto::Login.new
 
     if @user.authorize( login_name, password )
-      # user exists and password is correct ... horray! 
+      # user exists and password is correct ... horray!
       return true
-    else 
-      # the user does not exist or the password was wrong 
-      @response.headers["Status"] = "Unauthorized" 
-      @response.headers["WWW-Authenticate"] = "Basic realm=\"#{realm}\"" 
+    else
+      # the user does not exist or the password was wrong
+      @response.headers["Status"] = "Unauthorized"
+      @response.headers["WWW-Authenticate"] = "Basic realm=\"#{realm}\""
       ApplicationController.jabber_message( "Authorization failed for user #{login_name} from #{@request.env['REMOTE_ADDR']}" ) if login_name.to_s.length > 0
-      render_text(errormessage, 401)       
-    end 
+      render_text(errormessage, 401)
+    end
     return false
   end
 
   def logout( realm='Pentabarf', errormessage='Logged out.')
-    @response.headers["Status"] = "Unauthorized" 
-    @response.headers["WWW-Authenticate"] = "Basic realm=\"#{realm}\"" 
-    render_text(errormessage , 401)       
+    @response.headers["Status"] = "Unauthorized"
+    @response.headers["WWW-Authenticate"] = "Basic realm=\"#{realm}\""
+    render_text(errormessage , 401)
   end
 
-  def compress 
-    accepts = request.env['HTTP_ACCEPT_ENCODING'] 
-    return unless accepts && accepts =~ /(x-gzip|gzip)/ 
-    encoding = $1 
-    output = StringIO.new 
-    def output.close # Zlib does a close. Bad Zlib... 
-      rewind 
-    end 
-    gz = Zlib::GzipWriter.new(output) 
-    gz.write(response.body) 
-    gz.close 
-    if output.length < response.body.to_s.length 
-      response.body = output.string 
-      response.headers['Content-encoding'] = encoding 
-    end 
-  end 
+  def compress
+    accepts = request.env['HTTP_ACCEPT_ENCODING']
+    return unless accepts && accepts =~ /(x-gzip|gzip)/
+    encoding = $1
+    output = StringIO.new
+    def output.close # Zlib does a close. Bad Zlib...
+      rewind
+    end
+    gz = Zlib::GzipWriter.new(output)
+    gz.write(response.body)
+    gz.close
+    if output.length < response.body.to_s.length
+      response.body = output.string
+      response.headers['Content-encoding'] = encoding
+    end
+  end
 
-  def fold 
+  def fold
     max_octets = 70
     folded_body = ""
     response.body.each_line do | line |
@@ -82,7 +82,7 @@ class ApplicationController < ActionController::Base
       folded_body += line
     end
     response.body = folded_body
-  end 
+  end
 
   def rescue_action_in_public( exception )
     @meditation_message = exception.message

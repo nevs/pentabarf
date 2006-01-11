@@ -20,7 +20,7 @@
   <%= hidden_field_tag('event_id', @event.event_id ) %>
   <% transaction = Momomoto::Event_transaction.find( {:event_id => @event.event_id} ) %>
   <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
-  
+
   <%= render(:partial => 'modification_buttons') %>
 
   <div id="comment">
@@ -119,7 +119,7 @@
         </tr>
       </table>
     </fieldset>
-                 
+
     <fieldset>
       <legend>Logo</legend>
       (square)
@@ -250,7 +250,7 @@
   </div>
 
   <div id="content-links" class="content_tab">
-      
+
     <fieldset>
       <legend>Public Links</legend>
       <table id="link_table" class="hidden">
@@ -481,7 +481,7 @@
         <% end %>
         </tbody>
       </table>
-      
+
       <table id="related_event_table" class="hidden">
         <thead>
           <tr>
@@ -528,7 +528,7 @@
         </tbody>
       </table>
     </fieldset>
-    
+
   </div>
 
   <div id="content-feedback" class="content_tab">
@@ -578,7 +578,7 @@
           <% end %>
         </tbody>
       </table>
-            
+
     </fieldset>
   </div>
 

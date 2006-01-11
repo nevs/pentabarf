@@ -1,5 +1,5 @@
 /**
- * create element for dynamic interface 
+ * create element for dynamic interface
  *
  * @param type type of the element
  * @param subtype subtype of the element (only needed for type input)
@@ -11,7 +11,7 @@
 function create_element(type, subtype, name, values, selected, without_td)
 {
   var new_element = document.createElement(type);
-  
+
   if (name != null) {
     new_element.setAttribute("name", name);
     new_element.setAttribute("id", name);
@@ -63,7 +63,7 @@ function create_element(type, subtype, name, values, selected, without_td)
       }
       break;
   }
-  
+
   if ( init_done ) {
     enable_save_button();
   }
@@ -141,7 +141,7 @@ function add_person_im(person_im_id, im_type_id, im_address)
 {
   var table_row;
   var row_id = person_im_counter++;
-  
+
   document.getElementById('im_table').style.display = "block";
   table_row = document.createElement("tr");
   table_row.setAttribute("id","row_"+row_id);
@@ -160,7 +160,7 @@ function add_person_im(person_im_id, im_type_id, im_address)
   table_row.appendChild(create_element("select", null, "person_im["+row_id+"][im_type_id]", im_type, im_type_id));
   table_row.appendChild(create_element("input", "text", "person_im["+row_id+"][im_address]", im_address, 25));
   table_row.appendChild(create_element("input", "checkbox", "person_im["+row_id+"][delete]"));
-  
+
   document.getElementById("im_table_body").appendChild(table_row);
   enumerator();
 }
@@ -190,7 +190,7 @@ function add_person_phone(person_phone_id, phone_type_id, number)
   table_row.appendChild(create_element("select", 0, "person_phone["+row_id+"][phone_type_id]", phone_type, phone_type_id));
   table_row.appendChild(create_element("input", "text", "person_phone["+row_id+"][phone_number]", number));
   table_row.appendChild(create_element("input", "checkbox", "person_phone["+row_id+"][delete]","1"))
-  
+
   document.getElementById("telephone_table_body").appendChild(table_row);
   enumerator();
 }
@@ -279,9 +279,9 @@ function add_person_event(event_person_id, event_id, event_role_id, event_role_s
 
   var role_select = create_element("select", 0, "event_person["+row_id+"][event_role_id]",event_roles,event_role_id);
   role_select.setAttribute("onchange", "person_event_role_changed('"+row_id+"','"+event_role_id+"')");
-  table_row.appendChild(role_select);  
+  table_row.appendChild(role_select);
   table_row.appendChild(create_element("select", 0, "event_person["+row_id+"][event_role_state_id]",event_role_states[event_role_id],event_role_state_id));
-  
+
   table_row.appendChild(create_element("input", "text", "event_person["+row_id+"][remark]", remark));
   table_row.appendChild(create_element("input", "checkbox", "event_person["+row_id+"][delete]"));
   document.getElementById("person_event_table_body").appendChild(table_row);
@@ -295,9 +295,9 @@ function person_event_role_changed(row_id,event_role_state_id)
   var select_role = document.getElementById("event_person["+row_id+"][event_role_id]");
   var select_state = document.getElementById("event_person["+row_id+"][event_role_state_id]");
   var select_state_new = create_element("select", 0, "event_person["+row_id+"][event_role_state_id]",event_role_states[select_role.value],event_role_state_id);
-  
+
   select_state.parentNode.parentNode.replaceChild(select_state_new, select_state.parentNode);
-  
+
   if ( event_role_states[select_role.value].length > 0 ) {
     select_state_new.firstChild.style.display = "block";
   } else {
@@ -316,7 +316,7 @@ function add_event_person(event_person_id, person_id, event_role_id, event_role_
   document.getElementById('persons_table').style.display = "block";
   table_row = document.createElement("tr");
   table_row.setAttribute("id","row_"+row_id);
-  
+
   if (person_id) {
     element = create_element("a", 0, "event_person[" + row_id + "][link]", p_base + "pentabarf/person/" + person_id, null, false );
     element.setAttribute("title", "Go to \""+person_names[person_id]+"\"");
@@ -349,7 +349,7 @@ function add_event_person(event_person_id, person_id, event_role_id, event_role_
   role_select.setAttribute("onchange", "event_person_role_changed('"+row_id+"','"+event_role_state_id+"')");
   table_row.appendChild(role_select);
   table_row.appendChild(create_element("select", 0, "event_person["+row_id+"][event_role_state_id]",event_role_states[event_role_id],event_role_state_id));
-  
+
   table_row.appendChild(create_element("input", "text", "event_person["+row_id+"][remark]", remark));
   table_row.appendChild(create_element("input", "checkbox", "event_person["+row_id+"][delete]"));
   document.getElementById("person_table_body").appendChild(table_row);
@@ -364,9 +364,9 @@ function event_person_role_changed(row_id,event_role_state_id)
   var select_role = document.getElementById("event_person["+row_id+"][event_role_id]");
   var select_state = document.getElementById("event_person["+row_id+"][event_role_state_id]");
   var select_state_new = create_element("select", 0, "event_person["+row_id+"][event_role_state_id]",event_role_states[select_role.value],event_role_state_id);
-  
+
   select_state.parentNode.parentNode.replaceChild(select_state_new, select_state.parentNode);
-  
+
   if ( event_role_states[select_role.value].length > 0 ) {
     select_state_new.firstChild.style.display = "block";
   } else {
@@ -380,7 +380,7 @@ function event_state_changed()
   var select_state = document.getElementById("event[event_state_id]");
   var select_progress = document.getElementById("event[event_state_progress_id]");
   var select_progress_new = create_element("select", 0, "event[event_state_progress_id]",event_state_progress[select_state.value]);
-  
+
   select_progress.parentNode.parentNode.replaceChild(select_progress_new, select_progress.parentNode);
   enumerator();
 }
@@ -414,10 +414,10 @@ function add_related_event(related_event_id)
   var row_id = related_event_counter++;
 
   document.getElementById('related_event_table').style.display = "block";
-  
+
   row = document.createElement("tr");
   row.setAttribute("id","row_"+row_id);
-  
+
   row.appendChild(create_element("select", 0, "related_event["+row_id+"][related_event_id]", event_titles, related_event_id));
   row.appendChild(create_element("input", "checkbox", "related_event["+row_id+"][delete]"));
   row.appendChild(create_element("hidden", 0, "").firstChild);
@@ -433,10 +433,10 @@ function add_person_language(language_id)
   var row_id = person_language_counter++;
 
   document.getElementById('person_language_table').style.display = "block";
-  
+
   row = document.createElement("tr");
   row.setAttribute("id","row_"+row_id);
-  
+
   row.appendChild(create_element("select", 0, "person_language["+row_id+"][language_id]", languages, language_id));
   row.appendChild(create_element("input", "checkbox", "person_language["+row_id+"][delete]"));
   row.appendChild(create_element("hidden", 0, "").firstChild);
@@ -452,10 +452,10 @@ function add_conference_language( language_id )
   var row_id = conference_language_counter++;
 
   document.getElementById('conference_language_table').style.display = "block";
-  
+
   row = document.createElement("tr");
   row.setAttribute("id","row_"+row_id);
-  
+
   row.appendChild(create_element("select", 0, "conference_language["+row_id+"][language_id]", languages, language_id));
   row.appendChild(create_element("input", "checkbox", "conference_language["+row_id+"][delete]"));
   row.appendChild(create_element("hidden", 0, "").firstChild);

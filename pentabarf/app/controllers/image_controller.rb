@@ -1,7 +1,7 @@
 require 'RMagick'
 
 class ImageController < ApplicationController
-  before_filter :authorize 
+  before_filter :authorize
   before_filter :check_permission
   before_filter :modified_since, :except => [:events_per_coordinator, :events_per_track, :events_per_language, :events_per_state, :speaker_per_gender]
 
@@ -82,7 +82,7 @@ class ImageController < ApplicationController
     speaker = Momomoto::View_report_schedule_gender.find({:conference_id=>params[:id].to_s.gsub(/\..*$/, '')})
     speaker_gender = {}
     speaker_gender[true], speaker_gender[false] = 0,0
-    speaker.each do | s | 
+    speaker.each do | s |
       next if s.gender.nil?
       speaker_gender[s.gender] += 1
     end
@@ -96,7 +96,7 @@ class ImageController < ApplicationController
     states = Momomoto::View_event_state.find({:language_id=>@user.preferences[:current_language_id]})
     state_events = []
     total_events = 0
-    states.each do | s | 
+    states.each do | s |
       state_events[s.event_state_id] = Momomoto::Event.find({:conference_id=>params[:id].to_s.gsub(/\..*$/, ''),:event_state_id=>s.event_state_id}).length
       total_events += state_events[s.event_state_id]
     end
@@ -142,7 +142,7 @@ class ImageController < ApplicationController
       gc.text( radius * 2 + 10, line, sprintf( ' %s %50s', p[:name], ' '))
       line += 18
     end
-    
+
     canvas = Magick::Image.new( radius * 2 + 20 + longest_name * 8 , radius * 2.1 > pieces.length * 19 ? radius * 2.1 : pieces.length * 19 )
     gc.draw(canvas)
     canvas.format = 'PNG'
@@ -202,8 +202,8 @@ class ImageController < ApplicationController
       width = match[2].to_i > 512 ? 512 : match[2].to_i
       format = case match[4].to_s.upcase
                when 'JPG', 'JPEG' then 'JPEG'
-               when 'PNG' then 'PNG' 
-               when 'GIF' then 'GIF' 
+               when 'PNG' then 'PNG'
+               when 'GIF' then 'GIF'
                else nil end
     else
       height = 32
@@ -218,7 +218,7 @@ class ImageController < ApplicationController
   def extract_id( query )
     query.gsub( /[.-].*/, '')
   end
-  
+
   def check_permission
     return @user.permission?('pentabarf_login')
   end
