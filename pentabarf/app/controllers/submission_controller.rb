@@ -145,6 +145,32 @@ class SubmissionController < ApplicationController
       event_person.write
     end
 
+    if params[:attachment_upload]
+      file = Momomoto::Event_attachment.new
+      params[:attachment_upload].each do | key, value |
+        next unless value[:data].size > 0
+        file.create
+        file.event_id = event.event_id
+        file.attachment_type_id = value[:attachment_type_id]
+        mime_type = Momomoto::Mime_type.find({:mime_type => value[:data].content_type.chomp})
+        raise "mime-type not found #{value[:data].content_type}" if mime_type.length != 1
+        file.mime_type_id = mime_type.mime_type_id
+        file.filename = value[:filename].to_s != '' ? value[:filename] : File.basename(value[:data].original_filename).gsub(/[^\w0-9.-_]/, '')
+        file.title = value[:title]
+        file.data = value[:data].read
+        file.f_public = value[:f_public] ? true : false
+        modified = true if file.write
+      end
+    end
+
+    if params[:event_attachment]
+      attachment = Momomoto::Event_attachment.new
+      params[:event_attachment].each do | key, value |
+        modified = true if save_or_delete_record( attachment, {:event_attachment_id => key, :event_id => event.event_id}, value ) { | t |
+          t.f_public = value[:f_public] ? true : false
+        }
+      end
+    end
 
     event.commit
     redirect_to({:action=>:event,:id=>event.event_id,:conference=>@conference.acronym})

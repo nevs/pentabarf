@@ -54,18 +54,6 @@
           <td><label><[table::person::gender]></label></td>
           <td><%= select('person', 'gender', {'male' => true, 'female' => false}, {:include_blank => true}, {:tabindex => 0}) %></td>
         </tr>
-        <tr>
-          <td><label>Foto</label> (square)</td>
-          <td>
-            <%= file_field_tag('person_image[image]', {:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>
-            <% image = Momomoto::Person_image.find({:person_id => @person.person_id}) 
-               image.create if image.length != 1 %>
-            <%= check_box_tag('person_image[f_public]', 't', image.f_public, {:tabindex => 0}) %>
-            <label for="image_public">public</label><br />
-            <%= check_box_tag('person_image[delete]', 't', false, {:tabindex => 0}) %>
-            <label for="person_image[delete]">delete picture</label>
-          </td>
-        </tr>
       </table>
     </fieldset>
 
