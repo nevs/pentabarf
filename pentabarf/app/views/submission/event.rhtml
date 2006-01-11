@@ -16,11 +16,11 @@
 </div>
 
 <div id="data">
-  <%= start_form_tag({:action => :save_event, :id => params[:id]}, {:multipart => true, :id => :content_form}) %>
+  <%= start_form_tag({:action => :save_event, :id => params[:id],:conference=>@conference.acronym}, {:multipart => true, :id => :content_form}) %>
   <%= hidden_field_tag('event_id', @event.event_id ) %>
   <% transaction = Momomoto::Event_transaction.find( {:event_id => @event.event_id} ) %>
   <%= hidden_field_tag('changed_when', transaction.length == 1 ? transaction.changed_when : '') %>
-  
+
   <%= render(:partial => 'modification_buttons') %>
 
   <div id="content-general" class="content_tab">
@@ -58,6 +58,18 @@
         <tr>
           <td><label><[table::event::type]></label></td>
           <td><%= select_tag( 'event[event_type_id]', Momomoto::View_event_type.find({:language_id => @current_language_id}), "event_type_id", "name", @event.event_type_id, { :tabindex => 0 } ) %></td>
+        </tr>
+        <tr>
+          <td><label>Duration</label></td>
+          <%  diff = @conference.timeslot_duration
+              slot = diff.hour * 3600 + diff.min * 60 + diff.sec
+              durations = []
+              for i in 1..@conference.max_timeslot_duration
+                durations.push( { :key => diff.strftime("%H:%M:%S"), :value => diff.strftime("%H:%M")})
+                diff += slot
+              end
+          %>
+          <td><%= select_tag( 'event[duration]', durations, :key, :value, @event.duration ? @event.duration.strftime('%H:%M:%S') : durations[@conference.default_timeslots - 1][:key], { :tabindex => 0 }, false ) %></td>
         </tr>
       </table>
     </fieldset>

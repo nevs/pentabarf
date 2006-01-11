@@ -99,19 +99,46 @@ class SubmissionController < ApplicationController
   end
 
   def events
-    ApplicationController.jabber_message("Person_id: #{@user.person_id}")
     @events = Momomoto::Own_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
     event_ids = []
     @events.each do | event | event_ids.push(event.event_id) end
-    @events = Momomoto::View_event.find({:event_id=>event_ids})
+    @events = Momomoto::View_event.find({:event_id=>event_ids,:translated_id=>@current_language_id})
   end
 
   def event
-    @event = Momomoto::Event.new_record
+    if params[:id]
+      @events = Momomoto::Own_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
+      return redirect_to(:action=>:events,:conference=>@conference.acronym) unless @events.length == 1
+      @event = Momomoto::Event.find({:event_id=>params[:id]})
+    else
+      @event = Momomoto::Event.new_record
+    end
   end
 
   def save_event
+    allowed_event_fields = [:title, :subtitle, :tag, :f_paper, :f_slides,
+                            :language_id, :conference_track_id, :event_type_id,
+                            :abstract, :description, :resources, :duration]
+    if params[:id]
+      events = Momomoto::Own_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
+      return redirect_to(:action=>:events,:conference=>@conference.acronym) unless events.length == 1
+      event = Momomoto::Event.find({:event_id=>params[:id]})
+    else
+      event = Momomoto::Event.new_record
+      event.conference_id = @conference.conference_id
+      event.event_origin_id = Momomoto::Event_origin.find({:tag=>'submission'}).event_origin_id
+      event_state = Momomoto::Event_state.find({:tag=>'undecided'})
+      event.event_state_id = event_state.event_state_id
+      event.event_state_progress_id = Momomoto::Event_state_progress.find({:tag=>'new',:event_state_id=>event_state.event_state_id}).event_state_progress_id
+    end
+    event.begin
+    allowed_event_fields.each do | field |
+      event[field] = params[:event][field]
+    end
+    event.write
 
+    event.commit
+    redirect_to({:action=>:event,:id=>event.event_id,:conference=>@conference.acronym})
   end
 
   protected
