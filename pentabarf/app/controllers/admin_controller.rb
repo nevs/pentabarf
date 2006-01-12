@@ -4,9 +4,9 @@ class AdminController < ApplicationController
 
   def initialize
     super
-    @allowed_classes = ['conference_phase', 'event_state', 'event_state_progress', 'im_type', 'phone_type', 'role', 'conflict', 'conflict_level', 'transport', 'ui_message']
+    @allowed_classes = ['attachment_type', 'conference_phase', 'event_state', 'event_state_progress', 'im_type', 'phone_type', 'role', 'conflict', 'conflict_level', 'transport', 'ui_message', 'event_type']
   end
-  
+
   def index
   end
 
@@ -20,9 +20,9 @@ class AdminController < ApplicationController
       get_localization_classes(params[:id])
       @languages = Momomoto::View_language.find({:translated_id => @current_language_id, :f_localized => 't'}, nil, 'language_id')
       @localization = []
-      for lang in @languages 
+      for lang in @languages
         @localization[lang.language_id] = @localization_class.find({:language_id => lang.language_id})
-      end 
+      end
     end
   end
 
@@ -33,14 +33,14 @@ class AdminController < ApplicationController
       values.each do | language_id, value |
         message.select({@localization_id => id, :language_id => language_id})
         if message.length == 1
-          if value.to_s == '' 
+          if value.to_s == ''
             message.delete
             next
           end
         else
           next if value.to_s == ''
           message.create
-          message[@localization_id]= id 
+          message[@localization_id]= id
           message.language_id = language_id
         end
         message.name = value

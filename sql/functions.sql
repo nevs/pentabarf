@@ -52,6 +52,7 @@ CREATE OR REPLACE FUNCTION activate_account(char(64)) RETURNS INTEGER AS $$
     SELECT INTO cur_person_id person_id FROM account_activation WHERE activation_string = cur_activation_string;
     IF FOUND THEN
       INSERT INTO person_role(person_id, role_id) VALUES (cur_person_id, (SELECT role_id FROM role WHERE tag = 'submitter'));
+      INSERT INTO person_transaction( person_id, changed_when, changed_by, f_create ) VALUES (cur_person_id, now(), cur_person_id, 't');
       DELETE FROM account_activation WHERE activation_string = cur_activation_string;
     ELSE
       RAISE EXCEPTION 'invalid activation string';

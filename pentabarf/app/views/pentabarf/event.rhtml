@@ -324,7 +324,7 @@
           <td><%= select_tag( 'event[start_time]', start_times, :key, :value, @event.start_time ? @event.start_time.strftime('%H:%M:%S') : nil , { :tabindex => 0 } ) %></td>
         </tr>
         <tr>
-          <td><label>Duration</label></td>
+          <td><label><[table::event::duration]></label></td>
           <%  diff = @conference.timeslot_duration
               slot = diff.hour * 3600 + diff.min * 60 + diff.sec
               durations = []

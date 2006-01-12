@@ -1,4 +1,6 @@
 require 'tables/account_activation'
+require 'tables/attachment_type'
+require 'tables/attachment_type_localized'
 require 'tables/conference'
 require 'tables/conference_image'
 require 'tables/conference_language'
