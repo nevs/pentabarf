@@ -11,7 +11,7 @@ class SubmissionController < ApplicationController
   end
 
   def login
-    redirect_to({:action=>:index,:conference=>@conference.acronym})
+    redirect_to({:action=>:events,:conference=>@conference.acronym})
   end
 
   def new_account
