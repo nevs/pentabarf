@@ -94,7 +94,7 @@ CREATE OR REPLACE FUNCTION submit_event(integer, integer, text) RETURNS INTEGER 
     cur_title ALIAS FOR $3;
     new_event_id INTEGER;
   BEGIN
-    SELECT INTO new_event_id nextval('event_event_id_seq'::regclass);
+    SELECT INTO new_event_id nextval('event_event_id_seq');
     INSERT INTO event( event_id,
                        conference_id,
                        title,
