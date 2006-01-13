@@ -6,7 +6,6 @@
   <div id="menu">
 
     <div class="menu-item-group">
-      <%= link_to( 'Index', {:action => :index }, { :class => 'menu-item' } ) %>
     <% unless @user %>
       <%= link_to( 'Login', {:action => :login }, { :class => 'menu-item' } ) %>
       <%= link_to( 'Create account', {:action => :new_account}, { :class => 'menu-item' } ) %>
