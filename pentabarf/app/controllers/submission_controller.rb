@@ -62,7 +62,11 @@ class SubmissionController < ApplicationController
     modified = true if person.write
 
     conference_person = Momomoto::Conference_person.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
-    conference_person.create if conference_person.nil?
+    if conference_person.nil?
+      conference_person.create
+      conference_person.person_id = @user.person_id
+      conference_person.conference_id = @conference.conference_id
+    end
     conference_person_allowed_fields.each do | field |
       conference_person[field] = params[:conference_person][field]
     end
