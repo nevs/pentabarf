@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 193, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 194, true);
 
 
 --

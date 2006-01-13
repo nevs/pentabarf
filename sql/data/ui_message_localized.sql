@@ -82,7 +82,6 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (123,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (124, 120, 'Paper');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (124, 144, 'Paper');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (125, 120, 'Slides');
-INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (125, 144, 'Slides');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (126, 120, 'Language');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (126, 144, 'Sprache');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (127, 120, 'Track');
@@ -286,6 +285,7 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (193,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (168, 120, 'Additional events in other conferences');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (168, 144, 'Weitere Veranstaltungen in anderen Konferenzen');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (132, 120, 'Role state');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (125, 144, 'Folien');
 
 
 --
