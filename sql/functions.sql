@@ -34,8 +34,8 @@ CREATE OR REPLACE FUNCTION create_account(varchar(32),varchar(64),char(48), char
     FOR cur_person IN
       SELECT person_id FROM person WHERE person_id IN (SELECT person_id FROM account_activation WHERE account_creation < (now() + '-1 day')::timestamptz)
     LOOP
-      DELETE FROM person WHERE person_id = cur_person.person_id
-      DELETE FROM account_activation WHERE person_id = cur_person.person_id
+      DELETE FROM person WHERE person_id = cur_person.person_id;
+      DELETE FROM account_activation WHERE person_id = cur_person.person_id;
     END LOOP;
 
     SELECT INTO new_person_id nextval(pg_get_serial_sequence('person', 'person_id'));
@@ -49,13 +49,14 @@ CREATE OR REPLACE FUNCTION activate_account(char(64)) RETURNS INTEGER AS $$
   DECLARE
     cur_activation_string ALIAS FOR $1;
     cur_person_id INTEGER;
+    cur_person RECORD;
   BEGIN
     -- cleanup obsolete activation stuff
     FOR cur_person IN
       SELECT person_id FROM person WHERE person_id IN (SELECT person_id FROM account_activation WHERE account_creation < (now() + '-1 day')::timestamptz)
     LOOP
-      DELETE FROM person WHERE person_id = cur_person.person_id
-      DELETE FROM account_activation WHERE person_id = cur_person.person_id
+      DELETE FROM person WHERE person_id = cur_person.person_id;
+      DELETE FROM account_activation WHERE person_id = cur_person.person_id;
     END LOOP;
 
     SELECT INTO cur_person_id person_id FROM account_activation WHERE activation_string = cur_activation_string;
