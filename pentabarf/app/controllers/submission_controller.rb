@@ -6,7 +6,7 @@ class SubmissionController < ApplicationController
   after_filter :compress
 
   def index
-    @content_title = 'Submission'
+    @content_title = "#{@conference.nil? ? '' : @conference.title + ' ' }Paper Submission"
     Momomoto::Base.ui_language_id = 120;
   end
 
@@ -38,6 +38,7 @@ class SubmissionController < ApplicationController
   end
 
   def person
+    @content_title = 'Your Account Details'
     @person = Momomoto::Person.find({:person_id=>@user.person_id})
     @conference_person = Momomoto::Conference_person.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
     @conference_person.create if @conference_person.nil?
@@ -114,6 +115,7 @@ class SubmissionController < ApplicationController
   end
 
   def events
+    @content_title = 'Your Events'
     @events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
     event_ids = []
     @events.each do | event | event_ids.push(event.event_id) end
@@ -121,6 +123,7 @@ class SubmissionController < ApplicationController
   end
 
   def event
+    @content_title = 'Edit Event'
     if params[:id]
       @events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
       return redirect_to(:action=>:events,:conference=>@conference.acronym) unless @events.length == 1
