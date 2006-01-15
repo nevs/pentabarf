@@ -119,7 +119,7 @@ class SubmissionController < ApplicationController
     @events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
     event_ids = []
     @events.each do | event | event_ids.push(event.event_id) end
-    @events = Momomoto::View_event.find({:event_id=>event_ids,:translated_id=>@current_language_id})
+    @events = Momomoto::View_event.find({:event_id=>event_ids,:translated_id=>@current_language_id,:conference_id=>@conference.conference_id}) unless @events.nil?
   end
 
   def event
