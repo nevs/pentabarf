@@ -4,19 +4,19 @@
   <table>
     <tr>
       <td>Login name</td>
-      <td><%= text_field_tag('person[login_name]') %></td>
+      <td><%= text_field_tag('person[login_name]', nil, {:tabindex=>0}) %></td>
     </tr>
     <tr>
       <td>Email address</td>
-      <td><%= text_field_tag('person[email_contact]') %></td>
+      <td><%= text_field_tag('person[email_contact]', nil, {:tabindex=>0}) %></td>
     </tr>
     <tr>
       <td>Password</td>
-      <td><%= password_field_tag('person[password]') %></td>
+      <td><%= password_field_tag('person[password]', nil, {:tabindex=>0}) %></td>
     </tr>
     <tr>
       <td>Repeat Password</td>
-      <td><%= password_field_tag('password') %></td>
+      <td><%= password_field_tag('password', nil, {:tabindex=>0}) %></td>
     </tr>
 
   </table>
