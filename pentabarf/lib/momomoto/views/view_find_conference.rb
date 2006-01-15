@@ -4,6 +4,7 @@ module Momomoto
       super
       @domain = 'conference'
       @order = 'lower(title),lower(subtitle)'
+      @allow_empty = true
       @fields = {
         :search => Datatype::Textsearch.new( {:virtual=>true,:field=>[:title,:subtitle,:acronym]} ),
         :conference_id => Datatype::Integer.new( {} ),

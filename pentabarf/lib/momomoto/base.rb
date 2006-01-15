@@ -511,6 +511,7 @@ module Momomoto
       where = ''
       conditions.each do | key , value |
         raise "Unknown field #{key} in class #{self.class.name}" if @fields[key] == nil
+        raise "Empty condition #{key}" if !@allow_empty && ( value.nil? || ( ( value.kind_of?(Array) || value.kind_of?(Hash) ) && value.length == 0 ) )
         next if @fields[key].property(:parameter) || ( ( value.kind_of?(Array) || value.kind_of?(Hash) ) && value.length == 0 )
         if @fields[key].property(:virtual)
           where = where_append( where, "#{@fields[key].filter_write(value)}" )

@@ -4,6 +4,7 @@ module Momomoto
       super
       @domain = 'person'
       @order = 'lower(name)'
+      @allow_empty = true
       @fields = {
         :search => Datatype::Textsearch.new( {:virtual=>true,:field=>[:first_name, :last_name, :nickname, :login_name, :public_name, :email_contact]} ),
         :s_name => Datatype::Textsearch.new( {:virtual=>true,:field=>[:first_name, :last_name, :nickname, :login_name, :public_name]} ),

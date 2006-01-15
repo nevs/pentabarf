@@ -4,6 +4,7 @@ module Momomoto
       super
       @domain = 'event'
       @order = 'lower(title),lower(subtitle)'
+      @allow_empty = true
       @fields = {
         :s_title => Datatype::Textsearch.new( {:virtual=>true,:field=>[:title,:subtitle]} ),
         :s_description => Datatype::Textsearch.new( {:virtual=>true,:field=>[:abstract,:description]} ),
