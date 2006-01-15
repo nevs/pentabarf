@@ -96,6 +96,13 @@ CREATE OR REPLACE FUNCTION own_events(integer, integer) RETURNS SETOF INTEGER AS
                   WHERE event_person.person_id = $1 AND event_person.event_id = event.event_id);
 $$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
 
+-- get conference_person_ids of all conference_persons with a specific person_id
+CREATE OR REPLACE FUNCTION own_conference_persons(integer) RETURNS SETOF INTEGER AS $$
+  SELECT conference_person_id
+    FROM conference_person
+   WHERE person_id = $1;
+$$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
+
 -- create an event resulting from a submission
 CREATE OR REPLACE FUNCTION submit_event(integer, integer, text) RETURNS INTEGER AS $$
   DECLARE

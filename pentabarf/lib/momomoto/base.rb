@@ -76,7 +76,7 @@ module Momomoto
 
     attr_reader :limit, :current_record, :order, :new_record
 
-    # we want id and type to be handled by method_missing 
+    # we want id and type to be handled by method_missing
     undef id
     undef type
 
@@ -436,7 +436,7 @@ module Momomoto
       raise Permission_Error, "Not allowed to delete from #{@table}" unless privilege?( 'delete' )
       conditions = {}
       @resultset[@current_record].each do | field_name, value |
-        if value.property( :primary_key ) 
+        if value.property( :primary_key )
           raise "empty primary key field while deleting" if value.write_value == 'NULL'
           conditions[field_name] = value.value
         end
@@ -454,7 +454,8 @@ module Momomoto
       return true if @domain == 'public'
       return true if @@permissions.member?( "#{action}_#{@domain}")
       return true if action == 'delete' && @domain != @table && @@permissions.member?( "modify_#{@domain}" )
-      return true if @domain == 'person' && @@person_id == self[:person_id] && @@permissions.member?("modify_own_person")
+      return true if @domain == 'person' && fields.member?(:person_id) && @@person_id == self[:person_id] && @@permissions.member?("modify_own_person")
+      return true if @domain == 'person' && fields.member?(:conference_person_id) && @@permissions.member?('modify_own_person') && Momomoto::Own_conference_persons.find({:person_id=>@@person_id,:conference_person_id=>self[:conference_person_id]}).length == 1
       return true if @domain == 'event' && @@permissions.member?('modify_own_event') && Momomoto::Own_events.find({:person_id=>@@person_id,:event_id=>self[:event_id]}).length == 1
       false
     end
@@ -513,7 +514,7 @@ module Momomoto
         next if @fields[key].property(:parameter) || ( ( value.kind_of?(Array) || value.kind_of?(Hash) ) && value.length == 0 )
         if @fields[key].property(:virtual)
           where = where_append( where, "#{@fields[key].filter_write(value)}" )
-        elsif value == true 
+        elsif value == true
           where = where_append( where, "#{key} IS NOT NULL" )
         elsif value == false or value == nil
           where = where_append( where, "#{key} IS NULL" )
@@ -521,8 +522,8 @@ module Momomoto
           value = {:eq => [value]} if value.kind_of?(String) || value.kind_of?(Integer)
           value = {:eq => value} if value.kind_of?(Array)
           value.each do | op, val |
-            operator = case op.to_sym 
-                         when :lt then '<' 
+            operator = case op.to_sym
+                         when :lt then '<'
                          when :le then '<='
                          when :gt then '>'
                          when :ge then '>='
@@ -543,16 +544,16 @@ module Momomoto
       where += where == '' ? ' WHERE ' : ' AND '
       where += append
     end
-    
+
     private
-      
+
     def execute( sql )
       raise Connection_not_established if @@connection == nil
       begin
         @@connection.exec( sql )
       rescue => e
         Base.log_error("Query failed: #{sql}")
-        raise e 
+        raise e
       end
     end
 
