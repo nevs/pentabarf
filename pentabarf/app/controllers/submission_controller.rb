@@ -41,7 +41,10 @@ class SubmissionController < ApplicationController
     @content_title = 'Your Account Details'
     @person = Momomoto::Person.find({:person_id=>@user.person_id})
     @conference_person = Momomoto::Conference_person.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
-    @conference_person.create if @conference_person.nil?
+    if @conference_person.nil?
+      @conference_person.create
+      @conference_person.conference_person_id = 0
+    end
   end
 
   def save_person
@@ -130,6 +133,7 @@ class SubmissionController < ApplicationController
       @event = Momomoto::Event.find({:event_id=>params[:id]})
     else
       @event = Momomoto::Event.new_record
+      @event.event_id = 0
     end
   end
 

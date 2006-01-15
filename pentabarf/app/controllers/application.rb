@@ -5,6 +5,7 @@ require 'zlib'
 require 'stringio'
 require 'socket'
 require 'xmpp4r'
+require 'iconv'
 
 class ApplicationController < ActionController::Base
   session :off
@@ -27,6 +28,8 @@ class ApplicationController < ActionController::Base
     if authdata and authdata[0] == 'Basic'
       login_name, password = Base64.decode64(authdata[1]).split(':')[0..1]
     end
+    login_name = Iconv.iconv('UTF-8', 'iso-8859-1', login_name.to_s)
+    password = Iconv.iconv('UTF-8', 'iso-8859-1', password.to_s)
     return [login_name.to_s, password.to_s]
   end
 
@@ -129,7 +132,7 @@ class ApplicationController < ActionController::Base
           sock.send(msg.to_s, 0)
           sock.close
         rescue
-          sock.close
+          sock.close if sock
           return
         end
       end
