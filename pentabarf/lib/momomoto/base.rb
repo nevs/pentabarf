@@ -318,6 +318,7 @@ module Momomoto
       found = false
       @resultset.length.times do | i |
         values.each do | key, value |
+          raise "Invalid key #{key}" unless @fields.member?(key)
           if @resultset[i][key].value == value
             found = true
           else
