@@ -3,6 +3,7 @@ module Momomoto
     def initialize
       super
       @domain = 'valuelist'
+      @order = 'lower(name)'
       @fields = {
         :mime_type_id => Datatype::Integer.new( {} ),
         :language_id => Datatype::Integer.new( {} ),
