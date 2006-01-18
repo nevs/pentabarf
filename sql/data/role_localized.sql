@@ -24,6 +24,8 @@ INSERT INTO role_localized (role_id, language_id, name) VALUES (3, 120, 'Reviewe
 INSERT INTO role_localized (role_id, language_id, name) VALUES (4, 120, 'committee');
 INSERT INTO role_localized (role_id, language_id, name) VALUES (5, 120, 'speaker');
 INSERT INTO role_localized (role_id, language_id, name) VALUES (5, 144, 'Referent');
+INSERT INTO role_localized (role_id, language_id, name) VALUES (7, 144, 'Submitter');
+INSERT INTO role_localized (role_id, language_id, name) VALUES (7, 120, 'Submitter');
 
 
 --
