@@ -7,30 +7,26 @@
       <legend>Find</legend>
       <%= text_field_tag( :find_event, @preferences[:search_event], :size => 40 ) %>
       <label id="search-indicator" style="display: none;">Searching ...</label>
-      <%= observe_field( :find_event, 
-                         :frequency => 1, 
-                         :update => :results, 
+      <%= observe_field( :find_event,
+                         :frequency => 1,
+                         :update => :results,
                          :url => { :action => :search_event},
                          :loading => "Element.show('search-indicator')",
-                         :complete => "Element.hide('search-indicator')" ) 
+                         :complete => "Element.hide('search-indicator')" )
       %>
     </fieldset>
   </div>
-  
+
   <div id="content-advanced" class="content_tab">
     <fieldset>
-      <legend>Restore Search</legend>
-        <% @preferences[:saved_event_search].each do | key, value | %>
-          <span>
-            <a href="<%= url_for({:action=>:restore_event_search, :id=>key}) %>"><%= h(key.to_s) %></a>
-            &nbsp;
-            <a href="<%= url_for({:action=>:delete_event_search,:id=>key}) %>">delete</a>
-          </span>
-          <br/>
-        <% end %>
-    </fieldset>
-    <fieldset>
       <legend>Save Search</legend>
+        <select id="saved_search_select">
+          <% @preferences[:saved_event_search].each do | key, value | %>
+            <option value="<%= h(key) %>"><%= h(key) %></option>
+          <% end %>
+        </select>
+        <input type="button" value="Restore" onClick="window.location='<%= url_for({:action=>:restore_event_search})%>/' + document.getElementById('saved_search_select').options[document.getElementById('saved_search_select').selectedIndex].value;"/>
+        <input type="button" value="Delete" onClick="window.location='<%= url_for({:action=>:delete_event_search})%>/' + document.getElementById('saved_search_select').options[document.getElementById('saved_search_select').selectedIndex].value;"/>
       <%= start_form_tag( {:action => :save_event_search} ) %>
         <%= text_field_tag( 'save_event_search[name]' ) %>
         <%= submit_tag("Save search", {:tabindex => 0}) %>
@@ -119,12 +115,12 @@
         search_criteria_add('search_elements', 0);
       <% end %>
     </script>
-        <%= observe_form( :find_event_advanced, 
-                           :frequency => 1, 
-                           :update => :results, 
+        <%= observe_form( :find_event_advanced,
+                           :frequency => 1,
+                           :update => :results,
                            :url => { :action => :search_event_advanced},
                            :loading => "Element.show('search-indicator-advanced')",
-                           :complete => "Element.hide('search-indicator-advanced')" ) 
+                           :complete => "Element.hide('search-indicator-advanced')" )
         %>
   </div>
 
