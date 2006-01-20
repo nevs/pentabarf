@@ -166,6 +166,11 @@ CREATE OR REPLACE FUNCTION conflict_event_no_paper(INTEGER) RETURNS SETOF confli
       SELECT event_id
         FROM event
              INNER JOIN event_state USING (event_state_id)
+             INNER JOIN event_state_progress ON (
+                event.event_state_progress_id = event_state_progress.event_state_progress_id AND
+                event.event_state_id = event_state_progress.event_state_id AND
+                event_state_progress.tag = ''confirmed''
+              )
        WHERE conference_id = cur_conference_id AND
              event_state.tag = ''accepted'' AND
              f_paper = ''t'' AND
@@ -190,6 +195,11 @@ CREATE OR REPLACE FUNCTION conflict_event_no_slides(INTEGER) RETURNS SETOF confl
       SELECT event_id
         FROM event
              INNER JOIN event_state USING (event_state_id)
+             INNER JOIN event_state_progress ON (
+                event.event_state_progress_id = event_state_progress.event_state_progress_id AND
+                event.event_state_id = event_state_progress.event_state_id AND
+                event_state_progress.tag = ''confirmed''
+              )
        WHERE conference_id = cur_conference_id AND
              event_state.tag = ''accepted'' AND
              f_slides = ''t'' AND
