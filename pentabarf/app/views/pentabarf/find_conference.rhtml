@@ -4,15 +4,15 @@
     <legend>Find</legend>
     <%= text_field_tag( :find_conference, @preferences[:search_conference], :size => 40 ) %>
     <label id="search-indicator" style="display: none;">Searching ...</label>
-    <%= observe_field( :find_conference, 
-                     :frequency => 1, 
-                     :update => :results, 
+    <%= observe_field( :find_conference,
+                     :frequency => 1,
+                     :update => :results,
                      :url => { :action => :search_conference },
                      :loading => "Element.show('search-indicator')",
-                     :complete => "Element.hide('search-indicator')" ) 
+                     :complete => "Element.hide('search-indicator')" )
     %>
   </fieldset>
-  
+
   <fieldset id="results">
     <script type="text/javascript">
       switch_tab('<%= @preferences[:search_conference_type] %>');

@@ -7,13 +7,30 @@
       <legend>Find</legend>
       <%= text_field_tag( :find_person, @preferences[:search_person], :size => 40 ) %>
       <label id="search-indicator" style="display: none;">Searching ...</label>
+      <script type="text/javascript">
+        var timer_id = null;
+        var minimal_length = 3;
+        function delayed_loader(){
+          if (timer_id) { clearTimeout(timer_id); }
+          timer_id = null;
+          if ( $F('find_person').length < minimal_length ) {
+            new Ajax.Updater('results', '<%= url_for(:action=>:search_person)%>', {asynchronous:true, evalScripts:true, onComplete:function(request){Element.hide('search-indicator')}, onLoading:function(request){Element.show('search-indicator')}, parameters:$F('find_person')});
+          }
+        }
+        function set_timer() {
+          if (timer_id) { clearTimeout(timer_id); }
+          timer_id = setTimeout('delayed_loader()', 750);
+          return false;
+        }
+      </script>
       <%= observe_field( :find_person,
-                         :frequency => 1,
+                         :frequency => 0.1,
                          :update => :results,
-                         :url => { :action => :search_person},
+                         :url => { :action => :search_person },
+                         :before => "if (timer_id) { clearTimeout(timer_id); timer_id = null;}",
+                         :condition => "$F('find_person').length >= minimal_length || set_timer()",
                          :loading => "Element.show('search-indicator')",
-                         :complete => "Element.hide('search-indicator')" )
-      %>
+                         :complete => "Element.hide('search-indicator')" ) %>
     </fieldset>
   </div>
 
