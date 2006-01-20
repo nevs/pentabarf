@@ -87,7 +87,7 @@ class PentabarfController < ApplicationController
     if params[:save_person_search][:name].to_s != ''
       @preferences[:saved_person_search][params[:save_person_search][:name]] = @preferences[:search_person_advanced].dup
     end
-    redirect_to( {:action => :find_person} )
+    render_text( @preferences[:saved_person_search].keys.collect{|k| "<option value=\"#{k}\">#{k}</option>"}.sort.join )
   end
 
   def restore_person_search
@@ -96,7 +96,7 @@ class PentabarfController < ApplicationController
   end
 
   def delete_person_search
-    @preferences[:saved_person_search].delete(params[:id].to_sym) if @preferences[:saved_person_search][params[:id].to_sym]
+    @preferences[:saved_person_search].delete(params[:id].to_sym) if params[:id] && @preferences[:saved_person_search][params[:id].to_sym]
     redirect_to( {:action => :find_person} )
   end
 
@@ -105,7 +105,7 @@ class PentabarfController < ApplicationController
     if params[:save_event_search][:name].to_s != ''
       @preferences[:saved_event_search][params[:save_event_search][:name]] = @preferences[:search_event_advanced].dup
     end
-    redirect_to( {:action => :find_event} )
+    render_text( @preferences[:saved_event_search].keys.collect{|k| "<option value=\"#{k}\">#{k}</option>"}.sort.join )
   end
 
   def restore_event_search
@@ -114,7 +114,7 @@ class PentabarfController < ApplicationController
   end
 
   def delete_event_search
-    @preferences[:saved_event_search].delete(params[:id].to_sym) if @preferences[:saved_event_search][params[:id].to_sym]
+    @preferences[:saved_event_search].delete(params[:id].to_sym) if params[:id] && @preferences[:saved_event_search][params[:id].to_sym]
     redirect_to( {:action => :find_event} )
   end
 

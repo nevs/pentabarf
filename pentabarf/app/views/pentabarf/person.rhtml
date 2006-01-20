@@ -39,7 +39,7 @@
 
   <% if @person.person_id > 0 %>
   <div id="conflicts">
-    <script type="text/javascript">var b = new Ajax.Updater('conflicts', '<%= url_for(:action=>:conflicts_person,:id =>@person.person_id) %>');b.updateContent();</script>
+    <script type="text/javascript">new Ajax.Updater('conflicts', '<%= url_for(:action=>:conflicts_person,:id =>@person.person_id) %>');</script>
   </div>
   <% end %>
 

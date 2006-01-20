@@ -16,8 +16,7 @@
   <fieldset id="results">
     <script type="text/javascript">
       switch_tab('<%= @preferences[:search_conference_type] %>');
-      set = new Ajax.Updater('results', '<%= @preferences[:search_conference_type] == 'simple' ? url_for(:action => :search_conference, :id => -1) : url_for(:action => :search_conference_advanced, :id => -1) %>');
-      set.updateContent();
+      new Ajax.Updater('results', '<%= @preferences[:search_conference_type] == 'simple' ? url_for(:action => :search_conference, :id => -1) : url_for(:action => :search_conference_advanced, :id => -1) %>');
     </script>
   </fieldset>
 

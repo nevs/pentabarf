@@ -37,7 +37,7 @@
 
   <% if @event.event_id > 0 && @event.conference_id == @current_conference_id %>
   <div id="conflicts">
-    <script type="text/javascript">var b = new Ajax.Updater('conflicts', '<%= url_for(:action=>:conflicts_event,:id =>@event.event_id) %>');b.updateContent();</script>
+    <script type="text/javascript">new Ajax.Updater('conflicts', '<%= url_for(:action=>:conflicts_event,:id =>@event.event_id) %>');</script>
   </div>
   <% end %>
 

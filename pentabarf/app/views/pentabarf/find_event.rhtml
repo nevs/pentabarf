@@ -1,5 +1,5 @@
 <%= javascript_include_tag('search') %>
-<%= content_tabs_js([{:tag => 'simple', :url => "javascript:b=new Ajax.Updater('results','#{url_for(:action=>:search_event,:id => -1)}');switch_tab('simple');b.updateContent();"}, {:tag => 'advanced', :url => "javascript:b=new Ajax.Updater('results','#{url_for(:action=>:search_event_advanced,:id => -1)}');switch_tab('advanced');b.updateContent();"}], 'view::pentabarf::find_event::tab', false ) %>
+<%= content_tabs_js([{:tag => 'simple', :url => "javascript:new Ajax.Updater('results','#{url_for(:action=>:search_event,:id => -1)}');switch_tab('simple');"}, {:tag => 'advanced', :url => "javascript:new Ajax.Updater('results','#{url_for(:action=>:search_event_advanced,:id => -1)}');switch_tab('advanced');"}], 'view::pentabarf::find_event::tab', false ) %>
 <div id="data">
 
   <div id="content-simple" class="content_tab">
@@ -21,16 +21,15 @@
     <fieldset>
       <legend>Save Search</legend>
         <select id="saved_search_select">
-          <% @preferences[:saved_event_search].each do | key, value | %>
+          <% @preferences[:saved_event_search].keys.collect{ | k | k.to_s }.sort.each do | key | %>
             <option value="<%= h(key) %>"><%= h(key) %></option>
           <% end %>
         </select>
-        <input type="button" value="Restore" onClick="window.location='<%= url_for({:action=>:restore_event_search})%>/' + document.getElementById('saved_search_select').options[document.getElementById('saved_search_select').selectedIndex].value;"/>
-        <input type="button" value="Delete" onClick="window.location='<%= url_for({:action=>:delete_event_search})%>/' + document.getElementById('saved_search_select').options[document.getElementById('saved_search_select').selectedIndex].value;"/>
-      <%= start_form_tag( {:action => :save_event_search} ) %>
-        <%= text_field_tag( 'save_event_search[name]' ) %>
-        <%= submit_tag("Save search", {:tabindex => 0}) %>
-      <%= end_form_tag() %>
+        <input type="button" value="Restore" onClick="window.location='<%= url_for({:action=>:restore_event_search})%>/' + $F('saved_search_select');"/>
+        <input type="button" value="Delete" onClick="a = $('saved_search_select');new Ajax.Request('<%= url_for({:action=>:delete_event_search})%>/' + $F('saved_search_select') );a.options[a.selectedIndex] = null;"/>
+        <br/>
+        <%= text_field_tag( 'save_event_search[name]', nil, {:tabindex=>0,:size=>16} ) %>
+        <input type="button" value="Save Search" onClick="new Ajax.Updater('saved_search_select', '<%= url_for({:action=>:save_event_search})%>',{parameters:'save_event_search[name]=' + $F('save_event_search[name]')});"/>
     </fieldset>
     <fieldset>
       <legend>Find</legend>
@@ -127,8 +126,7 @@
   <fieldset id="results">
     <script type="text/javascript">
       switch_tab('<%= @preferences[:search_event_type] %>');
-      set = new Ajax.Updater('results', '<%= @preferences[:search_event_type] == 'simple' ? url_for(:action => :search_event, :id => -1) : url_for(:action => :search_event_advanced, :id => -1) %>');
-      set.updateContent();
+      new Ajax.Updater('results', '<%= @preferences[:search_event_type] == 'simple' ? url_for(:action => :search_event, :id => -1) : url_for(:action => :search_event_advanced, :id => -1) %>');
     </script>
   </fieldset>
 
