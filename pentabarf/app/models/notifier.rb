@@ -3,13 +3,11 @@ class Notifier < ActionMailer::Base
   @@config = YAML.load_file( File.join( RAILS_ROOT, 'config', 'mail.yml' ) ) if File.exists?( File.join( RAILS_ROOT, 'config', 'mail.yml' ) )
   @@config[:from] = 'noreply@pentabarf.org' unless @@config[:from]
 
-  def signup_thanks( name, email )
-    @recipients = email
-    @subject = "Thank you for registering at Pentabarf"
+  def general( recipients, subject, body )
+    @recipients = recipients
+    @subject = subject
     @from = @@config[:from]
-
-    # variables for usage in mail
-    @body["name"] = name
+    @body['text'] = body
   end
 
   def activate_account( name, email, link )
