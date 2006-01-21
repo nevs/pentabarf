@@ -584,7 +584,7 @@
 
 
   <%= end_form_tag() %>
-  <%= javascript_tag("new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } )") %>
+  <%= javascript_tag("new Form.Observer('content_form', 0, function(element, value ) { enable_save_button() } )") %>
 
 <% unless @event.new_record %>
 <div id="copy_event">
