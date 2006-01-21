@@ -176,8 +176,9 @@ CREATE OR REPLACE FUNCTION conflict_event_no_paper(INTEGER) RETURNS SETOF confli
              f_paper = ''t'' AND
              NOT EXISTS (SELECT 1 FROM event_attachment
                                        INNER JOIN attachment_type USING (attachment_type_id)
-                                 WHERE event_id = event.event_id AND
-                                       attachment_type.tag = ''paper'')
+                                 WHERE event_attachment.event_id = event.event_id AND
+                                       attachment_type.tag = ''paper'' AND
+                                       event_attachment.f_public = ''t'')
     LOOP
       RETURN NEXT cur_event;
     END LOOP;
@@ -206,7 +207,8 @@ CREATE OR REPLACE FUNCTION conflict_event_no_slides(INTEGER) RETURNS SETOF confl
              NOT EXISTS (SELECT 1 FROM event_attachment
                                        INNER JOIN attachment_type USING (attachment_type_id)
                                  WHERE event_id = event.event_id AND
-                                       attachment_type.tag = ''slides'')
+                                       attachment_type.tag = ''slides'' AND
+                                       event_attachment.f_public = ''t'')
     LOOP
       RETURN NEXT cur_event;
     END LOOP;
@@ -329,6 +331,4 @@ CREATE OR REPLACE FUNCTION conflict_event_no_description(INTEGER) RETURNS SETOF 
     RETURN;
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
-
-
 
