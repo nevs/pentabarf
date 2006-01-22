@@ -463,7 +463,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           INNER JOIN event_state USING (event_state_id)
           INNER JOIN view_event_state_progress USING (event_state_progress_id)
           INNER JOIN conference USING (conference_id)
-          INNER JOIN view_language ON (
+          LEFT OUTER JOIN view_language ON (
               view_language.language_id = event.language_id AND
               view_language.translated_id = view_event_state_progress.language_id)
           LEFT OUTER JOIN view_event_type ON (
