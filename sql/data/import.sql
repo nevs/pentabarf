@@ -42,4 +42,6 @@ BEGIN TRANSACTION;
 \i event_origin_localized.sql
 \i mime_type.sql
 \i mime_type_localized.sql
+\i phone_type.sql
+\i phone_type_localized.sql
 COMMIT TRANSACTION;
