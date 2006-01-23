@@ -34,7 +34,6 @@ li {
   margin-bottom: 0.25em;
 }
     </style>
-
 <% if @meditation_message.to_s != '' %>
     <script type="text/javascript">
       alert('<%= escape_javascript(@meditation_message) %>');
@@ -43,14 +42,15 @@ li {
 
   </head>
   <body>
-   
-    <div class="msg"> 
+
+    <div class="msg">
       <div class="center">
         <%= image_tag('erisdiscordia-bug-160x160.png' ) %>
       </div>
+      <p style="text-align: center;font-weight: bold;color: red;"><%= h(@meditation_message) %></p>
       <p class="center">Pentabarf Meditation has been interrupted by worries.<br/>The Erisian dwarfs have been notified. In the meantime you are encouraged to read <strong>The Five Commandments</strong> below or go <a href="javascript:history.back()">back in history</a> instead.
       </p>
-     
+
       <p class="center"><strong>KNOW YE THIS O MAN OF FAITH!</strong></p>
       <ol>
         <li>There is no Goddess but Goddess and She is Your Goddess. There is no Erisian Movement but The Erisian Movement and it is The Erisian Movement. And every Golden Apple Corps is the beloved home of a Golden Worm.</li>
@@ -63,6 +63,6 @@ li {
       IT IS SO WRITTEN! SO BE IT. HAIL DISCORDIA!<br/>PROSECUTORS WILL BE TRANSGRESSICUTED.
       </p>
    </div>
- 
+
   </body>
 </html>
