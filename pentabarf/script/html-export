@@ -10,7 +10,7 @@ require 'RMagick'
 require 'uri'
 
 if ARGV.length != 1
-  puts "Usage: #{$0} <conference-id>"
+  puts "Usage: #{$0} <conference>\n\n<conference> can either be a conference_id or the conference acronym.\n"
   exit
 end
 
@@ -22,21 +22,22 @@ class HTML_Export
 
   LOCK_FILE = '.lockfile'
 
-  def initialize( conference_id )
+  def initialize( conference )
     @rails_root = Dir.getwd
     Momomoto::Base.connect(YAML::load_file("config/database.yml")['production'])
-    @conference = Momomoto::Conference.find({:conference_id=>conference_id})
-    raise ArgumentError, "Conference with id #{conference_id} not found" unless @conference.length == 1
+    @conference = Momomoto::Conference.find({:conference_id=>conference}) if conference.to_s.match(/^\d+$/)
+    @conference = Momomoto::Conference.find({:acronym=>conference}) unless @conference
+    raise ArgumentError, "Conference '#{conference}' not found" unless @conference.length == 1
     @content_title = @conference.subtitle
     @timezone = 'Europe/Berlin'
     @languages = Momomoto::View_conference_language.find({:conference_id=>@conference.conference_id,:translated_id=>120})
     raise ArgumentError, "no conference language set to export to." unless @languages.length > 0
     Dir.chdir('tmp/html-export')
     begin
-      Dir.chdir(conference_id.to_s)
+      Dir.chdir(conference.to_s)
     rescue Errno::ENOENT
-      Dir.mkdir(conference_id.to_s)
-      Dir.chdir(conference_id.to_s)
+      Dir.mkdir(conference.to_s)
+      Dir.chdir(conference.to_s)
     end
     raise StandardError, "this conference is currently being exported" if File.exist?( LOCK_FILE )
     File.new( LOCK_FILE, File::CREAT )
@@ -72,11 +73,11 @@ class HTML_Export
     end
     eval( @template_cache[filename], binding )
   end
-  
+
   def export
     write_file( "stylesheet.css", @conference.css )
     make_images = true
-    
+
     Dir.mkdir('images') unless File.exist?('images')
     Dir.mkdir('events') unless File.exist?('events')
     Dir.mkdir('speakers') unless File.exist?('speakers')
@@ -99,8 +100,8 @@ class HTML_Export
 
       write_file("schedule.ics", fold(render('ical'))) if make_images
       write_file("schedule.xcs", render('xcal')) if make_images
-      write_file("index.#{@language.tag}.html", render('index')) 
-      
+      write_file("index.#{@language.tag}.html", render('index'))
+
       # create schedule tables for every day
       @conference.days.times do | day |
         @day = day + 1
@@ -232,7 +233,7 @@ class HTML_Export
   def cleanup
     File.delete( LOCK_FILE )
   end
-  
+
   def fold( message )
     max_octets = 70
     folded_body = ""
@@ -246,7 +247,7 @@ class HTML_Export
       folded_body += line
     end
     folded_body
-  end 
+  end
 
 end
 
