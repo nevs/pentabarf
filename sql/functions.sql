@@ -38,6 +38,16 @@ CREATE OR REPLACE FUNCTION create_account(varchar(32),varchar(64),char(48), char
       DELETE FROM account_activation WHERE person_id = cur_person.person_id;
     END LOOP;
 
+    SELECT person_id FROM person WHERE login_name = cur_login_name;
+    IF FOUND THEN
+      RAISE EXCEPTION 'login name is already in use.';
+    END IF;
+
+    SELECT person_id FROM person WHERE email_contact = cur_email_contact;
+    IF FOUND THEN
+      RAISE EXCEPTION 'email address already in use.';
+    END IF;
+
     SELECT INTO new_person_id nextval(pg_get_serial_sequence('person', 'person_id'));
     INSERT INTO person(person_id, login_name, email_contact, password) VALUES (new_person_id, cur_login_name, cur_email_contact, cur_password);
     INSERT INTO account_activation(person_id, activation_string) VALUES (new_person_id, cur_activation_string);
@@ -169,7 +179,7 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
     new_event_id INTEGER;
 
   BEGIN
-    SELECT INTO new_event_id nextval(''event_event_id_seq''::regclass);
+    SELECT INTO new_event_id nextval(''event_event_id_seq'');
     INSERT INTO event( event_id,
                        conference_id,
                        title,
