@@ -79,7 +79,7 @@ CREATE OR REPLACE FUNCTION own_events(integer) RETURNS SETOF INTEGER AS $$
                    FROM event_person
                         INNER JOIN event_role ON (
                             event_person.event_role_id = event_role.event_role_id AND
-                            event_role.tag = 'speaker' )
+                            event_role.tag IN ('speaker', 'moderator', 'coordinator') )
                   WHERE event_person.person_id = $1 AND event_person.event_id = event.event_id);
 $$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
 
@@ -92,7 +92,7 @@ CREATE OR REPLACE FUNCTION own_events(integer, integer) RETURNS SETOF INTEGER AS
                    FROM event_person
                         INNER JOIN event_role ON (
                             event_person.event_role_id = event_role.event_role_id AND
-                            event_role.tag = 'speaker' )
+                            event_role.tag IN ('speaker', 'moderator', 'coordinator')  )
                   WHERE event_person.person_id = $1 AND event_person.event_id = event.event_id);
 $$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
 
