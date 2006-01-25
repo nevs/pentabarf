@@ -36,8 +36,8 @@ class PentabarfController < ApplicationController
         when 'no_slides'   then   Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id})
         else raise 'You have to choose recipients'
       end
-      events = []
       recipients.each_unique(:person_id) do | r |
+        events = []
         recipients.each_by_value({:person_id=>r.person_id}) do | recipient |
           events.push( recipient.event_title )
         end
