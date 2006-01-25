@@ -380,10 +380,11 @@ class PentabarfController < ApplicationController
       begin
 
         params[:person].each do | key, value |
-          next if key.to_sym == :preferences || key.to_sym == :password
+          next if key.to_sym == :preferences || key.to_sym == :password || key.to_sym == :login_name
           person[key]= value
         end
         person[:f_spam] = 'f' unless params[:person]['f_spam']
+        person[:login_name] = params[:person][:login_name] if person.permission?('modify_login')
         if person.permission?('modify_login') || person.person_id == @user.person_id
           if params[:person][:password].to_s != ''
             if params[:person][:password] != params[:password]
@@ -392,19 +393,19 @@ class PentabarfController < ApplicationController
             end
           end
           person.password= params[:person][:password]
+          prefs = person.preferences
+          prefs[:current_language_id] = params[:person][:preferences][:current_language_id].to_i
+          if prefs[:hits_per_page] != params[:person][:preferences][:hits_per_page].to_i
+            prefs[:hits_per_page] = params[:person][:preferences][:hits_per_page].to_i
+            prefs[:search_conference_page] = 0
+            prefs[:search_conference_advanced_page] = 0
+            prefs[:search_event_page] = 0
+            prefs[:search_event_advanced_page] = 0
+            prefs[:search_person_page] = 0
+            prefs[:search_person_advanced_page] = 0
+          end
+          person.preferences = prefs
         end
-        prefs = person.preferences
-        prefs[:current_language_id] = params[:person][:preferences][:current_language_id].to_i
-        if prefs[:hits_per_page] != params[:person][:preferences][:hits_per_page].to_i
-          prefs[:hits_per_page] = params[:person][:preferences][:hits_per_page].to_i
-          prefs[:search_conference_page] = 0
-          prefs[:search_conference_advanced_page] = 0
-          prefs[:search_event_page] = 0
-          prefs[:search_event_advanced_page] = 0
-          prefs[:search_person_page] = 0
-          prefs[:search_person_advanced_page] = 0
-        end
-        person.preferences = prefs
         modified = true if person.write
 
         conference_person = Momomoto::Conference_person.new

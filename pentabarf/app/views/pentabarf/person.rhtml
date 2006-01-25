@@ -676,10 +676,13 @@
     <fieldset>
       <legend>Account</legend>
       <table>
+        <% if @person.permission?('modify_login') %>
         <tr>
           <td><label>Login Name</label></td>
           <td><%= text_field_tag('person[login_name]', @person.login_name, {:tabindex => 0}) %></td>
         </tr>
+        <% end %>
+        <% if @person.permission?('modify_login') || @person.person_id == @user.person_id %>
         <tr>
           <td><label>Password</label></td>
           <td><%= password_field_tag('person[password]', nil, {:tabindex => 0}) %></td>
@@ -688,6 +691,7 @@
           <td><label>Repeat Password</label></td>
           <td><%= password_field_tag('password', nil, {:tabindex => 0}) %></td>
         </tr>
+        <% end %>
         <tr>
           <td><label>Last activity</label></td>
           <td><%= h(@person.last_login.to_s.gsub(/[+.].*/, '')) %></td>
@@ -695,6 +699,7 @@
       </table>
     </fieldset>
 
+    <% if @person.permission?('modify_login') || @person.person_id == @user.person_id %>
     <fieldset>
       <legend>Preferences</legend>
       <table>
@@ -708,6 +713,7 @@
         </tr>
       </table>
     </fieldset>
+    <% end %>
 
     <% if @user.permission?('modify_login') %>
     <fieldset>
