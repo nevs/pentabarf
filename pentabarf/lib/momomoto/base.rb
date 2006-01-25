@@ -154,7 +154,7 @@ module Momomoto
     # establish connection to the database
     def self.connect( config )
       begin
-        @@connection = PGconn.connect( config['host'], config['port'], nil, nil, 
+        @@connection = PGconn.connect( config['host'], config['port'], nil, nil,
                                        config['database'], config['username'], config['password'])
       rescue => e
         raise Connection_failed
@@ -164,7 +164,7 @@ module Momomoto
 
     def [](key)
       if key.kind_of?( Integer )
-        if key >= 0 && key < @resultset.length 
+        if key >= 0 && key < @resultset.length
           @current_record = key
           return self
         else
@@ -188,7 +188,7 @@ module Momomoto
     def create
       @resultset = []
       @resultset[0] = {}
-      @fields.each do | field_name, field | 
+      @fields.each do | field_name, field |
         next if field.property(:virtual)
         @resultset[0][field_name] = field.clone
         @resultset[0][field_name].value = field.new_value
@@ -235,7 +235,7 @@ module Momomoto
         yield( element, i )
       end
     end
-    
+
     def each_with_index
       old_record = @current_record
       @resultset.length.times do | i |
@@ -313,7 +313,7 @@ module Momomoto
 
     # search for the first record with specific values
     def find_by_value( values )
-      return false if length == 0 
+      return false if length == 0
       return false unless values.kind_of?(Hash)
       found = false
       @resultset.length.times do | i |
@@ -333,7 +333,7 @@ module Momomoto
       false
     end
 
-    # iterate over records with specific values of a resultset 
+    # iterate over records with specific values of a resultset
     def each_by_value( values )
       return false unless values.kind_of?(Hash)
       old_record = @current_record
@@ -356,7 +356,7 @@ module Momomoto
       return unless @fields.member?(field.to_sym)
       old_record = @current_record
       done = []
-      self.each do | record | 
+      self.each do | record |
         next if done.member?( record[field] )
         done.push( record[field])
         yield( record )
@@ -369,15 +369,15 @@ module Momomoto
     def write()
       raise "Views are not writable" if @table[0..4] == 'view_'
       return false unless dirty?
-      raise "domain not set for class #{self.class.name}" unless @domain 
-      if @new_record 
+      raise "domain not set for class #{self.class.name}" unless @domain
+      if @new_record
         if privilege?( 'create' )
           result = execute( insert() )
           result.clear
         else
           raise Permission_Error, "not allowed to write table #{@table} domain #{@domain}\nPermissions: #{@@permissions.inspect}"
         end
-      else 
+      else
         if privilege?( 'modify' )
           execute( log_changes() ) if @log_changes
           result = execute( update() )
@@ -413,7 +413,7 @@ module Momomoto
       end
       false
     end
-    
+
     # begin a transaction
     def begin
       result = execute( 'BEGIN TRANSACTION;' )

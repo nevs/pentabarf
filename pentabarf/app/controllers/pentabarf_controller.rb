@@ -12,6 +12,49 @@ class PentabarfController < ApplicationController
     @content_title = 'Overview'
   end
 
+  def mail
+    @content_title = 'Mail'
+    @recipients = [['speaker', 'All Speaker'],
+                   ['no_slides', 'Missing Slides']]
+  end
+
+  def recipients
+    return render_text('') unless params[:id]
+    @recipients = case params[:id]
+      when 'speaker'  then   Momomoto::View_mail_accepted_speaker.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
+      when 'no_slides'   then   Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
+      else raise 'You have to choose recipients'
+    end
+    render(:partial=>'recipients')
+  end
+
+  def send_mail
+    variables = ['name', 'conference_acronym', 'conference_title']
+    if params[:mail][:recipients]
+      recipients = case params[:mail][:recipients]
+        when 'speaker'  then   Momomoto::View_mail_accepted_speaker.find({:conference_id => @current_conference_id})
+        when 'no_slides'   then   Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id})
+        else raise 'You have to choose recipients'
+      end
+      events = []
+      recipients.each_unique(:person_id) do | r |
+        recipients.each_by_value({:person_id=>r.person_id}) do | recipient |
+          events.push( recipient.event_title )
+        end
+        body = params[:mail][:body].dup
+        subject = params[:mail][:subject].dup
+        variables.each do | v |
+          body.gsub!("{{#{v.upcase}}}", r[v])
+          subject.gsub!("{{#{v.upcase}}}", r[v])
+        end
+        body.gsub!('{{EVENT_TITLE}}', events.join(','))
+        subject.gsub!('{{EVENT_TITLE}}', events.join(','))
+        Notifier::deliver_general(r.email_contact, subject, body)
+      end
+    end
+    redirect_to(:action=>:mail)
+  end
+
   def schedule
     @content_title = 'Schedule'
     @events = Momomoto::View_schedule.find({:conference_id => @current_conference_id, :translated_id => @current_language_id})

@@ -156,8 +156,8 @@ module ApplicationHelper
     end
     html += ">"
     html += '<option value=""></option>' if with_empty == true
-    for coll in collection do
-      if coll.kind_of?(Hash)
+    collection.each do | coll |
+      if coll.kind_of?(Array) || coll.kind_of?(Hash)
         html += "<option value=\"#{h(coll[key])}\" #{ coll[key] == selected ? 'selected="selected"': ''}>#{ h(coll[value])}</option>"
       elsif coll.kind_of?(String)
         html += "<option value=\"#{h(coll)}\" #{ coll == selected ? 'selected="selected"': ''}>#{h(coll)}</option>"
