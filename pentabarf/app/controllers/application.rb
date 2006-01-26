@@ -145,7 +145,7 @@ class ApplicationController < ActionController::Base
 
   def save_preferences
     @user.preferences = @preferences
-    @user.write
+    @user.write if @user.permission?('modify_person') || @user.permission?('modify_own_person')
   end
 
   def save_or_delete_record( table, pkeys, values, &block )
