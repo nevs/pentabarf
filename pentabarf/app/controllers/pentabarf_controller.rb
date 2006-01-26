@@ -15,14 +15,14 @@ class PentabarfController < ApplicationController
   def mail
     @content_title = 'Mail'
     @recipients = [['speaker', 'All Speaker'],
-                   ['no_slides', 'Missing Slides']]
+                   ['missing_slides', 'Missing Slides']]
   end
 
   def recipients
     return render_text('') unless params[:id]
     @recipients = case params[:id]
       when 'speaker'  then   Momomoto::View_mail_accepted_speaker.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
-      when 'no_slides'   then   Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
+      when 'missing_slides'   then   Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
       else raise 'You have to choose recipients'
     end
     render(:partial=>'recipients')
@@ -33,7 +33,7 @@ class PentabarfController < ApplicationController
     if params[:mail][:recipients]
       recipients = case params[:mail][:recipients]
         when 'speaker'  then   Momomoto::View_mail_accepted_speaker.find({:conference_id => @current_conference_id})
-        when 'no_slides'   then   Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id})
+        when 'missing_slides'   then   Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id})
         else raise 'You have to choose recipients'
       end
       recipients.each_unique(:person_id) do | r |
