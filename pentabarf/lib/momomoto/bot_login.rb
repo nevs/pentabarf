@@ -5,7 +5,7 @@ module Momomoto
     def initialize
       super
       @table = 'person'
-      @domain = 'own_person'
+      @domain = 'person'
       @fields = { :person_id    => Datatype::Integer.new( {:primary_key => true, :not_null => true, :serial => true} ),
                   :login_name   => Datatype::Varchar.new( {} ),
                   :preferences  => Datatype::Preferences.new( {} )
