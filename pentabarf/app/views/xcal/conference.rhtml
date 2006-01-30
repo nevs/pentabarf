@@ -2,6 +2,8 @@
 <vevent>
   <method>PUBLISH</method>
   <uid><%= event.event_id -%>@<%= h(@conference.acronym) %>@pentabarf.org</uid>
+  <pentabarf:event-id><%= h(event.event_id) %></pentabarf:event-id>
+  <pentabarf:event-tag><%= h(event.event_tag) %></pentabarf:event-tag>
   <pentabarf:title><%= h(event.title) %></pentabarf:title>
   <pentabarf:subtitle><%= h(event.subtitle) %></pentabarf:subtitle>
   <dtstart><%= event.start_datetime.strftime('%Y%m%dT%H%M%S') %></dtstart>
