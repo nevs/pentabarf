@@ -684,6 +684,7 @@ CREATE OR REPLACE VIEW view_schedule_person AS
 CREATE OR REPLACE VIEW view_schedule_event AS
   SELECT event.event_id,
          event.conference_id,
+         event.tag AS event_tag,
          event.title,
          event.subtitle,
          event.abstract,
