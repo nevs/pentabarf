@@ -597,7 +597,9 @@ class PentabarfController < ApplicationController
         if params[:room]
           room = Momomoto::Room.new
           params[:room].each do | key, value |
-            modified = true if save_or_delete_record( room, {:conference_id => conference.conference_id, :room_id => value[:room_id]}, value)
+            modified = true if save_or_delete_record( room, {:conference_id => conference.conference_id, :room_id => value[:room_id]}, value) { | t |
+              t.f_public = false unless value[:f_public]
+            }
           end
         end
 
