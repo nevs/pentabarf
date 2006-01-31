@@ -9,7 +9,7 @@
     <tbody>
       <% @events.each_unique(:event_id) do |event | %>
       <tr>
-        <td class="event">
+        <td class="event <%= sanitize_track(event.conference_track_tag) %>">
           <a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><img src="<%= event_image(event.event_id, 48) %>" /></a>
           <p class="title"><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.title) %></a></p>
           <p class="subtitle"><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.subtitle) %></a></p>
@@ -21,7 +21,7 @@
             </a>
           </p>
         </td>
-        <td class="speakers">
+        <td class="speakers <%= sanitize_track(event.conference_track_tag) %>">
           <ul class="speakers">
             <% @events.each_by_value({:event_id=>event.event_id}) do | speaker | %>
               <li><a href="<%= url_for(:action=>:speaker,:id=>speaker.person_id) %>"><%= h(speaker.name) %></a></li>

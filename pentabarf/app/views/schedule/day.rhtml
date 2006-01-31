@@ -23,7 +23,7 @@
             <td class="room empty"/>
           <% else %>
             <% @events.find_by_value({:event_id =>  row[room.room_id][:event_id] }) %>
-            <td class="room event <%= @events.conference_track_tag ? h(@events.conference_track_tag.downcase.gsub(/[^a-z]/, '')) : '' %>" rowspan="<%= row[room.room_id][:slots] %>">
+            <td class="room event <%= sanitize_track( @events.conference_track_tag ) %>" rowspan="<%= row[room.room_id][:slots] %>">
               <p class="title"><a href="<%= url_for(:action=>:event,:id=>@events.event_id) %>"><%= @events.title %></a></p> 
               <p class="subtitle"><a href="<%= url_for(:action=>:event,:id=>@events.event_id) %>"><%= @events.subtitle %></a></p> 
               <ul class="speakers">
