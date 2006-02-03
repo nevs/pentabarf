@@ -12,7 +12,7 @@ config = YAML.load_file('../../config/database.yml')['development']
 connection = PGconn.connect( config['host'], config['port'], nil, nil,
                              config['database'], config['username'], config['password'])
 
-def udt_name_to_class( udt_name, properties ) 
+def udt_name_to_class( udt_name, properties )
   case udt_name
     when 'bool'           then 'Bool'
     when 'bytea'          then 'Bytea'
@@ -27,13 +27,13 @@ def udt_name_to_class( udt_name, properties )
     when 'varchar'        then 'Varchar'
     when 'text'           then 'Text'
     when 'time'           then 'Time'
-    when 'timetz'         then 
+    when 'timetz'         then
       properties[:with_timezone] = true
       'Time'
-    when 'timestamp'      then 'Timestamp'
-    when 'timestamptz'    then 
+    when 'timestamp'      then 'Datetime'
+    when 'timestamptz'    then
       properties[:with_timezone] = true
-      'Timestamp'
+      'Datetime'
     else raise "Unsupported Datatype #{udt_name}"
   end
 end
@@ -50,9 +50,9 @@ fields = connection.exec(
         numeric_precision_radix,
         numeric_scale,
         udt_name,
-        is_nullable 
-   FROM information_schema.columns 
-   WHERE table_catalog = '#{database}' AND table_name = '#{table}' 
+        is_nullable
+   FROM information_schema.columns
+   WHERE table_catalog = '#{database}' AND table_name = '#{table}'
    ORDER BY ordinal_position;" ).entries
 
 puts "module Momomoto"
@@ -69,7 +69,7 @@ for i in 0..(fields.length - 1) do
   properties[:primary_key] = true if pk.length > 0
   properties[:serial] = true if fields[i][1] && fields[i][1].match( /^nextval/ )
   properties[:default] = true if fields[i][1].to_s != ''
-  
+
   puts "        :#{fields[i][0]} => Datatype::#{udt_name_to_class(fields[i][6],properties)}.new( #{properties.inspect} )#{',' if i < (fields.length - 1 )}"
 end
 puts "      }"
