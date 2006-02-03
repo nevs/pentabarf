@@ -14,9 +14,9 @@ sockpath = config['daemon']['socket_path']
 jid = Jabber::JID.new(config['daemon']['jabber_id'])
 
 client = Jabber::Client.new(jid)
-Jabber::Helpers::Version.new(client, 'Pentabarf', 'Ravenhurst') 
+#Jabber::Helpers::Version.new(client).add_version_callback { | iq, block | block.call('Pentabarf', '2342', 'Cool OS')}
 client.connect(config['daemon']['server'], config['daemon']['port'])
-client.auth(config['daemon']['password']) 
+client.auth(config['daemon']['password'])
 
 client.send(Jabber::Presence.new( nil, 'ravenhurst will solve all your problems.' ) )
 
