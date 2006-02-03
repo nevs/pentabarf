@@ -1,7 +1,8 @@
 module ScheduleHelper
 
   def sanitize_track( track )
-    h( track.to_s.downcase.gsub(/[\W]/, '') )
+    track = track.to_s.downcase.gsub(/[^a-z0-9]/, '')
+    return track == '' ? '' : h("track-#{track}")
   end
 
 end
