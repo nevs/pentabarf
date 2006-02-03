@@ -94,7 +94,7 @@ class HTML_Export
     @languages.each do | @language |
       puts "creating files for language #{@language.tag}"
       @template_cache = {}
-      @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id => @language.language_id})
+      @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id => @language.language_id, :f_public => 't'}, nil, 'rank')
       @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@language.language_id}, nil, 'lower(title),lower(subtitle)' )
       @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id})
 
