@@ -10,7 +10,7 @@ module Momomoto
         :url => Datatype::Varchar.new( {:length=>1024, :not_null=>true} ),
         :rank => Datatype::Integer.new( {} ),
         :title => Datatype::Varchar.new( {:length=>256} ),
-        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true} ),
+        :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} ),
         :last_modified_by => Datatype::Integer.new( {} )
       }
     end
