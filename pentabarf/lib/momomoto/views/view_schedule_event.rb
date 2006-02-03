@@ -18,7 +18,6 @@ module Momomoto
         :start_datetime => Datatype::Datetime.new( {} ),
         :end_datetime => Datatype::Datetime.new( {} ),
         :real_starttime => Datatype::Time.new( {} ),
-        :room_id => Datatype::Integer.new( {} ),
         :translated_id => Datatype::Integer.new( {} ),
         :event_type_id => Datatype::Integer.new( {} ),
         :event_type => Datatype::Varchar.new( {} ),
@@ -31,7 +30,10 @@ module Momomoto
         :language_tag => Datatype::Varchar.new( {:length=>32} ),
         :person_id => Datatype::Integer.new( {} ),
         :name => Datatype::Varchar.new( {} ),
-        :file_extension => Datatype::Varchar.new( {:length=>16} )
+        :file_extension => Datatype::Varchar.new( {:length=>16} ),
+        :room_id => Datatype::Integer.new( {} ),
+        :room_tag => Datatype::Varchar.new( {:length=>32} ),
+        :room => Datatype::Varchar.new( {} )
       }
     end
   end
