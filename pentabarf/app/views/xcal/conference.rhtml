@@ -6,6 +6,8 @@
   <pentabarf:event-tag><%= h(event.event_tag) %></pentabarf:event-tag>
   <pentabarf:title><%= h(event.title) %></pentabarf:title>
   <pentabarf:subtitle><%= h(event.subtitle) %></pentabarf:subtitle>
+  <pentabarf:language><%= h(event.language) %></pentabarf:language>
+  <pentabarf:language-code><%= h(event.language_tag) %></pentabarf:language-code>
   <dtstart><%= event.start_datetime.strftime('%Y%m%dT%H%M%S') %></dtstart>
   <dtend><%= event.end_datetime.strftime('%Y%m%dT%H%M%S') %></dtend>
   <duration><%= event.duration.hour.to_s + 'H' %></duration>
