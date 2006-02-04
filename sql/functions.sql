@@ -182,6 +182,7 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
     SELECT INTO new_event_id nextval(''event_event_id_seq'');
     INSERT INTO event( event_id,
                        conference_id,
+                       conference_track_id,
                        title,
                        subtitle,
                        tag,
@@ -201,6 +202,7 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
                        last_modified_by )
                 SELECT new_event_id,
                        cur_conference_id,
+                       (CASE cur_conference_id WHEN conference_id THEN conference_track_id ELSE NULL END),
                        title,
                        subtitle,
                        tag,
