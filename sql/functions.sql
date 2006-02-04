@@ -274,6 +274,16 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
 
     INSERT INTO event_related( event_id1, event_id2 ) VALUES( cur_event_id, new_event_id );
 
+    INSERT INTO event_person( event_id, 
+                              person_id,
+                              event_role_id,
+                              last_modified_by )
+                     VALUES ( new_event_id,
+                              cur_person_id,
+                              (SELECT event_role_id FROM event_role WHERE tag = ''coordinator''),
+                              cur_person_id );
+
+
     RETURN new_event_id;
 
   END;

@@ -222,6 +222,7 @@ class PentabarfController < ApplicationController
   end
 
   def copy_event
+    raise Permission_Error unless @user.permission?('create_event')
     new_event = Momomoto::Copy_event.find({:event_id=>params[:id], :conference_id=>params[:conference_id], :person_id=>@user.person_id})
     redirect_to(:action=>:event,:id=>new_event.new_event_id)
   end
