@@ -38,10 +38,11 @@ class FeedbackController < ApplicationController
   protected
 
   def check_conference
+    @conference = Momomoto::Conference.new
     if params[:conference_id].to_s.match(/^\d+$/)
-      @conference = Momomoto::Conference.find({:conference_id => params[:conference_id]})
-    else
-      @conference = Momomoto::Conference.find({:acronym => params[:conference_id]})
+      @conference.find({:conference_id => params[:conference_id]})
+    elsif params[:conference_id]
+      @conference.find({:acronym => params[:conference_id]})
     end
     return true if @conference.length == 1 && @conference.f_feedback_enabled
     false
