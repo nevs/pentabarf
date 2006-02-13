@@ -20,5 +20,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'schedule/:conference_id/:action/:id', :controller => 'schedule'
   map.connect 'feedback/:conference_id/:action/:id', :controller => 'feedback'
   map.connect 'submission/:conference/:action/:id', :controller => 'submission'
+  map.connect 'visitor/:conference/:action/:id', :controller => 'visitor'
   map.connect ':controller/:action/:id'
 end
