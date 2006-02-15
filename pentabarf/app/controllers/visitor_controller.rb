@@ -39,6 +39,14 @@ class VisitorController < ApplicationController
     redirect_to({:action=>:login,:conference=>@conference.acronym})
   end
 
+  def conflicts_person
+    if @user.person_id > 0
+      render(:partial => 'conflicts_person')
+    else
+      redirect_to(:action=>:meditation)
+    end
+  end
+
   def person
     @content_title = 'Your Account Details'
     @person = Momomoto::Person.find({:person_id=>@user.person_id})
@@ -139,75 +147,9 @@ class VisitorController < ApplicationController
     end
   end
 
-  def save_event
-    allowed_event_fields = [:title, :subtitle, :tag, :f_paper, :f_slides,
-                            :language_id, :conference_track_id, :event_type_id,
-                            :abstract, :description, :resources, :duration]
-    modified = false
-    if params[:id]
-      events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
-      return redirect_to(:action=>:events,:conference=>@conference.acronym) unless events.length == 1
-
-      # check for outdated data
-      transaction = Momomoto::Event_transaction.find( {:event_id => params[:id]} )
-      raise "Outdated Data!" if transaction.length == 1 && transaction.changed_when != params[:changed_when]
-
-      event = Momomoto::Event.find({:event_id=>params[:id]})
-    else
-      new_event = Momomoto::Submit_event.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:title=>params[:event][:title]})
-      event = Momomoto::Event.find({:event_id=>new_event.new_event_id})
-      modified = true
-    end
-    event.begin
-    allowed_event_fields.each do | field |
-      event[field] = params[:event][field]
-    end
-    modified = true if event.write
-
-    if params[:link]
-      event_link = Momomoto::Event_link.new
-      params[:link].each do | key, value |
-        next if value[:url].to_s == ''
-        modified = true if save_or_delete_record( event_link, {:event_id => event.event_id, :event_link_id => value[:link_id]}, value)
-      end
-    end
-
-    if params[:attachment_upload]
-      file = Momomoto::Event_attachment.new
-      params[:attachment_upload].each do | key, value |
-        next unless value[:data].size > 0
-        file.create
-        file.event_id = event.event_id
-        file.attachment_type_id = value[:attachment_type_id]
-        mime_type = Momomoto::Mime_type.find({:mime_type => value[:data].content_type.chomp})
-        raise "mime-type not found #{value[:data].content_type}" if mime_type.length != 1
-        file.mime_type_id = mime_type.mime_type_id
-        file.filename = value[:filename].to_s != '' ? value[:filename] : File.basename(value[:data].original_filename).gsub(/[^\w0-9.-_]/, '')
-        file.title = value[:title]
-        file.data = value[:data].read
-        file.f_public = value[:f_public] ? true : false
-        modified = true if file.write
-      end
-    end
-
-    if params[:event_attachment]
-      attachment = Momomoto::Event_attachment.new
-      params[:event_attachment].each do | key, value |
-        modified = true if save_or_delete_record( attachment, {:event_attachment_id => key, :event_id => event.event_id}, value ) { | t |
-          t.f_public = value[:f_public] ? true : false
-        }
-      end
-    end
-
-    if modified
-      transaction = Momomoto::Event_transaction.new_record
-      transaction.event_id = event.event_id
-      transaction.changed_by = @user.person_id
-      transaction.write
-    end
-
-    event.commit
-    redirect_to({:action=>:event,:id=>event.event_id,:conference=>@conference.acronym})
+  def schedule
+    @content_title = 'Schedule'
+    @events = Momomoto::View_schedule.find({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
   end
 
   protected

@@ -6,7 +6,7 @@
   }
 </script>
 
-<%= content_tabs_js( ['general', 'contact', 'description', 'links', 'account'], 'view::pentabarf::person::tab' ) %>
+<%= content_tabs_js( ['general', 'events', 'contact', 'description', 'links', 'account'], 'view::pentabarf::person::tab' ) %>
 <div id="object-image">
   <%= image_tag('icon-person-64x64.png', { :class => 'object-image' } ) %>
 </div>
@@ -19,6 +19,71 @@
   <%= hidden_field_tag('conference_person[conference_id]', @conference_person.conference_id) %>
 
   <%= render(:partial => 'modification_buttons') %>
+
+
+  <% if @person.person_id > 0 %>
+  <div id="conflicts">
+    <script type="text/javascript">new Ajax.Updater('conflicts', '<%= url_for(:action=>:conflicts_person,:id =>@person.person_id) %>');</script>
+  </div>
+  <% end %>
+
+
+  <div id="content-events" class="content_tab">
+      <fieldset>
+        <legend><[view::pentabarf::person::tab::events]></legend>
+        <script type="text/javascript">
+        var event_titles = new Array();
+          <% for event in Momomoto::Event.find({:conference_id => @conference.conference_id}) %>
+          event_titles[<%= event.event_id %>] = '<%= js(event.title) %>';
+          <% end %>
+        var event_roles = new Array();
+        var event_role_states = new Array();
+        <% event_roles = Momomoto::View_event_role.find({:language_id => @current_language_id, :event_role_id => 4}) %>
+        <% event_role_states = [] %>
+        <% for event_role in event_roles %>
+          <% event_role_states[event_role.event_role_id] = Momomoto::View_event_role_state.find({:language_id => @current_language_id,:event_role_id => event_role.event_role_id}) %>
+          event_roles[<%= event_role.event_role_id %>] = '<%= js(event_role.name) %>';
+          event_role_states[<%= event_role.event_role_id %>] = new Array();
+          <% event_role_states[event_role.event_role_id].each do | state | %>
+            event_role_states[<%= event_role.event_role_id %>][<%= state.event_role_state_id %>] = '<%= js(state.name) %>';
+          <% end %>
+        <% end %>
+        <% person_events = Momomoto::View_event_person.find({:conference_id => @conference.conference_id, :person_id => @user.person_id, :language_id => @current_language_id}, nil, 'event_role_tag, event_role_state, lower(title), lower(subtitle)') %>
+        var person_event_counter = <%= person_events.length %>;
+        </script>
+        <table id="person_event_table" class="<%= 'hidden' unless person_events.length > 0 %>">
+          <thead>
+            <tr>
+              <th colspan="2"><[table::event::title]></th>
+              <th><[table::event::event_state]></th>
+              <th><[table::event_person::event_role]></th>
+              <th><[table::event_person::event_role_state]></th>
+              <th><[table::event_person::remark]></th>
+              <th><[form::remove]></th>
+            </tr>
+          </thead>
+          <tbody id="person_event_table_body">
+          <% person_events.each_with_index do | event, index | %>
+            <tr>
+              <td><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><img src="<%= event_image(event.event_id, 24) %>"/></a></td>
+              <td><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><strong><%= h(event.title) %></strong><br/><%= h(event.subtitle) %></a></td>
+              <td><%= h(event.event_state) %>
+                  <%= hidden_field_tag("event_person[#{index}][event_id]", event.event_id) %>
+                  <%= hidden_field_tag("event_person[#{index}][event_person_id]", event.event_person_id) %>
+              </td>
+              <td><%= h(event.event_role_tag) %></td>
+              <td><%= h(event.event_role_state_tag) %></td>
+              <td><%= text_field_tag("event_person[#{index}][remark]", event.remark, {:tabindex => 0}) %></td>
+              <td><%= check_box_tag("event_person[#{index}][delete]", 't', false, {:tabindex => 0}) if event.event_role_id == 4 %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <button type="button" name="add_person_event" value="Add Events" title="Add a new event to list of events" tabindex="0" onClick="window.add_person_event();"><[view::pentabarf::person::add_event]></button>
+      </fieldset>
+
+  </div>
+
 
   <div id="content-general" class="content_tab">
     <fieldset>

@@ -229,7 +229,7 @@ module ApplicationHelper
   end
 
   def get_base_url()
-    "https://" + @request.host + @request.env['REQUEST_URI'].gsub(/(pentabarf|submission).*/, '')
+    "https://" + @request.host + @request.env['REQUEST_URI'].gsub(/(pentabarf|submission|visitor|feedback).*/, '')
   end
 
 end

@@ -1,0 +1,48 @@
+<% 
+  rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id=>@current_language_id}, nil, 'rank')
+  conf = Momomoto::Conference.find({:conference_id=>@conference.conference_id})
+  day_tabs = []
+  conf.days.times do | i | day_tabs.push({:tag => "day_#{i+1}", :text => "<[day]> #{i+1}"}) end
+  table = schedule_table( conf, @events )  
+  colors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
+%>
+
+<div id="data">
+<%= content_tabs_js(day_tabs) %>
+
+<% table.each_with_index do | day_table, index | %>
+<div id="content-day_<%= index + 1 %>" class="content_tab">
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <% rooms.each do | room | %>
+          <th><%= h(room.name) %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% day_table.each do | row | %>
+      <tr>
+        <td><%= h(row[0])%></td>
+        <% rooms.each do | room | %>
+          <% next if row[room.room_id] == 0 %>
+          <% if row[room.room_id].nil? %>
+            <td/>
+          <% else %>
+            <% @events.find_by_value({:event_id =>  row[room.room_id][:event_id] }) %>
+            <td rowspan="<%= row[room.room_id][:slots] %>">
+              <a href="<%= url_for({:action=>:event,:id=>row[room.room_id][:event_id]}) %>">
+                <strong><%= h(@events.title) %></strong><br/><em><%= h(@events.subtitle) %></em>
+              </a>
+            </td>
+          <% end %>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
+<%= javascript_tag("switch_tab('');") %>
+</div>
