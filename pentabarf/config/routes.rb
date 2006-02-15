@@ -21,5 +21,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'feedback/:conference_id/:action/:id', :controller => 'feedback'
   map.connect 'submission/:conference/:action/:id', :controller => 'submission'
   map.connect 'visitor/:conference/:action/:id', :controller => 'visitor'
+  map.connect ':controller/:conference/stylesheet.css', :action => 'css'
   map.connect ':controller/:action/:id'
 end

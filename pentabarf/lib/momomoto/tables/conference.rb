@@ -31,6 +31,7 @@ module Momomoto
         :css => Datatype::Text.new( {} ),
         :f_feedback_enabled => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :f_submission_enabled => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
+        :f_visitor_enabled => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :last_modified => Datatype::Timestamp.new( {:with_timezone=>true, :not_null=>true, :default=>true, :auto_update=>true} ),
         :last_modified_by => Datatype::Integer.new( {} )
       }

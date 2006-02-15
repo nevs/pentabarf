@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title><%= h(@content_title) %> - Pentabarf <%= h(get_version()) %> (r<%= h(get_revision()) %>)</title>
     <link rel="shortcut icon" href="/favicon.ico">
+    <% if @conference %><link rel="shortcut icon" href="<%= url_for({:action => :css}) %>"><% end %>
     <%= javascript_include_tag( 'prototype', 'effects', 'switch_tab', 'cookie', 'tainted', 'add_functions' ) %>
     <%= javascript_tag( "var p_base = '#{escape_javascript(get_base_url())}';" ) %>
     <%= stylesheet_link_tag 'main' %>

@@ -152,15 +152,20 @@ class VisitorController < ApplicationController
     @events = Momomoto::View_schedule.find({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
   end
 
+  def css
+    @response.headers['Content-Type'] = 'text/css'
+    render_text(@conference.css.nil? ? "" : @conference.css)
+  end
+
   protected
 
   def check_conference
     return true if params[:conference].nil? && params[:action].to_sym == :index
     @conference = Momomoto::Conference.new
     if params[:conference].to_s.match(/^\d+$/)
-      @conference.select({:conference_id => params[:conference], :f_submission_enabled => 't'})
+      @conference.select({:conference_id => params[:conference], :f_visitor_enabled => 't'})
     elsif params[:conference]
-      @conference.select({:acronym => params[:conference], :f_submission_enabled => 't'})
+      @conference.select({:acronym => params[:conference], :f_visitor_enabled => 't'})
     end
     return @conference.length == 1 ? true : redirect_to({:action=>:index,:conference=>nil})
   end
