@@ -31,7 +31,7 @@
             <td/>
           <% else %>
             <% @events.find_by_value({:event_id =>  row[room.room_id][:event_id] }) %>
-            <td rowspan="<%= row[room.room_id][:slots] %>">
+            <td class="<%= sanitize_track(@events.conference_track_tag) %>" rowspan="<%= row[room.room_id][:slots] %>">
               <a href="<%= url_for({:action=>:event,:id=>row[room.room_id][:event_id]}) %>">
                 <strong><%= h(@events.title) %></strong><br/><em><%= h(@events.subtitle) %></em>
               </a>

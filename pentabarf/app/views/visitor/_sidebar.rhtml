@@ -12,8 +12,8 @@
     <% end %>
     <% if @conference && @user %>
       <%= link_to( 'Person', {:action => :person,:conference=>@conference.acronym}, { :class => 'menu-item' } ) %>
-      <%= link_to( 'New Event', {:action => :event,:conference=>@conference.acronym }, { :class => 'menu-item' } ) %>
       <%= link_to( 'Events', {:action => :events,:conference=>@conference.acronym }, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Schedule', {:action => :schedule,:conference=>@conference.acronym }, { :class => 'menu-item' } ) %>
     <% end %>
     <% if @user %>
       <%= link_to( 'Logout', {:action => :logout}, { :class => 'menu-item' } ) %>

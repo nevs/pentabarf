@@ -232,4 +232,9 @@ module ApplicationHelper
     "https://" + @request.host + @request.env['REQUEST_URI'].gsub(/(pentabarf|submission|visitor|feedback).*/, '')
   end
 
+  def sanitize_track( track )
+    track = track.to_s.downcase.gsub(/[^a-z0-9]/, '')
+    return track == '' ? '' : h("track-#{track}")
+  end
+
 end
