@@ -1,7 +1,7 @@
- -- create this list with this queryg
+ -- create this list with this query
  -- SELECT 'GRANT SELECT ON '|| table_name ||' TO backup;' AS statement FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name;
  --
- 
+
  GRANT SELECT ON attachment_type TO backup;
  GRANT SELECT ON attachment_type_localized TO backup;
  GRANT SELECT ON audience TO backup;
