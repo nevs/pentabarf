@@ -32,7 +32,7 @@ class HTML_Export
     @timezone = 'Europe/Berlin'
     @languages = Momomoto::View_conference_language.find({:conference_id=>@conference.conference_id,:translated_id=>120})
     raise ArgumentError, "no conference language set to export to." unless @languages.length > 0
-    Dir.chdir('tmp/html-export')
+    Dir.chdir("#{@rails_root}/tmp/html-export")
     begin
       Dir.chdir(conference.to_s)
     rescue Errno::ENOENT

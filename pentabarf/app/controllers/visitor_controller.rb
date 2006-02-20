@@ -136,14 +136,11 @@ class VisitorController < ApplicationController
   end
 
   def event
-    @content_title = 'Edit Event'
-    if params[:id]
-      @events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
-      return redirect_to(:action=>:events,:conference=>@conference.acronym) unless @events.length == 1
-      @event = Momomoto::Event.find({:event_id=>params[:id]})
+    @event = Momomoto::View_event.new
+    if params[:id] && @event.find({:event_id=>params[:id],:conference_id=>@conference.conference_id,:event_state_tag=>'accepted',:translated_id=>Momomoto::Base.ui_language_id}) == 1
+      @content_title = @event.title
     else
-      @event = Momomoto::Event.new_record
-      @event.event_id = 0
+      return redirect_to(:action=>:schedule,:conference=>@conference.acronym)
     end
   end
 
