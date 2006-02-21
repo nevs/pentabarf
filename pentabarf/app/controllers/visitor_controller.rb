@@ -127,21 +127,16 @@ class VisitorController < ApplicationController
     redirect_to({:action=>:person, :conference=>@conference.acronym})
   end
 
-  def events
-    @content_title = 'Your Events'
-    @events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
-    event_ids = []
-    @events.each do | event | event_ids.push(event.event_id) end
-    @events = Momomoto::View_event.find({:event_id=>event_ids,:translated_id=>@current_language_id,:conference_id=>@conference.conference_id}) unless @events.nil?
-  end
-
   def event
     @event = Momomoto::View_event.new
-    if params[:id] && @event.find({:event_id=>params[:id],:conference_id=>@conference.conference_id,:event_state_tag=>'accepted',:translated_id=>Momomoto::Base.ui_language_id}) == 1
+    if params[:id]
+      @event.find({ :event_id=>params[:id],
+                    :conference_id=>@conference.conference_id,
+                    :event_state_tag=>'accepted',
+                    :translated_id=>Momomoto::Base.ui_language_id})
       @content_title = @event.title
-    else
-      return redirect_to(:action=>:schedule,:conference=>@conference.acronym)
     end
+    return redirect_to(:action=>:schedule,:conference=>@conference.acronym) if @event.nil?
   end
 
   def schedule
