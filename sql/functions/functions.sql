@@ -289,3 +289,25 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
+CREATE OR REPLACE FUNCTION add_attendee(person_id INTEGER, event_id INTEGER) RETURNS INTEGER AS $$
+  INSERT INTO event_person( event_id,
+                            person_id,
+                            event_role_id,
+                            last_modified,
+                            last_modified_by )
+                    VALUES( $2,
+                            $1,
+                            (SELECT event_role_id FROM event_role WHERE tag = 'attendee'),
+                            now(),
+                            $1 );
+  SELECT $1;
+$$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
+
+CREATE OR REPLACE FUNCTION remove_attendee(person_id INTEGER, event_id INTEGER) RETURNS INTEGER AS $$
+  DELETE FROM event_person
+        WHERE event_id = $2 AND
+              person_id = $1 AND
+              event_role_id = (SELECT event_role_id FROM event_role WHERE tag = 'attendee');
+  SELECT $1;
+$$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
+
