@@ -10,6 +10,15 @@
 <div id="data">
 <%= content_tabs_js(day_tabs) %>
 
+<script type="text/javascript">
+  function attend_button( person_id, event_id ) {
+    alert('hallo ' + event_id );  
+  }
+</script>
+
+<div id="conflicts">
+</div>
+
 <% table.each_with_index do | day_table, index | %>
 <div id="content-day_<%= index + 1 %>" class="content_tab">
   <table>
@@ -35,6 +44,8 @@
               <a href="<%= url_for({:action=>:event,:id=>row[room.room_id][:event_id]}) %>">
                 <strong><%= h(@events.title) %></strong><br/><em><%= h(@events.subtitle) %></em>
               </a>
+              <br/>
+              <button id="<%= "attend_button_#{@user.person_id}_#{@events.event_id}" %>" type="button" class="attend-button" onclick="attend_button(<%= "#{@user.person_id}, #{@events.event_id}" %>);">Attend</button>
             </td>
           <% end %>
         <% end %>

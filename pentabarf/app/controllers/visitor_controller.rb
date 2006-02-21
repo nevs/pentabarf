@@ -11,7 +11,7 @@ class VisitorController < ApplicationController
   end
 
   def login
-    redirect_to({:action=>:events,:conference=>@conference.acronym})
+    redirect_to({:action=>:schedule,:conference=>@conference.acronym})
   end
 
   def new_account
@@ -142,6 +142,10 @@ class VisitorController < ApplicationController
   def schedule
     @content_title = 'Schedule'
     @events = Momomoto::View_schedule.find({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
+  end
+
+  def toggle_attendee
+    
   end
 
   def css

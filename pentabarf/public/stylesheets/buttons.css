@@ -70,3 +70,7 @@ button.active {
 button.active:hover {
   color: white;
 }
+
+button.attend-button {
+  margin: 10px 0px 0px 10px;
+}
