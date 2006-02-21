@@ -289,19 +289,36 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
-CREATE OR REPLACE FUNCTION add_attendee(person_id INTEGER, event_id INTEGER) RETURNS INTEGER AS $$
-  INSERT INTO event_person( event_id,
-                            person_id,
-                            event_role_id,
-                            last_modified,
-                            last_modified_by )
-                    VALUES( $2,
-                            $1,
-                            (SELECT event_role_id FROM event_role WHERE tag = 'attendee'),
-                            now(),
-                            $1 );
-  SELECT $1;
-$$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
+CREATE OR REPLACE FUNCTION add_attendee(cur_person_id INTEGER, cur_event_id INTEGER) RETURNS INTEGER AS $$
+  BEGIN
+    SELECT event_id 
+      FROM event 
+           INNER JOIN event_state ON (
+               event_state.event_state_id = event.event_state_id AND
+               event_state.tag = 'accepted' )
+           INNER JOIN event_state_progress ON (
+               event_state_progress.event_state_progress_id = event.event_state_progress_id AND
+               event_state_progress.event_state_id = event.event_state_id AND
+               event_state_progress.tag = 'confirmed' )
+           INNER JOIN conference ON (
+               conference.conference_id = event.conference_id AND
+               conference.f_visitor_enabled = 't' );
+    IF NOT FOUND THEN
+      RAISE EXCEPTION 'Event is not accepted and confirmed or visitor system for this conference is disabled.';
+    END IF;
+    INSERT INTO event_person( event_id,
+                              person_id,
+                              event_role_id,
+                              last_modified,
+                              last_modified_by )
+                      VALUES( cur_event_id,
+                              cur_person_id,
+                              (SELECT event_role_id FROM event_role WHERE tag = 'attendee'),
+                              now(),
+                              cur_person_id );
+    RETURN $1;
+  END;
+$$ LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
 CREATE OR REPLACE FUNCTION remove_attendee(person_id INTEGER, event_id INTEGER) RETURNS INTEGER AS $$
   DELETE FROM event_person
