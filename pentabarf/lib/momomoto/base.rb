@@ -287,7 +287,7 @@ module Momomoto
       result.num_tuples.times do | i |
         current = {}
         result.num_fields.times do | j |
-          current[result.fieldname(j).to_sym] = @fields[result.fieldname(j).to_sym].clone
+          current[result.fieldname(j).to_sym] = @fields[result.fieldname(j).to_sym].clone 
           current[result.fieldname(j).to_sym].import( result[i][j] )
         end
         next if distinct && find_by_id(distinct, current[distinct].value)

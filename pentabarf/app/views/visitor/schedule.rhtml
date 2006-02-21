@@ -11,8 +11,15 @@
 <%= content_tabs_js(day_tabs) %>
 
 <script type="text/javascript">
-  function attend_button( person_id, event_id ) {
-    alert('hallo ' + event_id );  
+  function attend_button( event_id ) {
+    request = new Ajax.Request( '<%= url_for({:action=>:toggle_attendee}) %>/' + event_id,
+                                {
+                                  method: 'get',
+                                  onComplete: showResponse
+                                });
+  }
+  function showResponse( request ) {
+    alert(request.responseText);
   }
 </script>
 
@@ -45,7 +52,7 @@
                 <strong><%= h(@events.title) %></strong><br/><em><%= h(@events.subtitle) %></em>
               </a>
               <br/>
-              <button id="<%= "attend_button_#{@user.person_id}_#{@events.event_id}" %>" type="button" class="attend-button" onclick="attend_button(<%= "#{@user.person_id}, #{@events.event_id}" %>);">Attend</button>
+              <button id="<%= "attend_button_#{@events.event_id}" %>" type="button" class="attend-button" onclick="attend_button(<%= @events.event_id %>);">Attend</button>
             </td>
           <% end %>
         <% end %>

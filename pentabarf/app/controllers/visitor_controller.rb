@@ -145,7 +145,13 @@ class VisitorController < ApplicationController
   end
 
   def toggle_attendee
-    
+    @event_person = Momomoto::View_event_person.find({:person_id=>@user.person_id,:event_id=>params[:id],:event_role_tag=>'attendee'})
+    if @event_person.nil?
+      Momomoto::Add_attendee.find({:event_id=>params[:id],:person_id=>@user.person_id})
+    else
+      Momomoto::Remove_attendee.find({:event_id=>params[:id],:person_id=>@user.person_id})
+    end
+    return render_text( @event_person.nil? ? "Remove" : "Add" )
   end
 
   def css

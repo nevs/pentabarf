@@ -289,9 +289,13 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
-CREATE OR REPLACE FUNCTION add_attendee(cur_person_id INTEGER, cur_event_id INTEGER) RETURNS INTEGER AS $$
+CREATE OR REPLACE FUNCTION add_attendee(INTEGER, INTEGER) RETURNS INTEGER AS $$
+  DECLARE
+    cur_person_id ALIAS FOR $1;
+    cur_event_id ALIAS FOR $2;
+    cur_event_person RECORD;
   BEGIN
-    SELECT event_id 
+    SELECT INTO cur_event_person event_id 
       FROM event 
            INNER JOIN event_state ON (
                event_state.event_state_id = event.event_state_id AND
@@ -302,7 +306,8 @@ CREATE OR REPLACE FUNCTION add_attendee(cur_person_id INTEGER, cur_event_id INTE
                event_state_progress.tag = 'confirmed' )
            INNER JOIN conference ON (
                conference.conference_id = event.conference_id AND
-               conference.f_visitor_enabled = 't' );
+               conference.f_visitor_enabled = 't' )
+     WHERE event.event_id = cur_event_id;
     IF NOT FOUND THEN
       RAISE EXCEPTION 'Event is not accepted and confirmed or visitor system for this conference is disabled.';
     END IF;
@@ -316,7 +321,7 @@ CREATE OR REPLACE FUNCTION add_attendee(cur_person_id INTEGER, cur_event_id INTE
                               (SELECT event_role_id FROM event_role WHERE tag = 'attendee'),
                               now(),
                               cur_person_id );
-    RETURN $1;
+    RETURN cur_person_id;
   END;
 $$ LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
