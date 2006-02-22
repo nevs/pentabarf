@@ -14,6 +14,11 @@ class VisitorController < ApplicationController
     redirect_to({:action=>:schedule,:conference=>@conference.acronym})
   end
 
+  def conflicts
+    @conflicts = Momomoto::View_conflict_attendee.find(:conference_id=>@conference.conference_id,:person_id=>@user.person_id)
+    render(:partial=>'conflicts')
+  end
+
   def new_account
     @content_title = 'Create account'
   end

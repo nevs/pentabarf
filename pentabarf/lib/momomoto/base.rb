@@ -539,6 +539,7 @@ module Momomoto
           end
         end
       end
+      where = where_append( where, @where_append ) if @where_append
       where
     end
 

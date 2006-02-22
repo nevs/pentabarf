@@ -13,15 +13,16 @@
 <script type="text/javascript">
   function attend_button( event_id ) {
     request = new Ajax.Request( '<%= url_for({:action=>:toggle_attendee}) %>/' + event_id,
-                                {
-                                  method: 'get',
-                                  /* onComplete: showResponse, */
-                                  onSuccess: function( response ) { 
-                                                var text = document.createTextNode(response.responseText);
-                                                $('attend_button_' + event_id).replaceChild(text, $('attend_button_' + event_id).firstChild);
-                                             },
-                                  onFailure: function() { alert('An error occurred.'); }
-                                });
+              {
+                method: 'get',
+                /* onComplete: showResponse, */
+                onSuccess: function( response ) { 
+                              var text = document.createTextNode(response.responseText);
+                              $('attend_button_' + event_id).replaceChild(text, $('attend_button_' + event_id).firstChild);
+                              new Ajax.Updater('conflicts','<%= url_for(:action=>:conflicts)%>');
+                           },
+                onFailure: function() { alert('An error occurred.'); }
+              });
   }
   function showResponse( request ) {
     alert(request.responseText);
@@ -29,6 +30,9 @@
 </script>
 
 <div id="conflicts">
+  <script type="text/javascript">
+    new Ajax.Updater('conflicts','<%= url_for(:action=>:conflicts)%>');
+  </script>
 </div>
 
 <% table.each_with_index do | day_table, index | %>
