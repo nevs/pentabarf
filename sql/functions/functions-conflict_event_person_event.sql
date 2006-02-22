@@ -230,7 +230,6 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_attendee(integer) RE
              duration
         FROM event_person
         INNER JOIN event_role USING (event_role_id)
-        INNER JOIN event_role_state USING (event_role_state_id)
         INNER JOIN event USING (event_id)
         INNER JOIN event_state USING (event_state_id)
         INNER JOIN event_state_progress USING (event_state_progress_id)
@@ -247,7 +246,6 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_attendee(integer) RE
         SELECT event_id
           FROM event_person
           INNER JOIN event_role USING (event_role_id)
-          INNER JOIN event_role_state USING (event_role_state_id)
           INNER JOIN event USING (event_id)
           INNER JOIN event_state USING (event_state_id)
           INNER JOIN event_state_progress USING (event_state_progress_id)
