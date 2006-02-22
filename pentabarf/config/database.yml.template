@@ -17,7 +17,7 @@ test:
 
 production:
   adapter: postgresql
-  database: pentabarf_production
+  database: pentabarf
   host: localhost
   username: pentabarf
   password: 
