@@ -142,6 +142,7 @@ class VisitorController < ApplicationController
   def schedule
     @content_title = 'Schedule'
     @events = Momomoto::View_schedule.find({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
+    @attended = Momomoto::View_event_person.find({:conference_id=>@conference.conference_id,:language_id=>@current_language_id,:person_id=>@user.person_id,:event_role_tag=>'attendee'})
   end
 
   def toggle_attendee
