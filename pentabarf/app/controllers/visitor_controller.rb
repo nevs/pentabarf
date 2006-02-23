@@ -6,7 +6,7 @@ class VisitorController < ApplicationController
   after_filter :compress
 
   def index
-    @content_title = "#{@conference.nil? ? '' : @conference.title + ' ' }Paper Submission"
+    @content_title = "#{@conference.nil? ? '' : @conference.title + ' ' }Visitor System"
     Momomoto::Base.ui_language_id = 120;
   end
 
@@ -42,14 +42,6 @@ class VisitorController < ApplicationController
     raise "Invalid activation sequence." unless params[:id].length == 64
     Momomoto::Activate_account.find({:activation_string=>params[:id]})
     redirect_to({:action=>:login,:conference=>@conference.acronym})
-  end
-
-  def conflicts_person
-    if @user.person_id > 0
-      render(:partial => 'conflicts_person')
-    else
-      redirect_to(:action=>:meditation)
-    end
   end
 
   def person
