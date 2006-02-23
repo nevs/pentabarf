@@ -150,6 +150,10 @@
           <td><label>Enable Submission</label></td>
           <td><%= check_box_tag('conference[f_submission_enabled]', 't', @conference.f_submission_enabled, {:tabindex => 0} ) %></td>
         </tr>
+        <tr>
+          <td><label>Enable Visitor System</label></td>
+          <td><%= check_box_tag('conference[f_visitor_enabled]', 't', @conference.f_visitor_enabled, {:tabindex => 0} ) %></td>
+        </tr>
       </table>
     </fieldset>
 
