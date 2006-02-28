@@ -34,16 +34,16 @@ CREATE OR REPLACE FUNCTION create_account(varchar(32),varchar(64),char(48), char
     FOR cur_person IN
       SELECT person_id FROM person WHERE person_id IN (SELECT person_id FROM account_activation WHERE account_creation < (now() + '-1 day')::timestamptz)
     LOOP
-      DELETE FROM person WHERE person_id = cur_person.person_id;
       DELETE FROM account_activation WHERE person_id = cur_person.person_id;
+      DELETE FROM person WHERE person_id = cur_person.person_id;
     END LOOP;
 
-    SELECT person_id FROM person WHERE login_name = cur_login_name;
+    SELECT INTO cur_person person_id FROM person WHERE login_name = cur_login_name;
     IF FOUND THEN
       RAISE EXCEPTION 'login name is already in use.';
     END IF;
 
-    SELECT person_id FROM person WHERE email_contact = cur_email_contact;
+    SELECT INTO cur_person person_id FROM person WHERE email_contact = cur_email_contact;
     IF FOUND THEN
       RAISE EXCEPTION 'email address already in use.';
     END IF;
