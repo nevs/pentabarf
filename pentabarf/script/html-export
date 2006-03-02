@@ -122,6 +122,7 @@ class HTML_Export
           write_file("images/event-#{@event.event_id}-48x48.png", resize_image( image, 48, 'PNG' ) )
           write_file("images/event-#{@event.event_id}-128x128.png", resize_image( image, 128, 'PNG' ) )
         end
+        @content_title = @event.title
         write_file("events/#{@event.event_id}.#{@language.tag}.html", render('event') )
       end
 
@@ -135,6 +136,7 @@ class HTML_Export
           write_file("images/speaker-#{@speaker.person_id}-48x48.jpg", resize_image( image, 48, 'JPG' ) )
           write_file("images/speaker-#{@speaker.person_id}-128x128.jpg", resize_image( image, 128, 'JPG' ) )
         end
+        @content_title = @speaker.name
         write_file("speakers/#{@speaker.person_id}.#{@language.tag}.html", render('speaker'))
       end
       make_images = false
