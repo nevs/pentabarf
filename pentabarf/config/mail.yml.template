@@ -1,7 +1,7 @@
-:address:    localhost
-:port:       25
-:domain:     localhost
+address:    localhost
+port:       25
+domain:     localhost
 #user_name:  
 #password:
 #authentication:
-:from:       noreply@pentabarf.org
+from:       noreply@pentabarf.org
