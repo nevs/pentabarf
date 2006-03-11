@@ -53,7 +53,7 @@ end
 # read mail configuration if available
 if File.exists?("#{RAILS_ROOT}/config/mail.yml")
   config = YAML.load_file("#{RAILS_ROOT}/config/mail.yml")
-  ActionMailer::Base.server_settings = config.collect do | a | a.to_sym end
+  ActionMailer::Base.server_settings = config.each do | k, v | config[k.to_sym] = v end
 end
 
 

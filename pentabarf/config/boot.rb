@@ -1,3 +1,4 @@
+
 unless defined?(RAILS_ROOT)
   root_path = File.join(File.dirname(__FILE__), '..')
   unless RUBY_PLATFORM =~ /mswin32/
@@ -61,6 +62,18 @@ module ActionView
       end
 
   end
+
+  module Helpers
+    module FormTagHelper
+      alias form_tag_default form_tag
+      undef start_form_tag
+      def form_tag(url_for_options = {}, options = {}, *parameters_for_url)
+        form_tag_default(url_for_options, options, *parameters_for_url) + hidden_field_tag('edittoken', @edittoken)
+      end
+      alias start_form_tag form_tag
+    end
+  end
+
 end
 
 module Momomoto

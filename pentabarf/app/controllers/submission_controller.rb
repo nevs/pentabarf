@@ -19,6 +19,7 @@ class SubmissionController < ApplicationController
   end
 
   def create_account
+    return redirect_to(:action=>:index,:conference=>@conference.acronym) unless params[:person]
     raise "Passwords do not match" if params[:person][:password] != params[:password]
     raise "Invalid email address" unless params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,3}$/)
     raise "This login name is already in use." unless Momomoto::Person.find({:login_name=>params[:person][:login_name]}).nil?

@@ -40,7 +40,7 @@ CREATE OR REPLACE FUNCTION create_account(varchar(32),varchar(64),char(48), char
 
     SELECT INTO cur_person person_id FROM person WHERE login_name = cur_login_name;
     IF FOUND THEN
-      RAISE EXCEPTION 'login name is already in use.';
+      RAISE EXCEPTION 'login name already in use.';
     END IF;
 
     SELECT INTO cur_person person_id FROM person WHERE email_contact = cur_email_contact;
