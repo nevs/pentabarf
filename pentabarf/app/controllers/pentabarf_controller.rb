@@ -592,6 +592,7 @@ class PentabarfController < ApplicationController
         if params[:conference_track]
           track = Momomoto::Conference_track.new
           params[:conference_track].each do | key, value |
+            next if value[:tag].to_s == ''
             modified = true if save_or_delete_record( track, {:conference_id => conference.conference_id, :conference_track_id => value[:conference_track_id]}, value)
           end
         end
