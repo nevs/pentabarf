@@ -24,8 +24,8 @@
           <% else %>
             <% @events.find_by_value({:event_id =>  row[room.room_id][:event_id] }) %>
             <td class="room event <%= sanitize_track( @events.conference_track_tag ) %>" rowspan="<%= row[room.room_id][:slots] %>">
-              <p class="title"><a href="<%= url_for(:action=>:event,:id=>@events.event_id) %>"><%= @events.title %></a></p> 
-              <p class="subtitle"><a href="<%= url_for(:action=>:event,:id=>@events.event_id) %>"><%= @events.subtitle %></a></p> 
+              <p class="title"><a href="<%= url_for(:action=>:event,:id=>@events.event_id) %>"><%= h(@events.title) %></a></p> 
+              <p class="subtitle"><a href="<%= url_for(:action=>:event,:id=>@events.event_id) %>"><%= h(@events.subtitle) %></a></p> 
               <ul class="speakers">
                 <% @events.each_by_value({:event_id=>row[room.room_id][:event_id]}) do | speaker | %>
                   <li><a href="<%= url_for(:action=>:speaker,:id=>speaker.person_id) %>"><%= h(speaker.name) %></a></li>
