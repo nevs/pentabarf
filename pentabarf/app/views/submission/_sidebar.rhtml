@@ -16,7 +16,7 @@
       <%= link_to( 'Events', {:action => :events,:conference=>@conference.acronym }, { :class => 'menu-item' } ) %>
     <% end %>
     <% if @user %>
-      <%= link_to( 'Logout', {:action => :logout}, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Logout', url_for({:only_path=>false}).gsub(/:\/\//,'://user@' ), { :class => 'menu-item' } ) %>
     <% end %>
     </div>
 
