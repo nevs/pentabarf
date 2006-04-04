@@ -43,6 +43,7 @@
       <% if @user.permission?('admin_login') %>
         <%= link_to( '<[link::admin]>', url_for({:controller=>'admin'}), { :class => 'menu-item' } ) %>
       <% end %>
+      <%= link_to( 'Logout', url_for({:only_path=>false}).gsub(/:\/\//,'://user@' ), { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::pentabarf_wiki]>', 'https://pentabarf.org/', { :class => 'menu-item' } ) %>
       <%= link_to( '<[link::pentabarf_bugtracker]>', 'https://trac.cccv.de/pentabarf/', { :class => 'menu-item' } ) %>
     </div>

@@ -50,12 +50,6 @@ class ApplicationController < ActionController::Base
     return false
   end
 
-  def logout( realm='Pentabarf', errormessage='Logged out.')
-    @response.headers["Status"] = "Unauthorized"
-    @response.headers["WWW-Authenticate"] = "Basic realm=\"#{realm}\""
-    render_text(errormessage , 401)
-  end
-
   def compress
     accepts = request.env['HTTP_ACCEPT_ENCODING']
     return unless accepts && accepts =~ /(x-gzip|gzip)/
