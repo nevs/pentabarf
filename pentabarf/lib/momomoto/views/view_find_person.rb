@@ -13,6 +13,7 @@ module Momomoto
         :s_nickname => Datatype::Textsearch.new( {:virtual=>true,:field=>[:nickname]} ),
         :s_email => Datatype::Textsearch.new( {:virtual=>true,:field=>[:email_contact]} ),
         :s_gender => Datatype::Boolsearch.new( {:virtual=>true,:field=>:gender} ),
+        :s_conference => Datatype::Keysearch.new( {:virtual=>true,:key_field=>'person_id',:subselect=>"SELECT person_id FROM event_person INNER JOIN event_role USING(event_role_id) INNER JOIN event USING(event_id) WHERE event_role.tag IN ('speaker', 'moderator', 'coordinator') AND event.conference_id IN (%%%)"} ),
         :person_id => Datatype::Integer.new( {} ),
         :name => Datatype::Varchar.new( {} ),
         :first_name => Datatype::Varchar.new( {:length=>64} ),

@@ -32,8 +32,10 @@ class PentabarfController < ApplicationController
     variables = ['name', 'conference_acronym', 'conference_title']
     if params[:mail][:recipients]
       recipients = case params[:mail][:recipients]
-        when 'speaker'  then   Momomoto::View_mail_accepted_speaker.find({:conference_id => @current_conference_id})
-        when 'missing_slides'   then   Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id})
+        when 'speaker'  then
+          Momomoto::View_mail_accepted_speaker.find({:conference_id => @current_conference_id})
+        when 'missing_slides' then
+          Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id})
         else raise 'You have to choose recipients'
       end
       recipients.each_unique(:person_id) do | r |

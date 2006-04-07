@@ -70,12 +70,23 @@
       criteria[2]['name'] = 'Gender';
       criteria[2]['value'] = 's_gender';
       criteria[2]['type'] = 'keyword';
+      criteria[3] = new Array();
+      criteria[3]['name'] = 'Conference';
+      criteria[3]['value'] = 's_conference';
+      criteria[3]['type'] = 'keyword';
+
 
       var valuelists = new Array();
       valuelists[2] = new Array();
       valuelists[2]['NULL'] = 'not set'
       valuelists[2]['t'] = 'male';
       valuelists[2]['f'] = 'female';
+
+      var valuelists = new Array();
+      valuelists[3] = new Array();
+      <% for conference in Momomoto::Conference.find({}) %>
+        valuelists[3][<%= conference.conference_id%>] = '<%= js(conference.acronym) %>';
+      <% end %>
 
       <% if @preferences[:search_person_advanced].length > 0 %>
         <% @preferences[:search_person_advanced].each do | key, value | %>
