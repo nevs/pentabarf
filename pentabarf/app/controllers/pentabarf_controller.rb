@@ -780,15 +780,15 @@ class PentabarfController < ApplicationController
     conditions = {}
     search.each do | row_number, value |
       next if value[:type].nil?
-      t_value = {}
-      t_value[:type] = value[:type].to_sym
-      t_value[:logic] = case value[:logic] when 'is','contains' then :eq
-                                         when 'is not', "does not contain" then :ne
-                                         else :eq
-                                         end
-      conditions[t_value[:type]] = {} unless conditions[value[:type]]
-      conditions[t_value[:type]][t_value[:logic]] = Array.new unless conditions[t_value[:type]][t_value[:logic]]
-      conditions[t_value[:type]][t_value[:logic]].push( value[:value].dup)
+      type  = value[:type].to_sym
+      logic = case value[:logic]
+                          when 'is','contains' then :eq
+                          when 'is not', "does not contain" then :ne
+                          else :eq
+                        end
+      conditions[type] = {} unless conditions[type]
+      conditions[type][logic] = Array.new unless conditions[type][logic]
+      conditions[type][logic].push( value[:value].dup)
     end
     conditions
   end
