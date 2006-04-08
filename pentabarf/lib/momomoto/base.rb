@@ -282,6 +282,7 @@ module Momomoto
         sql = "SELECT #{fields} FROM #{@table}"
       end
       sql += compile_where( conditions ) + ( @order  ? " ORDER BY #{@order}" : '' ) + ( @limit  ? " LIMIT #{@limit.to_s}" : '' ) + ";"
+      ApplicationController.jabber_message(sql) if self.class == View_find_person
       result = execute( sql )
       @resultset = []
       result.num_tuples.times do | i |
