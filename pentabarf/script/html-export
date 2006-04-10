@@ -28,7 +28,6 @@ class HTML_Export
     @conference = Momomoto::Conference.find({:conference_id=>conference}) if conference.to_s.match(/^\d+$/)
     @conference = Momomoto::Conference.find({:acronym=>conference}) unless @conference
     raise ArgumentError, "Conference '#{conference}' not found" unless @conference.length == 1
-    @content_title = @conference.subtitle
     @timezone = 'Europe/Berlin'
     @languages = Momomoto::View_conference_language.find({:conference_id=>@conference.conference_id,:translated_id=>120})
     raise ArgumentError, "no conference language set to export to." unless @languages.length > 0
@@ -93,6 +92,7 @@ class HTML_Export
     # export loop for each language
     @languages.each do | @language |
       puts "creating files for language #{@language.tag}"
+      @content_title = @conference.subtitle
       @template_cache = {}
       @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id => @language.language_id, :f_public => 't'}, nil, 'rank')
       @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@language.language_id}, nil, 'lower(title),lower(subtitle)' )
