@@ -98,8 +98,8 @@ class HTML_Export
       @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@language.language_id}, nil, 'lower(title),lower(subtitle)' )
       @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id})
 
-      write_file("schedule.#{@language.tag}.ics", fold(render('ical'))) if make_images
-      write_file("schedule.#{@language.tag}.xcs", render('xcal')) if make_images
+      write_file("schedule.#{@language.tag}.ics", fold(render('ical')))
+      write_file("schedule.#{@language.tag}.xcs", render('xcal'))
       write_file("index.#{@language.tag}.html", render('index'))
 
       # create schedule tables for every day
