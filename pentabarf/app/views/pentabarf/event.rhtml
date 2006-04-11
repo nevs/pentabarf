@@ -54,21 +54,21 @@
   <%= end_form_tag() %>
   <%= javascript_tag("new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } )") %>
 
-<% unless @event.new_record %>
-<div id="copy_event">
-  <fieldset>
-    <strong>Copy this event to another conference</strong>
-    <%= start_form_tag({:action => :copy_event, :id => @event.event_id}) %>
-      <table>
-        <tr>
-          <td><%= select_tag( 'conference_id', Momomoto::Conference.find({},nil,'lower(title)'), "conference_id", "title", @current_conference_id, { :tabindex => 0}, false ) %></td>
-          <td><%= submit_tag('Copy', {:style=>'font-weight: bold;'}) %></td>
-        </tr>
-      </table>
-    <%= end_form_tag() %>
-  </fieldset>
-</div>
-<% end %>
+  <% unless @event.new_record %>
+  <div id="copy_event">
+    <fieldset>
+      <strong>Copy this event to another conference</strong>
+      <%= start_form_tag({:action => :copy_event, :id => @event.event_id}) %>
+        <table>
+          <tr>
+            <td><%= select_tag( 'conference_id', Momomoto::Conference.find({},nil,'lower(title)'), "conference_id", "title", @current_conference_id, { :tabindex => 0}, false ) %></td>
+            <td><%= submit_tag('Copy', {:style=>'font-weight: bold;'}) %></td>
+          </tr>
+        </table>
+      <%= end_form_tag() %>
+    </fieldset>
+  </div>
+  <% end %>
 
 </div>
 <%= javascript_tag("switch_tab();") %>

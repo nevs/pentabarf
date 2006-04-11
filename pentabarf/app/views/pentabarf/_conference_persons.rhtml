@@ -1,24 +1,25 @@
 <div id="content-persons">
   <fieldset>
     <legend>Persons</legend>
-    <table id="team_table" class="hidden">
+    <table id="persons_table">
       <thead>
         <tr>
-          <th><[table::team::tag]></th>
-          <th><[form::remove]></th>
+          <th colspan="2"><[table::event_person::person]></th>
+          <th><[table::event_person::event_role]></th>
         </tr>
       </thead>
-      <tbody id="team_table_body">
+      <tbody id="person_table_body">
+      <% @persons = Momomoto::View_conference_persons.find({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id}) %>
+      <% @persons.each_unique(:person_id) do | person | %>
+        <tr>
+          <td><img src="<%= url_for(:controller=>'image',:action=>'person',:id=> person.person_id) %>"/></td>
+          <td><%= h(person.name) %></td>
+          <% roles = []
+             @persons.each_by_value({:person_id => person.person_id}) do | role | roles << h(role.event_role) end %>
+          <td><%= roles.join(', ') %></td>
+        </tr>
+      <% end %>
       </tbody>
     </table>
-    <script type="text/javascript">
-    <% for team in Momomoto::Team.find( {:conference_id => @conference.conference_id } ) %>
-      <%= "add_team('#{escape_javascript(team.team_id.to_s)}', '#{escape_javascript(team.tag)}');" %>
-    <% end %>
-    </script>
-    <button type="button" name="add_team" value="Add Team" title="Add a new team" tabindex="0" onClick="window.add_team();">Add Team</button>
-  </fieldset>
-  <fieldset>
-    <legend><[view::pentabarf::conference::tab::persons]></legend>
   </fieldset>
 </div>
