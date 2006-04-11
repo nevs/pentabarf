@@ -25,7 +25,7 @@
              @persons.each_by_value({:person_id => person.person_id}) do | role | roles << h(role.event_role) end %>
           <td>
             <a href="<%= url_for(:controller=>'pentabarf',:action=>'person',:id=>person.person_id) %>">
-              <%= roles.join(', ') %>
+              <%= roles.uniq.sort.join(', ') %>
             </a>
           </td>
         </tr>

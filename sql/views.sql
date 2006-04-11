@@ -994,7 +994,7 @@ ORDER BY view_person.person_id, event.event_id
 
 -- returns the list of persons for the conference_page
 CREATE OR REPLACE VIEW view_conference_persons AS
-  SELECT DISTINCT ON (lower(view_person.name), view_event_role.tag, view_event_role.language_id, view_person.person_id)
+  SELECT 
          view_person.person_id,
          view_person.name,
          view_event_role.tag AS event_role_tag,
