@@ -1,0 +1,68 @@
+<div id="content-related" class="content_tab">
+  <fieldset>
+    <legend>Related Events</legend>
+    <table>
+      <thead>
+      <tr>
+        <th></th>
+        <th><[table::event::title]></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for event in Momomoto::View_event_related.find({:event_id1 => @event.event_id}) %>
+      <tr>
+        <td><%= link_to(image_tag('icon-event-32x32.png'), {:action => :event, :id => event.event_id}) %></td>
+        <td><%= link_to("<strong>#{h(event.title)}</strong><br/><em>#{h(event.subtitle)}</em>", {:action => :event, :id => event.event_id}) %></td>
+      </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <table id="related_event_table" class="hidden">
+      <thead>
+        <tr>
+          <td>Event Title</td>
+          <td><[form::remove]></td>
+        </tr>
+      </thead>
+      <tbody id="related_event_table_body">
+      </tbody>
+    </table>
+    <button type="button" name="add_related_event" tabindex="0" onclick="window.add_related_event();">Add Related Event</button>
+    <script type="text/javascript">
+      event_titles = new Array();
+    <% for event in Momomoto::Event.find({:conference_id => @event.conference_id}) %>
+      event_titles[<%= event.event_id %>] = '<%= escape_javascript(event.title) %>';
+    <% end %>
+    </script>
+  </fieldset>
+
+  <fieldset>
+    <label>Event with same speakers</label>
+    <table>
+      <thead>
+        <tr>
+          <th/>
+          <th><[table::event::title]> / <[table::event::subtitle]></th>
+          <th/>
+        </tr>
+      <thead>
+      <tbody>
+        <% Momomoto::View_related_event_speaker.find({:event_id => @event.event_id}).each_unique(:event_id) do | event | %>
+        <tr>
+          <td><%= link_to(image_tag('icon-event-32x32.png'), {:action => :event, :id => event.event_id}) %></td>
+          <td><%= link_to("<strong>#{h(event.title)}</strong><br/><em>#{h(event.subtitle)}</em>", {:action => :event, :id => event.event_id}) %></td>
+          <td>
+            <ul>
+              <% event.each_by_value({:event_id => event.event_id}) do | speaker | %>
+                <li><a href="<%= url_for(:action=>:person,:id=>speaker.person_id) %>"><%= h(speaker.name) %></a></li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </fieldset>
+
+</div>

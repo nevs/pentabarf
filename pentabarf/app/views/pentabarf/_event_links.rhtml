@@ -1,0 +1,53 @@
+<div id="content-links" class="content_tab">
+
+  <fieldset>
+    <legend>Public Links</legend>
+    <table id="link_table" class="hidden">
+      <thead>
+        <tr>
+          <th colspan="2"><[table::event_link::url]></th>
+          <th><[table::event_link::title]></th>
+          <th><[form::remove]></th>
+        </tr>
+      </thead>
+      <tbody id="link_table_body">
+      </tbody>
+    </table>
+    <button type="button" name="add_link" value="Add Links" title="Add a new link to list of links" tabindex="0" onClick="window.add_link();">Add Link</button>
+    <script type="text/javascript">
+    <% for event_link in Momomoto::Event_link.find( {:event_id => @event.event_id} ) %>
+      add_link(<%= event_link.event_link_id  %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title) %>');
+    <% end %>
+    </script>
+  </fieldset>
+
+  <fieldset>
+    <legend>Internal Links</legend>
+    <table id="internal_link_table" class="hidden">
+      <thead>
+        <tr>
+          <th />
+          <th>Link Type</th>
+          <th>URL</th>
+          <th>Comment</th>
+          <th><[form::remove]></th>
+        </tr>
+      </thead>
+      <tbody id="internal_link_table_body">
+      </tbody>
+    </table>
+    <button type="button" name="add_internal_link" value="Add Internal Links" title="Add a new internal link to list of links" tabindex="0" onClick="window.add_internal_link();">Add Internal Link</button>
+  </fieldset>
+  <script type="text/javascript">
+    var link_types = new Array();
+    var link_type_prefix = new Array();
+    <% for link_type in Momomoto::View_link_type.find(:language_id => @current_language_id) %>
+      link_types[<%= link_type.link_type_id %>]= '<%= link_type.name %>';
+      link_type_prefix[<%= link_type.link_type_id %>]= '<%= link_type.template %>';
+    <% end %>
+    <% for event_link in Momomoto::View_event_link_internal.find( {:event_id => @event.event_id, :language_id => @current_language_id} ) %>
+      add_internal_link(<%= event_link.event_link_internal_id  %>,<%= event_link.link_type_id %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.description) %>');
+    <% end %>
+  </script>
+
+</div>

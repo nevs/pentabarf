@@ -1,0 +1,39 @@
+<div id="content-schedule" class="content_tab">
+
+  <fieldset>
+    <legend><[view::pentabarf::event::tab::schedule]></legend>
+    <table>
+      <tr>
+        <td><label><[table::event::day]></label></td>
+        <td><%= select_tag( 'event[day]', 1..@conference.days, "to_i", "to_i", @event.day, { :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label>Start Time</label></td>
+        <% t = Time.parse('2000-1-1 00:00:00')
+           start_times = []
+           while (t.day < 2)
+             start_times.push({:key => t.strftime('%H:%M:%S'), :value => (t + @conference.day_change.hour * 3600 + @conference.day_change.min * 60 + @conference.day_change.sec).strftime('%H:%M')})
+             t = t + @conference.timeslot_duration.hour * 3600 + @conference.timeslot_duration.min * 60 + @conference.timeslot_duration.sec
+           end
+        %>
+        <td><%= select_tag( 'event[start_time]', start_times, :key, :value, @event.start_time ? @event.start_time.strftime('%H:%M:%S') : nil , { :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::event::duration]></label></td>
+        <%  diff = @conference.timeslot_duration
+            slot = diff.hour * 3600 + diff.min * 60 + diff.sec
+            durations = []
+            for i in 1..@conference.max_timeslot_duration
+              durations.push( { :key => diff.strftime("%H:%M:%S"), :value => diff.strftime("%H:%M")})
+              diff += slot
+            end
+        %>
+        <td><%= select_tag( 'event[duration]', durations, :key, :value, @event.duration ? @event.duration.strftime('%H:%M:%S') : durations[@conference.default_timeslots - 1][:key], { :tabindex => 0 }, false ) %></td>
+      </tr>
+      <tr>
+        <td><label>Room</label></td>
+        <td><%= select_tag( 'event[room_id]', Momomoto::View_room.find({:language_id => @current_language_id, :conference_id => @event.conference_id}, nil, 'rank'), :room_id, :name, @event.room_id, { :tabindex => 0 } ) %></td>
+      </tr>
+    </table>
+  </fieldset>
+</div>

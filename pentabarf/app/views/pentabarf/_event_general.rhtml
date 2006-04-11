@@ -1,0 +1,88 @@
+<div id="content-general" class="content_tab">
+  <fieldset>
+    <legend><[view::pentabarf::event::tab::general]></legend>
+    <table>
+      <tr>
+        <td><label><[table::event::title]></label></td>
+        <td><%= text_field_tag('event[title]', @event.title, {:size => 60, :tabindex => 0} ) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::event::subtitle]></label></td>
+        <td><%= text_field_tag('event[subtitle]', @event.subtitle, {:size => 60, :tabindex => 0} ) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::event::tag]></label></td>
+        <td><%= text_field_tag('event[tag]', @event.tag, {:size => 32, :tabindex => 0} ) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::event::event_origin]></label></td>
+        <td><%= select_tag( 'event[event_origin_id]', Momomoto::View_event_origin.find({:language_id => @current_language_id}), "event_origin_id", "name", @event.event_origin_id, { :tabindex => 0}, false ) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::event::event_state]></label></td>
+        <td><%= select_tag( 'event[event_state_id]', states = Momomoto::View_event_state.find({:language_id => @current_language_id}), "event_state_id", "name", @event.event_state_id, { :tabindex => 0, :onchange => 'event_state_changed()' }, false ) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::event::event_state_progress]></label></td>
+        <td><%= select_tag( 'event[event_state_progress_id]', Momomoto::View_event_state_progress.find({:language_id => @current_language_id, :event_state_id => @event.event_state_id || states[0].event_state_id }), "event_state_progress_id", "name", @event.event_state_progress_id, { :tabindex => 0 }, false ) %></td>
+      </tr>
+      <script type="text/javascript">
+        var event_state_progress = new Array();
+        <% for state in states %>
+          event_state_progress[<%= state.event_state_id %>] = new Array();
+        <% end %>
+        <% for progress in Momomoto::View_event_state_progress.find({:language_id => @current_language_id}) %>
+          event_state_progress[<%= progress.event_state_id %>][<%= progress.event_state_progress_id %>] = '<%= escape_javascript(progress.name)%>';
+        <% end %>
+      </script>
+      <tr>
+        <td><label><[table::event::team]></label></td>
+        <td><%= select_tag( 'event[team_id]', Momomoto::View_team.find({:language_id => @current_language_id, :conference_id => @event.conference_id}), "team_id", "name", @event.team_id, { :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label for="f_public"><[table::event::f_public]></label></td>
+        <td><%= check_box_tag( 'event[f_public]', 't', @event.f_public, { :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label for="f_paper"><[table::event::f_paper]></label></td>
+        <td><%= check_box_tag( 'event[f_paper]', 't', @event.f_paper, { :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label for="f_slides"><[table::event::f_slides]></label></td>
+        <td><%= check_box_tag( 'event[f_slides]', 't', @event.f_slides, { :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::event::language]></label></td>
+        <td><%= select_tag( 'event[language_id]', Momomoto::View_conference_language.find({:translated_id=> @current_language_id,:conference_id=>@event.conference_id}), :language_id, :name, @event.language_id, { :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::event::track]></label></td>
+        <td><%= select_tag( 'event[conference_track_id]', Momomoto::View_conference_track.find({:language_id => @current_language_id, :conference_id => @event.conference_id}), "conference_track_id", "name", @event.conference_track_id, { :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::event::type]></label></td>
+        <td><%= select_tag( 'event[event_type_id]', Momomoto::View_event_type.find({:language_id => @current_language_id}), "event_type_id", "name", @event.event_type_id, { :tabindex => 0 } ) %></td>
+      </tr>
+      <% if @user.permission?('move_event') %>
+      <tr>
+        <td><label><[table::event::conference]></label></td>
+        <td><%= select_tag( 'event[conference_id]', Momomoto::Conference.find(), "conference_id", "acronym", @event.conference_id, { :tabindex => 0 }, false ) %></td>
+      </tr>
+      <% end %>
+      <tr>
+        <td><label>Created at</label></td>
+        <% first_log = Momomoto::Event_transaction.find({:event_id => @event.event_id},1,'changed_when') %>
+        <td><%= first_log.length == 1 ? first_log.changed_when : '' %></td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Logo</legend>
+    (square)
+    <%= file_field_tag('event_image[image]',{:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>
+    <%= check_box_tag('event_image[delete]', 't', false, {:tabindex => 0}) %>
+    <label for="event_image[delete]">delete picture</label>
+  </fieldset>
+
+</div>

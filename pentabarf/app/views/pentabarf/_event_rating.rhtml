@@ -1,0 +1,111 @@
+<div id="content-rating" class="content_tab">
+
+  <fieldset>
+    <legend>My Opinion</legend>
+    <%= text_area_tag('rating[remark]', @rating.remark, {:tabindex => 0, :rows => 3, :cols => 60}) %>
+  </fieldset>
+
+  <fieldset>
+    <legend>My Rating</legend>
+    <table class="rating">
+      <colgroup>
+        <col class="label" />
+        <col class="ratings" span="5" />
+        <col class="comment" />
+        <col class="no-rating" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th class="pre">--</th>
+          <th class="pre">-</th>
+          <th class="pre">o</th>
+          <th class="pre">+</th>
+          <th class="pre">++</th>
+          <th>No Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><label>Relevance</label></td>
+          <td><%= radio_button_tag('rating[relevance]', '1', @rating.relevance, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[relevance]', '2', @rating.relevance, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[relevance]', '3', @rating.relevance, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[relevance]', '4', @rating.relevance, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[relevance]', '5', @rating.relevance, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[relevance]', '', @rating.relevance, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Actuality</label></td>
+          <td><%= radio_button_tag('rating[actuality]', '1', @rating.actuality, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[actuality]', '2', @rating.actuality, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[actuality]', '3', @rating.actuality, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[actuality]', '4', @rating.actuality, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[actuality]', '5', @rating.actuality, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[actuality]', '', @rating.actuality, {:tabindex => 0}) %></td>
+        </tr>
+        <tr>
+          <td><label>Acceptance</label></td>
+          <td><%= radio_button_tag('rating[acceptance]', '1', @rating.acceptance, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[acceptance]', '2', @rating.acceptance, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[acceptance]', '3', @rating.acceptance, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[acceptance]', '4', @rating.acceptance, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[acceptance]', '5', @rating.acceptance, {:tabindex => 0}) %></td>
+          <td><%= radio_button_tag('rating[acceptance]', '', @rating.acceptance, {:tabindex => 0}) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </fieldset>
+
+  <fieldset>
+  <legend>Summary</legend>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th colspan="2">Rating</th>
+          <th>Total Votes</th>
+        </tr>
+      </thead>
+      <% ratings = Momomoto::Event_rating.find({:event_id => @event.event_id}) %>
+      <tbody>
+        <tr>
+          <td><label>Relevance</label></td>
+          <%= rating_bar( ratings, :relevance) %>
+        </tr>
+        <tr>
+          <td><label>Actuality</label></td>
+          <%= rating_bar( ratings, :actuality) %>
+        </tr>
+        <tr>
+          <td><label>Acceptance</label></td>
+          <%= rating_bar( ratings, :acceptance) %>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+      <tr>
+        <th colspan="2">Person</th>
+        <th colspan="2">Rating</th>
+        <th>Opinion</th>
+        <th>Timestamp</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for rating in Momomoto::View_event_rating.find({:event_id => @event.event_id }) %>
+      <% next if rating[:relevance].nil? && rating[:actuality].nil? && rating[:acceptance].nil? && rating[:remark].nil? %>
+      <tr>
+        <td><a href="<%= url_for({:action => :person, :id => rating.person_id}) %>" title="<%= h(rating.name) %>"><img src="<%= url_for({:controller => 'image', :action => :person, :id => rating.person_id}) %>" class="small" alt="" /></a></td>
+        <td><a href="<%= url_for({:action => :person, :id => rating.person_id}) %>" title="<%= h(rating.name) %>"><%= h(rating.name) %></a></td>
+        <%= rating_bar_small( rating, [:relevance, :actuality, :acceptance]) %>
+        <td><%= h(rating.remark) %></td>
+        <td><%= h(rating.eval_time.gsub(/[.+].*/, '')) %></td>
+      </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </fieldset>
+
+</div>
