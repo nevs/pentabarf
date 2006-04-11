@@ -12,11 +12,22 @@
       <% @persons = Momomoto::View_conference_persons.find({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id}) %>
       <% @persons.each_unique(:person_id) do | person | %>
         <tr>
-          <td><img src="<%= url_for(:controller=>'image',:action=>'person',:id=> person.person_id) %>"/></td>
-          <td><%= h(person.name) %></td>
+          <td>
+            <a href="<%= url_for(:controller=>'pentabarf',:action=>'person',:id=>person.person_id) %>">
+              <img src="<%= url_for(:controller=>'image',:action=>'person',:id=> person.person_id) %>"/></td>
+            </a>
+          <td>
+            <a href="<%= url_for(:controller=>'pentabarf',:action=>'person',:id=>person.person_id) %>">
+              <%= h(person.name) %>
+            </a>
+          </td>
           <% roles = []
              @persons.each_by_value({:person_id => person.person_id}) do | role | roles << h(role.event_role) end %>
-          <td><%= roles.join(', ') %></td>
+          <td>
+            <a href="<%= url_for(:controller=>'pentabarf',:action=>'person',:id=>person.person_id) %>">
+              <%= roles.join(', ') %>
+            </a>
+          </td>
         </tr>
       <% end %>
       </tbody>
