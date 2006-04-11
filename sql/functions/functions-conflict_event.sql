@@ -136,7 +136,7 @@ CREATE OR REPLACE FUNCTION conflict_event_missing_tag(INTEGER) RETURNS SETOF con
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
 -- returns all accepted events with inconsistent tag
-CREATE OR REPLACE FUNCTION conflict_event_inconsistent_tag(INTEGER) RETURNS SETOF conflict_event AS '
+CREATE OR REPLACE FUNCTION conflict_event_inconsistent_tag(INTEGER) RETURNS SETOF conflict_event AS $$
   DECLARE
     cur_conference_id ALIAS FOR $1;
     cur_event conflict_event%ROWTYPE;
@@ -148,13 +148,13 @@ CREATE OR REPLACE FUNCTION conflict_event_inconsistent_tag(INTEGER) RETURNS SETO
        WHERE event.tag IS NOT NULL AND
              conference_id = cur_conference_id AND
              event_state.tag = ''accepted'' AND
-             event.tag NOT SIMILAR TO ''[a-z0-9_]+''
+             event.tag NOT SIMILAR TO '[a-z0-9\\_]+'
     LOOP
       RETURN NEXT cur_event;
     END LOOP;
     RETURN;
   END;
-' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+$$ LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 
 -- returns all accepted events with no paper but the f_paper flag set
 CREATE OR REPLACE FUNCTION conflict_event_no_paper(INTEGER) RETURNS SETOF conflict_event AS '
