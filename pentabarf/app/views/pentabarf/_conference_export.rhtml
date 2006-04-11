@@ -1,0 +1,34 @@
+<div id="content-export">
+  <fieldset>
+    <legend>Export</legend>
+    <a href="<%= url_for(:controller => 'ical',:action => :conference,:id => @conference.conference_id) %>"><button type="button">iCal</button></a>
+    <a href="<%= url_for(:controller => 'xcal',:action => :conference,:id => @conference.conference_id) %>"><button type="button">xCal</button></a>
+    <a href="<%= url_for(:controller => 'schedule',:action => :index,:conference_id=>@conference.acronym) %>"><button type="button">HTML Export</button></a>
+    <table>
+      <tr>
+        <td><label>Release</label></td>
+        <td><%= text_field_tag('conference[release]', @conference.release, {:size => 60, :tabindex => 0}) %></td>
+      </tr>
+      <tr>
+        <td><label>Export Base URL</label></td>
+        <td><%= text_field_tag('conference[export_base_url]', @conference.export_base_url, {:size => 60,:tabindex => 0} ) %></td>
+      </tr>
+      <tr>
+        <td><label>Feedback Base URL</label></td>
+        <td><%= text_field_tag('conference[feedback_base_url]', @conference.feedback_base_url, {:size => 60,:tabindex => 0} ) %></td>
+      </tr>
+      <tr>
+        <td><label>Enable Feedback</label></td>
+        <td><%= check_box_tag('conference[f_feedback_enabled]', 't', @conference.f_feedback_enabled, {:tabindex => 0} ) %></td>
+      </tr>
+    </table>
+  </fieldset>
+  <fieldset>
+    <legend>CSS</legend>
+    <table>
+      <tr>
+        <td><%= text_area_tag('conference[css]', @conference.css, {:cols => 80, :rows => 40, :tabindex => 0} ) %></td>
+      </tr>
+    </table>
+  </fieldset>
+</div>
