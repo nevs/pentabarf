@@ -1,0 +1,59 @@
+<div id="content-account" class="content_tab">
+  <fieldset>
+    <legend>Account</legend>
+    <table>
+      <% if @person.permission?('modify_login') %>
+      <tr>
+        <td><label>Login Name</label></td>
+        <td><%= text_field_tag('person[login_name]', @person.login_name, {:tabindex => 0}) %></td>
+      </tr>
+      <% end %>
+      <% if @person.permission?('modify_login') || @person.person_id == @user.person_id %>
+      <tr>
+        <td><label>Password</label></td>
+        <td><%= password_field_tag('person[password]', nil, {:tabindex => 0}) %></td>
+      </tr>
+      <tr>
+        <td><label>Repeat Password</label></td>
+        <td><%= password_field_tag('password', nil, {:tabindex => 0}) %></td>
+      </tr>
+      <% end %>
+      <tr>
+        <td><label>Last activity</label></td>
+        <td><%= h(@person.last_login.to_s.gsub(/[+.].*/, '')) %></td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <% if @person.permission?('modify_login') || @person.person_id == @user.person_id %>
+  <fieldset>
+    <legend>Preferences</legend>
+    <table>
+      <tr>
+        <td><label>User Interface Language</label></td>
+        <td><%= select_tag('person[preferences][current_language_id]', Momomoto::View_language.find({:translated_id=> @current_language_id, :f_localized => 't'}), :language_id, :name, @person.preferences[:current_language_id], {:tabindex => 0}, false) %></td>
+      </tr>
+      <tr>
+        <td><label>Hits per Page for Find</label></td>
+        <td><%= text_field_tag('person[preferences][hits_per_page]', @person.preferences[:hits_per_page], {:tabindex => 0, :size => 5}) %></td>
+      </tr>
+    </table>
+  </fieldset>
+  <% end %>
+
+  <% if @user.permission?('modify_login') %>
+  <fieldset>
+    <legend>Permissions</legend>
+    <table>
+      <% person_role = Momomoto::Person_role.new %>
+      <% for role in Momomoto::View_role.find({:language_id => @current_language_id}) %>
+      <tr>
+        <td><label for="<%= h(role.tag) %>"><%= h(role.name) %></label></td>
+        <td><%= check_box_tag("person_role[#{role.role_id}]", '1', person_role.select({:person_id => @person.person_id, :role_id => role.role_id}) == 1 ? true : false , {:tabindex => 0}) %></td>
+      </tr>
+      <% end %>
+    </table>
+  </fieldset>
+  <% end %>
+
+</div>

@@ -11,7 +11,7 @@
     }
   }
 </script>
-<%= content_tabs_js(['general','persons','tracks','rooms','events','export','feedback'],'view::pentabarf::conference::tab') %>
+<%= content_tabs_js(['general','teams','tracks','rooms','events','persons','export','feedback'],'view::pentabarf::conference::tab') %>
 <div id="object-image">
   <%= image_tag('icon-conference-64x64.png', { :class => 'object-image' } ) %>
 </div>
@@ -25,15 +25,15 @@
 
   <%= render(:partial => 'conference_comment') %>
   <%= render(:partial => 'conference_general') %>
-  <%= render(:partial => 'conference_persons') %>
+  <%= render(:partial => 'conference_teams') %>
   <%= render(:partial => 'conference_tracks') %>
   <%= render(:partial => 'conference_rooms') %>
   <%= render(:partial => 'conference_events') %>
+  <%= render(:partial => 'conference_persons') %>
   <%= render(:partial => 'conference_export') %>
   <%= render(:partial => 'conference_feedback') %>
 
   <%= end_form_tag() %>
   <%= javascript_tag("new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } )") %>
-  <%= javascript_tag("new Form.Observer('content_form', 0, function(element, value ) { enable_save_button() } )") %>
 </div>
 <%= javascript_tag("switch_tab();") %>
