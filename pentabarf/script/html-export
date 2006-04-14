@@ -129,7 +129,7 @@ class HTML_Export
       # create all speaker pages and images
       puts "  creating speaker files"
       @speakers.each_unique(:person_id) do | @speaker |
-        @content_title = @speaker.title
+        @content_title = @speaker.name
         if make_images
           image = Momomoto::Person_image.find({:person_id=>@speaker.person_id})
           image = image.length == 1 && image.f_public ? image.image : File.new( @rails_root + '/public/images/icon-person-128x128.png').read
