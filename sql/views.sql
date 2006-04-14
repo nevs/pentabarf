@@ -690,7 +690,7 @@ CREATE OR REPLACE VIEW view_schedule_person AS
          speaker.event_id,
          speaker.title,
          speaker.subtitle,
-         conference_person.conference_id,
+         speaker.conference_id,
          conference_person.conference_person_id,
          conference_person.abstract,
          conference_person.description,
@@ -706,7 +706,7 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                     INNER JOIN mime_type USING (mime_type_id)
               WHERE f_public = 't'
          ) AS person_image USING (person_id)
-         INNER JOIN conference_person USING (person_id)
+         LEFT OUTER JOIN conference_person USING (person_id)
          INNER JOIN (
              SELECT person_id,
                     conference_id,
