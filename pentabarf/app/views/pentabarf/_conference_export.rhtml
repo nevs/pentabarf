@@ -4,6 +4,7 @@
     <a href="<%= url_for(:controller => 'ical',:action => :conference,:id => @conference.conference_id) %>"><button type="button">iCal</button></a>
     <a href="<%= url_for(:controller => 'xcal',:action => :conference,:id => @conference.conference_id) %>"><button type="button">xCal</button></a>
     <a href="<%= url_for(:controller => 'schedule',:action => :index,:conference_id=>@conference.acronym) %>"><button type="button">HTML Export</button></a>
+    <a href="<%= url_for(:controller => 'xml',:action => :schedule,:id=>@conference.conference_id) %>"><button type="button">XML Schedule</button></a>
     <table>
       <tr>
         <td><label>Release</label></td>
