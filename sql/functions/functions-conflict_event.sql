@@ -147,7 +147,7 @@ CREATE OR REPLACE FUNCTION conflict_event_inconsistent_tag(INTEGER) RETURNS SETO
              INNER JOIN event_state USING (event_state_id)
        WHERE event.tag IS NOT NULL AND
              conference_id = cur_conference_id AND
-             event_state.tag = ''accepted'' AND
+             event_state.tag = 'accepted' AND
              event.tag NOT SIMILAR TO '[a-z0-9\\_]+'
     LOOP
       RETURN NEXT cur_event;
