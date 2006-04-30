@@ -114,6 +114,12 @@
         <td><%= check_box_tag('conference[f_visitor_enabled]', 't', @conference.f_visitor_enabled, {:tabindex => 0} ) %></td>
       </tr>
     </table>
+    <% if @conference.f_submission_enabled %>
+      <a href="<%= url_for(:controller => 'submission',:conference => @conference.acronym) %>"><button type="button">Submission System</button></a>
+    <% end %>
+    <% if @conference.f_visitor_enabled %>
+      <a href="<%= url_for(:controller => 'visitor',:conference => @conference.acronym) %>"><button type="button">Visitor System</button></a>
+    <% end %>
   </fieldset>
   
   <fieldset>
