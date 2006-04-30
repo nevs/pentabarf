@@ -1,4 +1,5 @@
 require 'tables/account_activation'
+require 'tables/account_password_reset'
 require 'tables/attachment_type'
 require 'tables/attachment_type_localized'
 require 'tables/conference'

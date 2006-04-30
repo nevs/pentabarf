@@ -20,4 +20,14 @@ class Notifier < ActionMailer::Base
     @body["link"] = link
   end
 
+  def forgot_password( name, email, link )
+    @recipients = email
+    @subject = "Pentabarf password reset"
+    @from = @@config[:from]
+
+    # variables for usage in mail
+    @body["name"] = name
+    @body["link"] = link
+  end
+
 end
