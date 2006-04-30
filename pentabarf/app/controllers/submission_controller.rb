@@ -1,7 +1,7 @@
 class SubmissionController < ApplicationController
   before_filter :check_conference
-  before_filter :authorize, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout]
-  before_filter :check_permission, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout]
+  before_filter :authorize, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout, :forgot_password, :reset_password]
+  before_filter :check_permission, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout, :forgot_password, :reset_password]
   before_filter :transparent_authorize
   after_filter :compress
 
@@ -24,9 +24,9 @@ class SubmissionController < ApplicationController
     raise "Invalid email address" unless params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,3}$/)
     raise "This login name is already in use." unless Momomoto::Person.find({:login_name=>params[:person][:login_name]}).nil?
     raise "This email address is already in use." unless Momomoto::Person.find({:email_contact=>params[:person][:email_contact]}).nil?
+    Notifier::deliver_activate_account( account.login_name, account.email_contact, url_for({:action=>:activate_account,:conference=>@conference.acronym,:id=>account.activation_string}) )
     account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>random_string})
 
-    Notifier::deliver_activate_account( account.login_name, account.email_contact, url_for({:action=>:activate_account,:conference=>@conference.acronym,:id=>account.activation_string}) )
     redirect_to({:action=>:account_done,:conference=>@conference.acronym})
   end
 
@@ -38,6 +38,29 @@ class SubmissionController < ApplicationController
     raise "Invalid activation sequence." unless params[:id].length == 64
     Momomoto::Activate_account.find({:activation_string=>params[:id]})
     redirect_to({:action=>:login,:conference=>@conference.acronym})
+  end
+
+  def forgot_password
+    if params[:commit]
+      person = Momomoto::Person.find({:login_name=>params[:person][:login_name], :email_contact=>params[:person][:email_contact]})
+      raise "This combination of login name and contact email address does not exist!" if person.length != 1
+      reset = Momomoto::Account_password_reset.find({:person_id=>person.person_id})
+      if reset.length == 0
+        reset.create
+      elsif reset.password < DateTime.now - 1
+        reset.password = DateTime.now
+      else
+        raise "An activation link has already been sent to you recently."
+      end
+      reset.person_id = person.person_id
+      reset.activation_string = random_string
+      reset.write
+    end
+
+  end
+
+  def reset_password
+
   end
 
   def person
