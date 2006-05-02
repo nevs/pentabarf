@@ -8,6 +8,8 @@ xml.schedule do
     xml.city @conference.city
     xml.start @conference.start_date.strftime('%Y-%m-%d')
     xml.days @conference.days
+    xml.day_change @conference.day_change.strftime('%H:%M')
+    xml.timeslot_duration @conference.timeslot_duration.strftime('%H:%M')
   end
   @conference.days.times do | day |
     day += 1
