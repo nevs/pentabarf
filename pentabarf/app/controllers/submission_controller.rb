@@ -40,14 +40,6 @@ class SubmissionController < ApplicationController
     redirect_to({:action=>:login,:conference=>@conference.acronym})
   end
 
-  def reset_link_sent
-
-  end
-
-  def reset_password
-
-  end
-
   def person
     @content_title = 'Your Account Details'
     @person = Momomoto::Person.find({:person_id=>@user.person_id})

@@ -19,4 +19,12 @@ class UserController < ApplicationController
     end
   end
 
+  def reset_link_sent
+
+  end
+
+  def reset_password
+
+  end
+
 end
