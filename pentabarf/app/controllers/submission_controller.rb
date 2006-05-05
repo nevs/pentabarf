@@ -1,7 +1,7 @@
 class SubmissionController < ApplicationController
   before_filter :check_conference
-  before_filter :authorize, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout, :forgot_password, :reset_password]
-  before_filter :check_permission, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout, :forgot_password, :reset_password]
+  before_filter :authorize, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout, :reset_password]
+  before_filter :check_permission, :except => [:index, :create_account, :new_account, :activate_account, :account_done, :logout, :reset_password]
   before_filter :transparent_authorize
   after_filter :compress
 
@@ -38,22 +38,6 @@ class SubmissionController < ApplicationController
     raise "Invalid activation sequence." unless params[:id].length == 64
     Momomoto::Activate_account.find({:activation_string=>params[:id]})
     redirect_to({:action=>:login,:conference=>@conference.acronym})
-  end
-
-  def forgot_password
-    if params[:commit]
-      person = Momomoto::Person.find({:login_name=>params[:person][:login_name], :email_contact=>params[:person][:email_contact]})
-      raise "This combination of login name and contact email address does not exist!" if person.length != 1
-      reset = Momomoto::Account_password_reset.find({:person_id=>person.person_id})
-      if reset.length == 0 || reset.password < DateTime.now - 1
-        activation_string = random_string
-        Notifier::deliver_forgot_password( person.login_name, person.email_contact, url_for({:action=>:reset_password,:conference=>@conference.acronym,:id=>activation_string}) )
-        account = Momomoto::Account_forgot_password.find({:person_id=>person.person_id,:activation_string=>activation_string})
-        return redirect_to({:action=>:reset_link_sent})
-      else
-        raise "An activation link has already been sent to you recently."
-      end
-    end
   end
 
   def reset_link_sent
