@@ -67,8 +67,8 @@ CREATE OR REPLACE FUNCTION account_forgot_password(integer, char(64)) RETURNS IN
     cur_activation_string ALIAS FOR $2;
     cur_person RECORD;
   BEGIN
-    DELETE FROM account_password_reset WHERE password_reset < now() + '-1 day';   
-    
+    DELETE FROM account_password_reset WHERE password_reset < now() + '-1 day';
+
     SELECT INTO cur_person person_id FROM account_password_reset WHERE person_id = cur_person_id;
     IF FOUND THEN
       RAISE EXCEPTION 'This account has already been reset in the last 24 hours.';
@@ -78,3 +78,23 @@ CREATE OR REPLACE FUNCTION account_forgot_password(integer, char(64)) RETURNS IN
     RETURN cur_person_id;
   END;
 $$ LANGUAGE plpgsql RETURNS NULL ON NULL INPUT;
+
+CREATE OR REPLACE FUNCTION account_reset_password( text, char(64), char(48) ) RETURNS INTEGER AS $$
+  DECLARE
+    cur_login_name ALIAS FOR $1;
+    cur_activation_string ALIAS FOR $2;
+    cur_password ALIAS FOR $3;
+    cur_person_id INTEGER;
+  BEGIN
+    DELETE FROM account_password_reset WHERE password_reset < now() + '-1 day';
+    SELECT INTO cur_person_id person_id FROM account_password_reset WHERE activation_string = cur_activation_string;
+    IF NOT FOUND THEN
+      RAISE EXCEPTION 'invalid activation string.';
+    END IF;
+    UPDATE person SET password = cur_password WHERE person_id = cur_person_id AND login_name = cur_login_name;
+
+    RETURN cur_person_id;
+  END;
+$$ LANGUAGE plpgsql RETURNS NULL ON NULL INPUT;
+
+
