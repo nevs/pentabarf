@@ -315,7 +315,6 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (207,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (208, 120, 'Give Feedback');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (208, 144, 'Feedback abgeben');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209, 120, 'Attachments');
-INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209, 144, 'Anhnge');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (210, 120, 'Links');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (210, 144, 'Links');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (211, 120, 'Welcome to our feedback system. It collects feedback so that we have a chance to know what you think about the events of this conference.');
@@ -344,6 +343,7 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (222,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (222, 144, 'Feedback abschicken');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (223, 120, 'If you have anything particular to say about this event feel free to do so. Criticism, suggestions for improvement or other notes are very welcome.');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (223, 144, 'Wenn sie noch etwas bestimmtes über diese Veranstaltung sagen wollen dann können sie das hier tun. Kritik und Verbesserungsorschläge sind ebenfalls sehr willkommen.');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209, 144, 'Anhänge');
 
 
 --

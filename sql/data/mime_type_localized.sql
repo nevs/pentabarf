@@ -31,7 +31,6 @@ INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (7, 120
 INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (19, 144, 'Bittorrent');
 INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (19, 120, 'Bittorrent');
 INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (18, 144, 'BZ2-komprimierte Datei');
-INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (18, 120, 'bzip2-compressed data');
 INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (15, 144, 'gzip-komprimierte Datei');
 INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (15, 120, 'gzip-compressed file');
 INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (10, 144, 'MSDOS-Programm');
@@ -52,6 +51,7 @@ INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (6, 144
 INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (6, 120, 'text');
 INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (20, 144, 'Rich Text Format');
 INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (20, 120, 'rich text format');
+INSERT INTO mime_type_localized (mime_type_id, language_id, name) VALUES (18, 120, 'bzip2-compressed file');
 
 
 --
