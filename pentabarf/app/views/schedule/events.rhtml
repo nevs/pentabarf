@@ -2,8 +2,8 @@
   <table class="event-index">
     <thead>
       <tr>
-        <th class="event">Event</th>
-        <th class="speaker">Speaker</th>
+        <th class="event"><[schedule::event]></th>
+        <th class="speaker"><[schedule::speakers]></th>
       </tr>
     </thead>
     <tbody>
@@ -13,11 +13,11 @@
           <a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><img src="<%= event_image(event.event_id, 48) %>" /></a>
           <p class="title"><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.title) %></a></p>
           <p class="subtitle"><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.subtitle) %></a></p>
-          <p>
+          <p class="info">
             <a href="<%= url_for(:action=>:event,:id=>event.event_id) %>">
-              <strong><[table::event::type]></strong>: <span class="type"><%= h(event.event_type) %></span><br/>
-              <strong><[table::event::track]></strong>: <span class="track"><%= h(event.conference_track) %></span><br/>
-              <strong><[table::event::language]></strong>: <span class="language"><%= h(event.language) %></span><br/>
+              <strong><[schedule::event_type]></strong>: <span class="type"><%= h(event.event_type) %></span><br/>
+              <strong><[schedule::conference_track]></strong>: <span class="track"><%= h(event.conference_track) %></span><br/>
+              <strong><[schedule::language]></strong>: <span class="language"><%= h(event.language) %></span><br/>
             </a>
           </p>
         </td>

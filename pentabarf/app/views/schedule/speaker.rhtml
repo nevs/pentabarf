@@ -3,7 +3,7 @@
   <div id="infobox">
     <table>
       <tr>
-        <th colspan="2">Events</th>
+        <th colspan="2"><[schedule::events]></th>
       <tr>
       <% @speakers.each_by_value({:person_id=>@speaker.person_id}) do | event | %>
         <tr>
@@ -34,7 +34,7 @@
   <% links = Momomoto::Conference_person_link.find({:conference_person_id=>@speaker.conference_person_id}) %>
   <% if links.length > 0 %>
   <div class="links">
-    <h2>Links</h2>
+    <h2><[schedule::links]></h2>
     <ul>
       <% links.each do | link | %>
       <li><a href="<%= link.url %>"><%= h(link.title ? link.title : link.url) %></a></li>

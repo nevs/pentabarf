@@ -1,9 +1,9 @@
 <ul>
   <% @conference.days.times do | day | %>
-  <li><a href="<%= url_for({:action=>:day,:id=>day + 1}) %>"><span class="normal"><[day]> <%= day + 1 %></span></a></li>
+  <li><a href="<%= url_for({:action=>:day,:id=>day + 1}) %>"><span class="normal"><[day]><%= day + 1 %></span></a></li>
   <% end %>
-  <li><a href="<%= url_for({:action=>:speakers}) %>"><span class="normal">Speakers</span></a></li>
-  <li><a href="<%= url_for({:action=>:events}) %>"><span class="normal">Events</span></a></li>
+  <li><a href="<%= url_for({:action=>:speakers}) %>"><span class="normal"><[schedule::speakers]></span></a></li>
+  <li><a href="<%= url_for({:action=>:events}) %>"><span class="normal"><[schedule::events]></span></a></li>
   <li><a href="<%= url_for(:controller=>'ical',:action=>:conference,:id=>@conference.conference_id) %>">iCal</a></li>
   <li><a href="<%= url_for(:controller=>'xcal',:action=>:conference,:id=>@conference.conference_id) %>">xCal</a></li>
 </ul>

@@ -108,6 +108,7 @@ class HTML_Export
         write_file("day_#{@day}.#{@language.tag}.html", render('day'))
       end
 
+      write_file("days.#{@language.tag}.html", render('days'))
       write_file("speakers.#{@language.tag}.html", render('speakers'))
       write_file("events.#{@language.tag}.html", render('events'))
 

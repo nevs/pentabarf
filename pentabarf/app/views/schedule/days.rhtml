@@ -1,7 +1,9 @@
 <div id="schedule" class="section">
-
-  <h1><[schedule::schedule]> <[schedule::day]> <%= h(@day) %></h1>
-  <% table = schedule_table( @conference, @events )[@day - 1] %>
+  <% big_table = schedule_table( @conference, @events ) %>
+  <% @conference.days.times do | day | %>
+  <% table = big_table[ day ] %>
+  <% day = day + 1 %>
+  <h1><[schedule::schedule]> <[schedule::day]> <%= h(day) %></h1>
 
   <table>
     <thead>
@@ -45,5 +47,7 @@
       <% end %>
     </tbody>    
   </table>
+  <% end %>
 
 </div>
+

@@ -13,6 +13,12 @@ class ScheduleController < ApplicationController
     @events = Momomoto::View_schedule_event.find({:day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated_id=>@current_language_id}, nil, 'lower(title),lower(subtitle)' )
   end
 
+  def days
+    @content_title = "Schedule Overview"
+    @rooms = Momomoto::View_room.find({:conference_id=>@conference.conference_id, :language_id=>@current_language_id, :f_public=>'t'}, nil, 'rank')
+    @events = Momomoto::View_schedule_event.find({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id}, nil, 'lower(title),lower(subtitle)' )
+  end
+
   def speaker
     @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id}, nil, 'lower(name)')
     @speaker = Momomoto::View_conference_person.find({:conference_id=>@conference.conference_id,:person_id=>params[:id]})
