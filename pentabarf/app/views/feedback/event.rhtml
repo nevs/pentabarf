@@ -1,5 +1,5 @@
-<div id="event" class="section">
-  <p>Welcome to our feedback system. It collects your feedback so that we have a chance to know what you think about the events of this conference.</p>
+<div id="event-feedback" class="section">
+  <p class="welcome"><[feedback::welcome_to_the_feedback_system]></p>
   <h1 class="title"><%= h(@event.title) %></h1>
   <p class="subtitle"><%= h(@event.subtitle) %></p>
   
@@ -7,8 +7,8 @@
   
   <%= start_form_tag({:action=>:save_event,:id=>@event.event_id}) %>
   <fieldset>
-    <legend>My Rating</legend>
-    <p>Please answer up to five questions regarding you and your personal perception of the event under discussion. If you don't know an answer to a particular question, just leave it as it is.</p>
+    <legend><[feedback::my_rating]></legend>
+    <p><[feedback::please_answer_these_questions]></p>
     <table class="rating">
       <colgroup>
         <col class="label" />
@@ -17,18 +17,18 @@
       </colgroup>
       <thead>
         <tr>
-          <th>Category</th>
+          <th><[feedback::rating_category]></th>
           <th class="pre">--</th>
           <th class="pre">-</th>
           <th class="pre">o</th>
           <th class="pre">+</th>
           <th class="pre">++</th>
-          <th>No Rating</th>
+          <th><[feedback::no_rating]></th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><label>How would you rate your personal knowledge about this topic?</label></td>
+          <td><label><[feedback::question_participant_knowledge]></label></td>
           <td><input type="radio" name="participant_knowledge" value="1" tabindex="1" /></td>
           <td><input type="radio" name="participant_knowledge" value="2" tabindex="2" /></td>
           <td><input type="radio" name="participant_knowledge" value="3" tabindex="3" /></td>
@@ -37,7 +37,7 @@
           <td><input type="radio" name="participant_knowledge" value="0" tabindex="6" checked="checked" /></td>
         </tr>
         <tr>
-          <td><label>How important is this topic for this conference?</label></td>
+          <td><label><[feedback::question_topic_importance]></label></td>
           <td><input type="radio" name="topic_importance" value="1" tabindex="7" /></td>
           <td><input type="radio" name="topic_importance" value="2" tabindex="8" /></td>
           <td><input type="radio" name="topic_importance" value="3" tabindex="9" /></td>
@@ -46,7 +46,7 @@
           <td><input type="radio" name="topic_importance" value="0" tabindex="12" checked="checked" /></td>
         </tr>
         <tr>
-          <td><label>What is your impression of the quality of the content?</label></td>
+          <td><label><[feedback::question_content_quality]></label></td>
           <td><input type="radio" name="content_quality" value="1" tabindex="13" /></td>
           <td><input type="radio" name="content_quality" value="2" tabindex="14" /></td>
           <td><input type="radio" name="content_quality" value="3" tabindex="15" /></td>
@@ -55,7 +55,7 @@
           <td><input type="radio" name="content_quality" value="0" tabindex="18" checked="checked" /></td>
         </tr>
         <tr>
-          <td><label>What is your impression of the presentation?</label></td>
+          <td><label><[feedback::question_presentation_quality]></label></td>
           <td><input type="radio" name="presentation_quality" value="1" tabindex="19" /></td>
           <td><input type="radio" name="presentation_quality" value="2" tabindex="20" /></td>
           <td><input type="radio" name="presentation_quality" value="3" tabindex="21" /></td>
@@ -64,7 +64,7 @@
           <td><input type="radio" name="presentation_quality" value="0" tabindex="24" checked="checked" /></td>
         </tr>
         <tr>
-          <td><label>How big was the involvement/integration of the audience?</label></td>
+          <td><label><[feedback::question_audience_involvement]></label></td>
           <td><input type="radio" name="audience_involvement" value="1" tabindex="25" /></td>
           <td><input type="radio" name="audience_involvement" value="2" tabindex="26" /></td>
           <td><input type="radio" name="audience_involvement" value="3" tabindex="27" /></td>
@@ -77,12 +77,12 @@
   </fieldset>
 
   <fieldset>
-    <legend>My Opinion</legend>
-    <p>If you have anything particular to say about this event feel free to do so. Criticism, suggestions for improvement or other notes are very welcome.</p>
+    <legend><[feedback::my_opinion]></legend>
+    <p><[feedback::criticism]></p>
     <textarea name="remark" cols="80" rows="7" tabindex="31"></textarea>
   </fieldset>
   <fieldset>
-  <input type="submit"  value="Send" tabindex="32" />
+  <input type="submit"  value="<[feedback::submit]>" tabindex="32" />
   </fieldset>
   <%= end_form_tag() %>
 </div>

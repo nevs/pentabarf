@@ -2,9 +2,9 @@
   <ul>
     <li><a href="<%= @conference.export_base_url + "index.#{@language.tag}.html" %>"><span class="normal">Index</span></a></li>
     <% @conference.days.times do | day | %>
-      <li><a href="<%= @conference.export_base_url + "day_#{day + 1}.#{@language.tag}.html" %>"><span class="normal"><[day]> <%= day + 1 %></span></a></li>
+      <li><a href="<%= @conference.export_base_url + "day_#{day + 1}.#{@language.tag}.html" %>"><span class="normal"><[schedule::day]> <%= day + 1 %></span></a></li>
     <% end %>
-    <li><a href="<%= @conference.export_base_url + "speakers.#{@language.tag}.html" %>"><span class="normal">Speakers</span></a></li>
-    <li><a href="<%= @conference.export_base_url + "events.#{@language.tag}.html" %>"><span class="normal">Events</span></a></li>
+    <li><a href="<%= @conference.export_base_url + "speakers.#{@language.tag}.html" %>"><span class="normal"><[schedule::speakers]></span></a></li>
+    <li><a href="<%= @conference.export_base_url + "events.#{@language.tag}.html" %>"><span class="normal"><[schedule::events]></span></a></li>
   </ul>
 </div>

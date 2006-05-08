@@ -10,7 +10,9 @@
       <% @events.each_unique(:event_id) do |event | %>
       <tr>
         <td class="event <%= sanitize_track(event.conference_track_tag) %>">
-          <a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><img src="<%= event_image(event.event_id, 48) %>" /></a>
+          <a href="<%= url_for(:action=>:event,:id=>event.event_id) %>">
+            <img class="event-image" src="<%= event_image(event.event_id, 48) %>" />
+          </a>
           <p class="title"><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.title) %></a></p>
           <p class="subtitle"><a href="<%= url_for(:action=>:event,:id=>event.event_id) %>"><%= h(event.subtitle) %></a></p>
           <p class="info">

@@ -173,7 +173,7 @@ class HTML_Export
         return "" unless @attachments.find_by_value({:event_attachment_id=>url[:id]})
         return "#{base}attachments/#{@attachments.event_attachment_id}-#{@attachments.filename}"
       elsif url[:controller].to_sym == :feedback
-        return "#{@conference.feedback_base_url}feedback/#{@conference.acronym}/event/#{url[:id]}" 
+        return "#{@conference.feedback_base_url}feedback/#{@conference.acronym}/event/#{url[:id]}.#{@language.tag}.html" 
       elsif url[:controller].to_sym == :ical 
         return "#{base}schedule.#{@language.tag}.ics"
       elsif url[:controller].to_sym == :xcal 
