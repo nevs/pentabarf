@@ -318,6 +318,32 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209, 144, 'Anhnge');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (210, 120, 'Links');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (210, 144, 'Links');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (211, 120, 'Welcome to our feedback system. It collects feedback so that we have a chance to know what you think about the events of this conference.');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (211, 144, 'Willkommen beim Feedback-System.');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (212, 120, 'My Rating');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (212, 144, 'Meine Bewertung');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (213, 120, 'My Opinion');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (213, 144, 'Meine Meinung');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (214, 120, 'Please answer up to five questions regarding you and your personal perception of the event under discussion. If you don''t know an answer to a particular question, just leave it as it is.');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (214, 144, 'Bitte beantworten sie bis zu fünf der folgenden Fragen über sie und ihren personlichen Eindruck dieser Veranstaltung. Wenn sie zu einer Frage keine Antwort wissen, dann können sie sie auslassen.');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (215, 120, 'Category');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (215, 144, 'Kategorie');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (216, 120, 'No rating');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (216, 144, 'Keine Bewertung');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (217, 120, 'How would you rate your personal knowledge about this topic?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (218, 120, 'How important is this topic for this conference?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (219, 120, 'What is your impression of the quality of the content?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (220, 120, 'What is your impression of the presentation?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (221, 120, 'How big was the involvement/integration of the audience?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (217, 144, 'Wie würden sie ihr eigenes Wissen über dieses Thema einschätzen?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (218, 144, 'Wie wichtig ist dieses Thema für diese Konferenz?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (219, 144, 'Was ist ihr Eindruck von der Qualität des Inhalts?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (220, 144, 'Was ist ihr Eindruck von der Presentation?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (221, 144, 'Wie groß war die Einbeziehung des Publikums?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (222, 120, 'Submit');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (222, 144, 'Feedback abschicken');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (223, 120, 'If you have anything particular to say about this event feel free to do so. Criticism, suggestions for improvement or other notes are very welcome.');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (223, 144, 'Wenn sie noch etwas bestimmtes über diese Veranstaltung sagen wollen dann können sie das hier tun. Kritik und Verbesserungsorschläge sind ebenfalls sehr willkommen.');
 
 
 --

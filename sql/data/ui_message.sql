@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 210, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 223, true);
 
 
 --
@@ -172,6 +172,19 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (207, 'schedule::did_you_atte
 INSERT INTO ui_message (ui_message_id, tag) VALUES (208, 'schedule::give_feedback');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (209, 'schedule::attachments');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (210, 'schedule::links');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (211, 'feedback::welcome_to_the_feedback_system');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (212, 'feedback::my_rating');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (213, 'feedback::my_opinion');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (214, 'feedback::please_answer_these_questions');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (215, 'feedback::rating_category');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (216, 'feedback::no_rating');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (217, 'feedback::question_participant_knowledge');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (218, 'feedback::question_topic_importance');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (219, 'feedback::question_content_quality');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (220, 'feedback::question_presentation_quality');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (221, 'feedback::question_audience_involvement');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (222, 'feedback::submit');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (223, 'feedback::criticism');
 
 
 --
