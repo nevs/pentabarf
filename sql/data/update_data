@@ -9,7 +9,7 @@ import = File.open('import.sql', 'w')
 import.puts("BEGIN TRANSACTION;")
 tables.each do | table | 
   puts "dumping table #{table}"
-  system("pg_dump #{database} -a -D -O -x -U #{user} -t #{table} > #{table}.sql")
+  system("pg_dump #{database} -i -a -D -O -x -U #{user} -t #{table} > #{table}.sql")
   import.puts("\\i #{table}.sql")
 end
 import.puts("COMMIT TRANSACTION;")

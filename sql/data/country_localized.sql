@@ -74,6 +74,7 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (95, 144, '
 INSERT INTO country_localized (country_id, language_id, name) VALUES (95, 120, 'Croatia');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (182, 144, 'Rumaenien');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (182, 120, 'Romania');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (133, 133, 'Monaco');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (215, 120, 'Turkey');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (6, 144, 'Albanien');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (6, 120, 'Albania');
@@ -442,7 +443,6 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (236, 133, 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (150, 133, 'Mexique');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (70, 133, 'MicronÃsie, Ãtats fÃdÃrÃs de');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (134, 133, 'Moldova, rÃpublique de');
-INSERT INTO country_localized (country_id, language_id, name) VALUES (133, 133, 'Monaco');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (140, 133, 'Mongolie');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (145, 133, 'Montserrat');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (152, 133, 'Mozambique');

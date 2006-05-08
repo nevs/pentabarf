@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 194, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 210, true);
 
 
 --
@@ -156,6 +156,22 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (30, 'view::pentabarf::find_e
 INSERT INTO ui_message (ui_message_id, tag) VALUES (31, 'view::pentabarf::find_event::tab::advanced');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (32, 'view::pentabarf::find_conference::tab::simple');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (33, 'view::pentabarf::find_conference::tab::advanced');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (195, 'schedule::speakers');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (196, 'schedule::speaker');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (197, 'schedule::event');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (198, 'schedule::events');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (199, 'schedule::day');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (200, 'schedule::schedule');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (201, 'schedule::room');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (202, 'schedule::start_time');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (203, 'schedule::language');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (204, 'schedule::conference_track');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (205, 'schedule::event_type');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (206, 'schedule::event_duration');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (207, 'schedule::did_you_attend_this_event');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (208, 'schedule::give_feedback');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (209, 'schedule::attachments');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (210, 'schedule::links');
 
 
 --

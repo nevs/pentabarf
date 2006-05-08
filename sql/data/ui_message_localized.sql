@@ -82,6 +82,7 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (123,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (124, 120, 'Paper');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (124, 144, 'Paper');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (125, 120, 'Slides');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (35, 120, 'Persons');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (126, 120, 'Language');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (126, 144, 'Sprache');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (127, 120, 'Track');
@@ -157,7 +158,7 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (32, 
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (32, 144, 'Einfach');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (34, 120, 'General');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (34, 144, 'Allgemein');
-INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (35, 120, 'Persons');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (195, 120, 'Speakers');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (35, 144, 'Personen');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (36, 120, 'Tracks');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (36, 144, 'Tracks');
@@ -286,6 +287,37 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (168,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (168, 144, 'Weitere Veranstaltungen in anderen Konferenzen');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (132, 120, 'Role state');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (125, 144, 'Folien');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (195, 144, 'Referenten');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (196, 120, 'Speaker');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (196, 144, 'Referent');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (197, 120, 'Event');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (197, 144, 'Veranstaltung');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (198, 144, 'Veranstaltungen');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (198, 120, 'Events');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (199, 120, 'day');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (199, 144, 'Tag');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (200, 120, 'Schedule');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (200, 144, 'Programm');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (201, 120, 'Room');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (201, 144, 'Raum');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (202, 120, 'Start time');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (202, 144, 'Beginn');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (206, 120, 'Duration');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (206, 144, 'Dauer');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (203, 120, 'Language');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (203, 144, 'Sprache');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (204, 120, 'Track');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (204, 144, 'Track');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (205, 120, 'Type');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (205, 144, 'Typ');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (207, 120, 'Did you attend this event?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (207, 144, 'Haben Sie diese Veranstaltung besucht?');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (208, 120, 'Give Feedback');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (208, 144, 'Feedback abgeben');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209, 120, 'Attachments');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209, 144, 'Anhnge');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (210, 120, 'Links');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (210, 144, 'Links');
 
 
 --
