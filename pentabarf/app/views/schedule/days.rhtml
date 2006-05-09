@@ -15,6 +15,15 @@
         <% end %>
       </tr>
     </thead>
+    <tfoot>
+      <tr class="odd">
+        <th class="time"/>
+
+        <% @rooms.each do | room | %>
+        <th><strong><%= h(room.name) %></strong></th>
+        <% end %>
+      </tr>
+    </tfoot>
     <tbody>
       <% table.each do | row | %>
       <tr>
@@ -45,7 +54,7 @@
         <% end %>
         </tr>
       <% end %>
-    </tbody>    
+    </tbody>
   </table>
   <% end %>
 
