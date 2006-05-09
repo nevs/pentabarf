@@ -1,4 +1,5 @@
 require 'functions/account_forgot_password'
+require 'functions/account_reset_password'
 require 'functions/activate_account'
 require 'functions/add_attendee'
 require 'functions/create_account'
