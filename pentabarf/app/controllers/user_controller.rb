@@ -1,6 +1,6 @@
 class UserController < ApplicationController
 
-  before_filter :authorize, :except => [:forgot_password]
+  before_filter :authorize, :except => [:forgot_password, :reset_password]
   after_filter :compress
 
   def new_account
@@ -46,11 +46,17 @@ class UserController < ApplicationController
   end
 
   def reset_link_sent
-
   end
 
   def reset_password
-
+    if params[:commit] && params[:id]
+      if Momomoto::Account_password_reset.select({:activation_string=>params[:id]}) == 1
+        raise "Passwords do not match." if params[:person][:password] != params[:password]
+        Momomoto::Account_reset_password.select({:activation_string=>params[:id],:login_name=>params[:person][:login_name], :password=>params[:person][:password]})
+        redirect_to(:action=>:index)
+      else
+        raise "Invalid activation sequence."
+      end
+    end
   end
-
 end
