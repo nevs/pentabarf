@@ -318,6 +318,7 @@ CREATE TABLE conference (
   remark TEXT,
   f_deleted BOOL NOT NULL DEFAULT FALSE,
   release VARCHAR(32),
+  homepage TEXT,
   export_base_url VARCHAR(256),
   export_css_file VARCHAR(256),
   feedback_base_url VARCHAR(256),

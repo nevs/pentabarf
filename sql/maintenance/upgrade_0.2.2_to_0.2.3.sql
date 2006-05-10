@@ -7,3 +7,6 @@ CREATE TABLE account_password_reset (
   FOREIGN KEY (person_id) REFERENCES person (person_id)
 ) WITHOUT OIDS;
 
+ALTER TABLE conference ADD COLUMN homepage TEXT;
+ALTER TABLE conference_logging ADD COLUMN homepage TEXT;
+
