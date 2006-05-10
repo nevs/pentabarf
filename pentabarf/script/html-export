@@ -5,6 +5,8 @@ require 'lib/momomoto/tables'
 require 'lib/momomoto/views'
 require 'app/helpers/application_helper'
 require 'app/helpers/schedule_helper'
+require 'rubygems'
+require 'action_view'
 require 'erb'
 require 'RMagick'
 require 'uri'
@@ -19,6 +21,8 @@ class HTML_Export
   include ERB::Util
   include ApplicationHelper
   include ScheduleHelper
+
+  IMAGE_SIZES = [32,48,128]
 
   LOCK_FILE = '.lockfile'
 
@@ -48,6 +52,10 @@ class HTML_Export
       filename = "#{@rails_root}/app/views/ical/conference.rhtml"
       @content_for_layout = render_template( filename )
       render_template("#{@rails_root}/app/views/layouts/ical.rhtml")
+    elsif options == 'xml'
+      filename = "#{@rails_root}/app/views/xml/schedule.rxml"
+      @content_for_layout = render_template( filename )
+      render_template("#{@rails_root}/app/views/layouts/xcal.rhtml")
     elsif options == 'xcal'
       filename = "#{@rails_root}/app/views/xcal/conference.rhtml"
       @content_for_layout = render_template( filename )
@@ -89,6 +97,13 @@ class HTML_Export
       write_file("attachments/#{file.event_attachment_id}-#{file.filename}", file.data) unless file.nil?
     end
 
+    puts "writing conference images"
+    image = Momomoto::Conference_image.find({:conference_id=>@conference.conference_id})
+    image = image.length == 1 ? image.image : File.new( @rails_root + '/public/images/icon-conference-128x128.png').read
+    IMAGE_SIZES.each do | size |
+      write_file("images/conference-#{size}x#{size}.png", resize_image( image, size, 'PNG' ) )
+    end
+
     # export loop for each language
     @languages.each do | @language |
       puts "creating files for language #{@language.tag}"
@@ -120,9 +135,9 @@ class HTML_Export
         if make_images
           image = Momomoto::Event_image.find({:event_id=>event.event_id})
           image = image.length == 1 ? image.image : File.new( @rails_root + '/public/images/icon-event-128x128.png').read
-          write_file("images/event-#{@event.event_id}-32x32.png", resize_image( image, 32, 'PNG' ) )
-          write_file("images/event-#{@event.event_id}-48x48.png", resize_image( image, 48, 'PNG' ) )
-          write_file("images/event-#{@event.event_id}-128x128.png", resize_image( image, 128, 'PNG' ) )
+          IMAGE_SIZES.each do | size |
+            write_file("images/event-#{@event.event_id}-#{size}x#{size}.png", resize_image( image, size, 'PNG' ) )
+          end
         end
         write_file("events/#{@event.event_id}.#{@language.tag}.html", render('event') )
       end
@@ -134,9 +149,9 @@ class HTML_Export
         if make_images
           image = Momomoto::Person_image.find({:person_id=>@speaker.person_id})
           image = image.length == 1 && image.f_public ? image.image : File.new( @rails_root + '/public/images/icon-person-128x128.png').read
-          write_file("images/speaker-#{@speaker.person_id}-32x32.jpg", resize_image( image, 32, 'JPG' ) )
-          write_file("images/speaker-#{@speaker.person_id}-48x48.jpg", resize_image( image, 48, 'JPG' ) )
-          write_file("images/speaker-#{@speaker.person_id}-128x128.jpg", resize_image( image, 128, 'JPG' ) )
+          IMAGE_SIZES.each do | size |
+            write_file("images/speaker-#{@speaker.person_id}-#{size}x#{size}.jpg", resize_image( image, size, 'JPG' ) )
+          end
         end
         write_file("speakers/#{@speaker.person_id}.#{@language.tag}.html", render('speaker'))
       end
@@ -165,7 +180,7 @@ class HTML_Export
 
   def url_for( url )
     base = URI.parse(@conference.export_base_url).path
-    if url[:controller] 
+    if url[:controller]
       if url[:controller].to_sym == :image
         url[:action] = :speaker if url[:action] == :person
         return "#{base}images/#{url[:action]}#{url[:id] && url[:id] != 0 ? '-' + url[:id].to_s : ''}"
@@ -173,10 +188,10 @@ class HTML_Export
         return "" unless @attachments.find_by_value({:event_attachment_id=>url[:id]})
         return "#{base}attachments/#{@attachments.event_attachment_id}-#{@attachments.filename}"
       elsif url[:controller].to_sym == :feedback
-        return "#{@conference.feedback_base_url}feedback/#{@conference.acronym}/event/#{url[:id]}.#{@language.tag}.html" 
-      elsif url[:controller].to_sym == :ical 
+        return "#{@conference.feedback_base_url}feedback/#{@conference.acronym}/event/#{url[:id]}.#{@language.tag}.html"
+      elsif url[:controller].to_sym == :ical
         return "#{base}schedule.#{@language.tag}.ics"
-      elsif url[:controller].to_sym == :xcal 
+      elsif url[:controller].to_sym == :xcal
         return "#{base}schedule.#{@language.tag}.xcs"
       end
     else
@@ -227,7 +242,7 @@ class HTML_Export
       return "%.1f KB" % (size/1024).to_f if size < 1024 * 1024
       return "%.1f MB" % (size/(1024*1024)).to_f if size < 1024 * 1024 * 1024
       return "%.1f GB" % (size/(1024*1024*1024)).to_f if size < 1024 * 1024 * 1024 * 1024
-      return "%.1f TB" % (size/(1024*1024*1024*1024)).to_f 
+      return "%.1f TB" % (size/(1024*1024*1024*1024)).to_f
     rescue
       # just return nothing
     end
