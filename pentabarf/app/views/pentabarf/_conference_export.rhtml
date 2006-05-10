@@ -11,11 +11,15 @@
         <td><%= text_field_tag('conference[release]', @conference.release, {:size => 60, :tabindex => 0}) %></td>
       </tr>
       <tr>
-        <td><label>Export Base URL</label></td>
+        <td><label title="This field is used as the link for the conference logo in the html export">Homepage</label></td>
+        <td><%= text_field_tag('conference[homepage]', @conference.homepage, {:size => 60,:tabindex => 0} ) %></td>
+      </tr>
+      <tr>
+        <td><label title="This is the location where you will place the HTML Export. Please add a trailing slash.">Export Base URL</label></td>
         <td><%= text_field_tag('conference[export_base_url]', @conference.export_base_url, {:size => 60,:tabindex => 0} ) %></td>
       </tr>
       <tr>
-        <td><label>Feedback Base URL</label></td>
+        <td><label title="This is the location where your feedback system is located. Typically this is the same URL as your pentabarf installation.">Feedback Base URL</label></td>
         <td><%= text_field_tag('conference[feedback_base_url]', @conference.feedback_base_url, {:size => 60,:tabindex => 0} ) %></td>
       </tr>
       <tr>

@@ -1,6 +1,9 @@
 <ul>
   <% @conference.days.times do | day | %>
-  <li><a href="<%= url_for({:action=>:day,:id=>day + 1}) %>"><span class="normal"><[day]> <%= day + 1 %></span></a></li>
+  <li><a href="<%= url_for({:action=>:day,:id=>day + 1}) %>"><span class="normal"><[schedule::schedule]> <[schedule::day]> <%= day + 1 %></span></a></li>
+  <% end %>
+  <% if @conference.days > 1 %>
+    <li><a href="<%= url_for({:action=>:days}) %>"><span class="normal"><[schedule::all_days]></span></a></li>
   <% end %>
   <li><a href="<%= url_for({:action=>:speakers}) %>"><span class="normal"><[schedule::speakers]></span></a></li>
   <li><a href="<%= url_for({:action=>:events}) %>"><span class="normal"><[schedule::events]></span></a></li>

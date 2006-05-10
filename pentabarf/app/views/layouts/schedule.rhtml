@@ -9,6 +9,12 @@
     <link href="<%= url_for({:action=>:css}) %>" rel="Stylesheet" media="screen, print" type="text/css" />
   </head>
   <body>
+    <div id="conference-logo">
+      <a href="<%= h( @conference.homepage ) %>">
+        <img src="<%= @conference.export_base_url %>images/conference-128x128.png"/>
+      </a>
+    </div>
+
     <%= render(:partial => 'sidebar') %>
 
     <div id="content">

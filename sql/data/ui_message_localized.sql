@@ -344,6 +344,8 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (222,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (223, 120, 'If you have anything particular to say about this event feel free to do so. Criticism, suggestions for improvement or other notes are very welcome.');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (223, 144, 'Wenn sie noch etwas bestimmtes über diese Veranstaltung sagen wollen dann können sie das hier tun. Kritik und Verbesserungsorschläge sind ebenfalls sehr willkommen.');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209, 144, 'Anhänge');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (224, 120, 'All days');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (224, 144, 'Alle Tage');
 
 
 --
