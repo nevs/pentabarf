@@ -6,4 +6,5 @@
   <li><a href="<%= url_for({:action=>:events}) %>"><span class="normal"><[schedule::events]></span></a></li>
   <li><a href="<%= url_for(:controller=>'ical',:action=>:conference,:id=>@conference.conference_id) %>">iCal</a></li>
   <li><a href="<%= url_for(:controller=>'xcal',:action=>:conference,:id=>@conference.conference_id) %>">xCal</a></li>
+  <li><a href="<%= url_for(:controller=>'xml',:action=>:schedule,:id=>@conference.conference_id) %>">XML</a></li>
 </ul>

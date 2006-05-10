@@ -202,6 +202,8 @@ class HTML_Export
         return "#{base}schedule.#{@language.tag}.ics"
       elsif url[:controller].to_sym == :xcal
         return "#{base}schedule.#{@language.tag}.xcs"
+      elsif url[:controller].to_sym == :xml
+        return "#{base}schedule.#{@language.tag}.xml"
       end
     else
       return case url[:action]
