@@ -213,6 +213,7 @@ class HTML_Export
         when :events then "#{base}events.#{@language.tag}.html"
         when :css then "#{base}stylesheet.css"
         when :day then "#{base}day_#{url[:id]}.#{@language.tag}.html"
+        when :days then "#{base}days.#{@language.tag}.html"
         when :index then "#{base}index.#{@language.tag}.html"
         else "unkown url #{url.inspect}" end
     end
