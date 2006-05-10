@@ -49,24 +49,18 @@ class HTML_Export
 
   def render( options )
     if options == 'ical'
-      filename = "#{@rails_root}/app/views/ical/conference.rhtml"
-      @content_for_layout = render_template( filename )
+      @content_for_layout = render_template( "#{@rails_root}/app/views/ical/conference.rhtml" )
       render_template("#{@rails_root}/app/views/layouts/ical.rhtml")
     elsif options == 'xml'
-      filename = "#{@rails_root}/app/views/xml/schedule.rxml"
-      @content_for_layout = render_template( filename )
-      render_template("#{@rails_root}/app/views/layouts/xcal.rhtml")
+      render_xml_template( "#{@rails_root}/app/views/xml/schedule.rxml" )
     elsif options == 'xcal'
-      filename = "#{@rails_root}/app/views/xcal/conference.rhtml"
-      @content_for_layout = render_template( filename )
+      @content_for_layout = render_template( "#{@rails_root}/app/views/xcal/conference.rhtml" )
       render_template("#{@rails_root}/app/views/layouts/xcal.rhtml")
     elsif options.is_a?(String)
-      filename = "#{@rails_root}/app/views/schedule/#{options}.rhtml"
-      @content_for_layout = render_template( filename )
+      @content_for_layout = render_template( "#{@rails_root}/app/views/schedule/#{options}.rhtml" )
       render_template("#{@rails_root}/app/views/layouts/schedule.rhtml")
     elsif options.is_a?(Hash) && options[:partial]
-      filename = "#{@rails_root}/app/views/schedule/_#{options[:partial]}.rhtml"
-      render_template( filename )
+      render_template( "#{@rails_root}/app/views/schedule/_#{options[:partial]}.rhtml" )
     else
       "unknown options for render #{options.inspect}"
     end
@@ -75,10 +69,24 @@ class HTML_Export
   def render_template( filename )
     if not @template_cache[filename]
       raise ArgumentError, "file #{filename} does not exist." unless File.exist?(filename)
-      template = ERB.new( localize( File.new( filename, "r" ).read ) )
-      @template_cache[filename] = template.src
+      if filename.match(/\.rhtml/)
+        render_erb_template( filename )
+      elsif filename.match( filename )
+        render_xml_template( filename )
+      else
+        raise "Unknown filename #{filename}"
+      end
     end
     eval( @template_cache[filename], binding )
+  end
+
+  def render_erb_template( filename )
+    template = ERB.new( localize( File.new( filename, "r" ).read ) )
+    @template_cache[filename] = template.src
+  end
+
+  def render_xml_template( filename )
+    @template_cache[filename] = eval( localize( File.new( filename, "r" ).read ) )
   end
 
   def export
@@ -115,6 +123,7 @@ class HTML_Export
 
       write_file("schedule.#{@language.tag}.ics", fold(render('ical')))
       write_file("schedule.#{@language.tag}.xcs", render('xcal'))
+      write_file("schedule.#{@language.tag}.xml", render('xml'))
       write_file("index.#{@language.tag}.html", render('index'))
 
       # create schedule tables for every day
