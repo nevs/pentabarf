@@ -1,5 +1,5 @@
 module Momomoto
-  class Account_password_reset < Base
+  class Activation_string_password_reset < Base
     def initialize
       super
       @domain = 'person'

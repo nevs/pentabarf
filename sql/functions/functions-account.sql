@@ -67,13 +67,13 @@ CREATE OR REPLACE FUNCTION account_forgot_password(integer, char(64)) RETURNS IN
     cur_activation_string ALIAS FOR $2;
     cur_person RECORD;
   BEGIN
-    DELETE FROM account_password_reset WHERE password_reset < now() + '-1 day';
+    DELETE FROM activation_string_reset_password WHERE password_reset < now() + '-1 day';
 
-    SELECT INTO cur_person person_id FROM account_password_reset WHERE person_id = cur_person_id;
+    SELECT INTO cur_person person_id FROM activation_string_reset_password WHERE person_id = cur_person_id;
     IF FOUND THEN
       RAISE EXCEPTION 'This account has already been reset in the last 24 hours.';
     END IF;
-    INSERT INTO account_password_reset(person_id, activation_string, password_reset) VALUES (cur_person_id, cur_activation_string, now());
+    INSERT INTO activation_string_reset_password(person_id, activation_string, password_reset) VALUES (cur_person_id, cur_activation_string, now());
 
     RETURN cur_person_id;
   END;
@@ -86,8 +86,8 @@ CREATE OR REPLACE FUNCTION account_reset_password( text, char(64), char(48) ) RE
     cur_password ALIAS FOR $3;
     cur_person_id INTEGER;
   BEGIN
-    DELETE FROM account_password_reset WHERE password_reset < now() + '-1 day';
-    SELECT INTO cur_person_id person_id FROM account_password_reset WHERE activation_string = cur_activation_string;
+    DELETE FROM activation_string_reset_password WHERE password_reset < now() + '-1 day';
+    SELECT INTO cur_person_id person_id FROM activation_string_reset_password WHERE activation_string = cur_activation_string;
     IF NOT FOUND THEN
       RAISE EXCEPTION 'invalid activation string.';
     END IF;
