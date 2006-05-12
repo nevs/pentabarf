@@ -474,7 +474,8 @@ CREATE OR REPLACE VIEW view_schedule AS
                 view_event_state_progress.language_id = view_conference_track.language_id)
           INNER JOIN view_room ON (
                 event.room_id = view_room.room_id AND
-                view_room.language_id = view_event_state_progress.language_id )
+                view_room.language_id = view_event_state_progress.language_id AND
+                view_room.f_public = 't' )
     WHERE event.day IS NOT NULL AND
           event.start_time IS NOT NULL AND
           event.room_id IS NOT NULL AND
@@ -727,6 +728,9 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                         event.day IS NOT NULL AND
                         event.start_time IS NOT NULL AND
                         event.room_id IS NOT NULL )
+                    INNER JOIN room ON (
+                        event.room_id = room.room_id AND
+                        room.f_public = 't' )
                     INNER JOIN event_state ON (
                         event.event_state_id = event_state.event_state_id AND
                         event_state.tag = 'accepted' )
