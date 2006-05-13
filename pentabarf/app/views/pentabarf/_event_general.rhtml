@@ -40,10 +40,6 @@
         <td><%= select_tag( 'event[team_id]', Momomoto::View_team.find({:language_id => @current_language_id, :conference_id => @event.conference_id}), "team_id", "name", @event.team_id, { :tabindex => 0 } ) %></td>
       </tr>
       <tr>
-        <td><label for="f_public"><[table::event::f_public]></label></td>
-        <td><%= check_box_tag( 'event[f_public]', 't', @event.f_public, { :tabindex => 0 } ) %></td>
-      </tr>
-      <tr>
         <td><label for="f_paper"><[table::event::f_paper]></label></td>
         <td><%= check_box_tag( 'event[f_paper]', 't', @event.f_paper, { :tabindex => 0 } ) %></td>
       </tr>

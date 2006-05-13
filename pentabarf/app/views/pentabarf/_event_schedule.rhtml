@@ -34,6 +34,10 @@
         <td><label>Room</label></td>
         <td><%= select_tag( 'event[room_id]', Momomoto::View_room.find({:language_id => @current_language_id, :conference_id => @event.conference_id}, nil, 'rank'), :room_id, :name, @event.room_id, { :tabindex => 0 } ) %></td>
       </tr>
+      <tr>
+        <td><label for="f_public"><[table::event::f_public]></label></td>
+        <td><%= check_box_tag( 'event[f_public]', 't', @event.f_public, { :tabindex => 0 } ) %></td>
+      </tr>
     </table>
   </fieldset>
 </div>
