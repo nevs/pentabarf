@@ -11,6 +11,27 @@
 
 
   <fieldset>
+    <legend>Public Links</legend>
+    <table id="link_table" class="hidden">
+      <thead>
+        <tr>
+          <th colspan="2"><[table::event_link::url]></th>
+          <th><[table::event_link::title]></th>
+          <th><[form::remove]></th>
+        </tr>
+      </thead>
+      <tbody id="link_table_body">
+      </tbody>
+    </table>
+    <button type="button" name="add_link" value="Add Links" title="Add a new link to list of links" tabindex="0" onClick="window.add_link();">Add Link</button>
+    <script type="text/javascript">
+    <% for event_link in Momomoto::Event_link.find( {:event_id => @event.event_id} ) %>
+      add_link(<%= event_link.event_link_id  %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title) %>');
+    <% end %>
+    </script>
+  </fieldset>
+
+  <fieldset>
     <legend>Attachments</legend>
     <% attachments = Momomoto::View_event_attachment.find({:event_id => @event.event_id, :language_id => @current_language_id}) %>
     <% unless attachments.nil? %>
