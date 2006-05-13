@@ -236,6 +236,7 @@ class PentabarfController < ApplicationController
         @event = Momomoto::Event.new_record
         @event.event_id = 0
         @event.conference_id = @current_conference_id
+        @event.f_public = 't'
         @rating = Momomoto::Event_rating.new_record
       else
         @event = Momomoto::Event.find( {:event_id => params[:id] } )
