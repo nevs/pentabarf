@@ -294,7 +294,6 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (197,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (197, 144, 'Veranstaltung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (198, 144, 'Veranstaltungen');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (198, 120, 'Events');
-INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (199, 120, 'day');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (199, 144, 'Tag');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (200, 120, 'Schedule');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (200, 144, 'Programm');
@@ -346,6 +345,7 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (223,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209, 144, 'Anhänge');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (224, 120, 'All days');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (224, 144, 'Alle Tage');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (199, 120, 'Day');
 
 
 --
