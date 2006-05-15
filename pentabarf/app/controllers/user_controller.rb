@@ -1,7 +1,11 @@
 class UserController < ApplicationController
 
-  before_filter :authorize, :except => [:forgot_password, :reset_password]
+  before_filter :authorize, :except => [:account_done, :activate_account, :create_account, :forgot_password, :new_account, :reset_link_sent, :reset_password]
   after_filter :compress
+
+  def preferences
+
+  end
 
   def new_account
     @content_title = 'Create account'
@@ -20,7 +24,6 @@ class UserController < ApplicationController
   end
 
   def account_done
-
   end
 
   def activate_account

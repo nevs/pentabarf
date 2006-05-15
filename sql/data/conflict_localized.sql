@@ -62,6 +62,14 @@ INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (24, 120,
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (24, 144, 'Akzeptierter Event nach der Abreise des Referenten');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (25, 120, 'Accepted Event without slides');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (25, 144, 'Akzeptierte Veranstaltung ohne Folien');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (27, 120, 'Recommended event abstract length exceeded');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (27, 144, 'Empfohlene Veranstaltungsabstrakt-Länge überschritten');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (28, 120, 'Recommended event description length exceeded');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (28, 144, 'Empfohlene Veranstaltungsbeschreibungs-Länge überschritten');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (29, 120, 'Recommended person abstract length exceeded');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (30, 120, 'Recommended person description length exceeded');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (29, 144, 'Empfohlene Personenabstrakt-Länge überschritten');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (30, 144, 'Empfohlene Personenbeschreibungs-Länge überschritten');
 
 
 --

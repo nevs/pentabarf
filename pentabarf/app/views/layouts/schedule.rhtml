@@ -11,7 +11,7 @@
   <body>
     <div id="conference-logo">
       <a href="<%= h( @conference.homepage ) %>">
-        <img src="<%= @conference.export_base_url %>images/conference-128x128.png"/>
+        <img src="<%= url_for(:controller=>'image',:action=>:conference,:id=>"#{@conference.conference_id}-128x128") %>"/>
       </a>
     </div>
 

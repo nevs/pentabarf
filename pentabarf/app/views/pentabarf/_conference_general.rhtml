@@ -29,11 +29,11 @@
       <tr>
         <td><label><[table::conference::country]></label></td>
         <td>
-          <%= select_tag( 'conference[country_id]', 
-                      Momomoto::View_country.find( { :language_id => @current_language_id } ), 
-                      'country_id', 
-                      'name', 
-                      @conference.country_id, { :tabindex => 0 } ) 
+          <%= select_tag( 'conference[country_id]',
+                      Momomoto::View_country.find( { :language_id => @current_language_id } ),
+                      'country_id',
+                      'name',
+                      @conference.country_id, { :tabindex => 0 } )
           %>
         </td>
       </tr>
@@ -68,60 +68,60 @@
       <tr>
         <td><label><[table::conference::currency]></label></td>
         <td>
-          <%= select_tag( 'conference[currency_id]', 
-                          Momomoto::View_currency.find( {:language_id => @current_language_id} ), 
+          <%= select_tag( 'conference[currency_id]',
+                          Momomoto::View_currency.find( {:language_id => @current_language_id} ),
                           'currency_id', 'name', @conference.currency_id, { :tabindex => 0 } ) %>
         </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Schedule Settings</legend>
+    <table>
+      <tr>
+        <td><label><[table::conference::abstract_length]></label></td>
+        <td><%= text_field_tag('conference[abstract_length]', @conference.abstract_length, {:size => 4, :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::conference::description_length]></label></td>
+        <td><%= text_field_tag('conference[description_length]', @conference.description_length, {:size => 4, :tabindex => 0 } ) %></td>
       </tr>
       <tr>
         <td><label><[table::conference::timeslot_duration]></label></td>
         <td>
-          <%= select_tag( 'conference[timeslot_duration]', 
-                          ['00:05:00', '00:10:00', '00:15:00', '00:20:00', '00:25:00', '00:30:00', '01:00:00'], 
+          <%= select_tag( 'conference[timeslot_duration]',
+                          ['00:05:00', '00:10:00', '00:15:00', '00:20:00', '00:25:00', '00:30:00', '01:00:00'],
                           'to_s', 'to_s', @conference.timeslot_duration ? @conference.timeslot_duration.strftime('%H:%M:%S') : nil, { :tabindex => 0 }, false ) %>
         </td>
       </tr>
       <tr>
         <td><label><[table::conference::default_timeslots]></label></td>
         <td>
-          <%= select_tag( 'conference[default_timeslots]', 1..20, 
-                          'to_i', 'to_i', @conference.default_timeslots, 
+          <%= select_tag( 'conference[default_timeslots]', 1..20,
+                          'to_i', 'to_i', @conference.default_timeslots,
                           { :tabindex => 0 }, false ) %>
         </td>
       </tr>
       <tr>
         <td><label><[table::conference::max_timeslots_per_event]></label></td>
         <td>
-          <%= select_tag( 'conference[max_timeslot_duration]', 1..20, 
-                          'to_i', 'to_i', @conference.max_timeslot_duration, 
+          <%= select_tag( 'conference[max_timeslot_duration]', 1..20,
+                          'to_i', 'to_i', @conference.max_timeslot_duration,
                           { :tabindex => 0 }, false ) %>
         </td>
       </tr>
       <tr>
         <td><label><[table::conference::day_change]></label></td>
         <td>
-          <%= select_tag( 'conference[day_change]', 
-                          (0..23).to_a.collect {|x| sprintf('%02d:00:00',x)}, 
+          <%= select_tag( 'conference[day_change]',
+                          (0..23).to_a.collect {|x| sprintf('%02d:00:00',x)},
                           'to_s', 'to_s', @conference.day_change ? @conference.day_change.strftime('%H:%M:%S') : nil, { :tabindex => 0 }, false ) %>
         </td>
       </tr>
-      <tr>
-        <td><label>Enable Submission</label></td>
-        <td><%= check_box_tag('conference[f_submission_enabled]', 't', @conference.f_submission_enabled, {:tabindex => 0} ) %></td>
-      </tr>
-      <tr>
-        <td><label>Enable Visitor System</label></td>
-        <td><%= check_box_tag('conference[f_visitor_enabled]', 't', @conference.f_visitor_enabled, {:tabindex => 0} ) %></td>
-      </tr>
     </table>
-    <% if @conference.f_submission_enabled %>
-      <a href="<%= url_for(:controller => 'submission',:conference => @conference.acronym) %>"><button type="button">Submission System</button></a>
-    <% end %>
-    <% if @conference.f_visitor_enabled %>
-      <a href="<%= url_for(:controller => 'visitor',:conference => @conference.acronym) %>"><button type="button">Visitor System</button></a>
-    <% end %>
   </fieldset>
-  
+
   <fieldset>
     <legend>Conference Languages</legend>
     <table class="hidden" id="conference_language_table">
@@ -145,7 +145,7 @@
       <% end %>
     </script>
   </fieldset>
-  
+
   <fieldset>
     <legend>Logo</legend>
     <%= file_field_tag('conference_image[image]', {:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>

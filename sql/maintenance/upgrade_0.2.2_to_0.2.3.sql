@@ -10,3 +10,9 @@ CREATE TABLE activation_string_reset_password (
 ALTER TABLE conference ADD COLUMN homepage TEXT;
 ALTER TABLE conference_logging ADD COLUMN homepage TEXT;
 
+ALTER TABLE conference ADD COLUMN abstract_length INTEGER;
+ALTER TABLE conference_logging ADD COLUMN abstract_length INTEGER;
+
+ALTER TABLE conference ADD COLUMN description_length INTEGER;
+ALTER TABLE conference_logging ADD COLUMN description_length INTEGER;
+

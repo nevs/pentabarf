@@ -191,6 +191,7 @@ class HTML_Export
     base = URI.parse(@conference.export_base_url).path
     if url[:controller]
       if url[:controller].to_sym == :image
+        return "#{base}images/#{url[:action]}-128x128.png" if url[:action] ==:conference
         url[:action] = :speaker if url[:action] == :person
         return "#{base}images/#{url[:action]}#{url[:id] && url[:id] != 0 ? '-' + url[:id].to_s : ''}"
       elsif url[:controller].to_sym == :file

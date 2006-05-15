@@ -26,6 +26,8 @@ module Momomoto
         :f_deleted => Datatype::Bool.new( {:not_null=>true, :default=>true} ),
         :release => Datatype::Varchar.new( {:length=>32} ),
         :homepage => Datatype::Text.new( {} ),
+        :abstract_length => Datatype::Integer.new( {} ),
+        :description_length => Datatype::Integer.new( {} ),
         :export_base_url => Datatype::Varchar.new( {:length=>256} ),
         :export_css_file => Datatype::Varchar.new( {:length=>256} ),
         :feedback_base_url => Datatype::Varchar.new( {:length=>256} ),

@@ -346,6 +346,10 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (224, 120, 'All days');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (224, 144, 'Alle Tage');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (199, 120, 'Day');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (225, 120, 'Length of abstracts');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (226, 120, 'Length of descriptions');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (225, 144, 'Länge von Abstracts');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (226, 144, 'Länge von Beschreibungen');
 
 
 --

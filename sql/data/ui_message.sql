@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 224, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 226, true);
 
 
 --
@@ -186,6 +186,8 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (221, 'feedback::question_aud
 INSERT INTO ui_message (ui_message_id, tag) VALUES (222, 'feedback::submit');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (223, 'feedback::criticism');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (224, 'schedule::all_days');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (225, 'table::conference::abstract_length');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (226, 'table::conference::description_length');
 
 
 --

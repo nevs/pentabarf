@@ -5,6 +5,12 @@
     <a href="<%= url_for(:controller => 'xcal',:action => :conference,:id => @conference.conference_id) %>"><button type="button">xCal</button></a>
     <a href="<%= url_for(:controller => 'schedule',:action => :index,:conference_id=>@conference.acronym) %>"><button type="button">HTML Export</button></a>
     <a href="<%= url_for(:controller => 'xml',:action => :schedule,:id=>@conference.conference_id) %>"><button type="button">XML Schedule</button></a>
+    <% if @conference.f_submission_enabled %>
+      <a href="<%= url_for(:controller => 'submission',:conference => @conference.acronym) %>"><button type="button">Submission System</button></a>
+    <% end %>
+    <% if @conference.f_visitor_enabled %>
+      <a href="<%= url_for(:controller => 'visitor',:conference => @conference.acronym) %>"><button type="button">Visitor System</button></a>
+    <% end %>
     <table>
       <tr>
         <td><label>Release</label></td>
@@ -21,6 +27,14 @@
       <tr>
         <td><label title="This is the location where your feedback system is located. Typically this is the same URL as your pentabarf installation.">Feedback Base URL</label></td>
         <td><%= text_field_tag('conference[feedback_base_url]', @conference.feedback_base_url, {:size => 60,:tabindex => 0} ) %></td>
+      </tr>
+      <tr>
+        <td><label>Enable Submission</label></td>
+        <td><%= check_box_tag('conference[f_submission_enabled]', 't', @conference.f_submission_enabled, {:tabindex => 0} ) %></td>
+      </tr>
+      <tr>
+        <td><label>Enable Visitor System</label></td>
+        <td><%= check_box_tag('conference[f_visitor_enabled]', 't', @conference.f_visitor_enabled, {:tabindex => 0} ) %></td>
       </tr>
       <tr>
         <td><label>Enable Feedback</label></td>
