@@ -52,10 +52,13 @@ class HTML_Export
       @content_for_layout = render_template( "#{@rails_root}/app/views/ical/conference.rhtml" )
       render_template("#{@rails_root}/app/views/layouts/ical.rhtml")
     elsif options == 'xml'
-      render_xml_template( "#{@rails_root}/app/views/xml/schedule.rxml" )
+      render_template( "#{@rails_root}/app/views/xml/schedule.rxml" )
     elsif options == 'xcal'
       @content_for_layout = render_template( "#{@rails_root}/app/views/xcal/conference.rhtml" )
       render_template("#{@rails_root}/app/views/layouts/xcal.rhtml")
+    elsif options == 'day'
+      @content_for_layout = render_template( "#{@rails_root}/app/views/schedule/#{options}.rxml" )
+      render_template("#{@rails_root}/app/views/layouts/schedule.rhtml")
     elsif options.is_a?(String)
       @content_for_layout = render_template( "#{@rails_root}/app/views/schedule/#{options}.rhtml" )
       render_template("#{@rails_root}/app/views/layouts/schedule.rhtml")
@@ -86,7 +89,7 @@ class HTML_Export
   end
 
   def render_xml_template( filename )
-    @template_cache[filename] = eval( localize( File.new( filename, "r" ).read ) )
+    @template_cache[filename] = ( localize( File.new( filename, "r" ).read ) )
   end
 
   def export
