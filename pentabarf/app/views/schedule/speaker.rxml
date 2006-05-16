@@ -3,7 +3,7 @@ xml.div(:id=>'speaker',:class=>'section') do
   xml.div(:id=>'infobox') do
     xml.table do
       xml.tr do xml.th('<[schedule::events]>',{:colspan=>2}) end
-      @speakers.each_by_value({:person_id=>@speaker.person_id}) do | event |
+      @speakers.each_by_value({:person_id=>@person.person_id}) do | event |
         xml.tr do
           xml.td do
             xml.a(:href=>url_for(:action=>:event,:id=>event.event_id)) do
@@ -18,9 +18,9 @@ xml.div(:id=>'speaker',:class=>'section') do
     end
   end
 
-  xml.h1 @speaker.name
-  @speakers.find_by_value(:person_id=>@speaker.person_id)
-  xml.img(:class=>'speaker-image',:src=>person_image(@speaker.person_id, 128))
+  xml.h1 @person.name
+  @speakers.find_by_value(:person_id=>@person.person_id)
+  xml.img(:class=>'speaker-image',:src=>person_image(@person.person_id, 128))
   xml.div(:class=>:abstract) do xml << markup(@speaker.abstract) end
   xml.div(:class=>:description) do xml << markup(@speaker.description) end
 
@@ -29,14 +29,16 @@ xml.div(:id=>'speaker',:class=>'section') do
     xml.p @speaker.email_public.gsub(/@/, ' at ').gsub(/\./, ' dot ')
   end
 
-  links = Momomoto::Conference_person_link.find({:conference_person_id=>@speaker.conference_person_id})
-  if links.length > 0
-    xml.div(:class=>'links') do
-      xml.h2 '<[schedule::links]>'
-      xml.ul do
-        links.each do | link |
-          xml.li do
-            xml.a( link.title ? link.title : link.url, {:href=>link.url})
+  if @speaker.conference_person_id
+    links = Momomoto::Conference_person_link.find({:conference_person_id=>@speaker.conference_person_id})
+    if links.length > 0
+      xml.div(:class=>'links') do
+        xml.h2 '<[schedule::links]>'
+        xml.ul do
+          links.each do | link |
+            xml.li do
+              xml.a( link.title ? link.title : link.url, {:href=>link.url})
+            end
           end
         end
       end
@@ -44,21 +46,21 @@ xml.div(:id=>'speaker',:class=>'section') do
   end
 
   xml.div(:id=>'navigation') do
-    @speakers.find_by_value({:person_id=>@speaker.person_id})
+    @speakers.find_by_value({:person_id=>@person.person_id})
     while @speakers.current_record > 0 && @speakers[@speakers.current_record - 1] do 
-      break if @speakers.person_id != @speaker.person_id 
+      break if @speakers.person_id != @person.person_id 
     end
-    if @speakers.person_id != @speaker.person_id
+    if @speakers.person_id != @person.person_id
       xml.a(:href=>url_for(:action=>:speaker,:id=>@speakers.person_id)) do
         xml.span('<<<',{:class=>'previous',:title=>@speakers.name})
       end
     end
 
-    @speakers.find_by_value({:person_id=>@speaker.person_id})
+    @speakers.find_by_value({:person_id=>@person.person_id})
     while @speakers.current_record + 1 < @speakers.length && @speakers[@speakers.current_record + 1] do 
-      break if @speakers.person_id != @speaker.person_id
+      break if @speakers.person_id != @person.person_id
     end
-    if @speakers.person_id != @speaker.person_id
+    if @speakers.person_id != @person.person_id
       xml.a(:href=>url_for(:action=>:speaker,:id=>@speakers.person_id)) do
         xml.span('>>>',{:class=>'next',:title=>@speakers.name})
       end

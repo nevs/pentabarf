@@ -158,6 +158,7 @@ class HTML_Export
       # create all speaker pages and images
       puts "  creating speaker files"
       @speakers.each_unique(:person_id) do | @speaker |
+        @person = @speaker
         @content_title = @speaker.name
         if make_images
           image = Momomoto::Person_image.find({:person_id=>@speaker.person_id})

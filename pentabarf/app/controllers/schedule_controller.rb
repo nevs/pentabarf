@@ -21,8 +21,10 @@ class ScheduleController < ApplicationController
 
   def speaker
     @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id}, nil, 'lower(name)')
+    @person = Momomoto::View_person.find({:person_id=>params[:id]})
     @speaker = Momomoto::View_conference_person.find({:conference_id=>@conference.conference_id,:person_id=>params[:id]})
-    return render_text("") unless @speaker.length == 1 && @speakers.find_by_value(:person_id=>@speaker.person_id)
+    @speaker.create if @speaker.length != 1
+    return render_text("") unless @person.length == 1 && @speakers.find_by_value(:person_id=>@person.person_id)
     @content_title = @speaker.name
   end
 
