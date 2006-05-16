@@ -4,7 +4,7 @@ xml.div(:id=>'event-index',:class=>'section') do
     xml.thead do
       xml.tr do
         xml.th('<[schedule::event]>',{:class=>'event'})
-        xml.th('<[schedule::speaker]>',{:class=>'speaker'})
+        xml.th('<[schedule::speakers]>',{:class=>'speaker'})
       end
     end
     xml.tbody do
