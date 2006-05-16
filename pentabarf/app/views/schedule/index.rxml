@@ -18,17 +18,17 @@ xml.ul do
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:controller=>:ical,:action=>:conference,:id=>@conference.conference_id})) do
+    xml.a(:href=>url_for({:controller=>'ical',:action=>:conference,:id=>@conference.conference_id})) do
       xml.span('iCal', :class=>:normal)
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:controller=>:xcal,:action=>:conference,:id=>@conference.conference_id})) do
+    xml.a(:href=>url_for({:controller=>'xcal',:action=>:conference,:id=>@conference.conference_id})) do
       xml.span('xCal', :class=>:normal)
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:controller=>:xml,:action=>:conference,:id=>@conference.conference_id})) do
+    xml.a(:href=>url_for({:controller=>'xml',:action=>:conference,:id=>@conference.conference_id})) do
       xml.span('XML', :class=>:normal)
     end
   end

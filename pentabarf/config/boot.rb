@@ -26,6 +26,8 @@ require 'momomoto/functions'
 require 'momomoto/views'
 require 'momomoto/views-conflict'
 require 'momomoto/views-procedures'
+require 'builder'
+require 'builder_escape_attributes'
 
 Momomoto::Base.connect(YAML::load_file("#{RAILS_ROOT}/config/database.yml")[RAILS_ENV])
 
@@ -83,5 +85,6 @@ module Momomoto
     end
   end
 end
+
 
 
