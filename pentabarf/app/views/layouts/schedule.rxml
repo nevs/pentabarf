@@ -22,8 +22,7 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
         xml.br
         xml.em @conference.subtitle
       end
-      xml <<< @content_for_layout
+      xml << @content_for_layout
     end
-
   end
 end

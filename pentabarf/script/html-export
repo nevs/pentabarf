@@ -58,12 +58,12 @@ class HTML_Export
       render_template("#{@rails_root}/app/views/layouts/xcal.rhtml")
     elsif options == 'day'
       @content_for_layout = render_template( "#{@rails_root}/app/views/schedule/#{options}.rxml" )
-      render_template("#{@rails_root}/app/views/layouts/schedule.rhtml")
+      render_template("#{@rails_root}/app/views/layouts/schedule.rxml")
     elsif options.is_a?(String)
       @content_for_layout = render_template( "#{@rails_root}/app/views/schedule/#{options}.rhtml" )
-      render_template("#{@rails_root}/app/views/layouts/schedule.rhtml")
+      render_template("#{@rails_root}/app/views/layouts/schedule.rxml")
     elsif options.is_a?(Hash) && options[:partial]
-      render_template( "#{@rails_root}/app/views/schedule/_#{options[:partial]}.rhtml" )
+      render_template( "#{@rails_root}/app/views/schedule/_#{options[:partial]}.rxml" )
     else
       "unknown options for render #{options.inspect}"
     end
