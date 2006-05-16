@@ -9,7 +9,7 @@ xml.div(:id=>'menu') do
     @conference.days.times do | day |
       xml.li do
         xml.a(:href=>url_for({:action=>:day,:id=>day + 1})) do
-          xml.span('<[schedule::day]> #{day + 1}', :class=>:normal)
+          xml.span("<[schedule::day]> #{day + 1}", :class=>:normal)
         end
       end
     end
