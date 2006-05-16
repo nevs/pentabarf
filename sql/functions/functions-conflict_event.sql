@@ -343,7 +343,7 @@ CREATE OR REPLACE FUNCTION conflict_event_abstract_length(INTEGER) RETURNS SETOF
       SELECT event_id
         FROM event
        WHERE conference_id = cur_conference_id AND 
-             length(abstract) < cur_conference.abstract_length
+             length(abstract) > cur_conference.abstract_length
     LOOP
       RETURN NEXT cur_event;
     END LOOP;
@@ -361,7 +361,7 @@ CREATE OR REPLACE FUNCTION conflict_event_description_length(INTEGER) RETURNS SE
       SELECT event_id
         FROM event
        WHERE conference_id = cur_conference_id AND 
-             length(description) < cur_conference.description_length
+             length(description) > cur_conference.description_length
     LOOP
       RETURN NEXT cur_event;
     END LOOP;

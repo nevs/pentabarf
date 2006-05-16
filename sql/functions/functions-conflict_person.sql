@@ -168,7 +168,7 @@ CREATE OR REPLACE FUNCTION conflict_person_abstract_length(INTEGER) RETURNS SETO
              )
              INNER JOIN event USING (event_id, conference_id)
        WHERE conference_id = cur_conference_id AND
-             length(conference_person.abstract) < cur_conference.abstract_length
+             length(conference_person.abstract) > cur_conference.abstract_length
     LOOP
       RETURN NEXT cur_person;
     END LOOP;
@@ -192,7 +192,7 @@ CREATE OR REPLACE FUNCTION conflict_person_description_length(INTEGER) RETURNS S
              )
              INNER JOIN event USING (event_id, conference_id)
        WHERE conference_id = cur_conference_id AND
-             length(conference_person.description) < cur_conference.description_length
+             length(conference_person.description) > cur_conference.description_length
     LOOP
       RETURN NEXT cur_person;
     END LOOP;
