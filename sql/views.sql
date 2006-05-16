@@ -707,10 +707,9 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                     INNER JOIN mime_type USING (mime_type_id)
               WHERE f_public = 't'
          ) AS person_image USING (person_id)
-         LEFT OUTER JOIN conference_person USING (person_id)
          INNER JOIN (
-             SELECT person_id,
-                    conference_id,
+             SELECT event_person.person_id,
+                    event.conference_id,
                     event.event_id,
                     event.title,
                     event.subtitle
@@ -738,7 +737,8 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                         event.event_state_progress_id = event_state_progress.event_state_progress_id AND
                         event_state_progress.event_state_id = event.event_state_id AND
                         event_state_progress.tag = 'confirmed' )
-         ) AS speaker USING (person_id, conference_id)
+         ) AS speaker USING (person_id)
+         LEFT OUTER JOIN conference_person USING (person_id, conference_id)
 ;
 
 CREATE OR REPLACE VIEW view_schedule_event AS
