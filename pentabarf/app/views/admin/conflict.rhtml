@@ -12,6 +12,14 @@
         <% end %>
       </tr>
     </thead>
+    <tfoot>
+      <tr>
+        <th/>
+        <% for phase in phases = Momomoto::View_conference_phase.find( {:language_id => @preferences[:current_language_id]} ) %>
+        <th><%= phase.name %>
+        <% end %>
+      </tr>
+    </tfoot>
     <tbody>
     <% phase_conflict = Momomoto::Conference_phase_conflict.find({}) %>
     <% for conflict in Momomoto::View_conflict.find( {:language_id => @preferences[:current_language_id]}, nil, 'conflict_id' ) %>
