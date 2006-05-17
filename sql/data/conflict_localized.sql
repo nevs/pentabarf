@@ -70,6 +70,10 @@ INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (29, 120,
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (30, 120, 'Recommended person description length exceeded');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (29, 144, 'Empfohlene Personenabstrakt-Länge überschritten');
 INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (30, 144, 'Empfohlene Personenbeschreibungs-Länge überschritten');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (31, 120, 'Accepted and confirmed event without timeslot');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (32, 120, 'Accepted and unconfirmed event with timeslot');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (32, 144, 'Akzeptierte und unbestätigte Veranstaltung ohne Zeitfenster');
+INSERT INTO conflict_localized (conflict_id, language_id, name) VALUES (31, 144, 'Akzeptierte und bestätigte Veranstaltung ohne Zeitfenster');
 
 
 --

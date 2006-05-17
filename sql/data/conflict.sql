@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: conflict_conflict_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conflict', 'conflict_id'), 30, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('conflict', 'conflict_id'), 32, true);
 
 
 --
@@ -49,6 +49,8 @@ INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (25, 4, 'event_
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (28, 4, 'event_description_length');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (29, 1, 'person_abstract_length');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (30, 1, 'person_description_length');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (31, 4, 'event_accepted_without_timeslot');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (32, 4, 'event_unconfirmed_with_timeslot');
 
 
 --
