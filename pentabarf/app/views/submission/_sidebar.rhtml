@@ -8,7 +8,7 @@
     <div class="menu-item-group">
     <% unless @user %>
       <%= link_to( 'Login', {:action => :login }, { :class => 'menu-item' } ) %>
-      <%= link_to( 'Create account', {:action => :new_account}, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Create account', {:controller => 'user', :action => :new_account}, { :class => 'menu-item' } ) %>
     <% end %>
     <% if @conference && @user %>
       <%= link_to( 'Person', {:action => :person,:conference=>@conference.acronym}, { :class => 'menu-item' } ) %>
