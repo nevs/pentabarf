@@ -17,10 +17,11 @@ class UserController < ApplicationController
     raise "Invalid email address" unless params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,3}$/)
     raise "This login name is already in use." unless Momomoto::Person.find({:login_name=>params[:person][:login_name]}).nil?
     raise "This email address is already in use." unless Momomoto::Person.find({:email_contact=>params[:person][:email_contact]}).nil?
-    Notifier::deliver_activate_account( account.login_name, account.email_contact, url_for({:action=>:activate_account,:conference=>@conference.acronym,:id=>account.activation_string}) )
-    account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>random_string})
+    activation_string = random_string
+    Notifier::deliver_activate_account( params[:person][:login_name], params[:person][:email_contact], url_for({:action=>:activate_account,:id=>activation_string}) )
+    account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>activation_string})
 
-    redirect_to({:action=>:account_done,:conference=>@conference.acronym})
+    redirect_to({:action=>:account_done})
   end
 
   def account_done
@@ -29,7 +30,7 @@ class UserController < ApplicationController
   def activate_account
     raise "Invalid activation sequence." unless params[:id].length == 64
     Momomoto::Activate_account.find({:activation_string=>params[:id]})
-    redirect_to({:action=>:login,:conference=>@conference.acronym})
+    redirect_to({:action=>:login})
   end
 
   def forgot_password
@@ -62,4 +63,11 @@ class UserController < ApplicationController
       end
     end
   end
+
+  protected
+  
+  def random_string
+    sprintf("%064X", rand(2**256))
+  end
+
 end

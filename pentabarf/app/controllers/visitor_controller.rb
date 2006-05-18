@@ -149,25 +149,4 @@ class VisitorController < ApplicationController
     return @user.permission?('submission_login')
   end
 
-  # authorize users transparently if login_name and password are sent
-  def transparent_authorize()
-    login_name, password = get_auth_data
-
-    if @user.nil? && !login_name.empty? && !password.empty?
-      @user = Momomoto::Login.authorize( login_name, password )
-      @user = nil if @user.nil?
-    end
-    if @user
-      Momomoto::Base.ui_language_id = @user.preferences[:current_language_id]
-    else
-      Momomoto::Base.ui_language_id = 120
-    end
-    @current_language_id = Momomoto::Base.ui_language_id
-    return true
-  end
-
-  def random_string
-    sprintf("%064X", rand(2**256))
-  end
-
 end
