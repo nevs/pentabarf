@@ -12,6 +12,11 @@
   <body id="body">
     <%= render(:partial => 'sidebar') %>
     <div id="main">
+      <% if @user %>
+      <div id="logged-in">
+        Logged in as: <span class="login-name"><%= @user.login_name %></span>
+      </div>
+      <% end %>
       <div id="context">
         <h1><%= h(@content_title) %></h1>
         <em><%= h(@content_subtitle) %></em>
