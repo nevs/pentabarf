@@ -56,7 +56,7 @@ class HTML_Export
       render_template( "#{@rails_root}/app/views/xml/schedule.rxml" )
     elsif options == 'xcal'
       @content_for_layout = render_template( "#{@rails_root}/app/views/xcal/conference.rhtml" )
-      render_template("#{@rails_root}/app/views/layouts/xcal.rhtml")
+      render_template("#{@rails_root}/app/views/layouts/xcal.rxml")
     elsif ['day','days','index','event','events','speaker','speakers'].member?( options )
       @content_for_layout = render_template( "#{@rails_root}/app/views/schedule/#{options}.rxml" )
       render_template("#{@rails_root}/app/views/layouts/schedule.rxml")
