@@ -1,4 +1,5 @@
 <div id="content-account" class="content_tab">
+  <%= start_form_tag({:action => :save_preferences}, {:multipart => true, :id =>:content_form}) %>
   <fieldset>
     <legend>Account</legend>
     <table>
@@ -26,5 +27,9 @@
       </tr>
     </table>
   </fieldset>
+  <fieldset>
+  <%= submit_tag("Save Preferences") %>
+  </fieldset>
+  <%= end_form_tag %>
 
 </div>

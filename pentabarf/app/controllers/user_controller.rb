@@ -11,6 +11,19 @@ class UserController < ApplicationController
   def preferences
   end
 
+  def save_preferences
+    raise "Passwords do not match" if params[:person][:password] != params[:password]
+    person = Momomoto::Person.find({:person_id=>@user.person_id})
+    person.password = params[:person][:password] if params[:person][:password].to_s.length > 0
+    preferences = person.preferences
+    preferences[:current_language_id] = params[:person][:preferences][:current_language_id]
+    preferences[:hits_per_page] = params[:person][:preferences][:hits_per_page]
+    person.preferences = preferences
+    person.write
+
+    redirect_to({:action=>:preferences})
+  end
+
   def new_account
     @content_title = 'Create account'
   end
@@ -58,7 +71,8 @@ class UserController < ApplicationController
 
   def reset_password
     if params[:commit] && params[:id]
-      if Momomoto::Activation_string_reset_password.select({:activation_string=>params[:id]}) == 1
+      activation_string = Momomoto::Activation_string_reset_password.new
+      if activation_string.select({:activation_string=>params[:id]}) == 1
         raise "Passwords do not match." if params[:person][:password] != params[:password]
         Momomoto::Account_reset_password.select({:activation_string=>params[:id],:login_name=>params[:person][:login_name], :password=>params[:person][:password]})
         redirect_to(:action=>:index)
