@@ -23,8 +23,6 @@ INSERT INTO "role" (role_id, tag, rank) VALUES (1, 'developer', 1);
 INSERT INTO "role" (role_id, tag, rank) VALUES (2, 'admin', 2);
 INSERT INTO "role" (role_id, tag, rank) VALUES (4, 'committee', 3);
 INSERT INTO "role" (role_id, tag, rank) VALUES (3, 'reviewer', 4);
-INSERT INTO "role" (role_id, tag, rank) VALUES (5, 'speaker', 5);
-INSERT INTO "role" (role_id, tag, rank) VALUES (6, 'visitor', 6);
 INSERT INTO "role" (role_id, tag, rank) VALUES (7, 'submitter', 7);
 
 
