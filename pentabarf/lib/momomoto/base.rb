@@ -256,6 +256,10 @@ module Momomoto
       return data
     end
 
+    def self.select( *args )
+      find( *args )
+    end
+
     # instance method for finding records
     def find( conditions = {}, limit = nil, order = nil, distinct = nil)
       select( conditions, limit, order, distinct )
