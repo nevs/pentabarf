@@ -55,7 +55,7 @@ class UserController < ApplicationController
       person = Momomoto::Person.find({:login_name=>params[:person][:login_name], :email_contact=>params[:person][:email_contact]})
       raise "This combination of login name and contact email address does not exist!" if person.length != 1
       reset = Momomoto::Activation_string_reset_password.find({:person_id=>person.person_id})
-      if reset.length == 0 || reset.password < DateTime.now - 1
+      if reset.length == 0 || reset.password_reset < DateTime.now - 1
         activation_string = random_string
         Notifier::deliver_forgot_password( person.login_name, person.email_contact, url_for({:action=>:reset_password,:id=>activation_string,:only_path=>false}) )
         account = Momomoto::Account_forgot_password.find({:person_id=>person.person_id,:activation_string=>activation_string})
