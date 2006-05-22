@@ -12,7 +12,7 @@ module Momomoto
         :person_id          => Datatype::Integer.new,
         :login_name         => Datatype::Text.new({:parameter=>true}),
         :activation_string  => Datatype::Char.new({:parameter=>true,:length=>64}),
-        :password           => Datatype::Password.new( {:length=>48} )
+        :password           => Datatype::Password.new( {:parameter=>true,:length=>48} )
       }
     end
   end
