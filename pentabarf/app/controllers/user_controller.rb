@@ -16,8 +16,8 @@ class UserController < ApplicationController
     person = Momomoto::Person.find({:person_id=>@user.person_id})
     person.password = params[:person][:password] if params[:person][:password].to_s.length > 0
     preferences = person.preferences
-    preferences[:current_language_id] = params[:person][:preferences][:current_language_id]
-    preferences[:hits_per_page] = params[:person][:preferences][:hits_per_page]
+    preferences[:current_language_id] = params[:person][:preferences][:current_language_id].to_i
+    preferences[:hits_per_page] = params[:person][:preferences][:hits_per_page].to_i
     person.preferences = preferences
     person.write
 
@@ -35,7 +35,7 @@ class UserController < ApplicationController
     raise "This login name is already in use." unless Momomoto::Person.find({:login_name=>params[:person][:login_name]}).nil?
     raise "This email address is already in use." unless Momomoto::Person.find({:email_contact=>params[:person][:email_contact]}).nil?
     activation_string = random_string
-    Notifier::deliver_activate_account( params[:person][:login_name], params[:person][:email_contact], url_for({:action=>:activate_account,:id=>activation_string}) )
+    Notifier::deliver_activate_account( params[:person][:login_name], params[:person][:email_contact], url_for({:action=>:activate_account,:id=>activation_string,:only_path=>false}) )
     account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>activation_string})
 
     redirect_to({:action=>:account_done})
@@ -57,7 +57,7 @@ class UserController < ApplicationController
       reset = Momomoto::Activation_string_reset_password.find({:person_id=>person.person_id})
       if reset.length == 0 || reset.password < DateTime.now - 1
         activation_string = random_string
-        Notifier::deliver_forgot_password( person.login_name, person.email_contact, url_for({:action=>:reset_password,:id=>activation_string}) )
+        Notifier::deliver_forgot_password( person.login_name, person.email_contact, url_for({:action=>:reset_password,:id=>activation_string,:only_path=>false}) )
         account = Momomoto::Account_forgot_password.find({:person_id=>person.person_id,:activation_string=>activation_string})
         return redirect_to({:action=>:reset_link_sent})
       else
