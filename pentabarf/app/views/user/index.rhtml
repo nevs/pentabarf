@@ -1,0 +1,11 @@
+<div style="font-size: 1.3em;">
+  <p>You can <a style="text-decoration: underline;color: blue;" href="<%= url_for(:action=>:new_account) %>">create an account</a> for the Pentabarf Submission system.</p>
+  <p>You can use your account to submit papers to one of the following conferences</p>
+  <ul>
+  <% @conferences.each do | conf | %>
+    <li>
+      <a style="text-decoration: underline;color: blue;" href="<%= url_for(:controller=>'submission',:conference=>conf.acronym) %>"><%= conf.title %></a>
+    </li>
+  <% end %>
+  </ul>
+</div>

@@ -1,10 +1,14 @@
 class UserController < ApplicationController
 
-  before_filter :authorize, :except => [:account_done, :activate_account, :create_account, :forgot_password, :new_account, :reset_link_sent, :reset_password]
+  before_filter :authorize, :except => [:index, :account_done, :activate_account, :create_account, :forgot_password, :new_account, :reset_link_sent, :reset_password]
+  before_filter :transparent_authorize
   after_filter :compress
 
+  def index
+    @conferences = Momomoto::Conference.find({:f_submission_enabled=>'t'},nil,"lower(title)")
+  end
+  
   def preferences
-
   end
 
   def new_account
@@ -12,7 +16,7 @@ class UserController < ApplicationController
   end
 
   def create_account
-    return redirect_to(:action=>:index,:conference=>@conference.acronym) unless params[:person]
+    return redirect_to(:action=>:index) unless params[:person]
     raise "Passwords do not match" if params[:person][:password] != params[:password]
     raise "Invalid email address" unless params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,3}$/)
     raise "This login name is already in use." unless Momomoto::Person.find({:login_name=>params[:person][:login_name]}).nil?
@@ -37,10 +41,10 @@ class UserController < ApplicationController
     if params[:commit]
       person = Momomoto::Person.find({:login_name=>params[:person][:login_name], :email_contact=>params[:person][:email_contact]})
       raise "This combination of login name and contact email address does not exist!" if person.length != 1
-      reset = Momomoto::Account_password_reset.find({:person_id=>person.person_id})
+      reset = Momomoto::Activation_string_reset_password.find({:person_id=>person.person_id})
       if reset.length == 0 || reset.password < DateTime.now - 1
         activation_string = random_string
-        Notifier::deliver_forgot_password( person.login_name, person.email_contact, url_for({:action=>:reset_password,:conference=>@conference.acronym,:id=>activation_string}) )
+        Notifier::deliver_forgot_password( person.login_name, person.email_contact, url_for({:action=>:reset_password,:id=>activation_string}) )
         account = Momomoto::Account_forgot_password.find({:person_id=>person.person_id,:activation_string=>activation_string})
         return redirect_to({:action=>:reset_link_sent})
       else
@@ -54,7 +58,7 @@ class UserController < ApplicationController
 
   def reset_password
     if params[:commit] && params[:id]
-      if Momomoto::Account_password_reset.select({:activation_string=>params[:id]}) == 1
+      if Momomoto::Activation_string_reset_password.select({:activation_string=>params[:id]}) == 1
         raise "Passwords do not match." if params[:person][:password] != params[:password]
         Momomoto::Account_reset_password.select({:activation_string=>params[:id],:login_name=>params[:person][:login_name], :password=>params[:person][:password]})
         redirect_to(:action=>:index)

@@ -7,9 +7,10 @@
 
     <div class="menu-item-group">
     <% unless @user %>
-      <%= link_to( 'Login', {:action => :login }, { :class => 'menu-item' } ) %>
       <%= link_to( 'Create account', {:action => :new_account}, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Forget Password', {:action => :forgot_password}, { :class => 'menu-item' } ) %>
     <% end %>
+      <%= link_to( 'Preferences', {:action => :preferences}, { :class => 'menu-item' } ) %>
     <% if @user %>
       <%= link_to( 'Logout', url_for({:only_path=>false}).gsub(/:\/\//,'://user@' ), { :class => 'menu-item' } ) %>
     <% end %>
