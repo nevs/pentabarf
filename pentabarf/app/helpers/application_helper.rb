@@ -215,7 +215,7 @@ module ApplicationHelper
 
   # returns the current version of pentabarf
   def get_version()
-    "0.2"
+    "0.2.3"
   end
 
   # tries to read the current revision of pentabarf from a file named revision.txt otherwise returns 2342
