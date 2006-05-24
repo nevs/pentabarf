@@ -35,7 +35,7 @@ xml.schedule do
               xml.abstract @events.abstract
               xml.description @events.description
               @events.each_by_value(:event_id => event_id) do | speaker |
-                xml.person speaker.name
+                xml.person( speaker.name, {:id=>speaker.person_id} )
               end
               xml.links do
                 links = Momomoto::Event_link.find({:event_id=>event_id})
