@@ -1,4 +1,4 @@
-xml = Builder::XmlMarkup.new
+xml = Builder::XmlMarkup.new(:indent=>1)
 xml.ul do
   @conference.days.times do | day |
     xml.li do

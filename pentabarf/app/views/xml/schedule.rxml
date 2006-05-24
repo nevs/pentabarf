@@ -1,4 +1,4 @@
-xml = Builder::XmlMarkup.new
+xml = Builder::XmlMarkup.new(:indent=>1)
 xml.instruct!
 xml.schedule do
   xml.conference do
@@ -36,6 +36,12 @@ xml.schedule do
               xml.description @events.description
               @events.each_by_value(:event_id => event_id) do | speaker |
                 xml.person speaker.name
+              end
+              xml.links do
+                links = Momomoto::Event_link.find({:event_id=>event_id})
+                links.each do | link |
+                  xml.link( link.title ? link.title : link.url, {:href=>link.url})
+                end
               end
             end
           end

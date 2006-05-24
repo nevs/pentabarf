@@ -1,4 +1,4 @@
-xml = Builder::XmlMarkup.new
+xml = Builder::XmlMarkup.new(:indent=>1)
 xml.div(:id=>'schedule',:class=>'section') do
   xml.h1 "<[schedule::schedule]> <[schedule::day]> #{@day}"
   table = schedule_table( @conference, @events )[@day - 1]
