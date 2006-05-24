@@ -210,6 +210,7 @@ class PentabarfController < ApplicationController
         @content_title ='New Conference'
         @conference = Momomoto::Conference.new_record
         @conference.conference_id = 0
+        @conference.max_timeslot_duration = 10
       else
         @conference = Momomoto::Conference.find( {:conference_id => params[:id] } )
         if @conference.length != 1

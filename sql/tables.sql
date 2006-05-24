@@ -313,7 +313,7 @@ CREATE TABLE conference (
   currency_id INTEGER,
   timeslot_duration INTERVAL NOT NULL,
   default_timeslots INTEGER NOT NULL DEFAULT 1,
-  max_timeslot_duration INTEGER NOT NULL,
+  max_timeslot_duration INTEGER NOT NULL DEFAULT 10,
   day_change TIME WITHOUT TIME ZONE NOT NULL DEFAULT '0:00:00',
   remark TEXT,
   f_deleted BOOL NOT NULL DEFAULT FALSE,
