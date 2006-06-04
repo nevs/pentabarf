@@ -5,13 +5,14 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
   xml.head do
     xml.meta(:'http-equiv'=>'Content-Type',:content=>'text/html; charset=utf-8')
     xml.meta(:name=>'generator',:content=>'Pentabarf')
+    xml.meta(:name=>'DC.date',:content=>Date.today.to_s)
     xml.title "#{@conference.acronym}: #{@content_title}"
     xml.link(:href=>url_for(:action=>:css),:rel=>'Stylesheet',:media=>'screen,print',:type=>'text/css')
   end
   xml.body do
     xml.div(:id=>'conference-logo') do
       xml.a(:href=>@conference.homepage) do
-        xml.img( :src=> url_for(:controller=>'image',:action=>:conference,:id=>"#{@conference.conference_id}-128x128") )
+        xml.img(:alt=> @conference.title, :src=> url_for(:controller=>'image',:action=>:conference,:id=>"#{@conference.conference_id}-128x128") )
       end
     end
     xml << render(:partial => 'sidebar')
