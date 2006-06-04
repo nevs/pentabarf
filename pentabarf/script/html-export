@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
+require 'rubygems'
+require 'date'
 require 'yaml'
 require 'lib/momomoto/momomoto'
 require 'lib/momomoto/tables'
 require 'lib/momomoto/views'
 require 'app/helpers/application_helper'
 require 'app/helpers/schedule_helper'
-require 'rubygems'
 require 'action_view'
 require 'lib/builder_escape_attributes'
 require 'erb'
@@ -16,7 +17,6 @@ if ARGV.length != 1
   puts "Usage: #{$0} <conference>\n\n<conference> can either be a conference_id or the conference acronym.\n"
   exit
 end
-
 
 class HTML_Export
   include ERB::Util
@@ -155,7 +155,10 @@ class HTML_Export
       # create all speaker pages and images
       puts "  creating speaker files"
       @speakers.each_unique(:person_id) do | @speaker |
-        @person = @speaker
+        @person = Momomoto::View_person.new
+        @person.create
+        @person.person_id = @speaker.person_id
+        @person.name = @speaker.name
         @content_title = @speaker.name
         if make_images
           image = Momomoto::Person_image.find({:person_id=>@speaker.person_id})
