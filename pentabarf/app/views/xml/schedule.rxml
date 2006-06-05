@@ -14,7 +14,7 @@ xml.schedule do
   end
   @conference.days.times do | day |
     day += 1
-    xml.day({:index=>day}) do
+    xml.day(:index=>day,:date=>(@conference.start_date + (day - 1))) do
       @rooms.each do | room |
         xml.room({:name => room.name}) do
           room_events = {}
