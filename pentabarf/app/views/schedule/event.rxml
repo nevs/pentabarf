@@ -96,7 +96,7 @@ xml.div(:id=>'event',:class=>'section') do
       xml.ul do
         files.each do | file |
           xml.li do
-            xml.a("#{file.title} (#{human_size(file.filesize)})",{:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>file.event_attachment_id)})
+            xml.a("#{file.title} (#{file.mime_type} - #{human_size(file.filesize)})",{:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>file.event_attachment_id)})
           end
         end
       end
@@ -106,6 +106,7 @@ xml.div(:id=>'event',:class=>'section') do
   links = Momomoto::Event_link.find({:event_id=>@event.event_id})
   if links.length > 0
     xml.div(:class=>'links') do
+      xml.h2('Links')
       xml.ul do
         links.each do | link |
           xml.li do
