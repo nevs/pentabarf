@@ -28,7 +28,7 @@ xml.ul do
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:controller=>'xml',:action=>:conference,:id=>@conference.conference_id})) do
+    xml.a(:href=>url_for({:controller=>'xml',:action=>:schedule,:id=>@conference.conference_id})) do
       xml.span('XML', :class=>:normal)
     end
   end
