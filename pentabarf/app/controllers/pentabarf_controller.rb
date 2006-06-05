@@ -79,8 +79,8 @@ class PentabarfController < ApplicationController
       @preferences[:search_conference_page] = 0
     end
     @current_page = @preferences[:search_conference_page]
-    if @preferences[:search_conference].match(/^ *(\d+ *)+$/)
-      @conferences = Momomoto::View_find_conference.find( {:conference_id => @preferences[:search_conference].split(' ')} )
+    if @preferences[:search_conference].match(/^ *(#\d+ *)+$/)
+      @conferences = Momomoto::View_find_conference.find( {:conference_id => @preferences[:search_conference].split.map{|i| i.gsub('#','')}} )
     else
       @conferences = Momomoto::View_find_conference.find( {:search => @preferences[:search_conference].split(' ')} )
     end
@@ -101,8 +101,8 @@ class PentabarfController < ApplicationController
       @preferences[:search_event_page] = 0
     end
     @current_page = @preferences[:search_event_page]
-    if @preferences[:search_event].match(/^ *(\d+ *)+$/)
-      @events = Momomoto::View_find_event.find( {:event_id => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
+    if @preferences[:search_event].match(/^ *(#\d+ *)+$/)
+      @events = Momomoto::View_find_event.find( {:event_id => @preferences[:search_event].split.map{|i| i.gsub('#','')}, :conference_id => @current_conference_id, :translated_id => @current_language_id} )
     else
       @events = Momomoto::View_find_event.find( {:s_title => @preferences[:search_event].split(' '), :conference_id => @current_conference_id, :translated_id => @current_language_id} )
     end
@@ -190,8 +190,8 @@ class PentabarfController < ApplicationController
       @preferences[:search_person_page] = 0
     end
     @current_page = @preferences[:search_person_page]
-    if @preferences[:search_person].match(/^ *(\d+ *)+$/)
-      @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split(' ')}, nil, nil, :person_id )
+    if @preferences[:search_person].match(/^ *(#\d+ *)+$/)
+      @persons = Momomoto::View_find_person.find( {:person_id => @preferences[:search_person].split.map{|i| i.gsub('#','')}}, nil, nil, :person_id )
     else
       @persons = Momomoto::View_find_person.find( {:search => @preferences[:search_person].split(' ')}, nil, nil, :person_id )
     end
