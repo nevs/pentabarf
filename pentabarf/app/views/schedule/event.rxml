@@ -6,7 +6,7 @@ xml.div(:id=>'event',:class=>'section') do
         xml.th('<[schedule::speakers]>',{:colspan=>'2'})
       end
       @events.each_by_value({:event_id=>@event.event_id}) do | speaker |
-        xml.tr do 
+        xml.tr do
           xml.td do
             xml.a(:href=>url_for(:action=>:speaker,:id=>speaker.person_id)) do
               xml.img(:src=>person_image( speaker.person_id, 32))
@@ -88,7 +88,7 @@ xml.div(:id=>'event',:class=>'section') do
   xml.div({:class=>'description'}) do
     xml << markup(@event.description)
   end
-  
+
   files = Momomoto::View_event_attachment.find({:event_id=>@event.event_id,:language_id=>120,:f_public=>'t'})
   if files.length > 0
     xml.div(:class=>'attachments') do
