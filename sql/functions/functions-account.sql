@@ -15,7 +15,7 @@ CREATE OR REPLACE FUNCTION create_account(varchar(32),varchar(64),char(48), char
       SELECT person_id FROM person WHERE person_id IN (SELECT person_id FROM account_activation WHERE account_creation < (now() + '-1 day')::timestamptz)
     LOOP
       DELETE FROM account_activation WHERE person_id = cur_person.person_id;
-      DELETE FROM person WHERE person_id = cur_person.person_id;
+      DELETE FROM person WHERE person_id = cur_person.person_id AND NOT EXISTS ( SELECT 1 FROM person_transaction WHERE person_id = cur_person.person_id);
     END LOOP;
 
     SELECT INTO cur_person person_id FROM person WHERE login_name = cur_login_name;
