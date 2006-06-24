@@ -37,14 +37,14 @@ class UserController < ApplicationController
       raise "Invalid email address" 
     elsif not Momomoto::Person.find({:login_name=>params[:person][:login_name]}).nil?
       raise "This login name is already in use." 
-    elsif not Momomoto::Person.find({:email_contact=>params[:person][:email_contact], :login_name => false}).nil?
+    elsif Momomoto::Person.find({:email_contact=>params[:person][:email_contact], :login_name => true }).length > 0
       raise "This email address is already in use."
+    else
+      activation_string = random_string
+      Notifier::deliver_activate_account( params[:person][:login_name], params[:person][:email_contact], url_for({:action=>:activate_account,:id=>activation_string,:only_path=>false}) )
+      account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>activation_string})
+      redirect_to({:action=>:account_done})
     end
-    activation_string = random_string
-    Notifier::deliver_activate_account( params[:person][:login_name], params[:person][:email_contact], url_for({:action=>:activate_account,:id=>activation_string,:only_path=>false}) )
-    account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>activation_string})
-
-    redirect_to({:action=>:account_done})
   end
 
   def account_done

@@ -23,13 +23,17 @@ CREATE OR REPLACE FUNCTION create_account(varchar(32),varchar(64),char(48), char
       RAISE EXCEPTION 'login name already in use.';
     END IF;
 
-    SELECT INTO cur_person person_id FROM person WHERE email_contact = cur_email_contact;
-    IF FOUND THEN
+    SELECT INTO cur_person person_id, login_name FROM person WHERE email_contact = cur_email_contact;
+    IF FOUND AND cur_person.login_name IS NOT NULL THEN
       RAISE EXCEPTION 'email address already in use.';
+    ELSIF FOUND AND cur_person.login_name IS NULL THEN
+      new_person_id = cur_person.person_id;
+      UPDATE person SET login_name = cur_login_name, password = cur_password WHERE person_id = new_person_id;
+    ELSE
+      SELECT INTO new_person_id nextval(pg_get_serial_sequence('person', 'person_id'));
+      INSERT INTO person(person_id, login_name, email_contact, password) VALUES (new_person_id, cur_login_name, cur_email_contact, cur_password);
     END IF;
 
-    SELECT INTO new_person_id nextval(pg_get_serial_sequence('person', 'person_id'));
-    INSERT INTO person(person_id, login_name, email_contact, password) VALUES (new_person_id, cur_login_name, cur_email_contact, cur_password);
     INSERT INTO account_activation(person_id, activation_string) VALUES (new_person_id, cur_activation_string);
     RETURN new_person_id;
   END;
