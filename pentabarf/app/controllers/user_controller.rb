@@ -29,11 +29,17 @@ class UserController < ApplicationController
   end
 
   def create_account
-    return redirect_to(:action=>:index) unless params[:person]
-    raise "Passwords do not match" if params[:person][:password] != params[:password]
-    raise "Invalid email address" unless params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,3}$/)
-    raise "This login name is already in use." unless Momomoto::Person.find({:login_name=>params[:person][:login_name]}).nil?
-    raise "This email address is already in use." unless Momomoto::Person.find({:email_contact=>params[:person][:email_contact]}).nil?
+    if not params[:person]
+      return redirect_to(:action=>:index) 
+    elsif params[:person][:password] != params[:password]
+      raise "Passwords do not match" 
+    elsif not params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,3}$/)
+      raise "Invalid email address" 
+    elsif not Momomoto::Person.find({:login_name=>params[:person][:login_name]}).nil?
+      raise "This login name is already in use." 
+    elsif not Momomoto::Person.find({:email_contact=>params[:person][:email_contact], :login_name => false}).nil?
+      raise "This email address is already in use."
+    end
     activation_string = random_string
     Notifier::deliver_activate_account( params[:person][:login_name], params[:person][:email_contact], url_for({:action=>:activate_account,:id=>activation_string,:only_path=>false}) )
     account = Momomoto::Create_account.find({:login_name=>params[:person][:login_name],:password=>params[:person][:password],:email_contact=>params[:person][:email_contact],:activation_string=>activation_string})
