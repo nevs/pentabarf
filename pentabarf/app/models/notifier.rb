@@ -1,6 +1,11 @@
 class Notifier < ActionMailer::Base
 
-  @@config = YAML.load_file( File.join( RAILS_ROOT, 'config', 'mail.yml' ) ) if File.exists?( File.join( RAILS_ROOT, 'config', 'mail.yml' ) )
+  if File.exists?( File.join( RAILS_ROOT, 'config', 'mail.yml' ) )
+    @@config = YAML.load_file( File.join( RAILS_ROOT, 'config', 'mail.yml' ) )
+    @@config.each do | key, value | @@config[key.to_sym] = value end
+  else
+    @@config = {}
+  end
   @@config[:from] = 'noreply@pentabarf.org' unless @@config[:from]
 
   def general( recipients, subject, body )
