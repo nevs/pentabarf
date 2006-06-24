@@ -45,8 +45,8 @@ CREATE OR REPLACE FUNCTION activate_account(char(64)) RETURNS INTEGER AS $$
     FOR cur_person IN
       SELECT person_id FROM person WHERE person_id IN (SELECT person_id FROM account_activation WHERE account_creation < (now() + '-1 day')::timestamptz)
     LOOP
-      DELETE FROM person WHERE person_id = cur_person.person_id;
       DELETE FROM account_activation WHERE person_id = cur_person.person_id;
+      DELETE FROM person WHERE person_id = cur_person.person_id AND NOT EXISTS ( SELECT 1 FROM person_transaction WHERE person_id = cur_person.person_id);
     END LOOP;
 
     SELECT INTO cur_person_id person_id FROM account_activation WHERE activation_string = cur_activation_string;
