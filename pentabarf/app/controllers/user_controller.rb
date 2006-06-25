@@ -53,7 +53,7 @@ class UserController < ApplicationController
   def activate_account
     raise "Invalid activation sequence." unless params[:id].length == 64
     Momomoto::Activate_account.find({:activation_string=>params[:id]})
-    redirect_to({:action=>:login})
+    redirect_to({:action=>:preferences})
   end
 
   def forgot_password
