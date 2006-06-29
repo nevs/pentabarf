@@ -59,7 +59,11 @@ class UserController < ApplicationController
   def forgot_password
     if params[:commit]
       person = Momomoto::Person.find({:login_name=>params[:person][:login_name], :email_contact=>params[:person][:email_contact]})
-      raise "This combination of login name and contact email address does not exist!" if person.length != 1
+      if person.length != 1
+        raise "This combination of login name and contact email address does not exist!" 
+      elsif Momomoto::Person_role.find({:person_id=>person.person_id}).length == 0
+        raise "Account has to be reenabled by an administrator."
+      end
       reset = Momomoto::Activation_string_reset_password.find({:person_id=>person.person_id})
       if reset.length == 0 || reset.password_reset < DateTime.now - 1
         activation_string = random_string
