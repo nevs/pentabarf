@@ -14,6 +14,7 @@ class XmlController < ApplicationController
     redirect_to( :controller => 'pentabarf', :action => :meditation )
     false
   end
+  protected( :check_permission )
 
   def schedule
     @conference = Momomoto::Conference.find({:conference_id => @params[:id]})

@@ -27,7 +27,7 @@ xml.schedule do
             event_id = room_events[start_time]
             @events.find_by_value(:event_id => event_id)
             xml.event(:id=>event_id) do
-              xml.start @events.start_time.strftime('%H:%M')
+              xml.start @events.real_starttime.strftime('%H:%M')
               xml.duration @events.duration.strftime('%H:%M')
               xml.room @events.room
               xml.tag @events.event_tag
