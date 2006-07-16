@@ -20,13 +20,12 @@
   font-size: 150%;
 }
 
-#watch {
+#remove_button {
   position: fixed;
   right: 15px;
-  top: 50px;
+  top: 40px;
   z-index: 5;
 }
-
 
 button {
   visibility: visible;

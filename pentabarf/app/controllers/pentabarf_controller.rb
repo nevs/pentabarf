@@ -774,6 +774,15 @@ class PentabarfController < ApplicationController
     end
   end
 
+  def remove_event
+    if @user.permission?('delete_event')
+      Momomoto::Remove_event.select(:event_id=>@params[:id])
+      return redirect_to(:controller=>'pentabarf',:action=>:index)
+    else
+      raise Momomoto::Permission_Error, "Not allowed to delete events."
+    end
+  end
+
   protected
 
   # transforms request from advanced search into a form understandable by momomoto

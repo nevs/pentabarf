@@ -70,5 +70,11 @@
   </div>
   <% end %>
 
+  <% if @user.permission?('delete_event') %>
+    <div id="remove_button">
+      <a href="<%= url_for({:action=>:remove_event,:id=>@event.event_id})%>"><button type="button">Remove Event</button></a>
+    </div>
+  <% end %>
+
 </div>
 <%= javascript_tag("switch_tab();") %>
