@@ -11,10 +11,6 @@
         <td><%= text_field_tag('event[subtitle]', @event.subtitle, {:size => 60, :tabindex => 0} ) %></td>
       </tr>
       <tr>
-        <td><label><[table::event::tag]></label></td>
-        <td><%= text_field_tag('event[tag]', @event.tag, {:size => 32, :tabindex => 0} ) %></td>
-      </tr>
-      <tr>
         <td><label for="f_paper"><[table::event::f_paper]></label></td>
         <td><%= check_box_tag( 'event[f_paper]', 't', @event.f_paper, { :tabindex => 0 } ) %></td>
       </tr>

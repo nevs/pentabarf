@@ -116,7 +116,7 @@ class SubmissionController < ApplicationController
   end
 
   def save_event
-    allowed_event_fields = [:title, :subtitle, :tag, :f_paper, :f_slides,
+    allowed_event_fields = [:title, :subtitle, :f_paper, :f_slides,
                             :language_id, :conference_track_id, :event_type_id,
                             :abstract, :description, :resources, :duration]
     modified = false
