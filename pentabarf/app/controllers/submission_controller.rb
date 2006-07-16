@@ -57,6 +57,7 @@ class SubmissionController < ApplicationController
     if params[:person_im]
       person_im = Momomoto::Person_im.new
       params[:person_im].each do | key, value |
+        next if value[:im_address].to_s == ''
         modified = true if save_or_delete_record( person_im, {:person_id => person.person_id, :person_im_id => value[:person_im_id]}, value)
       end
     end
