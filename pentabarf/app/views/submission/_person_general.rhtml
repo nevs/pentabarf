@@ -1,0 +1,62 @@
+<div id="content-general" class="content_tab">
+  <fieldset>
+    <legend>Names</legend>
+    <table>
+      <tr>
+        <td><label><[table::person::first_name]></label></td>
+        <td><%= text_field_tag('person[first_name]', @person.first_name, { :tabindex => 0 }) %></td>
+      <tr>
+      <tr>
+        <td><label><[table::person::last_name]></label></td>
+        <td><%= text_field_tag('person[last_name]', @person.last_name, { :tabindex => 0 }) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::person::nickname]></label></td>
+        <td><%= text_field_tag('person[nickname]', @person.nickname, { :tabindex => 0 }) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::person::public_name]></label></td>
+        <td><%= text_field_tag('person[public_name]', @person.public_name, { :tabindex => 0 }) %></td>
+      </tr>
+      <tr>
+        <td><label><[table::person::title]></label></td>
+        <td><%= text_field_tag('person[title]', @person.title, { :tabindex => 0 }) %></td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Properties</legend>
+    <table>
+      <tr>
+        <td><label><[table::person::gender]></label></td>
+        <td><%= select('person', 'gender', {'male' => true, 'female' => false}, {:include_blank => true}, {:tabindex => 0}) %></td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend><[view::pentabarf::person::spoken_languages]></legend>
+    <table class="hidden" id="person_language_table">
+      <thead>
+        <tr>
+          <th><[table::person_language::language]></th>
+          <th><[form::remove]></th>
+        </tr>
+      </thead>
+      <tbody id="person_language_table_body">
+      </tbody>
+    </table>
+    <button type="button" tabindex="0" onclick="window.add_person_language();"><[view::pentabarf::person::add_language]></button>
+    <script type="text/javascript">
+      var languages = new Array();
+      <% for language in Momomoto::View_language.find({:translated_id=> @current_language_id, :f_visible => 't'}) %>
+        languages[<%= language.language_id %>] = '<%= escape_javascript(language.name) %>';
+      <% end %>
+      <% for person_lang in Momomoto::Person_language.find({:person_id => @person.person_id}) %>
+        add_person_language(<%= person_lang.language_id %>);
+      <% end %>
+    </script>
+  </fieldset>
+
+</div>
