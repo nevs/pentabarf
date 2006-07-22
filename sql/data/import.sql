@@ -44,4 +44,6 @@ BEGIN TRANSACTION;
 \i mime_type_localized.sql
 \i phone_type.sql
 \i phone_type_localized.sql
+\i im_type.sql
+\i im_type_localized.sql
 COMMIT TRANSACTION;
