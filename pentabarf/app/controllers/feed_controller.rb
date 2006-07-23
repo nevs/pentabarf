@@ -25,3 +25,4 @@ class FeedController < ApplicationController
   end
 
 end
+

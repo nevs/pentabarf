@@ -14,13 +14,15 @@ class PentabarfController < ApplicationController
 
   def mail
     @content_title = 'Mail'
-    @recipients = [['speaker', 'All Speaker'],
-                   ['missing_slides', 'Missing Slides']]
+    @recipients = [['speaker', 'All accepted speakers of this conference'],
+                   ['missing_slides', 'Missing Slides'],
+                   ['all_speaker', 'All speakers of all conferences']]
   end
 
   def recipients
     return render_text('') unless params[:id]
     @recipients = case params[:id]
+      when 'all_speaker'  then   Momomoto::View_mail_all_speaker.find({}, nil, 'lower(name)')
       when 'speaker'  then   Momomoto::View_mail_accepted_speaker.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
       when 'missing_slides'   then   Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
       else raise 'You have to choose recipients'
@@ -29,12 +31,18 @@ class PentabarfController < ApplicationController
   end
 
   def send_mail
-    variables = ['name', 'conference_acronym', 'conference_title']
+    variables = ['name' ]
     if params[:mail][:recipients]
       recipients = case params[:mail][:recipients]
+        when 'all_speaker'  then
+          Momomoto::View_mail_all_speaker.find()
         when 'speaker'  then
+          variables.push('conference_acronym')
+          variables.push('conference_title')
           Momomoto::View_mail_accepted_speaker.find({:conference_id => @current_conference_id})
         when 'missing_slides' then
+          variables.push('conference_acronym')
+          variables.push('conference_title')
           Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id})
         else raise 'You have to choose recipients'
       end
@@ -42,7 +50,7 @@ class PentabarfController < ApplicationController
         events = []
         recipients.each_by_value({:person_id=>r.person_id}) do | recipient |
           events.push( recipient.event_title )
-        end
+        end if recipients.fields.member?(:event_title)
         body = params[:mail][:body].dup
         subject = params[:mail][:subject].dup
         variables.each do | v |
