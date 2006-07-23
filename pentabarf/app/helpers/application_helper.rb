@@ -5,6 +5,12 @@ module ApplicationHelper
     escape_javascript( text )
   end
 
+  def text_field( object, fieldname, options = {} )
+    value = object.send( fieldname )
+    options[:maxlength] = object.field( fieldname ).property(:length) if object.field( fieldname ).property(:length)
+    text_field_tag( "#{object.class.table_name}[#{fieldname}]", value, options )
+  end
+
   def rating_bar( ratings, field )
     count, sum = 0, 0
     for rating in ratings
