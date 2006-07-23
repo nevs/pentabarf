@@ -252,6 +252,7 @@ module ApplicationHelper
   # tries to read the current revision of pentabarf from a file named revision.txt otherwise returns 2342
   def get_revision()
     revision_file = '../../revision.txt'
+    rev = 0
     if File.exists?( revision_file ) && File.readable_real?( revision_file )
       rev = File.open( revision_file, 'r').gets.chomp.to_i
     end
