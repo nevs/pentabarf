@@ -80,10 +80,14 @@ module Momomoto
     undef id
     undef type
 
-    def table_name
-      @table
+    def self.table_name
+      name.downcase.gsub( /^.*::/, '')
     end
 
+    def field( name )
+      @fields[ name.to_sym ]
+    end
+    
     def fields
       real_fields = []
       @fields.each do | field_name, value |
