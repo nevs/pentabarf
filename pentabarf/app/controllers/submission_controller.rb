@@ -23,6 +23,8 @@ class SubmissionController < ApplicationController
       @conference_person.create
       @conference_person.conference_person_id = 0
     end
+    @person_travel = Momomoto::Person_travel.find( {:person_id => @user.person_id,:conference_id => @conference.conference_id} )
+    @person_travel.create if @person_travel.length == 0
   end
 
   def save_person
@@ -33,7 +35,7 @@ class SubmissionController < ApplicationController
     person_allowed_fields = [:first_name, :last_name, :nickname, :public_name,
                              :title, :gender, :f_spam, :address, :street,
                              :street_postcode, :po_box, :po_box_postcode,
-                             :city, :country_id]
+                             :city, :country_id, :iban, :bic, :bank_name, :account_owner]
     conference_person_allowed_fields = [:abstract, :description, :remark, :email_public]
     person = Momomoto::Person.find({:person_id=>@user.person_id})
     person.begin
@@ -41,6 +43,9 @@ class SubmissionController < ApplicationController
       person[field] = params[:person][field]
     end
     person.password = params[:person][:password] if params[:person][:password].to_s.length > 0
+    preferences = person.preferences
+    preferences[:current_language_id] = params[:person][:preferences][:current_language_id].to_i
+    person.preferences = preferences
     modified = true if person.write
 
     conference_person = Momomoto::Conference_person.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
