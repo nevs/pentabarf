@@ -80,6 +80,10 @@ module Momomoto
     undef id
     undef type
 
+    def table_name
+      @table
+    end
+
     def fields
       real_fields = []
       @fields.each do | field_name, value |
@@ -461,7 +465,7 @@ module Momomoto
       return true if action == 'delete' && @domain != @table && @@permissions.member?( "modify_#{@domain}" )
       return true if @domain == 'person' && fields.member?(:person_id) && @@person_id == self[:person_id] && @@permissions.member?("modify_own_person")
       return true if @domain == 'person' && fields.member?(:conference_person_id) && @@permissions.member?('modify_own_person') && Momomoto::Own_conference_persons.find({:person_id=>@@person_id,:conference_person_id=>self[:conference_person_id]}).length == 1
-      return true if @domain == 'event' && @@permissions.member?('modify_own_event') && Momomoto::Own_events.find({:person_id=>@@person_id,:event_id=>self[:event_id]}).length == 1
+      return true if @domain == 'event' && self[:event_id] && @@permissions.member?('modify_own_event') && Momomoto::Own_events.find({:person_id=>@@person_id,:event_id=>self[:event_id]}).length == 1
       false
     end
 
