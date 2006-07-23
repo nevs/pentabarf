@@ -6,7 +6,7 @@
   }
 </script>
 
-<%= content_tabs_js( ['general', 'contact', 'description', 'links', 'account'], 'view::pentabarf::person::tab' ) %>
+<%= content_tabs_js( ['general', 'contact', 'description', 'links', 'travel', 'account'], 'view::pentabarf::person::tab' ) %>
 <div id="object-image">
   <%= image_tag('icon-person-64x64.png', { :class => 'object-image' } ) %>
 </div>
@@ -24,10 +24,8 @@
   <%= render(:partial => 'person_contact') %>
   <%= render(:partial => 'person_description') %>
   <%= render(:partial => 'person_links') %>
-
-
-
-
+  <%= render(:partial => 'person_travel') %>
+  <%= render(:partial => 'person_account') %>
 
   <%= end_form_tag() %>
   <%= javascript_tag("new Form.Observer('content_form', 0, function(element, value ) { enable_save_button() } )") %>

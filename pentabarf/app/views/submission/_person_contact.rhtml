@@ -83,27 +83,27 @@
       </colgroup>
       <tr>
         <td><label><[table::person::address]></label></td>
-        <td><%= text_field_tag('person[address]', @person.address, {:tabindex => 0}) %></td>
+        <td><%= text_field( @person, :address, {:tabindex => 0} ) %></td>
       </tr>
       <tr>
         <td><label><[table::person::street]></label></td>
-        <td><%= text_field_tag('person[street]', @person.street, {:tabindex => 0}) %></td>
+        <td><%= text_field( @person, :street, {:tabindex => 0} ) %></td>
       </tr>
       <tr>
         <td><label><[table::person::street_postcode]></label></td>
-        <td><%= text_field_tag('person[street_postcode]', @person.street_postcode, {:tabindex => 0}) %></td>
+        <td><%= text_field( @person, :street_postcode, {:tabindex => 0} ) %></td>
       </tr>
       <tr>
         <td><label><[table::person::po_box]></label></td>
-        <td><%= text_field_tag('person[po_box]', @person.po_box, {:tabindex => 0}) %></td>
+        <td><%= text_field( @person, :po_box, {:tabindex => 0} ) %></td>
       </tr>
       <tr>
         <td><label><[table::person::po_box_postcode]></label></td>
-        <td><%= text_field_tag('person[po_box_postcode]', @person.po_box_postcode, {:tabindex => 0}) %></td>
+        <td><%= text_field( @person, :po_box_postcode, {:tabindex => 0} ) %></td>
       </tr>
       <tr>
         <td><label><[table::person::city]></label></td>
-        <td><%= text_field_tag('person[city]', @person.city, {:tabindex => 0}) %></td>
+        <td><%= text_field( @person, :city, {:tabindex => 0} ) %></td>
       </tr>
       <tr>
         <td><label><[table::person::country]></label></td>

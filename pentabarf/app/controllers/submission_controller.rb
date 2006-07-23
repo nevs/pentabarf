@@ -37,6 +37,15 @@ class SubmissionController < ApplicationController
                              :street_postcode, :po_box, :po_box_postcode,
                              :city, :country_id, :iban, :bic, :bank_name, :account_owner]
     conference_person_allowed_fields = [:abstract, :description, :remark, :email_public]
+    person_travel_allowed_fields = [:arrival_transport_id, :arrival_from, :arrival_to, 
+                                    :arrival_number, :arrival_date, :arrival_time,:f_arrival_pickup,
+                                    :departure_transport_id, :departure_from, :departure_to, 
+                                    :departure_number, :departure_date, :departure_time,
+                                    :f_departure_pickup, :travel_cost, :travel_currency_id, 
+                                    :accommodation_cost, :accommodation_currency_id, :accommodation_name, 
+                                    :accommodation_street, :accommodation_postcode, :accommodation_city, 
+                                    :accommodation_phone, :accommodation_phone_room, :f_need_travel_cost,
+                                    :f_need_accommodation_cost ]
     person = Momomoto::Person.find({:person_id=>@user.person_id})
     person.begin
     person_allowed_fields.each do | field |
@@ -58,6 +67,17 @@ class SubmissionController < ApplicationController
       conference_person[field] = params[:conference_person][field]
     end
     modified = true if conference_person.write
+
+    person_travel = Momomoto::Person_travel.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
+    if person_travel.nil?
+      person_travel.create
+      person_travel.person_id = @user.person_id
+      person_travel.conference_id = @conference.conference_id
+    end
+    person_travel_allowed_fields.each do | field |
+      person_travel[field] = params[:person_travel][field]
+    end
+    modified = true if person_travel.write
 
     if params[:person_im]
       person_im = Momomoto::Person_im.new
