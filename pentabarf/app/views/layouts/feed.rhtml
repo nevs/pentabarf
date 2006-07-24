@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed version="0.3" xml:lang="<%= h(@content_lang) %>" >
-
-  <title><%= h(@content_title) %></title>
-  <link rel="alternate" type="text/html" href="<%= url_for(:controller=>:pentabarf,:action=>:recent_changes) %>" />
-  <modified><%= @last_modified %></modified>
-
-  <%= @content_for_layout %>
-</feed>

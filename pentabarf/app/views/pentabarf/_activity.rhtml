@@ -1,4 +1,0 @@
-<% Momomoto::View_last_active.find( {}, 10 ).each do | person | %>
-  <% next if person.person_id == @user.person_id %>
-  <%= link_to( "<span class=\"user\">#{h(person.login_name)}</span><span class=\"time\">#{ person.login_diff.strftime('%M:%S')}</span>", { :action => :person, :id => person.person_id }, {:title => person.name } ) -%>
-<% end %>
