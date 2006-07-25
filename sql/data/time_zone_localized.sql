@@ -18,6 +18,8 @@ INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (3, 120
 INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (1, 144, 'London');
 INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (2, 144, 'Berlin');
 INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (3, 144, 'Wilna');
+INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (4, 120, 'Tokyo');
+INSERT INTO time_zone_localized (time_zone_id, language_id, name) VALUES (4, 144, 'Tokyo');
 
 
 --

@@ -186,12 +186,12 @@ INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_prefer
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (171, 'ZMK', false, false, false, NULL);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (172, 'ZWD', false, false, false, NULL);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (153, 'USD', false, true, false, 1.28560);
-INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (73, 'JPY', false, false, false, 136.51000);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (39, 'DKK', false, false, false, 7.43340);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (128, 'SEK', false, false, false, 9.10800);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (46, 'EUR', true, true, false, 1.00000);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (49, 'GBP', false, true, false, 0.69775);
 INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (173, 'DEM', false, true, false, NULL);
+INSERT INTO currency (currency_id, iso_4217_code, f_default, f_visible, f_preferred, exchange_rate) VALUES (73, 'JPY', false, true, false, 136.51000);
 
 
 --

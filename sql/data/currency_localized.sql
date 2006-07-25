@@ -12,6 +12,8 @@ SET search_path = public, pg_catalog;
 -- Data for Name: currency_localized; Type: TABLE DATA; Schema: public; Owner: pentabarf
 --
 
+INSERT INTO currency_localized (currency_id, language_id, name) VALUES (73, 120, 'Yen');
+INSERT INTO currency_localized (currency_id, language_id, name) VALUES (73, 144, 'Yen');
 
 
 --
