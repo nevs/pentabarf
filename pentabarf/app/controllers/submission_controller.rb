@@ -73,6 +73,7 @@ class SubmissionController < ApplicationController
       person_travel.create
       person_travel.person_id = @user.person_id
       person_travel.conference_id = @conference.conference_id
+      person_travel.fee_currency_id = @conference.currency_id
     end
     person_travel_allowed_fields.each do | field |
       person_travel[field] = params[:person_travel][field]
