@@ -1,7 +1,8 @@
 <div id="content-links" class="content_tab">
 
   <fieldset>
-    <legend>Public Links</legend>
+    <p><[view::pentabarf::event::tab::links::introduction]></p>
+    <legend><[view::pentabarf::event::tab::links]></legend>
     <table id="link_table" class="hidden">
       <thead>
         <tr>
@@ -13,7 +14,7 @@
       <tbody id="link_table_body">
       </tbody>
     </table>
-    <button type="button" name="add_link" value="Add Links" title="Add a new link to list of links" tabindex="0" onClick="window.add_link();">Add Link</button>
+    <button type="button" name="add_link" title="<[form::button::add_link::hint]>" tabindex="0" onClick="window.add_link();"><[form::button::add_link]></button>
     <script type="text/javascript">
     <% for event_link in Momomoto::Event_link.find( {:event_id => @event.event_id} ) %>
       add_link(<%= event_link.event_link_id  %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title) %>');

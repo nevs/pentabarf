@@ -3,11 +3,11 @@
     <legend><[view::pentabarf::event::tab::general]></legend>
     <table>
       <tr>
-        <td><label><[table::event::title]></label></td>
+        <td><label><[table::event::title]></label><br/><[table::event::title::hint]></td>
         <td><%= text_field_tag('event[title]', @event.title, {:size => 60, :tabindex => 0} ) %></td>
       </tr>
       <tr>
-        <td><label><[table::event::subtitle]></label></td>
+        <td><label><[table::event::subtitle]></label><br/><[table::event::subtitle::hint]></td>
         <td><%= text_field_tag('event[subtitle]', @event.subtitle, {:size => 60, :tabindex => 0} ) %></td>
       </tr>
       <tr>
@@ -16,7 +16,7 @@
       </tr>
       <tr>
         <td><label for="f_slides"><[table::event::f_slides]></label></td>
-        <td><%= select_tag( 'event[f_slides]', [[nil,'Unknown'],[true,'Yes'],[false,'No']],0,1,@event.f_slides, {:tabindex=>0},false ) %></td>
+        <td><%= select_tag( 'event[f_slides]', [[nil,'<[form::unknown]>'],[true,'<[form::yes]>'],[false,'<[form::no]>']],0,1,@event.f_slides, {:tabindex=>0},false ) %></td>
       </tr>
       <tr>
         <td><label><[table::event::language]></label></td>
