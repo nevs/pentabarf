@@ -673,8 +673,6 @@ class PentabarfController < ApplicationController
         event.conference_id = params[:event][:conference_id] if @user.permission?( 'move_event' )
         event.conference_id = @current_conference_id unless event.conference_id
         event.f_public = 'f' unless params[:event]['f_public']
-        event.f_paper = 'f' unless params[:event]['f_paper']
-        event.f_slides = 'f' unless params[:event]['f_slides']
         modified = true if event.write
 
         if params[:related_event]

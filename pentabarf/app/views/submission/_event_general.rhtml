@@ -12,11 +12,11 @@
       </tr>
       <tr>
         <td><label for="f_paper"><[table::event::f_paper]></label></td>
-        <td><%= check_box_tag( 'event[f_paper]', 't', @event.f_paper, { :tabindex => 0 } ) %></td>
+        <td><%= select_tag( 'event[f_paper]', [[nil,'Unknown'],[true,'Yes'],[false,'No']],0,1,@event.f_paper, {:tabindex=>0},false ) %></td>
       </tr>
       <tr>
         <td><label for="f_slides"><[table::event::f_slides]></label></td>
-        <td><%= check_box_tag( 'event[f_slides]', 't', @event.f_slides, { :tabindex => 0 } ) %></td>
+        <td><%= select_tag( 'event[f_slides]', [[nil,'Unknown'],[true,'Yes'],[false,'No']],0,1,@event.f_slides, {:tabindex=>0},false ) %></td>
       </tr>
       <tr>
         <td><label><[table::event::language]></label></td>
