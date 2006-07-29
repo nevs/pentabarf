@@ -71,8 +71,8 @@ class AdminController < ApplicationController
 
     def get_localization_classes( tag )
       raise "Localization for this table is not allowed" unless @allowed_classes.member?(tag)
-      @tag_class = eval "Momomoto::#{tag.capitalize}"
-      @localization_class = eval("Momomoto::#{tag.capitalize}_localized")
+      @tag_class = Momomoto::const_get(tag.capitalize)
+      @localization_class = Momomoto.const_get("#{tag.capitalize}_localized")
       @localization_id = "#{tag}_id".to_sym
     end
 
