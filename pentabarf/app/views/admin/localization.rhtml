@@ -31,5 +31,17 @@
     </table>
   <% end %>
   <%= end_form_tag() %>
+
+  <% if params[:id] == 'ui_message' %>
+    <%= start_form_tag({:action => :add_ui_tag}, {:id => :add_tag_form}) %>
+      <h3>Add tag</h3>
+      <div id="add_tag">
+        <input type="text" name="add_tag[name]"/>
+        <input type="submit" value="Add tag" name="add_tag[submit]"/>
+      </div>
+    <%= end_form_tag %>
+  <% end %>
+
+  
   <%= javascript_tag("new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } )") %>
 </div>

@@ -26,6 +26,15 @@ class AdminController < ApplicationController
     end
   end
 
+  def add_ui_tag
+    if params[:add_tag] && params[:add_tag][:name]
+      t = Momomoto::Ui_message.new_record
+      t.tag = params[:add_tag][:name]
+      t.write
+    end
+    redirect_to(:action=>:localization,:id=>:ui_message)
+  end
+
   def save_localization
     get_localization_classes(params[:id])
     message = @localization_class.new
