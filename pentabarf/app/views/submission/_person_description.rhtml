@@ -1,10 +1,12 @@
 <div id="content-description" class="content_tab">
   <fieldset>
-    <legend>Abstract</legend>
+    <p><[view::pentabarf::person::abstract::introduction]></p>
+    <legend><[view::pentabarf::person::abstract]></legend>
     <%= text_area_tag('conference_person[abstract]', @conference_person.abstract, {:cols => 70, :rows => 3,:tabindex => 0}) %>
   </fieldset>
   <fieldset>
-    <legend>Description</legend>
+    <p><[view::pentabarf::person::description::introduction]></p>
+    <legend><[view::pentabarf::person::description]></legend>
     <%= text_area_tag('conference_person[description]', @conference_person.description, {:cols => 70, :rows => 23, :tabindex => 0} ) %>
   </fieldset>
 </div>

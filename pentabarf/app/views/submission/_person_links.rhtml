@@ -1,11 +1,12 @@
 <div id="content-links" class="content_tab">
 
   <fieldset>
-    <legend>Links</legend>
+    <p><[view::pentabarf::person::links::introduction]></p>
+    <legend><[view::pentabarf::person::links]></legend>
     <table id="link_table" class="hidden">
       <thead>
         <tr>
-          <th colspan="2">URL</th>
+          <th colspan="2"><[table::conference_person_link::url]></th>
           <th><[table::conference_person_link::title]></th>
           <th><[form::remove]></th>
         </tr>
@@ -13,7 +14,7 @@
       <tbody id="link_table_body">
       </tbody>
     </table>
-    <button type="button" tabindex="0" name="add_link" value="Add Links" title="Add a new link to list of links" onClick="window.add_link();">Add Link</button>
+    <button type="button" tabindex="0" name="add_link" title="<[form::button::add_link::hint]>" onClick="window.add_link();"><[form::button::add_link]></button>
     <script type="text/javascript">
     <% for person_link in Momomoto::Conference_person_link.find( {:conference_person_id => @conference_person.conference_person_id} ) %>
       add_link(<%= person_link.conference_person_link_id  %>, '<%= escape_javascript(person_link.url) %>', '<%= escape_javascript(person_link.title) %>');

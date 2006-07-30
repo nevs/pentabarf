@@ -1,6 +1,6 @@
 <div id="content-travel" class="content_tab">
   <fieldset>
-    <legend>Travel</legend>
+    <legend><[view::pentabarf::person::travel]></legend>
 
     <table>
       <tr>
@@ -47,7 +47,7 @@
               <td><%= select_tag('person_travel[arrival_transport_id]', Momomoto::View_transport.find(:language_id => @current_language_id), :transport_id, :name, @person_travel.arrival_transport_id, {:tabindex => 0}, false ) %></td>
             </tr>
             <tr>
-              <td><label>Pickup</label></td>
+              <td><label><[view::pentabarf::person::pickup]></label></td>
               <td><%= check_box_tag('person_travel[f_arrival_pickup]', 't', @person_travel.f_arrival_pickup, {:tabindex => 0} )%></td>
             </tr>
           </table>
@@ -121,7 +121,7 @@
   </fieldset>
 
   <fieldset>
-    <legend>Accommodation</legend>
+    <legend><[view::pentabarf::person::accommodation]></legend>
     <table>
       <tr>
         <td><label>Place / Name</label></td>
