@@ -35,6 +35,13 @@
           <strong><%= link_to( h(event.title), :action => :event, :id => event.event_id ) %></strong>
           <br/>
           <em><%= link_to( h(event.subtitle), :action => :event, :id => event.event_id ) %></em>
+          <br/>
+          <%  people = []
+              Momomoto::View_event_search_persons.find({:event_id=>event.event_id}).each do | p |
+                people.push("<a href=\"#{url_for(:action=>:person,:id=>p.person_id)}\">#{h(p.name)}</a>")
+              end
+          %>
+          <%= people.join(', ') %>
         </td>
         <td><%= link_to( h(event.event_state), :action => :event, :id => event.event_id ) %></td>
         <td><%= link_to( h(event.event_state_progress), :action => :event, :id => event.event_id ) %></td>
