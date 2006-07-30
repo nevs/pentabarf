@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'yaml'
+require 'rubygems'
 require 'postgres'
 
 if ARGV.length < 2
