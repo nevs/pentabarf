@@ -1,24 +1,24 @@
 <div id="content-travel" class="content_tab">
   <fieldset>
-    <legend>Travel</legend>
+    <legend><[view::pentabarf::person::travel]></legend>
 
     <table>
       <tr>
         <td>
           <table>
             <tr>
-              <th colspan="2">Arrival</th>
+              <th colspan="2"><[view::pentabarf::person::travel::arrival]></th>
             </tr>
             <tr>
-              <td><label>From</label></td>
+              <td><label><[view::pentabarf::person::travel::arrival::from]></label></td>
               <td><%= text_field_tag('person_travel[arrival_from]', @person_travel.arrival_from, {:tabindex => 0} ) %></td>
             </tr>
             <tr>
-              <td><label>To</label></td>
+              <td><label><[view::pentabarf::person::travel::arrival::to]></label></td>
               <td><%= text_field_tag('person_travel[arrival_to]', @person_travel.arrival_to, {:tabindex => 0} ) %></td>
             </tr>
             <tr>
-              <td><label>Date</label></td>
+              <td><label><[view::pentabarf::person::travel::arrival::date]></label></td>
               <td>
                 <%= text_field_tag('person_travel[arrival_date]', @person_travel.arrival_date ? @person_travel.arrival_date.strftime('%Y-%m-%d') : nil, {:tabindex => 0,:size => 10}) %>
                 <button type="button" id="calendar_arrival_date">...</button>
@@ -35,19 +35,19 @@
               </td>
             </tr>
             <tr>
-              <td><label>Time</label></td>
+              <td><label><[view::pentabarf::person::travel::arrival::time]></label></td>
               <td><%= text_field_tag('person_travel[arrival_time]', @person_travel.arrival_time ? @person_travel.arrival_time.strftime('%H:%M:%S') : nil, {:tabindex => 0}) %></td>
             </tr>
             <tr>
-              <td><label>Number</label></td>
+              <td><label><[view::pentabarf::person::travel::arrival::number]></label></td>
               <td><%= text_field_tag('person_travel[arrival_number]', @person_travel.arrival_number, {:tabindex => 0}) %></td>
             </tr>
             <tr>
-              <td><label>Transport type</label></td>
+              <td><label><[view::pentabarf::person::travel::arrival::transport_type]></label></td>
               <td><%= select_tag('person_travel[arrival_transport_id]', Momomoto::View_transport.find(:language_id => @current_language_id), :transport_id, :name, @person_travel.arrival_transport_id, {:tabindex => 0}, false ) %></td>
             </tr>
             <tr>
-              <td><label>Pickup</label></td>
+              <td><label><[view::pentabarf::person::pickup]></label></td>
               <td><%= check_box_tag('person_travel[f_arrival_pickup]', 't', @person_travel.f_arrival_pickup, {:tabindex => 0} )%></td>
             </tr>
           </table>
@@ -55,18 +55,18 @@
         <td>
           <table>
             <tr>
-              <th colspan="2">Departure</th>
+              <th colspan="2"><[view::pentabarf::person::travel::departure]></th>
             </tr>
             <tr>
-              <td><label>From</label></td>
+              <td><label><[view::pentabarf::person::travel::departure::from]></label></td>
               <td><%= text_field_tag('person_travel[departure_from]', @person_travel.departure_from, {:tabindex => 0}) %></td>
             </tr>
             <tr>
-              <td><label>To</label></td>
+              <td><label><[view::pentabarf::person::travel::departure::to]></label></td>
               <td><%= text_field_tag('person_travel[departure_to]', @person_travel.departure_to, {:tabindex => 0}) %></td>
             </tr>
             <tr>
-              <td><label>Date</label></td>
+              <td><label><[view::pentabarf::person::travel::departure::date]></label></td>
               <td>
                 <%= text_field_tag('person_travel[departure_date]', @person_travel.departure_date ? @person_travel.departure_date.strftime('%Y-%m-%d') : nil, {:tabindex => 0,:size => 0}) %>
                 <button type="button" id="calendar_departure_date">...</button>
@@ -83,19 +83,19 @@
               </td>
             </tr>
             <tr>
-              <td><label>Time</label></td>
+              <td><label><[view::pentabarf::person::travel::departure::time]></label></td>
               <td><%= text_field_tag('person_travel[departure_time]', @person_travel.departure_time ? @person_travel.departure_time.strftime('%H:%M:%S') : nil, {:tabindex => 0}) %></td>
             </tr>
             <tr>
-              <td><label>Number</label></td>
+              <td><label><[view::pentabarf::person::travel::departure::number]></label></td>
               <td><%= text_field_tag('person_travel[departure_number]', @person_travel.departure_number, {:tabindex => 0}) %></td>
             </tr>
             <tr>
-              <td><label>Transport type</label></td>
+              <td><label><[view::pentabarf::person::travel::departure::transport_type]></label></td>
               <td><%= select_tag('person_travel[departure_transport_id]', Momomoto::View_transport.find( {:language_id => @current_language_id} ), :transport_id, :name, @person_travel.departure_transport_id, {:tabindex => 0}, false ) %></td>
             </tr>
             <tr>
-              <td><label>Pickup</label></td>
+              <td><label><[view::pentabarf::person::pickup]></label></td>
               <td><%= check_box_tag('person_travel[f_departure_pickup]', 't', @person_travel.f_departure_pickup, {:tabindex => 0})%></td>
             </tr>
           </table>
@@ -121,7 +121,7 @@
   </fieldset>
 
   <fieldset>
-    <legend>Accommodation</legend>
+    <legend><[view::pentabarf::person::accommodation]></legend>
     <table>
       <tr>
         <td><label>Place / Name</label></td>
@@ -161,7 +161,7 @@
   </fieldset>
 
   <fieldset>
-    <legend>Bank Account</legend>
+    <legend><[view::pentabarf::person::bank_account]></legend>
     <table>
       <tr>
         <td><label>IBAN</label></td>
