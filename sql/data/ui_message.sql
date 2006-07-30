@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 226, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 310, true);
 
 
 --
@@ -188,6 +188,82 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (223, 'feedback::criticism');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (224, 'schedule::all_days');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (225, 'table::conference::abstract_length');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (226, 'table::conference::description_length');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (228, 'submission::event::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (229, 'submission::event::introduction::hint');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (230, 'pentabarf::overview::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (231, 'submission::events::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (232, 'table::event::subtitle::hint');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (233, 'table::event::title::hint');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (234, 'table::event::abstract::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (235, 'table::event::description::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (238, 'table::event::attachments::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (239, 'table::event::attachments');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (240, 'table::event::resources');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (241, 'table::event::resources::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (243, 'view::pentabarf::event::tab::links::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (244, 'view::pentabarf::event::tab::feedback::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (246, 'form::unknown');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (247, 'form::yes');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (248, 'form::no');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (249, 'form::button::add_attachment');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (250, 'form::button::add_attachment::hint');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (251, '<[table::event::event_attachment::type]>');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (252, 'table::event::event_attachment::type');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (253, 'table::event::event_attachment::public');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (254, 'table::event::event_attachment::filename');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (255, 'table::event::event_attachment::title');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (256, 'table::event::event_attachment::pages');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (257, 'table::event::event_attachment::mime_type');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (258, 'table::event::event_attachment::upload_time');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (259, 'table::event::event_attachment::file');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (260, 'form::button::add_link');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (261, 'form::button::add_link::hint');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (262, 'view::pentabarf::person::properties');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (263, 'view::pentabarf::person::names');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (264, 'view::pentabarf::person::account');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (265, 'view::pentabarf::person::password');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (266, 'view::pentabarf::person::repeat_password');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (267, 'view::pentabarf::person::ui_language');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (268, 'view::pentabarf::person::preferences');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (269, 'view::pentabarf::person::links::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (270, 'view::pentabarf::person::links');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (271, 'table::conference_person_link::url');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (272, 'view::pentabarf::person::abstract');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (273, 'view::pentabarf::person::abstract::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (274, 'view::pentabarf::person::description::introduction');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (275, 'view::pentabarf::person::description');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (276, 'view::pentabarf::person::pickup');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (277, 'view::pentabarf::person::permissions');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (278, 'view::pentabarf::person::hits_per_page');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (279, 'view::pentabarf::person::login_name');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (280, 'view::pentabarf::person::last_activity');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (281, 'view::pentabarf::person::photo');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (282, 'view::pentabarf::person::delete_image');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (283, 'view::pentabarf::person::photo::public');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (285, 'view::pentabarf::person::bank_account');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (286, 'view::pentabarf::person::travel');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (287, 'view::pentabarf::person::accommodation');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (288, 'view::pentabarf::person::travel::arrival');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (289, 'view::pentabarf::person::travel::arrival::from');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (290, 'view::pentabarf::person::travel::arrival::to');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (291, 'view::pentabarf::person::travel::arrival::date');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (292, 'view::pentabarf::person::travel::arrival::time');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (293, 'view::pentabarf::person::travel::arrival::number');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (294, 'view::pentabarf::person::travel::arrival::transport_type');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (295, 'view::pentabarf::person::travel::departure');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (296, 'view::pentabarf::person::travel::departure::from');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (297, 'view::pentabarf::person::travel::departure::to');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (298, 'view::pentabarf::person::travel::departure::date');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (301, 'view::pentabarf::person::travel::departure::time');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (302, 'view::pentabarf::person::travel::departure::number');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (303, 'view::pentabarf::person::travel::departure::transport_type');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (304, 'view::pentabarf::find::event::title_subtitle');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (305, 'view::pentabarf::find::event::status');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (306, 'view::pentabarf::find::event::time');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (307, 'view::pentabarf::find::event::room');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (308, 'view::pentabarf::find::event::day');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (309, 'view::pentabarf::find::event::progress');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (310, 'view::pentabarf::find::event::duration');
 
 
 --
