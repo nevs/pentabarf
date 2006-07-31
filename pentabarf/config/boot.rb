@@ -44,6 +44,7 @@ unless defined?(Rails::Initializer)
 end
 
 require 'yaml'
+require 'iconv'
 require 'jabberlogger'
 require 'momomoto/momomoto'
 
