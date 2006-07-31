@@ -46,5 +46,22 @@ class ApplicationController < ActionController::Base
     return [login_name.to_s, password.to_s]
   end
 
+  def compress
+    accepts = request.env['HTTP_ACCEPT_ENCODING']
+    return unless accepts && accepts =~ /(x-gzip|gzip)/
+    encoding = $1
+    output = StringIO.new
+    def output.close # Zlib does a close. Bad Zlib...
+      rewind
+    end
+    gz = Zlib::GzipWriter.new(output)
+    gz.write(response.body)
+    gz.close
+    if output.length < response.body.to_s.length
+      response.body = output.string
+      response.headers['Content-encoding'] = encoding
+    end
+  end
+
 end
 

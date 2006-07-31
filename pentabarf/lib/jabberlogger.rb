@@ -1,5 +1,7 @@
 
+require 'yaml'
 require 'xmpp4r'
+require 'socket'
 
 class JabberLogger
 
