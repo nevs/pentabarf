@@ -44,3 +44,6 @@ Rails::Initializer.run do |config|
 end
 
 # Include your application configuration below
+
+require 'momomoto/momomoto'
+require 'jabberlogger'
