@@ -17,6 +17,7 @@ Rails::Initializer.run do |config|
   
   # Skip frameworks you're not going to use
   # config.frameworks -= [ :action_web_service, :action_mailer ]
+  config.frameworks -= [ :active_record ]
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
@@ -45,5 +46,6 @@ end
 
 # Include your application configuration below
 
-require 'momomoto/momomoto'
-require 'jabberlogger'
+Momomoto::Database.instance.config( YAML.load_file( File.join( RAILS_ROOT, 'config', 'database.yml' ) )[ENV['RAILS_ENV']] )
+Momomoto::Database.instance.connect
+
