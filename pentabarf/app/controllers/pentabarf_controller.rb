@@ -31,7 +31,7 @@ class PentabarfController < ApplicationController
   end
 
   def send_mail
-    variables = ['name' ]
+    variables = ['name', 'person_id' ]
     if params[:mail][:recipients]
       recipients = case params[:mail][:recipients]
         when 'all_speaker'  then
@@ -54,8 +54,8 @@ class PentabarfController < ApplicationController
         body = params[:mail][:body].dup
         subject = params[:mail][:subject].dup
         variables.each do | v |
-          body.gsub!("{{#{v.upcase}}}", r[v])
-          subject.gsub!("{{#{v.upcase}}}", r[v])
+          body.gsub!("{{#{v.upcase}}}", r[v].to_s)
+          subject.gsub!("{{#{v.upcase}}}", r[v].to_s)
         end
         body.gsub!('{{EVENT_TITLE}}', events.join(','))
         subject.gsub!('{{EVENT_TITLE}}', events.join(','))
