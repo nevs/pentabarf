@@ -1,0 +1,57 @@
+﻿/* FORMS */
+
+form {
+  border: none;
+  margin: 0px;
+}
+
+fieldset {
+  border: 1px solid #c8d8e8;
+  padding: 5px 10px 10px 10px;
+
+	margin-top: 10px;
+  line-height: 1em;
+  width: auto;
+}
+
+div#comment {
+}
+
+legend {
+  background: transparent;
+}
+
+label {
+  font-weight: bold;
+}
+
+textarea {
+  border: 1px solid #c8d8e8;
+  padding: 2px;
+  color: #000;
+  background-color: #fff;
+  width: 100%;
+}
+
+
+input {
+  visibility: visible;
+  border: 2px solid #c8d8e8;  
+  color: #000;
+  background-color: #fff;
+  vertical-align: middle;
+  padding: 2px;
+  margin: 2px;
+}
+
+input:focus, textarea:focus {
+  background-color: #FFFFD0;
+  border-color: #90acc8;
+}
+
+
+select {
+  border: 1px solid #c8d8e8;  
+  color: #000;
+  vertical-align: top;
+}

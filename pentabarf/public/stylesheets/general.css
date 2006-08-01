@@ -1,0 +1,113 @@
+﻿/* general formatting */
+
+body {
+  font-family: "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+  font-size: 9pt;
+  background-color: #fff;
+  color: #000;
+  margin: 0px;
+  padding: 0px;
+}
+
+p {
+  margin: 0.5em 0em 1em 0em;
+  padding: 5px;
+  line-height: 1.2em;
+}
+
+
+/* link formatting */
+
+:link, :visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+:link:hover, :visited:hover {
+}
+
+/* images */
+
+img {
+  border: none;
+  vertical-align: middle;
+  border: 0px;
+  margin: 0px;
+}
+
+a img {
+  border: 1px solid transparent;
+}
+
+a img:hover {
+  border: 1px solid red;
+}
+
+/* headlines */
+
+h1, h2, h3, h4, h5, h6 {
+  color: black;
+  margin: 0px;
+  padding-top: 0.5em;
+}
+
+/* LISTS */
+
+ul { 
+  line-height: 1.5em;
+  list-style-type: square;
+  margin: 0.5em 0em 0em 1.5em;
+  padding: 0px;
+  list-style-image: url(../images/bullet.png);
+}
+
+ol {
+  line-height: 1.5em;
+  margin: 0.5em 0em 0em 1.5em;
+  padding: 0px;
+}
+
+ul a, ol a {
+  text-decoration: underline;
+}
+
+li {
+  margin-bottom: 1em;
+}
+
+.pre {
+	white-space: pre;
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* image sizes */
+
+.tiny {
+  height: 16px;
+  width: 16px;
+}
+
+.small {
+  height: 32px;
+  width: 32px;
+}
+
+.medium {
+  height: 48px;
+  width: 48px;
+}
+
+.large {
+  height: 64px;
+  width: 64px;
+}
+
+.huge {
+  height: 128px;
+  width: 128px;
+}
+
