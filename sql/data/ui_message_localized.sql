@@ -290,8 +290,6 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (224,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (199, 120, 'Day');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (229, 120, 'Yes, like this.');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (229, 144, 'Ja, genau so.');
-INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (230, 120, 'This is an overview over every event of this conference that you are somehow associated with (currently only the "moderator", "speaker" and "coordinator" roles are displayed),');
-INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (230, 144, 'Hier findest Du eine Übersicht über alle Veranstaltungen dieser Konferenz an denen Du in irgendeiner Form beteiligt bist (derzeit werden nur die Rollen "Moderator", "Referent" und "Koordinator" berücksichtigt.');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (231, 120, 'This is a list of all events of this conference that you are associated with. Select the title of any event you might want to view or make changes to.');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (231, 144, 'Dies ist eine Liste aller Veranstaltungen dieser Konferenz mit Du in irgendeiner Form assoziiert bist. Selektiere den Titel einer Veranstaltung um weitere Informationen darüber zu sehen oder zu ändern.');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (116, 144, 'Titel der Veranstaltung');
@@ -498,6 +496,8 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (309,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (310, 120, 'Duration');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (310, 144, 'Dauer');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (31, 144, 'Komplexe Suche');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (230, 120, 'This is an overview over every event of this conference that you are somehow associated with (currently only the "moderator", "speaker", "visitor" and "coordinator" roles are displayed).');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (230, 144, 'Hier findest Du eine Übersicht über alle Veranstaltungen dieser Konferenz an denen Du in irgendeiner Form beteiligt bist (derzeit werden nur die Rollen "Moderator", "Referent", "Besucher" und "Koordinator" berücksichtigt).');
 
 
 --

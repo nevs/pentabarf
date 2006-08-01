@@ -51,8 +51,8 @@ INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (29, 1, 'person
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (30, 1, 'person_description_length');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (31, 4, 'event_accepted_without_timeslot');
 INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (32, 4, 'event_unconfirmed_with_timeslot');
-INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (33, 4, 'conflict_event_paper_unknown');
-INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (34, 4, 'conflict_event_slides_unknown');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (33, 4, 'event_paper_unknown');
+INSERT INTO conflict (conflict_id, conflict_type_id, tag) VALUES (34, 4, 'event_slides_unknown');
 
 
 --
