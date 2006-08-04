@@ -1,36 +1,30 @@
 
 -- returns all conclicts related to events
-CREATE OR REPLACE FUNCTION conflict_event_person(integer) RETURNS SETOF conflict_event_person_conflict AS '
+CREATE OR REPLACE FUNCTION conflict.event_person( conference_id INTEGER ) RETURNS SETOF conflict.event_person_conflict AS $$
   DECLARE
-    cur_conference_id ALIAS FOR $1;
-    cur_conflict_event_person RECORD;
     cur_conflict RECORD;
-
+    cur_conflict_event_person conflict.event_person_conflict%ROWTYPE;
   BEGIN
 
     FOR cur_conflict IN
-      SELECT conflict.conflict_id, 
-             conflict.conflict_type_id, 
-             conflict.tag 
-        FROM conflict 
-             INNER JOIN conflict_type USING (conflict_type_id)
-             INNER JOIN conference_phase_conflict USING (conflict_id)
-             INNER JOIN conference USING (conference_phase_id)
-             INNER JOIN conflict_level USING (conflict_level_id)
-       WHERE conflict_type.tag = ''event_person'' AND
-             conflict_level.tag <> ''silent'' AND
-             conference.conference_id = cur_conference_id
+      SELECT * FROM pg_catalog.pg_proc
+               INNER JOIN pg_catalog.pg_namespace ON (
+                   pg_namespace.oid = pg_proc.pronamespace AND
+                   pg_namespace.nspname = 'conflict' )
+               INNER JOIN pg_catalog.pg_type ON (
+                   pg_type.oid = pg_proc.prorettype AND
+                   pg_type.typnamespace = pg_proc.pronamespace AND
+                   pg_type.typname = 'event_person' )
     LOOP
       FOR cur_conflict_event_person IN
-        EXECUTE ''SELECT conflict_id, event_id, person_id FROM conflict_'' || cur_conflict.tag || ''('' || cur_conference_id || ''), ( SELECT '' || cur_conflict.conflict_id || '' AS conflict_id) AS conflict_id; ''
+        EXECUTE 'SELECT ' || quote_literal( cur_conflict.proname ) || ' AS conflict, event_id, person_id FROM conflict.' || quote_ident( cur_conflict.proname ) || '(' || quote_literal( conference_id ) || ');'
       LOOP
         RETURN NEXT cur_conflict_event_person;
       END LOOP;
     END LOOP;
-
     RETURN;
   END;
-' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+$$ LANGUAGE plpgsql;
 
 -- returns event_persons that do not speak the language of the event
 CREATE OR REPLACE FUNCTION conflict_event_person_language(integer) RETURNS SETOF conflict_event_person AS '
