@@ -4,54 +4,54 @@
  *
 */
 
-CREATE TYPE conflict_person AS (
+CREATE TYPE conflict.person AS (
   person_id   INTEGER  
 );
 
-CREATE TYPE conflict_person_conflict AS (
+CREATE TYPE conflict.person_conflict AS (
   conflict_id INTEGER,
   person_id   INTEGER  
 );
 
-CREATE TYPE conflict_event_person AS (
+CREATE TYPE conflict.event_person AS (
   event_id    INTEGER,
   person_id   INTEGER
 );
 
-CREATE TYPE conflict_event_person_conflict AS (
+CREATE TYPE conflict.event_person_conflict AS (
   conflict_id INTEGER,
   event_id    INTEGER,
   person_id   INTEGER
 );
 
-CREATE TYPE conflict_event_person_event AS (
+CREATE TYPE conflict.event_person_event AS (
   event_id1   INTEGER,
   event_id2   INTEGER,
   person_id   INTEGER
 );
 
-CREATE TYPE conflict_event_person_event_conflict AS (
+CREATE TYPE conflict.event_person_event_conflict AS (
   conflict_id INTEGER,
   event_id1   INTEGER,
   event_id2   INTEGER,
   person_id   INTEGER
 );
 
-CREATE TYPE conflict_event AS (
+CREATE TYPE conflict.event AS (
   event_id    INTEGER
 );
 
-CREATE TYPE conflict_event_conflict AS (
+CREATE TYPE conflict.event_conflict AS (
   conflict_id INTEGER,
   event_id    INTEGER
 );
 
-CREATE TYPE conflict_event_event AS (
+CREATE TYPE conflict.event_event AS (
   event_id1   INTEGER,
   event_id2   INTEGER
 );
 
-CREATE TYPE conflict_event_event_conflict AS (
+CREATE TYPE conflict.event_event_conflict AS (
   conflict_id INTEGER,
   event_id1   INTEGER,
   event_id2   INTEGER
