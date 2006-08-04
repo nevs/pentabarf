@@ -1,5 +1,5 @@
 
 CREATE SCHEMA conflict;
 
-CREATE SCHEMA template;
+CREATE SCHEMA master;
 
