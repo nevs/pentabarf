@@ -9,7 +9,7 @@ CREATE TYPE conflict.person AS (
 );
 
 CREATE TYPE conflict.person_conflict AS (
-  conflict_id INTEGER,
+  conflict    TEXT,
   person_id   INTEGER  
 );
 
@@ -19,7 +19,7 @@ CREATE TYPE conflict.event_person AS (
 );
 
 CREATE TYPE conflict.event_person_conflict AS (
-  conflict_id INTEGER,
+  conflict    TEXT,
   event_id    INTEGER,
   person_id   INTEGER
 );
@@ -31,7 +31,7 @@ CREATE TYPE conflict.event_person_event AS (
 );
 
 CREATE TYPE conflict.event_person_event_conflict AS (
-  conflict_id INTEGER,
+  conflict    TEXT,
   event_id1   INTEGER,
   event_id2   INTEGER,
   person_id   INTEGER
@@ -42,7 +42,7 @@ CREATE TYPE conflict.event AS (
 );
 
 CREATE TYPE conflict.event_conflict AS (
-  conflict_id INTEGER,
+  conflict    TEXT,
   event_id    INTEGER
 );
 
@@ -52,7 +52,7 @@ CREATE TYPE conflict.event_event AS (
 );
 
 CREATE TYPE conflict.event_event_conflict AS (
-  conflict_id INTEGER,
+  conflict    TEXT,
   event_id1   INTEGER,
   event_id2   INTEGER
 );
