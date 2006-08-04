@@ -2,8 +2,34 @@
  * Conflicts concerning two events
 */
 
--- returns all conclicts related to events
-CREATE OR REPLACE FUNCTION conflict_event_event(integer) RETURNS SETOF conflict_event_event_conflict AS '
+CREATE OR REPLACE FUNCTION conflict.event_event( conference_id INTEGER ) RETURNS SETOF conflict.event_event_conflict AS $$
+  DECLARE
+    cur_conflict RECORD;
+    cur_conflict_event_event RECORD;
+  BEGIN
+
+    FOR cur_conflict IN
+      SELECT * FROM pg_catalog.pg_proc
+               INNER JOIN pg_catalog.pg_namespace ON (
+                   pg_namespace.oid = pg_proc.pronamespace AND
+                   pg_namespace.nspname = 'conflict' )
+               INNER JOIN pg_catalog.pg_type ON (
+                   pg_type.oid = pg_proc.prorettype AND
+                   pg_type.typnamespace = pg_proc.pronamespace AND
+                   pg_type.typname = 'event_event' )
+    LOOP
+      FOR cur_conflict_event_event IN
+        EXECUTE 'SELECT conflict_id, event_id1, event_id2 FROM ' || cur_conflict.proname || '(' || conference_id || ')'
+      LOOP
+
+      END LOOP;
+    END LOOP;
+    RETURN;
+  END;
+$$ LANGUAGE plpgsql;
+
+-- returns all conflicts related to two events
+CREATE OR REPLACE FUNCTION conflict.conflict_event_event(integer) RETURNS SETOF conflict.event_event_conflict AS '
   DECLARE
     cur_conference_id ALIAS FOR $1;
     cur_conflict_event_event RECORD;
@@ -12,10 +38,10 @@ CREATE OR REPLACE FUNCTION conflict_event_event(integer) RETURNS SETOF conflict_
   BEGIN
 
     FOR cur_conflict IN
-      SELECT conflict.conflict_id, 
-             conflict.conflict_type_id, 
-             conflict.tag 
-        FROM conflict 
+      SELECT conflict.conflict_id,
+             conflict.conflict_type_id,
+             conflict.tag
+        FROM conflict
              INNER JOIN conflict_type USING (conflict_type_id)
              INNER JOIN conference_phase_conflict USING (conflict_id)
              INNER JOIN conference USING (conference_phase_id)
@@ -31,81 +57,6 @@ CREATE OR REPLACE FUNCTION conflict_event_event(integer) RETURNS SETOF conflict_
       END LOOP;
     END LOOP;
 
-    RETURN;
-  END;
-' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
-
--- returns events with conflicting timeslots
-CREATE OR REPLACE FUNCTION conflict_event_event_time(integer) RETURNS SETOF conflict_event_event AS '
-  DECLARE 
-    cur_conference_id ALIAS FOR $1;
-    cur_event RECORD;
-    cur_event2 RECORD;
-    conflicting_event conflict_event_event%ROWTYPE;
-  BEGIN
--- Loop through all events
-    FOR cur_event IN
-      SELECT event_id, start_time, duration, day, room_id FROM event INNER JOIN event_state USING (event_state_id) 
-        WHERE event.conference_id = cur_conference_id AND
-              event_state.tag = ''accepted'' AND
-              event.day IS NOT NULL AND
-              event.start_time IS NOT NULL
-    LOOP
-      FOR cur_event2 IN
-        SELECT event_id FROM event INNER JOIN event_state USING (event_state_id) 
-          WHERE event.day IS NOT NULL AND
-                event.start_time IS NOT NULL AND
-                event.day = cur_event.day AND 
-                event_state.tag = ''accepted'' AND
-                event.event_id <> cur_event.event_id AND
-                event.conference_id = cur_conference_id AND
-                event.room_id = cur_event.room_id AND
-                (( event.start_time >= cur_event.start_time AND
-                   event.start_time < cur_event.start_time + cur_event.duration ) OR
-                 ( event.start_time + event.duration > cur_event.start_time AND
-                   event.start_time + event.duration <= cur_event.start_time + cur_event.duration ))
-      LOOP
-        conflicting_event.event_id1 := cur_event.event_id;
-        conflicting_event.event_id2 := cur_event2.event_id;
-        RETURN NEXT conflicting_event;
-      END LOOP;
-    END LOOP;
-    RETURN;
-  END;
-' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
-
--- returns events with conflicting tags
-CREATE OR REPLACE FUNCTION conflict_event_event_duplicate_tag(integer) RETURNS SETOF conflict_event_event AS '
-  DECLARE 
-    cur_conference_id ALIAS FOR $1;
-    cur_event RECORD;
-    cur_event2 RECORD;
-    conflicting_event conflict_event_event%ROWTYPE;
-  BEGIN
--- Loop through all events
-    FOR cur_event IN
-      SELECT event.event_id,
-             event.tag
-        FROM event
-             INNER JOIN event_state USING (event_state_id)
-       WHERE event.conference_id = cur_conference_id AND
-             event_state.tag = ''accepted'' AND
-             event.tag IS NOT NULL
-    LOOP
-      FOR cur_event2 IN
-        SELECT event_id 
-          FROM event 
-               INNER JOIN event_state USING (event_state_id) 
-         WHERE event.conference_id = cur_conference_id AND 
-               event.event_id <> cur_event.event_id AND
-               event_state.tag = ''accepted'' AND
-               event.tag = cur_event.tag
-      LOOP
-        conflicting_event.event_id1 := cur_event.event_id;
-        conflicting_event.event_id2 := cur_event2.event_id;
-        RETURN NEXT conflicting_event;
-      END LOOP;
-    END LOOP;
     RETURN;
   END;
 ' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
