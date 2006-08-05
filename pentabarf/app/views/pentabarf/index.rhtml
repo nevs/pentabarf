@@ -26,6 +26,12 @@
                 <a href="<%= url_for({:action => :event, :id => role.event_id}) %>">
                   <strong><%= h(role.title) %></strong><br/><em><%= h(role.subtitle) %></em>
                 </a>
+                <%  people = []
+                    Momomoto::View_event_search_persons.find({:event_id=>role.event_id}).each do | p |
+                      people.push("<a href=\"#{url_for(:action=>:person,:id=>p.person_id)}\">#{h(p.name)}</a>")
+                    end
+                %>
+                <%= people.join(', ') %>
               </td>
               <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_state) %></a></td>
               <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_state_progress) %></a></td>
@@ -57,6 +63,12 @@
                 <a href="<%= url_for({:action => :event, :id => role.event_id}) %>">
                   <strong><%= h(role.title) %></strong><br/><em><%= h(role.subtitle) %></em>
                 </a>
+                <%  people = []
+                    Momomoto::View_event_search_persons.find({:event_id=>role.event_id}).each do | p |
+                      people.push("<a href=\"#{url_for(:action=>:person,:id=>p.person_id)}\">#{h(p.name)}</a>")
+                    end
+                %>
+                <%= people.join(', ') %>
               </td>
               <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_state) %></a></td>
               <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_state_progress) %></a></td>
