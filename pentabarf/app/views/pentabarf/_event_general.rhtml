@@ -59,12 +59,6 @@
         <td><label><[table::event::type]></label></td>
         <td><%= select_tag( 'event[event_type_id]', Momomoto::View_event_type.find({:language_id => @current_language_id}), "event_type_id", "name", @event.event_type_id, { :tabindex => 0 } ) %></td>
       </tr>
-      <% if @user.permission?('move_event') %>
-      <tr>
-        <td><label><[table::event::conference]></label></td>
-        <td><%= select_tag( 'event[conference_id]', Momomoto::Conference.find(), "conference_id", "acronym", @event.conference_id, { :tabindex => 0 }, false ) %></td>
-      </tr>
-      <% end %>
       <tr>
         <td><label>Created at</label></td>
         <% first_log = Momomoto::Event_transaction.find({:event_id => @event.event_id},1,'changed_when') %>
