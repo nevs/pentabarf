@@ -11,3 +11,6 @@ ALTER TABLE conference_transaction ADD COLUMN conference_transaction_id SERIAL;
 ALTER TABLE conference_transaction DROP CONSTRAINT conference_transaction_pkey;
 ALTER TABLE conference_transaction ADD CONSTRAINT conference_transaction_pkey PRIMARY KEY(conference_transaction_id);
 
+ALTER TABLE event ADD COLUMN submission_notes TEXT;
+ALTER TABLE event_logging ADD COLUMN submission_notes TEXT;
+

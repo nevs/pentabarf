@@ -691,6 +691,7 @@ CREATE TABLE event (
   f_deleted BOOL NOT NULL DEFAULT FALSE,
   f_unmoderated BOOL NOT NULL DEFAULT FALSE,
   remark TEXT,
+  submission_notes TEXT,
   actual_start TIMESTAMP WITH TIME ZONE,
   actual_end TIMESTAMP WITH TIME ZONE,
   last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
