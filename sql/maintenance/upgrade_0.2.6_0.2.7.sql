@@ -16,3 +16,5 @@ ALTER TABLE event_logging ADD COLUMN submission_notes TEXT;
 
 ALTER TABLE event ALTER COLUMN f_public SET DEFAULT TRUE;
 
+ALTER TABLE event_role ADD COLUMN f_public BOOL;
+
