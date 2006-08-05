@@ -14,3 +14,5 @@ ALTER TABLE conference_transaction ADD CONSTRAINT conference_transaction_pkey PR
 ALTER TABLE event ADD COLUMN submission_notes TEXT;
 ALTER TABLE event_logging ADD COLUMN submission_notes TEXT;
 
+ALTER TABLE event ALTER COLUMN f_public SET DEFAULT TRUE;
+

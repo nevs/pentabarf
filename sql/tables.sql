@@ -916,7 +916,7 @@ CREATE TABLE event_attachment (
   title VARCHAR(256),
   pages INTEGER,
   data BYTEA NOT NULL,
-  f_public BOOL NOT NULL DEFAULT FALSE,
+  f_public BOOL NOT NULL DEFAULT TRUE,
   last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   last_modified_by INTEGER,
   FOREIGN KEY (attachment_type_id) REFERENCES attachment_type (attachment_type_id),
