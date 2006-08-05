@@ -13,6 +13,7 @@
           <tr>
             <th colspan="2"><[table::event::title]></th>
             <th><[table::event::event_state]></th>
+            <th><[table::event::event_state_progress]></th>
             <th><[table::event_person::event_role]></th>
             <th><[table::event_person::event_role_state]></th>
           </tr>
@@ -27,6 +28,7 @@
                 </a>
               </td>
               <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_state) %></a></td>
+              <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_state_progress) %></a></td>
               <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_role) %></a></td>
               <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_role_state) %></a></td>
             </tr>
@@ -44,6 +46,7 @@
           <tr>
             <th colspan="2"><[table::event::title]></th>
             <th><[table::event::event_state]></th>
+            <th><[table::event::event_state_progress]></th>
             <th><[table::event_person::event_role]></th>
           </tr>
         </thead>
@@ -56,6 +59,7 @@
                 </a>
               </td>
               <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_state) %></a></td>
+              <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_state_progress) %></a></td>
               <td><a href="<%= url_for({:action => :event, :id => role.event_id}) %>"><%= h(role.event_role) %></a></td>
             <tr>
             </tr>
@@ -64,6 +68,6 @@
       </table>
     </fieldset>
   </div>
-  
+
 </div>
 <%= javascript_tag("switch_tab();") %>
