@@ -97,7 +97,7 @@ CREATE OR REPLACE FUNCTION submit_event(integer, integer, text) RETURNS INTEGER 
                               cur_person_id,
                               ( SELECT event_role_id
                                   FROM event_role
-                                 WHERE tag = 'speaker'),
+                                 WHERE tag = 'submitter'),
                               ( SELECT event_role_state_id
                                   FROM event_role_state
                                        INNER JOIN event_role ON (
