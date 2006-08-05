@@ -1,5 +1,5 @@
 
--- returns all conclicts related to events, persons and events
+-- returns all conflicts related to events, persons and events
 CREATE OR REPLACE FUNCTION conflict.event_person_event( conference_id INTEGER ) RETURNS SETOF conflict.event_person_event_conflict AS $$
   DECLARE
     cur_conflict RECORD;

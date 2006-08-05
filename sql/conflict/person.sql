@@ -3,7 +3,7 @@
 */
 
 
--- returns all conclicts related to persons
+-- returns all conflicts related to persons
 CREATE OR REPLACE FUNCTION conflict.person( conference_id INTEGER ) RETURNS SETOF conflict.person_conflict AS $$
   DECLARE
     cur_conflict RECORD;

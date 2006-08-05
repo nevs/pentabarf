@@ -5,7 +5,7 @@
 */
 
 CREATE TYPE conflict.person AS (
-  person_id   INTEGER  
+  person_id   INTEGER
 );
 
 CREATE TYPE conflict.person_conflict AS (
