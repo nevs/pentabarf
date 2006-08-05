@@ -34,7 +34,9 @@ CREATE OR REPLACE FUNCTION event_without_speaker(conference_id INTEGER) RETURNS 
   BEGIN
     FOR cur_conflict IN
       SELECT event_id FROM event
-                      INNER JOIN 
+                      INNER JOIN event_state ON (
+                          event_state.event_state
+                          )
     RETURN;
   END;
 $$ LANGUAGE plpgsql;

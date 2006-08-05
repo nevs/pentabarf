@@ -10,7 +10,7 @@ CREATE TYPE conflict.person AS (
 
 CREATE TYPE conflict.person_conflict AS (
   conflict    TEXT,
-  person_id   INTEGER  
+  person_id   INTEGER
 );
 
 CREATE TYPE conflict.event_person AS (
