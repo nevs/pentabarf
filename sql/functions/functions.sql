@@ -212,7 +212,7 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
 
     INSERT INTO event_related( event_id1, event_id2 ) VALUES( cur_event_id, new_event_id );
 
-    INSERT INTO event_person( event_id, 
+    INSERT INTO event_person( event_id,
                               person_id,
                               event_role_id,
                               last_modified_by )
@@ -233,8 +233,8 @@ CREATE OR REPLACE FUNCTION add_attendee(INTEGER, INTEGER) RETURNS INTEGER AS $$
     cur_event_id ALIAS FOR $2;
     cur_event_person RECORD;
   BEGIN
-    SELECT INTO cur_event_person event_id 
-      FROM event 
+    SELECT INTO cur_event_person event_id
+      FROM event
            INNER JOIN event_state ON (
                event_state.event_state_id = event.event_state_id AND
                event_state.tag = 'accepted' )
@@ -282,7 +282,7 @@ CREATE OR REPLACE FUNCTION remove_event( event_id INTEGER ) RETURNS INTEGER AS $
     DELETE FROM event_link_internal WHERE event_link_internal.event_id = event_id;
     DELETE FROM event_attachment WHERE event_attachment.event_id = event_id;
     DELETE FROM event_rating WHERE event_rating.event_id = event_id;
-    DELETE FROM event_rating_public WHERE event_rating_public.event_id = event_id; 
+    DELETE FROM event_rating_public WHERE event_rating_public.event_id = event_id;
     DELETE FROM event WHERE event.event_id = event_id;
     RETURN event_id;
   END;

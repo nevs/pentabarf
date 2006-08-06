@@ -145,7 +145,7 @@ class SubmissionController < ApplicationController
   def save_event
     allowed_event_fields = [:title, :subtitle, :f_paper, :f_slides,
                             :language_id, :conference_track_id, :event_type_id,
-                            :abstract, :description, :resources, :duration]
+                            :abstract, :description, :resources, :duration, :submission_notes]
     modified = false
     if params[:id]
       events = Momomoto::Own_conference_events.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id,:event_id=>params[:id]})
