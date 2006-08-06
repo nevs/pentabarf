@@ -1,12 +1,16 @@
 <div id="content-persons" class="content_tab">
-  <fieldset>
-    <legend><[view::pentabarf::event::tab::persons]></legend>
 
+  <fieldset>
+    <legend>Submission Notes</legend>
     <table>
       <tr>
         <td><%= text_area_tag('event[submission_notes]', @event.submission_notes, {:rows => 5, :cols => 60, :tabindex => 0}) %></td>
       </tr>
     </table>
+  </fieldset>
+
+  <fieldset>
+    <legend><[view::pentabarf::event::tab::persons]></legend>
 
     <table id="persons_table" class="hidden">
       <thead>
