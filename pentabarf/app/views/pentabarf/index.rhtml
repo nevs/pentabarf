@@ -20,7 +20,7 @@
         </thead>
         <tbody>
           <% for role in Momomoto::View_event_person.find({:language_id => @current_language_id, :conference_id => @current_conference_id, :person_id => @user.person_id, :event_role_tag => ['speaker', 'moderator','visitor']}) %>
-            <tr class="<%= h(role.event_role_tag) %>">
+            <tr class="<%= h(role.event_state_tag) %>">
               <td><%= link_to(image_tag('icon-event-32x32.png'), {:action => :event, :id => role.event_id}) %></td>
               <td>
                 <a href="<%= url_for({:action => :event, :id => role.event_id}) %>">
@@ -58,7 +58,7 @@
           </tr>
         </thead>
         <tbody>
-            <tr class="<%= h(role.event_role_tag) %>">
+            <tr class="<%= h(role.event_state_tag) %>">
             <% for role in Momomoto::View_event_person.find({:language_id => @current_language_id, :conference_id => @current_conference_id, :person_id => @user.person_id, :event_role_tag => 'coordinator'}) %>
               <td><%= link_to(image_tag('icon-event-32x32.png'), {:action => :event, :id => role.event_id}) %></td>
               <td>
