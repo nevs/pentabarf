@@ -1,6 +1,6 @@
 
 CREATE TABLE master.conference_image(
-  conference_id TEXT NOT NULL,
+  conference_id INTEGER NOT NULL,
   mime_type TEXT NOT NULL,
   image BYTEA NOT NULL
 ) WITHOUT OIDS;

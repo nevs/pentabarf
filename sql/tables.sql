@@ -34,6 +34,7 @@
 \i tables/conference_image.sql
 \i tables/conference_language.sql
 \i tables/conference_track.sql
+\i tables/conference_team.sql
 
 \i tables/room.sql
 
