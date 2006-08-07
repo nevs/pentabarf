@@ -1,19 +1,20 @@
 
 CREATE TABLE master.conference(
-  conference_id INTEGER,
-  conference_phase TEXT,
-  acronym TEXT,
-  title TEXT,
+  conference_id INTEGER NOT NULL,
+  conference_phase TEXT NOT NULL,
+  acronym TEXT NOT NULL,
+  title TEXT NOT NULL,
   subtitle TEXT,
-  start_date DATE,
-  days SMALLINT,
+  start_date DATE NOT NULL,
+  days SMALLINT NOT NULL DEFAULT 1,
   venue TEXT,
   city TEXT,
   country TEXT,
   currency TEXT,
-  timeslot_duration INTERVAL,
-  default_timeslots INTEGER,
-  daychange TIME WITHOUT TIME ZONE,
+  timeslot_duration INTERVAL NOT NULL,
+  default_timeslots INTEGER NOT NULL DEFAULT 1,
+  max_timeslot_duration INTEGER NOT NOT DEFAULT 10,
+  day_change TIME WITHOUT TIME ZONE NOT NULL DEFAULT '0:00:00',
   remark TEXT,
   release TEXT,
   homepage TEXT,
@@ -28,7 +29,15 @@ CREATE TABLE master.conference(
   visitor_enabled BOOL
 ) WITHOUT OIDS;
 
-CREATE TABLE conference() INHERITS(master.conference);
-CREATE TABLE logging.conference() INHERITS(master.conference);
+CREATE TABLE conference(
+  PRIMARY KEY(conference_id),
+  FOREIGN KEY(conference_phase) REFERENCES conference_phase(conference_phase),
+  FOREIGN KEY(country) REFERENCES country(country),
+  FOREIGN KEY(currency) REFERENCES currency(currency)
+) INHERITS(master.conference);
 
+CREATE SEQUENCE conference_id_sequence;
+ALTER TABLE conference ALTER COLUMN conference_id SET DEFAULT nextval('conference_id_sequence');
+
+CREATE TABLE logging.conference() INHERITS(master.conference);
 

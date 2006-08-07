@@ -1,25 +1,21 @@
 
 CREATE TABLE master.event(
-  event_id INTEGER,
-  conference_id INTEGER,
+  event_id INTEGER NOT NULL,
+  conference_id INTEGER NOT NULL,
   tag TEXT,
-  title TEXT,
+  title TEXT NOT NULL,
   subtitle TEXT
 ) WITHOUT OIDS;
 
 -- this is the real event table
-CREATE TABLE event() INHERITS(master.event);
-
-CREATE TABLE logging.event(
+CREATE TABLE event(
+  PRIMARY KEY(event_id),
+  FOREIGN KEY(conference_id) REFERENCES conference(conference_id)
 ) INHERITS(master.event);
 
 CREATE SEQUENCE event_id_sequence;
-
-ALTER TABLE event ADD CONSTRAINT event_pk PRIMARY KEY(event_id);
-
-ALTER TABLE event ADD CONSTRAINT event_fk_conference_id FOREIGN KEY(conference_id) REFERENCES conference(conference_id);
-ALTER TABLE event ADD CONSTRAINT event_fk_country FOREIGN KEY(country) REFERENCES country(country);
-ALTER TABLE event ADD CONSTRAINT event_fk_currency FOREIGN KEY(currency) REFERENCES currency(currency);
-
 ALTER TABLE event ALTER COLUMN event_id SET DEFAULT nextval('event_id_sequence');
+
+CREATE TABLE logging.event(
+) INHERITS(master.event);
 

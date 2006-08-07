@@ -1,8 +1,11 @@
 
 CREATE TABLE master.transport(
-  transport TEXT
+  transport TEXT NOT NULL
 ) WITHOUT OIDS;
 
-CREATE TABLE transport() INHERITS(master.transport);
+CREATE TABLE transport(
+  PRIMARY KEY(transport)
+) INHERITS(master.transport);
+
 CREATE TABLE logging.transport() INHERITS(master.transport);
 

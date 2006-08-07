@@ -1,6 +1,6 @@
 
 CREATE TABLE master.person(
-  person_id INTEGER,
+  person_id INTEGER NOT NULL,
   login_name VARCHAR(64),
   password VARCHAR(32),
   salt VARCHAR(16),
@@ -8,6 +8,9 @@ CREATE TABLE master.person(
   last_name TEXT
 ) WITHOUT OIDS;
 
-CREATE TABLE person() INHERITS(master.person);
+CREATE TABLE person(
+  PRIMARY KEY(person_id)
+) INHERITS(master.person);
+
 CREATE TABLE logging.person() INHERITS(master.person);
 

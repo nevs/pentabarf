@@ -1,9 +1,13 @@
 
 CREATE TABLE master.language(
-  language TEXT,
-  localized BOOL,
-  visible BOOL
+  language TEXT NOT NULL,
+  localized BOOL NOT NULL,
+  visible BOOL NOT NULL DEFAULT FALSE
 ) WITHOUT OIDS;
 
-CREATE TABLE language() INHERITS(master.language);
+CREATE TABLE language(
+  PRIMARY KEY(language)
+) INHERITS(master.language);
+
 CREATE TABLE logging.language() INHERITS(master.language);
+

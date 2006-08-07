@@ -1,10 +1,14 @@
 
 CREATE TABLE master.room(
-  room TEXT,
-  conference_id INTEGER,
-  public BOOL
+  room TEXT NOT NULL,
+  conference_id INTEGER NOT NULL,
+  public BOOL NOT NULL DEFAULT TRUE
 ) WITHOUT OIDS;
 
-CREATE TABLE room() INHERITS(master.room);
+CREATE TABLE room(
+  PRIMARY KEY(room),
+  FOREIGN KEY(conference_id) REFERENCES conference(conference_id)
+) INHERITS(master.room);
+
 CREATE TABLE logging.room() INHERITS(master.room);
 

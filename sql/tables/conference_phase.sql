@@ -1,8 +1,11 @@
 
 CREATE TABLE master.conference_phase(
-  conference_phase TEXT
+  conference_phase TEXT NOT NULL
 ) WITHOUT OIDS;
 
-CREATE TABLE conference_phase() INHERITS(master.conference_phase);
+CREATE TABLE conference_phase(
+  PRIMARY KEY(conference_phase)
+) INHERITS(master.conference_phase);
+
 CREATE TABLE logging.conference_phase() INHERITS(master.conference_phase);
 
