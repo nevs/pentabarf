@@ -23,7 +23,7 @@
     <% @events.each_with_index do | event, index | %>
     <% next if index < (@preferences[:hits_per_page] * @current_page) %>
     <% next if index > ((@preferences[:hits_per_page] * (@current_page + 1)) - 1) %>
-      <tr>
+      <tr class="<%= h(event.event_state_tag) %>">
         <td>
           <% if event.mime_type_id %>
             <%= link_to( image_tag("/image/event/#{event.event_id.to_s + '-24x24.' + event.file_extension.to_s}", {:size => "24x24"} ), :action => :event, :id => event.event_id ) %>
