@@ -58,7 +58,7 @@ tr:hover td {
 }
 
 
-# event states
+/* event states */
 
 tr.accepted {
   background-color: #71ff88;
