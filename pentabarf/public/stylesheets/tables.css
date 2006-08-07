@@ -58,6 +58,22 @@ tr:hover td {
 }
 
 
+# event states
+
+tr.accepted {
+  background-color: #71ff88;
+}
+
+tr.undecided {
+  background-color: #fff371;
+}
+
+tr.rejected {
+  background-color: #f16567;
+}
+
+
+
 /* SPECIFIC TABLE LAYOUT */
 
 div#comment table {
