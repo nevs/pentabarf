@@ -5,3 +5,5 @@ CREATE TABLE master.language(
   visible BOOL
 ) WITHOUT OIDS;
 
+CREATE TABLE language() INHERITS(master.language);
+CREATE TABLE logging.language() INHERITS(master.language);

@@ -4,3 +4,7 @@ CREATE TABLE master.country(
   visible BOOL
 ) WITHOUT OIDS;
 
+CREATE TABLE country() INHERITS(master.country);
+CREATE TABLE logging.country() INHERITS(master.country);
+
+

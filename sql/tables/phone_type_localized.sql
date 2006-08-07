@@ -5,3 +5,6 @@ CREATE TABLE master.phone_type_localized(
   name TEXT
 ) WITHOUT OIDS;
 
+CREATE TABLE phone_type_localized() INHERITS(master.phone_type_localized);
+CREATE TABLE logging.phone_type_localized() INHERITS(master.phone_type_localized);
+

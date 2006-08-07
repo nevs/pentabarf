@@ -28,3 +28,7 @@ CREATE TABLE master.conference(
   visitor_enabled BOOL
 ) WITHOUT OIDS;
 
+CREATE TABLE conference() INHERITS(master.conference);
+CREATE TABLE logging.conference() INHERITS(master.conference);
+
+

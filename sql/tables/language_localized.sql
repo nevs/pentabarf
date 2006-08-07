@@ -5,3 +5,5 @@ CREATE TABLE master.language_localized(
   name     TEXT
 ) WITHOUT OIDS;
 
+CREATE TABLE language_localized() INHERITS(master.language_localized);
+CREATE TABLE logging.language_localized() INHERITS(master.language_localized);
