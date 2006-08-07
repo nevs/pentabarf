@@ -4,13 +4,40 @@ CREATE TABLE master.event(
   conference_id INTEGER NOT NULL,
   tag TEXT,
   title TEXT NOT NULL,
-  subtitle TEXT
+  subtitle TEXT,
+  conference_track TEXT,
+  conference_team TEXT,
+  event_type TEXT NOT NULL,
+  duration INTERVAL NOT NULL,
+  event_origin TEXT NOT NULL,
+  event_state TEXT NOT NULL,
+  event_state_progress TEXT NOT NULL,
+  language TEXT NOT NULL,
+  conference_room TEXT NOT NULL,
+  day SMALLINT,
+  start_time INTERVAL,
+  abstract TEXT,
+  description TEXT,
+  resources TEXT,
+  public BOOL NOT NULL DEFAULT FALSE,
+  paper BOOL,
+  slides BOOL,
+  remark TEXT,
+  submission_notes TEXT
 ) WITHOUT OIDS;
 
 -- this is the real event table
 CREATE TABLE event(
   PRIMARY KEY(event_id),
-  FOREIGN KEY(conference_id) REFERENCES conference(conference_id)
+  FOREIGN KEY(conference_id) REFERENCES conference(conference_id),
+  FOREIGN KEY(conference_id, conference_track) REFERENCES conference_track(conference_id, conference_track),
+  FOREIGN KEY(conference_id, conference_team) REFERENCES conference_team(conference_id, conference_team),
+  FOREIGN KEY(event_type) REFERENCES event_type(event_type),
+  FOREIGN KEY(event_origin) REFERENCES event_origin(event_origin),
+  FOREIGN KEY(event_state) REFERENCES event_state(event_state),
+  FOREIGN KEY(event_state_progress) REFERENCES event_state_progress(event_state_progress),
+  FOREIGN KEY(language) REFERENCES language(language),
+  FOREIGN KEY(conference_id, conference_room) REFERENCES conference_room(conference_id,conference_room)
 ) INHERITS(master.event);
 
 CREATE SEQUENCE event_id_sequence;
