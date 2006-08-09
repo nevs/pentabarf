@@ -3,13 +3,6 @@
     <legend><[view::pentabarf::event::tab::general]></legend>
     <table>
       <tr>
-        <td>Submission Notes</td>
-        <td><%= text_area_tag('event[submission_notes]', @event.submission_notes, {:rows => 5, :cols => 60, :tabindex => 0}) %></td>
-      </tr>
-    </table>
-
-    <table>
-      <tr>
         <td><label><[table::event::title]></label><br/><[table::event::title::hint]></td>
         <td><%= text_field_tag('event[title]', @event.title, {:size => 60, :tabindex => 0} ) %></td>
       </tr>

@@ -29,6 +29,11 @@
     </span>
   </p>
 
+  <fieldset>
+    <legend>Submission Notes</legend>
+    <%= text_area_tag('event[submission_notes]', @event.submission_notes, {:rows => 5, :cols => 60, :tabindex => 0}) %>
+  </fieldset>
+
   <%= render(:partial => 'event_general') %>
   <%= render(:partial => 'event_description') %>
   <%= render(:partial => 'event_resources') %>
