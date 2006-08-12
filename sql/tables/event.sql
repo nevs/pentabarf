@@ -29,15 +29,15 @@ CREATE TABLE master.event(
 -- this is the real event table
 CREATE TABLE event(
   PRIMARY KEY(event_id),
-  FOREIGN KEY(conference_id) REFERENCES conference(conference_id),
-  FOREIGN KEY(conference_id, conference_track) REFERENCES conference_track(conference_id, conference_track),
-  FOREIGN KEY(conference_id, conference_team) REFERENCES conference_team(conference_id, conference_team),
-  FOREIGN KEY(event_type) REFERENCES event_type(event_type),
-  FOREIGN KEY(event_origin) REFERENCES event_origin(event_origin),
-  FOREIGN KEY(event_state) REFERENCES event_state(event_state),
-  FOREIGN KEY(event_state_progress) REFERENCES event_state_progress(event_state_progress),
-  FOREIGN KEY(language) REFERENCES language(language),
-  FOREIGN KEY(conference_id, conference_room) REFERENCES conference_room(conference_id,conference_room)
+  FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE,
+  FOREIGN KEY(conference_id, conference_track) REFERENCES conference_track(conference_id, conference_track) ON UPDATE CASCADE,
+  FOREIGN KEY(conference_id, conference_team) REFERENCES conference_team(conference_id, conference_team) ON UPDATE CASCADE,
+  FOREIGN KEY(event_type) REFERENCES event_type(event_type) ON UPDATE CASCADE,
+  FOREIGN KEY(event_origin) REFERENCES event_origin(event_origin) ON UPDATE CASCADE,
+  FOREIGN KEY(event_state) REFERENCES event_state(event_state) ON UPDATE CASCADE,
+  FOREIGN KEY(event_state_progress) REFERENCES event_state_progress(event_state_progress) ON UPDATE CASCADE,
+  FOREIGN KEY(language) REFERENCES language(language) ON UPDATE CASCADE,
+  FOREIGN KEY(conference_id, conference_room) REFERENCES conference_room(conference_id,conference_room) ON UPDATE CASCADE
 ) INHERITS(master.event);
 
 CREATE SEQUENCE event_id_sequence;

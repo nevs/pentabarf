@@ -7,7 +7,7 @@ CREATE TABLE master.room(
 
 CREATE TABLE room(
   PRIMARY KEY(room),
-  FOREIGN KEY(conference_id) REFERENCES conference(conference_id)
+  FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE
 ) INHERITS(master.room);
 
 CREATE TABLE logging.room() INHERITS(master.room);

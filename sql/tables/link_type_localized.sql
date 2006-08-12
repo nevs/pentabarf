@@ -7,8 +7,8 @@ CREATE TABLE master.link_type_localized(
 
 CREATE TABLE link_type_localized(
   PRIMARY KEY(link_type, translated),
-  FOREIGN KEY(link_type) REFERENCES link_type(link_type),
-  FOREIGN KEY(translated) REFERENCES language(language)
+  FOREIGN KEY(link_type) REFERENCES link_type(link_type) ON UPDATE CASCADE,
+  FOREIGN KEY(translated) REFERENCES language(language) ON UPDATE CASCADE
 ) INHERITS(master.link_type_localized);
 
 CREATE TABLE logging.link_type_localized() INHERITS(master.link_type_localized);
