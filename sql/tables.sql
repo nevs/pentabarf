@@ -40,5 +40,10 @@
 
 \i tables/person.sql
 
+\i tables/event_type.sql
+\i tables/event_origin.sql
+\i tables/event_state.sql
+\i tables/event_state_progress.sql
+
 \i tables/event.sql
 

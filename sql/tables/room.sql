@@ -6,7 +6,7 @@ CREATE TABLE master.room(
 ) WITHOUT OIDS;
 
 CREATE TABLE room(
-  PRIMARY KEY(room),
+  PRIMARY KEY(conference_id, room),
   FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE
 ) INHERITS(master.room);
 

@@ -13,7 +13,7 @@ CREATE TABLE master.event(
   event_state TEXT NOT NULL,
   event_state_progress TEXT NOT NULL,
   language TEXT NOT NULL,
-  conference_room TEXT NOT NULL,
+  room TEXT NOT NULL,
   day SMALLINT,
   start_time INTERVAL,
   abstract TEXT,
@@ -37,7 +37,7 @@ CREATE TABLE event(
   FOREIGN KEY(event_state) REFERENCES event_state(event_state) ON UPDATE CASCADE,
   FOREIGN KEY(event_state_progress) REFERENCES event_state_progress(event_state_progress) ON UPDATE CASCADE,
   FOREIGN KEY(language) REFERENCES language(language) ON UPDATE CASCADE,
-  FOREIGN KEY(conference_id, conference_room) REFERENCES conference_room(conference_id,conference_room) ON UPDATE CASCADE
+  FOREIGN KEY(conference_id, room) REFERENCES room(conference_id,room) ON UPDATE CASCADE
 ) INHERITS(master.event);
 
 CREATE SEQUENCE event_id_sequence;
