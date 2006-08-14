@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '1.1.4'
+RAILS_GEM_VERSION = '1.1.6'
 
 ENV['RAILS_ENV'] = 'production'
 
@@ -34,6 +34,11 @@ Rails::Initializer.run do |config|
 end
 
 # Include your application configuration below
+
+require 'yaml'
+require 'iconv'
+require 'jabberlogger'
+require 'momomoto/momomoto'
 
 Momomoto::Database.instance.config( YAML.load_file( File.join( RAILS_ROOT, 'config', 'database.yml' ) )[RAILS_ENV] )
 Momomoto::Database.instance.connect

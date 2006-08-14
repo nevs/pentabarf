@@ -42,9 +42,3 @@ unless defined?(Rails::Initializer)
 
   Rails::Initializer.run(:set_load_path)
 end
-
-require 'yaml'
-require 'iconv'
-require 'jabberlogger'
-require 'momomoto/momomoto'
-
