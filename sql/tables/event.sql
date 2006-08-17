@@ -35,7 +35,7 @@ CREATE TABLE event(
   FOREIGN KEY(event_type) REFERENCES event_type(event_type) ON UPDATE CASCADE,
   FOREIGN KEY(event_origin) REFERENCES event_origin(event_origin) ON UPDATE CASCADE,
   FOREIGN KEY(event_state) REFERENCES event_state(event_state) ON UPDATE CASCADE,
-  FOREIGN KEY(event_state_progress) REFERENCES event_state_progress(event_state_progress) ON UPDATE CASCADE,
+  FOREIGN KEY(event_state, event_state_progress) REFERENCES event_state_progress(event_state, event_state_progress) ON UPDATE CASCADE,
   FOREIGN KEY(language) REFERENCES language(language) ON UPDATE CASCADE,
   FOREIGN KEY(conference_id, room) REFERENCES room(conference_id,room) ON UPDATE CASCADE
 ) INHERITS(master.event);

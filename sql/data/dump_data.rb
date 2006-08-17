@@ -2,7 +2,7 @@
 
 database = ARGV[0] || 'phoenix'
 user = ARGV[1] || 'sven'
-tables = [:country, :currency, :conference_phase]
+tables = [:country, :currency, :conference_phase, :event_origin, :event_state, :event_state_progress]
 schema = 'public'
 
 import = File.open('import.sql', 'w')
