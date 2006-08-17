@@ -14,12 +14,13 @@ class JabberLogger
       rescue
       end
 
-      return if @@config['recipients'] && @@config['daemon']['socket_path']
+      return true if @@config['recipients'] && @@config['daemon']['socket_path']
       define_method( :log ) do | text | end
+      return false
     end
 
     def log( text )
-      init if not class_variables.member?(:@@config)
+      return if !class_variables.member?(:@@config) && !init
       @@config['recipients'].each do | recipient |
         msg = Jabber::Message.new(Jabber::JID.new(recipient))
         msg.set_type(:chat)

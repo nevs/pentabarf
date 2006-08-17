@@ -1,15 +1,22 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 xml.instruct!
 xml.declare! :DOCTYPE, :html, :PUBLIC, "-//W3C//DTD XHTML 1.0 Transitional//EN", "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
-xml.head do
-  xml.meta :'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8;'
-  xml.title "#{@content_title} Pentabarf 0.3"
-  xml.link :rel => 'shortcut icon', :href => '/favicon.ico'
-end
-
-xml.body( :id => 'body' ) do
-  xml.div( :id => 'main' ) do
-    xml << @content_for_layout
+xml.html( :xmlns => "http://www.w3.org/1999/xhtml" ) do
+  xml.head do
+    xml.meta :'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8;'
+    xml.title "#{@content_title} Pentabarf #{version}"
+    xml.link :rel => 'shortcut icon', :href => '/favicon.ico'
+    xml.link :rel => 'stylesheet', :href => stylesheet_path( 'main' ), :type => 'text/css'
   end
+
+  xml.body( :id => 'body' ) do
+
+    xml << render( :partial => 'sidebar' )
+
+    xml.div( :id => 'main' ) do
+      xml << @content_for_layout
+    end
+  end
+
 end
 
