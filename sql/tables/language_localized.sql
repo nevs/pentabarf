@@ -3,7 +3,7 @@ CREATE TABLE master.language_localized(
   language TEXT NOT NULL,
   translated TEXT NOT NULL,
   name TEXT NOT NULL
-) WITHOUT OIDS;
+);
 
 CREATE TABLE language_localized(
   PRIMARY KEY(language, translated),

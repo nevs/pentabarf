@@ -24,7 +24,7 @@ CREATE TABLE master.event(
   slides BOOL,
   remark TEXT,
   submission_notes TEXT
-) WITHOUT OIDS;
+);
 
 -- this is the real event table
 CREATE TABLE event(

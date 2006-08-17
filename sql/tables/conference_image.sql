@@ -3,7 +3,7 @@ CREATE TABLE master.conference_image(
   conference_id INTEGER NOT NULL,
   mime_type TEXT NOT NULL,
   image BYTEA NOT NULL
-) WITHOUT OIDS;
+);
 
 -- this is the real event table
 CREATE TABLE conference_image(

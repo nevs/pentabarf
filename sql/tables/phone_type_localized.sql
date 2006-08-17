@@ -3,7 +3,7 @@ CREATE TABLE master.phone_type_localized(
   phone_type TEXT NOT NULL,
   translated TEXT NOT NULL,
   name TEXT NOT NULL
-) WITHOUT OIDS;
+);
 
 CREATE TABLE phone_type_localized(
   PRIMARY KEY(phone_type, translated),

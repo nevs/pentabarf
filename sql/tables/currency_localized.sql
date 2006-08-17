@@ -3,7 +3,7 @@ CREATE TABLE master.currency_localized(
   currency TEXT NOT NULL,
   translated TEXT NOT NULL,
   name TEXT NOT NULL
-) WITHOUT OIDS;
+);
 
 CREATE TABLE currency_localized(
   PRIMARY KEY(currency,translated),

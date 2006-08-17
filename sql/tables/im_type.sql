@@ -1,7 +1,7 @@
 
 CREATE TABLE master.im_type(
   im_type TEXT NOT NULL
-) WITHOUT OIDS;
+);
 
 CREATE TABLE im_type(
   PRIMARY KEY(im_type)

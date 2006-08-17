@@ -1,7 +1,7 @@
 
 CREATE TABLE master.conference_phase(
   conference_phase TEXT NOT NULL
-) WITHOUT OIDS;
+);
 
 CREATE TABLE conference_phase(
   PRIMARY KEY(conference_phase)

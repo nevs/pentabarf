@@ -3,7 +3,7 @@ CREATE TABLE master.room(
   room TEXT NOT NULL,
   conference_id INTEGER NOT NULL,
   public BOOL NOT NULL DEFAULT TRUE
-) WITHOUT OIDS;
+);
 
 CREATE TABLE room(
   PRIMARY KEY(conference_id, room),

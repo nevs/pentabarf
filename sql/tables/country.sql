@@ -2,7 +2,7 @@
 CREATE TABLE master.country(
   country TEXT NOT NULL,
   visible BOOL NOT NULL DEFAULT FALSE
-) WITHOUT OIDS;
+);
 
 CREATE TABLE country(
   PRIMARY KEY(country)

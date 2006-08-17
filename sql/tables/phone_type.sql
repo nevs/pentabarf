@@ -1,7 +1,7 @@
 
 CREATE TABLE master.phone_type(
   phone_type TEXT NOT NULL
-) WITHOUT OIDS;
+);
 
 CREATE TABLE phone_type(
   PRIMARY KEY(phone_type)

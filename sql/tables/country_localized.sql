@@ -3,7 +3,7 @@ CREATE TABLE master.country_localized(
   country TEXT NOT NULL,
   translated TEXT NOT NULL,
   name TEXT NOT NULL
-) WITHOUT OIDS;
+);
 
 CREATE TABLE country_localized(
   PRIMARY KEY(country,translated),

@@ -6,7 +6,7 @@ CREATE TABLE master.person(
   salt VARCHAR(16),
   first_name TEXT,
   last_name TEXT
-) WITHOUT OIDS;
+);
 
 CREATE TABLE person(
   PRIMARY KEY(person_id)

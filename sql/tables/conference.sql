@@ -11,23 +11,23 @@ CREATE TABLE master.conference(
   city TEXT,
   country TEXT,
   currency TEXT,
-  timeslot_duration INTERVAL NOT NULL,
+  timeslot_duration INTERVAL NOT NULL DEFAULT '0:30:00',
   default_timeslots INTEGER NOT NULL DEFAULT 1,
   max_timeslot_duration INTEGER NOT NULL DEFAULT 10,
   day_change TIME WITHOUT TIME ZONE NOT NULL DEFAULT '0:00:00',
   remark TEXT,
   release TEXT,
   homepage TEXT,
-  abstract_length INTEGER,
-  description_length INTEGER,
+  abstract_length INTEGER DEFAULT 150,
+  description_length INTEGER DEFAULT 150,
   export_base_url TEXT,
   export_css_file TEXT,
   feedback_base_url TEXT,
   css TEXT,
-  feedback_enabled BOOL,
-  submission_enabled BOOL,
-  visitor_enabled BOOL
-) WITHOUT OIDS;
+  feedback_enabled BOOL NOT NULL DEFAULT FALSE,
+  submission_enabled BOOL NOT NULL DEFAULT FALSE,
+  visitor_enabled BOOL NOT NULL DEFAULT FALSE
+);
 
 CREATE TABLE conference(
   PRIMARY KEY(conference_id),

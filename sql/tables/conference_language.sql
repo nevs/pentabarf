@@ -2,7 +2,7 @@
 CREATE TABLE master.conference_language(
   conference_id INTEGER NOT NULL,
   language TEXT NOT NULL
-) WITHOUT OIDS;
+);
 
 CREATE TABLE conference_language(
   PRIMARY KEY(conference_id, language),

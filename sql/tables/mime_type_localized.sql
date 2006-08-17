@@ -3,7 +3,7 @@ CREATE TABLE master.mime_type_localized(
   mime_type TEXT NOT NULL,
   translated TEXT NOT NULL,
   name TEXT NOT NULL
-) WITHOUT OIDS;
+);
 
 CREATE TABLE mime_type_localized(
   PRIMARY KEY(mime_type, translated),
