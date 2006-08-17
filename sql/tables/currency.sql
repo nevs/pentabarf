@@ -1,6 +1,7 @@
 
 CREATE TABLE master.currency(
-  currency TEXT NOT NULL
+  currency TEXT NOT NULL,
+  visible BOOL NOT NULL DEFAULT FALSE
 ) WITHOUT OIDS;
 
 CREATE TABLE currency(
