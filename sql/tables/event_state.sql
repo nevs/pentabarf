@@ -1,6 +1,7 @@
 
 CREATE TABLE master.event_state(
-  event_state TEXT NOT NULL
+  event_state TEXT NOT NULL,
+  rank INTEGER
 );
 
 CREATE TABLE event_state(

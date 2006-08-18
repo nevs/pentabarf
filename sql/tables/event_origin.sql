@@ -1,6 +1,7 @@
 
 CREATE TABLE master.event_origin(
-  event_origin TEXT NOT NULL
+  event_origin TEXT NOT NULL,
+  rank INTEGER
 );
 
 CREATE TABLE event_origin(

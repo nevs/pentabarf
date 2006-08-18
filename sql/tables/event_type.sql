@@ -1,6 +1,7 @@
 
 CREATE TABLE master.event_type(
-  event_type TEXT NOT NULL
+  event_type TEXT NOT NULL,
+  rank INTEGER
 );
 
 CREATE TABLE event_type(
