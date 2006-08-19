@@ -26,6 +26,10 @@
         <td><label for="f_arrived"><[table::person_travel::f_arrived]></label></td>
         <td><%= check_box_tag('person_travel[f_arrived]', 't', @person_travel.f_arrived, {:tabindex => 0} ) %></td>
       </tr>
+      <tr>
+        <td><label for="f_reconfirmed"><[table::conference_person::f_reconfirmed]></label></td>
+        <td><%= check_box_tag('conference_person[f_reconfirmed]', 't', @conference_person.f_reconfirmed, {:tabindex => 0} ) %></td>
+      </tr>
     </table>
   </fieldset>
 

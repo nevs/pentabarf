@@ -22,6 +22,12 @@
         <td><label><[table::person::title]></label></td>
         <td><%= text_field_tag('person[title]', @person.title, { :tabindex => 0 }) %></td>
       </tr>
+      <% if @conference.f_reconfirmation_enabled %>
+      <tr>
+        <td><label for="f_reconfirmed"><[table::conference_person::f_reconfirmed]></label></td>
+        <td><%= check_box_tag('conference_person[f_reconfirmed]', 't', @conference_person.f_reconfirmed, {:tabindex => 0} ) %></td>
+      </tr>
+      <% end %>
     </table>
   </fieldset>
 

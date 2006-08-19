@@ -66,6 +66,7 @@ class SubmissionController < ApplicationController
     conference_person_allowed_fields.each do | field |
       conference_person[field] = params[:conference_person][field]
     end
+    conference_person.f_reconfirmed = params[:conference_person][:f_reconfirmed] if @conference.f_reconfirmation_enabled
     modified = true if conference_person.write
 
     person_travel = Momomoto::Person_travel.find({:person_id=>@user.person_id,:conference_id=>@conference.conference_id})
