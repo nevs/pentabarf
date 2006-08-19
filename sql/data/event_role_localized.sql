@@ -24,6 +24,8 @@ INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (5, 1
 INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (5, 120, 'Reporter');
 INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (6, 120, 'Reviewer');
 INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (6, 144, 'Reviewer');
+INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (8, 120, 'Submitter');
+INSERT INTO event_role_localized (event_role_id, language_id, name) VALUES (8, 144, 'Einreichender');
 
 
 --

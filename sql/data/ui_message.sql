@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 310, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 311, true);
 
 
 --
@@ -264,6 +264,7 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (307, 'view::pentabarf::find:
 INSERT INTO ui_message (ui_message_id, tag) VALUES (308, 'view::pentabarf::find::event::day');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (309, 'view::pentabarf::find::event::progress');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (310, 'view::pentabarf::find::event::duration');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (311, 'table::conference_person::f_reconfirmed');
 
 
 --

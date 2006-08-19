@@ -536,6 +536,7 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (239, 133, 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (240, 133, 'Zimbabwe');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (215, 144, 'Türkei');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (4, 120, 'Antigua and Barbuda');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (164, 144, 'Neuseeland');
 
 
 --

@@ -43,6 +43,7 @@ CREATE TABLE conference_person_logging (
   description TEXT,
   remark TEXT,
   email_public VARCHAR(64),
+  f_reconfirmed BOOL,
   last_modified TIMESTAMP WITH TIME ZONE,
   last_modified_by INTEGER,
   PRIMARY KEY (conference_person_logging_id)
@@ -161,6 +162,7 @@ CREATE TABLE conference_logging (
   f_feedback_enabled BOOL,
   f_submission_enabled BOOL,
   f_visitor_enabled BOOL,
+  f_reconfirmation_enabled BOOL,
   last_modified TIMESTAMP WITH TIME ZONE,
   last_modified_by INTEGER,
   PRIMARY KEY (conference_logging_id)

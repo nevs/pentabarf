@@ -311,7 +311,6 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (205,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (225, 120, 'Maximum number of characters in abstracts');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (91, 120, 'New conference day starts at');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (91, 144, 'Neuer Konferenztag beginnt um');
-INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (78, 120, 'Evetn acronym');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (78, 144, 'Akronym der Veranstaltung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (225, 144, 'Maximale Anzahl Zeichen der Kurzbeschreibung');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (226, 120, 'Maximum number of characters in event descriptions');
@@ -334,7 +333,6 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (239,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209, 120, 'Attached files');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (209, 144, 'Anhängte Dateien');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (240, 120, 'Resources');
-INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (240, 144, 'Resourcen');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (241, 120, 'Please note all resources that might be necessary to let this event happen. This includes necessary presentation technology, material, assistants or other organizational prerequisites.');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (241, 144, 'Bitte notiere alle notwendigen Resourcen, um diese Veranstaltung durchführen zu können. Das umfasst Präsentationstechnologie, Material, Assistenten oder organisatorische Voraussetzungen.');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (243, 120, 'Add all public links that might be useful to the audience to understand, track or research the content of the event. Give each link a descriptive and helpful title and make sure the URLs themselves are accurate and working.');
@@ -498,6 +496,10 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (310,
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (31, 144, 'Komplexe Suche');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (230, 120, 'This is an overview over every event of this conference that you are somehow associated with (currently only the "moderator", "speaker", "visitor" and "coordinator" roles are displayed).');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (230, 144, 'Hier findest Du eine Übersicht über alle Veranstaltungen dieser Konferenz an denen Du in irgendeiner Form beteiligt bist (derzeit werden nur die Rollen "Moderator", "Referent", "Besucher" und "Koordinator" berücksichtigt).');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (240, 144, 'Ressourcen');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (311, 120, 'Reconfirm Attendance');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (311, 144, 'Teilnahme bestätigen');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (78, 120, 'Event acronym');
 
 
 --

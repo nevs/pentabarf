@@ -165,7 +165,6 @@ INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_prefe
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (161, 'np', NULL, false, false);
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (162, 'nr', NULL, false, false);
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (163, 'nu', NULL, false, false);
-INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (164, 'nz', NULL, false, false);
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (165, 'om', NULL, false, false);
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (166, 'pa', NULL, false, false);
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (167, 'pe', NULL, false, false);
@@ -228,6 +227,7 @@ INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_prefe
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (234, 'ws', NULL, false, false);
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (235, 'ye', NULL, false, false);
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (236, 'yt', NULL, false, false);
+INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (164, 'nz', NULL, true, false);
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (238, 'za', NULL, false, false);
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (239, 'zm', NULL, false, false);
 INSERT INTO country (country_id, iso_3166_code, phone_prefix, f_visible, f_preferred) VALUES (240, 'zw', NULL, false, false);
