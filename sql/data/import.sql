@@ -6,4 +6,5 @@ BEGIN TRANSACTION;
 \i event_state.sql
 \i event_state_progress.sql
 \i event_role.sql
+\i event_role_state.sql
 COMMIT TRANSACTION;
