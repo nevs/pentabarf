@@ -50,3 +50,5 @@
 \i tables/event_role.sql
 \i tables/event_role_state.sql
 
+\i tables/event_person.sql
+
