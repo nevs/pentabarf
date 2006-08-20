@@ -2,7 +2,6 @@
 
 require 'yaml'
 require 'xmpp4r'
-require 'xmpp4r/helpers/version'
 require 'socket'
 require 'thread'
 require 'rexml/document'
