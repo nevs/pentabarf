@@ -3,11 +3,13 @@ PGADMIN=postgres
 DATABASE=phoenix
 DBUSER=sven
 DBADMIN=sven
+SUDOCMD=sudo
 
 install_db:
-		-sudo -u ${PGADMIN} createuser ${DBADMIN} -S -D -R
-		-sudo -u ${PGADMIN} createdb -O ${DBADMIN} ${DATABASE}
-		-sudo -u ${PGADMIN} createlang plpgsql ${DATABASE}
+		-${SUDOCMD} -u ${PGADMIN} createuser ${DBADMIN} -S -D -R
+		-${SUDOCMD} -u ${PGADMIN} createuser ${DBUSER} -S -D -R
+		-${SUDOCMD} -u ${PGADMIN} createdb -O ${DBADMIN} ${DATABASE}
+		-${SUDOCMD} -u ${PGADMIN} createlang plpgsql ${DATABASE}
 		psql ${DATABASE} ${DBADMIN} -f schema.sql
 		psql ${DATABASE} ${DBADMIN} -f tables.sql
 		psql ${DATABASE} ${DBADMIN} -f conflict.sql

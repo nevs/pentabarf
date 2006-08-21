@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def local( text )
-    "<[#{text}]>"
+    h("<[#{text}]>")
   end
 
 end
