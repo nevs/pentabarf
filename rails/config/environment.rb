@@ -33,14 +33,13 @@ end
 
 # Include your application configuration below
 
-require 'erubishandler'
 require 'yaml'
-require 'iconv'
+require 'erubishandler'
 require 'jabberlogger'
 require 'momomoto/momomoto'
 
 # register Erubis as Template Handler for erb templates
-ActionView::Base::register_template_handler( 'rhtml', ErubisHandler )
+ActionView::Base::register_template_handler( 'erubis', ErubisHandler )
 
 # connect to the database
 Momomoto::Database.instance.config( YAML.load_file( File.join( RAILS_ROOT, 'config', 'database.yml' ) )[RAILS_ENV] )
