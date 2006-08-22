@@ -1,0 +1,37 @@
+<%= javascript_include_tag( '/javascripts/jscalendar/calendar.js', '/javascripts/jscalendar/calendar-setup.js', '/javascripts/jscalendar/lang/calendar-en.js' ) %>
+<script type="text/javascript">
+  function send_content()
+  {
+    if ( !document.getElementsByName('conference[acronym]')[0].value ||
+         !document.getElementsByName('conference[title]')[0].value ||
+         !document.getElementsByName('conference[start_date]')[0].value ) {
+      alert('You have to fill in a title, an acronym and a start date');
+    } else {
+      document.forms['content_form'].submit();
+    }
+  }
+</script>
+<%# content_tabs_js(['general','teams','tracks','rooms','events','persons','export','feedback'],'view::pentabarf::conference::tab') %>
+<div id="object-image">
+  <%= image_tag('icon-conference-64x64.png', { :class => 'object-image' } ) %>
+</div>
+<div id="data">
+  <%= start_form_tag({:action => :save_conference, :id => params[:id]}, {:multipart => true, :id => :content_form}) %>
+  <%= hidden_field_tag(:conference_id, @conference.conference_id) %>
+
+  <%= render(:partial => 'modification_buttons') %>
+
+  <%= render(:partial => 'conference_comment') %>
+  <%= render(:partial => 'conference_general') %>
+  <%# render(:partial => 'conference_teams') %>
+  <%# render(:partial => 'conference_tracks') %>
+  <%# render(:partial => 'conference_rooms') %>
+  <%# render(:partial => 'conference_events') %>
+  <%# render(:partial => 'conference_persons') %>
+  <%# render(:partial => 'conference_export') %>
+  <%# render(:partial => 'conference_feedback') %>
+
+  <%= end_form_tag() %>
+  <%= javascript_tag("new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } )") %>
+</div>
+<%= javascript_tag("switch_tab();") %>
