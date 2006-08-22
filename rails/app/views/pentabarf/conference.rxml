@@ -12,6 +12,7 @@ xml.div( :id => 'data' ) do
     xml << render( :partial => 'conference_comment' )
     xml << render( :partial => 'conference_general' )
     xml << render( :partial => 'conference_teams' )
+    xml << render( :partial => 'conference_tracks' )
 
   end
 

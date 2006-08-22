@@ -46,7 +46,7 @@ class ImageController < ApplicationController
     render_resized( Magick::Image.from_blob( image_file.read )[0], query )
   end
 
-  def render_resized( image, query)
+  def render_resized( image, query )
     image.x_resolution = 72
     image.y_resolution = 72
     format = nil

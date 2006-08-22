@@ -2,17 +2,19 @@ xml = Builder::XmlMarkup.new(:indent=>1)
 xml.div( :id => 'content-teams' ) do
   xml.fieldset do
     xml.legend "Teams"
-  end
 
-  xml.table( :id=>'team_table',:class=>'hidden') do
-    xml.thead do
-      xml.tr do
-        xml.th( local( 'table::team::tag' ) )
-        xml.th( local( 'form::remove' ) )
+    xml.table( :id=>'team_table',:class=>'hidden') do
+      xml.thead do
+        xml.tr do
+          xml.th( local( 'table::team::tag' ) )
+          xml.th( local( 'form::remove' ) )
+        end
+      end
+      xml.tbody( :id=>'team_table_body') do
       end
     end
-    xml.tbody( :id=>'team_table_body') do
-    end
+
+    xml.button( "Add Team", {:type=>'button',:name=>'add_conference_team',:tabindex=>0} )
+
   end
 end
-
