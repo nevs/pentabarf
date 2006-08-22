@@ -3,34 +3,16 @@ require 'RMagick'
 class ImageController < ApplicationController
   session(:off)
 
-  def conference
-    #image = Momomoto::View_conference_image.find( {:conference_id => extract_id( params[:id] ) } )
-    if false
-      deliver_image( image, params[:id] )
-    else
-      deliver_static_image( RAILS_ROOT + '/public/images/icon-conference-128x128.png', params[:id])
+  [:conference, :event, :person].each do | object |
+    define_method( object ) do 
+      #image = Momomoto::View_conference_image.find( {:conference_id => extract_id( params[:id] ) } )
+      if false
+        deliver_image( image, params[:id] )
+      else
+        deliver_static_image( RAILS_ROOT + "/public/images/icon-#{object}-128x128.png", params[:id])
+      end
+      GC.start
     end
-    GC.start
-  end
-
-  def event
-    #image = Momomoto::View_event_image.find( {:event_id => extract_id( params[:id] ) } )
-    if false
-      deliver_image( image, params[:id] )
-    else
-      deliver_static_image( RAILS_ROOT + '/public/images/icon-event-128x128.png', params[:id])
-    end
-    GC.start
-  end
-
-  def person
-    #image = Momomoto::View_person_image.find( {:person_id => extract_id( params[:id] ) } )
-    if false
-      deliver_image( image, params[:id] )
-    else
-      deliver_static_image( RAILS_ROOT + '/public/images/icon-person-128x128.png', params[:id])
-    end
-    GC.start
   end
 
   protected

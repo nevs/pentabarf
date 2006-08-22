@@ -39,6 +39,7 @@
 \i tables/room.sql
 
 \i tables/person.sql
+\i tables/person_image.sql
 
 \i tables/event_type.sql
 \i tables/event_origin.sql
@@ -46,6 +47,7 @@
 \i tables/event_state_progress.sql
 
 \i tables/event.sql
+\i tables/event_image.sql
 
 \i tables/event_role.sql
 \i tables/event_role_state.sql
