@@ -1,0 +1,170 @@
+<div id="content-general">
+  <fieldset>
+    <legend><%= local('view::pentabarf::conference::tab::general') %></legend>
+    <table>
+      <tr>
+        <td><label><%= local('table::conference::acronym') %></label></td>
+        <td><%= text_field_tag('conference[acronym]', @conference.acronym, {:size => 10, :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::title') %></label></td>
+        <td><%= text_field_tag('conference[title]', @conference.title, {:size => 60, :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::subtitle') %></label></td>
+        <td><%= text_field_tag('conference[subtitle]', @conference.subtitle, {:size => 60, :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::conference_phase') %></label></td>
+        <td><%= select_tag('conference[conference_phase]', Conference_phase.select(), {:key=>'conference_phase',:value=>'conference_phase'}, {:tabindex=>0} ) %></td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::venue') %></label></td>
+        <td><%= text_field_tag('conference[venue]', @conference.venue, {:size => 40, :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::city') %></label></td>
+        <td><%= text_field_tag('conference[city]', @conference.city, {:size => 40, :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::country') %></label></td>
+        <td>
+          <%# select_tag( 'conference[country_id]',
+                      Momomoto::View_country.find( { :language_id => @current_language_id } ),
+                      'country_id',
+                      'name',
+                      @conference.country_id, { :tabindex => 0 } )
+          %>
+        </td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::start_date') %></label></td>
+        <td>
+          <%= text_field_tag('conference[start_date]', @conference.start_date ? @conference.start_date.strftime( '%Y-%m-%d' ) : nil, { :size => 12, :tabindex => 0 } ) %>
+          <button type="button" id="calendar_start_date">...</button>
+
+          <script type="text/javascript">
+            Calendar.setup({
+              inputField   :  "conference[start_date]",
+              ifFormat     :  "%Y-%m-%d",
+              button       :  "calendar_start_date",
+              showOthers   :  true,
+              singleClick  :  false
+            });
+          </script>
+        </td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::duration') %></label></td>
+        <td>
+          <%# select_tag( 'conference[days]', 1..20, 'to_i', 'to_i', @conference.days, { :tabindex => 0 }, false ) %>
+        </td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::time_zone') %></label></td>
+        <td>
+          <%# select_tag( 'conference[time_zone_id]', Momomoto::View_time_zone.find( {:language_id => @current_language_id} ), 'time_zone_id', 'name', @conference.time_zone_id, { :tabindex => 0 } ) %>
+        </td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::currency') %></label></td>
+        <td>
+          <%# select_tag( 'conference[currency_id]',
+                          Momomoto::View_currency.find( {:language_id => @current_language_id} ),
+                          'currency_id', 'name', @conference.currency_id, { :tabindex => 0 } ) %>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Schedule Settings</legend>
+    <table>
+      <tr>
+        <td><label><%= local('table::conference::abstract_length') %></label></td>
+        <td><%= text_field_tag('conference[abstract_length]', @conference.abstract_length, {:size => 4, :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::description_length') %></label></td>
+        <td><%= text_field_tag('conference[description_length]', @conference.description_length, {:size => 4, :tabindex => 0 } ) %></td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::timeslot_duration') %></label></td>
+        <td>
+          <%# select_tag( 'conference[timeslot_duration]',
+                          ['00:05:00', '00:10:00', '00:15:00', '00:20:00', '00:25:00', '00:30:00', '01:00:00'],
+                          'to_s', 'to_s', @conference.timeslot_duration ? @conference.timeslot_duration.strftime('%H:%M:%S') : nil, { :tabindex => 0 }, false ) %>
+        </td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::default_timeslots') %></label></td>
+        <td>
+          <%# select_tag( 'conference[default_timeslots]', 1..20,
+                          'to_i', 'to_i', @conference.default_timeslots,
+                          { :tabindex => 0 }, false ) %>
+        </td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::max_timeslots_per_event') %></label></td>
+        <td>
+          <%# select_tag( 'conference[max_timeslot_duration]', 1..20,
+                          'to_i', 'to_i', @conference.max_timeslot_duration,
+                          { :tabindex => 0 }, false ) %>
+        </td>
+      </tr>
+      <tr>
+        <td><label><%= local('table::conference::day_change') %></label></td>
+        <td>
+          <%# select_tag( 'conference[day_change]',
+                          (0..23).to_a.collect {|x| sprintf('%02d:00:00',x)},
+                          'to_s', 'to_s', @conference.day_change ? @conference.day_change.strftime('%H:%M:%S') : nil, { :tabindex => 0 }, false ) %>
+        </td>
+      </tr>
+    </table>
+  </fieldset>
+
+  <fieldset>
+    <legend>Conference Languages</legend>
+    <table class="hidden" id="conference_language_table">
+      <thead>
+        <tr>
+          <th>Language</th>
+          <th>delete</th>
+        </tr>
+      </thead>
+      <tbody id="conference_language_table_body">
+      </tbody>
+    </table>
+    <button type="button" tabindex="0" onclick="window.add_conference_language();">Add Language</button>
+    <script type="text/javascript">
+      var languages = new Array();
+      <% for language in Language.select({:visible => 't'}) %>
+        languages[<%= escape_javascript(language.language) %>] = '<%= escape_javascript(language.language) %>';
+      <% end %>
+    </script>
+  </fieldset>
+
+  <fieldset>
+    <legend>Logo</legend>
+    <%= file_field_tag('conference_image[image]', {:tabindex => 0, :onchange => "enable_save_button()"}) %><br/>
+    <%= check_box_tag('conference_image[delete]', 't', false, {:tabindex => 0}) %>
+    <label for="conference_image[delete]">Remove Logo</label>
+  </fieldset>
+
+<form action="#" method="get">
+<input type="text" name="date" id="f_date_b" /><button type="reset" id="f_trigger_b">...</button>
+</form>
+
+<script type="text/javascript">
+    Calendar.setup({
+        inputField     :    "f_date_b",      // id of the input field
+        ifFormat       :    "%m/%d/%Y %I:%M %p",       // format of the input field
+        showsTime      :    true,            // will display a time selector
+        button         :    "f_trigger_b",   // trigger for the calendar (button ID)
+        singleClick    :    false,           // double-click mode
+        step           :    1                // show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+
+</div>
+
