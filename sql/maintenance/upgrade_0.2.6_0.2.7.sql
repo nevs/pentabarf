@@ -18,9 +18,8 @@ ALTER TABLE event ALTER COLUMN f_public SET DEFAULT TRUE;
 
 ALTER TABLE event_role ADD COLUMN f_public BOOL;
 
-ALTER TABLE conference_person ADD COLUMN f_reconfirmed BOOL NOT NULL DEFAULT FALSE;
-ALTER TABLE conference ADD COLUMN f_reconfirmation_enabled BOOL NOT NULL DEFAULT FALSE;
+ALTER TABLE conference_person add column f_reconfirmed BOOL not null default false;
+ALTER TABLE conference add column f_reconfirmation_enabled BOOL not null default false;
 
-ALTER TABLE conference_person_logging ADD COLUMN f_reconfirmed BOOL NOT NULL DEFAULT FALSE;
-ALTER TABLE conference_logging ADD COLUMN f_reconfirmation_enabled BOOL NOT NULL DEFAULT FALSE;
-
+ALTER TABLE conference_person_logging add column f_reconfirmed BOOL not null default false;
+ALTER TABLE conference_logging add column f_reconfirmation_enabled BOOL not null default false;
