@@ -14,3 +14,7 @@ install_db:
 		psql ${DATABASE} ${DBADMIN} -f tables.sql
 		psql ${DATABASE} ${DBADMIN} -f conflict.sql
 
+initial_data:
+		(cd data;\
+		 psql ${DATABASE} ${DBUSER} -f import.sql)
+
