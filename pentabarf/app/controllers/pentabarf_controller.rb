@@ -54,13 +54,13 @@ class PentabarfController < ApplicationController
         body = params[:mail][:body].dup
         subject = params[:mail][:subject].dup
         variables.each do | v |
-          body.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
-          subject.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
+          body.gsub!(/{{#{v}}}/i, r[v].to_s)
+          subject.gsub!(/{{#{v}}}/i, r[v].to_s)
         end
-        body.gsub!(/\{\{email\}\}/i, r.email_contact)
-        subject.gsub!(/\{\{email\}\}/i, r.email_contact)
-        body.gsub!(/\{\{event_title\}\}/i, events.join(','))
-        subject.gsub!(/\{\{event_title\}\}/i, events.join(','))
+        body.gsub!(/{{email}}/i, r.email_contact)
+        subject.gsub!(/{{email}}/i, r.email_contact)
+        body.gsub!(/{{event_title}}/i, events.join(','))
+        subject.gsub!(/{{event_title}}/i, events.join(','))
         Notifier::deliver_general(r.email_contact, subject, body)
       end
     end
