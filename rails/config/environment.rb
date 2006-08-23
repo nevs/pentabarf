@@ -33,10 +33,12 @@ end
 
 # Include your application configuration below
 
+$LOAD_PATH.unshift( RAILS_ROOT + '/vendor/momomoto' )
+
 require 'yaml'
+require 'momomoto'
 require 'erubishandler'
 require 'jabberlogger'
-require 'momomoto/momomoto'
 
 # register Erubis as Template Handler for erb templates
 ActionView::Base::register_template_handler( 'erubis', ErubisHandler )
