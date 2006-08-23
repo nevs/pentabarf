@@ -8,6 +8,9 @@ xml.html( :xmlns => "http://www.w3.org/1999/xhtml" ) do
     xml.title "#{@content_title} Pentabarf #{version}"
     xml.link :rel => 'shortcut icon', :href => '/favicon.ico'
     xml.link :rel => 'stylesheet', :href => stylesheet_path( 'main' ), :type => 'text/css'
+    xml.link :rel => 'stylesheet', :href => stylesheet_path( '/javascripts/jscalendar/calendar-blue.css' ), :type => 'text/css'
+    xml.script('',{ :type => 'text/javascript', :src => javascript_path( 'prototype' )})
+    xml.script('',{ :type => 'text/javascript', :src => javascript_path( 'application' )})
   end
 
   xml.body( :id => 'body' ) do

@@ -21,4 +21,15 @@ class PentabarfController < ApplicationController
     @conference = Conference.select_or_new( :conference_id => params[:id] )
   end
 
+  def save_conference
+    conference = Conference.select_or_new( {:conference_id=>params[:id]},{:copy_values=>false} )
+    params[:conference].each do | key, value |
+      next if key.to_sym == :conference_id
+      conference[key] = value
+    end
+    conference.write
+    redirect_to( :action => :conference, :id => conference.conference_id)
+  end
+
 end
+
