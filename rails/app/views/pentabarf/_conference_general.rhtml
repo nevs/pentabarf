@@ -28,14 +28,7 @@
       </tr>
       <tr>
         <td><label><%= local('table::conference::country') %></label></td>
-        <td>
-          <%# select_tag( 'conference[country_id]',
-                      Momomoto::View_country.find( { :language_id => @current_language_id } ),
-                      'country_id',
-                      'name',
-                      @conference.country_id, { :tabindex => 0 } )
-          %>
-        </td>
+        <td><%= select_tag('conference[country]', Country.select, {:key=>'country',:value=>'country'}, {:tabindex=>0} ) %></td>
       </tr>
       <tr>
         <td><label><%= local('table::conference::start_date') %></label></td>
@@ -56,23 +49,15 @@
       </tr>
       <tr>
         <td><label><%= local('table::conference::duration') %></label></td>
-        <td>
-          <%# select_tag( 'conference[days]', 1..20, 'to_i', 'to_i', @conference.days, { :tabindex => 0 }, false ) %>
-        </td>
+        <td><%= select_tag( 'conference[days]', (1..20).to_a, {}, {:tabindex=>0} ) %></td>
       </tr>
       <tr>
         <td><label><%= local('table::conference::time_zone') %></label></td>
-        <td>
-          <%# select_tag( 'conference[time_zone_id]', Momomoto::View_time_zone.find( {:language_id => @current_language_id} ), 'time_zone_id', 'name', @conference.time_zone_id, { :tabindex => 0 } ) %>
-        </td>
+        <td><%= select_tag( 'conference[time_zone]', [], {:key=>'time_zone',:value=>'time_zone'}, {:tabindex=>0} ) %></td>
       </tr>
       <tr>
         <td><label><%= local('table::conference::currency') %></label></td>
-        <td>
-          <%# select_tag( 'conference[currency_id]',
-                          Momomoto::View_currency.find( {:language_id => @current_language_id} ),
-                          'currency_id', 'name', @conference.currency_id, { :tabindex => 0 } ) %>
-        </td>
+        <td><%= select_tag( 'conference[currency_id]', Currency.select, {:key=>:currency,:value=>:currency}, {:tabindex=>0}) %></td>
       </tr>
     </table>
   </fieldset>
@@ -90,35 +75,19 @@
       </tr>
       <tr>
         <td><label><%= local('table::conference::timeslot_duration') %></label></td>
-        <td>
-          <%# select_tag( 'conference[timeslot_duration]',
-                          ['00:05:00', '00:10:00', '00:15:00', '00:20:00', '00:25:00', '00:30:00', '01:00:00'],
-                          'to_s', 'to_s', @conference.timeslot_duration ? @conference.timeslot_duration.strftime('%H:%M:%S') : nil, { :tabindex => 0 }, false ) %>
-        </td>
+        <td><%= select_tag( 'conference[timeslot_duration]', [], {}, {:tabindex=>0}) %></td>
       </tr>
       <tr>
         <td><label><%= local('table::conference::default_timeslots') %></label></td>
-        <td>
-          <%# select_tag( 'conference[default_timeslots]', 1..20,
-                          'to_i', 'to_i', @conference.default_timeslots,
-                          { :tabindex => 0 }, false ) %>
-        </td>
+        <td><%= select_tag( 'conference[default_timeslots]', [], {}, {:tabindex=>0}) %></td>
       </tr>
       <tr>
         <td><label><%= local('table::conference::max_timeslots_per_event') %></label></td>
-        <td>
-          <%# select_tag( 'conference[max_timeslot_duration]', 1..20,
-                          'to_i', 'to_i', @conference.max_timeslot_duration,
-                          { :tabindex => 0 }, false ) %>
-        </td>
+        <td><%= select_tag( 'conference[max_timeslot_duration]', [], {}, {:tabindex=>0}) %></td>
       </tr>
       <tr>
         <td><label><%= local('table::conference::day_change') %></label></td>
-        <td>
-          <%# select_tag( 'conference[day_change]',
-                          (0..23).to_a.collect {|x| sprintf('%02d:00:00',x)},
-                          'to_s', 'to_s', @conference.day_change ? @conference.day_change.strftime('%H:%M:%S') : nil, { :tabindex => 0 }, false ) %>
-        </td>
+        <td><%= select_tag( 'conference[day_change]', [], {}, {:tabindex=>0}) %></td>
       </tr>
     </table>
   </fieldset>
@@ -151,20 +120,4 @@
     <label for="conference_image[delete]">Remove Logo</label>
   </fieldset>
 
-<form action="#" method="get">
-<input type="text" name="date" id="f_date_b" /><button type="reset" id="f_trigger_b">...</button>
-</form>
-
-<script type="text/javascript">
-    Calendar.setup({
-        inputField     :    "f_date_b",      // id of the input field
-        ifFormat       :    "%m/%d/%Y %I:%M %p",       // format of the input field
-        showsTime      :    true,            // will display a time selector
-        button         :    "f_trigger_b",   // trigger for the calendar (button ID)
-        singleClick    :    false,           // double-click mode
-        step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-    });
-</script>
-
 </div>
-
