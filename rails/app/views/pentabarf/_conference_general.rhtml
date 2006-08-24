@@ -16,7 +16,7 @@
       </tr>
       <tr>
         <td><label><%= local('table::conference::conference_phase') %></label></td>
-        <td><%= select_tag('conference[conference_phase]', Conference_phase.select(), {:key=>'conference_phase',:value=>'conference_phase'}, {:tabindex=>0} ) %></td>
+        <td><%= select_tag('conference[conference_phase]', Conference_phase.select, {:key=>'conference_phase',:value=>'conference_phase'}, {:tabindex=>0} ) %></td>
       </tr>
       <tr>
         <td><label><%= local('table::conference::venue') %></label></td>
@@ -83,7 +83,7 @@
       </tr>
       <tr>
         <td><label><%= local('table::conference::max_timeslots_per_event') %></label></td>
-        <td><%= select_tag( 'conference[max_timeslot_duration]', [], {}, {:tabindex=>0}) %></td>
+        <td><%= select_tag( 'conference[max_timeslots_per_event]', [], {}, {:tabindex=>0}) %></td>
       </tr>
       <tr>
         <td><label><%= local('table::conference::day_change') %></label></td>

@@ -13,7 +13,7 @@ CREATE TABLE master.conference(
   currency TEXT,
   timeslot_duration INTERVAL NOT NULL DEFAULT '0:30:00',
   default_timeslots INTEGER NOT NULL DEFAULT 1,
-  max_timeslot_duration INTEGER NOT NULL DEFAULT 10,
+  max_timeslots_per_event INTEGER NOT NULL DEFAULT 10,
   day_change TIME WITHOUT TIME ZONE NOT NULL DEFAULT '0:00:00',
   remark TEXT,
   release TEXT,
