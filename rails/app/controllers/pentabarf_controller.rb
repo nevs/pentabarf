@@ -18,7 +18,7 @@ class PentabarfController < ApplicationController
 
   def conference
     @current_conference = Conference.select_or_new(:conference_id => 1)
-    @conference = Conference.select_or_new( :conference_id => params[:id] )
+    @conference = Conference.select_or_new( :conference_id => params[:id].to_i )
   end
 
   def save_conference
