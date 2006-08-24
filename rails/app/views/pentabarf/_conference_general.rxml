@@ -1,0 +1,42 @@
+xml = Builder:XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-general') do
+
+  xml.fieldset do 
+    xml.legend local('view::pentabarf::conference::tab::general')
+
+    xml.table do
+      xml.tr do
+        xml.td do xml.label( local ('table::conference::acronym' ) ) end
+        xml.td do xml << text_field_tag('conference[acronym]', @conference.acronym, {:size => 10, :tabindex => 0 } ) end
+      end
+      xml.tr do
+        xml.td do xml.label( local ('table::conference::title' ) ) end
+        xml.td do xml << text_field_tag('conference[title]', @conference.title, {:size => 60, :tabindex => 0 } ) end
+      end
+      xml.tr do
+        xml.td do xml.label( local ('table::conference::subtitle' ) ) end
+        xml.td do xml << text_field_tag('conference[subtitle]', @conference.subtitle, {:size => 60, :tabindex => 0 } ) end
+      end
+      xml.tr do
+        xml.td do xml.label( local ('table::conference::conference_phase' ) ) end
+        xml.td do xml << select_tag('conference[conference_phase]', Conference_phase.select, {:key=>'conference_phase',:value=>'conference_phase'}) end
+      end
+      xml.tr do
+        xml.td do xml.label( local ('table::conference::venue' ) ) end
+        xml.td do xml << text_field_tag('conference[venue]', @conference.venue, {:size => 40, :tabindex => 0 } ) end
+      end
+      xml.tr do
+        xml.td do xml.label( local ('table::conference::city' ) ) end
+        xml.td do xml << text_field_tag('conference[city]', @conference.city, {:size => 40, :tabindex => 0 } ) end
+      end
+      xml.tr do
+        xml.td do xml.label( local ('table::conference::country' ) ) end
+        xml.td do xml << select_tag('conference[country]', Country.select, {:key=>'country',:value=>'country'}) end
+      end
+
+    end
+
+  end
+
+end
