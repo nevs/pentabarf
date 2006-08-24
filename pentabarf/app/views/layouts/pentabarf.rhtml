@@ -23,7 +23,7 @@
         <%= @content_for_layout %>
       </div>
     </div>
-    <%= periodically_call_remote(:update => 'activity', :url => { :action => :activity }, :frequency => 23 ) %>
+    <script type="text/javascript">new Ajax.PeriodicalUpdater('activity', '<%= url_for(:action=>:activity) %>', {frequency:23,decay:2});</script>
     <%= javascript_tag("init_done = true;enumerator();") %>
   </body>
 </html>
