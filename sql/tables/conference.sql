@@ -26,7 +26,8 @@ CREATE TABLE master.conference(
   css TEXT,
   feedback_enabled BOOL NOT NULL DEFAULT FALSE,
   submission_enabled BOOL NOT NULL DEFAULT FALSE,
-  visitor_enabled BOOL NOT NULL DEFAULT FALSE
+  visitor_enabled BOOL NOT NULL DEFAULT FALSE,
+  reconfirmation_enabled BOOL NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE conference(

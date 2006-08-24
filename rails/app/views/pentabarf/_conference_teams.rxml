@@ -18,3 +18,4 @@ xml.div( :id => 'content-teams' ) do
 
   end
 end
+
