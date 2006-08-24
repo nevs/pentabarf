@@ -44,8 +44,7 @@ class PdfController < ApplicationController
     fo.write @response.body
     fo.flush
 
-    ENV['JAVA_HOME'] = '/usr/local/jdk1.5.0'
-    fop_output = `/home/stephan/programs/fop/fop -fo #{fo.path} -pdf #{pdf_path} 2>&1`
+    fop_output = `/usr/local/src/fop/fop -fo #{fo.path} -pdf #{pdf_path} 2>&1`
 
     fo.close
 
