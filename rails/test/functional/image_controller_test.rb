@@ -11,8 +11,19 @@ class ImageControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_person
+    get :person, {:id => 1}
+    assert_response :success
   end
+
+  def test_event
+    get :event, {:id => 1}
+    assert_response :success
+  end
+
+  def test_conference
+    get :conference, {:id => 1}
+    assert_response :success
+  end
+
 end
