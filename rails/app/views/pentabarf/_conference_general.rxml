@@ -7,43 +7,43 @@ xml.div(:id=>'content-general') do
 
     xml.table do
       xml.tr do
-        xml.td do xml.label( local ('table::conference::acronym' ) ) end
+        xml.td do xml.label( local('table::conference::acronym' ) ) end
         xml.td do xml << text_field_tag('conference[acronym]', @conference.acronym, {:size => 10, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::title' ) ) end
+        xml.td do xml.label( local('table::conference::title' ) ) end
         xml.td do xml << text_field_tag('conference[title]', @conference.title, {:size => 60, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::subtitle' ) ) end
+        xml.td do xml.label( local('table::conference::subtitle' ) ) end
         xml.td do xml << text_field_tag('conference[subtitle]', @conference.subtitle, {:size => 60, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::conference_phase' ) ) end
+        xml.td do xml.label( local('table::conference::conference_phase' ) ) end
         xml.td do xml << select_tag('conference[conference_phase]', Conference_phase.select, {:key=>'conference_phase',:value=>'conference_phase',:selected=>@conference.conference_phase}) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::venue' ) ) end
+        xml.td do xml.label( local('table::conference::venue' ) ) end
         xml.td do xml << text_field_tag('conference[venue]', @conference.venue, {:size => 40, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::city' ) ) end
+        xml.td do xml.label( local('table::conference::city' ) ) end
         xml.td do xml << text_field_tag('conference[city]', @conference.city, {:size => 40, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::country' ) ) end
+        xml.td do xml.label( local('table::conference::country' ) ) end
         xml.td do xml << select_tag('conference[country]', Country.select, {:key=>'country',:value=>'country',:selected=>@conference.country}) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::start_date' ) ) end
+        xml.td do xml.label( local('table::conference::start_date' ) ) end
         xml.td do xml << text_field_tag('conference[start_date]', @conference.start_date, {:size => 10, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::days' ) ) end
+        xml.td do xml.label( local('table::conference::days' ) ) end
         xml.td do xml << select_tag('conference[days]', (1..23).to_a, {:selected=>@conference.days}) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::currency' ) ) end
+        xml.td do xml.label( local('table::conference::currency' ) ) end
         xml.td do xml << select_tag('conference[currency]', Currency.select, {:key=>'currency',:value=>'currency',:selected=>@conference.currency}) end
       end
     end
@@ -54,27 +54,27 @@ xml.div(:id=>'content-general') do
 
     xml.table do
       xml.tr do
-        xml.td do xml.label( local ('table::conference::abstract_length' ) ) end
+        xml.td do xml.label( local('table::conference::abstract_length' ) ) end
         xml.td do xml << text_field_tag('conference[abstract_length]', @conference.abstract_length, {:size => 10, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::description_length' ) ) end
+        xml.td do xml.label( local('table::conference::description_length' ) ) end
         xml.td do xml << text_field_tag('conference[description_length]', @conference.description_length, {:size => 10, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::timeslot_duration' ) ) end
+        xml.td do xml.label( local('table::conference::timeslot_duration' ) ) end
         xml.td do xml << select_tag('conference[timeslot_duration]', [], {:selected=>@conference.timeslot_duration} ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::default_timeslots' ) ) end
+        xml.td do xml.label( local('table::conference::default_timeslots' ) ) end
         xml.td do xml << select_tag('conference[default_timeslots]', (1..12).to_a, {:selected=>@conference.default_timeslots} ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::max_timeslots_per_event' ) ) end
+        xml.td do xml.label( local('table::conference::max_timeslots_per_event' ) ) end
         xml.td do xml << select_tag('conference[max_timeslots_per_event]', (1..20).to_a, {:selected=>@conference.max_timeslots_per_event} ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::day_change' ) ) end
+        xml.td do xml.label( local('table::conference::day_change' ) ) end
         xml.td do xml << select_tag('conference[day_change]', [], {:selected=>@conference.day_change} ) end
       end
 

@@ -7,35 +7,35 @@ xml.div(:id=>'content-export') do
 
     xml.table do
       xml.tr do
-        xml.td do xml.label( local ('table::conference::release' ) ) end
+        xml.td do xml.label( local('table::conference::release' ) ) end
         xml.td do xml << text_field_tag('conference[release]', @conference.release, {:size => 10, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::homepage' ) ) end
+        xml.td do xml.label( local('table::conference::homepage' ) ) end
         xml.td do xml << text_field_tag('conference[homepage]', @conference.homepage, {:size => 10, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::export_base_url' ) ) end
+        xml.td do xml.label( local('table::conference::export_base_url' ) ) end
         xml.td do xml << text_field_tag('conference[export_base_url]', @conference.export_base_url, {:size => 10, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::feedback_base_url' ) ) end
+        xml.td do xml.label( local('table::conference::feedback_base_url' ) ) end
         xml.td do xml << text_field_tag('conference[feedback_base_url]', @conference.feedback_base_url, {:size => 10, :tabindex => 0 } ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::submission_enabled' ) ) end
+        xml.td do xml.label( local('table::conference::submission_enabled' ) ) end
         xml.td do xml << check_box_tag('conference[submission_enabled]','t', @conference.submission_enabled, {:tabindex=>0} ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::visitor_enabled' ) ) end
+        xml.td do xml.label( local('table::conference::visitor_enabled' ) ) end
         xml.td do xml << check_box_tag('conference[visitor_enabled]','t', @conference.visitor_enabled, {:tabindex=>0} ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::feedback_enabled' ) ) end
+        xml.td do xml.label( local('table::conference::feedback_enabled' ) ) end
         xml.td do xml << check_box_tag('conference[feedback_enabled]','t', @conference.feedback_enabled, {:tabindex=>0} ) end
       end
       xml.tr do
-        xml.td do xml.label( local ('table::conference::reconfirmation_enabled' ) ) end
+        xml.td do xml.label( local('table::conference::reconfirmation_enabled' ) ) end
         xml.td do xml << check_box_tag('conference[reconfirmation_enabled]','t', @conference.reconfirmation_enabled, {:tabindex=>0} ) end
       end
     end
