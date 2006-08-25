@@ -38,7 +38,7 @@ module ApplicationHelper
 
   def markup( text )
     text = h( text )
-    allowed_protocols = ['http', 'https', 'mailto', 'svn', 'jabber']
+    allowed_protocols = ['http', 'https', 'mailto', 'svn', 'xmpp']
 
     nesting, new_text, p_open = '', '', false
     text.each_line do | line |
