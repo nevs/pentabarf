@@ -5,6 +5,7 @@ require 'pentabarf_controller'
 class PentabarfController; def rescue_action(e) raise e end; end
 
 class PentabarfControllerTest < Test::Unit::TestCase
+
   def setup
     @controller = PentabarfController.new
     @request    = ActionController::TestRequest.new

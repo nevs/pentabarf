@@ -18,7 +18,7 @@ Rails::Initializer.run do |config|
   config.frameworks -= [ :active_record, :action_web_service ]
 
   # Add additional load paths for your own custom dirs
-  # config.load_paths += %W( #{RAILS_ROOT}/extras )
+  config.load_paths += %W( #{RAILS_ROOT}/vendor/momomoto )
 
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
@@ -33,15 +33,9 @@ end
 
 # Include your application configuration below
 
-$LOAD_PATH.unshift( RAILS_ROOT + '/vendor/momomoto' )
-
 require 'yaml'
 require 'momomoto'
-require 'erubishandler'
 require 'jabberlogger'
-
-# register Erubis as Template Handler for erb templates
-ActionView::Base::register_template_handler( 'erubis', ErubisHandler )
 
 # connect to the database
 Momomoto::Database.instance.config( YAML.load_file( File.join( RAILS_ROOT, 'config', 'database.yml' ) )[RAILS_ENV] )
