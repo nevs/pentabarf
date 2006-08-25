@@ -18,3 +18,6 @@ config.action_controller.perform_caching             = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
+# this is just to satisfy the test cases complaining about no activerecord connection
+ActiveRecord::Base.establish_connection( YAML.load_file(File.join(RAILS_ROOT, 'config','database.yml'))['test'])
+
