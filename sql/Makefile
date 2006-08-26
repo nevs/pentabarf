@@ -5,16 +5,17 @@ DBUSER=sven
 DBADMIN=sven
 SUDOCMD=sudo
 
+all: install_db initial_data
+
 install_db:
 		-${SUDOCMD} -u ${PGADMIN} createuser ${DBADMIN} -S -D -R
 		-${SUDOCMD} -u ${PGADMIN} createuser ${DBUSER} -S -D -R
 		-${SUDOCMD} -u ${PGADMIN} createdb -O ${DBADMIN} ${DATABASE}
 		-${SUDOCMD} -u ${PGADMIN} createlang plpgsql ${DATABASE}
-		psql ${DATABASE} ${DBADMIN} -f schema.sql
-		psql ${DATABASE} ${DBADMIN} -f tables.sql
-		psql ${DATABASE} ${DBADMIN} -f conflict.sql
+		psql ${DATABASE} ${DBADMIN} -f install_db.sql
 
 initial_data:
 		(cd data;\
 		 psql ${DATABASE} ${DBUSER} -f import.sql)
+
 

@@ -11,7 +11,12 @@ class PentabarfController < ApplicationController
   end
 
   def event
-    @event = Event.select_or_new( :event_id => params[:id].to_i )
+    begin
+      @event = Event.select_single( :event_id => params[:id].to_i )
+    rescue Momomoto::Nothing_found
+      @event = Event.new
+      @event.conference_id = @current_conference.conference_id
+    end
   end
 
   def conference

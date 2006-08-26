@@ -30,6 +30,10 @@ xml.div(:id=>'content-general') do
         xml.td do xml.label( local('table::event::event_state_progress' ) ) end
         xml.td do xml << select_tag('event[event_state_progress]', Event_state_progress.select, {:key=>'event_state_progress',:value=>'event_state_progress',:selected=>@event.event_state_progress}) end
       end
+      xml.tr do
+        xml.td do xml.label( local('table::event::conference_team' ) ) end
+        xml.td do xml << select_tag('event[conference_team]', Conference_team.select, {:key=>'conference_team',:value=>'conference_team',:selected=>@event.conference_team}) end
+      end
     end
   end
 
