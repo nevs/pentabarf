@@ -22,8 +22,18 @@ class PentabarfControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  def test_new_person
+    get :person, {:id => 'new'}
+    assert_response :success
+  end
+
   def test_event
     get :event, {:id => 1}
+    assert_response :success
+  end
+
+  def test_new_event
+    get :event, {:id => 'new'}
     assert_response :success
   end
 
@@ -32,4 +42,10 @@ class PentabarfControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  def test_new_conference
+    get :conference, {:id => 'new'}
+    assert_response :success
+  end
+
 end
+

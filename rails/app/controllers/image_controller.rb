@@ -35,7 +35,6 @@ class ImageController < ApplicationController
 
   def deliver_image( image, query )
     response.headers['Last-Modified'] = @timestamp
-    # render_text(image.image)
     render_resized( Magick::Image.from_blob( image.image )[0], query )
   end
 

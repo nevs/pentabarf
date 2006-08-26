@@ -1,23 +1,20 @@
 class PentabarfController < ApplicationController
+  before_filter :set_conference
   after_filter :compress
   session(:off)
 
   def index
-    @current_conference = Conference.select_or_new(:conference_id => 1)
   end
 
   def person
-    @current_conference = Conference.select_or_new(:conference_id => 1)
-    @person = Person.select_or_new( :person_id => params[:id] )
+    @person = Person.select_or_new( :person_id => params[:id].to_i )
   end
 
   def event
-    @current_conference = Conference.select_or_new(:conference_id => 1)
-    @event = Event.select_or_new( :event_id => params[:id] )
+    @event = Event.select_or_new( :event_id => params[:id].to_i )
   end
 
   def conference
-    @current_conference = Conference.select_or_new(:conference_id => 1)
     @conference = Conference.select_or_new( :conference_id => params[:id].to_i )
   end
 
@@ -29,6 +26,11 @@ class PentabarfController < ApplicationController
     end
     conference.write
     redirect_to( :action => :conference, :id => conference.conference_id)
+  end
+
+  protected
+  def set_conference
+    @current_conference = Conference.select_or_new(:conference_id => 1)
   end
 
 end
