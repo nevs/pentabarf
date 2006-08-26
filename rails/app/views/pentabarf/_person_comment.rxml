@@ -7,7 +7,7 @@ xml.div(:id=>'content-comment') do
     xml.table do
       xml.tr do
         xml.td do
-          xml << text_area_tag('person[remark]', @person.remark, {:rows => 5, :cols => 60, :tabindex => 0})
+          xml << text_area_tag('conference_person[remark]', '', {:rows => 5, :cols => 60, :tabindex => 0})
         end
       end
     end

@@ -2,11 +2,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PersonTest < Test::Unit::TestCase
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
-  end
-
   def test_crud
     sven = Person.new
     sven.first_name = 'Sven'
