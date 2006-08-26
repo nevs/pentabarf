@@ -23,6 +23,25 @@ class PdfController < ApplicationController
   before_filter :authorize, :check_permission
   after_filter :fop_process
 
+  ##
+  # Cached getter for pdf.yml
+  # result:: [Hash] YAML deserialized
+  def config
+    unless @config
+      @config = YAML::load_file(File.join(RAILS_ROOT, 'config', 'pdf.yml'))
+    end
+    @config
+  end
+
+  def with_giant_lock(&block)
+    unless @lock
+      @lock = Mutex.new
+    end
+    @lock.synchronize do
+      block.call
+    end
+  end
+
   def conference
     @conference = Momomoto::Conference.find({:conference_id => params[:id]})
     @rooms = Momomoto::View_room.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id})
@@ -39,26 +58,36 @@ class PdfController < ApplicationController
   end
 
   def fop_process
-    fo = Tempfile.new('PdfController')
-    pdf_path = "#{fo.path}.pdf"
-    fo.write @response.body
-    fo.flush
+    with_giant_lock do
 
-    fop_output = `/usr/local/src/fop/fop -fo #{fo.path} -pdf #{pdf_path} 2>&1`
+      fo_path = "#{config['workdir']}/#{params[:action]}.fo"
+      fo = File.new(fo_path, 'w')
+      pdf_path = "#{fo_path}.pdf"
+      fo.write @response.body
+      fo.close
 
-    fo.close
+      config['fop-env'].each { |k,v|
+        ENV[k] = v
+      }
+      fop_output = `#{config['fop']} -fo #{fo_path} -pdf #{pdf_path} 2>&1`
 
-    begin
-      @response.body = IO::readlines(pdf_path) { |pdf| pdf.readlines.to_s }
-      @response.headers['Content-type'] = 'application/pdf'
-      $stderr.puts fop_output
-    rescue SystemCallError
-      @response.body = fop_output
-      @response.headers['Content-type'] = 'text/plain'
-    end
-    begin
-      File.unlink(pdf_path)
-    rescue SystemCallError
+
+      begin
+        @response.body = IO::readlines(pdf_path) { |pdf| pdf.readlines.to_s }
+        @response.headers['Content-type'] = 'application/pdf'
+        $stderr.puts fop_output
+      rescue SystemCallError
+        @response.body = fop_output
+        @response.headers['Content-type'] = 'text/plain'
+        raise
+      end
+      begin
+        File.unlink(fo_path)
+        File.unlink(pdf_path)
+      rescue SystemCallError
+        raise
+      end
+
     end
   end
 

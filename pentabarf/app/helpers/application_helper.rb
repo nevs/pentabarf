@@ -1,3 +1,6 @@
+require 'markup_html'
+require 'markup_fo'
+
 # The methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
@@ -36,15 +39,15 @@ module ApplicationHelper
     html
   end
 
-  def markup( text )
+  def markup( text, writer=Markup::HTMLWriter.new )
     text = h( text )
     allowed_protocols = ['http', 'https', 'mailto', 'svn', 'xmpp']
 
-    nesting, new_text, p_open = '', '', false
-    text.each_line do | line |
+    nesting, new_text, p_open, is_text = '', '', false, true
+    (text.split(/\n/) + ['']).each do | line |
       # close <p> tag for lists
       if line.match(/^[*#-]/) and p_open
-        new_text += '</p>'
+        new_text += writer.close_paragraph
         p_open = false
       end
 
@@ -52,21 +55,29 @@ module ApplicationHelper
       # lists #,- and * with nesting
       if new_nesting != nesting
         while nesting != new_nesting[0...nesting.length].to_s
-          new_text += nesting[nesting.length - 1].chr == '#' ? '</ol>' : '</ul>'
+          new_text += nesting[nesting.length - 1].chr == '#' ?
+              writer.close_ordered_list :
+              writer.close_unordered_list
           nesting[nesting.length - 1] = ''
+          new_text += writer.close_list_item if nesting.size > 0
         end
         while new_nesting != nesting
-          new_text += new_nesting[nesting.length].chr == '#' ? '<ol>' : '<ul>'
+          new_text += writer.open_list_item if nesting.size > 0
+          new_text += new_nesting[nesting.length].chr == '#' ?
+              writer.open_ordered_list :
+              writer.open_unordered_list
           nesting += new_nesting[nesting.length].chr
         end
+
+        is_text = false
       end
 
-      line.gsub!( /^[#*-]+(.*)$/, '<li>\1</li>')
+      line.gsub!( /^[#*-]+(.*)$/, writer.open_list_item + '\1' + writer.close_list_item )
 
       # internal links [[type:id]] or [[type:id label]]
       line.gsub!( /\[\[[^\]]+\]\]/ ) do | ilink |
         if match = ilink[2..-3].match( /^([^: ]+):([^: ]+)( (.+))?$/ )
-          ilink = "<a href=\"#{url_for(:action=>match[1],:id=>match[2])}\">#{match[4] ? match[4] : match[1] + ':' + match[2]}</a>"
+          ilink = writer.open_link("#{url_for(:action=>match[1],:id=>match[2])}") + (match[4] ? match[4] : match[1] + ':' + match[2]) + writer.close_link
         end
         ilink
       end
@@ -74,44 +85,47 @@ module ApplicationHelper
       line.gsub!( /\[[^\]]+\]/ ) do | elink |
         if match = elink[1..-2].match( /^(([a-z]+):(\/\/)?([^ ]+))( (.+))?$/ )
           elink = "<a href=\"#{match[1]}\">#{match[6] ? match[6] : match[1]}</a>" if allowed_protocols.member?(match[2])
+          elink = writer.open_link("#{match[1]}") + (match[6] ? match[6] : match[1]) + writer.close_link if allowed_protocols.member?(match[2])
         end
         elink
       end
       # //italics// **bold** __underlined__
-      line.gsub!( /\/\/([^\/]+)\/\//, '<i>\1</i>' )
-      line.gsub!( /\*\*([^*]+)\*\*/, '<b>\1</b>' )
-      line.gsub!( /__([^_]+)__/, '<u>\1</u>' )
+      line.gsub!( /\/\/([^\/]+)\/\//, writer.open_italic + '\1' + writer.close_italic )
+      line.gsub!( /\*\*([^*]+)\*\*/, writer.open_bold + '\1' + writer.close_bold )
+      line.gsub!( /__([^_]+)__/, writer.open_underline + '\1' + writer.close_underline )
       # Header 1 - 6
-      line.gsub!( /^======([^=]+)======$/, '<h6>\1</h6>' )
-      line.gsub!( /^=====([^=]+)=====$/, '<h5>\1</h5>' )
-      line.gsub!( /^====([^=]+)====$/, '<h4>\1</h4>' )
-      line.gsub!( /^===([^=]+)===$/, '<h3>\1</h3>' )
-      line.gsub!( /^==([^=]+)==$/, '<h2>\1</h2>' )
-      line.gsub!( /^=([^=]+)=$/, '<h1>\1</h1>' )
+      is_text = false if line =~ /^={1,6}[^=]+={1,6}$/
+      line.gsub!( /^======([^=]+)======$/, writer.open_headline(6) + '\1' + writer.close_headline)
+      line.gsub!( /^=====([^=]+)=====$/, writer.open_headline(5) + '\1' + writer.close_headline)
+      line.gsub!( /^====([^=]+)====$/, writer.open_headline(4) + '\1' + writer.close_headline)
+      line.gsub!( /^===([^=]+)===$/, writer.open_headline(3) + '\1' + writer.close_headline)
+      line.gsub!( /^==([^=]+)==$/, writer.open_headline(2) + '\1' + writer.close_headline)
+      line.gsub!( /^=([^=]+)=$/, writer.open_headline(1) + '\1' + writer.close_headline)
       # :blockquote
-      line.gsub!( /^:(.*)$/, '<dd>\1</dd>')
+      is_text = false if line =~ /^:.*$/
+      line.gsub!( /^:(.*)$/, writer.open_blockquote + '\1' + writer.close_blockquote )
 
       # empty line forces new <paragraph>
       if line.strip.match(/^$/) and p_open
-        new_text += '</p>'
+        new_text += writer.close_paragraph
         p_open = false
       end
 
       # close <p> tag for header and blockquote
-      if line.match(/^<(h[1-6]|dd)>/) and p_open
-        new_text += '</p>'
+      if not is_text and p_open
+        new_text += writer.close_paragraph
         p_open = false
       end
 
       # open <p> tag unless header, blockquote or listelement
-      if not p_open and not line.match(/^<(h[1-6]|dd|li)>/) and line.strip.length > 0
-        new_text += '<p>'
+      if not p_open and is_text and line.strip.length > 0
+        new_text += writer.open_paragraph
         p_open = true
       end
 
-      new_text += line
+      new_text += line + "\n"
     end
-    new_text += '</p>' if p_open
+    new_text += writer.close_paragraph if p_open
     new_text
   end
 

@@ -1,0 +1,14 @@
+x = Builder::XmlMarkup.new(:indent=>2)
+
+
+x.page_sequence(:master_reference=>'Centered') do
+  x.flow(:flow_name=>'xsl-region-body') do
+    x.block({ :font_size=>'48pt',
+            :font_weight=>'bold',
+            :text_align=>'center'
+    }, @conference.title)
+    x.block({ :font_size=>'24pt',
+            :text_align=>'center'
+    }, @conference.subtitle)
+  end
+end
