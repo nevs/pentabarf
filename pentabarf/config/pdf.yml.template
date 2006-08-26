@@ -1,4 +1,1 @@
-fop-env:
-  JAVA_HOME: /usr/local/linux-sun-jdk1.4.2
 fop: fop
-tmpdir: /tmp/PdfController/

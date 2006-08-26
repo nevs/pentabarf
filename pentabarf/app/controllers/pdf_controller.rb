@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 class Symbol
   def r2x
     to_s.gsub('_', '-').intern
@@ -22,6 +24,15 @@ end
 class PdfController < ApplicationController
   before_filter :authorize, :check_permission
   after_filter :fop_process
+
+  def gen_tmpdir
+    begin
+      dir = "/tmp/#{self.class}-" + Digest::SHA1.new("#{rand(65535).to_s(16)}#{Time.new.sec}#{Time.new.usec}").hexdigest
+    end while File.exists?(dir) or File.directory?(dir)
+
+    Dir.mkdir(dir)
+    dir
+  end
 
   ##
   # Cached getter for pdf.yml
@@ -60,21 +71,27 @@ class PdfController < ApplicationController
   def fop_process
     with_giant_lock do
 
-      fo_path = "#{config['workdir']}/#{params[:action]}.fo"
+      tmpdir = gen_tmpdir
+      fo_path = "#{tmpdir}/#{params[:action]}.fo"
       fo = File.new(fo_path, 'w')
       pdf_path = "#{fo_path}.pdf"
       fo.write @response.body
       fo.close
 
-      config['fop-env'].each { |k,v|
-        ENV[k] = v
-      }
+      $stderr.puts "Running: #{config['fop']} -fo #{fo_path} -pdf #{pdf_path} 2>&1"
       fop_output = `#{config['fop']} -fo #{fo_path} -pdf #{pdf_path} 2>&1`
 
 
       begin
-        @response.body = IO::readlines(pdf_path) { |pdf| pdf.readlines.to_s }
-        @response.headers['Content-type'] = 'application/pdf'
+        @response.body = ''
+        File.open(pdf_path, 'rb') do |pdf|
+          while buf = pdf.read(512)
+            @response.body += buf
+          end
+        end
+        @response.headers['Content-Type'] = 'application/pdf'
+        @response.headers['Content-Disposition'] = "attachment; filename=\"#{@params[:action]}.pdf\""
+        @response.headers['Content-Length'] = @response.body.size
         $stderr.puts fop_output
       rescue SystemCallError
         @response.body = fop_output
@@ -84,6 +101,7 @@ class PdfController < ApplicationController
       begin
         File.unlink(fo_path)
         File.unlink(pdf_path)
+        Dir.rmdir(tmpdir)
       rescue SystemCallError
         raise
       end
