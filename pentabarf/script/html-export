@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
+
+$LOAD_PATH << File.join( 'app', 'helpers')
+
 require 'rubygems'
 require 'date'
 require 'yaml'
