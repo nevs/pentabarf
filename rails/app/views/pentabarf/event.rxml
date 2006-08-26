@@ -4,7 +4,7 @@ xml.div( :id => 'object-image' ) do
   xml.img( :src => image_path( 'icon-event-64x64.png' ), :class => 'object-image' )
 end
 
-tabs = []
+tabs = [:general]
 
 xml.div( :id => 'data' ) do
 

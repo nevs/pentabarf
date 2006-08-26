@@ -1,0 +1,36 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-general') do
+
+  xml.fieldset do
+    xml.legend local('view::pentabarf::event::tab::general')
+
+    xml.table do
+      xml.tr do
+        xml.td do xml.label( local('table::event::title' ) ) end
+        xml.td do xml << text_field_tag('event[title]', @event.title, {:size => 10, :tabindex => 0 } ) end
+      end
+      xml.tr do
+        xml.td do xml.label( local('table::event::subtitle' ) ) end
+        xml.td do xml << text_field_tag('event[subtitle]', @event.subtitle, {:size => 10, :tabindex => 0 } ) end
+      end
+      xml.tr do
+        xml.td do xml.label( local('table::event::tag' ) ) end
+        xml.td do xml << text_field_tag('event[tag]', @event.tag, {:size => 10, :tabindex => 0 } ) end
+      end
+      xml.tr do
+        xml.td do xml.label( local('table::event::event_origin' ) ) end
+        xml.td do xml << select_tag('event[event_origin]', Event_origin.select, {:key=>'event_origin',:value=>'event_origin',:selected=>@event.event_origin}) end
+      end
+      xml.tr do
+        xml.td do xml.label( local('table::event::event_state' ) ) end
+        xml.td do xml << select_tag('event[event_state]', Event_state.select, {:key=>'event_state',:value=>'event_state',:selected=>@event.event_state}) end
+      end
+      xml.tr do
+        xml.td do xml.label( local('table::event::event_state_progress' ) ) end
+        xml.td do xml << select_tag('event[event_state_progress]', Event_state_progress.select, {:key=>'event_state_progress',:value=>'event_state_progress',:selected=>@event.event_state_progress}) end
+      end
+    end
+  end
+
+end
