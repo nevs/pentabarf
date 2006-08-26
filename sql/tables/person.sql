@@ -5,7 +5,8 @@ CREATE TABLE master.person(
   password VARCHAR(32),
   salt VARCHAR(16),
   first_name TEXT,
-  last_name TEXT
+  last_name TEXT,
+  remark TEXT
 );
 
 CREATE TABLE person(
