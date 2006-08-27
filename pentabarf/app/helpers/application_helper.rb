@@ -283,13 +283,12 @@ module ApplicationHelper
     return track == '' ? '' : h("track-#{track}")
   end
 
+  # overwrite the default text_area_tag function from rails which lacks proper escaping
   def text_area_tag(name, content = nil, options = {})
     options.stringify_keys!
-
     if size = options.delete("size")
       options["cols"], options["rows"] = size.split("x")
     end
-
     content_tag :textarea, h(content), { "name" => name, "id" => name }.update(options.stringify_keys)
   end
 
