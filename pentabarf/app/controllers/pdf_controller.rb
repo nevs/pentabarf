@@ -133,32 +133,37 @@ class PdfController < ApplicationController
       log = File.new(log_path, 'a')
       log.puts "Running: #{config['fop']} -fo #{fo_path} -pdf #{pdf_path} 2>&1"
       fop_output = `#{config['fop']} -fo #{fo_path} -pdf #{pdf_path} 2>&1`
+      $stderr.puts fop_output
       log.puts fop_output
       log.close
 
 
       begin
         @response.body = ''
-        File.open(pdf_path, 'rb') do |pdf|
+        File.open(pdf_path, 'r') do |pdf|
           while buf = pdf.read(512)
             @response.body += buf
           end
         end
+        $stderr.puts "PDF size: #{File.size pdf_path} -- #{@response.body.size}"
         @response.headers['Content-Type'] = 'application/pdf'
         @response.headers['Content-Disposition'] = "attachment; filename=\"#{@params[:action]}.pdf\""
         @response.headers['Content-Length'] = @response.body.size
+
+        if @response.body.size > 0
+          begin
+            File.unlink(fo_path)
+            File.unlink(pdf_path)
+            File.unlink(log_path)
+            (@images || {}).each { |path,| File.unlink(path) }
+            Dir.rmdir(tmpdir)
+          rescue SystemCallError
+          end
+        end
       rescue SystemCallError
         @response.body = fop_output
         @response.headers['Content-type'] = 'text/plain'
         raise
-      end
-      begin
-        File.unlink(fo_path)
-        File.unlink(pdf_path)
-        File.unlink(log_path)
-        (@images || []).each { |path,| File.unlink(path) }
-        Dir.rmdir(tmpdir)
-      rescue SystemCallError
       end
 
       @tmpdir = nil

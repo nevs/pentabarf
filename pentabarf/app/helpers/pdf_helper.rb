@@ -1,3 +1,5 @@
+require 'RMagick'
+
 module PdfHelper
   def tmpdir
     @tmpdir
@@ -33,6 +35,13 @@ module PdfHelper
     result = ''
     x = Builder::XmlMarkup.new(result)
     unless image.kind_of? String
+      if image.mime_type == 'image/jpeg'
+        img = Magick::Image.from_blob(image.image)[0]
+        img.format = 'PNG'
+        image.mime_type = 'image/png'
+        image.image = img.to_blob
+      end
+
       ext = image.mime_type.split('/').last
       imgfile = "#{tmpdir}/#{type}-#{id}.#{ext}"
       if is_new
