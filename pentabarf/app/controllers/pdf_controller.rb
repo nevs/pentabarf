@@ -23,15 +23,82 @@ end
 
 class PdfController < ApplicationController
   before_filter :authorize, :check_permission
-  after_filter :fop_process
+  after_filter :generate_toc, :fop_process
 
-  def gen_tmpdir
-    begin
-      dir = "/tmp/#{self.class}-" + Digest::SHA1.new("#{rand(65535).to_s(16)}#{Time.new.sec}#{Time.new.usec}").hexdigest
-    end while File.exists?(dir) or File.directory?(dir)
+  def conference
+    @conference = Momomoto::Conference.find({:conference_id => params[:id]})
+    @rooms = Momomoto::View_room.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id})
+    @events = Momomoto::View_schedule_event.find({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
+    @speakers = Momomoto::View_schedule_person.find({:conference_id=>@conference.conference_id}, nil, 'lower(name), lower(title), lower(subtitle)')
 
-    Dir.mkdir(dir)
-    dir
+    @page_width = '210mm'
+    @page_height = '297mm'
+    @margin_top = '20mm'
+    @margin_bottom = '20mm'
+    @margin_left = '20mm'
+    @margin_right = '20mm'
+    @column_width_time = '10mm'
+    @column_width_event = '40mm'
+
+    tmpdir
+    @toc = []
+  end
+
+  protected
+
+  def tmpdir
+    if @tmpdir
+      @tmpdir
+    else
+      begin
+        dir = "/tmp/#{self.class}-" + Digest::SHA1.new("#{rand(65535).to_s(16)}#{Time.new.sec}#{Time.new.usec}").hexdigest
+      end while File.exists?(dir) or File.directory?(dir)
+
+      Dir.mkdir(dir)
+      @tmpdir = dir
+    end
+  end
+
+  def render_toc(x, toc, font_size=12)
+
+    while toc.size > 0
+      case toc.first
+        when String
+          title, id = toc.shift, toc.shift
+          if id.empty?
+            x.block({:font_size=>"{font_size}pt", :font_weight=>'bold'}, title)
+          else
+            x.block(:font_size=>"#{font_size}pt", :text_align_last=>'justify') {
+              #x << h(title)
+              x << title
+              x.leader(:leader_pattern=>'dots', :alignment_baseline=>'middle')
+              x.page_number_citation(:ref_id=>id)
+            }
+          end
+        when Array
+          render_toc(x, toc.shift, font_size - 2)
+      end
+    end
+
+  end
+
+  def generate_toc
+    x = Builder::XmlMarkup.new(:indent=>2)
+
+    x.flow(:flow_name=>'xsl-region-body') do
+      x.block({ :font_size=>'24pt',
+              :font_weight=>'bold',
+              :text_align=>'center',
+              :id=>'toc'
+      }, 'Table Of Contents')
+
+      render_toc(x, @toc)
+    end
+
+    if @response.body =~ /<%TOC%>/
+      @toc = ['Table Of Contents', 'toc'] + @toc
+    end
+    @response.body.sub!(/<%TOC%>/, x.target!)
   end
 
   ##
@@ -53,33 +120,20 @@ class PdfController < ApplicationController
     end
   end
 
-  def conference
-    @conference = Momomoto::Conference.find({:conference_id => params[:id]})
-    @rooms = Momomoto::View_room.find({:conference_id=>@current_conference_id, :language_id=>@current_language_id})
-    @events = Momomoto::View_schedule_event.find({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
-
-    @page_width = '210mm'
-    @page_height = '297mm'
-    @margin_top = '20mm'
-    @margin_bottom = '20mm'
-    @margin_left = '20mm'
-    @margin_right = '20mm'
-    @column_width_time = '10mm'
-    @column_width_event = '40mm'
-  end
-
   def fop_process
     with_giant_lock do
 
-      tmpdir = gen_tmpdir
       fo_path = "#{tmpdir}/#{params[:action]}.fo"
       fo = File.new(fo_path, 'w')
       pdf_path = "#{fo_path}.pdf"
       fo.write @response.body
       fo.close
 
-      $stderr.puts "Running: #{config['fop']} -fo #{fo_path} -pdf #{pdf_path} 2>&1"
+      log = File.new("#{fo_path}.log", 'a')
+      log.puts "Running: #{config['fop']} -fo #{fo_path} -pdf #{pdf_path} 2>&1"
       fop_output = `#{config['fop']} -fo #{fo_path} -pdf #{pdf_path} 2>&1`
+      log.puts fop_output
+      log.close
 
 
       begin
@@ -92,7 +146,6 @@ class PdfController < ApplicationController
         @response.headers['Content-Type'] = 'application/pdf'
         @response.headers['Content-Disposition'] = "attachment; filename=\"#{@params[:action]}.pdf\""
         @response.headers['Content-Length'] = @response.body.size
-        $stderr.puts fop_output
       rescue SystemCallError
         @response.body = fop_output
         @response.headers['Content-type'] = 'text/plain'
@@ -101,15 +154,15 @@ class PdfController < ApplicationController
       begin
         File.unlink(fo_path)
         File.unlink(pdf_path)
+        (@images || []).each { |path,| File.unlink(path) }
         Dir.rmdir(tmpdir)
       rescue SystemCallError
-        raise
       end
+
+      @tmpdir = nil
 
     end
   end
-
-  protected
 
   def check_permission
     #redirect_to :action => :meditation if params[:action] != 'meditation'
@@ -122,5 +175,4 @@ class PdfController < ApplicationController
     redirect_to( :action => :meditation )
     false
   end
-
 end

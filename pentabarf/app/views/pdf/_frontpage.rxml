@@ -7,6 +7,9 @@ x.page_sequence(:master_reference=>'Centered') do
             :font_weight=>'bold',
             :text_align=>'center'
     }, @conference.title)
+    x.block(:text_align=>'center') do
+      x << include_image(:conference, @conference.conference_id)
+    end
     x.block({ :font_size=>'24pt',
             :text_align=>'center'
     }, @conference.subtitle)

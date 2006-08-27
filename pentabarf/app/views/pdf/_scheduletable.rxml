@@ -1,14 +1,22 @@
 x = Builder::XmlMarkup.new(:indent=>2)
 
+@toc << 'Schedule'
+@toc << ''
+@toc << (toc_schedules = [])
+
 big_table = schedule_table( @conference, @events )
-x.flow(:flow_name=>'xsl-region-body') {
+x.flow(:flow_name=>'xsl-region-body', :id=>'schedule') {
   @conference.days.times { | day |
    table = big_table[ day ]
    next if table.size < 1
 
+     toc_schedules << "<[schedule::schedule]> <[schedule::day]> #{day + 1}"
+     toc_schedules << "scheduletable-day-#{day + 1}"
+
      x.block({ :font_size=>'24pt',
              :font_weight=>'bold',
-             :text_align=>'center'
+             :text_align=>'center',
+             :id=>"scheduletable-day-#{day + 1}"
      }, "<[schedule::schedule]> <[schedule::day]> #{day + 1}")
 
      x.table(:width=>'100%', :table_layout=>'fixed', :border_collapse=>'collapse', :border_spacing=>'2pt', :padding_bottom=>'24pt') {
@@ -69,10 +77,13 @@ x.flow(:flow_name=>'xsl-region-body') {
                    :margin_right=>'2pt',
                    :number_rows_spanned=>row[room.room_id][:slots]
                              ) {
-                   x.block({
+                   x.block(
                      :font_weight=>'bold',
                      :font_size=>'12pt'
-                             }, @events.title)
+                          ) {
+                     x << include_image(:event, row[room.room_id][:event_id])
+                     x << @events.title
+                   }
                    x.block({
                      :font_style=>'italic',
                      :font_size=>'10pt'
