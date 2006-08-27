@@ -129,7 +129,8 @@ class PdfController < ApplicationController
       fo.write @response.body
       fo.close
 
-      log = File.new("#{fo_path}.log", 'a')
+      log_path = "#{fo_path}.log"
+      log = File.new(log_path, 'a')
       log.puts "Running: #{config['fop']} -fo #{fo_path} -pdf #{pdf_path} 2>&1"
       fop_output = `#{config['fop']} -fo #{fo_path} -pdf #{pdf_path} 2>&1`
       log.puts fop_output
@@ -154,6 +155,7 @@ class PdfController < ApplicationController
       begin
         File.unlink(fo_path)
         File.unlink(pdf_path)
+        File.unlink(log_path)
         (@images || []).each { |path,| File.unlink(path) }
         Dir.rmdir(tmpdir)
       rescue SystemCallError
