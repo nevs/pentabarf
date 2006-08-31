@@ -7,20 +7,31 @@ class PentabarfController < ApplicationController
   end
 
   def person
-    @person = Person.select_or_new( :person_id => params[:id].to_i )
+    begin
+      @person = Person.select_single( :person_id => params[:id].to_i )
+    rescue
+      return redirect_to(:action=>:person,:id=>'new') if params[:id] != 'new'
+      @person = Person.new(:person_id=>0)
+    end
   end
 
   def event
     begin
       @event = Event.select_single( :event_id => params[:id].to_i )
     rescue Momomoto::Nothing_found
-      @event = Event.new
+      return redirect_to(:action=>:event,:id=>'new') if params[:id] != 'new'
+      @event = Event.new(:event_id=>0)
       @event.conference_id = @current_conference.conference_id
     end
   end
 
   def conference
-    @conference = Conference.select_or_new( :conference_id => params[:id].to_i )
+    begin
+      @conference = Conference.select_single( :conference_id => params[:id].to_i )
+    rescue
+      return redirect_to(:action=>:conference,:id=>'new') if params[:id] != 'new'
+      @conference = Conference.new(:conference_id=>0)
+    end
   end
 
   def save_conference

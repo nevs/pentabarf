@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def local( text )
-    h("<[#{text}]>")
+    "<[#{text}]>"
   end
 
   def select_tag( name, collection, options = {}, html_options = {} )
@@ -19,7 +19,7 @@ module ApplicationHelper
         opts = {}
         value = options.has_key?(:value) ? element.send( options[:value] ) : element
         key = options.has_key?(:key) ? element.send( options[:key] ) : element
-        opts[:selected] = selected if key == options[:selected]
+        opts[:selected] = 'selected' if key == options[:selected]
         opts[:value] = key
         xml.option( value, opts )
       end
