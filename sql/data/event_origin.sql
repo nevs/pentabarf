@@ -12,8 +12,8 @@ SET search_path = public, pg_catalog;
 -- Data for Name: event_origin; Type: TABLE DATA; Schema: public; Owner: sven
 --
 
-INSERT INTO event_origin (event_origin) VALUES ('idea');
-INSERT INTO event_origin (event_origin) VALUES ('submission');
+INSERT INTO event_origin (event_origin, rank) VALUES ('idea', 1);
+INSERT INTO event_origin (event_origin, rank) VALUES ('submission', 2);
 
 
 --

@@ -12,9 +12,9 @@ SET search_path = public, pg_catalog;
 -- Data for Name: event_state; Type: TABLE DATA; Schema: public; Owner: sven
 --
 
-INSERT INTO event_state (event_state) VALUES ('undecided');
-INSERT INTO event_state (event_state) VALUES ('accepted');
-INSERT INTO event_state (event_state) VALUES ('rejected');
+INSERT INTO event_state (event_state, rank) VALUES ('undecided', 1);
+INSERT INTO event_state (event_state, rank) VALUES ('accepted', 2);
+INSERT INTO event_state (event_state, rank) VALUES ('rejected', 3);
 
 
 --
