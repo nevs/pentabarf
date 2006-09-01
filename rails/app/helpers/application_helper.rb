@@ -22,6 +22,21 @@ module ApplicationHelper
     end
   end
 
+  def check_box_row( label, name, checked = false, options = {} )
+    xml = Builder::XmlMarkup.new
+    xml.tr do
+      xml.td do xml.label( local( label ) ) end
+      xml.td do
+        options[:id] = options[:name] = name
+        options[:tabindex] = 0
+        options[:type] = :checkbox
+        options[:value] ||= 't'
+        options[:checked] = :checked if checked
+        xml.input( options )
+      end
+    end
+  end
+
   def text_area_row( label, name, value = '', options = {} )
     xml = Builder::XmlMarkup.new
     xml.tr do
@@ -38,8 +53,9 @@ module ApplicationHelper
     xml = Builder::XmlMarkup.new
     xml.fieldset do
       xml.legend( local( label ) )
+      options[:id] = options[:name] = name
       options[:tabindex] = 0
-      xml << text_area_tag( name, value, options)
+      xml.textarea( value, options )
     end
   end
 
