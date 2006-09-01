@@ -1,0 +1,27 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-contact') do
+
+  xml.fieldset do
+    xml.legend local('view::pentabarf::person::tab::contact')
+
+    xml.table do
+      xml << text_field_row( 'table::person::email', 'person[email]', @person.email, {:size=>40} )
+      xml << check_box_row( 'table::person::spam', 'person[spam]', @person.spam )
+    end
+  end
+
+  xml.fieldset do
+
+    xml.table do
+      xml << text_field_row( 'table::person::address', 'person[address]', @person.address, {:size=>60})
+      xml << text_field_row( 'table::person::street', 'person[street]', @person.street, {:size=>60})
+      xml << text_field_row( 'table::person::street_postcode', 'person[street_postcode]', @person.street_postcode, {:size=>60})
+      xml << text_field_row( 'table::person::po_box', 'person[po_box]', @person.po_box, {:size=>60})
+      xml << text_field_row( 'table::person::po_box_postcode', 'person[po_box_postcode]', @person.po_box_postcode, {:size=>60})
+      xml << text_field_row( 'table::person::city', 'person[city]', @person.city, {:size=>60})
+      xml << select_row('table::person::country','person[country]', Country.select, {:key=>:country,:value=>:country,:selected=>@person.country})
+    end
+  end
+
+end
