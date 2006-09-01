@@ -27,3 +27,6 @@ CREATE TABLE person(
 
 CREATE TABLE logging.person() INHERITS(master.person);
 
+CREATE SEQUENCE person_id_sequence;
+ALTER TABLE person ALTER COLUMN person_id SET DEFAULT nextval('person_id_sequence');
+
