@@ -1,0 +1,17 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-schedule') do
+
+  xml.fieldset do
+    xml.legend local('view::pentabarf::event::tab::schedule')
+
+    xml.table do
+      xml << select_row( 'table::event::day', 'event[day]', (1..@conference.days).to_a, {:selected=>@event.day})
+      xml << select_row( 'table::event::start_time', 'event[start_time]', [], {:selected=>@event.start_time})
+      xml << select_row( 'table::event::duration', 'event[duration]', [], {:selected=>@event.duration})
+      xml << select_row( 'table::event::room', 'event[room]', [], {:selected=>@event.room})
+    end
+
+  end
+
+end

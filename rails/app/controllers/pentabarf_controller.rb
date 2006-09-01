@@ -23,6 +23,7 @@ class PentabarfController < ApplicationController
       @event = Event.new(:event_id=>0)
       @event.conference_id = @current_conference.conference_id
     end
+    @conference = Conference.select_single(:conference_id=>@event.conference_id)
   end
 
   def conference
