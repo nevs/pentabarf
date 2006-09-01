@@ -7,6 +7,7 @@ CREATE TABLE master.person(
   first_name TEXT,
   last_name TEXT,
   nickname TEXT,
+  public_name TEXT,
   title TEXT,
   gender BOOL,
   email TEXT,
@@ -21,7 +22,7 @@ CREATE TABLE master.person(
 );
 
 CREATE TABLE person(
-  PRIMARY KEY(person_id)
+  PRIMARY KEY(person_id),
   FOREIGN KEY(country) REFERENCES country(country)
 ) INHERITS(master.person);
 
@@ -29,4 +30,5 @@ CREATE TABLE logging.person() INHERITS(master.person);
 
 CREATE SEQUENCE person_id_sequence;
 ALTER TABLE person ALTER COLUMN person_id SET DEFAULT nextval('person_id_sequence');
+
 

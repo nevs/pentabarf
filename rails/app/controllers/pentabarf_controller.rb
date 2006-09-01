@@ -15,6 +15,16 @@ class PentabarfController < ApplicationController
     end
   end
 
+  def save_person
+    person = Person.select_or_new( {:person_id=>params[:id].to_i},{:copy_values=>false} )
+    params[:person].each do | key, value |
+      next if key.to_sym == :person_id
+      person[key] = value
+    end
+    person.write
+    redirect_to( :action => :person, :id => person.person_id)
+  end
+
   def event
     begin
       @event = Event.select_single( :event_id => params[:id].to_i )

@@ -14,12 +14,12 @@ xml.div(:id=>'content-contact') do
   xml.fieldset do
 
     xml.table do
-      xml << text_field_row( 'table::person::address', 'person[address]', @person.address, {:size=>60})
-      xml << text_field_row( 'table::person::street', 'person[street]', @person.street, {:size=>60})
-      xml << text_field_row( 'table::person::street_postcode', 'person[street_postcode]', @person.street_postcode, {:size=>60})
-      xml << text_field_row( 'table::person::po_box', 'person[po_box]', @person.po_box, {:size=>60})
-      xml << text_field_row( 'table::person::po_box_postcode', 'person[po_box_postcode]', @person.po_box_postcode, {:size=>60})
-      xml << text_field_row( 'table::person::city', 'person[city]', @person.city, {:size=>60})
+      xml << text_field_row( 'table::person::address', 'person[address]', @person.address, {:size=>30})
+      xml << text_field_row( 'table::person::street', 'person[street]', @person.street, {:size=>30})
+      xml << text_field_row( 'table::person::street_postcode', 'person[street_postcode]', @person.street_postcode, {:size=>30})
+      xml << text_field_row( 'table::person::po_box', 'person[po_box]', @person.po_box, {:size=>30})
+      xml << text_field_row( 'table::person::po_box_postcode', 'person[po_box_postcode]', @person.po_box_postcode, {:size=>30})
+      xml << text_field_row( 'table::person::city', 'person[city]', @person.city, {:size=>30})
       xml << select_row('table::person::country','person[country]', Country.select, {:key=>:country,:value=>:country,:selected=>@person.country})
     end
   end

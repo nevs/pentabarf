@@ -1,5 +1,7 @@
 -- script to create  all tables
 
+BEGIN TRANSACTION;
+
 \i tables/language.sql
 \i tables/language_localized.sql
 
@@ -53,4 +55,6 @@
 \i tables/event_role_state.sql
 
 \i tables/event_person.sql
+
+COMMIT TRANSACTION;
 
