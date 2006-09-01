@@ -91,5 +91,16 @@ module ApplicationHelper
     end
   end
 
+  def js_tabs( tabs )
+    xml = Builder::XmlMarkup.new(:indent=>1)
+    xml.div( :id => 'tabs' ) do
+      tabs.each do | tab |
+        xml.span do
+          xml.a( tab.to_s, {:id=>"tab-#{tab}",:href=>"",:class=>'tab inactive'})
+        end
+      end
+    end
+  end
+
 end
 

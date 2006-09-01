@@ -26,6 +26,17 @@ class PentabarfController < ApplicationController
     @conference = Conference.select_single(:conference_id=>@event.conference_id)
   end
 
+  def save_event
+    event = Event.select_or_new( {:event_id=>params[:id].to_i},{:copy_values=>false} )
+    event.conference_id = @current_conference.conference_id if event.new_record?
+    params[:event].each do | key, value |
+      next if key.to_sym == :event_id
+      event[key] = value
+    end
+    event.write
+    redirect_to( :action => :event, :id => event.event_id)
+  end
+
   def conference
     begin
       @conference = Conference.select_single( :conference_id => params[:id].to_i )

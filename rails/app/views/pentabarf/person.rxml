@@ -6,6 +6,8 @@ end
 
 tabs = [:general,:contact,:description]
 
+xml << js_tabs( tabs )
+
 xml.div( :id => 'data' ) do
 
   xml.form(:action=>url_for(:action=>:save_person,:id => @person.person_id),:id=>'content_form',:method=>'post') do
