@@ -12,16 +12,16 @@ SET search_path = public, pg_catalog;
 -- Data for Name: event_state_progress; Type: TABLE DATA; Schema: public; Owner: sven
 --
 
-INSERT INTO event_state_progress (event_state, event_state_progress) VALUES ('undecided', 'new');
-INSERT INTO event_state_progress (event_state, event_state_progress) VALUES ('undecided', 'review');
-INSERT INTO event_state_progress (event_state, event_state_progress) VALUES ('undecided', 'candidate');
-INSERT INTO event_state_progress (event_state, event_state_progress) VALUES ('undecided', 'withdrawn');
-INSERT INTO event_state_progress (event_state, event_state_progress) VALUES ('accepted', 'unconfirmed');
-INSERT INTO event_state_progress (event_state, event_state_progress) VALUES ('accepted', 'confirmed');
-INSERT INTO event_state_progress (event_state, event_state_progress) VALUES ('accepted', 'canceled');
-INSERT INTO event_state_progress (event_state, event_state_progress) VALUES ('rejected', 'confirmed');
-INSERT INTO event_state_progress (event_state, event_state_progress) VALUES ('rejected', 'unconfirmed');
-INSERT INTO event_state_progress (event_state, event_state_progress) VALUES ('undecided', 'rejection-candidate');
+INSERT INTO event_state_progress (event_state, event_state_progress, rank) VALUES ('undecided', 'new', 1);
+INSERT INTO event_state_progress (event_state, event_state_progress, rank) VALUES ('undecided', 'review', 2);
+INSERT INTO event_state_progress (event_state, event_state_progress, rank) VALUES ('undecided', 'candidate', 3);
+INSERT INTO event_state_progress (event_state, event_state_progress, rank) VALUES ('undecided', 'rejection-candidate', 4);
+INSERT INTO event_state_progress (event_state, event_state_progress, rank) VALUES ('undecided', 'withdrawn', 5);
+INSERT INTO event_state_progress (event_state, event_state_progress, rank) VALUES ('accepted', 'unconfirmed', 6);
+INSERT INTO event_state_progress (event_state, event_state_progress, rank) VALUES ('accepted', 'confirmed', 7);
+INSERT INTO event_state_progress (event_state, event_state_progress, rank) VALUES ('accepted', 'canceled', 8);
+INSERT INTO event_state_progress (event_state, event_state_progress, rank) VALUES ('rejected', 'unconfirmed', 9);
+INSERT INTO event_state_progress (event_state, event_state_progress, rank) VALUES ('rejected', 'confirmed', 10);
 
 
 --
