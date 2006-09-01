@@ -75,6 +75,11 @@ module ApplicationHelper
     html_options[:id] = name
     html_options[:tabindex] = 0 if not html_options[:tabindex]
     xml.select( html_options ) do
+      if options[:with_empty]
+        opts = {}
+        opts[:selected] = :selected if options[:selected] == nil
+        xml.option( '', opts )
+      end
       collection.each do | element |
         opts = {}
         value = options.has_key?(:value) ? element.send( options[:value] ) : element
