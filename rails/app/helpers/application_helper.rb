@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def local( text )
-    "<[#{text}]>"
+    "<[#{text.split('::').last}]>"
   end
 
   def text_field_row( label, name, value = '', options = {} )
@@ -97,6 +97,80 @@ module ApplicationHelper
       tabs.each do | tab |
         xml.span do
           xml.a( tab.to_s, {:id=>"tab-#{tab}",:href=>"",:class=>'tab inactive'})
+        end
+      end
+    end
+  end
+
+  def event_table( events )
+    xml = Builder::XmlMarkup.new
+    xml.table do
+      xml.thead do
+        xml.tr do
+          xml.th( local( 'table::event::title' ) )
+          xml.th( local( 'table::event::subtitle' ) )
+        end
+      end
+      xml.tbody do
+        fields = [:title,:subtitle]
+        events.each do | e |
+          xml.tr do
+            fields.each do | field_name |
+              xml.td do
+                xml.a( e.send( field_name ), {:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>e.event_id)})
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
+  def person_table( persons )
+    xml = Builder::XmlMarkup.new
+    xml.table do
+      xml.thead do
+        xml.tr do
+          xml.th( local( 'table::person::first_name' ) )
+          xml.th( local( 'table::person::last_name' ) )
+          xml.th( local( 'table::person::nickname' ) )
+          xml.th( local( 'table::person::public_name' ) )
+        end
+      end
+      xml.tbody do
+        fields = [:first_name,:last_name,:nickname,:public_name]
+        persons.each do | p |
+          xml.tr do
+            fields.each do | field_name |
+              xml.td do
+                xml.a( p.send( field_name ), {:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>p.person_id)})
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
+  def conference_table( conferences )
+    xml = Builder::XmlMarkup.new
+    xml.table do
+      xml.thead do
+        xml.tr do
+          xml.th( local( 'table::conference::title' ) )
+          xml.th( local( 'table::conference::subtitle' ) )
+        end
+      end
+      xml.tbody do
+        fields = [:title,:subtitle]
+        conferences.each do | c |
+          xml.tr do
+            fields.each do | field_name |
+              xml.td do
+                xml.a( c.send( field_name ), {:href=>url_for(:controller=>'pentabarf',:action=>:conference,:id=>c.conference_id)})
+              end
+            end
+          end
         end
       end
     end

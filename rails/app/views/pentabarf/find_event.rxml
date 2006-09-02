@@ -1,0 +1,15 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+tabs = [:simple,:advanced]
+xml << js_tabs( tabs )
+
+xml.div( :id => 'data' ) do
+
+  tabs.each do | tab |
+    xml << render( :partial => "find_event_#{tab}")
+  end
+
+  xml.fieldset(:id=>:results)
+
+end
+

@@ -66,6 +66,16 @@ class PentabarfController < ApplicationController
     redirect_to( :action => :conference, :id => conference.conference_id)
   end
 
+  [:person, :event, :conference].each do | object |
+
+    define_method("find_#{object}") do end
+
+    define_method("search_#{object}") do
+      render(:partial=>"search_#{object}")
+    end
+
+  end
+
   protected
   def set_conference
     @current_conference = Conference.select_or_new(:conference_id => 1)
