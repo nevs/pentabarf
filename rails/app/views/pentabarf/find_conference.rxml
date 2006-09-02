@@ -11,5 +11,6 @@ xml.div( :id => 'data' ) do
 
   xml.fieldset(:id=>:results)
 
+  xml.script('switch_tab();',{:type=>'text/javascript'})
 end
 

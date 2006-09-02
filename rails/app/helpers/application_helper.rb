@@ -95,9 +95,7 @@ module ApplicationHelper
     xml = Builder::XmlMarkup.new(:indent=>1)
     xml.div( :id => 'tabs' ) do
       tabs.each do | tab |
-        xml.span do
-          xml.a( tab.to_s, {:id=>"tab-#{tab}",:href=>"",:class=>'tab inactive'})
-        end
+        xml.span( tab.to_s, {:id=>"tab-#{tab}",:onclick=>"switch_tab('#{tab}')",:class=>'tab inactive'} )
       end
     end
   end
