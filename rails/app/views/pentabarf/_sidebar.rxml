@@ -9,6 +9,12 @@ xml.div( :id => 'sidebar' ) do
 
   xml.div(:id => 'menu') do
 
+    xml.div(:class=>'menu-item-group') do
+      xml.form(:id=>:change_conference,:method=>:post) do
+        xml << select_tag('change_conference', Conference.select, {:key=>:conference_id,:value=>:acronym,:selected=>@current_conference.conference_id})
+      end
+    end
+
     xml.div( :class=>'menu-item-group' ) do
       xml.a( local('link::startpage'), {:href=> url_for(:controller => 'pentabarf', :action => :index), :class => 'menu-item'} )
       xml.a( local('link::recent_changes'), {:href=> url_for(:controller => 'pentabarf', :action => :recent_changes), :class => 'menu-item'} )
