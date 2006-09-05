@@ -10,7 +10,7 @@ xml.div( :id => 'sidebar' ) do
   xml.div(:id => 'menu') do
 
     xml.div(:class=>'menu-item-group') do
-      xml.form(:id=>:change_conference,:method=>:post) do
+      xml.form(:id=>:change_conference,:method=>:post,:class=>'menu-text') do
         xml << select_tag('change_conference', Conference.select, {:key=>:conference_id,:value=>:acronym,:selected=>@current_conference.conference_id})
       end
     end

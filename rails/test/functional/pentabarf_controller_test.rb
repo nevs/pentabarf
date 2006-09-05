@@ -36,8 +36,14 @@ class PentabarfControllerTest < Test::Unit::TestCase
   end
 
   def test_event
-    get :event, {:id => 1}
+    c = Conference.new(:acronym=>'test' + rand.to_s,:title=>'testconf',:conference_phase=>'chaos',:start_date=>'2007-08-07')
+    c.write
+    e = Event.new(:title=>'Test event',:conference_id=>c.conference_id,:event_state=>'undecided',:event_type=>'movie',:event_state_progress=>'new',:duration=>c.timeslot_duration,:event_origin=>'idea')
+    e.write
+    get :event, {:id => e.event_id}
     assert_response :success
+    e.delete
+    c.delete
   end
 
   def test_new_event
@@ -49,11 +55,7 @@ class PentabarfControllerTest < Test::Unit::TestCase
   end
 
   def test_conference
-    conf = Conference.new
-    conf.acronym = 'Pentabarf' + rand.to_s
-    conf.title = 'Pentabarf Developer Conference'
-    conf.conference_phase = 'chaos'
-    conf.start_date = '2007-08-07'
+    conf = Conference.new(:acronym=>'Pentabarf' + rand.to_s,:title=>'PDC',:conference_phase=>'chaos',:start_date=>'2007-08-07')
     conf.write
     get :conference, {:id => conf.conference_id}
     assert_response :success

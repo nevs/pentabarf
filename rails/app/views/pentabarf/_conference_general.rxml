@@ -2,7 +2,7 @@ xml = Builder::XmlMarkup.new(:indent=>1)
 
 xml.div(:id=>'content-general') do
 
-  xml.fieldset do 
+  xml.fieldset do
     xml.legend local('view::pentabarf::conference::tab::general')
 
     xml.table do
@@ -14,7 +14,7 @@ xml.div(:id=>'content-general') do
       xml << text_field_row('table::conference::city', 'conference[city]', @conference.city)
       xml << select_row('table::conference::country', 'conference[country]', Country.select, {:key=>:country,:value=>:country,:selected=>@conference.country})
       xml << text_field_row('table::conference::start_date', 'conference[start_date]', @conference.start_date)
-      xml << select_row( 'table::conference::days', 'conference[days]', (1..23).to_a, {:selected=>@conference.days})
+      xml << select_row( 'table::conference::days', 'conference[days]', 1..23, {:selected=>@conference.days})
       xml << select_row('table::conference::currency', 'conference[currency]', Currency.select, {:key=>:currency,:value=>:currency,:selected=>@conference.currency})
     end
 
@@ -26,9 +26,9 @@ xml.div(:id=>'content-general') do
       xml << text_field_row('table::conference::abstract_length', 'conference[abstract_length]', @conference.abstract_length)
       xml << text_field_row('table::conference::description_length', 'conference[description_length]', @conference.description_length)
       xml << select_row( 'table::conference::timeslot_duration', 'conference[timeslot_duration]', [], {:selected=>@conference.timeslot_duration})
-      xml << select_row( 'table::conference::default_timeslots', 'conference[default_timeslots]', [], {:selected=>@conference.default_timeslots})
-      xml << select_row( 'table::conference::max_timeslots_per_event', 'conference[max_timeslots_per_event]', [], {:selected=>@conference.max_timeslots_per_event})
-      xml << select_row( 'table::conference::day_change', 'conference[day_change]', [], {:selected=>@conference.day_change})
+      xml << select_row( 'table::conference::default_timeslots', 'conference[default_timeslots]', 1..(@conference.max_timeslots_per_event), {:selected=>@conference.default_timeslots})
+      xml << select_row( 'table::conference::max_timeslots_per_event', 'conference[max_timeslots_per_event]', 1..23, {:selected=>@conference.max_timeslots_per_event})
+      xml << select_row( 'table::conference::day_change', 'conference[day_change]', (0..23).map{ |i| "#{i}:00:00" }, {:selected=>@conference.day_change})
     end
 
   end
