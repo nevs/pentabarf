@@ -253,6 +253,7 @@ CREATE OR REPLACE VIEW view_find_event AS
          event.conference_track_id,
          event.event_state_id,
          event.event_state_progress_id,
+         event.event_type_id,
          event.language_id,
          event.room_id,
          event.day,

@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: ui_message_ui_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pentabarf
 --
 
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 311, true);
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('ui_message', 'ui_message_id'), 312, true);
 
 
 --
@@ -178,6 +178,7 @@ INSERT INTO ui_message (ui_message_id, tag) VALUES (213, 'feedback::my_opinion')
 INSERT INTO ui_message (ui_message_id, tag) VALUES (214, 'feedback::please_answer_these_questions');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (215, 'feedback::rating_category');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (216, 'feedback::no_rating');
+INSERT INTO ui_message (ui_message_id, tag) VALUES (312, 'table::event::event_type');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (217, 'feedback::question_participant_knowledge');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (218, 'feedback::question_topic_importance');
 INSERT INTO ui_message (ui_message_id, tag) VALUES (219, 'feedback::question_content_quality');

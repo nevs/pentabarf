@@ -26,6 +26,8 @@ INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (24, 
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (25, 144, 'Zugangskonto');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (62, 120, 'Schedule');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (62, 144, 'Zeitplan');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (312, 120, 'Event type');
+INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (312, 144, 'Veranstaltungstyp');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (81, 120, 'Conference phase');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (81, 144, 'Konferenzphase');
 INSERT INTO ui_message_localized (ui_message_id, language_id, name) VALUES (83, 120, 'City');

@@ -78,8 +78,8 @@
       criteria[8]['value'] = 's_public';
       criteria[8]['type'] = 'keyword';
       criteria[9] = new Array();
-      criteria[9]['name'] = '<[table::event::event_origin]>';
-      criteria[9]['value'] = 'event_origin_id';
+      criteria[9]['name'] = '<[table::event::event_type]>';
+      criteria[9]['value'] = 'event_type_id';
       criteria[9]['type'] = 'keyword';
 
       var valuelists = new Array();
@@ -111,8 +111,8 @@
         valuelists[8]['t'] = 'set';
         valuelists[8]['f'] = 'not set';
         valuelists[9] = new Array();
-      <% for origin in Momomoto::View_event_origin.find( {:language_id => @current_language_id} ) %>
-        valuelists[9][<%= origin.event_origin_id %>] = '<%= origin.name %>';
+      <% for origin in Momomoto::View_event_type.find( {:language_id => @current_language_id} ) %>
+        valuelists[9][<%= origin.event_type_id %>] = '<%= origin.name %>';
       <% end %>
       <% if @preferences[:search_event_advanced].length > 0 %>
         <% @preferences[:search_event_advanced].each do | key, value | %>

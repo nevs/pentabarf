@@ -21,6 +21,7 @@ module Momomoto
         :conference_track_id => Datatype::Integer.new( {} ),
         :event_state_id => Datatype::Integer.new( {} ),
         :event_state_progress_id => Datatype::Integer.new( {} ),
+        :event_type_id => Datatype::Integer.new( {} ),
         :room_id => Datatype::Integer.new( {} ),
         :day => Datatype::Smallint.new( {} ),
         :start_time => Datatype::Interval.new( {} ),
