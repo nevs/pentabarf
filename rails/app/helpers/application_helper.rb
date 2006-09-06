@@ -70,7 +70,7 @@ module ApplicationHelper
   end
 
   def select_tag( name, collection, options = {}, html_options = {} )
-    xml = Builder::XmlMarkup.new(:indent=>1)
+    xml = Builder::XmlMarkup.new
     html_options[:name] = name
     html_options[:id] = name
     html_options[:tabindex] = 0 if not html_options[:tabindex]
@@ -93,7 +93,7 @@ module ApplicationHelper
   end
 
   def js_tabs( tabs )
-    xml = Builder::XmlMarkup.new(:indent=>1)
+    xml = Builder::XmlMarkup.new
     xml.div( :id => 'tabs' ) do
       tabs.each do | tab |
         xml.span( tab.to_s, {:id=>"tab-#{tab}",:onclick=>"switch_tab('#{tab}')",:class=>'tab inactive'} )

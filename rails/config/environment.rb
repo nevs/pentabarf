@@ -36,6 +36,7 @@ end
 require 'yaml'
 require 'momomoto'
 require 'jabberlogger'
+require 'builder_escape_attributes'
 
 # connect to the database
 Momomoto::Database.instance.config( YAML.load_file( File.join( RAILS_ROOT, 'config', 'database.yml' ) )[RAILS_ENV] )
