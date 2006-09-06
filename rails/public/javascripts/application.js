@@ -45,3 +45,24 @@ function switch_tab( target )
   Element.show( 'content-' + target );
 }
 
+// hide options currently not suitable for selects with a hierarchy
+// depending on the value of the master_field
+// the corresponding master element to a slave element has to be set
+// as class of the slave-option
+function master_changed( master_field, slave_field, prefix ) {
+  var expected = prefix + $F( master_field );
+  var nodes = $( slave_field ).childNodes;
+  var first = false;
+  for( var i = 0; i < nodes.length; i++ ) {
+    if ( nodes[i] instanceof HTMLOptionElement ) {
+      if ( Element.hasClassName( nodes[i], expected ) ) {
+        if ( first == false ) first = nodes[i].value;
+        Element.show( nodes[i] );
+      } else {
+        Element.hide( nodes[i] );
+      }
+    }
+  }
+  $( slave_field ).value = first;
+}
+

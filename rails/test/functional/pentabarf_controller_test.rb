@@ -20,11 +20,11 @@ class PentabarfControllerTest < Test::Unit::TestCase
   end
 
   def test_person
-    sven = Person.select_or_new(:person_id=>1)
-    sven.first_name = 'sven'
+    sven = Person.new(:first_name=>'sven')
     sven.write
-    get :person, {:id => 1}
+    get :person, {:id => sven.person_id}
     assert_response :success
+    sven.delete
   end
 
   def test_new_person

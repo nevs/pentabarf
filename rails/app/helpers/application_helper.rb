@@ -86,6 +86,7 @@ module ApplicationHelper
         key = options.has_key?(:key) ? element.send( options[:key] ) : element
         opts[:selected] = 'selected' if key == options[:selected]
         opts[:value] = key
+        opts[:class] = "#{options[:class]}_#{element.send(options[:class])}" if options[:class]
         xml.option( value, opts )
       end
     end
