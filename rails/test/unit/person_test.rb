@@ -12,7 +12,7 @@ class PersonTest < Test::Unit::TestCase
     sven.last_name = 'chunky'
     sven.write
 
-    sven2 = Person.select(:person_id=>sven.person_id)
+    sven2 = Person.select_single(:person_id=>sven.person_id)
     assert 'chunky' == sven2.last_name
 
     sven.delete

@@ -7,16 +7,20 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
 
-require 'rcov/rcovtask'
+begin
+  require 'rcov/rcovtask'
 
-Rcov::RcovTask.new do | t |
-  t.rcov_opts << '--callsites'
-  t.rcov_opts << '--xrefs'
-  t.rcov_opts << '--comments'
-  t.rcov_opts << '--rails'
-  t.rcov_opts << '-x /usr'
-  t.verbose = true
-  t.test_files = FileList['test/*/*_test.rb']
+  Rcov::RcovTask.new do | t |
+    t.rcov_opts << '--callsites'
+    t.rcov_opts << '--xrefs'
+    t.rcov_opts << '--comments'
+    t.rcov_opts << '--rails'
+    t.rcov_opts << '-x /usr'
+    t.verbose = true
+    t.test_files = FileList['test/*/*_test.rb']
+  end
+rescue
+  STDERR.puts "You need rcov to run the coverage target" if ARGV[0] == 'rcov'
 end
 
 require 'tasks/rails'

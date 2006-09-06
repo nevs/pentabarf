@@ -7,14 +7,14 @@ class ConferenceTest < Test::Unit::TestCase
     conf.acronym = 'Pentabarf'
     conf.title = 'Pentabarf Developer Conference'
     conf.conference_phase = 'chaos'
-    conf.start_date = '07.08.1978'
+    conf.start_date = '2009-12-12'
     conf.write
     assert 1 == Conference.select(:conference_id => conf.conference_id).length
 
     conf.title = 'Chunky Bacon'
     conf.write
 
-    conf2 = Conference.select(:conference_id => conf.conference_id)
+    conf2 = Conference.select_single(:conference_id => conf.conference_id)
     assert 'Chunky Bacon' == conf2.title
 
     conf.delete
