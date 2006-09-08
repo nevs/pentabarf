@@ -4,7 +4,8 @@ CREATE TABLE master.event_person(
   person_id INTEGER NOT NULL,
   event_id INTEGER NOT NULL,
   event_role TEXT NOT NULL,
-  event_role_state TEXT
+  event_role_state TEXT,
+  remark TEXT
 );
 
 CREATE TABLE event_person(
