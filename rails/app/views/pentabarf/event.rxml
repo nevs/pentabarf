@@ -1,10 +1,11 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 
+xml.script('',{ :type => 'text/javascript', :src => javascript_path( 'event' )})
 xml.div( :id => 'object-image' ) do
   xml.img( :src => image_path( 'icon-event-64x64.png' ), :class => 'object-image' )
 end
 
-tabs = [:general,:description,:schedule,:resources]
+tabs = [:general,:persons,:description,:schedule,:resources]
 
 xml << js_tabs( tabs )
 
@@ -21,8 +22,17 @@ xml.div( :id => 'data' ) do
 
   end
 
-  xml.script( "function send_content(){ $('content_form').submit();  }", { :type => 'text/javascript' } )
-  xml.script( "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );", { :type => 'text/javascript' } )
+  xml.script(:type=>'text/javascript') do
+    xml.text! <<EOF
+function send_content(){ 
+  $('content_form').submit();
+};
+
+new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );
+switch_tab('persons');
+
+EOF
+  end
 
 end
 

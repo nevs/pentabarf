@@ -53,16 +53,41 @@ function master_changed( master_field, slave_field, prefix ) {
   var expected = prefix + $F( master_field );
   var nodes = $( slave_field ).childNodes;
   var first = false;
+  var valid = false;
   for( var i = 0; i < nodes.length; i++ ) {
     if ( nodes[i] instanceof HTMLOptionElement ) {
       if ( Element.hasClassName( nodes[i], expected ) ) {
         if ( first == false ) first = nodes[i].value;
+        if ( $F( slave_field ) == nodes[i].value ) valid = true;
         Element.show( nodes[i] );
       } else {
         Element.hide( nodes[i] );
       }
     }
   }
-  $( slave_field ).value = first;
+  if ( ! valid ) $( slave_field ).value = first;
+  if ( first ) {
+    Element.show( slave_field );
+  } else {
+    Element.hide( slave_field );
+  }
+}
+
+// replace pattern with substitute in attributes
+// recursively on all child nodes of element
+function attribute_replace( element, pattern, substitute, attributes ) {
+  var nodes = element.childNodes;
+  if ( ! attributes ) attributes = ['id','name','onchange'];
+  for( var i = 0; i < nodes.length; i++ ) {
+    var node = nodes[i];
+    if ( node instanceof Element ) {
+      for( var k = 0; k < attributes.length; k++ ) {
+        if ( node.getAttribute( attributes[k] ) ) {
+          node.setAttribute( attributes[k], node.getAttribute( attributes[k] ).replace( pattern, substitute ) );
+        }
+      }
+      attribute_replace( node, pattern, substitute, attributes );
+    }
+  }
 }
 

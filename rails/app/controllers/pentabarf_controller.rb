@@ -37,14 +37,31 @@ class PentabarfController < ApplicationController
   end
 
   def save_event
-    event = Event.select_or_new( {:event_id=>params[:id].to_i},{:copy_values=>false} )
-    event.conference_id = @current_conference.conference_id if event.new_record?
-    params[:event].each do | key, value |
-      next if key.to_sym == :event_id
-      event[key] = value
+    Momomoto::Database.instance.transaction do
+      event = Event.select_or_new( {:event_id=>params[:id].to_i},{:copy_values=>false} )
+      event.conference_id = @current_conference.conference_id if event.new_record?
+      params[:event].each do | key, value |
+        next if key.to_sym == :event_id
+        event[key] = value
+      end
+      event.write
+      params[:event_person].each do | k, v |
+        next if k == 'row_id'
+        ep = Event_person.select_or_new( :event_person_id => v[:event_person_id].to_i, :event_id => event.event_id )
+        ep.event_person_id = nil if ep.new_record?
+
+        if v[:remove]
+          ep.delete if not ep.new_record?
+        else
+          v.each do | field_name, value |
+            next if [:event_person_id, :event_id].member?( field_name.to_sym )
+            ep[ field_name ] = value
+          end
+          ep.write
+        end
+      end
+      redirect_to( :action => :event, :id => event.event_id)
     end
-    event.write
-    redirect_to( :action => :event, :id => event.event_id)
   end
 
   def conference

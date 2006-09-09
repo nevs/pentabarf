@@ -1,0 +1,57 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-persons') do
+
+  xml.fieldset do
+    xml.legend local('view::pentabarf::event::tab::persons')
+
+    xml.table(:id=>'event_person_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('table::event_person::person'),{:colspan=>2} )
+          xml.th( local('table::event_person::event_role') )
+          xml.th( local('table::event_person::event_role_state') )
+          xml.th( local('table::event_person::remark') )
+          xml.th( local('form::remove') )
+        end
+      end
+      xml.tbody(:id=>'event_person_tbody')
+    end
+
+    xml.button( local('add person'), {:type=>:button,:onclick=>'add_event_person()'})
+
+    xml.table(:style=>'display:none') do
+      xml.tr(:id=>'event_person_template') do
+        xml.td do
+          xml.a(:id=>'event_person[row_id][url]') do
+            xml.img(:id=>'event_person[row_id][image]',:src=>url_for(:controller=>'image',:action=>:person,:id=>0))
+          end
+          xml.input('',{:type=>:hidden,:id=>'event_person[row_id][event_person_id]',:name=>'event_person[row_id][event_person_id]'})
+        end
+        xml.td do
+          xml << select_tag( 'event_person[row_id][person_id]', View_person.select, {:key=>:person_id,:value=>:name},{:onchange=>"$('event_person[row_id][url]').setAttribute('href','#{url_for(:controller=>'pentabarf',:action=>:person)}/' + $F('event_person[row_id][person_id]') )"} )
+        end
+        xml.td do
+          xml << select_tag( 'event_person[row_id][event_role]', Event_role.select, {:key=>:event_role,:value=>:event_role},{:onchange=>"master_changed('event_person[row_id][event_role]','event_person[row_id][event_role_state]','event_role_')"} )
+        end
+        xml.td do
+          xml << select_tag( 'event_person[row_id][event_role_state]', Event_role_state.select, {:key=>:event_role_state,:value=>:event_role_state,:class=>:event_role})
+        end
+        xml.td do
+          xml.input({:name=>'event_person[row_id][remark]',:id=>'event_person[row_id][remark]'})
+        end
+        xml.td do
+          xml.input({:type=>:checkbox,:name=>'event_person[row_id][remove]',:id=>'event_person[row_id][remove]'})
+        end
+      end
+    end
+  end
+
+  xml.script(:type=>'text/javascript') do 
+    Event_person.select( :event_id => @event.event_id ).each do | p |
+      xml.text! "add_event_person( '#{p.event_person_id}', '#{p.person_id}', '#{p.event_role}', '#{p.event_role_state}', '#{p.remark}');"
+    end
+  end
+
+end
+
