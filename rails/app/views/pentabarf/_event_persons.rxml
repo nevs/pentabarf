@@ -23,7 +23,7 @@ xml.div(:id=>'content-persons') do
     xml.table(:style=>'display:none') do
       xml.tr(:id=>'event_person_template') do
         xml.td do
-          xml.a(:id=>'event_person[row_id][url]') do
+          xml.a(:id=>'event_person[row_id][url]',:href=>url_for(:action=>:person,:id=>0)) do
             xml.img(:id=>'event_person[row_id][image]',:src=>url_for(:controller=>'image',:action=>:person,:id=>0))
           end
           xml.input('',{:type=>:hidden,:id=>'event_person[row_id][event_person_id]',:name=>'event_person[row_id][event_person_id]'})
