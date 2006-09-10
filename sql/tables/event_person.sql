@@ -1,8 +1,8 @@
 
 CREATE TABLE master.event_person(
   event_person_id INTEGER NOT NULL,
-  person_id INTEGER NOT NULL,
   event_id INTEGER NOT NULL,
+  person_id INTEGER NOT NULL,
   event_role TEXT NOT NULL,
   event_role_state TEXT,
   remark TEXT
@@ -10,10 +10,11 @@ CREATE TABLE master.event_person(
 
 CREATE TABLE event_person(
   PRIMARY KEY(event_person_id),
-  FOREIGN KEY(person_id) REFERENCES person(person_id),
   FOREIGN KEY(event_id) REFERENCES event(event_id),
+  FOREIGN KEY(person_id) REFERENCES person(person_id),
   FOREIGN KEY(event_role) REFERENCES event_role(event_role),
-  FOREIGN KEY(event_role, event_role_state) REFERENCES event_role_state(event_role, event_role_state)
+  FOREIGN KEY(event_role, event_role_state) REFERENCES event_role_state(event_role, event_role_state),
+  UNIQUE( event_id, person_id, event_role )
 ) INHERITS(master.event_person);
 
 CREATE SEQUENCE event_person_id_sequence;
