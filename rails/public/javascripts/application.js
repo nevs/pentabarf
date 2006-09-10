@@ -70,6 +70,7 @@ function master_changed( master_field, slave_field, prefix ) {
     Element.show( slave_field );
   } else {
     Element.hide( slave_field );
+    $( slave_field ).value = '';
   }
 }
 

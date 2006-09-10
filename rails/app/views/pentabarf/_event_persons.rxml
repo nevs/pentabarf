@@ -30,12 +30,13 @@ xml.div(:id=>'content-persons') do
         end
         xml.td do
           xml << select_tag( 'event_person[row_id][person_id]', View_person.select, {:key=>:person_id,:value=>:name},{:onchange=>"$('event_person[row_id][url]').setAttribute('href','#{url_for(:controller=>'pentabarf',:action=>:person)}/' + $F('event_person[row_id][person_id]') )"} )
+          xml.input(:type=>:hidden,:id=>'event_person[row_id][person_id][hidden]',:name=>'event_person[row_id][person_id]',:disabled=>:disabled)
         end
         xml.td do
           xml << select_tag( 'event_person[row_id][event_role]', Event_role.select, {:key=>:event_role,:value=>:event_role},{:onchange=>"master_changed('event_person[row_id][event_role]','event_person[row_id][event_role_state]','event_role_')"} )
         end
         xml.td do
-          xml << select_tag( 'event_person[row_id][event_role_state]', Event_role_state.select, {:key=>:event_role_state,:value=>:event_role_state,:class=>:event_role})
+          xml << select_tag( 'event_person[row_id][event_role_state]', Event_role_state.select, {:key=>:event_role_state,:value=>:event_role_state,:class=>:event_role,:with_empty=>true})
         end
         xml.td do
           xml.input({:name=>'event_person[row_id][remark]',:id=>'event_person[row_id][remark]'})

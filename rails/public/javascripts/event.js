@@ -20,11 +20,17 @@ function add_event_person( event_person_id, person_id, event_role, event_role_st
     enable_save_button();
   }
 
-  if( person_id ) $( prefix + '[person_id]').value = person_id;
+  if ( person_id ) {
+    $( prefix + '[person_id]' ).value = person_id;
+    $( prefix + '[person_id]' ).setAttribute( 'disabled', 'disabled' );   
+    $( prefix + '[person_id][hidden]' ).value = person_id;
+    $( prefix + '[person_id][hidden]' ).removeAttribute( 'disabled' );   
+  }
   if( event_role ) $( prefix + '[event_role]').value = event_role;
   if( event_role_state ) $( prefix + '[event_role_state]').value = event_role_state;
   if( remark ) $( prefix + '[remark]').value = remark;
 
   master_changed(  prefix + '[event_role]', prefix + '[event_role_state]', 'event_role_' );
+
 }
 
