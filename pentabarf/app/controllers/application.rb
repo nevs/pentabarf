@@ -35,7 +35,8 @@ class ApplicationController < ActionController::Base
     return [login_name.to_s, password.to_s]
   end
 
-  def authorize( realm='Pentabarf', errormessage='Authentication failed')
+  def authorize( realm='Pentabarf', errormessage = nil )
+    errormessage = "Authentication failed. <a href=\"#{url_for(:controller=>'user',:action=>:forgot_password)}\">Reset your password</a> if you forgot your password." unless errormessage
     login_name, password = get_auth_data
     @user = Momomoto::Login.new
 
