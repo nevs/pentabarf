@@ -6,7 +6,7 @@ class SubmissionController < ApplicationController
   after_filter :compress
 
   def index
-    @content_title = "#{@conference.nil? ? '' : @conference.title + ' ' }Paper Submission"
+    @content_title = "Paper Submission"
     @conferences = Momomoto::Conference.select(:f_submission_enabled=>'t') if @conference.nil?
     Momomoto::Base.ui_language_id = 120;
   end
