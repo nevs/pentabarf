@@ -28,6 +28,6 @@
   <%= render(:partial => 'person_account') %>
 
   <%= end_form_tag() %>
-  <%= javascript_tag("new Form.Observer('content_form', 1, function(element, value ) { enable_save_button() } )") %>
+  <%= javascript_tag("new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } )") %>
 </div>
 <%= javascript_tag("switch_tab();") %>
