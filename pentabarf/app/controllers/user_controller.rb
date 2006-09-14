@@ -52,7 +52,12 @@ class UserController < ApplicationController
 
   def activate_account
     raise "Invalid activation sequence." unless params[:id].length == 64
-    Momomoto::Activate_account.find({:activation_string=>params[:id]})
+    begin
+      Momomoto::Activate_account.find({:activation_string=>params[:id]})
+    rescue => e
+      Momomoto::Activate_account.new.rollback
+      raise e
+    end
     redirect_to({:action=>:preferences})
   end
 
@@ -93,7 +98,7 @@ class UserController < ApplicationController
   end
 
   protected
-  
+
   def random_string
     sprintf("%064X", rand(2**256))
   end

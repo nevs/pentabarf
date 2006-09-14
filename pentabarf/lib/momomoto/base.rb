@@ -87,7 +87,7 @@ module Momomoto
     def field( name )
       @fields[ name.to_sym ]
     end
-    
+
     def fields
       real_fields = []
       @fields.each do | field_name, value |
