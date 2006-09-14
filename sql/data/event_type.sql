@@ -13,13 +13,13 @@ SET search_path = public, pg_catalog;
 --
 
 INSERT INTO event_type (event_type, rank) VALUES ('lecture', 1);
-INSERT INTO event_type (event_type, rank) VALUES ('workshop', 3);
-INSERT INTO event_type (event_type, rank) VALUES ('movie', 4);
-INSERT INTO event_type (event_type, rank) VALUES ('podium', 6);
-INSERT INTO event_type (event_type, rank) VALUES ('meeting', 7);
-INSERT INTO event_type (event_type, rank) VALUES ('other', 8);
-INSERT INTO event_type (event_type, rank) VALUES ('lightning', 9);
-INSERT INTO event_type (event_type, rank) VALUES ('contest', 10);
+INSERT INTO event_type (event_type, rank) VALUES ('workshop', 2);
+INSERT INTO event_type (event_type, rank) VALUES ('movie', 3);
+INSERT INTO event_type (event_type, rank) VALUES ('podium', 4);
+INSERT INTO event_type (event_type, rank) VALUES ('meeting', 5);
+INSERT INTO event_type (event_type, rank) VALUES ('other', 6);
+INSERT INTO event_type (event_type, rank) VALUES ('lightning', 7);
+INSERT INTO event_type (event_type, rank) VALUES ('contest', 8);
 
 
 --

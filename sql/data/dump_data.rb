@@ -7,7 +7,7 @@ schema = 'public'
 
 import = File.open('import.sql', 'w')
 import.puts("BEGIN TRANSACTION;")
-tables.each do | table | 
+tables.each do | table |
   import.puts("\\i #{table}.sql")
   next if ARGV.length > 0 && !ARGV.member?( table.to_s )
   puts "dumping table #{table}"
