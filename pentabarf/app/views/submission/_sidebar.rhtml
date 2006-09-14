@@ -17,6 +17,8 @@
     <% end %>
     <% if @user %>
       <%= link_to( 'Logout', url_for({:only_path=>false}).gsub(/:\/\//,'://user@' ), { :class => 'menu-item' } ) %>
+    <% else %>
+      <%= link_to( 'Reset Password', {:controller=>'user',:action => :forgot_password}, { :class => 'menu-item' } ) %>
     <% end %>
     </div>
 

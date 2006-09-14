@@ -9,7 +9,7 @@
       <%= link_to( 'Index', {:action => :index}, { :class => 'menu-item' } ) %>
     <% if not @user %>
       <%= link_to( 'Create account', {:action => :new_account}, { :class => 'menu-item' } ) %>
-      <%= link_to( 'Forgot Password', {:action => :forgot_password}, { :class => 'menu-item' } ) %>
+      <%= link_to( 'Reset Password', {:action => :forgot_password}, { :class => 'menu-item' } ) %>
     <% end %>
       <%= link_to( 'Preferences', {:action => :preferences}, { :class => 'menu-item' } ) %>
     <% if @user %>
