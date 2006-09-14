@@ -47,11 +47,14 @@ class PentabarfControllerTest < Test::Unit::TestCase
   end
 
   def test_new_event
+    c = Conference.new(:acronym=>'test' + rand.to_s,:title=>'testconf',:conference_phase=>'chaos',:start_date=>'2007-08-07')
+    c.write
     get :event, {:id => 'new'}
     assert_response :success
     get :event, {:id => 0}
     assert_response :redirect
     assert_redirected_to :action => :event, :id => 'new'
+    c.delete
   end
 
   def test_conference

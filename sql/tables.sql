@@ -58,5 +58,9 @@ BEGIN TRANSACTION;
 
 \i tables/event_person.sql
 
+\i functions/logging/activate_logging.sql
+
+SELECT logging.activate_logging();
+
 COMMIT TRANSACTION;
 

@@ -95,7 +95,7 @@ class PentabarfController < ApplicationController
 
   protected
   def set_conference
-    @current_conference = Conference.select_or_new(:conference_id => 1)
+    @current_conference = Conference.select_or_new({}, {:limit=>1})
   end
 
 end
