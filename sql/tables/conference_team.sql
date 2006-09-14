@@ -9,6 +9,5 @@ CREATE TABLE conference_team(
   FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE
 ) INHERITS(master.conference_team);
 
-CREATE TABLE logging.conference_team(
-) INHERITS(master.conference_team);
+CREATE TABLE logging.conference_team() INHERITS(master.logging, master.conference_team);
 

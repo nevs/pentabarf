@@ -2,6 +2,8 @@
 
 BEGIN TRANSACTION;
 
+\i tables/logging.sql
+
 \i tables/language.sql
 \i tables/language_localized.sql
 

@@ -40,5 +40,5 @@ CREATE TABLE conference(
 CREATE SEQUENCE conference_id_sequence;
 ALTER TABLE conference ALTER COLUMN conference_id SET DEFAULT nextval('conference_id_sequence');
 
-CREATE TABLE logging.conference() INHERITS(master.conference);
+CREATE TABLE logging.conference() INHERITS(master.logging, master.conference);
 

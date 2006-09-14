@@ -11,5 +11,5 @@ CREATE TABLE language_localized(
   FOREIGN KEY(translated) REFERENCES language(language) ON UPDATE CASCADE
 ) INHERITS(master.language_localized);
 
-CREATE TABLE logging.language_localized() INHERITS(master.language_localized);
+CREATE TABLE logging.language_localized() INHERITS(master.logging, master.language_localized);
 

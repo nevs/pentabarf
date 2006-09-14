@@ -20,6 +20,6 @@ CREATE TABLE event_person(
 CREATE SEQUENCE event_person_id_sequence;
 ALTER TABLE event_person ALTER COLUMN event_person_id SET DEFAULT nextval('event_person_id_sequence');
 
-CREATE TABLE logging.event_person() INHERITS(master.event_person);
+CREATE TABLE logging.event_person() INHERITS(master.logging, master.event_person);
 
 

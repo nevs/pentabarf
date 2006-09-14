@@ -9,5 +9,5 @@ CREATE TABLE conference_track(
   FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE
 ) INHERITS(master.conference_track);
 
-CREATE TABLE logging.conference_track() INHERITS(master.conference_track);
+CREATE TABLE logging.conference_track() INHERITS(master.logging, master.conference_track);
 

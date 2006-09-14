@@ -12,5 +12,5 @@ CREATE TABLE conference_image(
   FOREIGN KEY(mime_type) REFERENCES mime_type(mime_type) ON UPDATE CASCADE
 ) INHERITS(master.conference_image);
 
-CREATE TABLE logging.conference_image() INHERITS(master.conference_image);
+CREATE TABLE logging.conference_image() INHERITS(master.logging, master.conference_image);
 

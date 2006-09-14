@@ -7,6 +7,6 @@ CREATE TABLE master.country(
 CREATE TABLE country(
   PRIMARY KEY(country)
 ) INHERITS(master.country);
-CREATE TABLE logging.country() INHERITS(master.country);
+CREATE TABLE logging.country() INHERITS(master.logging, master.country);
 
 

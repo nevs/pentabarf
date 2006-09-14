@@ -9,5 +9,5 @@ CREATE TABLE event_role(
   PRIMARY KEY(event_role)
 ) INHERITS(master.event_role);
 
-CREATE TABLE logging.event_role() INHERITS(master.event_role);
+CREATE TABLE logging.event_role() INHERITS(master.logging, master.event_role);
 

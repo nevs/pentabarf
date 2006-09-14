@@ -11,5 +11,5 @@ CREATE TABLE im_type_localized(
   FOREIGN KEY(translated) REFERENCES language(language) ON UPDATE CASCADE
 ) INHERITS(master.im_type_localized);
 
-CREATE TABLE logging.im_type_localized() INHERITS(master.im_type_localized);
+CREATE TABLE logging.im_type_localized() INHERITS(master.logging, master.im_type_localized);
 

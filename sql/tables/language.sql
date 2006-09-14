@@ -9,5 +9,5 @@ CREATE TABLE language(
   PRIMARY KEY(language)
 ) INHERITS(master.language);
 
-CREATE TABLE logging.language() INHERITS(master.language);
+CREATE TABLE logging.language() INHERITS(master.logging, master.language);
 

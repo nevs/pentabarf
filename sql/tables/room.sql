@@ -10,5 +10,5 @@ CREATE TABLE room(
   FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE
 ) INHERITS(master.room);
 
-CREATE TABLE logging.room() INHERITS(master.room);
+CREATE TABLE logging.room() INHERITS(master.logging, master.room);
 

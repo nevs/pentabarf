@@ -13,5 +13,5 @@ CREATE TABLE person_image(
   FOREIGN KEY(mime_type) REFERENCES mime_type(mime_type) ON UPDATE CASCADE
 ) INHERITS(master.person_image);
 
-CREATE TABLE logging.person_image() INHERITS(master.person_image);
+CREATE TABLE logging.person_image() INHERITS(master.logging, master.person_image);
 

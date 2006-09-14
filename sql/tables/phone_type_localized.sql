@@ -11,5 +11,5 @@ CREATE TABLE phone_type_localized(
   FOREIGN KEY(translated) REFERENCES language(language) ON UPDATE CASCADE
 ) INHERITS(master.phone_type_localized);
 
-CREATE TABLE logging.phone_type_localized() INHERITS(master.phone_type_localized);
+CREATE TABLE logging.phone_type_localized() INHERITS(master.logging, master.phone_type_localized);
 

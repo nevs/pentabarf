@@ -7,5 +7,5 @@ CREATE TABLE phone_type(
   PRIMARY KEY(phone_type)
 ) INHERITS(master.phone_type);
 
-CREATE TABLE logging.phone_type() INHERITS(master.phone_type);
+CREATE TABLE logging.phone_type() INHERITS(master.logging, master.phone_type);
 

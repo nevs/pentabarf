@@ -10,5 +10,5 @@ CREATE TABLE event_role_state(
   FOREIGN KEY(event_role) REFERENCES event_role(event_role)
 ) INHERITS(master.event_role_state);
 
-CREATE TABLE logging.event_role_state() INHERITS(master.event_role_state);
+CREATE TABLE logging.event_role_state() INHERITS(master.logging, master.event_role_state);
 

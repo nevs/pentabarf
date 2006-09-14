@@ -11,5 +11,5 @@ CREATE TABLE link_type_localized(
   FOREIGN KEY(translated) REFERENCES language(language) ON UPDATE CASCADE
 ) INHERITS(master.link_type_localized);
 
-CREATE TABLE logging.link_type_localized() INHERITS(master.link_type_localized);
+CREATE TABLE logging.link_type_localized() INHERITS(master.logging, master.link_type_localized);
 

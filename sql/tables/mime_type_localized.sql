@@ -11,5 +11,5 @@ CREATE TABLE mime_type_localized(
   FOREIGN KEY(translated) REFERENCES language(language) ON UPDATE CASCADE
 ) INHERITS(master.mime_type_localized);
 
-CREATE TABLE logging.mime_type_localized() INHERITS(master.mime_type_localized);
+CREATE TABLE logging.mime_type_localized() INHERITS(master.logging, master.mime_type_localized);
 

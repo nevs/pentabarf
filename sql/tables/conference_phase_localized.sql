@@ -11,5 +11,5 @@ CREATE TABLE conference_phase_localized(
   FOREIGN KEY(translated) REFERENCES language(language) ON UPDATE CASCADE
 ) INHERITS(master.conference_phase_localized);
 
-CREATE TABLE logging.conference_phase_localized() INHERITS(master.conference_phase_localized);
+CREATE TABLE logging.conference_phase_localized() INHERITS(master.logging, master.conference_phase_localized);
 

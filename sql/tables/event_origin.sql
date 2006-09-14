@@ -8,5 +8,5 @@ CREATE TABLE event_origin(
   PRIMARY KEY(event_origin)
 ) INHERITS(master.event_origin);
 
-CREATE TABLE logging.event_origin() INHERITS(master.event_origin);
+CREATE TABLE logging.event_origin() INHERITS(master.logging, master.event_origin);
 
