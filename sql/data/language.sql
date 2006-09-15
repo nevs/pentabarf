@@ -12,9 +12,6 @@ SET search_path = public, pg_catalog;
 -- Data for Name: language; Type: TABLE DATA; Schema: public; Owner: sven
 --
 
-INSERT INTO "language" ("language", localized, visible) VALUES ('kor', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('rus', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('pol', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('aar', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('abk', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('ace', false, false);
@@ -110,7 +107,6 @@ INSERT INTO "language" ("language", localized, visible) VALUES ('crh', false, fa
 INSERT INTO "language" ("language", localized, visible) VALUES ('crp', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('csb', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('cus', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('dan', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('dak', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('dar', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('day', false, false);
@@ -124,7 +120,6 @@ INSERT INTO "language" ("language", localized, visible) VALUES ('dra', false, fa
 INSERT INTO "language" ("language", localized, visible) VALUES ('dsb', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('dua', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('dum', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('fre', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('dyu', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('dzo', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('efi', false, false);
@@ -142,7 +137,6 @@ INSERT INTO "language" ("language", localized, visible) VALUES ('fat', false, fa
 INSERT INTO "language" ("language", localized, visible) VALUES ('fij', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('fiu', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('fon', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('jpn', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('frm', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('fro', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('fry', false, false);
@@ -228,7 +222,6 @@ INSERT INTO "language" ("language", localized, visible) VALUES ('kmb', false, fa
 INSERT INTO "language" ("language", localized, visible) VALUES ('kok', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('kom', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('kon', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('dut', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('kos', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('kpe', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('krc', false, false);
@@ -467,20 +460,27 @@ INSERT INTO "language" ("language", localized, visible) VALUES ('zha', false, fa
 INSERT INTO "language" ("language", localized, visible) VALUES ('znd', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('zul', false, false);
 INSERT INTO "language" ("language", localized, visible) VALUES ('zun', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('eng', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('ger', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('spa', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('cze', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('fin', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('ita', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('nor', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('por', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('per', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('swe', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('ara', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('chi', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('tur', false, false);
-INSERT INTO "language" ("language", localized, visible) VALUES ('heb', false, false);
+INSERT INTO "language" ("language", localized, visible) VALUES ('kor', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('rus', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('pol', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('dan', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('fre', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('jpn', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('dut', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('eng', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('ger', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('spa', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('cze', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('fin', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('ita', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('nor', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('por', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('per', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('swe', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('ara', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('chi', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('tur', false, true);
+INSERT INTO "language" ("language", localized, visible) VALUES ('heb', false, true);
 
 
 --

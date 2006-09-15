@@ -1,7 +1,7 @@
 
 CREATE TABLE master.conference(
   conference_id INTEGER NOT NULL,
-  conference_phase TEXT NOT NULL,
+  conference_phase TEXT NOT NULL DEFAULT 'chaos',
   acronym TEXT NOT NULL,
   title TEXT NOT NULL,
   subtitle TEXT,
