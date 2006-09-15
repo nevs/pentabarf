@@ -28,30 +28,30 @@
       <tbody>
         <tr>
           <td><label>Relevance</label></td>
-          <td><%= radio_button_tag('rating[relevance]', '1', @rating.relevance, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[relevance]', '2', @rating.relevance, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[relevance]', '3', @rating.relevance, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[relevance]', '4', @rating.relevance, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[relevance]', '5', @rating.relevance, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[relevance]', '', @rating.relevance, {:tabindex => 0}) %></td>
+          <td><%= radio_button('rating[relevance]', '1', @rating.relevance) %></td>
+          <td><%= radio_button('rating[relevance]', '2', @rating.relevance) %></td>
+          <td><%= radio_button('rating[relevance]', '3', @rating.relevance) %></td>
+          <td><%= radio_button('rating[relevance]', '4', @rating.relevance) %></td>
+          <td><%= radio_button('rating[relevance]', '5', @rating.relevance) %></td>
+          <td><%= radio_button('rating[relevance]', '', @rating.relevance) %></td>
         </tr>
         <tr>
           <td><label>Actuality</label></td>
-          <td><%= radio_button_tag('rating[actuality]', '1', @rating.actuality, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[actuality]', '2', @rating.actuality, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[actuality]', '3', @rating.actuality, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[actuality]', '4', @rating.actuality, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[actuality]', '5', @rating.actuality, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[actuality]', '', @rating.actuality, {:tabindex => 0}) %></td>
+          <td><%= radio_button('rating[actuality]', '1', @rating.actuality) %></td>
+          <td><%= radio_button('rating[actuality]', '2', @rating.actuality) %></td>
+          <td><%= radio_button('rating[actuality]', '3', @rating.actuality) %></td>
+          <td><%= radio_button('rating[actuality]', '4', @rating.actuality) %></td>
+          <td><%= radio_button('rating[actuality]', '5', @rating.actuality) %></td>
+          <td><%= radio_button('rating[actuality]', '', @rating.actuality) %></td>
         </tr>
         <tr>
           <td><label>Acceptance</label></td>
-          <td><%= radio_button_tag('rating[acceptance]', '1', @rating.acceptance, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[acceptance]', '2', @rating.acceptance, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[acceptance]', '3', @rating.acceptance, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[acceptance]', '4', @rating.acceptance, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[acceptance]', '5', @rating.acceptance, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[acceptance]', '', @rating.acceptance, {:tabindex => 0}) %></td>
+          <td><%= radio_button('rating[acceptance]', '1', @rating.acceptance) %></td>
+          <td><%= radio_button('rating[acceptance]', '2', @rating.acceptance) %></td>
+          <td><%= radio_button('rating[acceptance]', '3', @rating.acceptance) %></td>
+          <td><%= radio_button('rating[acceptance]', '4', @rating.acceptance) %></td>
+          <td><%= radio_button('rating[acceptance]', '5', @rating.acceptance) %></td>
+          <td><%= radio_button('rating[acceptance]', '', @rating.acceptance) %></td>
         </tr>
       </tbody>
     </table>

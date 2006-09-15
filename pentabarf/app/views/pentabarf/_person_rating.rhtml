@@ -22,21 +22,21 @@
       <tbody>
         <tr>
           <td><label>Speaker Quality</label></td>
-          <td><%= radio_button_tag('rating[speaker_quality]', '1', @rating.speaker_quality, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[speaker_quality]', '2', @rating.speaker_quality, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[speaker_quality]', '3', @rating.speaker_quality, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[speaker_quality]', '4', @rating.speaker_quality, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[speaker_quality]', '5', @rating.speaker_quality, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[speaker_quality]', '', @rating.speaker_quality, {:tabindex => 0}) %></td>
+          <td><%= radio_button('rating[speaker_quality]', '1', @rating.speaker_quality) %></td>
+          <td><%= radio_button('rating[speaker_quality]', '2', @rating.speaker_quality) %></td>
+          <td><%= radio_button('rating[speaker_quality]', '3', @rating.speaker_quality) %></td>
+          <td><%= radio_button('rating[speaker_quality]', '4', @rating.speaker_quality) %></td>
+          <td><%= radio_button('rating[speaker_quality]', '5', @rating.speaker_quality) %></td>
+          <td><%= radio_button('rating[speaker_quality]', '', @rating.speaker_quality) %></td>
         </tr>
         <tr>
           <td><label>Speaker Competence</label></td>
-          <td><%= radio_button_tag('rating[competence]', '1', @rating.competence, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[competence]', '2', @rating.competence, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[competence]', '3', @rating.competence, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[competence]', '4', @rating.competence, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[competence]', '5', @rating.competence, {:tabindex => 0}) %></td>
-          <td><%= radio_button_tag('rating[competence]', '', @rating.competence, {:tabindex => 0}) %></td>
+          <td><%= radio_button('rating[competence]', '1', @rating.competence) %></td>
+          <td><%= radio_button('rating[competence]', '2', @rating.competence) %></td>
+          <td><%= radio_button('rating[competence]', '3', @rating.competence) %></td>
+          <td><%= radio_button('rating[competence]', '4', @rating.competence) %></td>
+          <td><%= radio_button('rating[competence]', '5', @rating.competence) %></td>
+          <td><%= radio_button('rating[competence]', '', @rating.competence) %></td>
         </tr>
       </tbody>
     </table>

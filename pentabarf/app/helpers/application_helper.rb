@@ -28,7 +28,7 @@ module ApplicationHelper
     else
       v_pos, v_neg = 0, nil
     end
-    
+
     html = '<td class="rating-bar">'
     html += "<span class=\"negative p#{ v_neg ? v_neg.abs : '0'}\">#{ v_neg }</span>"
     html += '</td>'
@@ -281,6 +281,11 @@ module ApplicationHelper
   def sanitize_track( track )
     track = track.to_s.downcase.gsub(/[^a-z0-9]/, '')
     return track == '' ? '' : h("track-#{track}")
+  end
+
+  def radio_button( name, value, curval )
+    check = value.to_s == curval.to_s ? ' checked="checked"' : ''
+    "<input type=\"radio\" name=\"#{name}\" value=\"#{h(value)}\" tabindex=\"0\"#{check}/>"
   end
 
   # overwrite the default text_area_tag function from rails which lacks proper escaping
