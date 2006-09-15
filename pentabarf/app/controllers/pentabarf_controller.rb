@@ -15,6 +15,7 @@ class PentabarfController < ApplicationController
   def mail
     @content_title = 'Mail'
     @recipients = [['speaker', 'All accepted speakers of this conference'],
+                   ['reviewer', 'All persons with the role reviewer'],
                    ['missing_slides', 'Missing Slides'],
                    ['all_speaker', 'All speakers of all conferences']]
   end
@@ -22,20 +23,24 @@ class PentabarfController < ApplicationController
   def recipients
     return render_text('') unless params[:id]
     @recipients = case params[:id]
-      when 'all_speaker'  then   Momomoto::View_mail_all_speaker.find({}, nil, 'lower(name)')
-      when 'speaker'  then   Momomoto::View_mail_accepted_speaker.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
-      when 'missing_slides'   then   Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
+      when 'all_speaker' then Momomoto::View_mail_all_speaker.find({}, nil, 'lower(name)')
+      when 'reviewer' then Momomoto::View_mail_all_reviewer.find({}, nil, 'lower(name)')
+      when 'speaker' then Momomoto::View_mail_accepted_speaker.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
+      when 'missing_slides' then Momomoto::View_mail_missing_slides.find({:conference_id => @current_conference_id}, nil, 'lower(name)')
       else raise 'You have to choose recipients'
     end
     render(:partial=>'recipients')
   end
 
   def send_mail
+    raise Momomoto::Permission_Error, 'not allowed to send mail.' unless @user.permission?('admin_login')
     variables = ['name', 'person_id' ]
     if params[:mail][:recipients]
       recipients = case params[:mail][:recipients]
         when 'all_speaker'  then
-          Momomoto::View_mail_all_speaker.find()
+          Momomoto::View_mail_all_speaker.find
+        when 'reviewer'  then
+          Momomoto::View_mail_all_reviewer.find
         when 'speaker'  then
           variables.push('conference_acronym')
           variables.push('conference_title')

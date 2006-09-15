@@ -929,12 +929,29 @@ CREATE OR REPLACE VIEW view_mail_all_speaker AS
              event_role.event_role_id = event_person.event_role_id AND
              event_role.tag IN ('speaker', 'moderator') )
          INNER JOIN person ON (
-             person.person_id = event_person.person_id AND 
+             person.person_id = event_person.person_id AND
              person.email_contact IS NOT NULL AND
              person.f_spam = true )
          INNER JOIN view_person ON (
              view_person.person_id = event_person.person_id AND
              view_person.email_contact IS NOT NULL )
+;
+
+-- returns all reviewer
+CREATE OR REPLACE VIEW view_mail_all_reviewer AS
+  SELECT DISTINCT ON ( view_person.person_id )
+         view_person.person_id,
+         view_person.name,
+         view_person.email_contact
+    FROM view_person
+         INNER JOIN person_role ON (
+             person_role.person_id = view_person.person_id )
+         INNER JOIN role ON (
+             role.role_id = person_role.role_id AND
+             role.tag = 'reviewer' )
+   WHERE
+         view_person.email_contact IS NOT NULL AND
+         view_person.f_spam = true
 ;
 
 -- returns all accepted speakers of accepted and confirmed events
@@ -1018,7 +1035,7 @@ ORDER BY view_person.person_id, event.event_id
 
 -- returns the list of persons for the conference_page
 CREATE OR REPLACE VIEW view_conference_persons AS
-  SELECT 
+  SELECT
          view_person.person_id,
          view_person.name,
          view_event_role.tag AS event_role_tag,
@@ -1033,15 +1050,15 @@ CREATE OR REPLACE VIEW view_conference_persons AS
          INNER JOIN view_event_role ON (
                view_event_role.event_role_id = event_person.event_role_id AND
                view_event_role.tag IN ('speaker', 'moderator', 'coordinator') )
-ORDER BY lower( view_person.name ), view_event_role.tag; 
-         
+ORDER BY lower( view_person.name ), view_event_role.tag;
+
 CREATE OR REPLACE VIEW view_event_search_persons AS
-  SELECT 
+  SELECT
          view_person.person_id,
          view_person.name,
          event_person.event_id,
          event_role.tag
-    FROM event_person 
+    FROM event_person
          INNER JOIN event_role ON (
              event_role.event_role_id = event_person.event_role_id AND
              event_role.tag IN ('speaker','moderator') )
