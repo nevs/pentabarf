@@ -1,8 +1,8 @@
 
 PGADMIN=postgres
 DATABASE=phoenix
-DBUSER=sven
-DBADMIN=sven
+DBUSER=${USER}
+DBADMIN=${USER}
 SUDOCMD=sudo
 
 all: install_db initial_data
