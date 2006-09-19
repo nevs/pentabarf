@@ -4,6 +4,10 @@ require 'markup_fo'
 # The methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def base_url( r, user = nil )
+    r.protocol + ( user ? user + '@' : '' ) + r.host_with_port + r.relative_url_root
+  end
+
   def js( text )
     escape_javascript( text )
   end
@@ -260,7 +264,7 @@ module ApplicationHelper
 
   # returns the current version of pentabarf
   def get_version()
-    "0.2.7"
+    "0.2.8"
   end
 
   # tries to read the current revision of pentabarf from a file named revision.txt otherwise returns 2342

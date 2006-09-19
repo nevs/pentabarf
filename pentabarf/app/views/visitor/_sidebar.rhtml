@@ -15,7 +15,7 @@
       <%= link_to( 'Schedule', {:action => :schedule,:conference=>@conference.acronym }, { :class => 'menu-item' } ) %>
     <% end %>
     <% if @user %>
-      <%= link_to( 'Logout', url_for({:only_path=>false}).gsub(/:\/\//,'://user@' ), { :class => 'menu-item' } ) %>
+      <%= link_to( 'Logout', base_url( @request, 'logout' ) + '/logout' , { :class => 'menu-item' } ) %>
     <% end %>
     </div>
 

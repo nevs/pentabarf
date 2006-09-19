@@ -16,7 +16,7 @@
       <%= link_to( 'Events', {:action => :events,:conference=>@conference.acronym }, { :class => 'menu-item' } ) %>
     <% end %>
     <% if @user %>
-      <%= link_to( 'Logout', url_for({:only_path=>false}).gsub(/:\/\//,'://user@' ), { :class => 'menu-item' } ) %>
+      <%= link_to( 'Logout', base_url( @request, 'logout' ) + '/logout' , { :class => 'menu-item' } ) %>
     <% else %>
       <%= link_to( 'Reset Password', {:controller=>'user',:action => :forgot_password}, { :class => 'menu-item' } ) %>
     <% end %>

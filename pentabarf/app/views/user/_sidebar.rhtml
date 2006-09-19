@@ -13,7 +13,7 @@
     <% end %>
       <%= link_to( 'Preferences', {:action => :preferences}, { :class => 'menu-item' } ) %>
     <% if @user %>
-      <%= link_to( 'Logout', url_for({:only_path=>false}).gsub(/:\/\//,'://user@' ), { :class => 'menu-item' } ) %>
+      <%= link_to( 'Logout', base_url( @request, 'logout' ) + '/logout' , { :class => 'menu-item' } ) %>
     <% end %>
     </div>
 
