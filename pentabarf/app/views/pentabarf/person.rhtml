@@ -48,7 +48,7 @@
   </div>
   <% end %>
 
-  <%= tabs.each do | tab | render( :partial => tab ) end %>
+  <% tabs.each do | tab | %><%= render( :partial => "person_#{tab}" ) %><% end %>
 
   <%= end_form_tag() %>
   <%= javascript_tag("new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } )") %>
