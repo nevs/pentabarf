@@ -33,7 +33,7 @@ class UserController < ApplicationController
       return redirect_to(:action=>:index) 
     elsif params[:person][:password] != params[:password]
       raise "Passwords do not match" 
-    elsif not params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,3}$/)
+    elsif not params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,}$/)
       raise "Invalid email address" 
     elsif not Momomoto::Person.find({:login_name=>params[:person][:login_name]}).nil?
       raise "This login name is already in use." 
