@@ -318,6 +318,7 @@ CREATE OR REPLACE FUNCTION merge_person( primary_person INTEGER, secondary_perso
     UPDATE person_transaction SET changed_by = primary_person WHERE changed_by = secondary_person;
     UPDATE person SET last_modified_by = primary_person WHERE last_modified_by = secondary_person;
     UPDATE person_phone SET person_id = primary_person WHERE person_id = secondary_person;
+    UPDATE person_im SET person_id = primary_person WHERE person_id = secondary_person;
     UPDATE person_rating SET person_id = primary_person
       WHERE person_id = secondary_person AND
             evaluator_id NOT IN ( SELECT evaluator_id FROM person_rating WHERE person_id = primary_person);

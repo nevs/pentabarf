@@ -2,7 +2,7 @@ module Momomoto
   class Person_transaction < Base
     def initialize
       super
-      @domain = 'person'
+      @domain = 'public'
       @limit = 1;
       @order = 'changed_when DESC'
       @fields = {
