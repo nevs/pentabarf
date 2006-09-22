@@ -2,6 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ConferenceTest < Test::Unit::TestCase
 
+  def test_defaults
+    conf = Conference.new
+    assert_not_nil( conf.conference_phase )
+    assert_not_nil( conf.days )
+  end
+
   def test_crud
     conf = Conference.new
     conf.acronym = 'Pentabarf'
