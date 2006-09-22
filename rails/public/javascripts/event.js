@@ -9,7 +9,7 @@ function add_event_person( event_person_id, person_id, event_role, event_role_st
   new_row.id = '';
   attribute_replace( new_row, /\[row_id\]/g, '[' + row_id + ']' );
   $('event_person_tbody').appendChild( new_row );
-  Element.show( 'event_person_table' );
+  Element.show( 'event_person_table', new_row );
 
   if ( event_person_id ) {
     $( prefix + '[event_person_id]' ).value = event_person_id;

@@ -10,8 +10,6 @@ class PentabarfControllerTest < Test::Unit::TestCase
     @controller = PentabarfController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    # this is needed because activerecord messes with our database settings
-    PGconn.translate_results = true
   end
 
   def test_index
