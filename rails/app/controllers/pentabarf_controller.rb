@@ -45,21 +45,9 @@ class PentabarfController < ApplicationController
         event[key] = value
       end
       event.write
-      params[:event_person].each do | k, v |
-        next if k == 'row_id'
-        ep = Event_person.select_or_new( :event_person_id => v[:event_person_id].to_i, :event_id => event.event_id )
-        ep.event_person_id = nil if ep.new_record?
 
-        if v[:remove]
-          ep.delete if not ep.new_record?
-        else
-          v.each do | field_name, value |
-            next if [:event_person_id, :event_id].member?( field_name.to_sym )
-            ep[ field_name ] = value
-          end
-          ep.write
-        end
-      end
+      write_table( Event_person, params[:event_person], {:event_id => event.event_id} )
+
       redirect_to( :action => :event, :id => event.event_id)
     end
   end
@@ -72,7 +60,7 @@ class PentabarfController < ApplicationController
       @conference = Conference.new(:conference_id=>0)
     end
   end
-
+  
   def save_conference
     conference = Conference.select_or_new( {:conference_id=>params[:id]},{:copy_values=>false} )
     params[:conference].each do | key, value |
@@ -80,6 +68,9 @@ class PentabarfController < ApplicationController
       conference[key] = value
     end
     conference.write
+
+    write_table( Conference_language, params[:conference_language], {:conference_id => conference.conference_id})
+
     redirect_to( :action => :conference, :id => conference.conference_id)
   end
 

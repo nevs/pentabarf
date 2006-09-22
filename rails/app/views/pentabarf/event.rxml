@@ -24,7 +24,7 @@ xml.div( :id => 'data' ) do
 
   xml.script(:type=>'text/javascript') do
     xml.text! <<EOF
-function send_content(){ 
+function send_content(){
   $('content_form').submit();
 };
 

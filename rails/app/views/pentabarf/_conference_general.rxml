@@ -28,9 +28,42 @@ xml.div(:id=>'content-general') do
       xml << select_row( 'table::conference::timeslot_duration', 'conference[timeslot_duration]', [], {:selected=>@conference.timeslot_duration})
       xml << select_row( 'table::conference::default_timeslots', 'conference[default_timeslots]', 1..(@conference.max_timeslots_per_event), {:selected=>@conference.default_timeslots})
       xml << select_row( 'table::conference::max_timeslots_per_event', 'conference[max_timeslots_per_event]', 1..23, {:selected=>@conference.max_timeslots_per_event})
-      xml << select_row( 'table::conference::day_change', 'conference[day_change]', (0..23).map{ |i| "#{i}:00:00" }, {:selected=>@conference.day_change})
+      xml << select_row( 'table::conference::day_change', 'conference[day_change]', (0..23).map{ |i| "#{i}:00:00" }, {:selected=>@conference.day_change.strftime('%H:%M:%S')})
     end
 
   end
 
+  xml.fieldset do
+    xml.legend( local('conference languages') )
+    xml.table(:id=>'conference_language_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('table::conference_language::language') )
+          xml.th( local('form::remove') )
+        end
+      end
+      xml.tbody(:id=>'conference_language_tbody') do
+        xml.tr(:id=>'conference_language_template',:style=>'display:none') do
+          xml.td do
+            xml.input({:type=>:hidden,:id=>'conference_language[row_id][conference_language_id]',:name=>'conference_language[row_id][conference_language_id]'})
+            xml << select_tag( 'conference_language[row_id][language]', Language.select(:visible=>true), {:key=>:language,:value=>:language})
+          end
+          xml.td do
+            xml.input({:type=>:checkbox,:name=>'conference_language[row_id][remove]',:id=>'conference_language[row_id][remove]'})
+          end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do 
+      Conference_language.select( :conference_id => @conference.conference_id ).each do | c |
+        xml << js_function( 'add_conference_language', c.conference_language_id, c.language )
+      end
+    end
+
+    xml.button( local('add conference language'), {:type=>:button,:onclick=>'add_conference_language()'})
+
+  end
+
 end
+

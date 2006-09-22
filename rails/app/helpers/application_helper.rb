@@ -101,6 +101,11 @@ module ApplicationHelper
     end
   end
 
+  def js_function( name, *parameter )
+    parameter.map! do | p | "'#{escape_javascript(p.to_s)}'" end
+    "#{name}(#{parameter.join(',')});"
+  end
+
   def event_table( events )
     xml = Builder::XmlMarkup.new
     xml.table do

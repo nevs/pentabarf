@@ -8,20 +8,35 @@ class ApplicationController < ActionController::Base
 
   def log_error( e )
     super( e )
-
     message = ''
     message += "Time: #{Time.now.to_s}\n"
     message += "UA: #{request.env['HTTP_USER_AGENT']}\n"
     message += "IP: #{request.remote_ip}\n"
     message += "URL: https://#{request.host + request.request_uri}\n"
     message += "Exception: #{e.message}\n"
-    message += "Exception Class: #{e.class}\n"
-    message += "Backtrace:\n"
-    message += clean_backtrace(e).join("\n")
-    message += "\n"
+    message += "Backtrace:\n#{clean_backtrace(e).join("\n")}\n"
     message += "Request: #{params.inspect}\n"
 
     JabberLogger.log( message )
+  end
+
+  # klass is the class derived from Momomoto::Table in which to store the data.
+  # values is a hash with the values for this table
+  # preset is a hash with field_name : value pairs which are always true
+  def write_table( klass, values, preset )
+    values.each do | row_id, hash |
+      next if row_id == 'row_id'
+      row = klass.select_or_new( preset ) do | field | hash[field] end
+      if hash['remove']
+        row.delete if not row.new_record?
+        next
+      end
+      hash.each do | field, value |
+        next if klass.primary_keys.member?( field.to_sym ) || [:event_id].member?( field.to_sym )
+        row[ field ] = value
+      end
+      row.write
+    end
   end
 
   def get_auth_data
