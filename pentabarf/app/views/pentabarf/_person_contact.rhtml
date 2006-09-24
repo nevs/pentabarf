@@ -36,11 +36,11 @@
       var im_type = new Array();
       var im_scheme = new Array();
       <% for im_type in Momomoto::View_im_type.find({:language_id => @current_language_id}) %>
-        im_type[<%= im_type.im_type_id %>] = '<%= escape_javascript(im_type.name) %>';
-        im_scheme[<%= im_type.im_type_id %>] = '<%= escape_javascript(im_type.scheme) %>';
+        im_type[<%= im_type.im_type_id %>] = '<%= js(im_type.name) %>';
+        im_scheme[<%= im_type.im_type_id %>] = '<%= js(im_type.scheme) %>';
       <% end %>
       <% for person_im in Momomoto::Person_im.find( {:person_id => @person.person_id} ) %>
-        add_person_im(<%= person_im.person_im_id %>,<%= person_im.im_type_id %>, '<%= escape_javascript(person_im.im_address) %>');
+        add_person_im(<%= person_im.person_im_id %>,<%= person_im.im_type_id %>, '<%= js(person_im.im_address) %>');
       <% end %>
     </script>
     <button type="button" tabindex="0" name="add_person_im" value="Add IM Contact" title="<[view_conference::im::add_im_address_title]>" tabindex="0" onClick="window.add_person_im()"><[view::pentabarf::person::add_im_address]></button>
@@ -64,11 +64,11 @@
       var phone_type = new Array();
       var phone_scheme = new Array();
     <% for phone_type in Momomoto::View_phone_type.find( {:language_id => @current_language_id} ) %>
-      phone_type[<%= phone_type.phone_type_id %>] = '<%= escape_javascript(phone_type.name) %>';
-      phone_scheme[<%= phone_type.phone_type_id %>] = '<%= escape_javascript(phone_type.scheme) %>';
+      phone_type[<%= phone_type.phone_type_id %>] = '<%= js(phone_type.name) %>';
+      phone_scheme[<%= phone_type.phone_type_id %>] = '<%= js(phone_type.scheme) %>';
     <% end %>
     <% for person_phone in Momomoto::Person_phone.find( {:person_id => @person.person_id} ) %>
-      add_person_phone(<%= person_phone.person_phone_id %>,<%= person_phone.phone_type_id %>,'<%= escape_javascript(person_phone.phone_number) %>');
+      add_person_phone(<%= person_phone.person_phone_id %>,<%= person_phone.phone_type_id %>,'<%= js(person_phone.phone_number) %>');
     <% end %>
     </script>
     <button type="button" name="add_person_phone" value="Add Telephone Number" title="Add a new phone number to list of numbers" tabindex="0" onClick="window.add_person_phone();"><[view::pentabarf::person::add_phone_number]></button>

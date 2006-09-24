@@ -17,7 +17,7 @@
     <button type="button" tabindex="0" name="add_link" title="<[form::button::add_link::hint]>" onClick="window.add_link();"><[form::button::add_link]></button>
     <script type="text/javascript">
     <% for person_link in Momomoto::Conference_person_link.find( {:conference_person_id => @conference_person.conference_person_id} ) %>
-      add_link(<%= person_link.conference_person_link_id  %>, '<%= escape_javascript(person_link.url) %>', '<%= escape_javascript(person_link.title) %>');
+      add_link(<%= person_link.conference_person_link_id  %>, '<%= js(person_link.url) %>', '<%= js(person_link.title) %>');
     <% end %>
     </script>
   </fieldset>

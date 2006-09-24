@@ -85,23 +85,23 @@
       var valuelists = new Array();
       valuelists[1] = new Array();
       <% for language in Momomoto::View_language.find({:translated_id=> @current_language_id, :f_visible => 't'}) %>
-        valuelists[1][<%= language.language_id %>] = '<%= escape_javascript(language.name) %>';
+        valuelists[1][<%= language.language_id %>] = '<%= js(language.name) %>';
       <% end %>
       valuelists[2] = new Array();
       <% for origin in Momomoto::View_event_origin.find({:language_id => @current_language_id}) %>
-        valuelists[2][<%= origin.event_origin_id %>] = '<%= escape_javascript(origin.name) %>';
+        valuelists[2][<%= origin.event_origin_id %>] = '<%= js(origin.name) %>';
       <% end %>
       valuelists[3] = new Array();
       <% for state in Momomoto::View_event_state.find({:language_id => @current_language_id}) %>
-        valuelists[3][<%= state.event_state_id %>] = '<%= escape_javascript(state.name) %>';
+        valuelists[3][<%= state.event_state_id %>] = '<%= js(state.name) %>';
       <% end %>
       valuelists[4] = new Array();
       <% for track in Momomoto::View_conference_track.find({:language_id => @current_language_id, :conference_id => @current_conference_id}) %>
-        valuelists[4][<%= track.conference_track_id %>] = '<%= escape_javascript(track.name) %>';
+        valuelists[4][<%= track.conference_track_id %>] = '<%= js(track.name) %>';
       <% end %>
       valuelists[5] = new Array();
       <% for coordinator in Momomoto::View_event_person.find({:language_id => @current_language_id,:conference_id => @current_conference_id,:event_role_tag => 'coordinator'}, nil, nil, :person_id) %>
-        valuelists[5][<%= coordinator.person_id %>] = '<%= escape_javascript(coordinator.name) %>';
+        valuelists[5][<%= coordinator.person_id %>] = '<%= js(coordinator.name) %>';
       <% end %>
         valuelists[7] = new Array();
       <% for progress in Momomoto::View_event_state_combined.find( {:language_id => @current_language_id} ) %>
@@ -116,7 +116,7 @@
       <% end %>
       <% if @preferences[:search_event_advanced].length > 0 %>
         <% @preferences[:search_event_advanced].each do | key, value | %>
-        search_criteria_add('search_elements', 0, '<%= escape_javascript(value[:type].to_s) %>', '<%= escape_javascript(value[:logic].to_s) %>', '<%= escape_javascript(value[:value].to_s) %>');
+        search_criteria_add('search_elements', 0, '<%= js(value[:type].to_s) %>', '<%= js(value[:logic].to_s) %>', '<%= js(value[:value].to_s) %>');
         <% end %>
       <% else %>
         search_criteria_add('search_elements', 0);

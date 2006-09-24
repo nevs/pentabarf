@@ -32,7 +32,7 @@
           event_state_progress[<%= state.event_state_id %>] = new Array();
         <% end %>
         <% for progress in Momomoto::View_event_state_progress.find({:language_id => @current_language_id}) %>
-          event_state_progress[<%= progress.event_state_id %>][<%= progress.event_state_progress_id %>] = '<%= escape_javascript(progress.name)%>';
+          event_state_progress[<%= progress.event_state_id %>][<%= progress.event_state_progress_id %>] = '<%= js(progress.name)%>';
         <% end %>
       </script>
       <tr>

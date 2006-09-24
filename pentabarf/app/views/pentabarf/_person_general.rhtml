@@ -71,7 +71,7 @@
     <script type="text/javascript">
       var languages = new Array();
       <% for language in Momomoto::View_language.find({:translated_id=> @current_language_id, :f_visible => 't'}) %>
-        languages[<%= language.language_id %>] = '<%= escape_javascript(language.name) %>';
+        languages[<%= language.language_id %>] = '<%= js(language.name) %>';
       <% end %>
       <% for person_lang in Momomoto::Person_language.find({:person_id => @person.person_id}) %>
         add_person_language(<%= person_lang.language_id %>);

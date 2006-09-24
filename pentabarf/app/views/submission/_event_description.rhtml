@@ -70,7 +70,7 @@
     <script type="text/javascript">
       var attachment_types = new Array();
       <% for type in Momomoto::View_attachment_type.find({:language_id => @current_language_id}) %>
-        attachment_types[<%= type.attachment_type_id %>] = '<%= escape_javascript(type.name) %>';
+        attachment_types[<%= type.attachment_type_id %>] = '<%= js(type.name) %>';
       <% end %>
     </script>
   </fieldset>

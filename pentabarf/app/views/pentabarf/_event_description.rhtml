@@ -26,7 +26,7 @@
     <button type="button" name="add_link" value="Add Links" title="Add a new link to list of links" tabindex="0" onClick="window.add_link();">Add Link</button>
     <script type="text/javascript">
     <% for event_link in Momomoto::Event_link.find( {:event_id => @event.event_id} ) %>
-      add_link(<%= event_link.event_link_id  %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title) %>');
+      add_link(<%= event_link.event_link_id  %>, '<%= js(event_link.url) %>', '<%= js(event_link.title) %>');
     <% end %>
     </script>
   </fieldset>
@@ -88,7 +88,7 @@
     <script type="text/javascript">
       var attachment_types = new Array();
       <% for type in Momomoto::View_attachment_type.find({:language_id => @current_language_id}) %>
-        attachment_types[<%= type.attachment_type_id %>] = '<%= escape_javascript(type.name) %>';
+        attachment_types[<%= type.attachment_type_id %>] = '<%= js(type.name) %>';
       <% end %>
     </script>
   </fieldset>

@@ -25,7 +25,7 @@
       link_type_prefix[<%= link_type.link_type_id %>]= '<%= link_type.template %>';
     <% end %>
     <% for event_link in Momomoto::View_event_link_internal.find( {:event_id => @event.event_id, :language_id => @current_language_id} ) %>
-      add_internal_link(<%= event_link.event_link_internal_id  %>,<%= event_link.link_type_id %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.description) %>');
+      add_internal_link(<%= event_link.event_link_internal_id  %>,<%= event_link.link_type_id %>, '<%= js(event_link.url) %>', '<%= js(event_link.description) %>');
     <% end %>
   </script>
 

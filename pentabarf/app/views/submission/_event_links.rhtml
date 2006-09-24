@@ -17,7 +17,7 @@
     <button type="button" name="add_link" title="<[form::button::add_link::hint]>" tabindex="0" onClick="window.add_link();"><[form::button::add_link]></button>
     <script type="text/javascript">
     <% for event_link in Momomoto::Event_link.find( {:event_id => @event.event_id} ) %>
-      add_link(<%= event_link.event_link_id  %>, '<%= escape_javascript(event_link.url) %>', '<%= escape_javascript(event_link.title) %>');
+      add_link(<%= event_link.event_link_id  %>, '<%= js(event_link.url) %>', '<%= js(event_link.title) %>');
     <% end %>
     </script>
   </fieldset>

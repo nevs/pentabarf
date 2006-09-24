@@ -13,7 +13,7 @@
     </table>
     <script type="text/javascript">
     <% for team in Momomoto::Team.find( {:conference_id => @conference.conference_id } ) %>
-      <%= "add_team('#{escape_javascript(team.team_id.to_s)}', '#{escape_javascript(team.tag)}');" %>
+      <%= "add_team('#{js(team.team_id.to_s)}', '#{js(team.tag)}');" %>
     <% end %>
     </script>
     <button type="button" name="add_team" value="Add Team" title="Add a new team" tabindex="0" onClick="window.add_team();">Add Team</button>
