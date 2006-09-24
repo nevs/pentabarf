@@ -19,7 +19,7 @@ CREATE TABLE master.conference(
   release TEXT,
   homepage TEXT,
   abstract_length INTEGER DEFAULT 150,
-  description_length INTEGER DEFAULT 150,
+  description_length INTEGER,
   export_base_url TEXT,
   export_css_file TEXT,
   feedback_base_url TEXT,
