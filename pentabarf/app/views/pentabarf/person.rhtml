@@ -14,6 +14,8 @@
 
 <% tabs =  ['general', 'events', 'contact', 'description', 'links', 'rating', 'travel']
   tabs.push('account') if @user.permission?('modify_login') || @person.person_id == @user.person_id
+  tabs.delete('contact') unless @user.permission?( 'modify_person' ) || @person.person_id == @user.person_id
+  tabs.delete('travel') unless @user.permission?( 'modify_person' ) || @person.person_id == @user.person_id
 %>
 
 <%= content_tabs_js( tabs, 'view::pentabarf::person::tab' ) %>
