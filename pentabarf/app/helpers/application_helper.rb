@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def js( text )
-    text.to_s.gsub(/[<>]/, '').gsub( '\\', '\\\\\\\\' ).gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/) { |m| "\\#{m}" }
+    text.to_s.gsub(/[<>]/, '').gsub( '\\', '\0\0' ).gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/, '\\\0')
   end
 
   def text_field( object, fieldname, options = {} )

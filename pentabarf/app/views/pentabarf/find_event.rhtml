@@ -81,6 +81,10 @@
       criteria[9]['name'] = '<[table::event::event_type]>';
       criteria[9]['value'] = 'event_type_id';
       criteria[9]['type'] = 'keyword';
+      criteria[10] = new Array();
+      criteria[10]['name'] = 'Speaker';
+      criteria[10]['value'] = 's_speaker';
+      criteria[10]['type'] = 'keyword';
 
       var valuelists = new Array();
       valuelists[1] = new Array();
@@ -113,6 +117,10 @@
         valuelists[9] = new Array();
       <% for origin in Momomoto::View_event_type.find( {:language_id => @current_language_id} ) %>
         valuelists[9][<%= origin.event_type_id %>] = '<%= origin.name %>';
+      <% end %>
+      valuelists[10] = new Array();
+      <% for speaker in Momomoto::View_event_person.find({:language_id => @current_language_id,:conference_id => @current_conference_id,:event_role_tag => 'speaker'}, nil, nil, :person_id) %>
+        valuelists[10][<%= speaker.person_id %>] = '<%= js(speaker.name) %>';
       <% end %>
       <% if @preferences[:search_event_advanced].length > 0 %>
         <% @preferences[:search_event_advanced].each do | key, value | %>
