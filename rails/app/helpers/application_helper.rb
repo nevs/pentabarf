@@ -101,8 +101,13 @@ module ApplicationHelper
     end
   end
 
+  # this is meant as complement to the h function which escapes html 
+  def js( text )
+    text.to_s.gsub(/[<>]/, '').gsub( '\\', '\0\0' ).gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/, '\\\\\0')
+  end
+
   def js_function( name, *parameter )
-    parameter.map! do | p | "'#{escape_javascript(p.to_s)}'" end
+    parameter.map! do | p | "'#{js(p.to_s)}'" end
     "#{name}(#{parameter.join(',')});"
   end
 
