@@ -181,6 +181,7 @@ INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, 
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (163, 'hat', 'hat', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (164, 'hau', 'hau', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (165, 'haw', 'haw', false, false, false, false);
+INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (449, 'wak', 'wak', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (167, 'her', 'her', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (168, 'hil', 'hil', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (169, 'him', 'him', false, false, false, false);
@@ -453,7 +454,6 @@ INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, 
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (446, 'vie', 'vie', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (447, 'vol', 'vol', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (448, 'vot', 'vot', false, false, false, false);
-INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (449, 'wak', 'wak', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (450, 'wal', 'wal', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (451, 'war', 'war', false, false, false, false);
 INSERT INTO "language" (language_id, iso_639_code, tag, f_default, f_localized, f_visible, f_preferred) VALUES (452, 'was', 'was', false, false, false, false);

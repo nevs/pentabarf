@@ -50,10 +50,12 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (15, 3, 6, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (62, 2, 12, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (63, 3, 12, 4);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (166, 1, 33, 3);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (131, 1, 26, 1);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (56, 1, 11, 1);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (57, 2, 11, 2);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (6, 1, 4, 5);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (168, 2, 33, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (64, 4, 12, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (65, 5, 12, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (66, 1, 13, 4);
@@ -109,10 +111,14 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (95, 5, 18, 3);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (96, 1, 22, 2);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (97, 1, 20, 2);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (169, 2, 34, 3);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (99, 1, 21, 2);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (100, 2, 22, 2);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (58, 3, 11, 4);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (170, 3, 33, 5);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (103, 2, 21, 2);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (108, 4, 22, 4);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (171, 3, 34, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (110, 4, 19, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (111, 4, 21, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (112, 5, 22, 2);
@@ -120,6 +126,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (114, 5, 19, 2);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (115, 5, 21, 2);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (104, 3, 22, 4);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (172, 4, 33, 5);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (106, 3, 19, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (107, 3, 21, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (116, 1, 23, 2);
@@ -169,6 +176,8 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (109, 4, 20, 3);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (156, 1, 31, 1);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (157, 1, 32, 1);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (59, 4, 11, 5);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (173, 4, 34, 5);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (160, 3, 31, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (161, 3, 32, 4);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (162, 4, 31, 5);
@@ -177,17 +186,8 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (165, 5, 32, 1);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (158, 2, 31, 3);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (159, 2, 32, 3);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (167, 1, 34, 2);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (166, 1, 33, 3);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (168, 2, 33, 4);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (169, 2, 34, 3);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (58, 3, 11, 4);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (170, 3, 33, 5);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (171, 3, 34, 4);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (172, 4, 33, 5);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (59, 4, 11, 5);
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (173, 4, 34, 5);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (174, 5, 33, 5);
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (167, 1, 34, 2);
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase_id, conflict_id, conflict_level_id) VALUES (175, 5, 34, 5);
 
 

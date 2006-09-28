@@ -115,6 +115,7 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (1, 120, 'A
 INSERT INTO country_localized (country_id, language_id, name) VALUES (9, 120, 'Angola');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (5, 120, 'Anguilla');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (10, 120, 'Antarctica');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (2, 120, 'United Arab Emirates');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (11, 120, 'Argentina');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (7, 120, 'Armenia');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (15, 120, 'Aruba');
@@ -283,6 +284,7 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (204, 120, 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (217, 120, 'Tuvalu');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (221, 120, 'Uganda');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (220, 120, 'Ukraine');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (140, 133, 'Mongolie');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (222, 120, 'United states minor outlying islands');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (224, 120, 'Uruguay');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (225, 120, 'Uzbekistan');
@@ -441,8 +443,6 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (236, 133, 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (150, 133, 'Mexique');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (70, 133, 'MicronÃsie, Ãtats fÃdÃrÃs de');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (134, 133, 'Moldova, rÃpublique de');
-INSERT INTO country_localized (country_id, language_id, name) VALUES (2, 120, 'United Arab Emirates');
-INSERT INTO country_localized (country_id, language_id, name) VALUES (140, 133, 'Mongolie');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (145, 133, 'Montserrat');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (152, 133, 'Mozambique');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (139, 133, 'Myanmar');
