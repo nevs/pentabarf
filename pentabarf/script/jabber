@@ -1,39 +1,35 @@
 #!/usr/bin/env ruby
 
+require 'rubygems'
 require 'yaml'
 require 'xmpp4r'
 require 'socket'
-require 'thread'
 require 'rexml/document'
+require 'daemons'
 
-config = YAML::load_file('config/jabber.yml')
-#Jabber::debug = true
+workdir = Dir.pwd
 
-sockpath = config['daemon']['socket_path']
-jid = Jabber::JID.new(config['daemon']['jabber_id'])
+Daemons.run_proc( 'jabber_notification', { :script => workdir, :dir_mode => :normal } ) do
+  config = YAML::load_file( File.join( workdir, 'config', 'jabber.yml' ) )
+  #Jabber::debug = true
 
-client = Jabber::Client.new(jid)
-client.connect(config['daemon']['server'], config['daemon']['port'])
-client.auth(config['daemon']['password'])
+  client = Jabber::Client.new( Jabber::JID.new( config['daemon']['jid']))
+  client.connect(config['daemon']['server'], config['daemon']['port'])
+  client.auth(config['daemon']['password'])
 
-client.send(Jabber::Presence.new( nil, 'Pentabarf' ) )
+  client.send(Jabber::Presence.new( nil, 'Pentabarf' ) )
 
-puts "connected"
+  client.add_message_callback { |msg|
+    reply = Jabber::XMLStanza.answer(msg, false)
+    reply.type = msg.type
+    #puts "Message from #{msg.from}: #{msg.body}"
+    reply.set_body("All answers shall be shallow")
+    client.send(reply)
+  }
 
-client.add_message_callback { |msg|
-  reply = Jabber::XMLStanza.answer(msg, false)
-  reply.type = msg.type
-  puts "Message from #{msg.from}: #{msg.body}"
-  reply.set_body("All answers shall be shallow")
-  client.send(reply)
-}
+  trap( "TERM" ) do File.unlink( config['daemon']['socket_path'] ) end
 
-Thread.start do
-  begin
-    File.unlink(sockpath)
-  rescue
-  end
-  sock = UNIXServer.open(sockpath)
+  sock = UNIXServer.open( config['daemon']['socket_path'] )
   while unixclient = sock.accept
     text = ""
     received = false
@@ -43,16 +39,13 @@ Thread.start do
         stanza = Jabber::Message.new.import(REXML::Document.new(text).root)
         received = true if text =~ /<\/message>$/
       rescue Exception => e
-        puts e
+        #puts e
       end
     end
-    puts text
+    #puts text
     client.send(stanza)
     unixclient.close
   end
 end
 
-Thread.stop
-
-client.close
 

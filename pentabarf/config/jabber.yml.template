@@ -1,5 +1,5 @@
 daemon:
-  jabber_id: 
+  jid: 
   server: 
   port: 
   password: 
