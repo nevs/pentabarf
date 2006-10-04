@@ -1,23 +1,39 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 
-xml.div(:id => 'content-track') do 
+xml.div(:id => 'content-tracks') do 
 
   xml.fieldset do
     xml.legend( local( 'view::pentabarf::conference::tab::tracks' ) ) 
 
-    xml.table( :id=>'conference_track_table',:class=>'hidden') do
+    xml.table(:id=>'conference_track_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local( 'table::conference_track::tag' ) )
-          xml.th( local( 'form::remove' ) )
+          xml.th( local('table::conference_track::conference_track') )
+          xml.th( local('form::remove') )
         end
       end
-      xml.tbody( :id=>'conference_track_table_body') do
+      xml.tbody(:id=>'conference_track_tbody') do
+        xml.tr(:id=>'conference_track_template',:style=>'display:none') do
+          xml.input({:type=>:hidden,:name=>'conference_track[row_id][conference_track_id]',:id=>'conference_track[row_id][conference_track_id]'})
+          xml.td do
+            xml.input({:name=>'conference_track[row_id][conference_track]',:id=>'conference_track[row_id][conference_track]'})
+          end
+          xml.td do
+            xml.input({:type=>:checkbox,:name=>'conference_track[row_id][remove]',:id=>'conference_track[row_id][remove]'})
+          end
+        end
       end
     end
 
-    xml.button( "Add Track", {:type=>'button',:name=>'add_conference_track',:tabindex=>0} )
+    xml.button( "Add Track", {:type=>'button',:onclick=>'add_conference_track();',:tabindex=>0} )
+
+    xml.script(:type=>'text/javascript') do 
+      Conference_track.select( :conference_id => @conference.conference_id ).each do | c |
+        xml << js_function( 'add_conference_track', c.conference_track_id, c.conference_track )
+      end
+    end
 
   end
+
 end
 

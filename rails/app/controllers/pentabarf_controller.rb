@@ -70,6 +70,7 @@ class PentabarfController < ApplicationController
     conference.write
 
     write_table( Conference_language, params[:conference_language], {:conference_id => conference.conference_id})
+    write_table( Conference_track, params[:conference_track], {:conference_id => conference.conference_id})
 
     redirect_to( :action => :conference, :id => conference.conference_id)
   end

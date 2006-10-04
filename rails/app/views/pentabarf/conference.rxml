@@ -9,7 +9,7 @@ xml.div( :id => 'object-image' ) do
   xml.img( :src => image_path( 'icon-conference-64x64.png' ), :class => 'object-image' )
 end
 
-tabs = [:general,:export]
+tabs = [:general,:tracks,:export]
 
 xml << js_tabs( tabs )
 
