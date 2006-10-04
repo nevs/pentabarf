@@ -39,8 +39,7 @@ BEGIN TRANSACTION;
 \i tables/conference_language.sql
 \i tables/conference_track.sql
 \i tables/conference_team.sql
-
-\i tables/room.sql
+\i tables/conference_room.sql
 
 \i tables/person.sql
 \i tables/person_image.sql
