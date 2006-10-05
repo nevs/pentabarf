@@ -16,13 +16,12 @@ class PentabarfController < ApplicationController
   end
 
   def save_person
-    person = Person.select_or_new( {:person_id=>params[:id].to_i},{:copy_values=>false} )
-    params[:person].each do | key, value |
-      next if key.to_sym == :person_id
-      person[key] = value
+    params[:person][:person_id] = params[:id] if params[:id] != 'new'
+    Momomoto::Database.instance.transaction do
+      person = write_row( Person, params[:person], {:except=>[:person]} )
+
+      redirect_to( :action => :person, :id => person.person_id)
     end
-    person.write
-    redirect_to( :action => :person, :id => person.person_id)
   end
 
   def event
@@ -37,15 +36,11 @@ class PentabarfController < ApplicationController
   end
 
   def save_event
+    params[:event][:event_id] = params[:id] if params[:id] != 'new'
     Momomoto::Database.instance.transaction do
-      event = Event.select_or_new( {:event_id=>params[:id].to_i},{:copy_values=>false} )
-      event.conference_id = @current_conference.conference_id if event.new_record?
-      params[:event].each do | key, value |
-        next if key.to_sym == :event_id
-        event[key] = value
+      event = write_row( Event, params[:event], {:except=>[:conference_id]} ) do | e |
+        e.conference_id = @current_conference.conference_id if e.new_record?
       end
-      event.write
-
       write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}} )
 
       redirect_to( :action => :event, :id => event.event_id)
@@ -63,12 +58,14 @@ class PentabarfController < ApplicationController
 
   def save_conference
     params[:conference][:conference_id] = params[:id] if params[:id] != 'new'
-    conf = write_row( Conference, params[:conference], {:except=>[:conference_id]})
-    write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
-    write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
-    write_rows( Conference_room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:public]})
+    Momomoto::Database.instance.transaction do
+      conf = write_row( Conference, params[:conference] )
+      write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
+      write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
+      write_rows( Conference_room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:public]})
 
-    redirect_to( :action => :conference, :id => conf.conference_id)
+      redirect_to( :action => :conference, :id => conf.conference_id)
+    end
   end
 
   [:person, :event, :conference].each do | object |
