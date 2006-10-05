@@ -101,7 +101,7 @@ module ApplicationHelper
     end
   end
 
-  # this is meant as complement to the h function which escapes html 
+  # this is meant as complement to the h function which escapes html
   def js( text )
     text.to_s.gsub(/[<>]/, '').gsub( '\\', '\0\0' ).gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/, '\\\\\0')
   end

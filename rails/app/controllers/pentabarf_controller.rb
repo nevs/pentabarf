@@ -46,7 +46,7 @@ class PentabarfController < ApplicationController
       end
       event.write
 
-      write_table( Event_person, params[:event_person], {:event_id => event.event_id} )
+      write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}} )
 
       redirect_to( :action => :event, :id => event.event_id)
     end
@@ -60,19 +60,15 @@ class PentabarfController < ApplicationController
       @conference = Conference.new(:conference_id=>0)
     end
   end
-  
+
   def save_conference
-    conference = Conference.select_or_new( {:conference_id=>params[:id]},{:copy_values=>false} )
-    params[:conference].each do | key, value |
-      next if key.to_sym == :conference_id
-      conference[key] = value
-    end
-    conference.write
+    params[:conference][:conference_id] = params[:id] if params[:id] != 'new'
+    conf = write_row( Conference, params[:conference], {:except=>[:conference_id]})
+    write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
+    write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
+    write_rows( Conference_room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:public]})
 
-    write_table( Conference_language, params[:conference_language], {:conference_id => conference.conference_id})
-    write_table( Conference_track, params[:conference_track], {:conference_id => conference.conference_id})
-
-    redirect_to( :action => :conference, :id => conference.conference_id)
+    redirect_to( :action => :conference, :id => conf.conference_id)
   end
 
   [:person, :event, :conference].each do | object |

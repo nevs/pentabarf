@@ -22,26 +22,44 @@ class ApplicationController < ActionController::Base
 
   # klass is the class derived from Momomoto::Table in which to store the data.
   # values is a hash with the values for this table
-  # preset is a hash with field_name : value pairs which are always true
-  def write_table( klass, values, preset )
+  # options is a hash with the following possible:
+  #   preset:  hash of override values these are always set and new records are initialized with them
+  #   except:  Array of field_names not to accept from the values
+  #   always:  Array of field_names to always set even if they are not in the values
+  #   remove:  allow removing
+  def write_row( klass, values, options = {} )
+    options[:except] ||= []
+    options[:always] ||= []
+    row = klass.select_or_new( options[:preset] || {} ) do | field | values[field] end
+    if options[:remove] && values['remove']
+      row.delete if not row.new_record?
+      return row
+    end
+    values.each do | field, value |
+      next if klass.primary_keys.member?( field.to_sym ) || options[:except].member?( field.to_sym )
+      row[ field ] = value
+    end
+    options[:always].each do | field_name |
+      row[ field_name ] = nil unless values.keys.include?( field_name.to_s )
+    end
+    row.write
+    row
+  end
+
+  # klass is the class derived from Momomoto::Table in which to store the data.
+  # values is a hash of hashes with the values for this table
+  # see write_row for documentation of options
+  def write_rows( klass, values, options = {} )
+    options[:remove] ||= true
     values.each do | row_id, hash |
       next if row_id == 'row_id'
-      row = klass.select_or_new( preset ) do | field | hash[field] end
-      if hash['remove']
-        row.delete if not row.new_record?
-        next
-      end
-      hash.each do | field, value |
-        next if klass.primary_keys.member?( field.to_sym ) || [:event_id].member?( field.to_sym )
-        row[ field ] = value
-      end
-      row.write
+      write_row( klass, hash, options )
     end
   end
 
+  # returns the login_name and password sent in the http authorization header
   def get_auth_data
     login_name, password = '', ''
-    # extract authorisation credentials
     if request.env.has_key? 'X-HTTP_AUTHORIZATION'
       # try to get it where mod_rewrite might have put it
       authdata = @request.env['X-HTTP_AUTHORIZATION'].to_s.split
