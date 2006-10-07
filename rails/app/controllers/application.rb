@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   #   preset:  hash of override values these are always set and new records are initialized with them
   #   except:  Array of field_names not to accept from the values
   #   always:  Array of field_names to always set even if they are not in the values
-  #   remove:  allow removing
+  #   remove:  remove the row if values[:remove] is true
   def write_row( klass, values, options = {}, &block )
     options[:except] ||= []; options[:always] ||= []
     options[:preset] ||= {}; options[:remove] ||= false
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
     options[:always].each do | field_name |
       row[ field_name ] = nil unless values.keys.include?( field_name.to_s )
     end
-    yield row
+    yield row if block_given?
     row.write
     row
   end

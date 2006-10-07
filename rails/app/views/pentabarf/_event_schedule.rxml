@@ -9,7 +9,7 @@ xml.div(:id=>'content-schedule') do
       xml << select_row( 'table::event::day', 'event[day]', (1..@conference.days).to_a, {:selected=>@event.day})
       xml << select_row( 'table::event::start_time', 'event[start_time]', [], {:selected=>@event.start_time})
       xml << select_row( 'table::event::duration', 'event[duration]', ['1:00:00'], {:selected=>@event.duration})
-      xml << select_row( 'table::event::conference_room', 'event[conference_room]', [], {:selected=>@event.conference_room})
+      xml << select_row( 'table::event::conference_room', 'event[conference_room]', Conference_room.select({:conference_id=>@event.conference_id}), {:key=>:conference_room,:value=>:conference_room,:selected=>@event.conference_room,:with_empty=>true})
       xml << check_box_row( 'table::event::public', 'event[public]', @event.public )
     end
 
