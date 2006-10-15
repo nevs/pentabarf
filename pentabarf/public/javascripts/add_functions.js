@@ -128,6 +128,7 @@ function add_room(room_id, short_name, f_public, size, remark, rank)
   table_row.appendChild(create_element("input", "hidden", "room[" + row_id + "][room_id]", room_id));
   table_row.appendChild(create_element("input", "text", "room[" + row_id + "][short_name]", short_name));
   table_row.appendChild(create_element("input", "text", "room[" + row_id + "][rank]", rank, 3));
+  table_row.appendChild(create_element("input", "text", "room[" + row_id + "][size]", size, 5));
   table_row.appendChild(create_element("input", "checkbox", "room[" + row_id + "][f_public]", 1, f_public));
   table_row.appendChild(create_element("input", "checkbox", "room[" + row_id + "][delete]"));
 
