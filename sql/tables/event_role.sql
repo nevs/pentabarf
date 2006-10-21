@@ -5,7 +5,7 @@ CREATE TABLE master.event_role(
   rank INTEGER
 );
 
-CREATE TABLE event_role(
+CREATE TABLE public.event_role(
   PRIMARY KEY(event_role)
 ) INHERITS(master.event_role);
 

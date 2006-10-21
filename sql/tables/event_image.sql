@@ -5,8 +5,7 @@ CREATE TABLE master.event_image(
   image BYTEA NOT NULL
 );
 
--- this is the real event table
-CREATE TABLE event_image(
+CREATE TABLE public.event_image(
   PRIMARY KEY(event_id),
   FOREIGN KEY(event_id) REFERENCES event(event_id) ON UPDATE CASCADE,
   FOREIGN KEY(mime_type) REFERENCES mime_type(mime_type) ON UPDATE CASCADE

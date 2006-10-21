@@ -26,7 +26,6 @@ CREATE TABLE master.event(
   submission_notes TEXT
 );
 
--- this is the real event table
 CREATE TABLE event(
   PRIMARY KEY(event_id),
   FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE,
@@ -43,5 +42,10 @@ CREATE TABLE event(
 CREATE SEQUENCE event_id_sequence;
 ALTER TABLE event ALTER COLUMN event_id SET DEFAULT nextval('event_id_sequence');
 
+CREATE INDEX event_conference_id ON public.event( conference_id );
+CREATE INDEX event_event_state ON public.event( event_state );
+CREATE INDEX event_event_state_progress ON public.event( event_state_progress );
+
 CREATE TABLE logging.event() INHERITS(master.logging, master.event);
+
 

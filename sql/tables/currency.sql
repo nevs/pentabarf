@@ -4,7 +4,7 @@ CREATE TABLE master.currency(
   visible BOOL NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE currency(
+CREATE TABLE public.currency(
   PRIMARY KEY(currency)
 ) INHERITS(master.currency);
 

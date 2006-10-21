@@ -1,7 +1,7 @@
 
 CREATE TABLE master.person(
   person_id INTEGER NOT NULL,
-  login_name VARCHAR(64),
+  login_name VARCHAR(64) UNIQUE,
   password VARCHAR(32),
   salt VARCHAR(16),
   first_name TEXT,
@@ -26,9 +26,8 @@ CREATE TABLE person(
   FOREIGN KEY(country) REFERENCES country(country)
 ) INHERITS(master.person);
 
-CREATE TABLE logging.person() INHERITS(master.logging, master.person);
-
 CREATE SEQUENCE person_id_sequence;
 ALTER TABLE person ALTER COLUMN person_id SET DEFAULT nextval('person_id_sequence');
 
+CREATE TABLE logging.person() INHERITS(master.logging, master.person);
 

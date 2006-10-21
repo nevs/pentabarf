@@ -5,7 +5,7 @@ CREATE TABLE master.country_localized(
   name TEXT NOT NULL
 );
 
-CREATE TABLE country_localized(
+CREATE TABLE public.country_localized(
   PRIMARY KEY(country,translated),
   FOREIGN KEY(country) REFERENCES country(country) ON UPDATE CASCADE,
   FOREIGN KEY(translated) REFERENCES language(language) ON UPDATE CASCADE

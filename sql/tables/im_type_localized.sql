@@ -5,7 +5,7 @@ CREATE TABLE master.im_type_localized(
   name TEXT NOT NULL
 );
 
-CREATE TABLE im_type_localized(
+CREATE TABLE public.im_type_localized(
   PRIMARY KEY(im_type, translated),
   FOREIGN KEY(im_type) REFERENCES im_type(im_type) ON UPDATE CASCADE,
   FOREIGN KEY(translated) REFERENCES language(language) ON UPDATE CASCADE
