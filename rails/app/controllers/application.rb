@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     message += "Time: #{Time.now.to_s}\n"
     message += "UA: #{request.env['HTTP_USER_AGENT']}\n"
     message += "IP: #{request.remote_ip}\n"
-    message += "URL: https://#{request.host + request.request_uri}\n"
+    message += "URL: #{request.protocol}://#{request.host + request.request_uri}\n"
     message += "Exception: #{e.message}\n"
     message += "Backtrace:\n#{clean_backtrace(e).join("\n")}\n"
     message += "Request: #{params.inspect}\n"

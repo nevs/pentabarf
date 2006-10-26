@@ -11,7 +11,7 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( 'table::person::nickname', 'person[nickname]', @person.nickname, {:size=>30} )
       xml << text_field_row( 'table::person::public_name', 'person[public_name]', @person.public_name, {:size=>30} )
       xml << text_field_row( 'table::person::title', 'person[title]', @person.title, {:size=>30} )
-      xml << select_row( 'table::person::gender', 'person[gender]',[['t','male'],['f','female']] , {:key=>:first,:value=>:last,:selected=>@person.gender,:with_empty=>true})
+      xml << select_row( 'table::person::gender', 'person[gender]',[[true,'male'],[false,'female']] , {:key=>:first,:value=>:last,:selected=>@person.gender,:with_empty=>true})
     end
   end
 

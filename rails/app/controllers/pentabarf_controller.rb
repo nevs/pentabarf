@@ -73,7 +73,7 @@ class PentabarfController < ApplicationController
     define_method("find_#{object}") do end
 
     define_method("search_#{object}") do
-      render(:partial=>"search_#{object}")
+      render( :partial => "search_#{object}" )
     end
 
   end
