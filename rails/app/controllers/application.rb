@@ -1,8 +1,10 @@
 # Filters added to this controller will be run for all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 require 'iconv'
+require 'digest/md5'
 
 class ApplicationController < ActionController::Base
+  before_filter :auth
 
   protected
 
@@ -20,6 +22,7 @@ class ApplicationController < ActionController::Base
     JabberLogger.log( message )
   end
 
+  # writes a row to the database
   # klass is the class derived from Momomoto::Table in which to store the data.
   # values is a hash with the values for this table
   # options is a hash with the following possible:
@@ -49,6 +52,7 @@ class ApplicationController < ActionController::Base
     row
   end
 
+  # writes mulitple rows to the database
   # klass is the class derived from Momomoto::Table in which to store the data.
   # values is a hash of hashes with the values for this table
   # see write_row for documentation of options
@@ -58,6 +62,38 @@ class ApplicationController < ActionController::Base
       next if row_id == 'row_id'
       write_row( klass, hash, options, &block )
     end
+  end
+
+  # authenticate and authorize user
+  def auth
+    if not authenticated?
+      response.headers['Status'] = 'Unauthorized'
+      response.headers['WWW-Authenticate'] = 'Basic realm="Pentabarf"'
+      render :text => 'Authentication required', :status => 401
+      return false
+    end
+    if authorized?
+      return true
+    else
+      render :text => 'Forbidden', :status => 403
+      return false
+    end
+  end
+
+  # this is called in auth to check for authentication.
+  def authenticated?
+    login_name, password = get_auth_data
+    @user = Person.select_single( :login_name => login_name )
+    return true if @user.password == Digest::MD5.hexdigest( @user.salt.to_s + password )
+    false
+  rescue
+    false
+  end
+
+  # this is called in auth to check whether a user is authorized to see a page
+  # after authentication. This must be overwritten in the controller.
+  def authorized?
+    false
   end
 
   # returns the login_name and password sent in the http authorization header

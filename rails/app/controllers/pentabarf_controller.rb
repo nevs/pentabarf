@@ -83,5 +83,10 @@ class PentabarfController < ApplicationController
     @current_conference = Conference.select_or_new({}, {:limit=>1})
   end
 
+  def authorized?
+    # XXX implement real authorization check
+    true
+  end
+
 end
 

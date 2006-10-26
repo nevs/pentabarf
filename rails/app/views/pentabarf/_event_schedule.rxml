@@ -16,3 +16,4 @@ xml.div(:id=>'content-schedule') do
   end
 
 end
+
