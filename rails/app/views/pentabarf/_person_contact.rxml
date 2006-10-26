@@ -20,7 +20,7 @@ xml.div(:id=>'content-contact') do
       xml << text_field_row( 'table::person::po_box', 'person[po_box]', @person.po_box, {:size=>30})
       xml << text_field_row( 'table::person::po_box_postcode', 'person[po_box_postcode]', @person.po_box_postcode, {:size=>30})
       xml << text_field_row( 'table::person::city', 'person[city]', @person.city, {:size=>30})
-      xml << select_row('table::person::country','person[country]', Country.select, {:key=>:country,:value=>:country,:selected=>@person.country})
+      xml << select_row('table::person::country','person[country]', Country.select( {}, :order=>:country), {:key=>:country,:value=>:country,:selected=>@person.country})
     end
   end
 

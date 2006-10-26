@@ -1,7 +1,8 @@
 BEGIN TRANSACTION;
-\i country.sql
-\i currency.sql
 \i language.sql
+\i country.sql
+\i country_localized.sql
+\i currency.sql
 \i language_localized.sql
 \i conference_phase.sql
 \i conference_phase_localized.sql
