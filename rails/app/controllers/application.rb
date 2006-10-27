@@ -113,9 +113,9 @@ class ApplicationController < ActionController::Base
     # at the moment we only support basic authentication
     if authdata and authdata[0] == 'Basic'
       login_name, password = Base64.decode64(authdata[1]).split(':')[0..1]
+      login_name = Iconv.iconv('UTF-8', 'iso-8859-1', login_name.to_s)
+      password = Iconv.iconv('UTF-8', 'iso-8859-1', password.to_s)
     end
-    login_name = Iconv.iconv('UTF-8', 'iso-8859-1', login_name.to_s)
-    password = Iconv.iconv('UTF-8', 'iso-8859-1', password.to_s)
     return [login_name.to_s, password.to_s]
   end
 

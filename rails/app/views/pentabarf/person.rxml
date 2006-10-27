@@ -6,6 +6,8 @@ end
 
 tabs = [:general,:contact,:description]
 
+tabs.push( :account ) if true
+
 xml << js_tabs( tabs )
 
 xml.div( :id => 'data' ) do
