@@ -16,7 +16,7 @@ class PentabarfController < ApplicationController
   end
 
   def save_person
-    params[:person][:person_id] = params[:id] if params[:id] != 'new'
+    params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
       person = write_row( Person, params[:person], {:except=>[:person]} )
 
@@ -26,17 +26,17 @@ class PentabarfController < ApplicationController
 
   def event
     begin
-      @event = Event.select_single( :event_id => params[:id].to_i )
-    rescue Momomoto::Nothing_found
+      @event = Event.select_single( :event_id => params[:id] )
+    rescue
       return redirect_to(:action=>:event,:id=>'new') if params[:id] != 'new'
-      @event = Event.new(:event_id=>0)
+      @event = Event.new( :event_id => 0 )
       @event.conference_id = @current_conference.conference_id
     end
     @conference = Conference.select_single(:conference_id=>@event.conference_id)
   end
 
   def save_event
-    params[:event][:event_id] = params[:id] if params[:id] != 'new'
+    params[:event][:event_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
       event = write_row( Event, params[:event], {:except=>[:conference_id]} ) do | e |
         e.conference_id = @current_conference.conference_id if e.new_record?
@@ -49,7 +49,7 @@ class PentabarfController < ApplicationController
 
   def conference
     begin
-      @conference = Conference.select_single( :conference_id => params[:id].to_i )
+      @conference = Conference.select_single( :conference_id => params[:id] )
     rescue
       return redirect_to(:action=>:conference,:id=>'new') if params[:id] != 'new'
       @conference = Conference.new(:conference_id=>0)
@@ -57,7 +57,7 @@ class PentabarfController < ApplicationController
   end
 
   def save_conference
-    params[:conference][:conference_id] = params[:id] if params[:id] != 'new'
+    params[:conference][:conference_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
       conf = write_row( Conference, params[:conference] )
       write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
@@ -80,7 +80,7 @@ class PentabarfController < ApplicationController
 
   protected
   def set_conference
-    @current_conference = Conference.select_or_new({}, {:limit=>1})
+    @current_conference = Conference.select( {}, :order => :conference_id ).first || Conference.new
   end
 
   def authorized?

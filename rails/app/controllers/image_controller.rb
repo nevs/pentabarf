@@ -17,6 +17,10 @@ class ImageController < ApplicationController
 
   protected
 
+  def authorized?
+    true
+  end
+
   def modified_since
     if ['conference', 'event', 'person'].member?( action_name )
       modification = Momomoto::View_conference_image_modification.find( {:conference_id => extract_id( @params[:id] )} )
