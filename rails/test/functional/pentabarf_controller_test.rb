@@ -17,6 +17,13 @@ class PentabarfControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  def test_auth
+    PentabarfController.instance_methods( false ).each do | method |
+      get method
+      assert_response 401
+    end
+  end
+
   def test_person
     sven = Person.new(:first_name=>'sven')
     sven.write
