@@ -4,7 +4,7 @@ xml.declare! :DOCTYPE, :html, :PUBLIC, "-//W3C//DTD XHTML 1.0 Transitional//EN",
 
 xml.html( :xmlns => "http://www.w3.org/1999/xhtml" ) do
   xml.head do
-    xml.meta :'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8;'
+    xml.meta :'http-equiv' => 'Content-Type', :content => 'text/xml; charset=utf-8;'
     xml.title "#{@content_title} Pentabarf #{version}"
     xml.link :rel => 'shortcut icon', :href => '/favicon.ico'
     xml.link :rel => 'stylesheet', :href => stylesheet_path( 'main' ), :type => 'text/css'

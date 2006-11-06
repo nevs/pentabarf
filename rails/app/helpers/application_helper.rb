@@ -18,6 +18,7 @@ module ApplicationHelper
         options[:value] = value
         options[:tabindex] = 0
         xml.input( options )
+        yield( xml ) if block_given?
       end
     end
   end

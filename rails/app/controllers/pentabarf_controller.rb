@@ -1,6 +1,7 @@
 class PentabarfController < ApplicationController
   before_filter :set_conference
   after_filter :compress
+  after_filter :set_content_type
   session(:off)
 
   def index
@@ -18,7 +19,7 @@ class PentabarfController < ApplicationController
   def save_person
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
-      person = write_row( Person, params[:person], {:except=>[:person]} )
+      person = write_row( Person, params[:person], {:except=>[:person_id]} )
 
       redirect_to( :action => :person, :id => person.person_id)
     end
@@ -59,7 +60,7 @@ class PentabarfController < ApplicationController
   def save_conference
     params[:conference][:conference_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
-      conf = write_row( Conference, params[:conference] )
+      conf = write_row( Conference, params[:conference], {:except=>[:conference_id]} )
       write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
       write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
       write_rows( Conference_room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:public]})
@@ -86,6 +87,10 @@ class PentabarfController < ApplicationController
   def authorized?
     # XXX implement real authorization check
     true
+  end
+
+  def set_content_type
+    response.headers['Content-Type'] = 'text/html'
   end
 
 end
