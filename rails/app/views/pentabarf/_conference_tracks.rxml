@@ -14,8 +14,8 @@ xml.div(:id => 'content-tracks') do
       end
       xml.tbody(:id=>'conference_track_tbody') do
         xml.tr(:id=>'conference_track_template',:style=>'display:none') do
-          xml.input({:type=>:hidden,:name=>'conference_track[row_id][conference_track_id]',:id=>'conference_track[row_id][conference_track_id]'})
           xml.td do
+            xml.input({:type=>:hidden,:name=>'conference_track[row_id][conference_track_id]',:id=>'conference_track[row_id][conference_track_id]'})
             xml.input({:name=>'conference_track[row_id][conference_track]',:id=>'conference_track[row_id][conference_track]'})
           end
           xml.td do

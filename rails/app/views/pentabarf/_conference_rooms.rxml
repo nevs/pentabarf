@@ -15,8 +15,8 @@ xml.div(:id => 'content-rooms') do
       end
       xml.tbody(:id=>'conference_room_tbody') do
         xml.tr(:id=>'conference_room_template',:style=>'display:none') do
-          xml.input({:type=>:hidden,:name=>'conference_room[row_id][conference_room_id]',:id=>'conference_room[row_id][conference_room_id]'})
           xml.td do
+            xml.input({:type=>:hidden,:name=>'conference_room[row_id][conference_room_id]',:id=>'conference_room[row_id][conference_room_id]'})
             xml.input({:name=>'conference_room[row_id][conference_room]',:id=>'conference_room[row_id][conference_room]'})
           end
           xml.td do
