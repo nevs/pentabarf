@@ -1,5 +1,0 @@
-<ul class="recipients">
-<% @recipients.each_unique(:person_id) do | r | %>
-  <li><a href="<%= url_for(:action=>:person,:id=>r.person_id) %>" title="<%= h(r.email_contact) %>"><%= h(r.name) %></a></li>
-<% end %>
-</ul>

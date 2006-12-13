@@ -1,7 +1,0 @@
-address:    localhost
-port:       25
-domain:     localhost
-#user_name:  
-#password:
-#authentication:
-from:       noreply@pentabarf.org

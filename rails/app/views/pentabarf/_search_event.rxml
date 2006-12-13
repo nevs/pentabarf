@@ -1,0 +1,4 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml << event_table( Event.select(:conference_id=>@current_conference.conference_id) )
+

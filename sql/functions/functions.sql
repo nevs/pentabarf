@@ -27,7 +27,7 @@ CREATE OR REPLACE FUNCTION own_events(integer) RETURNS SETOF INTEGER AS $$
                    FROM event_person
                         INNER JOIN event_role ON (
                             event_person.event_role_id = event_role.event_role_id AND
-                            event_role.tag IN ('speaker', 'moderator', 'coordinator', 'submitter') )
+                            event_role.tag IN ('speaker', 'moderator', 'coordinator') )
                   WHERE event_person.person_id = $1 AND event_person.event_id = event.event_id);
 $$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
 
@@ -40,7 +40,7 @@ CREATE OR REPLACE FUNCTION own_events(integer, integer) RETURNS SETOF INTEGER AS
                    FROM event_person
                         INNER JOIN event_role ON (
                             event_person.event_role_id = event_role.event_role_id AND
-                            event_role.tag IN ('speaker', 'moderator', 'coordinator', 'submitter')  )
+                            event_role.tag IN ('speaker', 'moderator', 'coordinator')  )
                   WHERE event_person.person_id = $1 AND event_person.event_id = event.event_id);
 $$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
 
@@ -97,7 +97,7 @@ CREATE OR REPLACE FUNCTION submit_event(integer, integer, text) RETURNS INTEGER 
                               cur_person_id,
                               ( SELECT event_role_id
                                   FROM event_role
-                                 WHERE tag = 'submitter'),
+                                 WHERE tag = 'speaker'),
                               ( SELECT event_role_state_id
                                   FROM event_role_state
                                        INNER JOIN event_role ON (
@@ -212,7 +212,7 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
 
     INSERT INTO event_related( event_id1, event_id2 ) VALUES( cur_event_id, new_event_id );
 
-    INSERT INTO event_person( event_id,
+    INSERT INTO event_person( event_id, 
                               person_id,
                               event_role_id,
                               last_modified_by )
@@ -233,8 +233,8 @@ CREATE OR REPLACE FUNCTION add_attendee(INTEGER, INTEGER) RETURNS INTEGER AS $$
     cur_event_id ALIAS FOR $2;
     cur_event_person RECORD;
   BEGIN
-    SELECT INTO cur_event_person event_id
-      FROM event
+    SELECT INTO cur_event_person event_id 
+      FROM event 
            INNER JOIN event_state ON (
                event_state.event_state_id = event.event_state_id AND
                event_state.tag = 'accepted' )
@@ -282,7 +282,7 @@ CREATE OR REPLACE FUNCTION remove_event( event_id INTEGER ) RETURNS INTEGER AS $
     DELETE FROM event_link_internal WHERE event_link_internal.event_id = event_id;
     DELETE FROM event_attachment WHERE event_attachment.event_id = event_id;
     DELETE FROM event_rating WHERE event_rating.event_id = event_id;
-    DELETE FROM event_rating_public WHERE event_rating_public.event_id = event_id;
+    DELETE FROM event_rating_public WHERE event_rating_public.event_id = event_id; 
     DELETE FROM event WHERE event.event_id = event_id;
     RETURN event_id;
   END;
@@ -302,46 +302,4 @@ CREATE OR REPLACE FUNCTION remove_conference( conference_id INTEGER ) RETURNS IN
     RETURN conference_id;
   END;
 $$ LANGUAGE PLPGSQL RETURNS NULL ON NULL INPUT;
-
-CREATE OR REPLACE FUNCTION merge_person( primary_person INTEGER, secondary_person INTEGER ) RETURNS INTEGER AS $$
-  DECLARE
-  BEGIN
-    UPDATE person_role SET person_id = primary_person
-      WHERE person_id = secondary_person AND
-            role_id NOT IN ( SELECT role_id FROM person_role WHERE person_id = primary_person );
-    DELETE FROM person_role WHERE person_id = secondary_person;
-    UPDATE person_language SET person_id = primary_person
-      WHERE person_id = secondary_person AND
-            language_id NOT IN ( SELECT language_id FROM person_language WHERE person_id = primary_person );
-    DELETE FROM person_language WHERE person_id = secondary_person;
-    UPDATE person_transaction SET person_id = primary_person WHERE person_id = secondary_person;
-    UPDATE person_transaction SET changed_by = primary_person WHERE changed_by = secondary_person;
-    UPDATE person SET last_modified_by = primary_person WHERE last_modified_by = secondary_person;
-    UPDATE person_phone SET person_id = primary_person WHERE person_id = secondary_person;
-    UPDATE person_im SET person_id = primary_person WHERE person_id = secondary_person;
-    UPDATE person_rating SET person_id = primary_person
-      WHERE person_id = secondary_person AND
-            evaluator_id NOT IN ( SELECT evaluator_id FROM person_rating WHERE person_id = primary_person);
-    UPDATE person_travel SET person_id = primary_person
-      WHERE person_id = secondary_person AND
-        conference_id NOT IN ( SELECT conference_id FROM person_travel WHERE person_id = primary_person );
-    UPDATE person_travel SET last_modified_by = primary_person WHERE last_modified_by = secondary_person;
-    UPDATE person_image SET person_id = primary_person WHERE person_id = secondary_person;
-
-    UPDATE event SET last_modified_by = primary_person WHERE last_modified_by = secondary_person;
-    UPDATE event_transaction SET changed_by = primary_person WHERE changed_by = secondary_person;
-    UPDATE event_person SET person_id = primary_person WHERE person_id = secondary_person;
-    UPDATE event_person SET last_modified_by = primary_person WHERE last_modified_by = secondary_person;
-
-    UPDATE conference SET last_modified_by = primary_person WHERE last_modified_by = secondary_person;
-    UPDATE conference_transaction SET changed_by = primary_person WHERE changed_by = secondary_person;
-    UPDATE conference_person SET person_id = primary_person
-      WHERE person_id = secondary_person AND
-            conference_id NOT IN ( SELECT conference_id FROM conference_person WHERE person_id = primary_person );
-    UPDATE conference_person SET last_modified_by = primary_person WHERE last_modified_by = secondary_person;
-
-    DELETE FROM person WHERE person_id = secondary_person;
-    RETURN primary_person;
-  END;
-$$ LANGUAGE PLPGSQL;
 
