@@ -7,8 +7,8 @@ CREATE TABLE master.event_image(
 
 CREATE TABLE public.event_image(
   PRIMARY KEY(event_id),
-  FOREIGN KEY(event_id) REFERENCES event(event_id) ON UPDATE CASCADE,
-  FOREIGN KEY(mime_type) REFERENCES mime_type(mime_type) ON UPDATE CASCADE
+  FOREIGN KEY(event_id) REFERENCES event(event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY(mime_type) REFERENCES mime_type(mime_type) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS(master.event_image);
 
 CREATE TABLE logging.event_image() INHERITS(master.logging, master.event_image);

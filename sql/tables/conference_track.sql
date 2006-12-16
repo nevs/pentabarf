@@ -7,7 +7,7 @@ CREATE TABLE master.conference_track(
 
 CREATE TABLE public.conference_track(
   PRIMARY KEY( conference_track_id ),
-  FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE,
+  FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
   UNIQUE( conference_id, conference_track)
 ) INHERITS(master.conference_track);
 

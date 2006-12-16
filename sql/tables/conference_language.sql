@@ -8,8 +8,8 @@ CREATE TABLE master.conference_language(
 CREATE TABLE conference_language(
   PRIMARY KEY(conference_language_id),
   UNIQUE(conference_id, language),
-  FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE,
-  FOREIGN KEY(language) REFERENCES language(language) ON UPDATE CASCADE
+  FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY(language) REFERENCES language(language) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS(master.conference_language);
 
 CREATE TABLE logging.conference_language() INHERITS(master.logging, master.conference_language);

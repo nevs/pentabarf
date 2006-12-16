@@ -7,7 +7,7 @@ CREATE TABLE master.conference_team(
 
 CREATE TABLE public.conference_team(
   PRIMARY KEY(conference_team_id),
-  FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE,
+  FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
   UNIQUE( conference_id, conference_team)
 ) INHERITS(master.conference_team);
 

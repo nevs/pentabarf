@@ -32,9 +32,9 @@ CREATE TABLE master.conference(
 
 CREATE TABLE conference(
   PRIMARY KEY(conference_id),
-  FOREIGN KEY(conference_phase) REFERENCES conference_phase(conference_phase) ON UPDATE CASCADE,
-  FOREIGN KEY(country) REFERENCES country(country) ON UPDATE CASCADE,
-  FOREIGN KEY(currency) REFERENCES currency(currency) ON UPDATE CASCADE
+  FOREIGN KEY(conference_phase) REFERENCES conference_phase(conference_phase) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY(country) REFERENCES country(country) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY(currency) REFERENCES currency(currency) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS(master.conference);
 
 CREATE SEQUENCE conference_id_sequence;

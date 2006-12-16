@@ -8,8 +8,8 @@ CREATE TABLE master.conference_image(
 -- this is the real event table
 CREATE TABLE conference_image(
   PRIMARY KEY(conference_id),
-  FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE,
-  FOREIGN KEY(mime_type) REFERENCES mime_type(mime_type) ON UPDATE CASCADE
+  FOREIGN KEY(conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY(mime_type) REFERENCES mime_type(mime_type) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS(master.conference_image);
 
 CREATE TABLE logging.conference_image() INHERITS(master.logging, master.conference_image);
