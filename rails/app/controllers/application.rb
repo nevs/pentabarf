@@ -6,6 +6,8 @@ require 'digest/md5'
 class ApplicationController < ActionController::Base
   before_filter :auth
 
+  session(:off)
+
   protected
 
   def log_error( e )
@@ -112,7 +114,7 @@ class ApplicationController < ActionController::Base
 
     # at the moment we only support basic authentication
     if authdata and authdata[0] == 'Basic'
-      login_name, password = Base64.decode64(authdata[1]).split(':')[0..1]
+      login_name, password = Base64.decode64(authdata[1]).split(':', 2)[0..1]
       login_name = Iconv.iconv('UTF-8', 'iso-8859-1', login_name.to_s)
       password = Iconv.iconv('UTF-8', 'iso-8859-1', password.to_s)
     end
