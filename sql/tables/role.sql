@@ -1,0 +1,8 @@
+
+CREATE TABLE role (
+  role_id SERIAL NOT NULL,
+  tag VARCHAR(32) NOT NULL UNIQUE,
+  rank INTEGER,
+  PRIMARY KEY (role_id)
+) WITHOUT OIDS;
+
