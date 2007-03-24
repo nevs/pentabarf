@@ -1,4 +1,4 @@
-﻿/* FORMS */
+/* FORMS */
 
 form {
   border: none;
@@ -9,7 +9,7 @@ fieldset {
   border: 1px solid #c8d8e8;
   padding: 5px 10px 10px 10px;
 
-	margin-top: 10px;
+  margin-top: 10px;
   line-height: 1em;
   width: auto;
 }

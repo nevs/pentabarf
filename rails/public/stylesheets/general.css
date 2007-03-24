@@ -1,4 +1,4 @@
-﻿/* general formatting */
+/* general formatting */
 
 body {
   font-family: "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
@@ -76,7 +76,7 @@ li {
 }
 
 .pre {
-	white-space: pre;
+  white-space: pre;
 }
 
 .hidden {

@@ -1,4 +1,4 @@
-﻿
+
 /* BUTTONS */
 
 #buttons {
@@ -7,12 +7,12 @@
   bottom: 0;
 
   padding: 10px;
-	
+
   background-color: #90acc8;
   border-top: 2px dashed black;
   border-left: 2px dashed black;
   z-index: 3;
-	
+
   text-align: right;
 }
 

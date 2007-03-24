@@ -1,12 +1,16 @@
-﻿
-/* TABLES */
 
+/* arrows of sortable tables */
+
+span.sortarrow {
+  color: blue;
+}
+
+/* TABLES */
 
 table {
   border: 0px solid #90acc8;
   padding: 2px;
   margin: 2px 0 2px 0;
-  
   width: auto;
   border-collapse: separate;
 }
@@ -42,7 +46,7 @@ td {
 }
 
 td.money {
-	text-align: right;
+  text-align: right;
 }
 
 tr {
@@ -56,6 +60,22 @@ tr:hover th {
 tr:hover td {
   border: 1px solid #90acc8;
 }
+
+
+/* event states */
+
+tr.accepted {
+  background-color: #71ff88;
+}
+
+tr.undecided {
+  background-color: #fff371;
+}
+
+tr.rejected {
+  background-color: #f16567;
+}
+
 
 
 /* SPECIFIC TABLE LAYOUT */
