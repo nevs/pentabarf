@@ -1,3 +1,0 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-xml.p "This is the index page."
-

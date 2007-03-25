@@ -1,7 +1,0 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-
-xml.div(:id=>'content-comment') do
-  xml.img( :src=>url_for(:controller=>'image',:action=>:event,:id=>"#{@event.event_id}-128x128"),:style=>'float: right;')
-  xml << text_area_fieldset('table::event::remark','event[remark]', @event.remark, {:rows=>5,:cols=>60})
-end
-

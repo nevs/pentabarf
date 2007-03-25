@@ -1,8 +1,0 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-
-xml.div(:id=>'content-description') do
-
-  xml << text_area_fieldset('table::event::abstract','event[abstract]',@event.abstract,{:rows=>5,:cols=>60})
-  xml << text_area_fieldset('table::event::description','event[description]',@event.description,{:rows=>25,:cols=>60})
-
-end

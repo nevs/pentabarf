@@ -1,5 +1,0 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-xml.div( :id => 'buttons', :style => 'display: none;' ) do
-  xml.button( local('form::cancel'), {:type=>'button',:id=>'cancel-button',:acesskey=>'c',:onclick=>'window.clear_tainting()'} )
-  xml.button( local('form::save'), {:type=>'button',:id=>'submit-button',:acesskey=>'s',:onclick=>'window.clear_tainting();send_content()'} )
-end

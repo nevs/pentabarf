@@ -1,4 +1,0 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-
-xml << person_table( Person.select )
-

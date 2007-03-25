@@ -1,7 +1,0 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-
-xml.div(:id=>'content-resources') do
-
-  xml << text_area_fieldset( 'table::event::resources', 'event[resources]', @event.resources, {:cols=>60,:rows=>15} )
-
-end

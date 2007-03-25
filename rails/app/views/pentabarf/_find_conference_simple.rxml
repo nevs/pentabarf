@@ -1,9 +1,0 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-
-xml.div(:id=>'content-simple') do
-  xml.fieldset do
-    xml.input(:id=>'find_conference',:size=>40)
-  end
-  xml << observe_field( :find_conference, :frequency => 1, :update => :results, :url => { :action => :search_conference} )
-end
-
