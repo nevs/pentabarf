@@ -1,0 +1,34 @@
+# General Apache options
+AddHandler fastcgi-script .fcgi
+AddHandler cgi-script .cgi
+Options +FollowSymLinks +ExecCGI
+
+RewriteEngine On
+# RewriteBase /~sven/
+
+## Deny post requests with referer not from pentabarf.org
+## substitute pentabaf.org with your own domain if you want to use this
+#
+# RewriteCond %{REQUEST_METHOD} POST
+# RewriteCond %{HTTP_REFERER} !^$
+# RewriteCond %{HTTP_REFERER} !^https://pentabarf.org/.*$
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/ [R,L]
+
+# make symlinked directories work without trailing slash
+RewriteCond %{SCRIPT_FILENAME} -d
+RewriteCond %{REQUEST_URI} ^.*[^\/]$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI}/ [R,L]
+
+RewriteRule ^$ index.html [QSA]
+RewriteRule ^([^.]+)$ $1.html [QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
+#RewriteRule ^(.*)$ /scgi-bin/$1 [QSA,L]
+
+# In case Rails experiences terminal errors
+# Instead of displaying this message you can supply a file here which will be rendered instead
+# 
+# Example:
+#   ErrorDocument 500 /500.html
+
+ErrorDocument 500 /500.html
