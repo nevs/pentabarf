@@ -1,0 +1,2 @@
+class PentabarfController < ApplicationController
+end
