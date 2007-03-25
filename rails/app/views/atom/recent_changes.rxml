@@ -1,0 +1,27 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.instruct!
+xml.feed({:xmlns=>"http://www.w3.org/2005/Atom"}) do
+  date = DateTime.parse( @changes.changed_when )
+  xml.title "Pentabarf Recent Changes"
+  xml.subtitle ""
+  xml.generator "Pentabarf #{get_version} - Revision #{get_revision}"
+  xml.link({:rel => "self", :href=>url_for(:only_path => false, :controller => 'atom', :action => 'recentchanges')})
+  xml.updated date.strftime('%FT%T%:z')
+  xml.id url_for(:only_path => false, :controller => 'pentabarf', :action => 'recentchanges')
+
+  @changes.each do | change |
+    date = DateTime.parse( change.changed_when )
+    title = "#{change.type.capitalize} '#{change.title}' #{change.f_create ? 'created' : 'changed'} by #{change.name}"
+    xml.entry do
+      xml.title title
+      xml.link({:href=>url_for(:only_path => false, :controller => 'pentabarf', :action => change.type, :id => change.id)})
+      xml.id url_for(:only_path => false, :controller => 'pentabarf', :action => change.type, :id => change.id) + "#" + date.strftime('%FT%T.%N%:z')
+      xml.author do
+        xml.name change.name
+      end
+      xml.updated date.strftime('%FT%T%:z')
+      xml.summary title
+    end
+  end
+end
+
