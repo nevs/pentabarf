@@ -1,0 +1,97 @@
+
+/* arrows of sortable tables */
+
+span.sortarrow {
+  color: blue;
+}
+
+/* TABLES */
+
+table {
+  border: 0px solid #90acc8;
+  padding: 2px;
+  margin: 2px 0 2px 0;
+  width: auto;
+  border-collapse: separate;
+}
+
+thead {
+}
+
+caption {
+  caption-side: top;
+  text-align: center;
+  width: auto;
+}
+
+tbody {
+}
+
+th, td {
+  padding: 2px;
+  border-spacing: 2px;
+
+  border: 1px solid #90acc8;
+
+  empty-cells: show;
+}
+
+th {
+  background-color: #90acc8;
+  vertical-align: baseline;
+}
+
+td {
+  vertical-align: middle;
+}
+
+td.money {
+  text-align: right;
+}
+
+tr {
+  background-color: #c8d8e8;
+}
+
+tr:hover th {
+  border: 1px solid #c8d8e8;
+}
+
+tr:hover td {
+  border: 1px solid #90acc8;
+}
+
+
+/* event states */
+
+tr.accepted {
+  background-color: #71ff88;
+}
+
+tr.undecided {
+  background-color: #fff371;
+}
+
+tr.rejected {
+  background-color: #f16567;
+}
+
+
+
+/* SPECIFIC TABLE LAYOUT */
+
+div#comment table {
+  width: 100%;
+}
+
+col.label {
+  text-align: right;
+}
+
+col.ratings {
+  text-align: center;
+}
+
+col.comment {
+  text-align: left;
+}

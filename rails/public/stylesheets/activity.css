@@ -1,0 +1,40 @@
+/* ACTIVITY LIST */
+
+#activity {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  height: 20px;
+  z-index: 5;
+  
+  font-size: smaller;
+}
+
+#activity span {
+  background-color: #FF4040;
+  padding: 2px 2px 2px 2px;
+}
+
+#activity:hover span {
+}
+
+#activity .user {
+  color: black;
+  margin-left: 2px;
+}
+
+#activity .time {
+  color: white;
+}
+
+#activity :link, #activity :visited {
+  color: black;
+}
+
+#activity :link:hover, #activity :visited:hover {
+  text-decoration: underline;
+}
+
+#activity :active {
+  color: white;
+}
