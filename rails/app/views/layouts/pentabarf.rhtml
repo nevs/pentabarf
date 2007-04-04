@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title><%= h(@content_title) %> - Pentabarf <%= pentabarf_version %> (r<%= pentabarf_revision %>)</title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <%= javascript_include_tag( 'prototype', 'effects', 'switch_tab', 'cookie', 'tainted', 'add_functions', 'sorttable' ) %>
+    <%= stylesheet_link_tag 'main' %>
+  </head>
+  <body id="body">
+    <%= render(:partial => 'sidebar') %>
+    <div id="activity">
+      <%= render(:partial => 'activity') %>
+    </div>
+    <div id="main">
+      <div id="context">
+        <h1><%= h(@content_title) %></h1>
+        <em><%= h(@content_subtitle) %></em>
+      </div>
+      <div id="content">
+        <%= yield %>
+      </div>
+    </div>
+    <script type="text/javascript">new Ajax.PeriodicalUpdater('activity', '<%= url_for(:action=>:activity) %>', {frequency:42,decay:5});</script>
+    <%= javascript_tag("init_done = true;enumerator();") %>
+  </body>
+</html>
