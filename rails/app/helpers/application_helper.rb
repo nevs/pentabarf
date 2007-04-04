@@ -1,5 +1,9 @@
 # Methods added to this helper will be available to all templates in the application.
+
+require 'builder_helper'
+
 module ApplicationHelper
+  include Builder_helper 
 
   def pentabarf_version
     "0.3.0"
@@ -25,5 +29,10 @@ module ApplicationHelper
     end
     @@revision.to_s
   end
+
+  def local( tag )
+    tag
+  end
+
 
 end
