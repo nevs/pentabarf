@@ -24,4 +24,66 @@ module Builder_helper
     end
   end
 
+  def text_field_row( label, name, value = '', options = {} )
+    xml = Builder::XmlMarkup.new
+    xml.tr do
+      xml.td do xml.label( local( label ) ) end
+      xml.td do
+        options[:id] = options[:name] = name
+        options[:value] = value
+        options[:tabindex] = 0
+        xml.input( options )
+        yield( xml ) if block_given?
+      end 
+    end
+  end
+
+  def check_box_row( label, name, checked = false, options = {} )
+    xml = Builder::XmlMarkup.new
+    xml.tr do
+      xml.td do xml.label( local( label ) ) end
+      xml.td do
+        options[:id] = options[:name] = name
+        options[:tabindex] = 0
+        options[:type] = :checkbox
+        options[:value] ||= 't'
+        options[:checked] = :checked if checked
+        xml.input( options )
+      end
+    end
+  end
+
+  def text_area_row( label, name, value = '', options = {} )
+    xml = Builder::XmlMarkup.new
+    xml.tr do
+      xml.td do xml.label( local( label ) ) end
+      xml.td do
+        options[:id] = options[:name] = name
+        options[:tabindex] = 0
+        xml.textarea( value, options )
+      end
+    end
+  end
+
+  def text_area_fieldset( label, name, value = '', options = {} )
+    xml = Builder::XmlMarkup.new
+    xml.fieldset do
+      xml.legend( local( label ) )
+      options[:id] = options[:name] = name
+      options[:tabindex] = 0
+      xml.textarea( value, options )
+    end
+  end
+
+  def select_row( label, name, collection = [], options = {}, html_options = {} )
+    xml = Builder::XmlMarkup.new
+    xml.tr do
+      xml.td do xml.label( local( label ) ) end
+      xml.td do
+        xml << select_tag( name, collection, options, html_options )
+      end
+    end
+  end
+
 end
+

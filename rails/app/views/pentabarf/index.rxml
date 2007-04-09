@@ -1,0 +1,6 @@
+xml = Builder::XmlMarkup.new
+
+xml.div({:id=>'data'}) do
+
+end
+

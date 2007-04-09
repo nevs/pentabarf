@@ -1,0 +1,17 @@
+xml = Builder::XmlMarkup.new
+
+tabs = [:general]
+
+xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/calendar.js')})
+xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/lang/calendar-en.js')})
+xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/calendar-setup.js')})
+
+xml.div({:id=>'data'}) do
+
+  tabs.each do | tab |
+    xml << render( :partial => "conference_#{tab}" )
+  end
+
+end
+
+

@@ -34,5 +34,13 @@ module ApplicationHelper
     tag
   end
 
+  def js( text )
+    text.to_s.gsub(/[<>]/, '').gsub( '\\', '\0\0' ).gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/, '\\\\\0')
+  end
+
+  def js_function( name, *parameter )
+    parameter.map! do | p | "'#{js(p.to_s)}'" end
+    "#{name}(#{parameter.join(',')});"
+  end 
 
 end
