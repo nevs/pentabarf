@@ -1,0 +1,9 @@
+xml = Builder::XmlMarkup.new
+xml.div do
+  @last_active.each do | name |
+    xml.a({:href=>'/', :title => name.name }) do
+      xml.span( name.login_name, {:class=>'user'})
+      xml.span( name.login_diff.strftime('%M:%S'), {:class=>'time'})
+    end
+  end
+end

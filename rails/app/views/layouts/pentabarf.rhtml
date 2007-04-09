@@ -5,13 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title><%= h(@content_title) %> - Pentabarf <%= pentabarf_version %> (r<%= pentabarf_revision %>)</title>
     <link rel="shortcut icon" href="/favicon.ico"/>
-    <%= javascript_include_tag( 'prototype', 'effects', 'switch_tab', 'cookie', 'tainted', 'add_functions', 'sorttable' ) %>
+    <%= javascript_include_tag( 'prototype', 'effects' ) %>
     <%= stylesheet_link_tag 'main' %>
   </head>
   <body id="body">
     <%= render(:partial => 'sidebar') %>
     <div id="activity">
-      <%= render(:partial => 'activity') %>
     </div>
     <div id="main">
       <div id="context">
@@ -23,6 +22,5 @@
       </div>
     </div>
     <script type="text/javascript">new Ajax.PeriodicalUpdater('activity', '<%= url_for(:action=>:activity) %>', {frequency:42,decay:5});</script>
-    <%= javascript_tag("init_done = true;enumerator();") %>
   </body>
 </html>
