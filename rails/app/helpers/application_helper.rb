@@ -43,4 +43,14 @@ module ApplicationHelper
     "#{name}(#{parameter.join(',')});"
   end 
 
+  def js_tabs( tabs )
+    xml = Builder::XmlMarkup.new
+    xml.div( :id => 'tabs' ) do
+      tabs.each do | tab |
+        xml.span( tab.to_s, {:id=>"tab-#{tab}",:onclick=>"switch_tab('#{tab}')",:class=>'tab inactive'} )
+      end
+    end
+  end
+
+
 end

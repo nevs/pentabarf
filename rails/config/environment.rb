@@ -45,3 +45,7 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
+
+# filter password fields in logs
+ActionController::Base.filter_parameter_logging( :password )
+

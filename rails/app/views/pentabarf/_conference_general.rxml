@@ -26,10 +26,10 @@ xml.div(:id=>'content_general') do
     xml.table do
       xml << text_field_row('table::conference::abstract_length', 'conference[abstract_length]', @conference.abstract_length)
       xml << text_field_row('table::conference::description_length', 'conference[description_length]', @conference.description_length)
-      xml << select_row( 'table::conference::timeslot_duration', 'conference[timeslot_duration]', [], {:selected=>@conference.timeslot_duration})
+      xml << select_row( 'table::conference::timeslot_duration', 'conference[timeslot_duration]', ['00:05','00:10','00:15','00:20','00:30','0:45','1:00'], {:selected=>@conference.timeslot_duration.strftime('%H:%M')})
       xml << select_row( 'table::conference::default_timeslots', 'conference[default_timeslots]', 1..(@conference.max_timeslot_duration), {:selected=>@conference.default_timeslots})
       xml << select_row( 'table::conference::max_timeslot_duration', 'conference[max_timeslot_duration]', 1..23, {:selected=>@conference.max_timeslot_duration})
-      xml << select_row( 'table::conference::day_change', 'conference[day_change]', (0..23).map{ |i| "#{i}:00:00" }, {:selected=>@conference.day_change.strftime('%H:%M:%S')})
+      xml << select_row( 'table::conference::day_change', 'conference[day_change]', (0..23).map{ |i| sprintf('%02d:00:00', i) }, {:selected=>@conference.day_change.strftime('%H:%M:%S')})
     end
   end
 

@@ -6,6 +6,12 @@ xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jsca
 xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/lang/calendar-en.js')})
 xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/calendar-setup.js')})
 
+xml.div( :id => 'object-image' ) do
+  xml.img( :src => image_path( 'icon-conference-64x64.png' ), :class => 'object-image' )
+end
+
+xml << js_tabs( tabs )
+
 xml.div({:id=>'data'}) do
 
   tabs.each do | tab |

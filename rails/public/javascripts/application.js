@@ -44,3 +44,32 @@ function add_conference_language( conference_language_id, language_id ) {
 
 }
 
+var tabs = new Array();
+
+// find all tabs
+function find_tabs()
+{
+  var nodes = $('tabs').childNodes;
+  var outer;
+  for( var i = 0; i < nodes.length; i++){
+    outer = nodes[i];
+    if( outer instanceof HTMLSpanElement && $( outer.id.replace('tab-', 'content-') ) ) {
+      tabs.push( outer.id.replace('tab-', '') );
+    }
+  }
+}
+
+// switch between tabs
+function switch_tab( target )
+{   
+  if ( tabs.length == 0 ) find_tabs();
+  if (!target) target = tabs[0];
+  for( var i = 0; i < tabs.length; i++) {
+    $( 'tab-' + tabs[i] ).setAttribute('class','tab inactive');
+    Element.hide( 'content-' + tabs[i] );
+  }
+  $( 'tab-' + target ).setAttribute('class','tab active');
+  Element.show( 'content-' + target );
+}
+
+
