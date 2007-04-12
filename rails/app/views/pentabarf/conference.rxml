@@ -1,6 +1,6 @@
 xml = Builder::XmlMarkup.new
 
-tabs = [:general]
+tabs = [:general,:export]
 
 xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/calendar.js')})
 xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/lang/calendar-en.js')})
@@ -11,13 +11,30 @@ xml.div( :id => 'object-image' ) do
 end
 
 xml << js_tabs( tabs )
+xml << render( :partial => 'modification_buttons' )
+
 
 xml.div({:id=>'data'}) do
 
-  tabs.each do | tab |
-    xml << render( :partial => "conference_#{tab}" )
+  xml.form(:action=>url_for(:action=>:save_conference,:id => @conference.conference_id),:id=>'content_form',:method=>'post') do
+
+    tabs.each do | tab |
+      xml << render( :partial => "conference_#{tab}" )
+    end
+
   end
 
+  xml.script(:type=>'text/javascript') do
+    xml.text! <<EOF
+function send_content(){ $('content_form').submit(); };
+new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );
+switch_tab();
+
+EOF
+  end
+
+
 end
+
 
 

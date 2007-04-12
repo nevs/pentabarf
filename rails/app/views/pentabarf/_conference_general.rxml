@@ -1,6 +1,6 @@
 xml = Builder::XmlMarkup.new
 
-xml.div(:id=>'content_general') do
+xml.div(:id=>'content-general') do
 
   xml.fieldset do
     xml.legend local('view::pentabarf::conference::tab::general')
@@ -8,16 +8,16 @@ xml.div(:id=>'content_general') do
       xml << text_field_row('table::conference::acronym', 'conference[acronym]', @conference.acronym)
       xml << text_field_row('table::conference::title', 'conference[title]', @conference.title)
       xml << text_field_row('table::conference::subtitle', 'conference[subtitle]', @conference.subtitle)
-      xml << select_row('table::conference::conference_phase', 'conference[conference_phase]', Conference_phase.select, {:key=>:conference_phase_id,:value=>:tag,:selected=>@conference.conference_phase_id})
+      xml << select_row('table::conference::conference_phase_id', 'conference[conference_phase_id]', Conference_phase.select, {:key=>:conference_phase_id,:value=>:tag,:selected=>@conference.conference_phase_id})
       xml << text_field_row('table::conference::venue', 'conference[venue]', @conference.venue)
       xml << text_field_row('table::conference::city', 'conference[city]', @conference.city)
-      xml << select_row('table::conference::country', 'conference[country]', Country.select, {:key=>:country_id,:value=>:iso_3166_code,:selected=>@conference.country_id})
+      xml << select_row('table::conference::country_id', 'conference[country_id]', Country.select, {:key=>:country_id,:value=>:iso_3166_code,:selected=>@conference.country_id})
       xml << text_field_row('table::conference::start_date', 'conference[start_date]', @conference.start_date, {:size=>12}) do | x | 
         x.button( '...', {:type=>:button,:id=>'calendar_start_date'})
       end
       xml.script( "Calendar.setup({inputField:'conference[start_date]', ifFormat:'%Y-%m-%d', button:'calendar_start_date', showOthers:true, singleClick:false});", {:type=>'text/javascript'})
       xml << select_row( 'table::conference::days', 'conference[days]', 1..23, {:selected=>@conference.days})
-      xml << select_row('table::conference::currency', 'conference[currency]', Currency.select, {:key=>:currency_id,:value=>:iso_4217_code,:selected=>@conference.currency_id})
+      xml << select_row('table::conference::currency_id', 'conference[currency_id]', Currency.select, {:key=>:currency_id,:value=>:iso_4217_code,:selected=>@conference.currency_id})
       xml << text_field_row('table::conference::email', 'conference[email]', @conference.email)
     end
   end

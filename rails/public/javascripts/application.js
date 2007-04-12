@@ -19,7 +19,10 @@ function attribute_replace( element, pattern, substitute, attributes ) {
   }
 }
 
-function enable_save_button() {}
+function enable_save_button() {
+  Element.show( 'buttons' );
+  window.onbeforeunload = unloadMessage;
+}
 
 // add a person to the table on the persons tab of the event page
 var conference_language_counter = 0;
@@ -47,8 +50,7 @@ function add_conference_language( conference_language_id, language_id ) {
 var tabs = new Array();
 
 // find all tabs
-function find_tabs()
-{
+function find_tabs() {
   var nodes = $('tabs').childNodes;
   var outer;
   for( var i = 0; i < nodes.length; i++){
@@ -60,8 +62,7 @@ function find_tabs()
 }
 
 // switch between tabs
-function switch_tab( target )
-{   
+function switch_tab( target ) {   
   if ( tabs.length == 0 ) find_tabs();
   if (!target) target = tabs[0];
   for( var i = 0; i < tabs.length; i++) {
@@ -72,4 +73,11 @@ function switch_tab( target )
   Element.show( 'content-' + target );
 }
 
+function clear_tainting() {
+  window.onbeforeunload = null;
+}
+
+function unloadMessage() { 
+  return "If you leave this page, your changes will be lost.";
+} 
 

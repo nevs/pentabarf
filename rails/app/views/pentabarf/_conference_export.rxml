@@ -1,0 +1,23 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-export') do
+
+  xml.fieldset do 
+    xml.legend( 'Export' )
+
+    xml.table do
+      xml << text_field_row('table::conference::release', 'conference[release]', @conference.release)
+      xml << text_field_row('table::conference::homepage', 'conference[homepage]', @conference.homepage)
+      xml << text_field_row('table::conference::export_base_url', 'conference[export_base_url]', @conference.export_base_url)
+      xml << text_field_row('table::conference::feedback_base_url', 'conference[feedback_base_url]', @conference.feedback_base_url)
+      xml << check_box_row('table::conference::submission_enabled', 'conference[f_submission_enabled]', @conference.f_submission_enabled)
+      xml << check_box_row('table::conference::visitor_enabled', 'conference[f_visitor_enabled]', @conference.f_visitor_enabled)
+      xml << check_box_row('table::conference::feedback_enabled', 'conference[f_feedback_enabled]', @conference.f_feedback_enabled)
+      xml << check_box_row('table::conference::reconfirmation_enabled', 'conference[f_reconfirmation_enabled]', @conference.f_reconfirmation_enabled)
+    end
+  end
+
+  xml << text_area_fieldset('CSS', 'conference[css]', @conference.css, {:rows=>40,:cols=>60})
+
+end
+
