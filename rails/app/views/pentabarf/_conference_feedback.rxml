@@ -1,0 +1,23 @@
+xml = Builder::XmlMarkup.new
+
+xml.div({:id=>'content-feedback'}) do
+
+  xml.fieldset do 
+    xml.legend( 'Feedback' )
+
+    xml.table do
+      xml.thead do
+        xml.tr do
+          xml.th "Category"
+          xml.th "Rating"
+          xml.th "Total votes"
+        end
+
+      end
+
+    end
+
+  end
+
+end
+

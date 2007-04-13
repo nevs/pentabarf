@@ -28,6 +28,15 @@ class PentabarfController < ApplicationController
     end
   end
 
+  def person
+    begin
+      @person = Person.select_single( :person_id => params[:id].to_i )
+    rescue
+      return redirect_to(:action=>:person,:id=>'new') if params[:id] != 'new'
+      @person = Person.new(:person_id=>0)
+    end
+  end
+
   def activity
     @last_active = View_last_active.select( {:login_name => {:ne => @user.login_name}}, {:limit => 12} )
     render(:partial=>'activity')
