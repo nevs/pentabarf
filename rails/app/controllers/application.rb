@@ -6,7 +6,7 @@ require 'momomoto_helper'
 class ApplicationController < ActionController::Base
   include MomomotoHelper
   session :off
-  before_filter :authorize
+  before_filter :auth
 
   # extract authorization credentials from http header
   def http_auth_data
@@ -25,9 +25,9 @@ class ApplicationController < ActionController::Base
     return '', ''
   end
 
-  def authorize
+  def auth
     user, pass = http_auth_data
-    @user = User.auth( user, pass )
+    POPE.auth( user, pass )
     return true
    rescue
     response.headers["Status"] = "Unauthorized"
