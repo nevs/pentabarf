@@ -1,5 +1,5 @@
 class PentabarfController < ApplicationController
-  
+
   before_filter :init
   after_filter :set_content_type
 
@@ -7,7 +7,6 @@ class PentabarfController < ApplicationController
   end
 
   def conference
-    params[:id] = 2
     begin
       @conference = Conference.select_single( :conference_id => params[:id] )
     rescue
@@ -45,7 +44,8 @@ class PentabarfController < ApplicationController
   protected
 
   def init
-    @current_conference = Conference.select_single(:conference_id => 2)
+    # XXX FIXME remove hardcoded conference
+    @current_conference = Conference.select_single(:conference_id => 1)
   end
 
   def set_content_type

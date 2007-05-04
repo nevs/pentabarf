@@ -9,11 +9,12 @@ class Pope
     salt = @user.password[0..15]
     salt_bin = ''
     8.times do | count |
-      salt_bin += salt[count..(count+1)]
+      count *= 2
+      salt_bin += sprintf( "%c", salt[count..(count+1)].hex )
     end
-    raise "Wrong Password" unless Digest::MD5.hexdigest( salt_bin + password ) == pass
+    raise "Wrong Password" if Digest::MD5.hexdigest( salt_bin + pass ) != @user.password[16..47]
 
-    @permissions = User_permissions.select(:person_id=>@user.person_id).map do | row | row.user_permissions.to_sym end
+    # @permissions = User_permissions.select(:person_id=>@user.person_id).map do | row | row.user_permissions.to_sym end
    rescue => e
     flush
     raise e

@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
         authdata = request.env[ key ].to_s.split
         if authdata[0] == 'Basic'
           user, pass = Base64.decode64(authdata[1]).split(':', 2)[0..1]
-          user = Iconv.iconv( 'UTF-8', 'iso-8859-1', user.to_s )
-          pass = Iconv.iconv( 'UTF-8', 'iso-8859-1', pass.to_s )
+          user = Iconv.iconv( 'UTF-8', 'iso-8859-1', user.to_s ).first
+          pass = Iconv.iconv( 'UTF-8', 'iso-8859-1', pass.to_s ).first
           return user, pass
         end
         break
@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
    rescue
     response.headers["Status"] = "Unauthorized"
     response.headers["WWW-Authenticate"] = "Basic realm=Pentabarf"
-    render_text( "Authentication failed", 401)
+    render( :text => "Authentication failed", :status => 401)
     return false
   end
 

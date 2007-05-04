@@ -10,6 +10,7 @@ RAILS_GEM_VERSION = '1.2.3' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 require 'momomoto/momomoto'
+require 'pope'
 require 'jabberlogger'
 require 'yaml'
 
@@ -37,6 +38,7 @@ Rails::Initializer.run do |config|
 
   Momomoto::Database.config( YAML.load_file( config.database_configuration_file )[ENV['RAILS_ENV']] )
   Momomoto::Database.connect
+  ::POPE = Pope.new
 
 end
 
