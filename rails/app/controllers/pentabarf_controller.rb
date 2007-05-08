@@ -37,7 +37,7 @@ class PentabarfController < ApplicationController
   end
 
   def activity
-    @last_active = View_last_active.select( {:login_name => {:ne => @user.login_name}}, {:limit => 12} )
+    @last_active = View_last_active.select( {:login_name => {:ne => POPE.user.login_name}}, {:limit => 12} )
     render(:partial=>'activity')
   end
 

@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   session :off
   before_filter :auth
 
+  protected
+
   # extract authorization credentials from http header
   def http_auth_data
     ['X-HTTP_AUTHORIZATION','HTTP_AUTHORIZATION','REDIRECT_X_HTTP_AUTHORIZATION','Authorization'].each do | key |
