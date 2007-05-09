@@ -45,3 +45,26 @@ function add_conference_team( conference_team_id, tag ) {
 
 }
 
+// add a track to the list of conference tracks
+var conference_track_counter = 0;
+
+function add_conference_track( conference_track_id, tag ) {
+  var row_id = conference_track_counter++;
+  var prefix = 'conference_track[' + row_id + ']';
+  var new_row = $('conference_track_template').cloneNode(true);
+
+  new_row.id = '';
+  attribute_replace( new_row, /\[row_id\]/g, '[' + row_id + ']' );
+  $('conference_track_tbody').appendChild( new_row );
+  Element.show( 'conference_track_table' );
+  Element.show( new_row );
+
+  if ( conference_track_id )
+    $( prefix + '[conference_track_id]' ).value = conference_track_id;
+  else
+    enable_save_button();
+
+  if ( tag ) $( prefix + '[tag]' ).value = tag;
+
+}
+

@@ -1,0 +1,37 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-tracks') do
+
+  xml.fieldset do
+    xml.legend( local('tracks') )
+    xml.table(:id=>'conference_track_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('table::conference_track::track') )
+          xml.th( local('form::remove') )
+        end
+      end
+      xml.tbody(:id=>'conference_track_tbody') do
+        xml.tr(:id=>'conference_track_template',:style=>'display:none') do
+          xml.td do
+            xml.input({:type=>:hidden,:id=>'conference_track[row_id][conference_track_id]',:name=>'conference_track[row_id][conference_track_id]'})
+            xml.input({:type=>:text,:id=>'conference_track[row_id][tag]',:name=>'conference_track[row_id][tag]'})
+          end
+          xml.td do
+            xml.input({:type=>:checkbox,:name=>'conference_track[row_id][remove]',:id=>'conference_track[row_id][remove]'})
+          end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do 
+      Conference_track.select( :conference_id => @conference.conference_id ).each do | c |
+        xml << js_function( 'add_conference_track', c.conference_track_id, c.tag )
+      end
+    end
+
+    xml.button( local('add conference track'), {:type=>:button,:onclick=>'add_conference_track()'})
+  end
+
+end
+
