@@ -37,6 +37,16 @@ class PentabarfController < ApplicationController
     end
   end
 
+  def save_person
+    params[:person][:person_id] = params[:id] if params[:id].to_i > 0
+    Momomoto::Database.instance.transaction do
+      person = write_row( Person, params[:person], {:except=>[:person_id]} )
+      write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
+
+      redirect_to( :action => :person, :id => person.person_id )
+    end
+  end
+
   def activity
     @last_active = View_last_active.select( {:login_name => {:ne => POPE.user.login_name}}, {:limit => 12} )
     render(:partial=>'activity')

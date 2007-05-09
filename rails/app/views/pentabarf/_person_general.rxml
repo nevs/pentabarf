@@ -15,4 +15,34 @@ xml.div(:id=>'content-general') do
     end
   end
 
+  xml.fieldset do
+    xml.legend( local('spoken languages') )
+    xml.table(:id=>'person_language_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('language') )
+          xml.th( local('remove') )
+        end
+      end
+      xml.tbody(:id=>'person_language_tbody') do
+        xml.tr(:id=>'person_language_template',:style=>'display:none') do
+          xml.td do
+            xml << select_tag( 'person_language[row_id][language_id]', Language.select(:f_visible=>true), {:key=>:language_id,:value=>:iso_639_code})
+          end
+          xml.td do
+            xml.input({:type=>:checkbox,:name=>'person_language[row_id][remove]',:id=>'person_language[row_id][remove]'})
+          end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do 
+      Person_language.select( :person_id => @person.person_id ).each do | c |
+        xml << js_function( 'add_person_language', c.language_id )
+      end
+    end
+
+    xml.button( local('add person language'), {:type=>:button,:onclick=>'add_person_language()'})
+  end
+
 end
