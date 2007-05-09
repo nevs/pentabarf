@@ -22,7 +22,7 @@ class PentabarfController < ApplicationController
       write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
       write_rows( Team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id}})
       write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
-#      write_rows( Conference_room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:public]})
+      write_rows( Room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:f_public]})
 
       redirect_to( :action => :conference, :id => conf.conference_id)
     end
