@@ -1,7 +1,8 @@
 xml = Builder::XmlMarkup.new
 
-tabs = [:general,:export,:feedback]
+tabs = [:general,:teams,:export,:feedback]
 
+xml.script('',{:type=>'text/javascript',:src=>javascript_path('conference.js')})
 xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/calendar.js')})
 xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/lang/calendar-en.js')})
 xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/calendar-setup.js')})

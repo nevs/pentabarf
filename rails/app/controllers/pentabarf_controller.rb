@@ -20,6 +20,7 @@ class PentabarfController < ApplicationController
     Momomoto::Database.instance.transaction do
       conf = write_row( Conference, params[:conference], {:except=>[:conference_id],:always=>[:f_submission_enabled,:f_visitor_enabled,:f_feedback_enabled,:f_reconfirmation_enabled]} )
       write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
+      write_rows( Team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id}})
 #      write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
 #      write_rows( Conference_room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:public]})
 
@@ -54,3 +55,4 @@ class PentabarfController < ApplicationController
   end
 
 end
+

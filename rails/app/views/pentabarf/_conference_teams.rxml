@@ -1,0 +1,37 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-teams') do
+
+  xml.fieldset do
+    xml.legend( local('teams') )
+    xml.table(:id=>'conference_team_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('table::conference_team::team') )
+          xml.th( local('form::remove') )
+        end
+      end
+      xml.tbody(:id=>'conference_team_tbody') do
+        xml.tr(:id=>'conference_team_template',:style=>'display:none') do
+          xml.td do
+            xml.input({:type=>:hidden,:id=>'conference_team[row_id][team_id]',:name=>'conference_team[row_id][team_id]'})
+            xml.input({:type=>:text,:id=>'conference_team[row_id][tag]',:name=>'conference_team[row_id][tag]'})
+          end
+          xml.td do
+            xml.input({:type=>:checkbox,:name=>'conference_team[row_id][remove]',:id=>'conference_team[row_id][remove]'})
+          end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do 
+      Team.select( :conference_id => @conference.conference_id ).each do | c |
+        xml << js_function( 'add_conference_team', c.team_id, c.tag )
+      end
+    end
+
+    xml.button( local('add conference team'), {:type=>:button,:onclick=>'add_conference_team()'})
+  end
+
+end
+
