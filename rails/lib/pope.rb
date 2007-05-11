@@ -14,7 +14,7 @@ class Pope
     end
     raise "Wrong Password" if Digest::MD5.hexdigest( salt_bin + pass ) != @user.password[16..47]
 
-    # @permissions = User_permissions.select(:person_id=>@user.person_id).map do | row | row.user_permissions.to_sym end
+    @permissions = User_permissions.call(:person_id=>@user.person_id).map do | row | row.user_permissions.to_sym end
    rescue => e
     flush
     raise e
@@ -47,7 +47,7 @@ class Pope
 
   def flush
     @user = nil
-    @permissions = nil
+    @permissions = []
   end
 
 end
