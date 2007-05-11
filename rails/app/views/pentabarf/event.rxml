@@ -1,24 +1,24 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
-xml.script('',{:type=>'text/javascript',:src=>javascript_path('person.js')})
+xml.script('',{:type=>'text/javascript',:src=>javascript_path('event.js')})
 
 xml.div( :id => 'object-image' ) do
-  xml.img( :src => image_path( 'icon-person-64x64.png' ), :class => 'object-image' )
+  xml.img( :src => image_path( 'icon-event-64x64.png' ), :class => 'object-image' )
 end
 
 
-tabs = [:general, :description]
+tabs = [:general]
 
 xml << js_tabs( tabs )
 
 xml.div( :id => 'data' ) do
 
-  xml.form(:action=>url_for(:action=>:save_person,:id => @person.person_id),:id=>'content_form',:method=>'post') do
+  xml.form(:action=>url_for(:action=>:save_event,:id => @event.event_id),:id=>'content_form',:method=>'post') do
 
     xml << render( :partial => 'modification_buttons' )
-    xml << render( :partial => 'person_comment' )
+    xml << render( :partial => 'event_comment' )
 
     tabs.each do | tab |
-      xml << render( :partial => "person_#{tab}")
+      xml << render( :partial => "event_#{tab}")
     end
 
   end

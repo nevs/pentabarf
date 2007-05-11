@@ -1,0 +1,15 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-general') do
+
+  xml.fieldset do
+    xml.legend local('view::pentabarf::event::tab::general')
+
+    xml.table do
+      xml << text_field_row( 'table::event::title', 'person[title]', @event.title, {:size=>30} )
+      xml << text_field_row( 'table::event::subtitle', 'person[subtitle]', @event.subtitle, {:size=>30} )
+      xml << text_field_row( 'table::event::tag', 'person[tag]', @event.tag, {:size=>30} )
+    end
+  end
+
+end

@@ -3,6 +3,10 @@ class Pope
 
   attr_reader :user, :permissions
 
+  def initialize
+    @permissions = []
+  end
+
   def auth( user, pass )
     @user = Person.select_single(:login_name => user)
 

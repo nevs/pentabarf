@@ -28,6 +28,15 @@ class PentabarfController < ApplicationController
     end
   end
 
+  def event
+    begin
+      @event = Event.select_single( :event_id => params[:id] )
+    rescue
+      return redirect_to(:action=>:event,:id=>'new') if params[:id] != 'new'
+      @event = Event.new(:event_id=>0)
+    end
+  end
+
   def person
     begin
       @person = Person.select_single( :person_id => params[:id].to_i )

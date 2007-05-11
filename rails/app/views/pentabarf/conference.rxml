@@ -28,6 +28,7 @@ xml.div({:id=>'data'}) do
 
   xml.script( "function send_content(){ $('content_form').submit();  }", { :type => 'text/javascript' } )
   xml.script( "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );", { :type => 'text/javascript' } )
+  xml.script( "switch_tab();", { :type => 'text/javascript' } )
 
 end
 
