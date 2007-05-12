@@ -31,7 +31,7 @@ module ApplicationHelper
   end
 
   def local( tag )
-    tag
+    tag.to_s
   end
 
   def js( text )

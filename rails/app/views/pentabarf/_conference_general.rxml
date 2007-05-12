@@ -5,27 +5,27 @@ xml.div(:id=>'content-general') do
   xml.fieldset do
     xml.legend local('view::pentabarf::conference::tab::general')
     xml.table do
-      xml << text_field_row('table::conference::acronym', 'conference[acronym]', @conference.acronym)
-      xml << text_field_row('table::conference::title', 'conference[title]', @conference.title)
-      xml << text_field_row('table::conference::subtitle', 'conference[subtitle]', @conference.subtitle)
+      xml << text_field_row( @conference, :acronym )
+      xml << text_field_row( @conference, :title )
+      xml << text_field_row( @conference, :subtitle )
       xml << select_row('table::conference::conference_phase_id', 'conference[conference_phase_id]', Conference_phase.select, {:key=>:conference_phase_id,:value=>:tag,:selected=>@conference.conference_phase_id})
-      xml << text_field_row('table::conference::venue', 'conference[venue]', @conference.venue)
-      xml << text_field_row('table::conference::city', 'conference[city]', @conference.city)
+      xml << text_field_row( @conference, :venue )
+      xml << text_field_row( @conference, :city )
       xml << select_row('table::conference::country_id', 'conference[country_id]', Country.select, {:key=>:country_id,:value=>:iso_3166_code,:selected=>@conference.country_id})
-      xml << text_field_row('table::conference::start_date', 'conference[start_date]', @conference.start_date, {:size=>12}) do | x | 
+      xml << text_field_row( @conference, :start_date, {:size => 12 } ) do | x |
         x.button( '...', {:type=>:button,:id=>'calendar_start_date'})
       end
       xml.script( "Calendar.setup({inputField:'conference[start_date]', ifFormat:'%Y-%m-%d', button:'calendar_start_date', showOthers:true, singleClick:false});", {:type=>'text/javascript'})
       xml << select_row( 'table::conference::days', 'conference[days]', 1..23, {:selected=>@conference.days})
       xml << select_row('table::conference::currency_id', 'conference[currency_id]', Currency.select, {:key=>:currency_id,:value=>:iso_4217_code,:selected=>@conference.currency_id})
-      xml << text_field_row('table::conference::email', 'conference[email]', @conference.email)
+      xml << text_field_row( @conference, :email )
     end
   end
 
   xml.fieldset do
     xml.table do
-      xml << text_field_row('table::conference::abstract_length', 'conference[abstract_length]', @conference.abstract_length)
-      xml << text_field_row('table::conference::description_length', 'conference[description_length]', @conference.description_length)
+      xml << text_field_row( @conference, :abstract_length )
+      xml << text_field_row( @conference, :description_length )
       xml << select_row( 'table::conference::timeslot_duration', 'conference[timeslot_duration]', ['00:05','00:10','00:15','00:20','00:30','0:45','1:00'], {:selected=>@conference.timeslot_duration.strftime('%H:%M')})
       xml << select_row( 'table::conference::default_timeslots', 'conference[default_timeslots]', 1..(@conference.max_timeslot_duration), {:selected=>@conference.default_timeslots})
       xml << select_row( 'table::conference::max_timeslot_duration', 'conference[max_timeslot_duration]', 1..23, {:selected=>@conference.max_timeslot_duration})

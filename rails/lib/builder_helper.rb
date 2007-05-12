@@ -24,7 +24,12 @@ module Builder_helper
     end
   end
 
-  def text_field_row( label, name, value = '', options = {} )
+  def text_field_row( row, column, options = {}, &block )
+    options[:size] = 40 unless options[:size]
+    __text_field_row( "#{column}", "#{row.class.table.table_name}[#{column}]", row[column], options, &block )
+  end
+
+  def __text_field_row( label, name, value = '', options = {} )
     xml = Builder::XmlMarkup.new
     xml.tr do
       xml.td do xml.label( local( label ) ) end

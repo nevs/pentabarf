@@ -6,11 +6,11 @@ xml.div(:id=>'content-general') do
     xml.legend local('view::pentabarf::person::tab::general')
 
     xml.table do
-      xml << text_field_row( 'table::person::first_name', 'person[first_name]', @person.first_name, {:size=>30} )
-      xml << text_field_row( 'table::person::last_name', 'person[last_name]', @person.last_name, {:size=>30} )
-      xml << text_field_row( 'table::person::nickname', 'person[nickname]', @person.nickname, {:size=>30} )
-      xml << text_field_row( 'table::person::public_name', 'person[public_name]', @person.public_name, {:size=>30} )
-      xml << text_field_row( 'table::person::title', 'person[title]', @person.title, {:size=>30} )
+      xml << text_field_row( @person, :first_name )
+      xml << text_field_row( @person, :last_name )
+      xml << text_field_row( @person, :nickname )
+      xml << text_field_row( @person, :public_name )
+      xml << text_field_row( @person, :title )
       xml << select_row( 'table::person::gender', 'person[gender]',[[true,'male'],[false,'female']] , {:key=>:first,:value=>:last,:selected=>@person.gender,:with_empty=>true})
     end
   end
