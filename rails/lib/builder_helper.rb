@@ -45,11 +45,15 @@ module Builder_helper
         options[:tabindex] = 0
         xml.input( options )
         yield( xml ) if block_given?
-      end 
+      end
     end
   end
 
-  def check_box_row( label, name, checked = false, options = {} )
+  def check_box_row( row, column, options = {}, &block )
+    __check_box_row( "#{column}", "#{row.class.table.table_name}[#{column}]", row[column], options = {}, &block )
+  end
+
+  def __check_box_row( label, name, checked = false, options = {} )
     xml = Builder::XmlMarkup.new
     xml.tr do
       xml.td do xml.label( local( label ) ) end

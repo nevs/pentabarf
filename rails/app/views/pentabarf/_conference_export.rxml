@@ -10,10 +10,10 @@ xml.div(:id=>'content-export') do
       xml << text_field_row( @conference, :homepage )
       xml << text_field_row( @conference, :export_base_url )
       xml << text_field_row( @conference, :feedback_base_url )
-      xml << check_box_row('table::conference::submission_enabled', 'conference[f_submission_enabled]', @conference.f_submission_enabled)
-      xml << check_box_row('table::conference::visitor_enabled', 'conference[f_visitor_enabled]', @conference.f_visitor_enabled)
-      xml << check_box_row('table::conference::feedback_enabled', 'conference[f_feedback_enabled]', @conference.f_feedback_enabled)
-      xml << check_box_row('table::conference::reconfirmation_enabled', 'conference[f_reconfirmation_enabled]', @conference.f_reconfirmation_enabled)
+      xml << check_box_row( @conference, :f_submission_enabled )
+      xml << check_box_row( @conference, :f_visitor_enabled )
+      xml << check_box_row( @conference, :f_feedback_enabled )
+      xml << check_box_row( @conference, :f_reconfirmation_enabled )
     end
   end
 
