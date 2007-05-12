@@ -24,6 +24,12 @@ module Builder_helper
     end
   end
 
+  def hidden_field( row, column )
+    xml = Builder::XmlMarkup.new
+    name = "#{row.class.table.table_name}[#{column}]"
+    xml.input({:type=>:hidden, :id=>name, :name => name, :value => row[column]})
+  end
+
   def text_field_row( row, column, options = {}, &block )
     options[:size] = 40 unless options[:size]
     __text_field_row( "#{column}", "#{row.class.table.table_name}[#{column}]", row[column], options, &block )

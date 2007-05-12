@@ -14,6 +14,7 @@ xml.div( :id => 'data' ) do
 
   xml.form(:action=>url_for(:action=>:save_person,:id => @person.person_id),:id=>'content_form',:method=>'post') do
 
+    xml << hidden_field( @conference_person, :conference_person_id )
     xml << render( :partial => 'modification_buttons' )
     xml << render( :partial => 'person_comment' )
 
