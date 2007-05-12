@@ -8,6 +8,7 @@ class Pope
   end
 
   def auth( user, pass )
+    deauth
     @user = Person.select_single(:login_name => user)
 
     salt = @user.password[0..15]
@@ -29,24 +30,40 @@ class Pope
   end
 
   def table_write( table, row )
-    domains = []
-    [:person,:event,:conference].each do | domain |
-      if table.columns.key?("#{domain}_id".to_sym)
-        domains.push( domain )
-        # if table_name == domain name this is the creation of a new object 
-        # otherwise it's only a modification
-        if table.table_name == domain.to_s && row.new_record?
-          raise "Forbidden" if not permissions.member?( "create_#{domain}".to_sym )
-        else
-          raise "Forbidden" if not permissions.member?( "modify_#{domain}".to_sym )
-        end
+    table_domains( table ) do | domain |
+      # if table_name == domain name this is the creation of a new object
+      # otherwise it's only a modification
+      if table.table_name == domain.to_s && row.new_record?
+        raise "Forbidden" if not permissions.member?( "create_#{domain}".to_sym )
+      else
+        raise "Forbidden" if not permissions.member?( "modify_#{domain}".to_sym )
       end
     end
-    raise "No matching domain" if domains.empty?
   end
 
   def table_delete( table, row )
-    raise "Forbidden"
+    table_domains( table ) do | domain |
+      # if table_name == domain name this is the deletion of an object
+      # otherwise it's only a modification
+      if table.table_name == domain.to_s
+        raise "Forbidden" if not permissions.member?( "delete_#{domain}".to_sym )
+      else
+        raise "Forbidden" if not permissions.member?( "modify_#{domain}".to_sym )
+      end
+    end
+  end
+
+  protected
+
+  def table_domains( table )
+    domains = []
+    [:event,:person,:conference].each do | d |
+      if table.columns.key?( "#{d}_id".to_sym )
+        domains.push( d )
+        yield( d )
+      end
+    end
+    raise "No matching domain" if domains.empty?
   end
 
   def flush
