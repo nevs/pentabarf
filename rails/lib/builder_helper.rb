@@ -102,13 +102,11 @@ module Builder_helper
     end
   end
 
-  def __select_row( label, name, collection = [], options = {}, html_options = {} )
+  def money_currency_row( row, sum_column, currency_column, options = {} )
+    name = "#{row.class.table.table_name}[#{currency_column}]"
     xml = Builder::XmlMarkup.new
-    xml.tr do
-      xml.td do xml.label( local( label ) ) end
-      xml.td do
-        xml << select_tag( name, collection, options, html_options )
-      end
+    xml << text_field_row( row, sum_column, {:size=>10} ) do | x |
+      x << select_tag( name, Currency.select.map{|e| [e.currency_id, e.iso_4217_code]}, {:selected=>@person_travel.send(currency_column)})
     end
   end
 

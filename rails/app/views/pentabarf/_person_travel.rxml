@@ -36,10 +36,36 @@ xml.div(:id=>'content-travel') do
 
     xml.table do
       xml << check_box_row( @person_travel, :f_need_travel_cost )
-      xml << select_row( @person_travel, :travel_currency_id, Currency.select.map{|e| [e.currency_id, e.iso_4217_code]})
-      xml << text_field_row( @person_travel, :fee, {:size=>10} )
+      xml << money_currency_row( @person_travel, :travel_cost, :travel_currency_id )
+      xml << money_currency_row( @person_travel, :fee, :fee_currency_id )
     end
 
   end
 
+  xml.fieldset do
+    xml.legend local('accommodation')
+    xml.table do
+      xml << text_field_row( @person_travel, :accommodation_name )
+      xml << text_field_row( @person_travel, :accommodation_phone )
+      xml << text_field_row( @person_travel, :accommodation_phone_room )
+      xml << text_field_row( @person_travel, :accommodation_street )
+      xml << text_field_row( @person_travel, :accommodation_postcode )
+      xml << text_field_row( @person_travel, :accommodation_city )
+      xml << check_box_row( @person_travel, :f_need_accommodation )
+      xml << check_box_row( @person_travel, :f_need_accommodation_cost )
+      xml << money_currency_row( @person_travel, :accommodation_cost, :accommodation_currency_id )
+    end
+  end
+
+  xml.fieldset do
+    xml.legend local('bank')
+    xml.table do
+      xml << text_field_row( @person, :iban )
+      xml << text_field_row( @person, :bic )
+      xml << text_field_row( @person, :bank_name )
+      xml << text_field_row( @person, :account_owner )
+    end
+  end
+
 end
+
