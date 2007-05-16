@@ -1,4 +1,5 @@
 
+# this class handles all authententication and authorization decissions
 class Pope
 
   attr_reader :user, :permissions
@@ -31,25 +32,15 @@ class Pope
 
   def table_write( table, row )
     table_domains( table ) do | domain |
-      # if table_name == domain name this is the creation of a new object
-      # otherwise it's only a modification
-      if table.table_name == domain.to_s && row.new_record?
-        raise "Forbidden" if not permissions.member?( "create_#{domain}".to_sym )
-      else
-        raise "Forbidden" if not permissions.member?( "modify_#{domain}".to_sym )
-      end
+      action = 'modify' if table.table_name != table.table_name
+      domain = :person if domain == :conference_person
+      return true if permissions.member?( "#{action}_#{domain}".to_sym )
     end
   end
 
   def table_delete( table, row )
     table_domains( table ) do | domain |
-      # if table_name == domain name this is the deletion of an object
-      # otherwise it's only a modification
-      if table.table_name == domain.to_s
-        raise "Forbidden" if not permissions.member?( "delete_#{domain}".to_sym )
-      else
-        raise "Forbidden" if not permissions.member?( "modify_#{domain}".to_sym )
-      end
+      raise "Forbidden to delete in #{table}" if not self.send("auth_#{domain}", table, row, :delete)
     end
   end
 
@@ -57,13 +48,13 @@ class Pope
 
   def table_domains( table )
     domains = []
-    [:event,:person,:conference].each do | d |
+    [:event,:person,:conference,:conference_person].each do | d |
       if table.columns.key?( "#{d}_id".to_sym )
         domains.push( d )
         yield( d )
       end
     end
-    raise "No matching domain" if domains.empty?
+    raise "No domain found for table #{table}" if domains.empty?
   end
 
   def flush
