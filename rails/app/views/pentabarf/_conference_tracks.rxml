@@ -7,8 +7,8 @@ xml.div(:id=>'content-tracks') do
     xml.table(:id=>'conference_track_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local('table::conference_track::track') )
-          xml.th( local('form::remove') )
+          xml.th( local('track') )
+          xml.th( local('remove') )
         end
       end
       xml.tbody(:id=>'conference_track_tbody') do
@@ -26,11 +26,11 @@ xml.div(:id=>'content-tracks') do
 
     xml.script(:type=>'text/javascript') do 
       Conference_track.select( :conference_id => @conference.conference_id ).each do | c |
-        xml << js_function( 'add_conference_track', c.conference_track_id, c.tag )
+        xml << js_function( 'table_add_row', 'conference_track', c.conference_track_id, c.tag )
       end
     end
 
-    xml.button( local('add conference track'), {:type=>:button,:onclick=>'add_conference_track()'})
+    xml.button( local('add conference track'), {:type=>:button,:onclick=>'table_add_row("conference_track")'})
   end
 
 end

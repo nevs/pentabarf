@@ -1,0 +1,37 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-links') do
+
+  xml.fieldset do
+    xml.legend local('links')
+
+    xml.table(:id=>'conference_person_link_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('url') )
+          xml.th( local('title') )
+          xml.th( local('remove') )
+        end
+      end
+      xml.tbody(:id=>'conference_person_link_tbody') do
+        xml.tr(:id=>'conference_person_link_template',:style=>'display:none') do
+          xml.td do
+            xml.input({:type=>:hidden,:id=>'conference_person_link[row_id][conference_person_link_id]',:name=>'conference_person_link[row_id][conference_person_link_id]'})
+            xml.input({:type=>:text,:id=>'conference_person_link[row_id][url]',:name=>'conference_person_link[row_id][url]'})
+          end
+          xml.td do xml.input({:type=>:text,:id=>'conference_person_link[row_id][title]',:name=>'conference_person_link[row_id][title]'}) end
+          xml.td do xml.input({:type=>:checkbox,:name=>'conference_person_link[row_id][remove]',:id=>'conference_person_link[row_id][remove]'}) end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do 
+      Conference_person_link.select( :conference_person_id => @conference_person.conference_person_id ).each do | c |
+        xml << js_function( 'table_add_row', 'conference_person_link', c.conference_person_link_id, c.url, c.title )
+      end
+    end
+
+    xml.button( local('add link'), {:type=>:button,:onclick=>'table_add_row("conference_person_link")'})
+  end
+
+end

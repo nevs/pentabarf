@@ -38,11 +38,11 @@ xml.div(:id=>'content-general') do
 
     xml.script(:type=>'text/javascript') do 
       Person_language.select( :person_id => @person.person_id ).each do | c |
-        xml << js_function( 'add_person_language', c.language_id )
+        xml << js_function( 'table_add_row', 'person_language', c.language_id )
       end
     end
 
-    xml.button( local('add person language'), {:type=>:button,:onclick=>'add_person_language()'})
+    xml.button( local('add person language'), {:type=>:button,:onclick=>'table_add_row("person_language")'})
   end
 
 end

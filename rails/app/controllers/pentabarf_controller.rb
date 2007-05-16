@@ -52,9 +52,10 @@ class PentabarfController < ApplicationController
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
       person = write_row( Person, params[:person], {:except=>[:person_id]} )
-      write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
+      conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
       write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
       write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
+      write_rows( Conference_person_link, params[:conference_person_link], {:preset=>{:conference_person_id => conference_person.conference_person_id}})
 
       redirect_to( :action => :person, :id => person.person_id )
     end

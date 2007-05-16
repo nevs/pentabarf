@@ -30,11 +30,11 @@ xml.div(:id=>'content-rooms') do
 
     xml.script(:type=>'text/javascript') do 
       Room.select( :conference_id => @conference.conference_id ).each do | c |
-        xml << js_function( 'add_conference_room', c.room_id, c.short_name, c.rank, c.size, c.f_public )
+        xml << js_function( 'table_add_row', 'conference_room', c.room_id, c.short_name, c.rank, c.size, c.f_public )
       end
     end
 
-    xml.button( local('add conference room'), {:type=>:button,:onclick=>'add_conference_room()'})
+    xml.button( local('add conference room'), {:type=>:button,:onclick=>'table_add_row("conference_room")'})
   end
 
 end

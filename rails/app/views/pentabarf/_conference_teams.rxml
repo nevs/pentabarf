@@ -7,8 +7,8 @@ xml.div(:id=>'content-teams') do
     xml.table(:id=>'conference_team_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local('table::conference_team::team') )
-          xml.th( local('form::remove') )
+          xml.th( local('team') )
+          xml.th( local('remove') )
         end
       end
       xml.tbody(:id=>'conference_team_tbody') do
@@ -26,11 +26,11 @@ xml.div(:id=>'content-teams') do
 
     xml.script(:type=>'text/javascript') do 
       Team.select( :conference_id => @conference.conference_id ).each do | c |
-        xml << js_function( 'add_conference_team', c.team_id, c.tag )
+        xml << js_function( 'table_add_row', 'conference_team', c.team_id, c.tag )
       end
     end
 
-    xml.button( local('add conference team'), {:type=>:button,:onclick=>'add_conference_team()'})
+    xml.button( local('add conference team'), {:type=>:button,:onclick=>'table_add_row("conference_team")'})
   end
 
 end

@@ -35,8 +35,8 @@ xml.div(:id=>'content-general') do
     xml.table(:id=>'conference_language_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local('table::conference_language::language') )
-          xml.th( local('form::remove') )
+          xml.th( local('language') )
+          xml.th( local('remove') )
         end
       end
       xml.tbody(:id=>'conference_language_tbody') do
@@ -54,11 +54,11 @@ xml.div(:id=>'content-general') do
 
     xml.script(:type=>'text/javascript') do 
       Conference_language.select( :conference_id => @conference.conference_id ).each do | c |
-        xml << js_function( 'add_conference_language', c.conference_language_id, c.language_id )
+        xml << js_function( 'table_add_row', 'conference_language', c.conference_language_id, c.language_id )
       end
     end
 
-    xml.button( local('add conference language'), {:type=>:button,:onclick=>'add_conference_language()'})
+    xml.button( local('add conference language'), {:type=>:button,:onclick=>'table_add_row("conference_language")'})
   end
 
 

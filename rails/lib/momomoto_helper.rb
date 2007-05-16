@@ -20,11 +20,11 @@ module MomomotoHelper
     values.each do | field, value |
       next if klass.primary_keys.member?( field.to_sym ) ||
               options[:except].member?( field.to_sym ) ||
-              options[:preset].keys.member?( field.to_sym )
+              options[:preset].key?( field.to_sym )
       row[ field ] = value
     end
     options[:always].each do | field_name |
-      row[ field_name ] = nil unless values.keys.include?( field_name.to_s )
+      row[ field_name ] = nil unless values.key?( field_name.to_s )
     end
     yield row if block_given?
     row.write
