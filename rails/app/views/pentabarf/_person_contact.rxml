@@ -8,7 +8,72 @@ xml.div(:id=>'content-contact') do
     xml.table do
       xml << text_field_row( @person, :email_contact )
       xml << text_field_row( @conference_person, :email_public )
+      xml << check_box_row( @person, :f_spam )
     end
+  end
+
+  xml.fieldset do
+    xml.legend local('im address')
+
+    xml.table(:id=>'person_im_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('im type') )
+          xml.th( local('im address') )
+          xml.th( local('remove') )
+        end
+      end
+      xml.tbody(:id=>'person_im_tbody') do
+        xml.tr(:id=>'person_im_template',:style=>'display:none') do
+          xml.td do
+            xml.input({:type=>:hidden,:id=>'person_im[row_id][person_im_id]',:name=>'person_im[row_id][person_im_id]'})
+            xml << select_tag( 'person_im[row_id][im_type_id]', Im_type.select.map{|e| [e.im_type_id,e.tag]} )
+          end
+          xml.td do xml.input({:type=>:text,:id=>'person_im[row_id][im_address]',:name=>'person_im[row_id][im_address]'}) end
+          xml.td do xml.input({:type=>:checkbox,:name=>'person_im[row_id][remove]',:id=>'person_im[row_id][remove]'}) end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do 
+      Person_im.select( :person_id => @person.person_id ).each do | c |
+        xml << js_function( 'table_add_row', 'person_im', c.person_im_id, c.im_type_id, c.im_address )
+      end
+    end
+
+    xml.button( local('add im address'), {:type=>:button,:onclick=>'table_add_row("person_im")'})
+  end
+
+  xml.fieldset do
+    xml.legend local('phone number')
+
+    xml.table(:id=>'person_phone_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('phone type') )
+          xml.th( local('phone number') )
+          xml.th( local('remove') )
+        end
+      end
+      xml.tbody(:id=>'person_phone_tbody') do
+        xml.tr(:id=>'person_phone_template',:style=>'display:none') do
+          xml.td do
+            xml.input({:type=>:hidden,:id=>'person_phone[row_id][person_phone_id]',:name=>'person_phone[row_id][person_phone_id]'})
+            xml << select_tag( 'person_phone[row_id][phone_type_id]', Phone_type.select.map{|e| [e.phone_type_id,e.tag]} )
+          end
+          xml.td do xml.input({:type=>:text,:id=>'person_phone[row_id][phone_number]',:name=>'person_phone[row_id][phone_number]'}) end
+          xml.td do xml.input({:type=>:checkbox,:name=>'person_phone[row_id][remove]',:id=>'person_phone[row_id][remove]'}) end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do 
+      Person_phone.select( :person_id => @person.person_id ).each do | c |
+        xml << js_function( 'table_add_row', 'person_phone', c.person_phone_id, c.phone_type_id, c.phone_number )
+      end
+    end
+
+    xml.button( local('add phone address'), {:type=>:button,:onclick=>'table_add_row("person_phone")'})
   end
 
   xml.fieldset do

@@ -1,5 +1,4 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
-xml.script('',{:type=>'text/javascript',:src=>javascript_path('event.js')})
 
 xml.div( :id => 'object-image' ) do
   xml.img( :src => image_path( 'icon-event-64x64.png' ), :class => 'object-image' )
