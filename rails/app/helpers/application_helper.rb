@@ -39,7 +39,11 @@ module ApplicationHelper
   end
 
   def js_function( name, *parameter )
-    parameter.map! do | p | "'#{js(p.to_s)}'" end
+    parameter.map! do | p | 
+      if p == true then "true"
+      elsif p == false then "false"
+      else "'#{js(p.to_s)}'" end
+    end
     "#{name}(#{parameter.join(',')});"
   end 
 
