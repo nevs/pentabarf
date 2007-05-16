@@ -1,0 +1,27 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-contact') do
+
+  xml.fieldset do
+    xml.legend local('email')
+
+    xml.table do
+      xml << text_field_row( @person, :email_contact )
+      xml << text_field_row( @conference_person, :email_public )
+    end
+  end
+
+  xml.fieldset do
+    xml.legend local('address')
+
+    xml.table do
+      xml << text_field_row( @person, :address )
+      xml << text_field_row( @person, :street )
+      xml << text_field_row( @person, :street_postcode )
+      xml << text_field_row( @person, :po_box )
+      xml << text_field_row( @person, :po_box_postcode )
+      xml << text_field_row( @person, :city )
+    end
+  end
+
+end

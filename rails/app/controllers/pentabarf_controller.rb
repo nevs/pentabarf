@@ -45,6 +45,7 @@ class PentabarfController < ApplicationController
       @person = Person.new(:person_id=>0)
     end
     @conference_person = Conference_person.select_or_new({:conference_id=>@current_conference.conference_id, :person_id=>@person.person_id})
+    @person_travel = Person_travel.select_or_new({:conference_id=>@current_conference.conference_id, :person_id=>@person.person_id})
   end
 
   def save_person
@@ -52,6 +53,7 @@ class PentabarfController < ApplicationController
     Momomoto::Database.instance.transaction do
       person = write_row( Person, params[:person], {:except=>[:person_id]} )
       write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
+      write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
       write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
 
       redirect_to( :action => :person, :id => person.person_id )

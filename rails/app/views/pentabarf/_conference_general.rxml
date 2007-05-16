@@ -8,16 +8,13 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @conference, :acronym )
       xml << text_field_row( @conference, :title )
       xml << text_field_row( @conference, :subtitle )
-      xml << select_row('table::conference::conference_phase_id', 'conference[conference_phase_id]', Conference_phase.select, {:key=>:conference_phase_id,:value=>:tag,:selected=>@conference.conference_phase_id})
+      xml << select_row( @conference, :conference_phase_id, Conference_phase.select.map{|e| [e.conference_phase_id, e.tag]} )
       xml << text_field_row( @conference, :venue )
       xml << text_field_row( @conference, :city )
-      xml << select_row('table::conference::country_id', 'conference[country_id]', Country.select, {:key=>:country_id,:value=>:iso_3166_code,:selected=>@conference.country_id})
-      xml << text_field_row( @conference, :start_date, {:size => 12 } ) do | x |
-        x.button( '...', {:type=>:button,:id=>'calendar_start_date'})
-      end
-      xml.script( "Calendar.setup({inputField:'conference[start_date]', ifFormat:'%Y-%m-%d', button:'calendar_start_date', showOthers:true, singleClick:false});", {:type=>'text/javascript'})
-      xml << select_row( 'table::conference::days', 'conference[days]', 1..23, {:selected=>@conference.days})
-      xml << select_row('table::conference::currency_id', 'conference[currency_id]', Currency.select, {:key=>:currency_id,:value=>:iso_4217_code,:selected=>@conference.currency_id})
+      xml << select_row( @conference, :country_id, Country.select.map{|e| [e.country_id, e.iso_3166_code]} )
+      xml << date_button_row( @conference, :start_date )
+      xml << select_row( @conference, :days, 1..23 )
+      xml << select_row( @conference, :currency_id, Currency.select.map{|e| [e.currency_id,e.iso_4217_code]} )
       xml << text_field_row( @conference, :email )
     end
   end
@@ -26,10 +23,10 @@ xml.div(:id=>'content-general') do
     xml.table do
       xml << text_field_row( @conference, :abstract_length )
       xml << text_field_row( @conference, :description_length )
-      xml << select_row( 'table::conference::timeslot_duration', 'conference[timeslot_duration]', ['00:05','00:10','00:15','00:20','00:30','0:45','1:00'], {:selected=>@conference.timeslot_duration.strftime('%H:%M')})
-      xml << select_row( 'table::conference::default_timeslots', 'conference[default_timeslots]', 1..(@conference.max_timeslot_duration), {:selected=>@conference.default_timeslots})
-      xml << select_row( 'table::conference::max_timeslot_duration', 'conference[max_timeslot_duration]', 1..23, {:selected=>@conference.max_timeslot_duration})
-      xml << select_row( 'table::conference::day_change', 'conference[day_change]', (0..23).map{ |i| sprintf('%02d:00:00', i) }, {:selected=>@conference.day_change.strftime('%H:%M:%S')})
+      xml << select_row( @conference, :timeslot_duration,  ['00:05','00:10','00:15','00:20','00:30','0:45','1:00'], {:selected=>@conference.timeslot_duration.strftime('%H:%M')} )
+      xml << select_row( @conference, :default_timeslots, 1..(@conference.max_timeslot_duration) )
+      xml << select_row( @conference, :max_timeslot_duration, 1..23 )
+      xml << select_row( @conference, :day_change, (0..23).map{|e| sprintf("%02d:00:00",e)} )
     end
   end
 
@@ -46,7 +43,7 @@ xml.div(:id=>'content-general') do
         xml.tr(:id=>'conference_language_template',:style=>'display:none') do
           xml.td do
             xml.input({:type=>:hidden,:id=>'conference_language[row_id][conference_language_id]',:name=>'conference_language[row_id][conference_language_id]'})
-            xml << select_tag( 'conference_language[row_id][language_id]', Language.select(:f_visible=>true), {:key=>:language_id,:value=>:iso_639_code})
+            xml << select_tag( 'conference_language[row_id][language_id]', Language.select(:f_visible=>true).map{|e| [e.language_id,e.iso_639_code]} )
           end
           xml.td do
             xml.input({:type=>:checkbox,:name=>'conference_language[row_id][remove]',:id=>'conference_language[row_id][remove]'})

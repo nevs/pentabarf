@@ -1,29 +1,6 @@
 
 module Builder_helper
 
-  def select_tag( name, collection, options = {}, html_options = {} )
-    xml = Builder::XmlMarkup.new
-    html_options[:name] = name
-    html_options[:id] = name
-    html_options[:tabindex] = 0 if not html_options[:tabindex]
-    xml.select( html_options ) do
-      if options[:with_empty]
-        opts = {}
-        opts[:selected] = :selected if options[:selected] == nil
-        xml.option( '', opts )
-      end
-      collection.each do | element |
-        opts = {}
-        value = options.has_key?(:value) ? element.send( options[:value] ) : element
-        key = options.has_key?(:key) ? element.send( options[:key] ) : element
-        opts[:selected] = 'selected' if key == options[:selected]
-        opts[:value] = key
-        opts[:class] = "#{options[:class]}_#{element.send(options[:class])}" if options[:class]
-        xml.option( value, opts )
-      end
-    end
-  end
-
   def hidden_field( row, column )
     xml = Builder::XmlMarkup.new
     name = "#{row.class.table.table_name}[#{column}]"
@@ -50,7 +27,7 @@ module Builder_helper
   end
 
   def check_box_row( row, column, options = {}, &block )
-    __check_box_row( "#{column}", "#{row.class.table.table_name}[#{column}]", row[column], options = {}, &block )
+    __check_box_row( "#{column}", "#{row.class.table.table_name}[#{column}]", row[column], options, &block )
   end
 
   def __check_box_row( label, name, checked = false, options = {} )
@@ -90,13 +67,58 @@ module Builder_helper
     end
   end
 
-  def select_row( label, name, collection = [], options = {}, html_options = {} )
+  def select_tag( name, collection, options = {} )
+    xml = Builder::XmlMarkup.new
+    options[:name] = options[:id] = name
+    options[:tabindex] = 0 if not options[:tabindex]
+    xml.select( options ) do
+      if options[:with_empty]
+        opts = {}
+        opts[:selected] = :selected if options[:selected] == nil
+        xml.option( '', opts )
+        options.delete(:with_empty)
+      end
+      collection.each do | element |
+        opts = {}
+        if element.instance_of?( Array )
+          key, value = element.first, element.last
+        else
+          key = value = element
+        end
+        opts[:selected] = 'selected' if key == options[:selected]
+        opts[:value] = key
+        xml.option( value, opts )
+      end
+    end
+  end
+
+  def select_row( row, column, collection, options = {} )
+    name = "#{row.class.table.table_name}[#{column}]"
+    options[:selected] = row.send(column) unless options[:selected]
+    xml = Builder::XmlMarkup.new
+    xml.tr do
+      xml.td do xml.label( local( column ) ) end
+      xml.td do xml << select_tag( name, collection, options ) end
+    end
+  end
+
+  def __select_row( label, name, collection = [], options = {}, html_options = {} )
     xml = Builder::XmlMarkup.new
     xml.tr do
       xml.td do xml.label( local( label ) ) end
       xml.td do
         xml << select_tag( name, collection, options, html_options )
       end
+    end
+  end
+
+  def date_button_row( row, column, options = {}, &block )
+    xml = Builder::XmlMarkup.new
+    name = "#{row.class.table.table_name}[#{column}]"
+    button_id = "#{row.class.table.table_name}_#{column}"
+    xml << text_field_row( row, column, {:size => 12 } ) do | x |
+      x.button( '...', {:type=>:button,:id=>button_id})
+      x.script( "Calendar.setup({inputField:'#{name}', ifFormat:'%Y-%m-%d', button:'#{button_id}', showOthers:true, singleClick:false});", {:type=>'text/javascript'})
     end
   end
 

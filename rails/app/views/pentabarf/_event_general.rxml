@@ -9,9 +9,9 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @event, :title )
       xml << text_field_row( @event, :subtitle )
       xml << text_field_row( @event, :tag )
-      xml << select_row('event_origin_id', 'event[event_origin_id]', Event_origin.select, {:key=>:event_origin_id,:value=>:tag,:selected=>@event.event_origin_id})
-      xml << select_row('event_state_id', 'event[event_state_id]', Event_state.select, {:key=>:event_state_id,:value=>:tag,:selected=>@event.event_state_id})
-      xml << select_row('event_state_progress_id', 'event[event_state_progress_id]', Event_state_progress.select, {:key=>:event_state_progress_id,:value=>:tag,:selected=>@event.event_state_progress_id})
+      xml << select_row( @event, :event_origin_id, Event_origin.select.map{|e| [e.event_origin_id,e.tag]} )
+      xml << select_row( @event, :event_state_id, Event_state.select.map{|e| [e.event_state_id,e.tag]} )
+      xml << select_row( @event, :event_state_progress_id, Event_state_progress.select.map{|e| [e.event_state_progress_id,e.tag]} )
     end
   end
 
