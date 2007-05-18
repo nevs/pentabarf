@@ -1,0 +1,21 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-account') do
+
+  xml.fieldset do
+    xml.legend local('account')
+
+    xml.table do
+      xml << text_field_row( @person, :login_name, {:size=>20} )
+      xml.tr do 
+        xml.td( local('password'))
+        xml.td do xml.input({:type=>:text,:name=>'person[password]',:size=>40}) end
+      end
+      xml.tr do 
+        xml.td( local('repeat password'))
+        xml.td do xml.input({:type=>:text,:name=>'person[password2]',:size=>40}) end 
+      end
+    end
+  end
+
+end

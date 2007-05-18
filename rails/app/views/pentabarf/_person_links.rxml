@@ -34,4 +34,41 @@ xml.div(:id=>'content-links') do
     xml.button( local('add link'), {:type=>:button,:onclick=>'table_add_row("conference_person_link")'})
   end
 
+  link_types = Link_type.select
+  if not link_types.empty?
+    xml.fieldset do
+      xml.legend local('internal links')
+
+      xml.table(:id=>'conference_person_link_internal_table',:style=>'display:none') do
+        xml.thead do
+          xml.tr do
+            xml.th( local('url type') )
+            xml.th( local('url') )
+            xml.th( local('title') )
+            xml.th( local('remove') )
+          end
+        end
+        xml.tbody(:id=>'conference_person_link_internal_tbody') do
+          xml.tr(:id=>'conference_person_link_internal_template',:style=>'display:none') do
+            xml.td do
+              xml.input({:type=>:hidden,:id=>'conference_person_link_internal[row_id][conference_person_link_internal_id]',:name=>'conference_person_link_internal[row_id][conference_person_link_internal_id]'})
+              xml << select_tag( 'conference_person_link_internal[row_id][link_type_id]', link_types.map{|e| [e.link_type_id, e.tag]} )
+            end
+            xml.td do xml.input({:type=>:text,:id=>'conference_person_link_internal[row_id][url]',:name=>'conference_person_link_internal[row_id][url]'}) end
+            xml.td do xml.input({:type=>:text,:id=>'conference_person_link_internal[row_id][description]',:name=>'conference_person_link_internal[row_id][description]'}) end
+            xml.td do xml.input({:type=>:checkbox,:name=>'conference_person_link_internal[row_id][remove]',:id=>'conference_person_link_internal[row_id][remove]'}) end
+          end
+        end
+      end
+
+      xml.script(:type=>'text/javascript') do 
+        Conference_person_link_internal.select( :conference_person_id => @conference_person.conference_person_id ).each do | c |
+          xml << js_function( 'table_add_row', 'conference_person_link_internal', c.conference_person_link_internal_id, c.link_type_id, c.url, c.description )
+        end
+      end
+
+      xml.button( local('add internal link'), {:type=>:button,:onclick=>'table_add_row("conference_person_link_internal")'})
+    end
+  end
+
 end

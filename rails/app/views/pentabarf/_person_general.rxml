@@ -42,7 +42,7 @@ xml.div(:id=>'content-general') do
       end
     end
 
-    xml.button( local('add person language'), {:type=>:button,:onclick=>'table_add_row("person_language")'})
+    xml.button( local('add language'), {:type=>:button,:onclick=>'table_add_row("person_language")'})
   end
 
 end

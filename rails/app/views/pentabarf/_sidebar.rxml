@@ -11,7 +11,7 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div(:class=>'menu-item-group') do
       xml.form(:id=>:change_conference,:method=>:post,:class=>'menu-text') do
-        xml << select_tag('change_conference', Conference.select.map{|e| [e.conference_id,e.acronym]} )
+        xml << select_tag('change_conference', Conference.select.map{|e| [e.conference_id,e.acronym]}, {:selected=>@current_conference.conference_id} )
       end
     end
 
