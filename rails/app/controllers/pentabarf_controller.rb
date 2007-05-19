@@ -33,7 +33,7 @@ class PentabarfController < ApplicationController
       @event = Event.select_single( :event_id => params[:id] )
     rescue
       return redirect_to(:action=>:event,:id=>'new') if params[:id] != 'new'
-      @event = Event.new(:event_id=>0)
+      @event = Event.new(:event_id=>0,:conference_id=>@current_conference.conference_id)
     end
   end
 
