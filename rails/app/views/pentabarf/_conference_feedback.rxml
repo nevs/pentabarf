@@ -1,5 +1,6 @@
 xml = Builder::XmlMarkup.new
 
+feedback = View_conference_rating.select_single(:conference_id=>@conference.conference_id)
 xml.div({:id=>'content-feedback'}) do
 
   xml.fieldset do 
@@ -9,8 +10,33 @@ xml.div({:id=>'content-feedback'}) do
       xml.thead do
         xml.tr do
           xml.th "Category"
-          xml.th "Rating"
+          xml.th "Rating", {:colspan=>2}
           xml.th "Total votes"
+        end
+
+      end
+      xml.tbody do
+        [:participant_knowledge,:topic_importance,:content_quality,:presentation_quality,:audience_involvement].each do | category |
+          value = feedback.send( category ) || 0
+          xml.tr do
+            xml.td( local( category ) )
+            xml.td({:class=>"rating-bar"}) do
+              if value < 0
+                xml.span( value, {:class=>"negative p#{(value*-1).to_i}"} )
+              else
+                xml.span("", {:class=>"negative p0"})
+              end
+            end
+            xml.td({:class=>"rating-bar"}) do
+              if value > 0
+                xml.span( value, {:class=>"positive p#{value.to_i}"} )
+              else
+                xml.span("", {:class=>"positive p0"})
+              end
+            end
+            xml.td( feedback.send( "#{category}_count".to_sym ) )
+          end
+
         end
 
       end
