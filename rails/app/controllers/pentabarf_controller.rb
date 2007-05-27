@@ -35,6 +35,7 @@ class PentabarfController < ApplicationController
       return redirect_to(:action=>:event,:id=>'new') if params[:id] != 'new'
       @event = Event.new(:event_id=>0,:conference_id=>@current_conference.conference_id)
     end
+    @conference = Conference.select_single( :conference_id => @event.conference_id )
   end
 
   def person

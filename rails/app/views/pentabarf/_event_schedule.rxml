@@ -1,0 +1,18 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-schedule') do
+
+  xml.fieldset do
+    xml.legend local('view::pentabarf::event::tab::schedule')
+
+    xml.table do
+      xml << select_row( @event, :day, (1..@conference.days).to_a )
+      # XXX FIXME
+      xml << select_row( @event, :start_time, (0..23).map{|e| sprintf("%02d:00:00",e)} )
+      xml << select_row( @event, :duration, (1..23).map{|e| sprintf("%02d:00:00",e)} )
+      xml << select_row( @event, :room_id, Room.select({:conference_id=>@event.conference_id}).map{|e| [e.room_id, e.short_name]})
+      xml << check_box_row( @event, :f_public )
+    end
+  end
+
+end
