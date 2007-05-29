@@ -1,6 +1,6 @@
 xml = Builder::XmlMarkup.new
 
-feedback = View_conference_rating.select_single(:conference_id=>@conference.conference_id)
+feedback = View_conference_rating.select_or_new(:conference_id=>@conference.conference_id)
 xml.div({:id=>'content-feedback'}) do
 
   xml.fieldset do 

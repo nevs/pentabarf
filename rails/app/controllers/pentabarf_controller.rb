@@ -45,8 +45,9 @@ class PentabarfController < ApplicationController
       return redirect_to(:action=>:person,:id=>'new') if params[:id] != 'new'
       @person = Person.new(:person_id=>0)
     end
-    @conference_person = Conference_person.select_or_new({:conference_id=>@current_conference.conference_id, :person_id=>@person.person_id})
-    @person_travel = Person_travel.select_or_new({:conference_id=>@current_conference.conference_id, :person_id=>@person.person_id})
+    @conference = @current_conference
+    @conference_person = Conference_person.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
+    @person_travel = Person_travel.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
   end
 
   def save_person

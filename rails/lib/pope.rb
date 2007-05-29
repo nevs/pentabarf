@@ -1,5 +1,6 @@
 
 # this class handles all authententication and authorization decissions
+# XXX FIXME does not yet handle own events/persons
 class Pope
 
   attr_reader :user, :permissions

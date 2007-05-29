@@ -7,10 +7,8 @@ xml.div(:id=>'content-links') do
 
     xml.table(:id=>'conference_person_link_table',:style=>'display:none') do
       xml.thead do
-        xml.tr do
-          xml.th( local('url') )
-          xml.th( local('title') )
-          xml.th( local('remove') )
+        xml.tr do 
+          [:url,:title, :remove].each do | field | xml.th( local( field ) ) end 
         end
       end
       xml.tbody(:id=>'conference_person_link_tbody') do
