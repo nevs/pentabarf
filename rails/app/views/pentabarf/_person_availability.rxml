@@ -1,0 +1,50 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+# collect all active slots
+saved = Momomoto::Person_availability.select({:person_id=>@person.person_id,:conference_id=>@conference.conference_id})
+slots = []
+saved.each do | slot |
+  start = slot.start_date.strftime('%Y-%m-%d %H:%M:%S')
+  slots.push( start )
+end
+
+xml.div(:id=>'content-availability') do
+
+  xml.fieldset do
+    xml.legend local('availability')
+
+    xml.table do
+      xml.thead do
+        xml.tr do
+          xml.th
+          24.times do | hour |
+            real_hour = ( @conference.day_change.hour + hour ) % 24
+            xml.th "#{real_hour}", {:title=>sprintf("%d:00 - %d:00", real_hour, real_hour + 1 )}
+          end
+        end
+      end
+      xml.tbody do
+        @conference.days.times do | day |
+          xml.tr do
+            xml.td sprintf("day %d", day + 1 )
+            24.times do | hour |
+              real_hour = ( @conference.day_change.hour + hour ) % 24
+              date = @conference.start_date + day + ( ( @conference.day_change.hour + hour ) / 24 )
+              title = sprintf("day %d %s %d:00 - %d:00", day + 1, date, real_hour, real_hour + 1 )
+              time = sprintf("%s %02d:00:00", date.strftime('%Y-%m-%d'), real_hour )
+              xml.td do
+                checked = {}
+                checked[:checked] = :checked if not slots.member?( time )
+                xml.input( {:type=>:checkbox,:id=>"slot-#{day}-#{hour}",:title=>title,:name=>"person_availability[#{time}]"}.merge(checked) )
+              end
+            end
+            xml.td do xml.button "Set day", {:type=>:button,:onclick=>"set_slots(#{day})"} end
+            xml.td do xml.button "Clear day", {:type=>:button,:onclick=>"unset_slots(#{day})"} end
+          end
+        end
+      end
+    end
+
+  end
+
+end
