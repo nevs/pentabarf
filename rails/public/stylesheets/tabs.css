@@ -27,7 +27,7 @@
   background-color: white;
 
   border: 1px solid black;
-  border-top: 2px solid #90acc8;
+  border-top: 2px solid #b0cce8;
 }
 
 #tabs #tab-all {
@@ -40,7 +40,7 @@
 }
 
 #tabs .tab.active {
-  background-color: #90acc8;
+  background-color: #b0cce8;
   color: white;
 }
 

@@ -15,10 +15,9 @@
   overflow: auto;
   width: 128px;
   min-width: 128px;
-  height: 100%; 
+  height: 100%;
   padding: 0px 10px 0px 10px;
   margin: 0;
-  background-color: #90acc8;
   border-right: 1px solid black;
   z-index: 4;
 }
@@ -26,8 +25,6 @@
 /* Web Site Logo */
 
 #logo {
-/*  background: url(../images/erisdiscordia-160x160.png) no-repeat center; */
-
   height: 128px;
   width: 128px;
   margin: 5px 0 0 0;
@@ -53,7 +50,7 @@
   line-height: 120%;
   margin: 1px 0 1px 0;
 
-  background-color: #f1f5f8;
+  background-color: #c8d8e8;
   border: 1px solid #90acc8;
 
   text-align: center;
