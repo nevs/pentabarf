@@ -38,6 +38,15 @@ class PentabarfController < ApplicationController
     @conference = Conference.select_single( :conference_id => @event.conference_id )
   end
 
+  def save_event
+    params[:event][:event_id] = params[:id] if params[:id].to_i > 0
+    Momomoto::Database.instance.transaction do
+      event = write_row( Event, params[:event], {:except=>[:event_id],:always=>[:f_public]} )
+
+      redirect_to( :action => :event, :id => event.event_id )
+    end
+  end
+
   def person
     begin
       @person = Person.select_single( :person_id => params[:id].to_i )
