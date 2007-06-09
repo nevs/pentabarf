@@ -71,6 +71,7 @@ module Builder_helper
     xml = Builder::XmlMarkup.new
     options[:name] = options[:id] = name
     options[:tabindex] = 0 if not options[:tabindex]
+    options[:onchange] = "master_change(this,'#{options[:master]}');" if options[:master]
     xml.select( options ) do
       if options[:with_empty]
         opts = {}
@@ -87,6 +88,7 @@ module Builder_helper
         end
         opts[:selected] = 'selected' if key == options[:selected]
         opts[:value] = key
+        opts[:class] = element[1] if options[:slave]
         xml.option( value, opts )
       end
     end

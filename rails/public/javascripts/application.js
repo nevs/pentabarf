@@ -61,6 +61,7 @@ function unloadMessage() {
 
 var table_row_counter = {};
 
+// add another row to a table by copying a template row
 function table_add_row( table_name ) {
   var row_id = table_row_counter[table_name];
   if (!row_id) {
@@ -89,12 +90,22 @@ function table_add_row( table_name ) {
       }
     }
   } else {
+    var field_names = table_fields[table_name];
+    for ( var i = 0; i < field_names.length; i++ ) {
+      var col_name = prefix + '[' + field_names[i] + ']';
+      var col = $( col_name );
+      if ( col.nodeName == 'SELECT' && col.onchange ) {
+        col.onchange();
+      }
+    }
     enable_save_button();
   }
 } 
 
 var table_fields = {};
 
+// find field names of the fields of a table by iterating 
+// over the template row
 function table_find_fields( table_name ) {
   var cells = $(table_name + '_template').cells;
   var fields = new Array();
@@ -113,4 +124,30 @@ function table_find_fields( table_name ) {
   }
   table_fields[table_name] = fields;
 }
+
+// adjust contents of slave select according to change in master select
+function master_change( select, slave_column ) {
+  var slave_id = select.id.replace( /^([a-z_]+)\[([0-9]+)\]\[[a-z_]+\]$/, "$1[$2][" + slave_column + "]" );
+  var slave = $( slave_id );
+  var new_value = select.value;
+  var options = slave.options;
+  var enabled_counter = 0;
+  var first_valid;
+  for (var i = 0; i < options.length; i++ ) {
+    if ( options[i].className == new_value ) {
+      options[i].style.display = 'block';
+      enabled_counter++;
+      if (!first_valid) first_valid = options[i].value;
+    } else {
+      options[i].style.display = 'none';
+    }
+  }
+  if ( enabled_counter == 0 ) {
+    slave.style.display = 'none';   
+  } else {
+    slave.style.display = 'block';   
+    slave.value = first_valid;
+  }
+}
+
 
