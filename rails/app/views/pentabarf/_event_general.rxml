@@ -10,9 +10,9 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @event, :subtitle )
       xml << text_field_row( @event, :tag )
       xml << select_row( @event, :event_origin_id, Event_origin.select.map{|e| [e.event_origin_id,e.tag]} )
-      xml << select_row( @event, :event_state_id, Event_state.select.map{|e| [e.event_state_id,e.tag]} )
-      # FIXME add javascript to only show progress-states corresponding to current state
-      xml << select_row( @event, :event_state_progress_id, Event_state_progress.select.map{|e| [e.event_state_progress_id,e.tag]} )
+      xml << select_row( @event, :event_state_id, Event_state.select.map{|e| [e.event_state_id,e.tag]}, {:master=>:event_state_progress_id} )
+      xml << select_row( @event, :event_state_progress_id, Event_state_progress.select.map{|e| [e.event_state_progress_id,e.event_state_id,e.tag]},{:slave=>true} )
+      xml.script("$('event[event_state_id]').onchange()",{:type=>"text/javascript"})
       xml << select_row( @event, :team_id, Team.select({:conference_id=>@event.conference_id}).map{|e| [e.team_id, e.tag]}, {:with_empty=>true} )
       xml << select_row( @event, :f_paper, [[nil,'unknown'],[true,'yes'],[false,'no']] )
       xml << select_row( @event, :f_slides, [[nil,'unknown'],[true,'yes'],[false,'no']] )
@@ -21,5 +21,6 @@ xml.div(:id=>'content-general') do
       xml << select_row( @event, :event_type_id, Event_type.select.map{|e| [e.event_type_id,e.tag]}, {:with_empty=>true} )
     end
   end
+
 
 end
