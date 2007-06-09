@@ -39,7 +39,7 @@ function find_tabs() {
 }
 
 // switch between tabs
-function switch_tab( target ) {   
+function switch_tab( target ) {
   if ( tabs.length == 0 ) find_tabs();
   if (!target) target = tabs[0];
   for( var i = 0; i < tabs.length; i++) {
@@ -54,9 +54,9 @@ function clear_tainting() {
   window.onbeforeunload = null;
 }
 
-function unloadMessage() { 
+function unloadMessage() {
   return "If you leave this page, your changes will be lost.";
-} 
+}
 
 
 var table_row_counter = {};
@@ -66,19 +66,19 @@ function table_add_row( table_name ) {
   var row_id = table_row_counter[table_name];
   if (!row_id) {
     table_find_fields( table_name );
-    row_id = 0;   
+    row_id = 0;
   }
   table_row_counter[table_name] = row_id + 1;
 
   var prefix = table_name + '[' + row_id + ']';
   var new_row = $(table_name + '_template').cloneNode(true);
-  
+
   new_row.id = '';
   attribute_replace( new_row, /\[row_id\]/g, '[' + row_id + ']' );
   $(table_name + '_tbody').appendChild( new_row );
   Element.show( table_name + '_table' );
   Element.show( new_row );
-  
+
   if (arguments.length > 1) {
     var field_names = table_fields[table_name];
     for( var i = 1; i < arguments.length; i++ ) {
@@ -100,11 +100,11 @@ function table_add_row( table_name ) {
     }
     enable_save_button();
   }
-} 
+}
 
 var table_fields = {};
 
-// find field names of the fields of a table by iterating 
+// find field names of the fields of a table by iterating
 // over the template row
 function table_find_fields( table_name ) {
   var cells = $(table_name + '_template').cells;
@@ -117,17 +117,18 @@ function table_find_fields( table_name ) {
         var name = children[j].name;
         name = name.replace( /^[a-z_]+\[row_id\]\[([a-z_]+)\]$/, "$1" );
         if ( name != "remove" ) {
-          fields.push( name );   
+          fields.push( name );
         }
       }
-    } 
+    }
   }
   table_fields[table_name] = fields;
 }
 
 // adjust contents of slave select according to change in master select
 function master_change( select, slave_column ) {
-  var slave_id = select.id.replace( /^([a-z_]+)\[([0-9]+)\]\[[a-z_]+\]$/, "$1[$2][" + slave_column + "]" );
+  var master_column = select.id.replace( /^.*\[([a-z_]+)\]$/, "$1" );
+  var slave_id = select.id.replace( master_column, slave_column );
   var slave = $( slave_id );
   var new_value = select.value;
   var options = slave.options;
@@ -143,9 +144,9 @@ function master_change( select, slave_column ) {
     }
   }
   if ( enabled_counter == 0 ) {
-    slave.style.display = 'none';   
+    slave.style.display = 'none';
   } else {
-    slave.style.display = 'block';   
+    slave.style.display = 'block';
     slave.value = first_valid;
   }
 }
