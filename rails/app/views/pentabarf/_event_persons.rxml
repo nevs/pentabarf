@@ -17,8 +17,8 @@ xml.div(:id=>'content-persons') do
             xml.input({:type=>:hidden,:id=>'event_person[row_id][event_person_id]',:name=>'event_person[row_id][event_person_id]'})
             xml << select_tag( 'event_person[row_id][person_id]', View_conference_person.select({:conference_id=>@event.conference_id}).map{|p| [p.person_id, p.name]} )
           end
-          xml.td do xml << select_tag( 'event_person[row_id][event_role_id]', Event_role.select.map{|e| [e.event_role_id, e.tag]}) end
-          xml.td do xml << select_tag( 'event_person[row_id][event_role_state_id]', Event_role_state.select.map{|e| [e.event_role_state_id, e.tag]}, {:with_empty=>true}) end
+          xml.td do xml << select_tag( 'event_person[row_id][event_role_id]', Event_role.select.map{|e| [e.event_role_id, e.tag]},{:master=>:event_role_state_id}) end
+          xml.td do xml << select_tag( 'event_person[row_id][event_role_state_id]', Event_role_state.select.map{|e| [e.event_role_state_id,e.event_role_id,e.tag]}, {:slave=>true}) end
           xml.td do xml.input({:type=>:text,:id=>'event_person[row_id][remark]',:name=>'event_person[row_id][remark]'}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'event_person[row_id][remove]',:id=>'event_person[row_id][remove]'}) end
         end
@@ -29,9 +29,9 @@ xml.div(:id=>'content-persons') do
       Event_person.select( :event_id => @event.event_id ).each do | e |
         xml << js_function( 'table_add_row', 'event_person', e.event_person_id, e.person_id, e.event_role_id, e.event_role_state_id, e.comment )
       end
-    end if false
+    end
 
-    xml.button( local('add event'), {:type=>:button,:onclick=>'table_add_row("event_person")'})
+    xml.button( local('add person'), {:type=>:button,:onclick=>'table_add_row("event_person")'})
 
   end
 
