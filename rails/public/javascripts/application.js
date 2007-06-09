@@ -99,11 +99,11 @@ function table_find_fields( table_name ) {
   var cells = $(table_name + '_template').cells;
   var fields = new Array();
   for (var i = 0; i < cells.length; i++) {
-    var childreen = cells[i].childNodes;
-    for (var j = 0; j < childreen.length; j++) {
-      var node = childreen[j].nodeName;
+    var children = cells[i].childNodes;
+    for (var j = 0; j < children.length; j++) {
+      var node = children[j].nodeName;
       if ( node == "INPUT" || node == "SELECT" ) {
-        var name = childreen[j].name;
+        var name = children[j].name;
         name = name.replace( /^[a-z_]+\[row_id\]\[([a-z_]+)\]$/, "$1" );
         if ( name != "remove" ) {
           fields.push( name );   
