@@ -1,0 +1,10 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-rating') do
+
+  xml.fieldset do
+    xml.legend local('rating')
+
+  end
+
+end

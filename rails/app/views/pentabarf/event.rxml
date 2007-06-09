@@ -4,7 +4,7 @@ xml.div( :id => 'object-image' ) do
   xml.img( :src => image_path( 'icon-event-64x64.png' ), :class => 'object-image' )
 end
 
-tabs = [:general,:persons,:description,:schedule,:resources]
+tabs = [:general,:persons,:description,:links,:schedule,:rating,:resources,:related]
 
 xml << js_tabs( tabs )
 
