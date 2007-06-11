@@ -42,20 +42,20 @@ class ApplicationController < ActionController::Base
     super( exception )
 
     message = ''
-    message += "User: #{@user.login_name}\n" if @user 
+    message += "User: #{@user.login_name}\n" if @user
     message += "Time: #{Time.now.to_s}\n"
     message += "UA: #{request.env['HTTP_USER_AGENT']}\nIP: #{request.remote_ip}\n"
     message += "URL: https://#{request.host + request.request_uri}\n"
     message += "Exception: #{exception.message}\n"
     message += "Exception Class: #{exception.class}\n"
     if verbose
-      message += "Backtrace:\n" + clean_backtrace(exception).join("\n") + 
+      message += "Backtrace:\n" + clean_backtrace(exception).join("\n") +
                  "Request: #{filter_parameters(params).inspect}\n"
     end
 
     begin
       JabberLogger.log( message )
-    rescue => e 
+    rescue => e
       logger.error(e)
     end
   end

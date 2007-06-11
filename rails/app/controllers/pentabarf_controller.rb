@@ -49,7 +49,7 @@ class PentabarfController < ApplicationController
 
   def person
     begin
-      @person = Person.select_single( :person_id => params[:id].to_i )
+      @person = View_person.select_single( :person_id => params[:id] )
     rescue
       return redirect_to(:action=>:person,:id=>'new') if params[:id] != 'new'
       @person = Person.new(:person_id=>0)
