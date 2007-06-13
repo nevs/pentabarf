@@ -43,5 +43,50 @@ module MomomotoHelper
     end
   end
 
+  def write_person_availability( conference, data )
+    # person availability
+    all_slots = []
+    # create array with all slots
+    conference.days.times do | day |
+      24.times do | hour |
+        real_hour =  ( conference.day_change.hour + hour ) % 24
+        date = conference.start_date + day + ( ( conference.day_change.hour + hour ) / 24 )
+        all_slots.push( "#{date.strftime('%Y-%m-%d')} #{sprintf('%02d',real_hour)}:00:00")
+      end
+    end
+
+    # get set slots from request
+    if data && data.keys
+      slots = data.keys
+    else
+      slots = []
+    end
+    saved = Person_availability.select({:person_id=>person.person_id,:conference_id=>conference.conference_id})
+    saved.each do | slot |
+      start = slot.start_date.strftime('%Y-%m-%d %H:%M:%S')
+      if slots.member?( start )
+        # person available now
+        modified = true if slot.delete
+      else
+        # person remains unavailable
+        all_slots.delete( start )
+      end
+    end
+
+    all_slots.each do | slot |
+      if slots.member?( slot )
+        # person available
+      else
+        # person not available -> create record in database
+        new_slot = Person_availability.new({
+          :person_id=>person.person_id,
+          :conference_id=>conference.conference_id,
+          :start_date=>slot,
+          :duration=>'1:00:00' })
+        modified = true if new_slot.write
+      end
+    end
+  end
+
 end
 

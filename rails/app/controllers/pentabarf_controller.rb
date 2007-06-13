@@ -71,6 +71,8 @@ class PentabarfController < ApplicationController
       write_rows( Person_im, params[:person_im], {:preset=>{:person_id => person.person_id}})
       write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id}})
 
+      write_person_availability( @current_conference, params[:person_availability])
+
       redirect_to( :action => :person, :id => person.person_id )
     end
   end
