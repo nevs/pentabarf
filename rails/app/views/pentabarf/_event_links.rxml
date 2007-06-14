@@ -5,6 +5,68 @@ xml.div(:id=>'content-links') do
   xml.fieldset do
     xml.legend local('links')
 
+    xml.table(:id=>'event_link_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do 
+          [:url,:title, :remove].each do | field | xml.th( local( field ) ) end 
+        end
+      end
+      xml.tbody(:id=>'event_link_tbody') do
+        xml.tr(:id=>'event_link_template',:style=>'display:none') do
+          xml.td do
+            xml.input({:type=>:hidden,:id=>'event_link[row_id][event_link_id]',:name=>'event_link[row_id][event_link_id]'})
+            xml.input({:type=>:text,:id=>'event_link[row_id][url]',:name=>'event_link[row_id][url]'})
+          end
+          xml.td do xml.input({:type=>:text,:id=>'event_link[row_id][title]',:name=>'event_link[row_id][title]'}) end
+          xml.td do xml.input({:type=>:checkbox,:name=>'event_link[row_id][remove]',:id=>'event_link[row_id][remove]'}) end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do 
+      Event_link.select( :event_id => @event.event_id ).each do | c |
+        xml << js_function( 'table_add_row', 'event_link', c.event_link_id, c.url, c.title )
+      end
+    end if @event.event_id
+
+    xml.button( local('add link'), {:type=>:button,:onclick=>'table_add_row("event_link")'})
+  end
+
+  link_types = Link_type.select
+  if not link_types.empty?
+    xml.fieldset do
+      xml.legend local('internal links')
+
+      xml.table(:id=>'event_link_internal_table',:style=>'display:none') do
+        xml.thead do
+          xml.tr do
+            xml.th( local('url type') )
+            xml.th( local('url') )
+            xml.th( local('title') )
+            xml.th( local('remove') )
+          end
+        end
+        xml.tbody(:id=>'event_link_internal_tbody') do
+          xml.tr(:id=>'event_link_internal_template',:style=>'display:none') do
+            xml.td do
+              xml.input({:type=>:hidden,:id=>'event_link_internal[row_id][event_link_internal_id]',:name=>'event_link_internal[row_id][event_link_internal_id]'})
+              xml << select_tag( 'event_link_internal[row_id][link_type_id]', link_types.map{|e| [e.link_type_id, e.tag]} )
+            end
+            xml.td do xml.input({:type=>:text,:id=>'event_link_internal[row_id][url]',:name=>'event_link_internal[row_id][url]'}) end
+            xml.td do xml.input({:type=>:text,:id=>'event_link_internal[row_id][description]',:name=>'event_link_internal[row_id][description]'}) end
+            xml.td do xml.input({:type=>:checkbox,:name=>'event_link_internal[row_id][remove]',:id=>'event_link_internal[row_id][remove]'}) end
+          end
+        end
+      end
+
+      xml.script(:type=>'text/javascript') do 
+        Event_link_internal.select( :event_id => @event.event_id ).each do | c |
+          xml << js_function( 'table_add_row', 'event_link_internal', c.event_link_internal_id, c.link_type_id, c.url, c.description )
+        end
+      end if @event.event_id
+
+      xml.button( local('add internal link'), {:type=>:button,:onclick=>'table_add_row("event_link_internal")'})
+    end
   end
 
 end

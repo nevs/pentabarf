@@ -43,6 +43,8 @@ class PentabarfController < ApplicationController
     Momomoto::Database.instance.transaction do
       event = write_row( Event, params[:event], {:except=>[:event_id],:always=>[:f_public]} )
       write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}})
+      write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id}})
+      write_rows( Event_link_internal, params[:event_link_internal], {:preset=>{:event_id => event.event_id}})
 
       redirect_to( :action => :event, :id => event.event_id )
     end
