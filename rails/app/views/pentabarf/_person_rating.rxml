@@ -1,0 +1,18 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-rating') do
+
+  xml.fieldset do
+    xml.legend local('rating')
+
+    xml.table do
+      xml << select_row( @person_rating, :speaker_quality, [[],[1,'--'],[2,'-'],[3,'o'],[4,'+'],[5,'++']])
+      xml << select_row( @person_rating, :competence, [[],[1,'--'],[2,'-'],[3,'o'],[4,'+'],[5,'++']])
+    end
+
+  end
+
+  xml << text_area_fieldset('my opinion', 'person_rating[remark]', @person_rating.remark, {:rows=>5,:cols=>60})
+
+end
+
