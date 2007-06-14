@@ -36,9 +36,23 @@ xml.div(:id=>'content-events') do
 
   end
 
-  xml.fieldset do
-    xml.legend local('events at other conferences')
+  other_events = View_event_person.select( :person_id => @person.person_id,:conference_id =>{:ne=>@current_conference.conference_id}, :language_id => 120 )
 
+  if not other_events.empty?
+    xml.fieldset do
+      xml.legend local('events in other conferences')
+      fields = [:acronym,:title,:event_state,:event_role,:event_role_state]
+
+      xml.table do
+        xml.thead do xml.tr do fields.each do | field | xml.th field.to_s end end end
+        xml.tbody do
+          other_events.each do | event |
+            xml.tr do fields.each do | field | xml.td event.send( field ) end end
+          end
+        end
+      end
+
+    end
   end
 
 end
