@@ -18,7 +18,7 @@ xml.div(:id=>'content-events') do
             xml << select_tag( 'event_person[row_id][event_id]', Event.select.map{|e| [e.event_id, e.title]} )
           end
           xml.td do xml << select_tag( 'event_person[row_id][event_role_id]', Event_role.select.map{|e| [e.event_role_id, e.tag]},{:master=>:event_role_state_id}) end
-          xml.td do xml << select_tag( 'event_person[row_id][event_role_state_id]', Event_role_state.select.map{|e| [e.event_role_state_id,e.event_role_id,e.tag]}, {:slave=>true}) end
+          xml.td do xml << select_tag( 'event_person[row_id][event_role_state_id]', Event_role_state.select.map{|e| [e.event_role_state_id,e.event_role_id,e.tag]}, {:slave=>true,:with_empty=>true}) end
           xml.td do xml.input({:type=>:text,:id=>'event_person[row_id][remark]',:name=>'event_person[row_id][remark]'}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'event_person[row_id][remove]',:id=>'event_person[row_id][remove]'}) end
         end

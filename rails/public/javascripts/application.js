@@ -88,6 +88,9 @@ function table_add_row( table_name ) {
       } else {
         field.value = arguments[i];
       }
+      if ( field.onchange ) {
+        field.onchange();  
+      }
     }
   } else {
     var field_names = table_fields[table_name];
@@ -145,6 +148,7 @@ function master_change( select, slave_column ) {
   }
   if ( enabled_counter == 0 ) {
     slave.style.display = 'none';
+    slave.value = '';
   } else {
     slave.style.display = 'block';
     slave.value = first_valid;
