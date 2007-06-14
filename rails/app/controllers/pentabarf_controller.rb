@@ -42,6 +42,7 @@ class PentabarfController < ApplicationController
     params[:event][:event_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
       event = write_row( Event, params[:event], {:except=>[:event_id],:always=>[:f_public]} )
+      write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}})
 
       redirect_to( :action => :event, :id => event.event_id )
     end
