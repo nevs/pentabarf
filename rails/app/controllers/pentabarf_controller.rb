@@ -70,6 +70,7 @@ class PentabarfController < ApplicationController
       write_rows( Conference_person_link_internal, params[:conference_person_link_internal], {:preset=>{:conference_person_id => conference_person.conference_person_id}})
       write_rows( Person_im, params[:person_im], {:preset=>{:person_id => person.person_id}})
       write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id}})
+      write_rows( Event_person, params[:event_person], {:preset=>{:person_id => person.person_id}})
 
       write_person_availability( @current_conference, params[:person_availability])
 
