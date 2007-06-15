@@ -1,6 +1,6 @@
 xml = Builder::XmlMarkup.new
 
-feedback = View_event_rating_public.select_or_new(:event_id=>@event.event_id)
+feedback = View_event_feedback.select_or_new(:event_id=>@event.event_id)
 xml.div({:id=>'content-feedback'}) do
 
   xml.fieldset do 

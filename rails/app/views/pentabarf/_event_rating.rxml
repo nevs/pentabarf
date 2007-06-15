@@ -5,6 +5,14 @@ xml.div(:id=>'content-rating') do
   xml.fieldset do
     xml.legend local('rating')
 
+    xml.table do
+      [:relevance,:actuality,:acceptance].each do | field |
+        xml << select_row( @event_rating, field, [[],[1,'--'],[2,'-'],[3,'o'],[4,'+'],[5,'++']])
+      end
+    end
+
   end
+
+  xml << text_area_fieldset('my opinion', 'event_rating[remark]', @event_rating.remark, {:rows=>5,:cols=>60})
 
 end

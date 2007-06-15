@@ -35,6 +35,7 @@ class PentabarfController < ApplicationController
       return redirect_to(:action=>:event,:id=>'new') if params[:id] != 'new'
       @event = Event.new(:event_id=>0,:conference_id=>@current_conference.conference_id)
     end
+    @event_rating = Event_rating.select_or_new({:event_id=>@event.event_id,:person_id=>POPE.user.person_id})
     @conference = Conference.select_single( :conference_id => @event.conference_id )
   end
 
@@ -42,6 +43,7 @@ class PentabarfController < ApplicationController
     params[:event][:event_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
       event = write_row( Event, params[:event], {:except=>[:event_id],:always=>[:f_public]} )
+      write_row( Event_rating, params[:event_rating], {:preset=>{:event_id => event.event_id,:person_id=>POPE.user.person_id}})
       write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}})
       write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id}})
       write_rows( Event_link_internal, params[:event_link_internal], {:preset=>{:event_id => event.event_id}})
