@@ -1,0 +1,17 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div({:id=>:data}) do
+  xml.fieldset do
+    xml.label(local('find person'))
+    xml.form(:id=>:simple_search) do
+      xml.input({:type=>:text,:name=>:find_person_simple,:id=>:find_person_simple})
+      xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
+    end
+  end
+  xml.fieldset do
+    xml.div({:id=>:results})
+  end
+end
+
+xml.script( "new Form.Element.Observer('find_person_simple', 0.2, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_person_simple/' + $('find_person_simple').value , {asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value});})", :type=>"text/javascript" )
+

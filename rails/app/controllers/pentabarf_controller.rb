@@ -3,6 +3,15 @@ class PentabarfController < ApplicationController
   before_filter :init
   after_filter :set_content_type
 
+  def conflicts
+    @conflicts = []
+    @conflicts += Momomoto::View_conflict_person.find({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+    @conflicts += Momomoto::View_conflict_event.find({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+    @conflicts += Momomoto::View_conflict_event_event.find({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+    @conflicts += Momomoto::View_conflict_event_person.find({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+    @conflicts += Momomoto::View_conflict_event_person_event.find({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+  end
+
   def index
   end
 
@@ -90,11 +99,25 @@ class PentabarfController < ApplicationController
     render(:partial=>'activity')
   end
 
+  def recent_changes
+    @changes = View_recent_changes.select( {}, {:limit => 25 } )
+  end
+
+  def find_person
+
+  end
+
+  def search_person_simple
+    @results = View_find_person.select(params[:id] ? {:name=>{:ilike => params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}}} : {} )
+    render(:partial=>'search_person_simple')
+  end
+
   protected
 
   def init
-    # XXX FIXME remove hardcoded conference
+    # XXX FIXME remove hardcoded conference and language
     @current_conference = Conference.select_single(:conference_id => 1)
+    @current_language_id = 120
   end
 
   def set_content_type

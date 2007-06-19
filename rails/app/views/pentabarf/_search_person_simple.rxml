@@ -1,0 +1,21 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.table do
+  fields = [:name, :first_name, :last_name, :nickname]
+  xml.thead do
+    xml.tr do
+      fields.each do | field |
+        xml.th( local(field) )
+      end
+    end
+  end
+  xml.tbody do
+    @results.each do | person |
+      xml.tr do
+        fields.each do | field |
+          xml.td( person.send(field))
+        end
+      end
+    end
+  end
+end

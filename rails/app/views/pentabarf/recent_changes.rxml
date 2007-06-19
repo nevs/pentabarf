@@ -1,0 +1,32 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div( :id => 'object-image' ) do
+  xml.img( :src => image_path( 'icon-list-64x64.png' ), :class => 'object-image' )
+end
+
+xml.div( :id => 'data' ) do
+  xml.fieldset do
+    xml.table do
+      xml.thead do
+        xml.th( local('title'), {:colspan=>2})
+        xml.th( local( 'Changed by'))
+        xml.th( local( 'Date/Time'))
+      end
+      xml.tbody do
+        @changes.each do | change |
+          xml.tr do
+            xml.td do
+              xml.a(:href=>url_for(:controller=>'pentabarf',:action=>change.type,:id=>change.id)) do
+                xml.img(:src=>url_for(:controller=>'image',:action=>change.type,:id=>"#{change.id}-32x32"),:height=>32,:width=>32)
+              end
+            end
+            xml.td do xml.a(change.title, :href=>url_for(:controller=>'pentabarf',:action=>change.type,:id=>change.id)) end
+            xml.td do xml.a(change.name, :href=>url_for(:controller=>'pentabarf',:action=>change.type,:id=>change.id)) end
+            xml.td do xml.a(change.changed_when, :href=>url_for(:controller=>'pentabarf',:action=>change.type,:id=>change.id)) end
+          end
+        end
+      end
+    end
+  end
+end
+

@@ -1,0 +1,34 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div( :id => 'object-image' ) do
+  xml.img( :src => image_path( 'icon-list-64x64.png' ), :class => 'object-image' )
+end
+
+@conflicts.map do | conflict |
+
+end
+
+xml.div( :id => 'data' ) do
+  xml.fieldset do
+    xml.table do
+      xml.thead do
+        xml.th( "", {:colspan=>2} )
+        xml.th( local( 'Description') )
+      end
+      xml.tbody do
+        @conflicts.each do | conflict |
+          xml.tr do
+            xml.td do
+              xml.a(:href=>conflict.url) do
+                xml.img(:src=>conflict.img_url,:height=>32,:width=>32)
+              end
+            end
+            xml.td do xml.a(conflict.who, :href=>conflict.url) end
+            xml.td do xml.a(conflict.description, :href=>conflict.url) end
+          end
+        end
+      end
+    end
+  end
+end
+
