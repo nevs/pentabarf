@@ -1,7 +1,7 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 
 xml.table do
-  fields = [:name, :first_name, :last_name, :nickname]
+  fields = [:title, :subtitle]
   xml.thead do
     xml.tr do
       fields.each do | field |
@@ -10,10 +10,10 @@ xml.table do
     end
   end
   xml.tbody do
-    @results.each do | person |
+    @results.each do | event |
       xml.tr do
         fields.each do | field |
-          xml.td do xml.a( person.send(field), {:href=>url_for(:action=>:event,:id=>person.person_id)}) end
+          xml.td do xml.a( event.send(field), {:href=>url_for(:action=>:event,:id=>event.event_id)}) end
         end
       end
     end

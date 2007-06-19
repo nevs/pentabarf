@@ -104,12 +104,19 @@ class PentabarfController < ApplicationController
   end
 
   def find_person
-
   end
 
   def search_person_simple
     @results = View_find_person.select(params[:id] ? {:name=>{:ilike => params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}}} : {} )
     render(:partial=>'search_person_simple')
+  end
+
+  def find_event
+  end
+
+  def search_event_simple
+    @results = View_find_event.select(params[:id] ? {:title=>{:ilike => params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}}} : {} )
+    render(:partial=>'search_event_simple')
   end
 
   protected
