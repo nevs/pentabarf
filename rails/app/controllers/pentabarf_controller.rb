@@ -18,7 +18,9 @@ class PentabarfController < ApplicationController
   def conference
     begin
       @conference = Conference.select_single( :conference_id => params[:id] )
+      @content_title = @conference.acronym
     rescue
+      @content_title = "New Conference"
       return redirect_to(:action=>:conference,:id=>'new') if params[:id] != 'new'
       @conference = Conference.new(:conference_id=>0)
     end
@@ -40,8 +42,10 @@ class PentabarfController < ApplicationController
   def event
     begin
       @event = Event.select_single( :event_id => params[:id] )
+      @content_title = @event.title
     rescue
       return redirect_to(:action=>:event,:id=>'new') if params[:id] != 'new'
+      @content_title = "New Event"
       @event = Event.new(:event_id=>0,:conference_id=>@current_conference.conference_id)
     end
     @event_rating = Event_rating.select_or_new({:event_id=>@event.event_id,:person_id=>POPE.user.person_id})
@@ -64,8 +68,10 @@ class PentabarfController < ApplicationController
   def person
     begin
       @person = View_person.select_single( :person_id => params[:id] )
+      @content_title = @person.name
     rescue
       return redirect_to(:action=>:person,:id=>'new') if params[:id] != 'new'
+      @content_title = "New Person"
       @person = Person.new(:person_id=>0)
     end
     @conference = @current_conference
@@ -100,10 +106,12 @@ class PentabarfController < ApplicationController
   end
 
   def recent_changes
+    @content_title = "Recent Changes"
     @changes = View_recent_changes.select( {}, {:limit => 25 } )
   end
 
   def find_person
+    @content_title = "Find Person"
   end
 
   def search_person_simple
@@ -112,6 +120,7 @@ class PentabarfController < ApplicationController
   end
 
   def find_event
+    @content_title = "Find Event"
   end
 
   def search_event_simple
@@ -120,6 +129,7 @@ class PentabarfController < ApplicationController
   end
 
   def find_conference
+    @content_title = "Find Conference"
   end
 
   def search_conference_simple
