@@ -119,6 +119,14 @@ class PentabarfController < ApplicationController
     render(:partial=>'search_event_simple')
   end
 
+  def find_conference
+  end
+
+  def search_conference_simple
+    @results = View_find_conference.select(params[:id] ? {:title=>{:ilike => params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}}} : {} )
+    render(:partial=>'search_conference_simple')
+  end
+
   protected
 
   def init
