@@ -1,21 +1,30 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 
+fields = @report_class::Reportfields
+
 xml.div({:id=>:data}) do
-  xml.table do
+  xml.table({:class=>:sortable}) do
     xml.thead do
       xml.tr do
-        @report_class::Reportfields.each do | field |
+        fields.each do | field |
           xml.th( local( field ) )
         end
       end
     end
 
     xml.tbody do
+      @report_class.select({:conference_id=>@current_conference.conference_id}).each do | row |
+        xml.tr do
+          fields.each do | field |
+            xml.td( row.send(field) )
+          end
+        end
+      end
     end
 
     xml.tfoot do
       xml.tr do
-        @report_class::Reportfields.each do | field |
+        fields.each do | field |
           xml.th( local( field ) )
         end
       end

@@ -2,8 +2,10 @@ xml = Builder::XmlMarkup.new(:indent=>1)
 
 xml.div({:id=>:data}) do
   xml.ul do
-    xml.li do
-      xml.a('Expenses',{:href=>url_for({:action=>:expenses})})
+    ReportController::REPORTS.each do | report |
+      xml.li do
+        xml.a( local(report),{:href=>url_for({:action=>report})})
+      end
     end
   end
 end
