@@ -1,4 +1,9 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 
 xml.div({:id=>:data}) do
+  xml.ul do
+    xml.li do
+      xml.a('Expenses',{:href=>url_for({:action=>:expenses})})
+    end
+  end
 end
