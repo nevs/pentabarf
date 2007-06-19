@@ -1,0 +1,26 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div({:id=>:data}) do
+  xml.table do
+    xml.thead do
+      xml.tr do
+        @report_class::Reportfields.each do | field |
+          xml.th( local( field ) )
+        end
+      end
+    end
+
+    xml.tbody do
+    end
+
+    xml.tfoot do
+      xml.tr do
+        @report_class::Reportfields.each do | field |
+          xml.th( local( field ) )
+        end
+      end
+    end
+
+  end
+end
+

@@ -1,0 +1,62 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+@report = @report_class.select({:conference_id=>@current_conference.conference_id,:language_id=>@current_language_id})
+
+xml.div({:id=>:data}) do
+  xml.table({:class=>:sortable}) do
+    xml.thead do
+      xml.tr do
+        xml.th( local( "Name" ), {:colspan=>2} )
+        xml.th( local( "Fee" ), {:colspan=>2} )
+        xml.th( local( "Travel Cost" ), {:colspan=>2} )
+        xml.th( local( "Accommodation Cost" ), {:colspan=>2} )
+      end
+    end
+
+    sum = Hash.new(0)
+    xml.tbody do
+      @report.each do | row |
+        sum[row.fee_currency_name] += row.fee if row.fee
+        sum[row.travel_currency_name] += row.travel_cost if row.travel_cost
+        sum[row.accommodation_currency_name] += row.accommodation_cost if row.accommodation_cost
+        xml.tr do
+          xml.td do 
+            xml.a({:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) do
+              xml.img({:src=>url_for({:controller=>'image',:action=>:person,:id=>row.person_id}),:height=>24,:width=>24})
+            end
+          end
+          xml.td do 
+            xml.a( row.name, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})})
+          end
+          xml.td do 
+            xml.a( row.fee ? sprintf("%.2f", row.fee) : '', {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})})
+          end
+          xml.td do 
+            xml.a( row.fee_currency_name , {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})})
+          end
+          xml.td do 
+            xml.a( row.travel_cost ? sprintf("%.2f", row.travel_cost) : '', {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})})
+          end
+          xml.td do 
+            xml.a( row.travel_currency_name, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})})
+          end
+          xml.td do 
+            xml.a( row.accommodation_cost ? sprintf("%.2f", row.accommodation_cost) : '', {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})})
+          end
+          xml.td do 
+            xml.a( row.accommodation_currency_name, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})})
+          end
+        end
+      end
+    end
+
+    xml.tfoot do
+      xml.tr do
+        xml.th("Sum:",{:colspan=>3})
+        xml.th( sum.map{|k,v| sprintf("%.2f %s",v,k)}.join(" and "), {:colspan=>5})
+      end
+    end
+
+  end
+end
+
