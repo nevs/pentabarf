@@ -15,6 +15,7 @@ module Momomoto
       alias_method( :__delete, :delete )
 
       def delete( *args )
+        POPE.table_delete( self, *args )
         __delete( *args )
       end
 
