@@ -25,13 +25,14 @@ xml.div( :id => 'data' ) do
               who = conflict.title
             when View_conflict_person::Row then 
               url = url_for({:action=>:person,:id=>conflict.person_id})
-              url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id})
+              img_url = url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id})
               who = conflict.name
           end
+          img_url += "-24x24"
           xml.tr do
             xml.td do
               xml.a(:href=>url) do
-                xml.img(:src=>img_url,:height=>32,:width=>32)
+                xml.img(:src=>img_url,:height=>24,:width=>24)
               end
             end
             xml.td do xml.a(who,:href=>url) end
