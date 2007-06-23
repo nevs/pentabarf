@@ -5,11 +5,11 @@ class PentabarfController < ApplicationController
 
   def conflicts
     @conflicts = []
-    @conflicts += Momomoto::View_conflict_person.find({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
-    @conflicts += Momomoto::View_conflict_event.find({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
-    @conflicts += Momomoto::View_conflict_event_event.find({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
-    @conflicts += Momomoto::View_conflict_event_person.find({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
-    @conflicts += Momomoto::View_conflict_event_person_event.find({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+    @conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+    @conflicts += View_conflict_event.call({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+    @conflicts += View_conflict_event_event.call({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+    @conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+    @conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
   end
 
   def index

@@ -4,10 +4,6 @@ xml.div( :id => 'object-image' ) do
   xml.img( :src => image_path( 'icon-list-64x64.png' ), :class => 'object-image' )
 end
 
-@conflicts.map do | conflict |
-
-end
-
 xml.div( :id => 'data' ) do
   xml.fieldset do
     xml.table do
@@ -17,14 +13,29 @@ xml.div( :id => 'data' ) do
       end
       xml.tbody do
         @conflicts.each do | conflict |
+          url, img_url, who = "url", "url", conflict.class.to_s
+          case conflict
+            when View_conflict_event_event::Row then 
+              url = url_for({:action=>:event,:id=>conflict.event_id1})
+              img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id1})
+              who = conflict.title1
+            when View_conflict_event::Row then 
+              url = url_for({:action=>:event,:id=>conflict.event_id})
+              img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id})
+              who = conflict.title
+            when View_conflict_person::Row then 
+              url = url_for({:action=>:person,:id=>conflict.person_id})
+              url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id})
+              who = conflict.name
+          end
           xml.tr do
             xml.td do
-              xml.a(:href=>conflict.url) do
-                xml.img(:src=>conflict.img_url,:height=>32,:width=>32)
+              xml.a(:href=>url) do
+                xml.img(:src=>img_url,:height=>32,:width=>32)
               end
             end
-            xml.td do xml.a(conflict.who, :href=>conflict.url) end
-            xml.td do xml.a(conflict.description, :href=>conflict.url) end
+            xml.td do xml.a(who,:href=>url) end
+            xml.td do xml.a(conflict.conflict_name,:href=>url) end
           end
         end
       end
