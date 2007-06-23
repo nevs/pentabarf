@@ -31,6 +31,10 @@ class Pope
     flush
   end
 
+  def permission?( perm )
+    @permissions.member?( perm )
+  end
+
   def table_write( table, row )
     table_domains( table ) do | domain |
       action = 'modify' if table.table_name != table.table_name
