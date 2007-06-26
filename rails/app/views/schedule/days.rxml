@@ -1,0 +1,78 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.div(:id=>'schedule',:class=>'section') do
+  big_table = schedule_table( @conference, @events )
+  @conference.days.times do | day |
+    table = big_table[ day ]
+    @day = day + 1
+    date = @conference.start_date + @day - 1
+    xml.h1 "#{local(:schedule)} #{local(:day)} #{@day}: #{date.strftime('%d.%m.%Y')}"
+    xml.table do
+      xml.thead do
+        xml.tr do 
+          xml.th(:class=>'time')
+          @rooms.each do | room |
+            xml.th do
+              xml.strong room.name
+            end
+          end
+        end
+      end
+      xml.tfoot do
+        xml.tr do 
+          xml.th(:class=>'time')
+          @rooms.each do | room |
+            xml.th do
+              xml.strong room.name
+            end
+          end
+        end
+      end
+      xml.tbody do
+        table.each do | row |
+          xml.tr do
+            xml.td(row[0],{:class=>"time"})
+            @rooms.each do | room |
+              next if row[room.room_id] == 0
+              if row[room.room_id].nil?
+                xml.td({:class=>'room empty'}) 
+              else
+                event_id = row[room.room_id][:event_id]
+                event = @events.select{|e| e.event_id == event_id }.first
+                xml.td({:rowspan=>row[room.room_id][:slots],:class=>"room event #{sanitize_track(event.conference_track_tag)}"}) do
+                  xml.p(:class=>'title') do 
+                    xml.a( event.title, {:href=>url_for(:action=>:event,:id=>event_id)} )
+                  end
+                  xml.p(:class=>'subtitle') do 
+                    xml.a( event.subtitle, {:href=>url_for(:action=>:event,:id=>event_id)} )
+                  end
+                  xml.ul(:class=>'speakers') do
+                    @events.select{|e| e.event_id == event_id }.each do | speaker |
+                      xml.li do
+                        xml.a(speaker.name, {:href=>url_for(:action=>:speaker,:id=>speaker.person_id)})
+                      end
+                    end
+                  end
+                  xml.p(:class=>'info') do 
+                    xml.a(:href=>url_for({:action=>:event,:id=>event_id})) do
+                      xml.text! local(:language)
+                      xml.span(event.language,{:class=>'language'})
+                      xml.br
+                      xml.text! local(:event_type)
+                      xml.span(event.event_type,{:class=>'type'})
+                      xml.br
+                      xml.text! local(:conference_track)
+                      xml.span(event.conference_track,{:class=>'track'})
+                      xml.br
+                    end
+                  end
+                end
+              end
+
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
