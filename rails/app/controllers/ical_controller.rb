@@ -1,7 +1,7 @@
 require 'icalendar'
 
 class IcalController < ApplicationController
-  before_filter :authorize, :check_permission
+  before_filter :check_permission
 
   def conference
     conf = Conference.select_single({:conference_id=>params[:id]})
