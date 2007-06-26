@@ -10,6 +10,12 @@ class ScheduleController < ApplicationController
     render( :text => @conference.css.to_s )
   end
 
+  def day
+    @day = params[:id].to_i
+    @rooms = View_room.select({:conference_id=>@conference.conference_id, :language_id=>@current_language_id, :f_public=>'t'})
+    @events = View_schedule_event.select({:day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated_id=>@current_language_id})
+  end
+
   protected
 
   def init
