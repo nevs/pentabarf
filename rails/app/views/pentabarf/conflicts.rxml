@@ -30,11 +30,7 @@ xml.div( :id => 'data' ) do
           end
           img_url += "-24x24"
           xml.tr do
-            xml.td do
-              xml.a(:href=>url) do
-                xml.img(:src=>img_url,:height=>24,:width=>24)
-              end
-            end
+            xml.td do xml.a(:href=>url) do xml.img(:src=>img_url,:height=>24,:width=>24) end end
             xml.td do xml.a(who,:href=>url) end
             xml.td do xml.a(conflict.conflict_name,:href=>url) end
           end

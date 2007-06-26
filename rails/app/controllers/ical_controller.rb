@@ -41,3 +41,4 @@ class IcalController < ApplicationController
   end
 
 end
+
