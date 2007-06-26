@@ -28,7 +28,6 @@
 }
 
 button {
-  visibility: visible;
   border: 2px solid black;  
 
   display: inline;
@@ -36,17 +35,12 @@ button {
 
   color: black;
   font-weight: bold;
-  text-transform: uppercase;
-
   background-color: #fff;
   vertical-align: middle;
 
   padding-left: 3px;
   padding-right: 3px;
 
-  margin-top: 1px;
-  margin-bottom: 1px;
-  
   text-align: center;
 }
 

@@ -12,6 +12,8 @@ ActionController::Routing::Routes.draw do |map|
   # You can have the root of your site routed by hooking up ''
   # -- just remember to delete public/index.html.
   map.connect '', :controller => "pentabarf"
+  map.connect 'schedule/:conference/stylesheet.css', :controller => "schedule", :action => :css
+  map.connect 'schedule/:conference/:action/:id', :controller => "schedule"
 
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'

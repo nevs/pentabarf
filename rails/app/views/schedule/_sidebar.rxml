@@ -1,0 +1,40 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.div(:id=>'menu', :class=>'noprint') do
+  xml.ul do
+    xml.li do
+      xml.a(:href=>url_for({:action=>:index})) do
+        xml.span('Index', :class=>:normal)
+      end
+    end
+    @conference.days.times do | day |
+      xml.li do
+        xml.a(:href=>url_for({:action=>:day,:id=>day + 1})) do
+          xml.span("<[schedule::day]> #{day + 1}", :class=>:normal)
+        end
+      end
+    end
+    xml.li do
+      xml.a(:href=>url_for({:action=>:speakers})) do
+        xml.span('<[schedule::speakers]>', :class=>:normal)
+      end
+    end
+    xml.li do
+      xml.a(:href=>url_for({:action=>:events})) do
+        xml.span('<[schedule::events]>', :class=>:normal)
+      end
+    end
+    if @tracks.length > 0
+      xml.li do
+        xml.ul(:class=>'track') do
+          @tracks.each do | track |
+            xml.li(:class=>sanitize_track(track.tag)) do
+              xml.a(:href=>url_for({:conference_id=>@conference.acronym,:action=>:track_events,:track=>track.tag})) do
+                xml.span( track.tag, :class=>:normal)
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end

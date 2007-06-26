@@ -1,0 +1,36 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.ul do
+  @conference.days.times do | day |
+    date = @conference.start_date + day
+    xml.li do
+      xml.a(:href=>url_for({:action=>:day,:id=>day + 1})) do
+        xml.span("<[schedule::day]> #{day + 1} (#{date.strftime('%d.%m.%Y')})", :class=>:normal)
+      end
+    end
+  end
+  xml.li do
+    xml.a(:href=>url_for({:action=>:speakers})) do
+      xml.span('<[schedule::speakers]>', :class=>:normal)
+    end
+  end
+  xml.li do
+    xml.a(:href=>url_for({:action=>:events})) do
+      xml.span('<[schedule::events]>', :class=>:normal)
+    end
+  end
+  xml.li do
+    xml.a(:href=>url_for({:controller=>'ical',:action=>:conference,:id=>@conference.conference_id})) do
+      xml.span('iCal', :class=>:normal)
+    end
+  end
+  xml.li do
+    xml.a(:href=>url_for({:controller=>'xcal',:action=>:conference,:id=>@conference.conference_id})) do
+      xml.span('xCal', :class=>:normal)
+    end
+  end
+  xml.li do
+    xml.a(:href=>url_for({:controller=>'xml',:action=>:schedule,:id=>@conference.conference_id})) do
+      xml.span('<[schedule::schedule]> (XML)', :class=>:normal)
+    end
+  end
+end
