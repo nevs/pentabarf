@@ -69,10 +69,13 @@ module Builder_helper
 
   def select_tag( name, collection, options = {} )
     xml = Builder::XmlMarkup.new
-    options[:name] = options[:id] = name
-    options[:tabindex] = 0 if not options[:tabindex]
-    options[:onchange] = "master_change(this,'#{options[:master]}');" if options[:master]
-    xml.select( options ) do
+    o = options.dup
+    o[:name] = o[:id] = name
+    o[:tabindex] = 0 if not options[:tabindex]
+    o[:onchange] = "master_change(this,'#{options[:master]}');" if options[:master]
+    found_selected = false
+    o.delete(:selected)
+    xml.select( o ) do
       if options[:with_empty]
         opts = {}
         opts[:selected] = :selected if options[:selected] == nil
@@ -86,10 +89,16 @@ module Builder_helper
         else
           key = value = element
         end
-        opts[:selected] = 'selected' if key == options[:selected]
+        if key == options[:selected]
+          opts[:selected] = 'selected'
+          found_selected = true
+        end
         opts[:value] = key
         opts[:class] = element[1] if options[:slave]
         xml.option( value, opts )
+      end
+      if options[:selected] && !found_selected
+        xml.option( options[:selected], {:value=>options[:selected],:selected=>:selected})
       end
     end
   end
