@@ -1,0 +1,38 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.div(:id=>'speaker-index',:class=>'section') do
+  xml.table(:class=>'speaker-index') do
+  
+    xml.thead do
+      xml.tr do
+        xml.th( local(:speaker),{:class=>'speaker'})
+        xml.th( local(:events),{:class=>'event'})
+      end
+    end
+
+    xml.tbody do
+      prev = nil
+      @speakers.each do | person |
+        next if prev && person.person_id == prev.person_id
+        prev = person
+        xml.tr do
+          xml.td(:class=>'speaker') do
+            xml.a(:href=>url_for(:action=>:speaker,:id=>person.person_id)) do
+              xml.img(:class=>'speaker-image',:src=>person_image(person.person_id, 48))
+            end
+            xml.a(person.name,{:href=>url_for(:action=>:speaker,:id=>person.person_id)})
+          end
+          xml.td(:class=>'events') do
+            xml.ul(:class=>'events') do 
+              @speakers.select{|e| e.person_id == person.person_id}.each do | event |
+                xml.li do
+                  xml.a(event.title, {:href=>url_for(:action=>:event,:id=>event.event_id)})
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+
+  end
+end

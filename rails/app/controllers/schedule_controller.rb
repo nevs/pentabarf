@@ -40,6 +40,11 @@ class ScheduleController < ApplicationController
     @content_title = @speaker.name
   end
 
+  def speakers
+    @speakers = View_schedule_person.select({:conference_id=>@conference.conference_id},{:order=>[:name]})
+#    @content_title = local(:speakers)
+  end
+
   protected
 
   def init
