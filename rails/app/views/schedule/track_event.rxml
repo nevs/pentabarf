@@ -10,7 +10,7 @@ xml.div(:id=>'event',:class=>'section') do
         xml.tr do
           xml.td do
             xml.a(:href=>url_for(:action=>:speaker,:id=>speaker.person_id)) do
-              xml.img(:src=>person_image( speaker.person_id, 32),:height=>32,:width=>32)
+              xml.img(:src=>person_image( speaker.person_id, 32))
             end
           end
           xml.td do
@@ -121,7 +121,7 @@ xml.div(:id=>'event',:class=>'section') do
     end
 
     if prev
-      xml.a(:href=>url_for(:action=>:event,:id=>prev.event_id)) do
+      xml.a(:href=>url_for(:action=>:track_event,:track=>@track.tag,:id=>prev.event_id)) do
         xml.span('<<<',{:class=>'previous',:title=>prev.title})
       end
     end
@@ -133,7 +133,7 @@ xml.div(:id=>'event',:class=>'section') do
     end
 
     if fwd
-      xml.a(:href=>url_for(:action=>:event,:id=>fwd.event_id)) do
+      xml.a(:href=>url_for(:action=>:track_event,:track=>@track.tag,:id=>fwd.event_id)) do
         xml.span('>>>',{:class=>'next',:title=>fwd.title})
       end
     end
