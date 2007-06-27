@@ -14,19 +14,23 @@ class ScheduleController < ApplicationController
     @day = params[:id].to_i
 #    @content_title = "#{local(:schedule)} #{local(:day)} #{@day}"
     @rooms = View_room.select({:conference_id=>@conference.conference_id, :language_id=>@current_language_id, :f_public=>'t'})
-    @events = View_schedule_event.select({:day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated_id=>@current_language_id})
+    @events = View_schedule_event.select({:day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},{:order=>[:title,:subtitle]})
   end
 
   def days
 #    @content_title = local(:schedule)
     @rooms = View_room.select({:conference_id=>@conference.conference_id, :language_id=>@current_language_id, :f_public=>'t'})
-    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id})
+    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},{:order=>[:title,:subtitle]})
   end
 
   def event
-    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id})
     @event = View_event.select_single({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id,:event_id=>params[:id]})
+    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},{:order=>[:title,:subtitle]})
     @content_title = @event.title
+  end
+
+  def events
+    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},{:order=>[:title,:subtitle]})
   end
 
   protected

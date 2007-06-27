@@ -1,0 +1,56 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.div(:id=>'event-index',:class=>'section') do
+  xml.table(:class=>'event-index') do
+    xml.thead do
+      xml.tr do
+        xml.th( local(:event),{:class=>'event'})
+        xml.th( local(:speakers),{:class=>'speaker'})
+      end
+    end
+    xml.tbody do
+      prev = nil
+      @events.each do | event |
+        next if prev && event.event_id == prev.event_id
+        prev = event
+        xml.tr do
+          xml.td(:class=>"event #{sanitize_track(event.conference_track_tag)}") do
+            xml.a(:href=>url_for(:action=>:event,:id=>event.event_id)) do
+              xml.img(:class=>'event-image',:src=>event_image(event.event_id, 48))
+            end
+            xml.p(:class=>'title') do
+              xml.a(event.title,{:href=>url_for(:action=>:event,:id=>event.event_id)})
+            end
+            xml.p(:class=>'subtitle') do
+              xml.a(event.subtitle,{:href=>url_for(:action=>:event,:id=>event.event_id)})
+            end
+            xml.p(:class=>'info') do
+              xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
+                xml.strong local(:event_type)
+                xml.text! ': '
+                xml.span(event.event_type,{:class=>'type'})
+                xml.br
+                xml.strong local(:conference_track)
+                xml.text! ': '
+                xml.span(event.conference_track,{:class=>'type'})
+                xml.br
+                xml.strong local(:language)
+                xml.text! ': '
+                xml.span(event.language,{:class=>'type'})
+                xml.br
+              end
+            end
+          end
+          xml.td(:class=>"speakers #{sanitize_track(event.conference_track_tag)}") do
+            xml.ul(:class=>'speakers') do
+              @events.select{|e| e.event_id == event.event_id}.each do | speaker |
+                xml.li do
+                  xml.a(speaker.name,{:href=>url_for(:action=>:speaker,:id=>speaker.person_id)})
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end
