@@ -1,5 +1,5 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
-xml.div(:id=>'speaker',:class=>'section') do
+xml.div(:id=>'speaker',:class=>'section vcard') do
   xml.div(:id=>'infobox') do
     xml.table do
       xml.tr do xml.th( local(:events),{:colspan=>2}) end
@@ -18,9 +18,9 @@ xml.div(:id=>'speaker',:class=>'section') do
     end
   end
 
-  xml.h1 @person.name
-  xml.img(:class=>'speaker-image',:src=>person_image(@person.person_id, 128))
-  xml.div(:class=>:abstract) do xml << markup(@speaker.abstract) end
+  xml.h1( @person.name, {:class=>'fn'})
+  xml.img(:class=>'speaker-image photo',:src=>person_image(@person.person_id, 128))
+  xml.div(:class=>'abstract note') do xml << markup(@speaker.abstract) end
   xml.div(:class=>:description) do xml << markup(@speaker.description) end
 
   if @speaker.email_public
@@ -36,7 +36,7 @@ xml.div(:id=>'speaker',:class=>'section') do
         xml.ul do
           links.each do | link |
             xml.li do
-              xml.a( link.title ? link.title : link.url, {:href=>link.url})
+              xml.a( link.title ? link.title : link.url, {:href=>link.url,:class=>:url,:rel=>:bookmark})
             end
           end
         end

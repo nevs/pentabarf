@@ -1,6 +1,6 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 event = @events.select{|e| e.event_id == @event.event_id}.first
-xml.div(:id=>'event',:class=>'section') do
+xml.div(:id=>'event',:class=>'section vevent') do
   xml.div(:id=>'infobox') do
     xml.table do
       xml.tr do
@@ -28,20 +28,20 @@ xml.div(:id=>'event',:class=>'section') do
       end
       xml.tr do
         xml.td( local(:room),{:class=>'keyword'})
-        xml.td(@event.room,{:class=>'value'})
+        xml.td(@event.room,{:class=>'value location'})
       end
       xml.tr do
         xml.td( local(:start_time),{:class=>'keyword'})
-        xml.td(@event.real_starttime.strftime('%H:%M'),{:class=>'value'})
+        xml.td(@event.real_starttime.strftime('%H:%M'),{:class=>'value dtstart',:title=>@event.real_starttime.xmlschema})
       end
       xml.tr do
         xml.td( local(:event_duration),{:class=>'keyword'})
-        xml.td(@event.duration.strftime('%H:%M'),{:class=>'value'})
+        xml.td(@event.duration.strftime('%H:%M'),{:class=>'value duration',:title=>@event.duration.strftime('P%HH%MM%SS')})
       end
       xml.tr do xml.th('Info',{:colspan=>2}) end
       xml.tr do
         xml.td('ID',{:class=>'keyword'})
-        xml.td(event.event_id,{:class=>'value'})
+        xml.td(event.event_id,{:class=>'value',:title=>"#{event.event_id}@#{@conference.acronym}@pentabarf.org"})
       end
       xml.tr do
         xml.td( local(:event_type),{:class=>'keyword'})
@@ -75,7 +75,7 @@ xml.div(:id=>'event',:class=>'section') do
 
   end
 
-  xml.h1(@event.title,{:class=>'title'})
+  xml.h1(@event.title,{:class=>'title summary'})
   xml.p(@event.subtitle,{:class=>'subtitle'})
   xml.img(:class=>'event-image',:src=>event_image(@event.event_id, 128))
   xml.div({:class=>'abstract'}) do
@@ -92,7 +92,7 @@ xml.div(:id=>'event',:class=>'section') do
       xml.ul do
         files.each do | file |
           xml.li do
-            xml.a("#{file.title} (#{file.mime_type} - #{human_size(file.filesize)})",{:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>file.event_attachment_id)})
+            xml.a("#{file.title} (#{file.mime_type} - #{human_size(file.filesize)})",{:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>file.event_attachment_id),:rel=>'enclosure'})
           end
         end
       end
@@ -106,7 +106,7 @@ xml.div(:id=>'event',:class=>'section') do
       xml.ul do
         links.each do | link |
           xml.li do
-            xml.a( link.title ? link.title : link.url, {:href=>link.url})
+            xml.a( link.title ? link.title : link.url, {:href=>link.url,:rel=>'bookmark'})
           end
         end
       end
