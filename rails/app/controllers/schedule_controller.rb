@@ -45,6 +45,13 @@ class ScheduleController < ApplicationController
 #    @content_title = local(:speakers)
   end
 
+  def track_events
+#    @content_title = "Lectures and workshops"
+    @track = View_conference_track.select_single({:conference_id=>@conference.conference_id,:language_id=>@current_language_id,:tag=>params[:track]})
+    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:conference_track_id=>@track.conference_track_id,:translated_id=>@current_language_id}, {:order=>[:title,:subtitle]})
+
+  end
+
   protected
 
   def init

@@ -155,4 +155,10 @@ function master_change( select, slave_column ) {
   }
 }
 
+function add_search_column( select ) {
+  var template_rows = $('search_template_table').rows;
+  for ( var i = 0; i < template_rows.length; i++ ) {
+    
+  }
+}
 
