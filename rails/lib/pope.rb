@@ -45,7 +45,9 @@ class Pope
 
   def table_delete( table, row )
     table_domains( table ) do | domain |
-      raise "Forbidden to delete in #{table}" if not self.send("auth_#{domain}", table, row, :delete)
+      action = 'modify' if table.table_name != table.table_name
+      domain = :person if domain == :conference_person
+      return true if permissions.member?( "#{action}_#{domain}".to_sym )
     end
   end
 
