@@ -1,0 +1,72 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.div(:id=>'speaker',:class=>'section') do
+  xml.div(:id=>'infobox') do
+    xml.table do
+      xml.tr do xml.th( local(:events),{:colspan=>2}) end
+      @speakers.select{|e| e.person_id == @person.person_id}.each do | event |
+        xml.tr do
+          xml.td do
+            xml.a(:href=>url_for(:action=>:event,:id=>event.event_id)) do
+              xml.img(:src=>event_image(event.event_id,32))
+            end
+          end
+          xml.td do
+            xml.a(event.title,{:href=>url_for(:action=>:event,:id=>event.event_id)})
+          end
+        end
+      end
+    end
+  end
+
+  xml.h1 @person.name
+  xml.img(:class=>'speaker-image',:src=>person_image(@person.person_id, 128))
+  xml.div(:class=>:abstract) do xml << markup(@speaker.abstract) end
+  xml.div(:class=>:description) do xml << markup(@speaker.description) end
+
+  if @speaker.email_public
+    xml.h2 'Contact'
+    xml.p @speaker.email_public.gsub(/@/, ' at ').gsub(/\./, ' dot ')
+  end
+
+  if @speaker.conference_person_id
+    links = Conference_person_link.select({:conference_person_id=>@speaker.conference_person_id})
+    if links.length > 0
+      xml.div(:class=>'links') do
+        xml.h2 local(:links)
+        xml.ul do
+          links.each do | link |
+            xml.li do
+              xml.a( link.title ? link.title : link.url, {:href=>link.url})
+            end
+          end
+        end
+      end
+    end
+  end
+
+  xml.div(:id=>'navigation') do
+    prev = nil
+    @speakers.each do | s | 
+      break if s.person_id == @speaker.person_id
+      prev = s
+    end
+
+    if prev
+      xml.a(:href=>url_for(:action=>:speaker,:id=>prev.person_id)) do
+        xml.span('<<<',{:class=>'previous',:title=>prev.name})
+      end
+    end
+
+    fwd = nil
+    @speakers.reverse_each do | s | 
+      break if s.person_id == @speaker.person_id
+      fwd = s
+    end
+
+    if fwd
+      xml.a(:href=>url_for(:action=>:speaker,:id=>fwd.person_id)) do
+        xml.span('>>>',{:class=>'next',:title=>fwd.name})
+      end
+    end
+  end
+end

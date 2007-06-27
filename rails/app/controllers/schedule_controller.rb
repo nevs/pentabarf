@@ -33,6 +33,13 @@ class ScheduleController < ApplicationController
     @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},{:order=>[:title,:subtitle]})
   end
 
+  def speaker
+    @speakers = View_schedule_person.select({:conference_id=>@conference.conference_id},{:order=>[:name]})
+    @person = View_person.select_single({:person_id=>params[:id]})
+    @speaker = View_conference_person.select_single({:conference_id=>@conference.conference_id,:person_id=>params[:id]})
+    @content_title = @speaker.name
+  end
+
   protected
 
   def init
