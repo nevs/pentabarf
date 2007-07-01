@@ -61,8 +61,5 @@ xml.div(:id=>'content-general') do
     xml.button( local('add conference language'), {:type=>:button,:onclick=>'table_add_row("conference_language")'})
   end
 
-
-
-
 end
 

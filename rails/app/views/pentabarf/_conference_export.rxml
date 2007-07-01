@@ -5,6 +5,13 @@ xml.div(:id=>'content-export') do
   xml.fieldset do 
     xml.legend( 'Export' )
 
+    xml.a({:href=>url_for({:controller=>'schedule',:conference=>@conference.acronym})}) do
+      xml.button( local( :schedule_export ) )
+    end
+    xml.a({:href=>url_for({:controller=>'ical',:action=>:conference,:id=>@conference.acronym})}) do
+      xml.button( local( :ical ) )
+    end
+
     xml.table do
       xml << text_field_row( @conference, :release )
       xml << text_field_row( @conference, :homepage )

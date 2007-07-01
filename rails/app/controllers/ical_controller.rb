@@ -4,7 +4,7 @@ class IcalController < ApplicationController
   before_filter :check_permission
 
   def conference
-    conf = Conference.select_single({:conference_id=>params[:id]})
+    conf = Conference.select_single({:acronym=>params[:id]})
     tz = View_time_zone.select_single({:time_zone_id => conf.time_zone_id, :language_id => 120})
     tz_offset = tz.tag.match(/^[^0-9]+([+-]\d+)$/)[1].to_i
     lang = Language.select_single({:language_id=>@current_language_id})
