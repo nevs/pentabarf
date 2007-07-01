@@ -113,6 +113,25 @@ module Builder_helper
     end
   end
 
+  def radio_row( row, column, collection, options = {} )
+    name = "#{row.class.table.table_name}[#{column}]"
+    options[:checked] = row.send(column) unless options[:checked]
+    xml = Builder::XmlMarkup.new
+    xml.tr do
+      xml.td do xml.label( local( column ) ) end
+      collection.each do | element |
+        if element.instance_of?( Array )
+          key = element.first
+        else
+          key = element
+        end
+        opts = {:type=>:radio,:name=>name,:value=>key}
+        opts[:checked] = :checked if options[:checked] == key
+        xml.td do xml.input( opts ) end
+      end
+    end
+  end
+
   def money_currency_row( row, sum_column, currency_column, options = {} )
     name = "#{row.class.table.table_name}[#{currency_column}]"
     xml = Builder::XmlMarkup.new

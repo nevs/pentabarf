@@ -6,8 +6,15 @@ xml.div(:id=>'content-rating') do
     xml.legend local('rating')
 
     xml.table do
+      xml.tr do
+        xml.th
+        ['--','-','o','+','++', nil].each do | col |
+          xml.th( col )
+        end
+      end
+
       [:relevance,:actuality,:acceptance].each do | field |
-        xml << select_row( @event_rating, field, [[],[1,'--'],[2,'-'],[3,'o'],[4,'+'],[5,'++']])
+        xml << radio_row( @event_rating, field, [1,2,3,4,5,nil] )
       end
     end
 
