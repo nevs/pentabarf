@@ -12,6 +12,10 @@ xml.div(:id=>'content-export') do
       xml.button( local( :ical ) )
     end
 
+    xml.a({:href=>url_for({:controller=>'xcal',:action=>:conference,:id=>@conference.acronym})}) do
+      xml.button( local( :xcal ) )
+    end
+
     xml.table do
       xml << text_field_row( @conference, :release )
       xml << text_field_row( @conference, :homepage )

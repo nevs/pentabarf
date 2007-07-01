@@ -1,0 +1,61 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.instruct!
+xml.schedule do
+  xml.conference do
+    xml.title @conference.title
+    xml.subtitle @conference.subtitle
+    xml.venue @conference.venue
+    xml.city @conference.city
+    xml.start @conference.start_date.strftime('%Y-%m-%d')
+    xml.end((@conference.start_date + @conference.days - 1).strftime('%Y-%m-%d') )
+    xml.days @conference.days
+    xml.release @conference.release
+    xml.day_change @conference.day_change.strftime('%H:%M')
+    xml.timeslot_duration @conference.timeslot_duration.strftime('%H:%M')
+  end
+  @conference.days.times do | day |
+    day += 1
+    xml.day(:index=>day,:date=>(@conference.start_date + (day - 1))) do
+      @rooms.each do | room |
+        xml.room({:name => room.name}) do
+          room_events = {}
+          @events.select{|e| e.day == day and e.room_id == room.room_id}.each do | event |
+            next if room_events.values.member?( event.event_id )
+            room_events[event.start_time.strftime('%H:%M')] = event.event_id
+          end
+
+          room_events.keys.sort.each do | start_time |
+            event_id = room_events[start_time]
+            event = @events.select{|e| e.event_id == event_id}.first
+            xml.event(:id=>event_id) do
+              xml.start event.real_starttime.strftime('%H:%M')
+              xml.duration event.duration.strftime('%H:%M')
+              xml.room event.room
+              xml.tag event.event_tag
+              xml.title event.title
+              xml.subtitle event.subtitle
+              xml.track event.conference_track
+              xml.type event.event_type
+              xml.language event.language
+              xml.abstract event.abstract
+              xml.description event.description
+              xml.persons do
+                @events.select{|e| e.event_id == event_id}.each do | speaker |
+                  xml.person( speaker.name, {:id=>speaker.person_id} )
+                end
+              end
+              xml.links do
+                links = Event_link.find({:event_id=>event_id})
+                links.each do | link |
+                  xml.link( link.title ? link.title : link.url, {:href=>link.url})
+                end
+              end
+            end
+          end
+
+        end
+      end
+    end
+  end
+
+end
