@@ -1,0 +1,2 @@
+module XcalHelper
+end

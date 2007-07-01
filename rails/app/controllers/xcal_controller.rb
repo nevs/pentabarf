@@ -1,0 +1,2 @@
+class XcalController < ApplicationController
+end
