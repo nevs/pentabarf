@@ -1,3 +1,3 @@
-class View_svchedule_simple < Momomoto::Table
+class View_schedule_simple < Momomoto::Table
 end
 

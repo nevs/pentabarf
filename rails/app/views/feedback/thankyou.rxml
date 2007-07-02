@@ -1,0 +1,9 @@
+xml = Builder::XmlMarkup.new
+
+xml.div({:class=>:section}) do
+  xml.p(local('feedback::thankyou'))
+  xml.p do
+    xml.text! "Return to "
+    xml.a(@event.title,{:href=>"#{@conference.export_base_url}events/#{@event.event_id}.#{@language.tag}.html"})
+  end
+end

@@ -1,0 +1,29 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.instruct!
+xml.declare! :DOCTYPE, :html, :PUBLIC, "-//W3C//DTD XHTML 1.0 Transitional//EN", "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
+  xml.head do
+    xml.meta(:'http-equiv'=>'Content-Type',:content=>'text/html; charset=utf-8')
+    xml.meta(:name=>'generator',:content=>'Pentabarf')
+    xml.title "#{@conference.acronym} Feedback: #{@content_title}"
+    xml.link(:href=>"/favicon.ico",:rel=>"shortcut icon")
+    xml.link(:href=>url_for(:action=>:css, :conference=>@conference.acronym),:rel=>'Stylesheet',:media=>'screen,print',:type=>'text/css')
+  end
+  xml.body do
+    xml.div(:id=>'conference-logo') do
+      xml.a(:href=>@conference.homepage) do
+        xml.img( :src=> "#{@conference.export_base_url}images/conference-128x128.png" )
+      end
+    end
+    xml << render(:partial => 'sidebar')
+    xml.div(:id=>'content') do
+      xml.p("#{@conference.acronym}", {:class=>'release'})
+      xml.p(:class=>'intro') do
+        xml.strong @conference.title
+        xml.br
+        xml.em @content_title
+      end
+      xml << @content_for_layout
+    end
+  end
+end
