@@ -1,6 +1,4 @@
 class FileController < ApplicationController
-  before_filter :authorize
-  before_filter :check_permission
 
   def initialize
     @current_language_id = 120
@@ -16,12 +14,6 @@ class FileController < ApplicationController
     render_text(file.data)
    rescue
     render_text("File not found", 404)
-  end
-
-  protected
-
-  def check_permission
-    return POPE.permission?('pentabarf_login')
   end
 
 end

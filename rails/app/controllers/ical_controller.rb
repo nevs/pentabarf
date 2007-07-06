@@ -1,7 +1,6 @@
 require 'icalendar'
 
 class IcalController < ApplicationController
-  before_filter :check_permission
 
   def conference
     conf = Conference.select_single({:acronym=>params[:id]})
@@ -32,12 +31,6 @@ class IcalController < ApplicationController
       end
     end
     render(:text=>cal.to_ical)
-  end
-
-  protected
-
-  def check_permission
-    POPE.permission?('pentabarf_login')
   end
 
 end

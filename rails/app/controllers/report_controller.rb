@@ -5,7 +5,7 @@ class ReportController < ApplicationController
 
   def index
   end
-  
+
   def expenses
     @report_class = View_report_expenses
   end
@@ -21,7 +21,7 @@ class ReportController < ApplicationController
   protected
 
   def init
-    # XXX FIXME remove hardcoded conference and language
+    # FIXME: remove hardcoded conference and language
     @current_conference = Conference.select_single(:conference_id => 1)
     @current_language_id = 120
   end

@@ -140,13 +140,13 @@ class PentabarfController < ApplicationController
   protected
 
   def init
-    # XXX FIXME remove hardcoded conference and language
+    # FIXME: remove hardcoded conference and language
     @current_conference = Conference.select_single(:conference_id => 1)
     @current_language_id = 120
   end
 
   def set_content_type
-    # XXX FIXME jscalendar does not work with application/xml
+    # FIXME: jscalendar does not work with application/xml
     response.headers['Content-Type'] = 'text/html'
   end
 

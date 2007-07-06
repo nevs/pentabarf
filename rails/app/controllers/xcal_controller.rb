@@ -1,5 +1,5 @@
 class XcalController < ApplicationController
-  before_filter :check_permission
+
   after_filter :content_type
 
   def conference
@@ -9,10 +9,6 @@ class XcalController < ApplicationController
   end
 
   protected
-
-  def check_permission
-    POPE.permission?('pentabarf_login')
-  end
 
   def content_type
     response.headers['Content-Type'] = 'application/calendar+xml'
