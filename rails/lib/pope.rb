@@ -32,7 +32,7 @@ class Pope
   end
 
   def permission?( perm )
-    @permissions.member?( perm )
+    @permissions.member?( perm.to_sym )
   end
 
   def table_write( table, row )
