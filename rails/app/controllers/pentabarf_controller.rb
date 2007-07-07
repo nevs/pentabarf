@@ -120,23 +120,7 @@ class PentabarfController < ApplicationController
   end
 
   def search_person_advanced
-    conditions = Hash.new{|h,k| 
-      if View_find_person.columns[k].kind_of?( M::Datatype::Text )
-        key = :ilike
-      else
-        key = :eq
-      end
-      h[k]={key=>[]}
-    }
-    params[:search_person].each do | key, value |
-      field = value[:key].to_sym
-      if View_find_person.columns[field].kind_of?( M::Datatype::Text )
-        conditions[field][:ilike] << "%#{value[:value]}%"
-      else
-        conditions[field][:eq] << value[:value]
-      end
-    end
-    @results = View_find_person.select( conditions )
+    @results = View_find_person.select( form_to_condition( params[:search_person], View_find_person) )
     render(:partial=>'search_person')
   end
 
@@ -145,8 +129,17 @@ class PentabarfController < ApplicationController
   end
 
   def search_event_simple
-    @results = View_find_event.select(params[:id] ? {:title=>{:ilike => params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}}} : {:translated_id=>@current_language_id} )
-    render(:partial=>'search_event_simple')
+    conditions = {:translated_id=>@current_language_id}
+    conditions[:title] = {:ilike=>params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}} if params[:id]
+    @results = View_find_event.select( conditions )
+    render(:partial=>'search_event')
+  end
+
+  def search_event_advanced
+    conditions = form_to_condition( params[:search_event], View_find_event )
+    conditions[:translated_id] = @current_language_id
+    @results = View_find_event.select( conditions )
+    render(:partial=>'search_event')
   end
 
   def find_conference
@@ -169,6 +162,27 @@ class PentabarfController < ApplicationController
   def set_content_type
     # FIXME: jscalendar does not work with application/xml
     response.headers['Content-Type'] = 'text/html'
+  end
+
+  # converts values submitted by advanced search to a hash understood by momomoto
+  def form_to_condition( params, klass )
+    conditions = Hash.new{|h,k| 
+      if klass.columns[k].kind_of?( M::Datatype::Text )
+        key = :ilike
+      else
+        key = :eq
+      end
+      h[k]={key=>[]}
+    }
+    params.each do | key, value |
+      field = value[:key].to_sym
+      if klass.columns[field].kind_of?( M::Datatype::Text )
+        conditions[field][:ilike] << "%#{value[:value]}%"
+      else
+        conditions[field][:eq] << value[:value]
+      end
+    end
+    conditions
   end
 
 end

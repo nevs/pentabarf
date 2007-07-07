@@ -17,37 +17,31 @@ xml.div({:id=>:data}) do
 
     # template used for constructing advanced search rows
     xml.ul({:id=>:search_content,:style=>"display:none"}) do
-
       # search for name
       xml.li({:class=>:name,:title=>local(:name)}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:name})
         xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
       end
-
       # search for email
       xml.li({:class=>:email,:title=>local(:email)}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:email_contact})
         xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
       end
-
       # search for conference
       xml.li({:class=>:conference,:title=>local(:conference)}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:conference_id})
         xml << select_tag('search_person[row_id][value]', Conference.select.map{|c| [c.conference_id, c.acronym]})
       end
-
       # search for country
       xml.li({:class=>:country,:title=>local(:country)}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:country_id})
         xml << select_tag('search_person[row_id][value]', View_country.select({:language_id=>@current_language_id}).map{|c| [c.country_id, c.name]})
       end
-
       # search for confirmed flag
       xml.li({:class=>:confirmed,:title=>local(:confirmed)}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:f_reconfirmed})
         xml << select_tag('search_person[row_id][value]', [['t','Yes'],['n','No']])
       end
-
     end
 
     xml.ul({:id=>:search_template,:style=>"display:none"}) do

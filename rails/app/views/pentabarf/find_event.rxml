@@ -1,13 +1,78 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 
 xml.div({:id=>:data}) do
-  xml.fieldset do
+  xml << js_tabs([:simple,:advanced])
+
+  xml.fieldset({:id=>'content-simple'}) do
     xml.label(local('find event'))
     xml.form(:id=>:simple_search) do
       xml.input({:type=>:text,:name=>:find_event_simple,:id=>:find_event_simple})
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
     end
   end
+
+  xml.fieldset({:id=>'content-advanced'}) do
+    xml.label(local('find event'))
+
+    # template used for constructing advanced search rows
+    xml.ul({:id=>:search_content,:style=>"display:none"}) do
+      # search for title
+      xml.li({:class=>:title,:title=>local(:title)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:title})
+        xml.input({:type=>:text,:name=>'search_event[row_id][value]'})
+      end
+      # search for language
+      xml.li({:class=>:language_id,:title=>local(:language)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:language_id})
+        xml << select_tag('search_event[row_id][value]', View_language.select({:translated_id=>@current_language_id},{:order=>:name}).map{|l| [l.language_id, l.name]})
+      end
+      # search for event origin
+      xml.li({:class=>:event_origin_id,:title=>local(:event_origin)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_origin_id})
+        xml << select_tag('search_event[row_id][value]', View_event_origin.select({:language_id=>@current_language_id}).map{|o| [o.event_origin_id, o.name]})
+      end
+      # search for event state
+      xml.li({:class=>:event_state_id,:title=>local(:event_state)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_state_id})
+        xml << select_tag('search_event[row_id][value]', View_event_state.select({:language_id=>@current_language_id}).map{|o| [o.event_state_id, o.name]})
+      end
+      # search for event type
+      xml.li({:class=>:event_type_id,:title=>local(:event_type)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_type_id})
+        xml << select_tag('search_event[row_id][value]', View_event_type.select({:language_id=>@current_language_id}).map{|o| [o.event_type_id, o.name]})
+      end
+      # search for conference track
+      xml.li({:class=>:conference_track_id,:title=>local(:conference_track)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_track_id})
+        xml << select_tag('search_event[row_id][value]', Conference_track.select({:conference_id=>@current_conference.conference_id}).map{|t| [t.conference_track_id, t.tag]})
+      end
+      # search for room
+      xml.li({:class=>:room_id,:title=>local(:room)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:room_id})
+        xml << select_tag('search_event[row_id][value]', Room.select({:conference_id=>@current_conference.conference_id}).map{|t| [t.room_id, t.short_name]})
+      end
+    end
+
+    xml.ul({:id=>:search_template,:style=>"display:none"}) do
+      xml.li do
+        xml.img({:onclick=>'search_row_add(this)',:src=>'/images/icon-plus-16x16.png'})
+        xml.img({:onclick=>'search_row_remove(this)',:src=>'/images/icon-minus-16x16.png'})
+        xml.select(nil,{:onchange=>'search_row_change(this)'})
+        xml.span(nil,:class=>:dynamic)
+      end
+    end
+
+    xml.form(:id=>:advanced_search) do
+      xml.ul( nil, {:id=>:advanced_search_list,:class=>"advanced_search"} )
+
+      xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
+
+    end
+
+    xml.script("init_search_list('advanced_search_list');search_row_add();switch_tab();",:type=>'text/javascript')
+    xml.script( "new Form.EventObserver('advanced_search', function(element, value) { new Ajax.Updater('results', '/pentabarf/search_event_advanced', { asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value });})", :type=>"text/javascript" )
+  end
+
   xml.fieldset do
     xml.div({:id=>:results})
   end
