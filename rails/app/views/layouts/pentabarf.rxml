@@ -13,7 +13,7 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
   end
   xml.body({:id=>:body}) do
     xml << render(:partial=>'sidebar')
-    xml.div({:id=>:activity})
+    xml.div('',{:id=>:activity})
 
     xml.div({:id=>:main}) do
       xml.div({:id=>:context}) do
@@ -25,7 +25,7 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
       end
     end
 
-    xml.script("new Ajax.PeriodicalUpdater('activity','#{url_for(:action=>:activity)}', {:frequency:42,decay:5});", {:type=>'text/javascript'})
+    xml.script("new Ajax.PeriodicalUpdater('activity','#{url_for(:action=>:activity)}', {frequency:42,decay:5});", {:type=>'text/javascript'})
 
   end
 end
