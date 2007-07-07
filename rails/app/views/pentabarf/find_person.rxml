@@ -1,17 +1,78 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 
 xml.div({:id=>:data}) do
-  xml.fieldset do
+  xml << js_tabs([:simple,:advanced])
+
+  xml.fieldset(:id=>'content-simple') do
     xml.label(local('find person'))
     xml.form(:id=>:simple_search) do
       xml.input({:type=>:text,:name=>:find_person_simple,:id=>:find_person_simple})
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
     end
   end
+  xml.script( "new Form.Element.Observer('find_person_simple', 0.2, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_person_simple/' + $('find_person_simple').value , {asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value});})", :type=>"text/javascript" )
+
+  xml.fieldset(:id=>'content-advanced') do
+    xml.label(local('find person'))
+
+    # template used for constructing advanced search rows
+    xml.ul({:id=>:search_content,:style=>"display:none"}) do
+
+      # search for name
+      xml.li({:class=>:name,:title=>local(:name)}) do
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:name})
+        xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
+      end
+
+      # search for email
+      xml.li({:class=>:email,:title=>local(:email)}) do
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:email_contact})
+        xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
+      end
+
+      # search for conference
+      xml.li({:class=>:conference,:title=>local(:conference)}) do
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:conference_id})
+        xml << select_tag('search_person[row_id][value]', Conference.select.map{|c| [c.conference_id, c.acronym]})
+      end
+
+      # search for country
+      xml.li({:class=>:country,:title=>local(:country)}) do
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:country_id})
+        xml << select_tag('search_person[row_id][value]', View_country.select({:language_id=>@current_language_id}).map{|c| [c.country_id, c.name]})
+      end
+
+      # search for confirmed flag
+      xml.li({:class=>:confirmed,:title=>local(:confirmed)}) do
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:f_reconfirmed})
+        xml << select_tag('search_person[row_id][value]', [['t','Yes'],['n','No']])
+      end
+
+    end
+
+    xml.ul({:id=>:search_template,:style=>"display:none"}) do
+      xml.li do
+        xml.img({:onclick=>'search_row_add(this)',:src=>'/images/icon-plus-16x16.png'})
+        xml.img({:onclick=>'search_row_remove(this)',:src=>'/images/icon-minus-16x16.png'})
+        xml.select(nil,{:onchange=>'search_row_change(this)'})
+        xml.span(nil,:class=>:dynamic)
+      end
+    end
+
+    xml.form(:id=>:advanced_search) do
+      xml.ul( nil, {:id=>:advanced_search_list,:class=>"advanced_search"} )
+
+      xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
+
+    end
+
+    xml.script("init_search_list('advanced_search_list');search_row_add();switch_tab();",:type=>'text/javascript')
+    xml.script( "new Form.EventObserver('advanced_search', function(element, value) { new Ajax.Updater('results', '/pentabarf/search_person_advanced', { asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value });})", :type=>"text/javascript" )
+  end
+
   xml.fieldset do
     xml.div({:id=>:results})
   end
-end
 
-xml.script( "new Form.Element.Observer('find_person_simple', 0.2, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_person_simple/' + $('find_person_simple').value , {asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value});})", :type=>"text/javascript" )
+end
 

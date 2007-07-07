@@ -116,7 +116,28 @@ class PentabarfController < ApplicationController
 
   def search_person_simple
     @results = View_find_person.select(params[:id] ? {:name=>{:ilike => params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}}} : {} )
-    render(:partial=>'search_person_simple')
+    render(:partial=>'search_person')
+  end
+
+  def search_person_advanced
+    conditions = Hash.new{|h,k| 
+      if View_find_person.columns[k].kind_of?( M::Datatype::Text )
+        key = :ilike
+      else
+        key = :eq
+      end
+      h[k]={key=>[]}
+    }
+    params[:search_person].each do | key, value |
+      field = value[:key].to_sym
+      if View_find_person.columns[field].kind_of?( M::Datatype::Text )
+        conditions[field][:ilike] << "%#{value[:value]}%"
+      else
+        conditions[field][:eq] << value[:value]
+      end
+    end
+    @results = View_find_person.select( conditions )
+    render(:partial=>'search_person')
   end
 
   def find_event
