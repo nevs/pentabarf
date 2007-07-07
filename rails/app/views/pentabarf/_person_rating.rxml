@@ -6,8 +6,13 @@ xml.div(:id=>'content-rating') do
     xml.legend local('rating')
 
     xml.table do
-      xml << select_row( @person_rating, :speaker_quality, [[],[1,'--'],[2,'-'],[3,'o'],[4,'+'],[5,'++']])
-      xml << select_row( @person_rating, :competence, [[],[1,'--'],[2,'-'],[3,'o'],[4,'+'],[5,'++']])
+      xml.tr do
+        xml.th
+        xml.th(local(:rating), {:colspan=>5})
+        xml.th
+      end
+      xml << radio_row( @person_rating, :speaker_quality, [[],[1,'--'],[2,'-'],[3,'o'],[4,'+'],[5,'++']])
+      xml << radio_row( @person_rating, :competence, [[],[1,'--'],[2,'-'],[3,'o'],[4,'+'],[5,'++']])
     end
 
   end
