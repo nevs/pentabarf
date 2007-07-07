@@ -3,3 +3,7 @@ ul.recipients { margin: 0; padding: 0; display: inline; }
 ul.recipients li { margin: 0; padding: 0; display: inline; }
 ul.recipients li+li:before { content: ", "; }
 
+ul.advanced_search { list-style: none none inside; margin: 0px; }
+ul.advanced_search li { margin: 0px; vertical-align: middle; }
+ul.advanced_search li select { margin: 3px 0px; padding: 1px 0px; }
+
