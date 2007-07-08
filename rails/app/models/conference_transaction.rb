@@ -1,4 +1,4 @@
-class Person_transaction < Momomoto::Table
+class Conference_transaction < Momomoto::Table
   default_order( M::desc(:changed_when) )
 end
 
