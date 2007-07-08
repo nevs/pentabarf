@@ -1,0 +1,65 @@
+xml = Builder::XmlMarkup.new
+
+rooms = View_room.select({:conference_id=>@current_conference.conference_id, :language_id=>@current_language_id},{:order=>:rank})
+conf = Conference.select_single({:conference_id=>@current_conference.conference_id})
+day_tabs = []
+conf.days.times do | i | day_tabs.push("day_#{i+1}") end
+table = schedule_table( conf, @events )
+colors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
+
+xml.div({:id=>:data}) do
+  xml << js_tabs(day_tabs)
+
+  track_color = []
+  xml.div({:id=>:colors}) do
+    View_conference_track.select({:conference_id=>@current_conference.conference_id,:language_id=>@current_language_id}).each_with_index do | track, index |
+      track_color[track.conference_track_id] = colors[index % colors.length]
+      xml.span({:style=>"margin: 20px 3px;padding: 5px 15px; background-color: #{track_color[track.conference_track_id]}"}) do
+        xml.strong(track.name)
+      end
+    end
+  end
+
+  table.each_with_index do | day_table, index |
+    xml.div({:id=>"content-day_#{index+1}",:class=>"content_tab"}) do
+      xml.table do
+
+        xml.thead do
+          xml.tr do
+            xml.th(local(:time))
+            rooms.each do | room |
+              xml.th(room.name)
+            end
+          end
+        end
+
+        xml.tbody do
+          day_table.each do | row |
+            xml.tr do
+              xml.td(row[0])
+              rooms.each do | room |
+                next if row[room.room_id] == 0
+                if row[room.room_id].nil?
+                  xml.td
+                else
+                  event = @events.select{|e| e.event_id == row[room.room_id][:event_id]}.first
+                  xml.td({:rowspan=>row[room.room_id][:slots],:style=>"background-color: #{track_color[event.conference_track_id || 0]}"}) do
+                    xml.a({:href=>url_for({:action=>:event,:id=>row[room.room_id][:event_id]})}) do
+                      xml.strong(event.title)
+                      xml.br
+                      xml.em(event.subtitle)
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+
+      end
+    end
+  end
+
+  xml.script("switch_tab();",{:type=>'text/javascript'})
+end
+

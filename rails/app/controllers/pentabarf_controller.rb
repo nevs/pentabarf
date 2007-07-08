@@ -117,6 +117,11 @@ class PentabarfController < ApplicationController
     @changes = View_recent_changes.select( {}, {:limit => 25 } )
   end
 
+  def schedule
+    @content_title = 'Schedule'
+    @events = View_schedule.select({:conference_id => @current_conference.conference_id, :translated_id => @current_language_id})
+  end
+
   def find_person
     @content_title = "Find Person"
   end
