@@ -88,7 +88,6 @@ class PentabarfController < ApplicationController
   def save_person
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
-      warn(params[:person].inspect)
       person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:f_spam]} )
       conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
       write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
