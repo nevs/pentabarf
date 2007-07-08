@@ -35,11 +35,11 @@ xml.div(:id=>'content-availability') do
               xml.td do
                 checked = {}
                 checked[:checked] = :checked if not slots.member?( time )
-                xml.input( {:type=>:checkbox,:id=>"slot-#{day}-#{hour}",:title=>title,:name=>"person_availability[#{time}]"}.merge(checked) )
+                xml.input( {:type=>:checkbox,:title=>title,:name=>"person_availability[#{time}]"}.merge(checked) )
               end
             end
-            xml.td do xml.button "Set day", {:type=>:button,:onclick=>"set_slots(#{day})"} end
-            xml.td do xml.button "Clear day", {:type=>:button,:onclick=>"unset_slots(#{day})"} end
+            xml.td do xml.button "Set day", {:type=>:button,:onclick=>"check_boxes(this)"} end
+            xml.td do xml.button "Clear day", {:type=>:button,:onclick=>"uncheck_boxes(this)"} end
           end
         end
       end

@@ -200,4 +200,22 @@ function search_row_change( list ) {
   attribute_replace( target, /\[row_id\]/, '[' + row_id + ']' );
 }
 
+function check_boxes( button ) {
+  var row = $(button).up().up();  
+  var boxes = row.getElementsBySelector('input');
+  for (var i=0; i < boxes.length; i++) {
+    boxes[i].checked = true;  
+  }
+  enable_save_button();
+}
+
+function uncheck_boxes( button ) {
+  var row = $(button).up().up();  
+  var boxes = row.getElementsBySelector('input');
+  for (var i=0; i < boxes.length; i++) {
+    boxes[i].checked = false;  
+  }
+  enable_save_button();
+}
+
 
