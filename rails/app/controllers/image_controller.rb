@@ -1,5 +1,7 @@
 class ImageController < ApplicationController
 
+  before_filter :modified_since, :only=>[:conference,:event,:person]
+
   [:conference, :event, :person].each do | action |
     define_method( action ) do
       begin
@@ -13,8 +15,28 @@ class ImageController < ApplicationController
       end
 
       response.headers['Content-Type'] = mimetype
+      response.headers['Last-Modified'] = @timestamp
       render( :text => data )
     end
+  end
+
+  protected
+
+  def modified_since
+    action = params[:action]
+    klass = self.class.const_get( "View_#{action}_image_modification" )
+    modification = klass.select({"#{action}_id"=>params[:id].to_i}, {:limit=>1} ).first
+    if modification
+      @timestamp = modification.last_modified
+    else
+      file = File.join( RAILS_ROOT, "public/images/icon-#{action}-128x128.png" )
+      @timestamp = File.mtime( file ).to_s
+    end
+    if request.env['HTTP_IF_MODIFIED_SINCE'] && request.env['HTTP_IF_MODIFIED_SINCE'] == @timestamp
+      render({:text => "Not changed",:status => 304})
+      return false
+    end
+    true
   end
 
 end
