@@ -38,8 +38,8 @@ xml.div(:id=>'content-availability') do
                 xml.input( {:type=>:checkbox,:title=>title,:name=>"person_availability[#{time}]"}.merge(checked) )
               end
             end
-            xml.td do xml.button "Set day", {:type=>:button,:onclick=>"check_boxes(this)"} end
-            xml.td do xml.button "Clear day", {:type=>:button,:onclick=>"uncheck_boxes(this)"} end
+            xml.td do xml.button "Set day", {:type=>:button,:onclick=>"set_boxes(this, true)"} end
+            xml.td do xml.button "Clear day", {:type=>:button,:onclick=>"set_boxes(this, false)"} end
           end
         end
       end
