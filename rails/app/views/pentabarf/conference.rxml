@@ -17,6 +17,7 @@ xml.div({:id=>'data'}) do
 
   xml.form(:action=>url_for(:action=>:save_conference,:id => @conference.conference_id),:id=>'content_form',:method=>'post') do
 
+    xml.input( nil, {:type=>:hidden,:name=>:transaction,:value=>@transaction.conference_transaction_id})
     xml << render( :partial => "conference_comment" )
     tabs.each do | tab |
       xml << render( :partial => "conference_#{tab}" )

@@ -43,7 +43,7 @@ module MomomotoHelper
     end
   end
 
-  def write_person_availability( conference, data )
+  def write_person_availability( conference, person, data )
     # person availability
     all_slots = []
     # create array with all slots

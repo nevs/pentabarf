@@ -12,6 +12,8 @@ xml.div( :id => 'data' ) do
 
   xml.form(:action=>url_for(:action=>:save_event,:id => @event.event_id),:id=>'content_form',:method=>'post') do
 
+    xml.input( nil, {:type=>:hidden,:name=>:transaction,:value=>@transaction.event_transaction_id})
+
     xml << render( :partial => 'modification_buttons' )
     xml << render( :partial => 'event_comment' )
 

@@ -19,8 +19,7 @@ xml.div( :id => 'data' ) do
   xml.form(:action=>url_for(:action=>:save_person,:id => @person.person_id),:id=>'content_form',:method=>'post') do
 
     xml << hidden_field( @conference_person, :conference_person_id )
-    transaction = Person_transaction.select.first
-    xml << hidden_field( transaction, :changed_when )
+    xml.input( nil, {:type=>:hidden,:name=>:transaction,:value=>@transaction.person_transaction_id})
     xml << render( :partial => 'modification_buttons' )
     xml << render( :partial => 'person_comment' )
 

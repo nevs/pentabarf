@@ -1,6 +1,7 @@
 class PentabarfController < ApplicationController
 
   before_filter :init
+  before_filter :check_transaction, :only=>[:save_event,:save_person,:save_conference]
   after_filter :set_content_type
 
   def conflicts
@@ -24,6 +25,7 @@ class PentabarfController < ApplicationController
       return redirect_to(:action=>:conference,:id=>'new') if params[:id] != 'new'
       @conference = Conference.new(:conference_id=>0)
     end
+    @transaction = Conference_transaction.select_single({:conference_id=>@conference.conference_id}) rescue Conference_transaction.new
   end
 
   def save_conference
@@ -34,6 +36,7 @@ class PentabarfController < ApplicationController
       write_rows( Team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id}})
       write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
       write_rows( Room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:f_public]})
+      Conference_transaction.new({:conference_id=>conf.conference_id,:changed_by=>POPE.user.person_id}).write
 
       redirect_to( :action => :conference, :id => conf.conference_id)
     end
@@ -50,6 +53,7 @@ class PentabarfController < ApplicationController
     end
     @event_rating = Event_rating.select_or_new({:event_id=>@event.event_id,:person_id=>POPE.user.person_id})
     @conference = Conference.select_single( :conference_id => @event.conference_id )
+    @transaction = Event_transaction.select_single({:event_id=>@event.event_id}) rescue Event_transaction.new
   end
 
   def save_event
@@ -60,6 +64,7 @@ class PentabarfController < ApplicationController
       write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}})
       write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id}})
       write_rows( Event_link_internal, params[:event_link_internal], {:preset=>{:event_id => event.event_id}})
+      Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
 
       redirect_to( :action => :event, :id => event.event_id )
     end
@@ -67,8 +72,7 @@ class PentabarfController < ApplicationController
 
   def person
     begin
-      @person = View_person.select_single( :person_id => params[:id] )
-      @content_title = @person.name
+      @person = Person.select_single( :person_id => params[:id] )
     rescue
       return redirect_to(:action=>:person,:id=>'new') if params[:id] != 'new'
       @content_title = "New Person"
@@ -78,11 +82,13 @@ class PentabarfController < ApplicationController
     @conference_person = Conference_person.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
     @person_travel = Person_travel.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
     @person_rating = Person_rating.select_or_new({:person_id=>@person.person_id,:evaluator_id=>POPE.user.person_id})
+    @transaction = Person_transaction.select_single({:person_id=>@person.person_id}) rescue Person_transaction.new
   end
 
   def save_person
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
+      warn(params[:person].inspect)
       person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:f_spam]} )
       conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
       write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
@@ -94,7 +100,9 @@ class PentabarfController < ApplicationController
       write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id}})
       write_rows( Event_person, params[:event_person], {:preset=>{:person_id => person.person_id}})
 
-      write_person_availability( @current_conference, params[:person_availability])
+      write_person_availability( @current_conference, person, params[:person_availability])
+
+      Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
 
       redirect_to( :action => :person, :id => person.person_id )
     end
@@ -183,6 +191,17 @@ class PentabarfController < ApplicationController
       end
     end
     conditions
+  end
+
+  # check whether we are working on the last version
+  def check_transaction
+    domain = params[:action].gsub(/^save_/, '')
+    if params[:transaction].to_i != 0
+      transaction = self.class.const_get("#{domain.capitalize}_transaction").select_single({"#{domain}_id"=>params[:id]},{:limit=>1})
+      if transaction["#{domain}_transaction_id"] != params[:transaction].to_i
+        raise "Simultanious edit"
+      end
+    end
   end
 
 end
