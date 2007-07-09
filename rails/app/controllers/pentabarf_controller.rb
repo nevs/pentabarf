@@ -169,6 +169,7 @@ class PentabarfController < ApplicationController
     # FIXME: remove hardcoded conference and language
     @current_conference = Conference.select_single(:conference_id => 1)
     @current_language_id = 120
+    @token = generate_token( url_for() )
   end
 
   def set_content_type
@@ -199,10 +200,10 @@ class PentabarfController < ApplicationController
 
   # check whether we are working on the last version
   def check_transaction
-    domain = params[:action].gsub(/^save_/, '')
+    action = params[:action].gsub(/^save_/, '')
     if params[:transaction].to_i != 0
-      transaction = self.class.const_get("#{domain.capitalize}_transaction").select_single({"#{domain}_id"=>params[:id]},{:limit=>1})
-      if transaction["#{domain}_transaction_id"] != params[:transaction].to_i
+      transaction = self.class.const_get("#{action.capitalize}_transaction").select_single({"#{action}_id"=>params[:id]},{:limit=>1})
+      if transaction["#{action}_transaction_id"] != params[:transaction].to_i
         raise "Simultanious edit"
       end
     end

@@ -1,5 +1,7 @@
 class FeedbackController < ApplicationController
 
+  before_filter :init
+
   def css
     response.headers['Content-Type'] = 'text/css'
     render(:text=>@conference.css.to_s)
@@ -24,6 +26,10 @@ class FeedbackController < ApplicationController
   end
 
   protected
+
+  def init
+    @token = generate_token( url_for() )
+  end
 
   def auth
     @conference = Conference.select_single({:acronym=>params[:conference],:f_feedback_enabled=>'t'})

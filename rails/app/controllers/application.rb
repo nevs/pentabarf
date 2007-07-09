@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   include MomomotoHelper
   session :off
   before_filter :auth
+  before_filter :check_edittoken
 
   protected
 
@@ -40,6 +41,20 @@ class ApplicationController < ActionController::Base
 
   def check_permission
     return POPE.permission?('pentabarf_login')
+  end
+
+  # protect save and delete functions with token
+  def check_edittoken
+    if params[:action].match( /^(save|delete)_/)
+      action = params[:action].gsub(/^(save|delete)_/, '')
+      token = generate_token( url_for(:action=>action,:id=>params[:id]))
+      raise "Token mismatch" if token != params[:token]
+    end
+  end
+
+  # calculate token from url and user password
+  def generate_token( url )
+    Digest::MD5.hexdigest( url + Digest::MD5.hexdigest(POPE.user.password))
   end
 
   def log_error( exception, verbose = false )
