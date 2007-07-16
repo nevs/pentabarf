@@ -11,8 +11,12 @@ class XcalControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  # test auth for all public methods
+  XcalController.action_methods.each do | method |
+    define_method "test_auth_#{method}" do
+      get method
+      assert_response 401
+    end
   end
+
 end
