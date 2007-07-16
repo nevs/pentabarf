@@ -1,6 +1,8 @@
 
 module MomomotoHelper
 
+  protected
+
   # writes a row to the database
   # klass is the class derived from Momomoto::Table in which to store the data.
   # values is a hash with the values for this table
