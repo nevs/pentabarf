@@ -15,7 +15,7 @@ xml << js_tabs( tabs )
 
 xml.div({:id=>'data'}) do
 
-  xml.form(:action=>url_for(:action=>:save_conference,:id=>params[:id]),:id=>'content_form',:method=>'post') do
+  xml.form(:action=>url_for(:action=>:save_conference,:id=>params[:id]),:id=>'content_form',:method=>'post',:enctype=>'multipart/form-data') do
 
     xml.input( nil, {:type=>:hidden,:name=>:token,:value=>@token})
     xml.input( nil, {:type=>:hidden,:name=>:transaction,:value=>@transaction.conference_transaction_id})

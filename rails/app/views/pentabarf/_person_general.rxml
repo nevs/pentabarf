@@ -12,6 +12,13 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @person, :public_name )
       xml << text_field_row( @person, :title )
       xml << select_row( @person, :gender, [[true,'male'],[false,'female']], {:with_empty=>true})
+      xml.tr do
+        xml.td do xml.label local(:person_image) end
+        xml.td do
+          xml << file_field_tag('person_image[image]', {:tabindex => 0, :onchange => "enable_save_button()"})
+        end
+      end
+      xml << check_box_row( @person_image, :f_public )
     end
   end
 
