@@ -1,0 +1,153 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'momomoto/momomoto'
+
+if ARGV.length < 2
+  puts "Usage: #{$0} <database> <conference>"
+  exit 0
+end
+
+# disable a few momomoto checks to make our life easier
+class Momomoto::Datatype::Integer
+  # disable checking for numbers when assigning values to integer fields
+  def filter_set( value ); value; end
+  # disable quoting of integer fields to get some sql through
+  def escape( value )
+    case value
+      when Integer then "'#{value}'"
+      when String then value
+      when nil then "NULL"
+      else raise Error
+    end
+  end
+end
+
+puts <<SQL
+BEGIN TRANSACTION;
+CREATE TEMP TABLE person_map( new_id INT UNIQUE, old_id INT UNIQUE );
+SQL
+ 
+# allows setting primary key fields
+class Momomoto::Row
+  def new_record?; true; end
+end
+  
+# automagically create momomoto classes
+def Object.const_missing( name )
+  const_set( name, Class.new( Momomoto::Table ) )
+end
+
+def build_insert( table, row, columns = nil )
+  columns = table.columns.keys - table.primary_keys - [:last_modified,:last_modified_by] if not columns
+  "INSERT INTO #{table.table_name}(#{columns.join(',')}) VALUES(#{columns.map{|c| table.columns[c].escape(row[c])}.join(',')});"
+end
+
+def exported_persons( conference )
+  persons = []
+  Event.select({:conference_id=>conference.conference_id}).each do | event |
+    Event_person.select({:event_id=>event.event_id}).each do | event_person |
+      if not persons.member?( event_person.person_id )
+        persons << event_person.person_id
+      end
+    end
+  end
+  persons.sort.uniq
+end
+
+Momomoto::Database.instance.config({:database=>ARGV[0]})
+Momomoto::Database.instance.connect
+
+conf = Conference.select_single({:acronym=>ARGV[1]})
+puts build_insert( Conference, conf )
+
+Conference_image.select({:conference_id=>conf.conference_id}).each do | image |
+  image.conference_id = "currval('conference_conference_id_seq')"
+  puts build_insert( Conference_image, image, Conference_image.columns.keys )
+end
+
+[Conference_language,Team,Conference_track,Room].each do | klass |
+  klass.select({:conference_id=>conf.conference_id}).each do | row |
+    row.conference_id = "currval('conference_conference_id_seq')"
+    puts build_insert( klass, row )
+  end
+end
+
+
+# export all persons
+exported_persons( conf ).each do | person_id |
+
+  person = Person.select_single({:person_id=>person_id})
+  person.preferences = nil
+  puts build_insert( Person, person )
+  puts "INSERT INTO person_map(new_id,old_id) VALUES ( currval('person_person_id_seq'), #{person.person_id});"
+
+  [Person_language,Person_image].each do | klass |
+    klass.select({:person_id=>person.person_id}).each do | row |
+      row.person_id = "currval('person_person_id_seq')"
+      puts build_insert( klass, row, klass.columns.keys )
+    end
+  end
+
+  [Person_im,Person_phone].each do | klass |
+    klass.select({:person_id=>person.person_id}).each do | row |
+      row.person_id = "currval('person_person_id_seq')"
+      puts build_insert( klass, row )
+    end
+  end
+
+  [Conference_person,Person_availability,Person_travel].each do | klass |
+    klass.select({:person_id=>person.person_id,:conference_id=>conf.conference_id}).each do | row |
+      row.person_id = "currval('person_person_id_seq')"
+      row.conference_id = "currval('conference_conference_id_seq')"
+      puts build_insert( klass, row )
+    end
+  end
+
+  conference_person = Conference_person.select({:person_id=>person.person_id,:conference_id=>conf.conference_id}).first
+  if conference_person
+    conference_person.person_id = "currval('person_person_id_seq')"
+    conference_person.conference_id = "currval('conference_conference_id_seq')"
+    puts build_insert( Conference_person, conference_person )
+    [Conference_person_link,Conference_person_link_internal].each do | klass |
+      klass.select({:conference_person_id=>conference_person.conference_person_id}).each do | row |
+        row.conference_person_id = "currval('conference_person_conference_person_id_seq')"
+        puts build_insert( klass, row )
+      end
+    end
+  end
+
+end
+
+# do the exporting for all event related
+events = Event.select({:conference_id=>conf.conference_id})
+events.each do | event |
+  event.conference_id = "currval('conference_conference_id_seq')"
+  puts build_insert( Event, event )
+
+  [Event_image].each do | klass |
+    klass.select({:event_id=>event.event_id}).each do | row |
+      row.event_id = "currval('event_event_id_seq')"
+      puts build_insert( klass, row, klass.columns.keys )
+    end
+  end
+
+  [Event_link,Event_link_internal,Event_rating,Event_rating_public].each do | klass |
+    klass.select({:event_id=>event.event_id}).each do | row |
+      row.event_id = "currval('event_event_id_seq')"
+      puts build_insert( klass, row )
+    end
+  end
+
+  Event_person.select({:event_id=>event.event_id}).each do | event_person |
+    event_person.event_id = "currval('event_event_id_seq')"
+    event_person.person_id = "(SELECT new_id FROM person_map WHERE old_id = #{event_person.person_id})"
+    puts build_insert( Event_person, event_person )
+  end
+
+end
+
+puts <<SQL
+COMMIT TRANSACTION;
+SQL
+ 
