@@ -5,7 +5,7 @@ class ImageController < ApplicationController
   [:conference, :event, :person].each do | action |
     define_method( action ) do
       begin
-        img = const_get("View_#{action}_image").select({"#{action}_id".to_sym=>params[:id]})
+        img = self.class.const_get("View_#{action}_image").select_single({"#{action}_id".to_sym=>params[:id].to_i})
         data = img.image
         mimetype = img.mime_type
       rescue
