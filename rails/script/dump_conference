@@ -1,10 +1,12 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
+require 'yaml'
+$LOAD_PATH.unshift('./lib')
 require 'momomoto/momomoto'
 
-if ARGV.length < 2
-  puts "Usage: #{$0} <database> <conference>"
+if ARGV.length < 1
+  puts "Usage: #{$0} <conference>"
   exit 0
 end
 
@@ -26,6 +28,9 @@ end
 puts <<SQL
 BEGIN TRANSACTION;
 CREATE TEMP TABLE person_map( new_id INT UNIQUE, old_id INT UNIQUE );
+CREATE TEMP TABLE conference_track_map( new_id INT UNIQUE, old_id INT UNIQUE );
+CREATE TEMP TABLE room_map( new_id INT UNIQUE, old_id INT UNIQUE );
+CREATE TEMP TABLE team_map( new_id INT UNIQUE, old_id INT UNIQUE );
 SQL
  
 # allows setting primary key fields
@@ -39,7 +44,8 @@ def Object.const_missing( name )
 end
 
 def build_insert( table, row, columns = nil )
-  columns = table.columns.keys - table.primary_keys - [:last_modified,:last_modified_by] if not columns
+  columns = table.columns.keys - table.primary_keys if not columns
+  columns -= [:last_modified,:last_modified_by]
   "INSERT INTO #{table.table_name}(#{columns.join(',')}) VALUES(#{columns.map{|c| table.columns[c].escape(row[c])}.join(',')});"
 end
 
@@ -55,10 +61,11 @@ def exported_persons( conference )
   persons.sort.uniq
 end
 
-Momomoto::Database.instance.config({:database=>ARGV[0]})
+config = YAML::load_file("config/database.yml")['production']
+Momomoto::Database.instance.config( config )
 Momomoto::Database.instance.connect
 
-conf = Conference.select_single({:acronym=>ARGV[1]})
+conf = Conference.select_single({:acronym=>ARGV[0]})
 puts build_insert( Conference, conf )
 
 Conference_image.select({:conference_id=>conf.conference_id}).each do | image |
@@ -70,6 +77,10 @@ end
   klass.select({:conference_id=>conf.conference_id}).each do | row |
     row.conference_id = "currval('conference_conference_id_seq')"
     puts build_insert( klass, row )
+    if klass != Conference_language
+      table = klass.table_name
+      puts "INSERT INTO #{table}_map(new_id,old_id) VALUES ( currval('#{table}_#{table}_id_seq'), #{row["#{table}_id"]});"
+    end
   end
 end
 
@@ -78,7 +89,9 @@ end
 exported_persons( conf ).each do | person_id |
 
   person = Person.select_single({:person_id=>person_id})
-  person.preferences = nil
+  [:preferences,:password,:login_name].each do | field |
+    person[field] = nil
+  end
   puts build_insert( Person, person )
   puts "INSERT INTO person_map(new_id,old_id) VALUES ( currval('person_person_id_seq'), #{person.person_id});"
 
@@ -96,7 +109,15 @@ exported_persons( conf ).each do | person_id |
     end
   end
 
-  [Conference_person,Person_availability,Person_travel].each do | klass |
+  [Person_travel].each do | klass |
+    klass.select({:person_id=>person.person_id,:conference_id=>conf.conference_id}).each do | row |
+      row.person_id = "currval('person_person_id_seq')"
+      row.conference_id = "currval('conference_conference_id_seq')"
+      puts build_insert( klass, row, klass.columns.keys )
+    end
+  end
+
+  [Person_availability].each do | klass |
     klass.select({:person_id=>person.person_id,:conference_id=>conf.conference_id}).each do | row |
       row.person_id = "currval('person_person_id_seq')"
       row.conference_id = "currval('conference_conference_id_seq')"
@@ -123,6 +144,9 @@ end
 events = Event.select({:conference_id=>conf.conference_id})
 events.each do | event |
   event.conference_id = "currval('conference_conference_id_seq')"
+  event.room_id = "(SELECT new_id FROM room_map WHERE old_id = #{event.room_id})" if event.room_id
+  event.team_id = "(SELECT new_id FROM team_map WHERE old_id = #{event.team_id})" if event.team_id
+  event.conference_track_id = "(SELECT new_id FROM conference_track_map WHERE old_id = #{event.conference_track_id})" if event.conference_track_id
   puts build_insert( Event, event )
 
   [Event_image].each do | klass |
