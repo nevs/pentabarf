@@ -13,7 +13,7 @@ xml.table do
     @results.each do | person |
       xml.tr do
         fields.each do | field |
-          xml.td do xml.a( person.send(field), {:href=>url_for(:action=>:event,:id=>person.person_id)}) end
+          xml.td do xml.a( person.send(field), {:href=>url_for(:action=>:person,:id=>person.person_id)}) end
         end
       end
     end
