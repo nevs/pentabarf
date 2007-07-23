@@ -46,8 +46,12 @@ xml.div({:id=>:data}) do
                   xml.td({:rowspan=>row[room.room_id][:slots],:style=>"background-color: #{track_color[event.conference_track_id || 0]}"}) do
                     xml.a({:href=>url_for({:action=>:event,:id=>row[room.room_id][:event_id]})}) do
                       xml.strong(event.title)
+                      if event.subtitle
+                        xml.br
+                        xml.em(event.subtitle)
+                      end
                       xml.br
-                      xml.em(event.subtitle)
+                      xml.text!(event.persons)
                     end
                   end
                 end
