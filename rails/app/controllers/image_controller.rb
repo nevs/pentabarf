@@ -1,3 +1,6 @@
+
+require 'RMagick'
+
 class ImageController < ApplicationController
 
   before_filter :modified_since, :only=>[:conference,:event,:person]
@@ -13,10 +16,10 @@ class ImageController < ApplicationController
         data = File.open( img ).read
         mimetype = 'image/png'
       end
-
+      resolution = params[:id].match( /\d+(-(\d+x\d+))?/ )[2]
       response.headers['Content-Type'] = mimetype
       response.headers['Last-Modified'] = @timestamp
-      render( :text => data )
+      render( :text => resize( data, resolution ))
     end
   end
 
@@ -38,5 +41,16 @@ class ImageController < ApplicationController
     end
     true
   end
+
+  def resize( image, resolution)
+    return image if not resolution
+    height, width = resolution.split('x')
+    image = Magick::Image.from_blob( image )[0]
+    image.x_resolution = 72
+    image.y_resolution = 72
+    format = nil
+    image.resize!( height.to_i, width.to_i ).strip!.to_blob
+  end
+
 
 end
