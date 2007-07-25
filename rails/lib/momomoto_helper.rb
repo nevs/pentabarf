@@ -1,4 +1,6 @@
 
+require 'shared-mime-info'
+
 module MomomotoHelper
 
   protected
@@ -42,6 +44,31 @@ module MomomotoHelper
     values.each do | row_id, hash |
       next if row_id == 'row_id'
       write_row( klass, hash, options, &block )
+    end
+  end
+
+  # writes a file from an upload into the database
+  def write_file_row( klass, values, options = {} )
+    data_column = options[:image] ? :image : :data
+    # read data from tempfile
+    tmpfile = values[data_column]
+    if tmpfile and tmpfile != ""
+      values[data_column] = tmpfile.read
+
+      # get mimetype
+      type = MIME.check_magics( tmpfile ) || 
+        MIME.check_globs( tmpfile.original_filename ) || 
+        "application/octet-stream"
+      constraints = {:mime_type=>type.to_s}
+      constraints[:f_image] = 't' if options[:image]
+      mime_type = Mime_type.select_single(constraints)
+      values[:mime_type_id] = mime_type.mime_type_id 
+    else
+      values.delete( data_column )
+    end
+
+    write_row( klass, values, options ) do | row |
+      return if row.new_record? && !row[data_column]
     end
   end
 
