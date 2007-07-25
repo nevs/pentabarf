@@ -36,6 +36,7 @@ class PentabarfController < ApplicationController
       write_rows( Team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id}})
       write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
       write_rows( Room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:f_public]})
+      write_file_row( Conference_image, params[:conference_image], {:preset=>{:conference_id => conf.conference_id},:image=>true})
       Conference_transaction.new({:conference_id=>conf.conference_id,:changed_by=>POPE.user.person_id}).write
 
       redirect_to( :action => :conference, :id => conf.conference_id)
@@ -64,6 +65,7 @@ class PentabarfController < ApplicationController
       write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}})
       write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id}})
       write_rows( Event_link_internal, params[:event_link_internal], {:preset=>{:event_id => event.event_id}})
+      write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
       Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
 
       redirect_to( :action => :event, :id => event.event_id )
@@ -83,6 +85,7 @@ class PentabarfController < ApplicationController
     @person_travel = Person_travel.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
     @person_rating = Person_rating.select_or_new({:person_id=>@person.person_id,:evaluator_id=>POPE.user.person_id})
     @transaction = Person_transaction.select_single({:person_id=>@person.person_id}) rescue Person_transaction.new
+    @person_image = Person_image.select_or_new({:person_id=>@person.person_id})
   end
 
   def save_person
@@ -99,6 +102,7 @@ class PentabarfController < ApplicationController
       write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id}})
       write_rows( Event_person, params[:event_person], {:preset=>{:person_id => person.person_id}})
 
+      write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:f_public],:image=>true})
       write_person_availability( @current_conference, person, params[:person_availability])
 
       Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
