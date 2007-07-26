@@ -67,6 +67,7 @@ module MomomotoHelper
       values.delete( data_column )
     end
 
+    options[:remove] ||= true
     write_row( klass, values, options ) do | row |
       return if row.new_record? && !row[data_column]
     end
