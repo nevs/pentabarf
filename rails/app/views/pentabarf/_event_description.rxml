@@ -18,7 +18,7 @@ xml.div(:id=>'content-description') do
     xml.table do
       xml.thead do
         xml.tr do
-          [:type,:public,:filename,:title,:pages,:mime_type].each do | field |
+          [:type,:public,:filename,:title,:pages,:mime_type,:remove].each do | field |
             xml.th( local(field) )
           end
         end
@@ -36,6 +36,7 @@ xml.div(:id=>'content-description') do
             xml.td do xml.input({:type=>:input,:name=>"event_attachment[#{row_id}][title]",:value=>attachment.title}) end
             xml.td do xml.input({:type=>:input,:name=>"event_attachment[#{row_id}][pages]",:value=>attachment.pages,:size=>3}) end
             xml.td do xml << select_tag( "event_attachment[#{row_id}][mime_type_id]", Mime_type.select.map{|e| [e.mime_type_id,e.mime_type]} ) end
+            xml.td do xml.input({:type=>:checkbox,:name=>"event_attachment[#{row_id}][remove]"}) end
           end
         end
       end
