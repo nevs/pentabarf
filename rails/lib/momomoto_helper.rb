@@ -61,7 +61,7 @@ module MomomotoHelper
         "application/octet-stream"
       constraints = {:mime_type=>type.to_s}
       constraints[:f_image] = 't' if options[:image]
-      mime_type = Mime_type.select_single(constraints)
+      mime_type = Mime_type.select_single(constraints) rescue Mime_type.select_single(constraints.merge({:mime_type=>'application/octet-stream'}))
       values[:mime_type_id] = mime_type.mime_type_id 
     else
       values.delete( data_column )
@@ -70,6 +70,14 @@ module MomomotoHelper
     options[:remove] ||= true
     write_row( klass, values, options ) do | row |
       return if row.new_record? && !row[data_column]
+    end
+  end
+
+  # writes a file from an upload into the database
+  def write_file_rows( klass, values, options = {} )
+    values.each do | key, file |
+      next if key == 'rowid'
+      write_file_row( Event_attachment, file, options )
     end
   end
 

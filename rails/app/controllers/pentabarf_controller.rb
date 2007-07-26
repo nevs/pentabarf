@@ -54,6 +54,7 @@ class PentabarfController < ApplicationController
     end
     @event_rating = Event_rating.select_or_new({:event_id=>@event.event_id,:person_id=>POPE.user.person_id})
     @conference = Conference.select_single( :conference_id => @event.conference_id )
+    @attachments = View_event_attachment.select({:event_id=>@event.event_id,:language_id=>@current_language_id})
     @transaction = Event_transaction.select_single({:event_id=>@event.event_id}) rescue Event_transaction.new
   end
 
@@ -66,6 +67,9 @@ class PentabarfController < ApplicationController
       write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id}})
       write_rows( Event_link_internal, params[:event_link_internal], {:preset=>{:event_id => event.event_id}})
       write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
+      write_rows( Event_attachment, params[:event_attachment], {:always=>[:f_public]} )
+      write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
+
       Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
 
       redirect_to( :action => :event, :id => event.event_id )
