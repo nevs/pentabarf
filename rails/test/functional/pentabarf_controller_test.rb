@@ -19,4 +19,28 @@ class PentabarfControllerTest < Test::Unit::TestCase
     end
   end
 
+  def test_conference
+    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    POPE.send( :instance_variable_set, :@user, Person.select_single( :login_name => 'sven' ) )
+    get :conference, {:id => 1}
+    assert_response :success
+    POPE.deauth
+  end
+
+  def test_event
+    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    POPE.send( :instance_variable_set, :@user, Person.select_single( :login_name => 'sven' ) )
+    get :event, {:id => 6}
+    assert_response :success
+    POPE.deauth
+  end
+
+  def test_person
+    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    POPE.send( :instance_variable_set, :@user, Person.select_single( :login_name => 'sven' ) )
+    get :person, {:id => 1}
+    assert_response :success
+    POPE.deauth
+  end
+
 end
