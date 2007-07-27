@@ -10,8 +10,9 @@ xml.div( :id => 'sidebar' ) do
   xml.div(:id => 'menu') do
 
     xml.div(:class=>'menu-item-group') do
-      xml.form(:id=>:change_conference,:method=>:post,:class=>'menu-text') do
-        xml << select_tag('change_conference', Conference.select.map{|e| [e.conference_id,e.acronym]}, {:selected=>@current_conference.conference_id} )
+      xml.form(:action=>url_for(:action=>:save_current_conference),:method=>:post,:class=>'menu-text') do
+        xml.input( nil, {:type=>:hidden,:name=>:token,:value=>@conference_token})
+        xml << select_tag('conference_id', Conference.select.map{|e| [e.conference_id,e.acronym]}, {:selected=>@current_conference.conference_id,:onchange=>'submit()'} )
       end
     end
 

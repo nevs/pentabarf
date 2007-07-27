@@ -171,13 +171,20 @@ class PentabarfController < ApplicationController
     render(:partial=>'search_conference_simple')
   end
 
+  def save_current_conference
+    POPE.user.current_conference_id = params[:conference_id]
+    POPE.user.write
+    redirect_to( request.env['HTTP_REFERER'] )
+  end
+
   protected
 
   def init
-    # FIXME: remove hardcoded conference and language
-    @current_conference = Conference.select_single(:conference_id => 1)
+    @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
+    # FIXME: remove hardcoded language
     @current_language_id = 120
     @token = generate_token( url_for() )
+    @conference_token = generate_token( url_for( :action=>:current_conference ) )
   end
 
   def set_content_type
