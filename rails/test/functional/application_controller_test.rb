@@ -10,6 +10,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
 
   Dir.new( File.join( File.dirname(__FILE__), '/../../app/controllers')).each do | entry |
     if match = entry.match(/(([a-z_0-]+)_controller)\.rb/)
+      next if ['feedback'].member?( match[2] )
       require( match[1] )
       klass = const_get("#{match[2].capitalize}Controller")
       klass.action_methods.each do | method |
