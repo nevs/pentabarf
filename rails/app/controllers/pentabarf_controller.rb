@@ -88,8 +88,9 @@ class PentabarfController < ApplicationController
     @conference_person = Conference_person.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
     @person_travel = Person_travel.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
     @person_rating = Person_rating.select_or_new({:person_id=>@person.person_id,:evaluator_id=>POPE.user.person_id})
-    @transaction = Person_transaction.select_single({:person_id=>@person.person_id}) rescue Person_transaction.new
     @person_image = Person_image.select_or_new({:person_id=>@person.person_id})
+    @person_roles = Person_role.select(:person_id=>@person.person_id)
+    @transaction = Person_transaction.select_single({:person_id=>@person.person_id}) rescue Person_transaction.new
   end
 
   def save_person
@@ -114,6 +115,10 @@ class PentabarfController < ApplicationController
       write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:f_public],:image=>true})
       write_person_availability( @current_conference, person, params[:person_availability])
 
+      if POPE.permission?(:modify_login)
+        params[:person_role].each do | k,v | v[:remove] = true if not v[:set] end
+        write_rows( Person_role, params[:person_role], {:preset=>{:person_id=>person.person_id},:except=>[:set]})
+      end
       Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
 
       redirect_to( :action => :person, :id => person.person_id )

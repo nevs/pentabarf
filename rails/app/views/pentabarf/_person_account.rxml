@@ -18,4 +18,23 @@ xml.div(:id=>'content-account') do
     end
   end
 
+  xml.fieldset do
+    xml.legend local('permissions')
+
+    roles = @person_roles.map{|r| r.role_id}
+    xml.table do
+      Role.select.each do | role |
+        xml.tr do 
+          xml.td role.tag
+          xml.td do
+            xml.input(:type=>:hidden,:name=>"person_role[#{role.role_id}][role_id]",:value=>role.role_id)
+            checked = roles.member?( role.role_id ) ?  {:checked=>:checked} : {}
+            xml.input({:type=>:checkbox,:name=>"person_role[#{role.role_id}][set]"}.merge(checked))
+          end
+        end
+      end
+    end
+
+  end if POPE.permission?( :modify_login )
+
 end
