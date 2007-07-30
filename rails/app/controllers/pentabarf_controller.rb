@@ -95,7 +95,12 @@ class PentabarfController < ApplicationController
   def save_person
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
-      person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:f_spam]} )
+      person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:f_spam]} ) do | row |
+        if params[:person][:password].to_s != "" && ( row.person_id == POPE.user.person_id || POPE.permission?( :modify_login ) )
+          raise "Passwords do not match" if params[:person][:password] != params[:person][:password2]
+          row.password = params[:person][:password]
+        end
+      end
       conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
       write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
       write_row( Person_rating, params[:person_rating], {:preset=>{:person_id => person.person_id,:evaluator_id=>POPE.user.person_id}})
