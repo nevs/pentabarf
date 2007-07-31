@@ -1,6 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 
 require 'builder_helper'
+require 'localizer'
 
 module ApplicationHelper
   include Builder_helper 
@@ -31,7 +32,7 @@ module ApplicationHelper
   end
 
   def local( tag )
-    tag.to_s
+    Localizer.lookup( tag.to_s, @current_language_id )
   end
 
   def js( text )
