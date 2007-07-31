@@ -9,16 +9,13 @@ module Builder_helper
 
   def text_field_row( row, column, options = {}, &block )
     options[:size] = 40 unless options[:size]
-    __text_field_row( "#{column}", "#{row.class.table.table_name}[#{column}]", row[column], options, &block )
-  end
-
-  def __text_field_row( label, name, value = '', options = {} )
+    table = row.class.table.table_name
     xml = Builder::XmlMarkup.new
     xml.tr do
-      xml.td do xml.label( local( label ) ) end
+      xml.td do xml.label( local( "table::#{table}::#{column}") ) end
       xml.td do
-        options[:id] = options[:name] = name
-        options[:value] = value
+        options[:id] = options[:name] = "#{table}[#{column}]"
+        options[:value] = row[column]
         options[:tabindex] = 0
         xml.input( options )
         yield( xml ) if block_given?
@@ -27,32 +24,17 @@ module Builder_helper
   end
 
   def check_box_row( row, column, options = {}, &block )
-    __check_box_row( "#{column}", "#{row.class.table.table_name}[#{column}]", row[column], options, &block )
-  end
-
-  def __check_box_row( label, name, checked = false, options = {} )
+    table = row.class.table.table_name
     xml = Builder::XmlMarkup.new
     xml.tr do
-      xml.td do xml.label( local( label ) ) end
+      xml.td do xml.label( local( "table::#{table}::#{column}" ) ) end
       xml.td do
-        options[:id] = options[:name] = name
+        options[:id] = options[:name] = "#{table}[#{column}]"
         options[:tabindex] = 0
         options[:type] = :checkbox
         options[:value] ||= 't'
-        options[:checked] = :checked if checked
+        options[:checked] = :checked if row[column]
         xml.input( options )
-      end
-    end
-  end
-
-  def text_area_row( label, name, value = '', options = {} )
-    xml = Builder::XmlMarkup.new
-    xml.tr do
-      xml.td do xml.label( local( label ) ) end
-      xml.td do
-        options[:id] = options[:name] = name
-        options[:tabindex] = 0
-        xml.textarea( value, options )
       end
     end
   end
@@ -108,7 +90,7 @@ module Builder_helper
     options[:selected] = row.send(column) unless options[:selected]
     xml = Builder::XmlMarkup.new
     xml.tr do
-      xml.td do xml.label( local( column ) ) end
+      xml.td do xml.label( local( "table::#{row.class.table.table_name}::#{column}" ) ) end
       xml.td do xml << select_tag( name, collection, options ) end
     end
   end
@@ -118,7 +100,7 @@ module Builder_helper
     options[:checked] = row.send(column) unless options[:checked]
     xml = Builder::XmlMarkup.new
     xml.tr do
-      xml.td do xml.label( local( column ) ) end
+      xml.td do xml.label( local( "table::#{row.class.table.table_name}::#{column}" ) ) end
       collection.each do | element |
         if element.instance_of?( Array )
           key = element.first
