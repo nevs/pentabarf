@@ -9,14 +9,12 @@ class AtomControllerTest < Test::Unit::TestCase
     @controller = AtomController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
   end
 
-  # test auth for all public methods
-  AtomController.action_methods.each do | method |
-    define_method "test_auth_#{method}" do
-      get method
-      assert_response 401
-    end
+  def test_recent_changes
+    get :recent_changes
+    assert_response :success
   end
 
 end
