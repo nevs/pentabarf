@@ -123,13 +123,23 @@ module Builder_helper
     end
   end
 
-  def date_button_row( row, column, options = {}, &block )
+  def date_button_row( row, column, options = {} )
     xml = Builder::XmlMarkup.new
     name = "#{row.class.table.table_name}[#{column}]"
     button_id = "#{row.class.table.table_name}_#{column}"
     xml << text_field_row( row, column, {:size => 12 } ) do | x |
       x.button( '...', {:type=>:button,:id=>button_id})
       x.script( "Calendar.setup({inputField:'#{name}', ifFormat:'%Y-%m-%d', button:'#{button_id}', showOthers:true, singleClick:false});", {:type=>'text/javascript'})
+    end
+  end
+
+  def file_row( table, column )
+    xml = Builder::XmlMarkup.new
+    xml.tr do
+      xml.td do xml.label local( "table::#{table}::#{column}" ) end
+      xml.td do
+        xml << file_field_tag( "#{table}[#{column}]", {:tabindex => 0, :onchange => "enable_save_button()"})
+      end
     end
   end
 

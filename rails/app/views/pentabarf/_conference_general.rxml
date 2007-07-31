@@ -16,12 +16,7 @@ xml.div(:id=>'content-general') do
       xml << select_row( @conference, :days, 1..23 )
       xml << select_row( @conference, :currency_id, Currency.select.map{|e| [e.currency_id,e.iso_4217_code]} )
       xml << text_field_row( @conference, :email )
-      xml.tr do
-        xml.td do xml.label local(:conference_image) end
-        xml.td do
-          xml << file_field_tag('conference_image[image]', {:tabindex => 0, :onchange => "enable_save_button()"})
-        end
-      end
+      xml << file_row( :conference_image, :image )
     end
   end
 
