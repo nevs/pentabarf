@@ -2,6 +2,6 @@ xml = Builder::XmlMarkup.new
 
 xml.div(:id=>'content-comment') do
   xml.img( :src=>url_for(:controller=>'image',:action=>:person,:id=>"#{@person.person_id}-128x128"),:style=>'float: right;')
-  xml << text_area_fieldset('table::person::remark', 'conference_person[remark]', @conference_person.remark, {:rows=>5,:cols=>60})
+  xml << text_area_fieldset( @conference_person, :remark, {:rows=>5,:cols=>60})
 end
 

@@ -39,13 +39,14 @@ module Builder_helper
     end
   end
 
-  def text_area_fieldset( label, name, value = '', options = {} )
+  def text_area_fieldset( row, column, options = {} )
+    table = row.class.table.table_name
     xml = Builder::XmlMarkup.new
     xml.fieldset do
-      xml.legend( local( label ) )
-      options[:id] = options[:name] = name
+      xml.legend( local( "table::#{table}::#{column}") )
+      options[:id] = options[:name] = "#{table}[#{column}]"
       options[:tabindex] = 0
-      xml.textarea( value, options )
+      xml.textarea( row[column], options )
     end
   end
 

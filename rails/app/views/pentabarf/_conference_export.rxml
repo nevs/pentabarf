@@ -28,7 +28,7 @@ xml.div(:id=>'content-export') do
     end
   end
 
-  xml << text_area_fieldset('CSS', 'conference[css]', @conference.css, {:rows=>40,:cols=>60})
+  xml << text_area_fieldset( @conference, :css, {:rows=>40,:cols=>60})
 
 end
 

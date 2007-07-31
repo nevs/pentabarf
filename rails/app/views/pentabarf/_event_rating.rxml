@@ -20,6 +20,6 @@ xml.div(:id=>'content-rating') do
 
   end
 
-  xml << text_area_fieldset('my opinion', 'event_rating[remark]', @event_rating.remark, {:rows=>5,:cols=>60})
+  xml << text_area_fieldset( @event_rating, :remark, {:rows=>5,:cols=>60})
 
 end
