@@ -2,10 +2,13 @@ require 'icalendar'
 
 class IcalController < ApplicationController
 
+  before_filter :init
+
   def conference
     conf = Conference.select_single({:conference_id=>params[:id]})
     tz = View_time_zone.select_single({:time_zone_id => conf.time_zone_id, :language_id => 120})
-    tz_offset = tz.tag.match(/^[^0-9]+([+-]\d+)$/)[1].to_i
+    # FIXME put timezone offsets into database
+    tz_offset = tz.tag.match(/^[^0-9]+([+-]\d+)$/)[1].to_i rescue 0
     lang = Language.select_single({:language_id=>@current_language_id})
     rooms = View_room.select({:conference_id=>conf.conference_id,:language_id=>lang.language_id})
     events = View_schedule_simple.select({:conference_id=>conf.conference_id})
@@ -31,6 +34,13 @@ class IcalController < ApplicationController
       end
     end
     render(:text=>cal.to_ical)
+  end
+
+  protected
+
+  def init
+    # FIXME: remove hardcoded language
+    @current_language_id = 120
   end
 
 end

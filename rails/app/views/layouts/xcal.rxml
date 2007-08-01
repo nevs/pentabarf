@@ -6,6 +6,6 @@ xml.iCalendar(:"xmlns:xCal"=>"urn:ietf:params:xml:ns:xcal", :"xmlns:pentabarf"=>
     xml.prodid "-//Pentabarf//Schedule #{@conference.release}//EN"
     xml.tag! :"x-wr-caldesc", "#{@conference.acronym} Schedule Release #{@conference.release}"
     xml.tag! :"x-wr-calname", "#{@conference.acronym} Schedule"
-    xml << @content_for_layout
+    xml << yield
   end
 end

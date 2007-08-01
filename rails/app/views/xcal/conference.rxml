@@ -28,3 +28,4 @@ xml = Builder::XmlMarkup.new
   end
 end
 
+xml

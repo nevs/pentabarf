@@ -45,7 +45,7 @@ xml.schedule do
                 end
               end
               xml.links do
-                links = Event_link.find({:event_id=>event_id})
+                links = Event_link.select({:event_id=>event_id})
                 links.each do | link |
                   xml.link( link.title ? link.title : link.url, {:href=>link.url})
                 end
