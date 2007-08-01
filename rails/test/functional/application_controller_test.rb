@@ -8,6 +8,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
+  # test auth for all public methods in all controllers
   Dir.new( File.join( File.dirname(__FILE__), '/../../app/controllers')).each do | entry |
     if match = entry.match(/(([a-z_0-]+)_controller)\.rb/)
       next if ['feedback'].member?( match[2] )

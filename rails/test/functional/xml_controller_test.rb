@@ -9,14 +9,12 @@ class XmlControllerTest < Test::Unit::TestCase
     @controller = XmlController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
   end
 
-  # test auth for all public methods
-  XmlController.action_methods.each do | method |
-    define_method "test_auth_#{method}" do
-      get method
-      assert_response 401
-    end
+  def test_index
+    get :schedule, {:id=>1}
+    assert_response :success
   end
 
 end

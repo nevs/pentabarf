@@ -1,24 +1,19 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'report_controller'
+require 'file_controller'
 
 # Re-raise errors caught by the controller.
-class ReportController; def rescue_action(e) raise e end; end
+class FileController; def rescue_action(e) raise e end; end
 
-class ReportControllerTest < Test::Unit::TestCase
+class FileControllerTest < Test::Unit::TestCase
   def setup
-    @controller = ReportController.new
+    @controller = FileController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
   end
 
-  def test_expenses
-    get :expenses
-    assert_response :success
-  end
-
-  def test_feedback
-    get :feedback
+  def test_event_attachment
+    get :event_attachment, {:id => 1}
     assert_response :success
   end
 
