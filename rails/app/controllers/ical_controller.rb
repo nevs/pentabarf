@@ -15,15 +15,16 @@ class IcalController < ApplicationController
 
     cal = Icalendar::Calendar.new
     cal.prodid "-//Pentabarf//Schedule//#{lang.tag.upcase}"
-    cal.timezone do
-      tzid tz.tag
-      tzname tz.name
-    end
+    # FIXME icalendar library does not support timezones
+#    cal.timezone do
+#      tzid tz.tag
+#      tzname tz.name
+#    end
     events.each do | event |
       cal.event do
         uid "#{event.event_id}@#{conf.acronym}@pentabarf.org"
-        dtstart "TZID=#{tz.tag}:" + event.start_datetime
-        dtend "TZID=#{tz.tag}:" + event.end_datetime
+        dtstart "TZID=#{tz.tag}:" + event.start_date.strftime('%Y%m%dT%H%M%S')
+        dtend "TZID=#{tz.tag}:" + event.end_date.strftime('%Y%m%dT%H%M%S')
         duration sprintf( 'PT%dH%02dM', event.duration.hour, event.duration.min )
         summary event.title + ( event.subtitle ? " - #{event.subtitle}" : '')
         description event.abstract
