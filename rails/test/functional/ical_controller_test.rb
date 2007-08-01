@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'xcal_controller'
+require 'ical_controller'
 
 # Re-raise errors caught by the controller.
-class XcalController; def rescue_action(e) raise e end; end
+class IcalController; def rescue_action(e) raise e end; end
 
-class XcalControllerTest < Test::Unit::TestCase
+class IcalControllerTest < Test::Unit::TestCase
   def setup
-    @controller = XcalController.new
+    @controller = IcalController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
