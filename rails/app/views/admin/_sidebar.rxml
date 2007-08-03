@@ -15,7 +15,8 @@ xml.div( :id => 'sidebar' ) do
     xml.br
 
     xml.div( :class=>'menu-item-group' ) do
-      xml.a( local('link::startpage'), {:href=> url_for(:controller => 'pentabarf', :action => :index), :class => 'menu-item'} )
+      xml.a( 'Localization', {:href=> url_for(:controller => 'localization', :action => :index), :class => 'menu-item'} )
+      xml.a( 'Pentabarf', {:href=> url_for(:controller => 'pentabarf', :action => :index), :class => 'menu-item'} )
     end
 
   end
