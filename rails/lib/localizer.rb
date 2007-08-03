@@ -22,6 +22,10 @@ class Localizer
       local
     end
 
+    def purge( language_id )
+      @cache[language] = {}
+    end
+
   end
 end
 

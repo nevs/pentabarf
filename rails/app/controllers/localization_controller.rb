@@ -13,6 +13,7 @@ class LocalizationController < ApplicationController
     params[:ui_message].each do | ui_message_id, value |
       write_row( Ui_message_localized, value, {:preset=>{:ui_message_id=>ui_message_id,:language_id=>params[:language_id]}})
     end
+    Localizer.purge(params[:language_id])
     redirect_to( :action => :ui_message )
   end
 
