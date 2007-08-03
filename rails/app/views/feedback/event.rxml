@@ -1,7 +1,7 @@
 xml = Builder::XmlMarkup.new
 
 xml.div({:id=>'event-feedback',:class=>:section}) do
-  xml.p(local('feedback::introduction'),{:class=>:welcome})
+  xml.p(local('feedback::welcome_to_the_feedback_system'),{:class=>:welcome})
   xml.h1( @event.title, {:class=>:title})
   xml.p( @event.subtitle, {:class=>:subtitle})
   xml.div( markup(@event.abstract), {:class=>:abstract})
