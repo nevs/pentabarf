@@ -193,8 +193,6 @@ class PentabarfController < ApplicationController
     @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
     # FIXME: remove hardcoded language
     @current_language_id = 120
-    @token = generate_token( url_for() )
-    @conference_token = generate_token( url_for( :action=>:current_conference ) )
   end
 
   def set_content_type

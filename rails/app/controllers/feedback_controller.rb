@@ -28,7 +28,6 @@ class FeedbackController < ApplicationController
   protected
 
   def init
-    @token = generate_token( url_for() )
   end
 
   def auth

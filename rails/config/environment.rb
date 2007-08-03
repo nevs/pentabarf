@@ -15,6 +15,7 @@ require 'pope'
 require 'jabberlogger'
 require 'yaml'
 
+
 M = Momomoto
 
 Rails::Initializer.run do |config|
@@ -53,4 +54,6 @@ end
 
 # filter password fields in logs
 ActionController::Base.filter_parameter_logging( :password )
+
+require 'builder_enhancements'
 

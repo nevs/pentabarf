@@ -45,17 +45,11 @@ class ApplicationController < ActionController::Base
 
   # protect save and delete functions with token
   def check_token
-    if match = params[:action].match(/^(save|delete)_(.*)/)
-      action = match[2]
-      token = generate_token( url_for(:action=>action,:id=>params[:id]))
+    if params[:action].match(/^(save|delete)_/)
+      token = Token.generate( url_for(:only_path=>true) )
       return false if token != params[:token]
     end
     true
-  end
-
-  # calculate token from url and user password salt
-  def generate_token( url )
-    Digest::SHA1.hexdigest( url + Digest::SHA1.hexdigest( POPE.user.password[0..15] ) )
   end
 
   def log_error( exception, verbose = false )
