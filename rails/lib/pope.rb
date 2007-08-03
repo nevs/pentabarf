@@ -43,7 +43,7 @@ class Pope
   end
 
   def table_write( table, row )
-    table_domains( table ) do | domain |
+    table_domains( table ).each do | domain |
       action = 'modify' if table.table_name != table.table_name
       if action == 'modify'
         case domain 
@@ -58,7 +58,7 @@ class Pope
   end
 
   def table_delete( table, row )
-    table_domains( table ) do | domain |
+    table_domains( table ).each do | domain |
       action = 'modify' if table.table_name != table.table_name
       domain = :person if domain == :conference_person
       return true if permissions.member?( "#{action}_#{domain}".to_sym )
@@ -72,10 +72,13 @@ class Pope
     [:event,:person,:conference,:conference_person].each do | d |
       if table.columns.key?( "#{d}_id".to_sym )
         domains.push( d )
-        yield( d )
       end
     end
+    if table.table_name.match( /_localized$/ ) && table.columns.key?(:language_id)
+      domains.push( :localization )
+    end
     raise "No domain found for table #{table}" if domains.empty?
+    domains
   end
 
   def flush

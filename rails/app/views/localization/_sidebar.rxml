@@ -1,0 +1,24 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.div( :id => 'sidebar' ) do
+
+  xml.div( :id => 'logo' ) do
+    xml.a( :href => url_for(:controller=>'pentabarf',:action=>'conference',:id=>@current_conference.conference_id)) do
+      xml.img( :src=>url_for(:controller=>'image',:action=>'conference',:id=>"#{@current_conference.conference_id}-128x128"), :heigth=>128,:width=>128)
+    end
+  end
+
+  xml.div(:id => 'menu') do
+
+    xml.div( :class=>'menu-item-group' ) do
+      xml.a( 'Ui_message', {:href=> url_for(:controller => 'localization', :action => :ui_message), :class => 'menu-item'} )
+    end
+
+    xml.br
+
+    xml.div( :class=>'menu-item-group' ) do
+      xml.a( 'Admin', {:href=> url_for(:controller => 'admin', :action => :index), :class => 'menu-item'} )
+      xml.a( 'Pentabarf', {:href=> url_for(:controller => 'pentabarf', :action => :index), :class => 'menu-item'} )
+    end
+
+  end
+end
