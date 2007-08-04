@@ -47,7 +47,10 @@ class ApplicationController < ActionController::Base
   def check_token
     if params[:action].match(/^(save|delete)_/)
       token = Token.generate( url_for(:only_path=>true) )
-      return false if token != params[:token]
+      if token != params[:token]
+        warn( "Wrong token for #{url_for()} from #{request.remote_ip}")
+        return false
+      end
     end
     true
   end
