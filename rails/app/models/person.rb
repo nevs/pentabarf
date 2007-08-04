@@ -1,5 +1,6 @@
 class Person < Momomoto::Table
-  class Row < Momomoto::Row
+
+  module Methods
 
     def password=( value )
       srand()
