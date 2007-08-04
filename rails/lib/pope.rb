@@ -77,6 +77,9 @@ class Pope
     if table.table_name.match( /_localized$/ ) && table.columns.key?(:language_id)
       domains.push( :localization )
     end
+    if ['conference_phase_conflict'].member?( table.table_name )
+      domains.push( :config )
+    end
     raise "No domain found for table #{table}" if domains.empty?
     domains
   end
