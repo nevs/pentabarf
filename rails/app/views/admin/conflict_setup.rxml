@@ -1,0 +1,33 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div do
+  xml.form({:action=>url_for(:action=>:save_conflict_setup),:id=>:content_form}) do
+
+
+    xml.table do
+      xml.tr do
+        xml.td
+        @phases.each do | phase |
+          xml.th phase.name
+        end
+      end
+      @conflicts.each do | conflict |
+        xml.tr do
+          xml.td conflict.name
+          @phases.each do | phase |
+            selected = @phase_conflicts.select{|c| c.conflict_id == conflict.conflict_id && c.conference_phase_id == phase.conference_phase_id }[0]
+            xml.td do
+              prefix = "conflict[#{conflict.conflict_id}][#{phase.conference_phase_id}]"
+              xml.input(:type=>:hidden,:name=>"#{prefix}[conference_phase_conflict_id]",:value=>selected.conference_phase_conflict_id) if selected
+              selected = selected.conflict_level_id if selected
+              xml << select_tag( "#{prefix}[conflict_level_id]", @level, {:selected=>selected} )
+            end
+          end
+        end
+      end
+    end
+
+    xml << render( :partial => 'modification_buttons' )
+  end
+end
+

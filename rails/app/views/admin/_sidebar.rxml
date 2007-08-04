@@ -10,6 +10,7 @@ xml.div( :id => 'sidebar' ) do
   xml.div(:id => 'menu') do
 
     xml.div( :class=>'menu-item-group' ) do
+      xml.a( 'Conflict Setup', {:href=> url_for(:action => :conflict_setup), :class => 'menu-item'} )
     end
 
     xml.br
