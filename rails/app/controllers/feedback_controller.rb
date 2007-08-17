@@ -28,6 +28,10 @@ class FeedbackController < ApplicationController
   protected
 
   def init
+    if params[:language]
+      @current_language_id = Language.select_single(:iso_639_code=>params[:language]).language_id rescue nil
+    end
+    @current_language_id ||= 120
   end
 
   def auth
