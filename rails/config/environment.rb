@@ -57,3 +57,14 @@ ActionController::Base.filter_parameter_logging( :password )
 
 require 'builder_enhancements'
 
+require 'erubis/helpers/rails_helper'
+#Erubis::Helpers::RailsHelper.engine_class = Erubis::FastEruby # or Erubis::Eruby
+Erubis::Helpers::RailsHelper.init_properties = {:escape=>true}
+Erubis::Helpers::RailsHelper.show_src = false
+Erubis::Helpers::RailsHelper.preprocessing = true
+
+module Erubis
+  include EscapeEnhancer
+end
+
+

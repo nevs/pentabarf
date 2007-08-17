@@ -1,0 +1,68 @@
+<div>
+  <h2>Welcome to the paper submission system</h2>
+
+  <% if @conferences %>
+  <div>
+    <p>You can submit papers to one of the following conferences:</p>
+    <ul>
+    <% @conferences.each do | conf | %>
+      <li>
+        <a style="text-decoration: underline;color: blue;" href="<%= url_for(:controller=>'submission',:conference=>conf.acronym) %>"><%= conf.title %></a>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+  <p>
+  Please note that this system has only been tested with recent versions of
+  Gecko-based browsers like Mozilla Firefox, Seamonkey or Camino. Other
+  browsers might not work.<br />
+  <% if @conference %>
+  To submit your entry follow these steps:</p>
+
+  <table>
+    <tr>
+      <td><b>#1:</b></td>
+      <td><%== link_to( 'Create account', {:controller => 'user', :action => :new_account, :id => @conference.acronym}, { :class => 'menu-item' } ) %><br />
+        Click on "Create account" and fill out the form. An account
+        will be created and an e-mail is sent to you for confirmation.
+      </td>
+    </tr>
+    <tr>
+      <td><b>#2:</b></td>
+      <td>Activate your account<br />
+        Click on the link sent to you with the confirmation mail to activate
+        your account. You will be redirected to the submission interface of
+        this conference.
+      </td>
+    </tr>
+    <tr>
+      <td><b>#3:</b></td>
+      <td>Login<br />
+        You might login right after activation of your account or at any time
+        using the "Login" link on the left.
+      </td>
+    </tr>
+    <tr>
+      <td><b>#4:</b></td>
+      <td>Enter personal details<br />
+        Click on "Person" on the left and enter your personal details. Please
+        fill out at least everything on the "General" tab.
+      </td>
+    </tr>
+    <tr>
+      <td><b>#5:</b></td>
+      <td>Create an event<br />
+        Click on "New Event" on the left to create the new event you want to
+        propose. Fill in the details of your submission. Don't forget to fill
+        in text boxes on the "Description" tab.
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><b>You are done!</b> Thanks for participating.</td>
+    </tr>
+  </table>
+  <% end %>
+
+</div>
