@@ -10,18 +10,17 @@ xml.div( :id => 'object-image' ) do
 end
 
 
-tabs = [:general,:availability,:events,:contact,:description,:links,:rating,:travel,:account]
+tabs = [:general,:availability,:contact,:description,:links,:travel,:account]
 
 xml << js_tabs( tabs )
 
 xml.div( :id => 'data' ) do
 
-  xml.form(:action=>url_for(:action=>:save_person,:id=>params[:id]),:id=>'content_form',:method=>'post',:enctype=>'multipart/form-data') do
+  xml.form(:action=>url_for(:action=>:save_person),:id=>'content_form',:method=>'post',:enctype=>'multipart/form-data') do
 
     xml << hidden_field( @conference_person, :conference_person_id )
     xml.input( nil, {:type=>:hidden,:name=>:transaction,:value=>@transaction.person_transaction_id})
     xml << render( :partial => 'modification_buttons' )
-    xml << render( :partial => 'person_comment' )
 
     tabs.each do | tab |
       xml << render( :partial => "person_#{tab}")

@@ -1,0 +1,50 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-general') do
+
+  xml.fieldset do
+    xml.legend local('view::pentabarf::person::tab::general')
+
+    xml.table do
+      xml << text_field_row( @person, :first_name )
+      xml << text_field_row( @person, :last_name )
+      xml << text_field_row( @person, :nickname )
+      xml << text_field_row( @person, :public_name )
+      xml << text_field_row( @person, :title )
+      xml << select_row( @person, :gender, [[true,'male'],[false,'female']], {:with_empty=>true})
+      xml << file_row( :person_image, :image )
+      xml << check_box_row( @person_image, :f_public )
+    end
+  end
+
+  xml.fieldset do
+    xml.legend( local('spoken languages') )
+    xml.table(:id=>'person_language_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('language') )
+          xml.th( local('remove') )
+        end
+      end
+      xml.tbody(:id=>'person_language_tbody') do
+        xml.tr(:id=>'person_language_template',:style=>'display:none') do
+          xml.td do
+            xml << select_tag( 'person_language[row_id][language_id]', Language.select(:f_visible=>true).map{|e| [e.language_id, e.iso_639_code]})
+          end
+          xml.td do
+            xml.input({:type=>:checkbox,:name=>'person_language[row_id][remove]',:id=>'person_language[row_id][remove]'})
+          end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do 
+      Person_language.select( :person_id => @person.person_id ).each do | c |
+        xml << js_function( 'table_add_row', 'person_language', c.language_id )
+      end
+    end
+
+    xml.button( local('add language'), {:type=>:button,:onclick=>'table_add_row("person_language")'})
+  end
+
+end

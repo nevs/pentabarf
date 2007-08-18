@@ -1,0 +1,71 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+
+xml.div(:id=>'content-travel') do
+
+  xml.fieldset do
+    xml.legend local('travel')
+
+    xml.table do
+      xml.tr do
+        xml.td do
+          xml.table do
+            xml.tr do xml.th( local( 'arrival' ), {:colspan=>2}) end
+            xml << text_field_row( @person_travel, :arrival_from )
+            xml << text_field_row( @person_travel, :arrival_to )
+            xml << date_button_row( @person_travel, :arrival_date )
+            xml << text_field_row( @person_travel, :arrival_time )
+            xml << text_field_row( @person_travel, :arrival_number )
+            xml << select_row( @person_travel, :arrival_transport_id, Transport.select.map{|e| [e.transport_id, e.tag]} )
+            xml << check_box_row( @person_travel, :f_arrival_pickup )
+          end
+        end
+        xml.td do
+          xml.table do
+            xml.tr do xml.th( local( 'departure' ), {:colspan=>2}) end
+            xml << text_field_row( @person_travel, :departure_from )
+            xml << text_field_row( @person_travel, :departure_to )
+            xml << date_button_row( @person_travel, :departure_date )
+            xml << text_field_row( @person_travel, :departure_time )
+            xml << text_field_row( @person_travel, :departure_number )
+            xml << select_row( @person_travel, :departure_transport_id, Transport.select.map{|e| [e.transport_id, e.tag]} )
+            xml << check_box_row( @person_travel, :f_departure_pickup )
+          end
+        end
+      end
+    end
+
+    xml.table do
+      xml << check_box_row( @person_travel, :f_need_travel_cost )
+      xml << money_currency_row( @person_travel, :travel_cost, :travel_currency_id )
+      xml << money_currency_row( @person_travel, :fee, :fee_currency_id )
+    end
+
+  end
+
+  xml.fieldset do
+    xml.legend local('accommodation')
+    xml.table do
+      xml << text_field_row( @person_travel, :accommodation_name )
+      xml << text_field_row( @person_travel, :accommodation_phone )
+      xml << text_field_row( @person_travel, :accommodation_phone_room )
+      xml << text_field_row( @person_travel, :accommodation_street )
+      xml << text_field_row( @person_travel, :accommodation_postcode )
+      xml << text_field_row( @person_travel, :accommodation_city )
+      xml << check_box_row( @person_travel, :f_need_accommodation )
+      xml << check_box_row( @person_travel, :f_need_accommodation_cost )
+      xml << money_currency_row( @person_travel, :accommodation_cost, :accommodation_currency_id )
+    end
+  end
+
+  xml.fieldset do
+    xml.legend local('bank')
+    xml.table do
+      xml << text_field_row( @person, :iban )
+      xml << text_field_row( @person, :bic )
+      xml << text_field_row( @person, :bank_name )
+      xml << text_field_row( @person, :account_owner )
+    end
+  end
+
+end
+

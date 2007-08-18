@@ -1,0 +1,72 @@
+xml.div do
+  xml.h2 "Welcome to the paper submission system"
+
+  if @conferences
+    xml.div do
+      xml.p "You can submit papers to one of the following conferences:"
+      xml.ul do
+        @conferences.each do | conf |
+          xml.li do
+            xml.a(conf.title, {:style=>"text-decoration: underline;color: blue;",:href=>url_for(:conference=>conf.acronym)})
+          end
+        end
+      end
+    end
+  end
+  xml.p "Please note that this system has only been tested with recent versions of Gecko-based browsers like Mozilla Firefox, Seamonkey or Camino. Other browsers might not work."
+
+  if @conference
+    xml.p "To submit your entry follow these steps:"
+
+    xml.table do
+      xml.tr do
+        xml.td do xml.b "#1:" end
+        xml.td do
+          xml << link_to( 'Create account', {:controller => 'user', :action => :new_account, :id => @conference.acronym}, { :class => 'menu-item' } )
+          xml.br
+          xml.text! 'Click on "Create account" and fill out the form. An account will be created and an e-mail is sent to you for confirmation.'
+        end
+      end
+      xml.tr do
+        xml.td do xml.b "#2:" end
+        xml.td do
+          xml.text! 'Activate your account'
+          xml.br
+          xml.text! 'Click on the link sent to you with the confirmation mail to activate your account. You will be redirected to the submission interface of this conference.'
+        end
+      end
+      xml.tr do
+        xml.td do xml.b "#3:" end
+        xml.td do
+          xml.text! 'Login'
+          xml.br
+          xml.text! 'You might login right after activation of your account or at any time using the "Login" link on the left.'
+        end
+      end
+      xml.tr do
+        xml.td do xml.b "#4:" end
+        xml.td do
+          xml.text! 'Enter personal details'
+          xml.br
+          xml.text! 'Click on "Person" on the left and enter your personal details. Please fill out at least everything on the "General" tab.'
+        end
+      end
+      xml.tr do
+        xml.td do xml.b "#5:" end
+        xml.td do
+          xml.text! 'Create an event'
+          xml.br
+          xml.text! 'Click on "New Event" on the left to create the new event you want to propose. Fill in the details of your submission. Don\'t forget to fill in text boxes on the "Description" tab.'
+        end
+      end
+      xml.tr do
+        xml.td
+        xml.td do
+          xml.b 'You are done!'
+          xml.text! 'Thanks for participating.'
+        end
+      end
+    end
+  end
+
+end
