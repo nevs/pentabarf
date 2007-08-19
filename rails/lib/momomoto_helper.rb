@@ -25,6 +25,7 @@ module MomomotoHelper
       next if klass.primary_keys.member?( field.to_sym ) ||
               options[:except].member?( field.to_sym ) ||
               options[:preset].key?( field.to_sym )
+      next if options[:only] && !options[:only].member?( field.to_sym )
       row[ field ] = value
     end
     options[:always].each do | field_name |
@@ -41,6 +42,7 @@ module MomomotoHelper
   # see write_row for documentation of options
   def write_rows( klass, values, options = {}, &block )
     options[:remove] ||= true
+    values ||= {}
     values.each do | row_id, hash |
       next if row_id == 'row_id'
       write_row( klass, hash, options, &block )

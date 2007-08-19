@@ -1,9 +1,42 @@
 class SubmissionController < ApplicationController
 
   before_filter :init
+  before_filter :check_transaction, :only=>[:save_event,:save_person]
   after_filter :set_content_type
 
   def index
+    @conferences = Conference.select({:f_submission_enabled=>'t'})
+  end
+
+  def event
+    if params[:id] && params[:id] != 'new'
+      own = Own_conference_events.call({:person_id=>POPE.user.person_id,:conference_id=>@conference.conference_id},{:own_conference_events=>params[:id]})
+      raise "You are not allowed to edit this event." if own.length != 1
+      @event = Event.select_single({:event_id=>params[:id]})
+    else
+      @event = Event.new({:conference_id=>@conference.conference_id,:event_id=>0})
+    end
+    @attachments = View_event_attachment.select({:event_id=>@event.event_id,:language_id=>@current_language_id})
+    @transaction = Event_transaction.select_single({:event_id=>@event.event_id}) rescue Event_transaction.new
+  end
+
+  def save_event
+    Momomoto::Database.instance.transaction do
+      if params[:id].to_i == 0
+        event = Submit_event.call(:e_person_id=>POPE.user.person_id,:e_conference_id=>@conference.conference_id,:e_title=>params[:event][:title])
+        params[:id] = event[0].submit_event
+      end
+      params[:event][:event_id] = params[:id]
+      event = write_row( Event, params[:event], {:except=>[:event_id],:only=>Event::SubmissionFields} )
+      write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id}})
+      write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
+      write_rows( Event_attachment, params[:event_attachment], {:always=>[:f_public]} )
+      write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
+
+      Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
+
+      redirect_to( :action => :event, :id => event.event_id )
+    end
   end
 
   def person
@@ -42,7 +75,6 @@ class SubmissionController < ApplicationController
   protected
 
   def init
-    @conferences = Conference.select({:f_submission_enabled=>'t'})
     @conference = Conference.select_single(:acronym=>params[:conference]) rescue nil
     # FIXME: remove hardcoded language
     @current_language_id = 120

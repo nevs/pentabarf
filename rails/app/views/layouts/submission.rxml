@@ -5,7 +5,7 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
   xml.head do
     xml.meta(:'http-equiv'=>'Content-Type',:content=>'text/html; charset=utf-8')
     xml.meta(:name=>'generator',:content=>'Pentabarf')
-    xml.title "#{@conference.acronym if @conference}# {@content_title} - Pentabarf #{pentabarf_version} r#{pentabarf_revision}"
+    xml.title "#{@conference.acronym if @conference} #{@content_title} - Pentabarf #{pentabarf_version} r#{pentabarf_revision}"
     xml.link(:href=>"/favicon.ico",:rel=>"shortcut icon")
     xml << javascript_include_tag('prototype','application', 'sortable')
     xml << stylesheet_link_tag( 'main' )
