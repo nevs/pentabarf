@@ -1,0 +1,22 @@
+xml.div do
+  xml.h3 do
+    xml.text! "You can "
+    xml.a('create an account',{:href=>url_for(:action=>:new_account,:id=>params[:id]),:style=>"text-decoration:underline;color:blue;"})
+    xml.text! " for the Pentabarf Submission System."
+  end
+  if @conferences
+    xml.p "You can use your account to submit papers to one of the following conferences:"
+    xml.div do
+      xml.ul do
+        @conferences.each do | conf |
+          xml.li do
+            xml.a(conf.title, {:style=>"text-decoration: underline;color: blue;",:href=>url_for(:id=>conf.acronym)})
+          end
+        end
+      end
+    end
+  end
+  xml.p "Pleas create an account for one note that this system has only been tested with recent versions of Gecko-based browsers like Mozilla Firefox, Seamonkey or Camino. Other browsers might not work."
+
+
+end
