@@ -62,7 +62,7 @@ xml.div({:id=>:data}) do
       end
     end
 
-    xml.form(:id=>:advanced_search) do
+    xml.form(:id=>:advanced_search,:action=>url_for) do
       xml.ul( nil, {:id=>:advanced_search_list,:class=>"advanced_search"} )
 
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
