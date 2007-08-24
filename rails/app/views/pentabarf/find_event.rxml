@@ -5,7 +5,7 @@ xml.div({:id=>:data}) do
 
   xml.fieldset({:id=>'content-simple'}) do
     xml.label(local('find event'))
-    xml.form(:id=>:simple_search) do
+    xml.form(:id=>:simple_search,:action=>url_for) do
       xml.input({:type=>:text,:name=>:find_event_simple,:id=>:find_event_simple})
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
     end

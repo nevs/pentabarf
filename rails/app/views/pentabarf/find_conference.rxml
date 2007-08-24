@@ -3,7 +3,7 @@ xml = Builder::XmlMarkup.new(:indent=>1)
 xml.div({:id=>:data}) do
   xml.fieldset do
     xml.label(local('find conference'))
-    xml.form(:id=>:simple_search) do
+    xml.form(:id=>:simple_search,:action=>url_for) do
       xml.input({:type=>:text,:name=>:find_conference_simple,:id=>:find_conference_simple})
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
     end
