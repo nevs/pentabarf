@@ -1,0 +1,31 @@
+xml = Builder::XmlMarkup.new(:indent=>1)
+xml.instruct!
+xml.declare! :DOCTYPE, :html, :PUBLIC, "-//W3C//DTD XHTML 1.0 Transitional//EN", "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
+  xml.head do
+    xml.meta(:'http-equiv'=>'Content-Type',:content=>'text/html; charset=utf-8')
+    xml.meta(:name=>'generator',:content=>'Pentabarf')
+    xml.title "#{@conference.acronym if @conference} #{@content_title} - Pentabarf #{pentabarf_version} r#{pentabarf_revision}"
+    xml.link(:href=>"/favicon.ico",:rel=>"shortcut icon")
+    xml << javascript_include_tag('prototype','application', 'sortable')
+    xml << stylesheet_link_tag( 'main' )
+    xml.noscript do
+      xml.div("Please enable Javascript.",{:class=>'js-warning'})
+    end
+  end
+  xml.body({:id=>:body}) do
+    xml << render(:partial=>'sidebar')
+
+    xml.div({:id=>:main}) do
+      xml.div({:id=>:context}) do
+        xml.h1("#{@conference.acronym if @conference} #{@content_title}")
+        xml.em(@content_subtitle)
+      end
+      xml.div({:id=>:content}) do
+        xml << yield
+      end
+    end
+
+  end
+end
+
