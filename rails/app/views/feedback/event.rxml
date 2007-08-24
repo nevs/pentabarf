@@ -7,7 +7,6 @@ xml.div({:id=>'event-feedback',:class=>:section}) do
   xml.div( markup(@event.abstract), {:class=>:abstract})
 
   xml.form({:method=>:post,:action=>url_for({:action=>:save_event,:id=>@event.event_id,:language=>@language.tag,:conference=>@conference.acronym})}) do
-    xml.input( nil, {:type=>:hidden,:name=>:token,:value=>@token})
     xml.fieldset do
       xml.legend(local('feedback::my_rating'))
       xml.p(local('feedback::please_answer'))

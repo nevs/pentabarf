@@ -11,7 +11,6 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div(:class=>'menu-item-group') do
       xml.form(:action=>url_for(:controller=>'pentabarf',:action=>:save_current_conference),:method=>:post,:class=>'menu-text') do
-        xml.input( nil, {:type=>:hidden,:name=>:token,:value=>@conference_token})
         xml << select_tag('conference_id', Conference.select.map{|e| [e.conference_id,e.acronym]}, {:selected=>@current_conference.conference_id,:onchange=>'submit()'} )
       end
     end
