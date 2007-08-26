@@ -61,7 +61,7 @@ xml.div({:id=>:data}) do
     end
 
     xml.script("init_search_list('advanced_search_list');search_row_add();switch_tab();",:type=>'text/javascript')
-    xml.script( "new Form.EventObserver('advanced_search', function(element, value) { new Ajax.Updater('results', '/pentabarf/search_person_advanced', { asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value });})", :type=>"text/javascript" )
+    xml.script( "new Form.Observer('advanced_search', 0.3, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_person_advanced', { asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value });})", :type=>"text/javascript" )
   end
 
   xml.fieldset do
