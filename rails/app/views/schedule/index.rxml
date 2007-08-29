@@ -10,12 +10,12 @@ xml.ul do
   end
   xml.li do
     xml.a(:href=>url_for({:action=>:speakers})) do
-      xml.span( local(:speakers), :class=>:normal)
+      xml.span( local('schedule::speakers'), :class=>:normal)
     end
   end
   xml.li do
     xml.a(:href=>url_for({:action=>:events})) do
-      xml.span( local(:events), :class=>:normal)
+      xml.span( local('schedule::events'), :class=>:normal)
     end
   end
   xml.li do
@@ -30,7 +30,7 @@ xml.ul do
   end
   xml.li do
     xml.a(:href=>url_for({:controller=>'xml',:action=>:schedule,:id=>@conference.conference_id})) do
-      xml.span("#{local(:schedule)} (XML)", :class=>:normal)
+      xml.span("#{local('schedule::schedule')} (XML)", :class=>:normal)
     end
   end
 end

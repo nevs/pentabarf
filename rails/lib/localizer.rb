@@ -5,7 +5,7 @@ class Localizer
   @cache = Hash.new do | hash, key | hash[key] = Hash.new end
 
   class << self
-    
+
     # lookup localization for tag and cache it
     def lookup( tag, language )
       tag = tag.to_s

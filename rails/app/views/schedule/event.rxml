@@ -21,7 +21,7 @@ xml.div(:id=>'event',:class=>'section vevent') do
     end
 
     xml.table do
-      xml.tr do xml.th( local(:schedule),{:colspan=>2}) end
+      xml.tr do xml.th( local('schedule::schedule'),{:colspan=>2}) end
       xml.tr do
         xml.td( local(:day),{:class=>'keyword'})
         xml.td(@event.day,{:class=>'value'})

@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'schedule/:conference/track/:track', :controller => 'schedule', :action => 'track_events'
   map.connect 'schedule/:conference/track/:track/:id', :controller => 'schedule', :action => 'track_event'
   map.connect 'schedule/:conference/:action/:id', :controller => 'schedule'
-  map.connect 'schedule/:conference/style.css',:controller => 'schedule', :action => 'css'
+  map.connect 'schedule/:conference/style.css', :controller => 'schedule', :action => 'css'
 
   map.connect 'feedback/:conference/style.css',:controller => 'feedback', :action => 'css'
   map.connect 'feedback/:conference/:action/:id.:language.html',:controller => 'feedback'
