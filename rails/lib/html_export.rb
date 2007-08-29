@@ -35,10 +35,9 @@ class HTMLExport
 
     def make_url( url, prefix )
       url[:controller] ||= 'schedule'
-      url[:language] ||= 'en'
-      target = case url[:controller] 
+      target = case url[:controller]
         when 'schedule' then
-          case url[:action] 
+          case url[:action]
             when :index then "#{prefix}index.#{url[:language]}.html"
             when :day then "#{prefix}day_#{url[:id]}.#{url[:language]}.html"
             when :event then "#{prefix}events/#{url[:id]}.#{url[:language]}.html"
@@ -49,8 +48,8 @@ class HTMLExport
             when :speakers then "#{prefix}speakers.#{url[:language]}.html"
             when :css then "#{prefix}/style.css"
           end
-        when 'image' then 
-          case url[:action] 
+        when 'image' then
+          case url[:action]
             when :conference then "#{prefix}images/conference-128x128.png"
             when :event then "#{prefix}images/event-128x128.png"
             when :person then "#{prefix}images/person-128x128.png"

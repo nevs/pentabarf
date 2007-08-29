@@ -21,10 +21,15 @@ class ActionController::Base
 end
 
 conf = Conference.select_single(:acronym=>ARGV[0])
+languages = View_conference_language.select(:conference_id=>conf.conference_id,:translated_id=>120)
+languages = languages.map do | l | l.tag end
+languages << 'en' if languages.length < 1
 
 HTMLExport.init(conf)
 HTMLExport.build_tree
-HTMLExport.export(:controller=>'schedule',:conference=>conf.acronym,:action=>:index)
+languages.each do | lang |
+  HTMLExport.export(:controller=>'schedule',:conference=>conf.acronym,:action=>:index,:language=>lang)
+end
 
 while HTMLExport.urls[0]
   current_url = HTMLExport.urls[0]

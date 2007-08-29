@@ -46,7 +46,7 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
 
   xml.div(:id=>'navigation') do
     prev = nil
-    @speakers.each do | s | 
+    @speakers.each do | s |
       break if s.person_id == @speaker.person_id
       prev = s
     end
@@ -58,7 +58,7 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
     end
 
     fwd = nil
-    @speakers.reverse_each do | s | 
+    @speakers.reverse_each do | s |
       break if s.person_id == @speaker.person_id
       fwd = s
     end
