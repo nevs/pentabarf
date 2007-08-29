@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require File.dirname(__FILE__) + '/../config/boot'
+require File.dirname(__FILE__) + '/../config/environment'
+
+require 'action_controller/integration'
+require 'lib/html_export'
+
+require 'application'
+class ApplicationController < ActionController::Base
+  def auth
+    true
+  end
+end
+
+class ActionController::Base
+  alias_method :url_for_rails, :url_for
+  def url_for(*args)
+    HTMLExport.url_for( *args )
+  end
+end
+
+conf = Conference.select_single(:acronym=>ARGV[0])
+
+HTMLExport.init(conf)
+HTMLExport.build_tree
+HTMLExport.export(:controller=>'schedule',:conference=>conf.acronym,:action=>:index)
+
+while HTMLExport.urls[0]
+  current_url = HTMLExport.urls[0]
+  HTMLExport.urls.delete( current_url )
+  HTMLExport.export( current_url )
+end
+
+exit 0
+
