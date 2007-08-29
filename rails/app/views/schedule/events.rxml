@@ -3,8 +3,8 @@ xml.div(:id=>'event-index',:class=>'section') do
   xml.table(:class=>'event-index') do
     xml.thead do
       xml.tr do
-        xml.th( local(:event),{:class=>'event'})
-        xml.th( local(:speakers),{:class=>'speaker'})
+        xml.th( local( 'schedule::event' ),{:class=>'event'})
+        xml.th( local( 'schedule::speakers' ),{:class=>'speaker'})
       end
     end
     xml.tbody do
@@ -25,15 +25,15 @@ xml.div(:id=>'event-index',:class=>'section') do
             end
             xml.p(:class=>'info') do
               xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
-                xml.strong local(:event_type)
+                xml.strong local( 'schedule::event_type' )
                 xml.text! ': '
                 xml.span(event.event_type,{:class=>'type'})
                 xml.br
-                xml.strong local(:conference_track)
+                xml.strong local( 'schedule::conference_track' )
                 xml.text! ': '
                 xml.span(event.conference_track,{:class=>'type'})
                 xml.br
-                xml.strong local(:language)
+                xml.strong local( 'schedule::language' )
                 xml.text! ': '
                 xml.span(event.language,{:class=>'type'})
                 xml.br

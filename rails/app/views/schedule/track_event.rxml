@@ -4,7 +4,7 @@ xml.div(:id=>'event',:class=>'section') do
   xml.div(:id=>'infobox') do
     xml.table do
       xml.tr do
-        xml.th( local(:speakers),{:colspan=>'2'})
+        xml.th( local( 'schedule::speakers' ),{:colspan=>'2'})
       end
       @events.select{|e| e.event_id == @event.event_id}.each do | speaker |
         xml.tr do
@@ -21,21 +21,21 @@ xml.div(:id=>'event',:class=>'section') do
     end
 
     xml.table do
-      xml.tr do xml.th( local(:schedule),{:colspan=>2}) end
+      xml.tr do xml.th( local( 'schedule::schedule' ),{:colspan=>2}) end
       xml.tr do
-        xml.td( local(:day),{:class=>'keyword'})
+        xml.td( local( 'schedule::day' ),{:class=>'keyword'})
         xml.td(@event.day,{:class=>'value'})
       end
       xml.tr do
-        xml.td( local(:room),{:class=>'keyword'})
+        xml.td( local( 'schedule::room' ),{:class=>'keyword'})
         xml.td(@event.room,{:class=>'value'})
       end
       xml.tr do
-        xml.td( local(:start_time),{:class=>'keyword'})
+        xml.td( local( 'schedule::start_time' ),{:class=>'keyword'})
         xml.td(@event.real_starttime.strftime('%H:%M'),{:class=>'value'})
       end
       xml.tr do
-        xml.td( local(:event_duration),{:class=>'keyword'})
+        xml.td( local( 'schedule::event_duration' ),{:class=>'keyword'})
         xml.td(@event.duration.strftime('%H:%M'),{:class=>'value'})
       end
       xml.tr do xml.th('Info',{:colspan=>2}) end
@@ -44,15 +44,15 @@ xml.div(:id=>'event',:class=>'section') do
         xml.td(event.event_id,{:class=>'value'})
       end
       xml.tr do
-        xml.td( local(:event_type),{:class=>'keyword'})
+        xml.td( local( 'schedule::event_type' ),{:class=>'keyword'})
         xml.td(event.event_type,{:class=>'value'})
       end
       xml.tr do
-        xml.td( local(:conference_track),{:class=>'keyword'})
+        xml.td( local( 'schedule::conference_track' ),{:class=>'keyword'})
         xml.td(event.conference_track,{:class=>'value'})
       end
       xml.tr do
-        xml.td( local(:language),{:class=>'keyword'})
+        xml.td( local( 'schedule::language' ),{:class=>'keyword'})
         xml.td(event.language,{:class=>'value'})
       end
     end
@@ -64,9 +64,9 @@ xml.div(:id=>'event',:class=>'section') do
         end
         xml.tr do
           xml.td(:colspan=>2,:class=>'feedback') do
-            xml.text! local(:did_you_attend_this_event)
+            xml.text! local( 'schedule::did_you_attend_this_event' )
             xml.br
-            xml.a( local(:give_feedback),{:href=>url_for(:controller=>'feedback',:action=>:event,:id=>@event.event_id)})
+            xml.a( local( 'schedule::give_feedback' ),{:href=>url_for(:controller=>'feedback',:action=>:event,:id=>@event.event_id)})
           end
         end
 
@@ -88,7 +88,7 @@ xml.div(:id=>'event',:class=>'section') do
   files = View_event_attachment.select({:event_id=>@event.event_id,:language_id=>@current_language_id,:f_public=>'t'})
   if files.length > 0
     xml.div(:class=>'attachments') do
-      xml.h2( local(:attachments) )
+      xml.h2( local( 'schedule::attachments' ) )
       xml.ul do
         files.each do | file |
           xml.li do

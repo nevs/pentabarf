@@ -2,7 +2,7 @@ xml = Builder::XmlMarkup.new(:indent=>1)
 xml.div(:id=>'speaker',:class=>'section vcard') do
   xml.div(:id=>'infobox') do
     xml.table do
-      xml.tr do xml.th( local(:events),{:colspan=>2}) end
+      xml.tr do xml.th( local( 'schedule::events' ),{:colspan=>2}) end
       @speakers.select{|e| e.person_id == @person.person_id}.each do | event |
         xml.tr do
           xml.td do
@@ -32,7 +32,7 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
     links = Conference_person_link.select({:conference_person_id=>@speaker.conference_person_id})
     if links.length > 0
       xml.div(:class=>'links') do
-        xml.h2 local(:links)
+        xml.h2 local( 'schedule::links' )
         xml.ul do
           links.each do | link |
             xml.li do
