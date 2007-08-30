@@ -62,9 +62,9 @@ xml.div({:id=>:data}) do
 
     xml.script(:type=>'text/javascript') do
       xml.text! "init_search_list('advanced_search_list');"
-      if @preferences[:search_person_advanced].length > 0
+      if @preferences[:search_person_advanced] && @preferences[:search_person_advanced].length > 0
         @preferences[:search_person_advanced].each do | key, row |
-          xml.text! "search_row_add(null,'#{row[:key]}','#{row[:value]}');"
+          xml << js_function('search_row_add', nil, row[:key], row[:value])
         end
       else
         xml.text! "search_row_add();"
