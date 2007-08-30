@@ -153,6 +153,7 @@ class PentabarfController < ApplicationController
 
   def search_person_advanced
     @results = View_find_person.select( form_to_condition( params[:search_person], View_find_person) )
+    @preferences[:search_person_advanced] = params[:search_person]
     render(:partial=>'search_person')
   end
 
@@ -172,6 +173,7 @@ class PentabarfController < ApplicationController
     conditions = form_to_condition( params[:search_event], View_find_event )
     conditions[:translated_id] = @current_language_id
     @results = View_find_event.select( conditions )
+    @preferences[:search_event_advanced] = params[:search_event]
     render(:partial=>'search_event')
   end
 
@@ -212,7 +214,7 @@ class PentabarfController < ApplicationController
 
   # converts values submitted by advanced search to a hash understood by momomoto
   def form_to_condition( params, klass )
-    conditions = Hash.new{|h,k| 
+    conditions = Hash.new{|h,k|
       if klass.columns[k].kind_of?( M::Datatype::Text )
         key = :ilike
       else
