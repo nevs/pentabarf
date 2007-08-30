@@ -3,6 +3,7 @@ class PentabarfController < ApplicationController
   before_filter :init
   before_filter :check_transaction, :only=>[:save_event,:save_person,:save_conference]
   after_filter :set_content_type
+  after_filter :save_preferences, :only=>[:search_person_simple,:search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
 
   def conflicts
     @conflicts = []
@@ -146,7 +147,7 @@ class PentabarfController < ApplicationController
 
   def search_person_simple
     @results = View_find_person.select(params[:id] ? {:name=>{:ilike => params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}}} : {} )
-    prefs = POPE.user.preferences
+    @preferences[:search_person_simple] = params[:id]
     render(:partial=>'search_person')
   end
 
@@ -192,8 +193,14 @@ class PentabarfController < ApplicationController
 
   def init
     @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
+    @preferences = POPE.user.preferences
     # FIXME: remove hardcoded language
     @current_language_id = 120
+  end
+
+  def save_preferences
+    POPE.user.preferences = @preferences
+    POPE.user.write
   end
 
   def set_content_type
