@@ -162,7 +162,9 @@ class PentabarfController < ApplicationController
   end
 
   def search_event_simple
-    conditions = {:translated_id=>@current_language_id}
+    conditions = {}
+    conditions[:translated_id] = @current_language_id
+    conditions[:conference_id] = @current_conference.conference_id
     conditions[:title] = {:ilike=>params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}} if params[:id]
     @results = View_find_event.select( conditions )
     @preferences[:search_event_simple] = params[:id]
@@ -172,6 +174,7 @@ class PentabarfController < ApplicationController
   def search_event_advanced
     conditions = form_to_condition( params[:search_event], View_find_event )
     conditions[:translated_id] = @current_language_id
+    conditions[:conference_id] = @current_conference.conference_id
     @results = View_find_event.select( conditions )
     @preferences[:search_event_advanced] = params[:search_event]
     render(:partial=>'search_event')
