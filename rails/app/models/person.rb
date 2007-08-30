@@ -1,3 +1,4 @@
+require 'yaml'
 class Person < Momomoto::Table
 
   module Methods
@@ -15,6 +16,14 @@ class Person < Momomoto::Table
 
       hash = Digest::MD5.hexdigest( salt_bin + value.to_s )
       set_column( :password, salt_hex + hash )
+    end
+
+    def preferences
+      YAML.load( get_column( :preferences ) )
+    end
+
+    def preferences=( value )
+      set_column( :preferences, value.to_yaml )
     end
 
   end
