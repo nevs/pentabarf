@@ -43,6 +43,7 @@ module ApplicationHelper
     parameter.map! do | p | 
       if p == true then "true"
       elsif p == false then "false"
+      elsif p == nil then "null"
       else "'#{js(p.to_s)}'" end
     end
     "#{name}(#{parameter.join(',')});"
