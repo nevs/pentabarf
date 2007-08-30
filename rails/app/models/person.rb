@@ -19,7 +19,7 @@ class Person < Momomoto::Table
     end
 
     def preferences
-      YAML.load( get_column( :preferences ) )
+      YAML.load( get_column( :preferences ) ) rescue {}
     end
 
     def preferences=( value )

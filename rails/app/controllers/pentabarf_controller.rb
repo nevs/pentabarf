@@ -146,6 +146,7 @@ class PentabarfController < ApplicationController
 
   def search_person_simple
     @results = View_find_person.select(params[:id] ? {:name=>{:ilike => params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}}} : {} )
+    prefs = POPE.user.preferences
     render(:partial=>'search_person')
   end
 
