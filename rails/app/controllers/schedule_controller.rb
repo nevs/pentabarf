@@ -61,7 +61,7 @@ class ScheduleController < ApplicationController
   protected
 
   def init
-    # XXX FIXME remove hardcoded conference and language
+    # XXX FIXME remove hardcoded language
     @conference = Conference.select_single(:acronym=>params[:conference])
     @tracks = Conference_track.select(:conference_id=>@conference.conference_id)
     @current_language_id = 120

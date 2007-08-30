@@ -13,10 +13,19 @@ ActionController::Routing::Routes.draw do |map|
   # -- just remember to delete public/index.html.
   map.connect '', :controller => 'pentabarf'
 
-  map.connect 'schedule/:conference/track/:track', :controller => 'schedule', :action => 'track_events'
-  map.connect 'schedule/:conference/track/:track/:id', :controller => 'schedule', :action => 'track_event'
-  map.connect 'schedule/:conference/:action/:id', :controller => 'schedule'
+  map.connect 'schedule/:conference', :controller => 'schedule', :action => 'index', :language => 'en'
+  map.connect 'schedule/:conference/index.:language.html', :controller => 'schedule', :action => 'index'
+  map.connect 'schedule/:conference/day/:id.:language.html', :controller => 'schedule', :action => 'day'
+  map.connect 'schedule/:conference/speakers.:language.html', :controller => 'schedule', :action => 'speakers'
+  map.connect 'schedule/:conference/speaker/:id.:language.html', :controller => 'schedule', :action => 'speaker'
+  map.connect 'schedule/:conference/events.:language.html', :controller => 'schedule', :action => 'events'
+  map.connect 'schedule/:conference/event/:id.:language.html', :controller => 'schedule', :action => 'event'
+  map.connect 'schedule/:conference/day/:id.:language.html', :controller => 'schedule', :action => 'day'
+  map.connect 'schedule/:conference/track/:track/index.:language.html', :controller => 'schedule', :action => 'track_events'
+  map.connect 'schedule/:conference/track/:track/:id.:language.html', :controller => 'schedule', :action => 'track_event'
   map.connect 'schedule/:conference/style.css', :controller => 'schedule', :action => 'css'
+  map.connect 'schedule/:conference/:action.:language.html',:controller => 'schedule'
+  map.connect 'schedule/:conference/:action/:id.:language.html',:controller => 'schedule'
 
   map.connect 'feedback/:conference/style.css',:controller => 'feedback', :action => 'css'
   map.connect 'feedback/:conference/:action/:id.:language.html',:controller => 'feedback'
