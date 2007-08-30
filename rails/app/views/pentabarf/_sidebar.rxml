@@ -21,6 +21,7 @@ xml.div( :id => 'sidebar' ) do
       xml.a( local('link::reports'), {:href=> url_for(:controller => 'report'), :class => 'menu-item'} )
       xml.a( local('link::conflicts'), {:href=> url_for(:controller => 'pentabarf', :action => :conflicts), :class => 'menu-item'} )
       xml.a( local('link::schedule'), {:href=> url_for(:controller => 'pentabarf', :action => :schedule), :class => 'menu-item'} )
+      xml.a( local('link::preferences'), {:href=> url_for(:controller => 'pentabarf', :action => :person, :id=>POPE.user.person_id), :class => 'menu-item'} )
     end
 
     xml.div( :class=>'menu-item-group' ) do
