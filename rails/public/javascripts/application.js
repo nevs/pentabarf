@@ -21,6 +21,14 @@ function enable_save_button() {
   window.onbeforeunload = unloadMessage;
 }
 
+function clear_tainting() {
+  window.onbeforeunload = null;
+}
+
+function unloadMessage() {
+  return "If you leave this page, your changes will be lost.";
+}
+
 var tabs = new Array();
 
 // find all tabs
@@ -38,6 +46,11 @@ function find_tabs() {
 // switch between tabs
 function switch_tab( target ) {
   if ( tabs.length == 0 ) find_tabs();
+  var realm = tab_realm();
+  if ( target && realm )
+    cookie_write( realm, target );
+
+  if (!target && realm ) target = cookie_read( realm );
   if (!target) target = tabs[0];
   for( var i = 0; i < tabs.length; i++) {
     $( 'tab-' + tabs[i] ).setAttribute('class','tab inactive');
@@ -45,14 +58,6 @@ function switch_tab( target ) {
   }
   $( 'tab-' + target ).setAttribute('class','tab active');
   Element.show( 'content-' + target );
-}
-
-function clear_tainting() {
-  window.onbeforeunload = null;
-}
-
-function unloadMessage() {
-  return "If you leave this page, your changes will be lost.";
 }
 
 
@@ -201,12 +206,42 @@ function search_row_change( list ) {
 }
 
 function set_boxes( button, value ) {
-  var row = $(button).up().up();  
+  var row = $(button).up().up();
   var boxes = row.getElementsBySelector('input');
   for (var i=0; i < boxes.length; i++) {
-    boxes[i].checked = value;  
+    boxes[i].checked = value;
   }
   enable_save_button();
 }
 
+// guesses tab realm for current location
+function tab_realm() {
+  var uri = document.location.pathname;
+  var result = /.*\/(pentabarf|submission)\/([a-zA-Z]+)/.exec( uri );
+  var realm = null;
+  if ( !result || result[0] == "" )
+    realm = "index";
+  else
+    realm = result[1] + '_' + result[2];
+  return realm;
+}
+
+// creates/saves a cookie
+function cookie_write( name, value ) {
+  var date = new Date();
+  date.setTime(date.getTime()+6*30*60*60*24*1000); //cookie valid for 6 months
+  document.cookie = name + "=" + value + "; expires="+date.toGMTString()+"; path=/";
+}
+
+//reads data stored in the cookie
+function cookie_read( name ) {
+  name = name + "=";
+  var cookies = document.cookie.split( ';' );
+  for( var i=0; i < cookies.length; i++ ) {
+    var c = cookies[i];
+    while ( c.charAt(0) == ' ') c = c.substring( 1, c.length);
+    if ( c.indexOf( name ) == 0) return c.substring( name.length, c.length );
+  }
+  return null;
+}
 
