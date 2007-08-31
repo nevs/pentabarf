@@ -44,7 +44,7 @@ xml.div(:id=>'content-general') do
         xml.tr(:id=>'conference_language_template',:style=>'display:none') do
           xml.td do
             xml.input({:type=>:hidden,:id=>'conference_language[row_id][conference_language_id]',:name=>'conference_language[row_id][conference_language_id]'})
-            xml << select_tag( 'conference_language[row_id][language_id]', Language.select(:f_visible=>true).map{|e| [e.language_id,e.iso_639_code]} )
+            xml << select_tag( 'conference_language[row_id][language_id]', View_language.select(:f_visible=>true,:translated_id=>@current_language_id).map{|e| [e.language_id,e.name]} )
           end
           xml.td do
             xml.input({:type=>:checkbox,:name=>'conference_language[row_id][remove]',:id=>'conference_language[row_id][remove]'})
