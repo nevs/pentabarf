@@ -15,6 +15,9 @@ xml.div( :id => 'sidebar' ) do
       xml.a( 'Person', {:href=> url_for(:action => :person), :class => 'menu-item'} )
       xml.a( 'New Event', {:href=> url_for(:action => :event, :id=>:new), :class => 'menu-item'} )
       xml.a( 'Events', {:href=> url_for(:action=>:events), :class => 'menu-item'} )
+
+      xml.a( 'Logout', {:href=>"#{request.protocol}logout@#{request.host_with_port}/logout", :class => 'menu-item'} ) if POPE.user
+
     end if @conference
 
   end
