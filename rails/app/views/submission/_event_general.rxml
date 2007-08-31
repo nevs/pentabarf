@@ -10,9 +10,9 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @event, :subtitle )
       xml << select_row( @event, :f_paper, [[nil,'unknown'],[true,'yes'],[false,'no']] )
       xml << select_row( @event, :f_slides, [[nil,'unknown'],[true,'yes'],[false,'no']] )
-      xml << select_row( @event, :language_id, Conference_language.select(:conference_id=>@event.conference_id).map{|e| [e.language_id]}, {:with_empty=>true} )
+      xml << select_row( @event, :language_id, View_conference_language.select({:conference_id=>@event.conference_id,:translated_id=>@current_language_id}).map{|e| [e.language_id,e.name]}, {:with_empty=>true} )
       xml << select_row( @event, :conference_track_id, Conference_track.select(:conference_id=>@event.conference_id).map{|e| [e.conference_track_id, e.tag]},{:with_empty=>true})
-      xml << select_row( @event, :event_type_id, Event_type.select.map{|e| [e.event_type_id,e.tag]}, {:with_empty=>true} )
+      xml << select_row( @event, :event_type_id, View_event_type.select(:language_id=>@current_language_id).map{|e| [e.event_type_id,e.name]}, {:with_empty=>true} )
       xml << file_row( :event_image, :image )
     end
   end
