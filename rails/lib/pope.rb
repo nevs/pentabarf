@@ -1,6 +1,5 @@
 
 # this class handles all authententication and authorization decissions
-# XXX FIXME does not yet handle own events/persons
 class Pope
 
   attr_reader :user, :permissions
@@ -46,7 +45,7 @@ class Pope
     table_domains( table ).each do | domain |
       action = 'modify' if table.table_name != table.table_name
       if action == 'modify'
-        case domain 
+        case domain
           when :event then return true if @own_events.member?( row.event_id )
           when :person then return true if permission?( :modify_own_person ) && row.person_id == @user.person_id
           when :conference_person then return true if @own_conference_persons.member?( row.conference_person_id )
