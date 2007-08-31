@@ -52,6 +52,12 @@ end
 
 # Include your application configuration below
 
+# read mail configuration if available
+if File.exists?("#{RAILS_ROOT}/config/mail.yml")
+  config = YAML.load_file("#{RAILS_ROOT}/config/mail.yml")
+  ActionMailer::Base.smtp_settings = config.each do | k, v | config[k.to_sym] = v end
+end
+
 # filter password fields in logs
 ActionController::Base.filter_parameter_logging( :password )
 

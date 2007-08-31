@@ -1,0 +1,9 @@
+address:    localhost
+port:       25
+domain:     localhost
+#user_name:  
+#password:
+#authentication: login
+from:       noreply@pentabarf.org
+always_cc:
+
