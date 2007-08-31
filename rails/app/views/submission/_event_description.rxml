@@ -26,10 +26,10 @@ xml.div(:id=>'content-description') do
       xml.tbody do
         @attachments.each do | attachment |
           row_id = attachment.event_attachment_id
-          xml.tr do 
-            xml.td do 
+          xml.tr do
+            xml.td do
               xml.input({:type=>:hidden,:name=>"event_attachment[#{row_id}][event_attachment_id]",:value=>row_id})
-              xml << select_tag( "event_attachment[#{row_id}][attachment_type_id]", Attachment_type.select.map{|e| [e.attachment_type_id,e.tag]} )
+              xml << select_tag( "event_attachment[#{row_id}][attachment_type_id]", View_attachment_type.select(:language_id=>@current_language_id).map{|e| [e.attachment_type_id,e.name]} )
             end
             xml.td do xml.input({:type=>:checkbox,:name=>"event_attachment[#{row_id}][f_public]"}.merge(attachment.f_public ? {:checked=>:checked} : {} )) end
             xml.td do xml.input({:type=>:input,:name=>"event_attachment[#{row_id}][filename]",:value=>attachment.filename}) end
@@ -52,7 +52,7 @@ xml.div(:id=>'content-description') do
       end
       xml.tbody(:id=>'attachment_upload_tbody') do
         xml.tr(:id=>'attachment_upload_template',:style=>'display:none') do
-          xml.td do xml << select_tag( 'attachment_upload[row_id][attachment_type_id]', Attachment_type.select.map{|e| [e.attachment_type_id,e.tag]} ) end
+          xml.td do xml << select_tag( 'attachment_upload[row_id][attachment_type_id]', View_attachment_type.select(:language_id=>@current_language_id).map{|e| [e.attachment_type_id,e.name]} ) end
           xml.td do xml.input({:type=>:checkbox,:name=>'attachment_upload[row_id][public]'}) end
           xml.td do xml.input({:type=>:input,:name=>'attachment_upload[row_id][filename]'}) end
           xml.td do xml.input({:type=>:input,:name=>'attachment_upload[row_id][title]'}) end
