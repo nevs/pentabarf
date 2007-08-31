@@ -1,9 +1,10 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 
 xml.table do
-  fields = [:title, :subtitle]
+  fields = [:event_state,:event_state_progress,:day,:room]
   xml.thead do
     xml.tr do
+      xml.th(local(:event))
       fields.each do | field |
         xml.th( local(field) )
       end
@@ -11,7 +12,14 @@ xml.table do
   end
   xml.tbody do
     @results.each do | event |
-      xml.tr do
+      xml.tr(:class=>event.event_state_tag) do
+        xml.td do
+          xml.a( {:href=>url_for(:action=>:event,:id=>event.event_id)}) do
+            xml.b event.title
+            xml.br
+            xml.em event.subtitle
+          end
+        end
         fields.each do | field |
           xml.td do xml.a( event.send(field), {:href=>url_for(:action=>:event,:id=>event.event_id)}) end
         end
