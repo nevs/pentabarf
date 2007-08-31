@@ -29,7 +29,7 @@ xml.div(:id=>'content-general') do
       xml.tbody(:id=>'person_language_tbody') do
         xml.tr(:id=>'person_language_template',:style=>'display:none') do
           xml.td do
-            xml << select_tag( 'person_language[row_id][language_id]', Language.select(:f_visible=>true).map{|e| [e.language_id, e.iso_639_code]})
+            xml << select_tag( 'person_language[row_id][language_id]', View_language.select(:f_visible=>true,:translated_id=>@current_language_id).map{|e| [e.language_id, e.name]})
           end
           xml.td do
             xml.input({:type=>:checkbox,:name=>'person_language[row_id][remove]',:id=>'person_language[row_id][remove]'})

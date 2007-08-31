@@ -35,7 +35,7 @@ xml.div(:id=>'content-contact') do
       end
     end
 
-    xml.script(:type=>'text/javascript') do 
+    xml.script(:type=>'text/javascript') do
       Person_im.select( :person_id => @person.person_id ).each do | c |
         xml << js_function( 'table_add_row', 'person_im', c.person_im_id, c.im_type_id, c.im_address )
       end
@@ -86,7 +86,7 @@ xml.div(:id=>'content-contact') do
       xml << text_field_row( @person, :po_box )
       xml << text_field_row( @person, :po_box_postcode )
       xml << text_field_row( @person, :city )
-      xml << select_row( @person, :country_id, Country.select.map{|e| [e.country_id, e.iso_3166_code]})
+      xml << select_row( @person, :country_id, View_country.select(:language_id=>@current_language_id).map{|e| [e.country_id, e.name]})
     end
   end
 
