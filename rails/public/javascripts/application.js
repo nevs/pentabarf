@@ -144,6 +144,7 @@ function master_change( select, slave_column ) {
       options[i].style.display = 'block';
       enabled_counter++;
       if (!first_valid) first_valid = options[i].value;
+      if ( options[i].value == slave.value ) first_valid = slave.value;
     } else {
       options[i].style.display = 'none';
     }
