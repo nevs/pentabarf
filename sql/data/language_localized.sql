@@ -401,6 +401,7 @@ INSERT INTO language_localized (language_id, translated_id, name) VALUES (458, 1
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (468, 144, 'isizulu');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (195, 144, 'javanisch');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (461, 144, 'jiddisch');
+INSERT INTO language_localized (language_id, translated_id, name) VALUES (89, 133, 'corse');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (205, 144, 'kannada; kanaresisch');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (208, 144, 'kanuri');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (210, 144, 'kasachisch');
@@ -1056,7 +1057,6 @@ INSERT INTO language_localized (language_id, translated_id, name) VALUES (87, 13
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (352, 144, 'russisch');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (336, 144, 'polnisch');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (88, 133, 'cornique');
-INSERT INTO language_localized (language_id, translated_id, name) VALUES (89, 133, 'corse');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (90, 133, 'créoles et pidgins anglais, autres');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (91, 133, 'créoles et pidgins français, autres');
 INSERT INTO language_localized (language_id, translated_id, name) VALUES (194, 144, 'italienisch');

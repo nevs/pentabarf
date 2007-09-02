@@ -269,8 +269,6 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (199, 120, 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (193, 120, 'Svalbard and jan mayen');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (203, 120, 'Swaziland');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (202, 120, 'Syrian arab republic');
-INSERT INTO country_localized (country_id, language_id, name) VALUES (218, 120, 'Taiwan');
-INSERT INTO country_localized (country_id, language_id, name) VALUES (218, 144, 'Taiwan');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (209, 120, 'Tajikistan');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (219, 120, 'Tanzania, united republic of');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (208, 120, 'Thailand');
@@ -510,7 +508,6 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (193, 133, 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (203, 133, 'Swaziland');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (202, 133, 'Syrienne, rÃpublique arabe');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (209, 133, 'Tadjikistan');
-INSERT INTO country_localized (country_id, language_id, name) VALUES (218, 133, 'TaÃwan');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (219, 133, 'Tanzanie, rÃpublique-unie de');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (205, 133, 'Tchad');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (53, 133, 'TchÃque, rÃpublique');
@@ -542,6 +539,9 @@ INSERT INTO country_localized (country_id, language_id, name) VALUES (241, 120, 
 INSERT INTO country_localized (country_id, language_id, name) VALUES (241, 144, 'Serbien');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (242, 120, 'Montenegro');
 INSERT INTO country_localized (country_id, language_id, name) VALUES (242, 144, 'Montenegro');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (218, 120, 'Taiwan');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (218, 133, 'Taiwan');
+INSERT INTO country_localized (country_id, language_id, name) VALUES (218, 144, 'Taiwan');
 
 
 --

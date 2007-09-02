@@ -12,7 +12,7 @@ SET search_path = public, pg_catalog;
 -- Name: authorisation_authorisation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('authorisation_authorisation_id_seq', 37, true);
+SELECT pg_catalog.setval('authorisation_authorisation_id_seq', 38, true);
 
 
 --
@@ -51,6 +51,7 @@ INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (35, 'move_event'
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (24, 'pentabarf_login', 24);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (36, 'submission_login', NULL);
 INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (37, 'view_ratings', NULL);
+INSERT INTO authorisation (authorisation_id, tag, rank) VALUES (38, 'modify_config', NULL);
 
 
 --

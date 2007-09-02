@@ -20,13 +20,13 @@ SELECT pg_catalog.setval('event_role_event_role_id_seq', 8, true);
 --
 
 INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (1, 'speaker', 1, NULL);
-INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (2, 'coordinator', 2, NULL);
-INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (3, 'moderator', 3, NULL);
 INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (4, 'visitor', 4, NULL);
 INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (5, 'reporter', NULL, NULL);
 INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (6, 'reviewer', NULL, NULL);
 INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (7, 'attendee', NULL, NULL);
 INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (8, 'submitter', NULL, NULL);
+INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (3, 'moderator', 2, NULL);
+INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (2, 'coordinator', 3, NULL);
 
 
 --
