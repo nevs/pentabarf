@@ -147,7 +147,6 @@ class PentabarfController < ApplicationController
 
   def search_person_simple
     conditions = {}
-    conditions[:conference_id] = @current_conference.conference_id
     conditions[:name] = {:ilike=>params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}} if params[:id]
     @results = View_find_person.select( conditions, {:limit=>100} )
     @preferences[:search_person_simple] = params[:id]
