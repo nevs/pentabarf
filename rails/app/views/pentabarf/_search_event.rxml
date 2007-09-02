@@ -18,6 +18,8 @@ xml.table do
             xml.b event.title
             xml.br
             xml.em event.subtitle
+            xml.br
+            xml.text! event.speakers.to_s
           end
         end
         fields.each do | field |
