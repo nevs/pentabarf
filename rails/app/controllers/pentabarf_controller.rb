@@ -156,7 +156,6 @@ class PentabarfController < ApplicationController
 
   def search_person_advanced
     conditions = form_to_condition( params[:search_person], View_find_person )
-    conditions[:conference_id] ||= @current_conference.conference_id
     @results = View_find_person.select( conditions, {:limit=>100} )
     @preferences[:search_person_advanced] = params[:search_person]
     render(:partial=>'search_person')

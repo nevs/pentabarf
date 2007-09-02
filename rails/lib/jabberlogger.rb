@@ -17,6 +17,7 @@ class JabberLogger
       return true if @@config['recipients'] && @@config['daemon']['socket_path']
 
      rescue
+      # create dummy log method if xmpp4r is missing
       define_method( :log ) do | text | end
       return false
     end
