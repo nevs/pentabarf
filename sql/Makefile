@@ -3,7 +3,6 @@ PSQL=psql
 
 intall:
 		${PSQL} -f tables.sql
-		${PSQL} -f tables_logging.sql
 		${PSQL} -f views-localization.sql
 		${PSQL} -f views.sql
 		${PSQL} -f trigger.sql
