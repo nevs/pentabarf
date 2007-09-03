@@ -81,7 +81,7 @@ class SubmissionController < ApplicationController
   protected
 
   def init
-    @conference = Conference.select_single(:acronym=>params[:conference]) rescue nil
+    @conference = Conference.select_single(:acronym=>params[:conference],:f_submission_enabled=>'t') rescue nil
     # FIXME: remove hardcoded language
     @current_language_id = 120
   end
