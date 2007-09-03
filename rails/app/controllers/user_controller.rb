@@ -28,8 +28,8 @@ class UserController < ApplicationController
   def activate_account
     raise "Invalid activation sequence." unless params[:id].length == 64
     begin
-      activation = Activate_account.call({:activation_string=>params[:id]})
-      @conference = Conference.select_single(:conference_id => activation.conference_id) if activation.conference_id
+      activation = Activate_account.call({:activation_string=>params[:id]})[0]
+      @conference = Conference.select_single(:conference_id => activation.activate_account) if activation.activate_account
       redirect_to({:controller=>'submission',:conference=> @conference.nil? ? nil : @conference.acronym })
     rescue => e
       raise e
