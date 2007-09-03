@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'yaml'
+require 'rubygems'
 require 'xmpp4r'
 require 'socket'
 require 'thread'
