@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
     super( exception )
 
     message = ''
-    message += "User: #{@user.login_name}\n" if @user
+    message += "User: #{POPE.user.login_name}\n" if POPE.user
     message += "Time: #{Time.now.to_s}\n"
     message += "UA: #{request.env['HTTP_USER_AGENT']}\nIP: #{request.remote_ip}\n"
     message += "URL: https://#{request.host + request.request_uri}\n"
