@@ -86,8 +86,13 @@ class SubmissionController < ApplicationController
     @current_language_id = 120
   end
 
+  def auth
+    return super unless params[:action] == 'index'
+    true
+  end
+
   def check_permission
-    return params[:action] || POPE.permission?('submission_login')
+    POPE.permission?('submission_login')
   end
 
   def set_content_type
