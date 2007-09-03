@@ -23,7 +23,11 @@ class SubmissionController < ApplicationController
   def events
     own_events = Own_conference_events.call(:conference_id=>@conference.conference_id,:person_id=>POPE.user.person_id)
     own_events = own_events.map{|e| e.own_conference_events }
-    @events = View_event.select(:event_id=>own_events,:translated_id=>@current_language_id,:conference_id=>@conference.conference_id)
+    if own_events.length > 0
+      @events = View_event.select(:event_id=>own_events,:translated_id=>@current_language_id,:conference_id=>@conference.conference_id)
+    else
+      @events = []
+    end
   end
 
   def save_event
