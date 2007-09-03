@@ -25,7 +25,23 @@ class UserController < ApplicationController
     end
   end
 
+  def activate_account
+    raise "Invalid activation sequence." unless params[:id].length == 64
+    begin
+      activation = Activate_account.call({:activation_string=>params[:id]})
+      @conference = Conference.select_single(:conference_id => activation.conference_id) if activation.conference_id
+      redirect_to({:controller=>'submission',:conference=> @conference.nil? ? nil : @conference.acronym })
+    rescue => e
+      raise e
+    end
+  end
+
   protected
+
+  def auth
+#    return super unless ['index','new_account','save_account','activate_account'].member?( params[:action] )
+    true
+  end
 
   def random_string
     sprintf("%064X", rand(2**256))
