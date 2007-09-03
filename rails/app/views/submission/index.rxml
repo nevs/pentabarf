@@ -1,7 +1,7 @@
 xml.div do
   xml.h2 "Welcome to the paper submission system"
 
-  if @conferences
+  if not @conference
     xml.div do
       xml.p "You can submit papers to one of the following conferences:"
       xml.ul do
