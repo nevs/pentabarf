@@ -63,7 +63,7 @@ class PentabarfController < ApplicationController
   def save_event
     params[:event][:event_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
-      event = write_row( Event, params[:event], {:except=>[:event_id],:always=>[:f_public]} )
+      event = write_row( Event, params[:event], {:except=>[:event_id,:conference_id],:init=>{:conference_id=>@current_conference.conference_id},:always=>[:f_public]} )
       write_row( Event_rating, params[:event_rating], {:preset=>{:event_id => event.event_id,:person_id=>POPE.user.person_id}})
       write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}})
       write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id}})
