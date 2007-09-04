@@ -184,7 +184,12 @@ function search_row_add( list, key, value ) {
   if ( key && value ) {
     $( new_row ).getElementsBySelector('select')[0].value = key;
     $( new_row ).getElementsBySelector('select')[0].onchange();
-    $( new_row ).getElementsBySelector('select')[1].value = value;
+
+    // FIXME
+    if ( $( new_row ).getElementsBySelector('select')[1] )
+      $( new_row ).getElementsBySelector('select')[1].value = value;
+    else
+      $( new_row ).getElementsBySelector('input')[1].value = value;
   } else {
     $( new_row ).getElementsBySelector('select')[0].onchange();
   }
