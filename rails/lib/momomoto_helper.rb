@@ -10,17 +10,23 @@ module MomomotoHelper
   # values is a hash with the values for this table
   # options is a hash with the following keys:
   #   preset:  hash of override values these are always set and new records are initialized with them
+  #   init:    hash of values to be set for new records
   #   except:  Array of field_names not to accept from the values
   #   always:  Array of field_names to always set even if they are not in the values
   #   remove:  remove the row if values[:remove] is true
   def write_row( klass, values, options = {}, &block )
     options[:except] ||= []; options[:always] ||= []
-    options[:preset] ||= {}; options[:remove] ||= false
+    options[:preset] ||= {}; options[:init] ||= {};
+    options[:remove] ||= false
     row = klass.select_or_new( options[:preset] ) do | field | values[field] end
     if options[:remove] && values['remove']
       row.delete if not row.new_record?
       return row
     end
+    options[:init].each do | field, value |
+      row[ field ] = value
+    end if row.new_record?
+
     values.each do | field, value |
       next if klass.primary_keys.member?( field.to_sym ) ||
               options[:except].member?( field.to_sym ) ||
