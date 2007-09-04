@@ -21,8 +21,7 @@ class ReportController < ApplicationController
   protected
 
   def init
-    # FIXME: remove hardcoded conference and language
-    @current_conference = Conference.select_single(:conference_id => 1)
+    @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
     @current_language_id = 120
   end
 
