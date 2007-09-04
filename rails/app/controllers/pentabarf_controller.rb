@@ -208,6 +208,14 @@ class PentabarfController < ApplicationController
     @current_language_id = POPE.user.current_language_id || 120
   end
 
+  def check_permission
+    if POPE.permission?('pentabarf_login')
+      return true
+    end
+    redirect_to(:controller=>'submission')
+    false
+  end
+
   def save_preferences
     POPE.user.preferences = @preferences
   end
