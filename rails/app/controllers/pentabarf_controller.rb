@@ -205,8 +205,7 @@ class PentabarfController < ApplicationController
   def init
     @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
     @preferences = POPE.user.preferences
-    # FIXME: remove hardcoded language
-    @current_language_id = 120
+    @current_language_id = POPE.user.current_language_id || 120
   end
 
   def save_preferences
