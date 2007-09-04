@@ -18,6 +18,10 @@ class Person < Momomoto::Table
       set_column( :password, salt_hex + hash )
     end
 
+    def current_language_id
+      get_column(:current_language_id) || 120
+    end
+
     def preferences
       YAML.load( get_column( :preferences ) ) rescue {}
     end
