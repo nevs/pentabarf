@@ -1,7 +1,7 @@
 xml = Builder::XmlMarkup.new(:indent=>1)
 
 # collect all active slots
-saved = Momomoto::Person_availability.select({:person_id=>@person.person_id,:conference_id=>@conference.conference_id})
+saved = Person_availability.select({:person_id=>@person.person_id,:conference_id=>@conference.conference_id})
 slots = []
 saved.each do | slot |
   start = slot.start_date.strftime('%Y-%m-%d %H:%M:%S')
