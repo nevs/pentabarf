@@ -8,11 +8,11 @@ class PentabarfController < ApplicationController
 
   def conflicts
     @conflicts = []
-    @conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
-    @conflicts += View_conflict_event.call({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
-    @conflicts += View_conflict_event_event.call({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
-    @conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
-    @conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id, :language_id => @current_language_id })
+    @conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    @conflicts += View_conflict_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    @conflicts += View_conflict_event_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    @conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    @conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
   end
 
   def index
