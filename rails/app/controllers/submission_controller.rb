@@ -86,7 +86,7 @@ class SubmissionController < ApplicationController
 
   def init
     @conference = Conference.select_single(:acronym=>params[:conference],:f_submission_enabled=>'t') rescue nil
-    @current_language_id = POPE.user.current_language_id || 120
+    @current_language_id = POPE.user.current_language_id rescue 120
   end
 
   def auth
