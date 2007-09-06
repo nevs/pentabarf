@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   session :off
   before_filter :auth
   before_filter :check_token
+  after_filter :shutdown
 
   protected
 
@@ -53,6 +54,10 @@ class ApplicationController < ActionController::Base
       end
     end
     true
+  end
+
+  def shutdown
+    POPE.deauth
   end
 
   # check whether we are working on the last version
