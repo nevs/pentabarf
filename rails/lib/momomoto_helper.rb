@@ -23,9 +23,15 @@ module MomomotoHelper
       row.delete if not row.new_record?
       return row
     end
+  
+    if options[:ignore_empty]
+      return row if !values[ options[:ignore_empty] ] || values[ options[:ignore_empty] ] == ""
+    end
+
     options[:init].each do | field, value |
       row[ field ] = value
     end if row.new_record?
+
 
     values.each do | field, value |
       next if klass.primary_keys.member?( field.to_sym ) ||
