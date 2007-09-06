@@ -217,7 +217,7 @@ class PentabarfController < ApplicationController
   end
 
   def save_preferences
-    POPE.user.preferences = @preferences
+    POPE.user.preferences = @preferences if POPE.user
   end
 
   def update_last_login
