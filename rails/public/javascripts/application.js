@@ -51,7 +51,8 @@ function switch_tab( target ) {
     cookie_write( realm, target );
 
   if (!target && realm ) target = cookie_read( realm );
-  if (!target) target = tabs[0];
+  if (!target || tabs.indexOf(target) == -1 )
+    target = tabs[0];
   for( var i = 0; i < tabs.length; i++) {
     $( 'tab-' + tabs[i] ).setAttribute('class','tab inactive');
     Element.hide( 'content-' + tabs[i] );
