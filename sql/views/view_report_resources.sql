@@ -15,5 +15,6 @@ CREATE OR REPLACE VIEW view_report_resources AS
       event_state_progress.event_state_progress_id = event.event_state_progress_id AND
       event_state_progress.event_state_id = event.event_state_id AND
       event_state_progress.tag = 'confirmed' )
+  ORDER BY lower(title),lower(subtitle)
 ;
 

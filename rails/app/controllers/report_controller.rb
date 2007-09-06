@@ -1,7 +1,7 @@
 class ReportController < ApplicationController
   before_filter :init
 
-  REPORTS = [:expenses,:feedback]
+  REPORTS = [:expenses,:feedback,:resources]
 
   def index
   end
@@ -12,7 +12,7 @@ class ReportController < ApplicationController
 
   REPORTS.each do | report |
     next if ReportController.instance_methods(false).member?( report.to_s )
-    define_method( report ) do 
+    define_method( report ) do
       @report_class = Object.const_get("View_report_#{report}")
       render(:action => 'report')
     end
@@ -22,7 +22,7 @@ class ReportController < ApplicationController
 
   def init
     @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
-    @current_language_id = 120
+    @current_language_id = POPE.user.current_language_id
   end
 
 end
