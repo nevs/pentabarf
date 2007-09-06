@@ -197,7 +197,7 @@ class PentabarfController < ApplicationController
   def save_current_conference
     POPE.user.current_conference_id = params[:conference_id]
     POPE.user.write
-    redirect_to( request.env['HTTP_REFERER'] )
+    redirect_to( request.env['HTTP_REFERER'] ? request.env['HTTP_REFERER'] : url_for(:controller=>'pentabarf',:action=>:index) )
   end
 
   protected
