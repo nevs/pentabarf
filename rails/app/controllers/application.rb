@@ -12,6 +12,11 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def rescue_action_in_public( exception )
+    @meditation_message = exception.message
+    render :file => File.join( RAILS_ROOT, '/app/views/meditation.rhtml' )
+  end
+
   # extract authorization credentials from http header
   def http_auth_data
     ['X-HTTP_AUTHORIZATION','HTTP_AUTHORIZATION','REDIRECT_X_HTTP_AUTHORIZATION','Authorization'].each do | key |
