@@ -8,11 +8,9 @@ xml.div(:id=>'content-schedule') do
     xml.table do
       xml << select_row( @event, :day, (1..@conference.days).to_a )
       start_times = []
-      interval = @conference.timeslot_duration.seconds_since_midnight.to_i / 60
-      i = 0
-      while i < 24 * 60
-        start_times << [sprintf('%02d:%02d:00', i/60, i%60), sprintf('%02d:%02d',i/60,i%60)]
-        i += interval
+      range = @conference.day_change..(@conference.day_change + (24*3600) - 1 )
+      range.step(@conference.timeslot_duration.seconds_since_midnight) do | current |
+        start_times << [current.strftime('%H:%M:%S'),current.strftime('%H:%M')]
       end
       xml << select_row( @event, :start_time, start_times,{:selected=>@event.start_time ? @event.start_time.strftime('%H:%M:%S') : nil} )
 
