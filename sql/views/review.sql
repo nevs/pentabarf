@@ -1,25 +1,38 @@
 
 CREATE OR REPLACE VIEW view_review AS
-  SELECT event.event_id,
-         event.conference_id,
-         event.title,
-         event.subtitle,
-         event.event_state_id,
-         event.event_state_progress_id,
-         coalesce( rating.relevance, 0 ) AS relevance,
-         coalesce( rating.relevance_count, 0 ) AS relevance_count,
-         coalesce( rating.actuality, 0 ) AS actuality,
-         coalesce( rating.actuality_count, 0 ) AS actuality_count,
-         coalesce( rating.acceptance, 0 ) AS acceptance,
-         coalesce( rating.acceptance_count, 0 ) AS acceptance_count,
-         coalesce( rating.raters, 0 ) AS raters,
-         view_event_state.language_id AS translated_id,
-         view_event_state.tag AS event_state_tag,
-         view_event_state.name AS event_state,
-         view_event_state_progress.tag AS event_state_progress_tag,
-         view_event_state_progress.name AS event_state_progress,
-         view_conference_track.tag AS conference_track_tag,
-         view_conference_track.name AS conference_track
+  SELECT 
+    event.event_id,
+    event.conference_id,
+    event.title,
+    event.subtitle,
+    event.event_state_id,
+    event.event_state_progress_id,
+    array_to_string(ARRAY(
+      SELECT view_person.name
+        FROM event_person
+        INNER JOIN event_role ON (
+          event_role.event_role_id = event_person.event_role_id AND
+          (event_role.tag IN ('speaker','moderator') ) )
+        INNER JOIN event_role_state ON (
+          event_role_state.event_role_state_id = event_person.event_role_state_id AND 
+          event_role_state.tag::text = 'confirmed' )
+        INNER JOIN view_person USING (person_id)
+        WHERE event_person.event_id = event.event_id), ', '::text) AS speakers,
+     coalesce( rating.relevance, 0 ) AS relevance,
+     coalesce( rating.relevance_count, 0 ) AS relevance_count,
+     coalesce( rating.actuality, 0 ) AS actuality,
+     coalesce( rating.actuality_count, 0 ) AS actuality_count,
+     coalesce( rating.acceptance, 0 ) AS acceptance,
+     coalesce( rating.acceptance_count, 0 ) AS acceptance_count,
+     coalesce( rating.raters, 0 ) AS raters,
+     (2 * coalesce( rating.acceptance, 0 ) + coalesce( rating.relevance, 0 ) + coalesce( rating.actuality, 0 ))/4 AS rating,
+     view_event_state.language_id AS translated_id,
+     view_event_state.tag AS event_state_tag,
+     view_event_state.name AS event_state,
+     view_event_state_progress.tag AS event_state_progress_tag,
+     view_event_state_progress.name AS event_state_progress,
+     view_conference_track.tag AS conference_track_tag,
+     view_conference_track.name AS conference_track
     FROM event
          INNER JOIN view_event_state USING (event_state_id)
          INNER JOIN view_event_state_progress ON (
