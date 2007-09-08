@@ -29,6 +29,10 @@ xml.div( :id => 'data' ) do
                   url = url_for({:action=>:event,:id=>conflict.event_id})
                   img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id})
                   who = conflict.title
+                when View_conflict_event_person::Row then 
+                  url = url_for({:action=>:person,:id=>conflict.person_id})
+                  img_url = url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id})
+                  who = conflict.name
                 when View_conflict_person::Row then 
                   url = url_for({:action=>:person,:id=>conflict.person_id})
                   img_url = url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id})
