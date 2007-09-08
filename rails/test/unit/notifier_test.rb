@@ -16,6 +16,10 @@ class NotifierTest < Test::Unit::TestCase
     @expected.mime_version = '1.0'
   end
 
+  def test_truth
+    assert( true )
+  end
+
   private
     def read_fixture(action)
       IO.readlines("#{FIXTURES_PATH}/notifier/#{action}")
