@@ -10,6 +10,7 @@ class IcalControllerTest < Test::Unit::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    POPE.instance_variable_set( :@user, Person.select_single(:person_id=>1) )
   end
 
   def test_conference

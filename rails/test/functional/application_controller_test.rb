@@ -11,11 +11,13 @@ class ApplicationControllerTest < Test::Unit::TestCase
   # test auth for all public methods in all controllers
   Dir.new( File.join( File.dirname(__FILE__), '/../../app/controllers')).each do | entry |
     if match = entry.match(/(([a-z_0-]+)_controller)\.rb/)
-      next if ['feedback'].member?( match[2] )
+      controller = match[2]
+      next if ['feedback','user'].member?( controller )
       require( match[1] )
       klass = const_get("#{match[2].capitalize}Controller")
       klass.action_methods.each do | method |
-        define_method "test_auth_#{match[2]}_#{method}" do
+        next if controller == "submission" && method == "index"
+        define_method "test_auth_#{controller}_#{method}" do
           @controller = klass.new
           get method
           assert_response 401
