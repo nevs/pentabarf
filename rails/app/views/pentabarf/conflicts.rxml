@@ -4,39 +4,50 @@ xml.div( :id => 'object-image' ) do
   xml.img( :src => image_path( 'icon-list-64x64.png' ), :class => 'object-image' )
 end
 
+xml << js_tabs( @conflict_level )
+
 xml.div( :id => 'data' ) do
-  xml.fieldset do
-    xml.table do
-      xml.thead do
-        xml.th( "", {:colspan=>2} )
-        xml.th( local( 'Description') )
-      end
-      xml.tbody do
-        @conflicts.each do | conflict |
-          url, img_url, who = "url", "url", conflict.class.to_s
-          case conflict
-            when View_conflict_event_event::Row then 
-              url = url_for({:action=>:event,:id=>conflict.event_id1})
-              img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id1})
-              who = conflict.title1
-            when View_conflict_event::Row then 
-              url = url_for({:action=>:event,:id=>conflict.event_id})
-              img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id})
-              who = conflict.title
-            when View_conflict_person::Row then 
-              url = url_for({:action=>:person,:id=>conflict.person_id})
-              img_url = url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id})
-              who = conflict.name
+
+  @conflict_level.each do | level |
+    xml.div(:id=>"content-#{level}") do
+
+      xml.fieldset do
+        xml.table do
+          xml.thead do
+            xml.th( "", {:colspan=>2} )
+            xml.th( local( 'Description') )
           end
-          img_url += "-24x24"
-          xml.tr do
-            xml.td do xml.a(:href=>url) do xml.img(:src=>img_url,:height=>24,:width=>24) end end
-            xml.td do xml.a(who,:href=>url) end
-            xml.td do xml.a(conflict.conflict_name,:href=>url) end
+          xml.tbody do
+            @conflicts[level].each do | conflict |
+              url, img_url, who = "url", "url", conflict.class.to_s
+              case conflict
+                when View_conflict_event_event::Row then 
+                  url = url_for({:action=>:event,:id=>conflict.event_id1})
+                  img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id1})
+                  who = conflict.title1
+                when View_conflict_event::Row then 
+                  url = url_for({:action=>:event,:id=>conflict.event_id})
+                  img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id})
+                  who = conflict.title
+                when View_conflict_person::Row then 
+                  url = url_for({:action=>:person,:id=>conflict.person_id})
+                  img_url = url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id})
+                  who = conflict.name
+              end
+              img_url += "-24x24"
+              xml.tr do
+                xml.td do xml.a(:href=>url) do xml.img(:src=>img_url,:height=>24,:width=>24) end end
+                xml.td do xml.a(who,:href=>url) end
+                xml.td do xml.a(conflict.conflict_name,:href=>url) end
+              end
+            end
           end
         end
       end
     end
+
   end
+  xml.script( "switch_tab();", { :type => 'text/javascript' } )
+
 end
 

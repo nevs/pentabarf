@@ -7,12 +7,18 @@ class PentabarfController < ApplicationController
   after_filter :update_last_login, :except=>[:activity]
 
   def conflicts
-    @conflicts = []
-    @conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
-    @conflicts += View_conflict_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
-    @conflicts += View_conflict_event_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
-    @conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
-    @conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    @conflict_level = ['fatal','error','warning','note']
+    conflicts = []
+    conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    conflicts += View_conflict_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    conflicts += View_conflict_event_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    @conflicts = Hash.new do | k, v | k[v] = Array.new end
+    conflicts.each do | c |
+      next if not @conflict_level.member?( c.level_tag )
+      @conflicts[c.level_tag] << c
+    end
   end
 
   def index
