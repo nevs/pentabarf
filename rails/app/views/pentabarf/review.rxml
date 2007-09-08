@@ -1,0 +1,41 @@
+xml.div(:id=>:data) do
+
+  xml.table(:id=>:review_table,:class=>:sortable) do
+
+    xml.thead do
+      xml.tr do
+        [:title,:event_state,:event_state_progress,:track,:rating,:raters].each do | field | xml.th(field.to_s) end
+      end
+    end
+
+    xml.tbody do
+
+      @events.each do | event |
+        
+        style = "" 
+        style += "background-color: moccasin;" if @ratings.member?( event.event_id )
+
+        xml.tr({:style=>style}) do 
+          xml.td do
+            xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
+              xml.strong event.title
+              xml.br
+              xml.text! event.subtitle
+              xml.br
+              xml.text! event.speakers
+            end
+          end
+          [:event_state,:event_state_progress,:conference_track,:rating,:raters].each do | field |
+            xml.td do
+              xml.a( event[field], {:href=>url_for(:action=>:event,:id=>event.event_id)})
+            end
+          end
+        end
+
+      end
+
+    end
+
+  end
+
+end
