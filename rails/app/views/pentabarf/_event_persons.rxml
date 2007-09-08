@@ -27,7 +27,7 @@ xml.div(:id=>'content-persons') do
 
     xml.script(:type=>'text/javascript') do 
       Event_person.select( :event_id => @event.event_id ).each do | e |
-        xml << js_function( 'table_add_row', 'event_person', e.event_person_id, e.person_id, e.event_role_id, e.event_role_state_id, e.remark )
+        xml << js_function( 'add_event_person', e.event_person_id, e.person_id, e.event_role_id, e.event_role_state_id, e.remark )
       end
     end
 

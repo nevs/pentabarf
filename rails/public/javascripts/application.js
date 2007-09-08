@@ -258,3 +258,35 @@ function cookie_read( name ) {
   return null;
 }
 
+function replace_select_with_hidden_field( select ) {
+  var hidden = document.createElement('input');
+  hidden.type = 'hidden';
+  hidden.name = select.name;
+  hidden.value = select.value;
+  select.parentNode.appendChild( hidden );
+  Element.remove( select );
+}
+
+function add_event_person( event_person_id, person_id, event_role_id, event_role_state_id, remark ) {
+  table_add_row( 'event_person', event_person_id, person_id, event_role_id, event_role_state_id, remark );
+  var index = table_row_counter['event_person'] - 1;
+  var select = $('event_person[' + index + '][person_id]');
+  var link = document.createElement('a');
+  link.href = document.baseURI.replace( /event\/\d+(#.*)?/, 'person/' + select.value );
+  link.appendChild( document.createTextNode( select.options[select.selectedIndex].text ) );
+  select.parentNode.appendChild( link );
+  replace_select_with_hidden_field( select );
+}
+
+function add_person_event( event_person_id, event_id, event_role_id, event_role_state_id, remark ) {
+  table_add_row( 'event_person', event_person_id, event_id, event_role_id, event_role_state_id, remark );
+  var index = table_row_counter['event_person'] - 1;
+  var select = $('event_person[' + index + '][event_id]');
+  var link = document.createElement('a');
+  link.href = document.baseURI.replace( /person\/\d+(#.*)?/, 'event/' + select.value );
+  link.appendChild( document.createTextNode( select.options[select.selectedIndex].text ) );
+  select.parentNode.appendChild( link );
+  replace_select_with_hidden_field( select );
+}
+
+
