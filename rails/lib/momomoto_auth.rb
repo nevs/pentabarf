@@ -8,7 +8,7 @@ module Momomoto
       alias_method( :__write, :write )
 
       def write( *args )
-        if row.dirty?
+        if args[0].dirty?
           POPE.table_write( self, *args )
           __write( *args )
         end
