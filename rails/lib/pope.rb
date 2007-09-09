@@ -46,7 +46,8 @@ class Pope
 
   def table_write( table, row )
     table_domains( table ).each do | domain |
-      action = 'modify' if table.table_name != table.table_name
+      action = row.new_record? ? 'create' : 'write'
+      action = 'modify' if table.table_name != domain
       if action == 'modify'
         case domain
           when :event then return true if @own_events.member?( row.event_id )
@@ -55,18 +56,18 @@ class Pope
         end
       end
       domain = :person if domain == :conference_person
-      return true if permissions.member?( "#{action}_#{domain}".to_sym )
+      next if permissions.member?( "#{action}_#{domain}".to_sym )
+      raise Pope::PermissionError, "Not allowed to write #{self.table_name}"
     end
-    false
   end
 
   def table_delete( table, row )
     table_domains( table ).each do | domain |
       action = 'modify' if table.table_name != domain
       domain = :person if domain == :conference_person
-      return true if permissions.member?( "#{action}_#{domain}".to_sym )
+      next if permissions.member?( "#{action}_#{domain}".to_sym )
+      raise Pope::PermissionError, "Not allowed to delete #{self.table_name}"
     end
-    false
   end
 
   protected
