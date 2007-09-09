@@ -23,14 +23,7 @@ class Pope
     end
     raise "Wrong Password" if Digest::MD5.hexdigest( salt_bin + pass ) != @user.password[16..47]
 
-    @permissions = User_permissions.call(:person_id=>@user.person_id).map do | row | row.user_permissions.to_sym end
-    @own_events, @own_conference_persons = [], []
-    if permission?( :modify_own_event )
-      @own_events = Own_events.call(:person_id=>@user.person_id).map do | row | row.own_events end
-    end
-    if permission?( :modify_own_person )
-      @own_conference_persons = Own_conference_persons.call(:person_id=>@user.person_id).map do | row | row.own_conference_persons end
-    end
+    refresh
    rescue => e
     flush
     raise e
@@ -38,6 +31,16 @@ class Pope
 
   def deauth
     flush
+  end
+
+  def refresh
+    @permissions = User_permissions.call(:person_id=>@user.person_id).map do | row | row.user_permissions.to_sym end
+    if permission?( :modify_own_event )
+      @own_events = Own_events.call(:person_id=>@user.person_id).map do | row | row.own_events end
+    end
+    if permission?( :modify_own_person )
+      @own_conference_persons = Own_conference_persons.call(:person_id=>@user.person_id).map do | row | row.own_conference_persons end
+    end
   end
 
   def permission?( perm )
