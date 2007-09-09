@@ -2,6 +2,9 @@
 # this class handles all authententication and authorization decissions
 class Pope
 
+  class PermissionError <  StandardError
+  end
+
   attr_reader :user, :permissions
 
   def initialize
@@ -54,14 +57,17 @@ class Pope
       domain = :person if domain == :conference_person
       return true if permissions.member?( "#{action}_#{domain}".to_sym )
     end
+    false
   end
 
   def table_delete( table, row )
+    p @permissions
     table_domains( table ).each do | domain |
-      action = 'modify' if table.table_name != table.table_name
+      action = 'modify' if table.table_name != domain
       domain = :person if domain == :conference_person
       return true if permissions.member?( "#{action}_#{domain}".to_sym )
     end
+    false
   end
 
   protected
