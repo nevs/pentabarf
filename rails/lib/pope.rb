@@ -83,6 +83,10 @@ class Pope
         domains.push( d )
       end
     end
+    return [] if table.table_name == 'event_rating_public'
+    if table.table_name.match( /_rating$/ )
+      domains = [:rating]
+    end
     if table.table_name.match( /_localized$/ ) && table.columns.key?(:language_id)
       domains.push( :localization )
     end
