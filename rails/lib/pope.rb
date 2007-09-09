@@ -93,6 +93,8 @@ class Pope
   def flush
     @user = nil
     @permissions = []
+    @own_events = []
+    @own_conference_persons = []
   end
 
 end
