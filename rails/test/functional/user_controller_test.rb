@@ -11,11 +11,6 @@ class UserControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
-  end
-
   def test_account_creation_and_activation
     get :new_account
     assert_response :success
