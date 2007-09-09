@@ -61,7 +61,6 @@ class Pope
   end
 
   def table_delete( table, row )
-    p @permissions
     table_domains( table ).each do | domain |
       action = 'modify' if table.table_name != domain
       domain = :person if domain == :conference_person
