@@ -89,6 +89,8 @@ class Pope
     if ['conference_phase_conflict'].member?( table.table_name )
       domains.push( :config )
     end
+    # FIXME workaround for no per conference permissions
+    domains.delete( :conference ) if domains.member?( :conference_person )
     raise "No domain found for table #{table}" if domains.empty?
     domains
   end
