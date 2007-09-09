@@ -90,7 +90,7 @@ class Pope
       domains.push( :config )
     end
     # FIXME workaround for no per conference permissions
-    domains.delete( :conference ) if domains.member?( :conference_person )
+    domains.delete( :conference ) if domains.member?( :person ) || domains.member?( :event )
     raise "No domain found for table #{table}" if domains.empty?
     domains
   end
