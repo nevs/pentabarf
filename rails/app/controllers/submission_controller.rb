@@ -35,6 +35,7 @@ class SubmissionController < ApplicationController
       if params[:id].to_i == 0
         event = Submit_event.call(:e_person_id=>POPE.user.person_id,:e_conference_id=>@conference.conference_id,:e_title=>params[:event][:title])
         params[:id] = event[0].submit_event
+        POPE.refresh
       end
       params[:event][:event_id] = params[:id]
       event = write_row( Event, params[:event], {:except=>[:event_id],:only=>Event::SubmissionFields} )
