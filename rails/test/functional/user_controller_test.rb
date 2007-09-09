@@ -31,7 +31,7 @@ class UserControllerTest < Test::Unit::TestCase
     assert_response :redirect
     assert_redirected_to( :controller => 'submission' )
     assert_equal( 1, Person_role.select(:person_id=>chunky.person_id).length )
-    chunky.delete
+    Person.__delete( chunky )
   end
 
 end
