@@ -49,13 +49,13 @@ class Pope
 
   def table_write( table, row )
     table_domains( table ).each do | domain |
-      action = row.new_record? ? :create : :write
+      action = row.new_record? ? :create : :modify
       action = :modify if table.table_name.to_sym != domain
       if action == :modify
         case domain
-          when :event then return true if @own_events.member?( row.event_id )
-          when :person then return true if permission?( :modify_own_person ) && row.person_id == @user.person_id
-          when :conference_person then return true if @own_conference_persons.member?( row.conference_person_id )
+          when :event then next if @own_events.member?( row.event_id )
+          when :person then next if permission?( :modify_own_person ) && row.person_id == @user.person_id
+          when :conference_person then next if @own_conference_persons.member?( row.conference_person_id )
         end
       end
       domain = :person if domain == :conference_person
