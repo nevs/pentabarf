@@ -15,7 +15,7 @@ class Localizer
           local = View_ui_message.select_single(:language_id=>language,:tag=>tag).name
           @cache[language][tag] = local
         rescue Momomoto::Nothing_found
-          warn( "unlocalized tag: `#{tag}` for language #{language}" )
+          # warn( "unlocalized tag: `#{tag}` for language #{language}" )
           local = tag
         end
       end
