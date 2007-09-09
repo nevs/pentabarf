@@ -2,10 +2,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PopeTest < Test::Unit::TestCase
 
-  def test_truth
-    assert( true )
-  end
-
   def test_permissions
     chunky = Person.new
     chunky.public_name = 'Chunky Bacon'
