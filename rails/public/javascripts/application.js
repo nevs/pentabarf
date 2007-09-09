@@ -50,15 +50,24 @@ function switch_tab( target ) {
   if ( target && realm )
     cookie_write( realm, target );
 
-  if (!target && realm ) target = cookie_read( realm );
+  if (!target && realm ) 
+    target = cookie_read( realm );
   if (!target || tabs.indexOf(target) == -1 )
     target = tabs[0];
+
   for( var i = 0; i < tabs.length; i++) {
     $( 'tab-' + tabs[i] ).setAttribute('class','tab inactive');
     Element.hide( 'content-' + tabs[i] );
   }
   $( 'tab-' + target ).setAttribute('class','tab active');
   Element.show( 'content-' + target );
+}
+
+function show_all_tabs() {
+  for( var i = 0; i < tabs.length; i++) {
+    $( 'tab-' + tabs[i] ).setAttribute('class','tab active');
+    Element.show( 'content-' + tabs[i] );
+  }
 }
 
 

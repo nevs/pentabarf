@@ -55,6 +55,7 @@ module ApplicationHelper
       tabs.each do | tab |
         xml.span( tab.to_s, {:id=>"tab-#{tab}",:onclick=>"switch_tab('#{tab}')",:class=>'tab inactive'} )
       end
+      xml.span( 'Show all', {:id=>"tab-all",:onclick=>"show_all_tabs()",:class=>'tab inactive'} )
     end
   end
 
