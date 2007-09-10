@@ -39,7 +39,7 @@ class SubmissionController < ApplicationController
       end
       params[:event][:event_id] = params[:id]
       event = write_row( Event, params[:event], {:except=>[:event_id],:only=>Event::SubmissionFields} )
-      write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id}})
+      write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id},:ignore_empty=>:url})
       write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
       write_rows( Event_attachment, params[:event_attachment], {:always=>[:f_public]} )
       write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
