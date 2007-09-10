@@ -58,7 +58,10 @@ class Pope
           when :conference_person then next if @own_conference_persons.member?( row.conference_person_id )
         end
       end
-      domain = :person if domain == :conference_person
+      if domain == :conference_person
+        domain = :person
+        action = :modify
+      end
       next if permissions.member?( "#{action}_#{domain}".to_sym )
       raise Pope::PermissionError, "Not allowed to write #{table.table_name} [#{action}_#{domain}]"
     end
