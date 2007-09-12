@@ -96,6 +96,11 @@ class SubmissionController < ApplicationController
 
   def auth
     return super unless params[:action] == 'index'
+    begin
+      user, pass = http_auth_data
+      POPE.auth( user, pass )
+    rescue
+    end
     true
   end
 
