@@ -9,7 +9,7 @@ class SubmissionController < ApplicationController
   end
 
   def login
-    redirect_to(:action=>:index)
+    redirect_to(:action=>:index,:id=>'auth')
   end
 
   def event
@@ -95,12 +95,7 @@ class SubmissionController < ApplicationController
   end
 
   def auth
-    return super unless params[:action] == 'index'
-    begin
-      user, pass = http_auth_data
-      POPE.auth( user, pass )
-    rescue
-    end
+    return super if params[:action] != 'index' || params[:id] == 'auth'
     true
   end
 
