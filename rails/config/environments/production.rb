@@ -16,3 +16,7 @@ config.action_controller.perform_caching             = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+
+# get rid of those timestamps on css, image and javascript files
+ENV['RAILS_ASSET_ID'] = ""
+
