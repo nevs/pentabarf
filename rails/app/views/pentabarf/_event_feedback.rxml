@@ -3,7 +3,7 @@ xml = Builder::XmlMarkup.new
 feedback = View_event_feedback.select_or_new(:event_id=>@event.event_id)
 xml.div({:id=>'content-feedback'}) do
 
-  xml.fieldset do 
+  xml.fieldset do
     xml.legend( 'Feedback' )
 
     xml.table do
@@ -40,6 +40,20 @@ xml.div({:id=>'content-feedback'}) do
       end
 
     end
+
+    remarks = Event_rating_public.select(:event_id=>@event.event_id,:remark=>true)
+    xml.table do
+      xml.thead do
+        xml.tr do xml.th 'Remarks' end
+      end
+
+      remarks.each do | remark |
+        xml.tr do
+          xml.td( remark.remark )
+        end
+      end
+
+    end if remarks.length > 0
 
   end
 
