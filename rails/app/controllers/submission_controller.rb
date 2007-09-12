@@ -8,6 +8,10 @@ class SubmissionController < ApplicationController
     @conferences = Conference.select({:f_submission_enabled=>'t'})
   end
 
+  def login
+    redirect_to(:action=>:index)
+  end
+
   def event
     if params[:id] && params[:id] != 'new'
       own = Own_conference_events.call({:person_id=>POPE.user.person_id,:conference_id=>@conference.conference_id},{:own_conference_events=>params[:id]})

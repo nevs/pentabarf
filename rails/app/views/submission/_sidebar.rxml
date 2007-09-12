@@ -12,6 +12,7 @@ xml.div( :id => 'sidebar' ) do
   xml.div(:id => 'menu') do
 
     xml.div( :class=>'menu-item-group' ) do
+      xml.a( 'Login', {:href=>url_for(:action=>:login), :class => 'menu-item'} )
       xml.a( 'Create Account', {:href=>url_for(:controller=>'user',:action=>:new_account,:id=>params[:conference]), :class => 'menu-item'} )
     end if not POPE.user
 
