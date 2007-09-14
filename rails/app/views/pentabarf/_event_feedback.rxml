@@ -41,7 +41,7 @@ xml.div({:id=>'content-feedback'}) do
 
     end
 
-    remarks = Event_rating_public.select(:event_id=>@event.event_id,:remark=>true)
+    remarks = Event_rating_public.select(:event_id=>@event.event_id,:remark=>:NOT_NULL)
     xml.table do
       xml.thead do
         xml.tr do xml.th 'Remarks' end
