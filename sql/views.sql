@@ -44,5 +44,4 @@
 \i views/schedule/schedule_person.sql
 \i views/schedule/schedule.sql
 \i views/schedule/visitor_schedule.sql
-\i views/view_find_person_role_state.sql
 
