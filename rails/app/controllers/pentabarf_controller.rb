@@ -214,7 +214,7 @@ class PentabarfController < ApplicationController
   protected
 
   def init
-    @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
+    @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id) rescue Conference.new
     @preferences = POPE.user.preferences
     @current_language_id = POPE.user.current_language_id || 120
   end

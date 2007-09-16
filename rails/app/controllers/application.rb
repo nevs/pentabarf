@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     user, pass = http_auth_data
     POPE.auth( user, pass )
     return check_permission
-   rescue
+   rescue 
     response.headers["Status"] = "Unauthorized"
     response.headers["WWW-Authenticate"] = "Basic realm=Pentabarf"
     render( :text => "Authentication failed", :status => 401)
