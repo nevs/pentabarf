@@ -44,4 +44,5 @@
 \i views/schedule/schedule_person.sql
 \i views/schedule/schedule.sql
 \i views/schedule/visitor_schedule.sql
+\i views/conference_rating.sql
 
