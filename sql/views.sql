@@ -45,4 +45,5 @@
 \i views/schedule/schedule.sql
 \i views/schedule/visitor_schedule.sql
 \i views/conference_rating.sql
+\i views/event_feedback.sql
 
