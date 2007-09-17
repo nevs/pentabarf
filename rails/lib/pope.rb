@@ -49,22 +49,23 @@ class Pope
 
   def table_write( table, row )
     table_domains( table ).each do | domain |
+      return if domain == :public
       action = row.new_record? ? :create : :modify
       action = :modify if table.table_name.to_sym != domain
       if action == :modify
         case domain
-          when :event then next if @own_events.member?( row.event_id )
-          when :person then next if permission?( :modify_own_person ) && row.person_id == @user.person_id
-          when :conference_person then next if @own_conference_persons.member?( row.conference_person_id )
+          when :event then return if @own_events.member?( row.event_id )
+          when :person then return if permission?( :modify_own_person ) && row.person_id == @user.person_id
+          when :conference_person then return if @own_conference_persons.member?( row.conference_person_id )
         end
       end
       if domain == :conference_person
         domain = :person
         action = :modify
       end
-      next if permissions.member?( "#{action}_#{domain}".to_sym )
-      raise Pope::PermissionError, "Not allowed to write #{table.table_name} [#{action}_#{domain}]"
+      return if permissions.member?( "#{action}_#{domain}".to_sym )
     end
+    raise Pope::PermissionError, "Not allowed to write #{table.table_name}"
   end
 
   def table_delete( table, row )
@@ -86,7 +87,7 @@ class Pope
         domains.push( d )
       end
     end
-    return [] if table.table_name == 'event_rating_public'
+    return [:public] if table.table_name == 'event_rating_public'
     if table.table_name.match( /_rating$/ )
       domains = [:rating]
     end
