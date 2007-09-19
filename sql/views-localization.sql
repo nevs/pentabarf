@@ -465,23 +465,6 @@ CREATE OR REPLACE VIEW view_transport AS
          ) AS all_lang 
          LEFT OUTER JOIN transport_localized USING (language_id, transport_id);
 
--- view for ui_messages with fallback to tag
-CREATE OR REPLACE VIEW view_ui_message AS 
-  SELECT ui_message_id, 
-         language_id, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  ui_message_id, 
-                  ui_message.tag, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN ui_message
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN ui_message_localized USING (language_id, ui_message_id);
-
 CREATE OR REPLACE VIEW view_conference_language AS
   SELECT language_id,
          conference_id,
