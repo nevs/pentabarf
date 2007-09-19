@@ -2,7 +2,7 @@
 
 require 'yaml'
 
-db_config_file = File.dirname(__FILE__) + "/../../pentabarf/config/database.yml"
+db_config_file = File.dirname(__FILE__) + "/../../rails/config/database.yml"
 db_config      = YAML.load_file db_config_file
 db_production  = db_config['production']
 
