@@ -7,13 +7,13 @@ class LocalizationController < ApplicationController
 
   def ui_message
     constraints = {:language_id=>@current_language_id}
-    constraints[:tag] = {:ilike=>"#{params[:id]}%"} if params[:id]
-    @tags = View_ui_message.select(constraints,{:order=>:tag})
+    constraints[:ui_message] = {:ilike=>"#{params[:id]}%"} if params[:id]
+    @tags = Ui_message_localized.select(constraints,{:order=>:ui_message})
   end
 
   def save_ui_message
-    params[:ui_message].each do | ui_message_id, value |
-      write_row( Ui_message_localized, value, {:preset=>{:ui_message_id=>ui_message_id,:language_id=>params[:language_id]}})
+    params[:ui_message].each do | ui_message, value |
+      write_row( Ui_message_localized, value, {:preset=>{:ui_message=>ui_message,:language_id=>params[:language_id]}})
     end
     Localizer.purge(params[:language_id])
     redirect_to( :action => :ui_message )

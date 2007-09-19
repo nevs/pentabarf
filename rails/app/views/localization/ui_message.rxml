@@ -8,10 +8,10 @@ xml.div do
     xml.table do
       xml.tr do
       end
-      @tags.each do | tag |
+      @messages.each do | msg |
         xml.tr do
-          xml.td( tag.tag )
-          xml.td do xml.input({:name=>"ui_message[#{tag.ui_message_id}][name]",:value=>tag.name,:size=>40}) end
+          xml.td( msg.ui_message )
+          xml.td do xml.input({:name=>"ui_message[#{msg.ui_message}][name]",:value=>msg.name,:size=>40}) end
         end
       end
     end
