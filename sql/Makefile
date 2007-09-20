@@ -1,7 +1,7 @@
 
 PSQL=psql
 
-intall:
+install:
 		-createlang plpgsql
 		${PSQL} -f tables.sql
 		${PSQL} -f views-localization.sql
