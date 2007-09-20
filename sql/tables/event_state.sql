@@ -1,8 +1,7 @@
 
 CREATE TABLE event_state (
-  event_state_id SERIAL NOT NULL,
-  tag VARCHAR(32) NOT NULL UNIQUE,
+  event_state TEXT,
   rank INTEGER,
-  PRIMARY KEY (event_state_id)
-) WITHOUT OIDS;
+  PRIMARY KEY (event_state)
+);
 
