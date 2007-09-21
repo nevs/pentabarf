@@ -16,10 +16,6 @@ CREATE OR REPLACE FUNCTION conflict_event_person_person_availability( INTEGER ) 
           event.start_time IS NOT NULL
         )
         INNER JOIN person_availability AS slot USING (person_id, conference_id)
-        INNER JOIN event_state ON (
-            event.event_state_id = event_state.event_state_id AND
-            event_state.tag = 'accepted'
-        )
         INNER JOIN conference ON (
             conference.conference_id = event.conference_id AND
             conference.conference_id = cur_conference_id
@@ -32,8 +28,9 @@ CREATE OR REPLACE FUNCTION conflict_event_person_person_availability( INTEGER ) 
             event_role_state.event_role_state_id = event_person.event_role_state_id AND
             event_role_state.tag = 'confirmed'
         )
-      WHERE (
-            slot.start_date <= (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change) AND
+      WHERE
+        event.event_state = 'accepted' AND
+        ( ( slot.start_date <= (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change) AND
             ( slot.start_date + slot.duration ) > (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)
           ) OR (
             slot.start_date >= (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change) AND
@@ -42,6 +39,7 @@ CREATE OR REPLACE FUNCTION conflict_event_person_person_availability( INTEGER ) 
             slot.start_date < ( conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change + event.duration ) AND
             ( slot.start_date + slot.duration ) >= ( conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change + event.duration )
           )
+        )
     LOOP
       RETURN NEXT cur_conflict;
     END LOOP;

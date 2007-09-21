@@ -17,8 +17,8 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
                        duration,
                        event_type_id,
                        event_origin_id,
-                       event_state_id,
-                       event_state_progress_id,
+                       event_state,
+                       event_state_progress,
                        language_id,
                        abstract,
                        description,
@@ -37,13 +37,8 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
                        duration,
                        event_type_id,
                        (SELECT event_origin_id FROM event_origin WHERE tag = ''idea''),
-                       (SELECT event_state_id FROM event_state WHERE tag = ''undecided''),
-                       (SELECT event_state_progress_id
-                          FROM event_state_progress
-                               INNER JOIN event_state
-                                  ON (event_state.tag = ''undecided'' AND
-                                      event_state.event_state_id = event_state_progress.event_state_id)
-                         WHERE event_state_progress.tag = ''new''),
+                       ''undecided'',
+                       ''new'',
                        language_id,
                        abstract,
                        description,

@@ -15,10 +15,6 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_before_arrival(integer) R
           event.start_time IS NOT NULL
         )
         INNER JOIN person_travel USING (person_id, conference_id)
-        INNER JOIN event_state ON (
-            event.event_state_id = event_state.event_state_id AND
-            event_state.tag = 'accepted'
-        )
         INNER JOIN conference ON (
             event.conference_id = conference.conference_id AND
             conference.conference_id = cur_conference_id
@@ -31,15 +27,17 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_before_arrival(integer) R
             event_role_state.event_role_state_id = event_person.event_role_state_id AND
             event_role_state.tag = 'confirmed'
         )
-      WHERE (
-          person_travel.arrival_date IS NOT NULL AND
-          person_travel.arrival_time IS NULL AND
-          person_travel.arrival_date > conference.start_date + event.day + '-1'::integer
-        ) OR (
-          person_travel.arrival_date IS NOT NULL AND
-          person_travel.arrival_time IS NOT NULL AND
-          (person_travel.arrival_date + person_travel.arrival_time)::timestamp > (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp
-        )
+      WHERE
+        event.event_state = 'accepted' AND
+        ( (
+            person_travel.arrival_date IS NOT NULL AND
+            person_travel.arrival_time IS NULL AND
+            person_travel.arrival_date > conference.start_date + event.day + '-1'::integer
+          ) OR (
+            person_travel.arrival_date IS NOT NULL AND
+            person_travel.arrival_time IS NOT NULL AND
+            (person_travel.arrival_date + person_travel.arrival_time)::timestamp > (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp
+        ) )
     LOOP
       RETURN NEXT cur_conflict;
     END LOOP;

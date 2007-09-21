@@ -1,6 +1,6 @@
 
 -- returns event_persons with conflicting events
-CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(integer) RETURNS SETOF conflict_event_person_event AS '
+CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(integer) RETURNS SETOF conflict_event_person_event AS $$
   DECLARE 
     cur_conference_id ALIAS FOR $1;
     cur_speaker RECORD;
@@ -14,12 +14,10 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(inte
         FROM event_person 
         INNER JOIN event_role USING (event_role_id)
         INNER JOIN event USING (event_id)
-        INNER JOIN event_state USING (event_state_id)
-        INNER JOIN event_state_progress USING (event_state_progress_id)
-        WHERE event_role.tag = ''visitor'' AND
+        WHERE event_role.tag = 'visitor' AND
               event.conference_id = cur_conference_id AND
-              event_state.tag = ''accepted'' AND
-              event_state_progress.tag <> ''canceled'' AND
+              event.event_state = 'accepted' AND
+              event.event_state_progress <> 'canceled' AND
               event.day IS NOT NULL AND
               event.start_time IS NOT NULL
     LOOP
@@ -28,8 +26,6 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(inte
       FOR cur_event IN
         SELECT event_id 
           FROM event
-          INNER JOIN event_state USING (event_state_id)
-          INNER JOIN event_state_progress USING (event_state_progress_id)
           INNER JOIN event_person USING (event_id)
           INNER JOIN event_role USING (event_role_id)
           WHERE event.day IS NOT NULL AND
@@ -39,11 +35,11 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(inte
                 event.conference_id = cur_conference_id AND
                 ( event.start_time::time, event.duration::interval ) OVERLAPS 
                 ( cur_speaker.start_time::time, cur_speaker.duration::interval) AND
-                event_state.tag = ''accepted'' AND
-                event_state_progress.tag <> ''canceled'' AND
-                event_role.tag = ''visitor'' AND
+                event.event_state = 'accepted' AND
+                event.event_state_progress <> 'canceled' AND
+                event_role.tag = 'visitor' AND
                 event_person.person_id = cur_speaker.person_id
-  
+
       LOOP
         cur_conflict.person_id = cur_speaker.person_id;
         cur_conflict.event_id1 = cur_speaker.event_id;
@@ -53,5 +49,5 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(inte
     END LOOP;
     RETURN;
   END;
-' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+$$ LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 

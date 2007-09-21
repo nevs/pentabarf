@@ -1,6 +1,6 @@
 
 -- returns events with conflicting timeslots
-CREATE OR REPLACE FUNCTION conflict_event_event_time(integer) RETURNS SETOF conflict_event_event AS '
+CREATE OR REPLACE FUNCTION conflict_event_event_time(integer) RETURNS SETOF conflict_event_event AS $$
   DECLARE
     cur_conference_id ALIAS FOR $1;
     cur_event RECORD;
@@ -11,24 +11,20 @@ CREATE OR REPLACE FUNCTION conflict_event_event_time(integer) RETURNS SETOF conf
     FOR cur_event IN
       SELECT event_id, start_time, duration, day, room_id
         FROM event
-             INNER JOIN event_state USING (event_state_id)
-             INNER JOIN event_state_progress USING (event_state_progress_id)
         WHERE event.conference_id = cur_conference_id AND
-              event_state.tag = ''accepted'' AND
-              event_state_progress.tag <> ''canceled'' AND
+              event.event_state = 'accepted' AND
+              event.event_state_progress <> 'canceled' AND
               event.day IS NOT NULL AND
               event.start_time IS NOT NULL
     LOOP
       FOR cur_event2 IN
         SELECT event_id
           FROM event
-               INNER JOIN event_state USING (event_state_id)
-               INNER JOIN event_state_progress USING (event_state_progress_id)
           WHERE event.day IS NOT NULL AND
                 event.start_time IS NOT NULL AND
                 event.day = cur_event.day AND
-                event_state.tag = ''accepted'' AND
-                event_state_progress.tag <> ''canceled'' AND
+                event.event_state = 'accepted' AND
+                event.event_state_progress <> 'canceled' AND
                 event.event_id <> cur_event.event_id AND
                 event.conference_id = cur_conference_id AND
                 event.room_id = cur_event.room_id AND
@@ -44,5 +40,5 @@ CREATE OR REPLACE FUNCTION conflict_event_event_time(integer) RETURNS SETOF conf
     END LOOP;
     RETURN;
   END;
-' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+$$ LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 

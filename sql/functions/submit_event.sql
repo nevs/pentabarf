@@ -5,32 +5,25 @@ CREATE OR REPLACE FUNCTION submit_event( e_person_id INTEGER, e_conference_id IN
     new_event_id INTEGER;
   BEGIN
     SELECT INTO new_event_id nextval('event_event_id_seq');
-    INSERT INTO event( "event_id",
-                       "conference_id",
-                       "title",
-                       "duration",
-                       "event_state_id",
-                       "event_origin_id",
-                       "event_state_progress_id",
-                       "last_modified_by" )
+    INSERT INTO event( event_id,
+                       conference_id,
+                       title,
+                       duration,
+                       event_state,
+                       event_state_progress,
+                       event_origin_id,
+                       last_modified_by )
               VALUES ( new_event_id,
                        e_conference_id,
                        e_title,
                        ( SELECT default_timeslots * timeslot_duration
                            FROM conference
                           WHERE conference.conference_id = e_conference_id ),
-                       ( SELECT event_state_id
-                           FROM event_state
-                          WHERE tag = 'undecided'),
+                       'undecided',
+                       'new',
                        ( SELECT event_origin_id
                            FROM event_origin
                           WHERE tag = 'submission'),
-                       ( SELECT event_state_progress_id
-                           FROM event_state_progress
-                                INNER JOIN event_state ON (
-                                    event_state.event_state_id = event_state_progress.event_state_id AND
-                                    event_state.tag = 'undecided')
-                          WHERE event_state_progress.tag = 'new'),
                        e_person_id );
 
     INSERT INTO event_person( event_id,

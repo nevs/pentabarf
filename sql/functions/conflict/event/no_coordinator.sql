@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION conflict_event_no_coordinator(integer) RETURNS setof 
   BEGIN
     -- Loop through all events
     FOR cur_event IN
-      SELECT event_id FROM event INNER JOIN event_state USING (event_state_id)
+      SELECT event_id FROM event
         WHERE event.conference_id = cur_conference_id
     LOOP
       IF NOT EXISTS (SELECT 1 FROM event_person 
