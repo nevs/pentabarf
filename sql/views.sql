@@ -15,7 +15,6 @@
 \i views/event_rating.sql
 \i views/event_related.sql
 \i views/event.sql
-\i views/event_state_combined.sql
 \i views/find/event_search_persons.sql
 \i views/find/find_conference.sql
 \i views/find/find_event.sql
@@ -43,7 +42,6 @@
 \i views/schedule/schedule_event.sql
 \i views/schedule/schedule_person.sql
 \i views/schedule/schedule.sql
-\i views/schedule/visitor_schedule.sql
 \i views/conference_rating.sql
 \i views/event_feedback.sql
 

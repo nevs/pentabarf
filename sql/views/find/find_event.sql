@@ -17,14 +17,11 @@ CREATE OR REPLACE VIEW view_find_event AS
          event.day,
          (event.start_time + conference.day_change)::interval AS start_time,
          event.f_public,
+         event_state_localized.name AS event_state_name,
+         event_state_progress_localized.name AS event_state_progress_name,
          event_image.mime_type_id,
          mime_type.mime_type,
          mime_type.file_extension,
-         view_event_state.language_id AS translated_id,
-         view_event_state.tag AS event_state_tag,
-         view_event_state.name AS event_state,
-         view_event_state_progress.tag AS event_state_progress_tag,
-         view_event_state_progress.name AS event_state_progress,
          view_room.tag AS room_tag,
          view_room.name AS room,
          conference_track.tag AS track,
@@ -50,6 +47,6 @@ CREATE OR REPLACE VIEW view_find_event AS
          LEFT OUTER JOIN event_image USING (event_id)
          LEFT OUTER JOIN mime_type USING (mime_type_id)
          LEFT OUTER JOIN view_room ON (
-             view_event_state.language_id = view_room.language_id AND
+             event_state_localized.language_id = view_room.language_id AND
              event.room_id = view_room.room_id);
 

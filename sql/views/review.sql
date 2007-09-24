@@ -26,8 +26,7 @@ CREATE OR REPLACE VIEW view_review AS
      coalesce( rating.acceptance_count, 0 ) AS acceptance_count,
      coalesce( rating.raters, 0 ) AS raters,
      (2 * coalesce( rating.acceptance, 0 ) + coalesce( rating.relevance, 0 ) + coalesce( rating.actuality, 0 ))/4 AS rating,
-     conference_track.tag AS conference_track,
-     conference_track.name AS conference_track
+     conference_track.tag AS conference_track
     FROM event
          LEFT OUTER JOIN (
            SELECT event_id,
@@ -42,7 +41,7 @@ CREATE OR REPLACE VIEW view_review AS
             GROUP BY event_id
          ) AS rating USING (event_id)
          LEFT OUTER JOIN conference_track ON (
-           event.conference_track_id = view_conference_track.conference_track_id)
+           event.conference_track_id = conference_track.conference_track_id)
    ORDER BY acceptance DESC, relevance DESC, actuality DESC
 ;
 

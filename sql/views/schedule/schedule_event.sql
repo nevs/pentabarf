@@ -13,7 +13,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
          (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change + event.duration)::timestamp AS end_datetime,
          event.start_time + conference.day_change AS real_starttime,
-         view_event_state.language_id AS translated_id,
+         view_room.language_id AS translated_id,
          view_event_type.event_type_id,
          view_event_type.name AS event_type,
          view_event_type.tag AS event_type_tag,
@@ -46,7 +46,6 @@ CREATE OR REPLACE VIEW view_schedule_event AS
              event.room_id IS NOT NULL )
          INNER JOIN conference USING (conference_id)
          INNER JOIN view_room ON (
-             view_room.language_id = view_event_state.language_id AND
              view_room.room_id = event.room_id AND
              view_room.f_public = 't' )
          INNER JOIN event_role ON (
@@ -64,7 +63,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
              view_conference_track.conference_track_id = event.conference_track_id )
          LEFT OUTER JOIN view_event_type ON (
              view_event_type.event_type_id = event.event_type_id AND
-             view_event_type.language_id = view_event_state.language_id)
+             view_event_type.language_id = view_room.language_id)
          LEFT OUTER JOIN view_language ON (
              view_language.language_id = event.language_id )
 ;

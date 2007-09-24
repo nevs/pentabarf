@@ -22,8 +22,6 @@ CREATE OR REPLACE VIEW view_event AS
          event.f_public,
          event.f_paper,
          event.f_slides,
-         event.f_conflict,
-         event.f_deleted,
          event.remark,
          event_state_localized.language_id AS translated_id,
          event_state_localized.name AS event_state_name,
@@ -46,16 +44,16 @@ CREATE OR REPLACE VIEW view_event AS
          INNER JOIN conference USING (conference_id)
          LEFT OUTER JOIN view_event_type ON (
              event.event_type_id = view_event_type.event_type_id AND
-             view_event_state.language_id = view_event_type.language_id)
+             event_state_localized.language_id = view_event_type.language_id)
          LEFT OUTER JOIN view_conference_track ON (
              event.conference_track_id = view_conference_track.conference_track_id AND
-             view_conference_track.language_id = view_event_state.language_id)
+             view_conference_track.language_id = event_state_localized.language_id)
          LEFT OUTER JOIN view_team ON (
              event.team_id = view_team.team_id AND
-             view_team.language_id = view_event_state.language_id)
+             view_team.language_id = event_state_localized.language_id)
          LEFT OUTER JOIN view_room ON (
              event.room_id = view_room.room_id AND
-             view_room.language_id = view_event_state.language_id)
+             view_room.language_id = event_state_localized.language_id)
          LEFT OUTER JOIN event_image USING (event_id)
          LEFT OUTER JOIN mime_type USING (mime_type_id)
 ;
