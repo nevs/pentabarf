@@ -32,9 +32,9 @@ xml.div({:id=>:data}) do
         xml << select_tag('search_event[row_id][value]', View_event_origin.select({:language_id=>@current_language_id}).map{|o| [o.event_origin_id, o.name]})
       end
       # search for event state
-      xml.li({:class=>:event_state_id,:title=>local(:event_state)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_state_id})
-        xml << select_tag('search_event[row_id][value]', View_event_state.select({:language_id=>@current_language_id}).map{|o| [o.event_state_id, o.name]})
+      xml.li({:class=>:event_state,:title=>local(:event_state)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_state})
+        xml << select_tag('search_event[row_id][value]', Event_state_localized.select({:language_id=>@current_language_id}).map{|o| [o.event_state, o.name]})
       end
       # search for event type
       xml.li({:class=>:event_type_id,:title=>local(:event_type)}) do

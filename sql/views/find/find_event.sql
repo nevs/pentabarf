@@ -17,6 +17,7 @@ CREATE OR REPLACE VIEW view_find_event AS
          event.day,
          (event.start_time + conference.day_change)::interval AS start_time,
          event.f_public,
+         event_state_localized.language_id AS translated_id,
          event_state_localized.name AS event_state_name,
          event_state_progress_localized.name AS event_state_progress_name,
          event_image.mime_type_id,

@@ -12,7 +12,7 @@ xml.table do
   end
   xml.tbody do
     @results.each do | event |
-      xml.tr(:class=>event.event_state_tag) do
+      xml.tr(:class=>event.event_state) do
         xml.td do
           xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
             xml.b event.title
