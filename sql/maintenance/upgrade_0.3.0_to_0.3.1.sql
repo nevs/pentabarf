@@ -39,7 +39,7 @@ ALTER TABLE event ADD COLUMN event_state TEXT;
 UPDATE event SET event_state = ( SELECT event_state FROM event_state WHERE event_state.event_state_id = event.event_state_id );
 ALTER TABLE event DROP CONSTRAINT event_event_state_id_fkey;
 
-ALTER TABLE event_state DROP CONSTRAINT event_state_pkey;
+ALTER TABLE event_state DROP CONSTRAINT event_state_pkey CASCADE;
 ALTER TABLE event_state ADD CONSTRAINT event_state_pkey PRIMARY KEY( event_state );
 ALTER TABLE event_state DROP COLUMN event_state_id;
 
