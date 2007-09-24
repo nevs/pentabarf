@@ -7,10 +7,9 @@ CREATE OR REPLACE VIEW view_report_schedule_gender AS
     FROM event_person
          INNER JOIN person USING (person_id)
          INNER JOIN event USING (event_id)
-         INNER JOIN event_state USING (event_state_id)
          INNER JOIN event_role USING (event_role_id)
          INNER JOIN event_role_state USING (event_role_state_id)
-   WHERE event_state.tag = 'accepted' AND
+   WHERE event.event_state = 'accepted' AND
          event_role.tag IN ('speaker','moderator') AND
          event_role_state.tag = 'confirmed'
 ;

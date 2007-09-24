@@ -10,8 +10,8 @@ CREATE OR REPLACE VIEW view_event AS
          event.team_id,
          event.event_type_id,
          event.duration,
-         event.event_state_id,
-         event.event_state_progress_id,
+         event.event_state,
+         event.event_state_progress,
          event.language_id,
          event.room_id,
          event.day,
@@ -25,10 +25,8 @@ CREATE OR REPLACE VIEW view_event AS
          event.f_conflict,
          event.f_deleted,
          event.remark,
-         view_event_state.language_id AS translated_id,
-         view_event_state.language_tag AS translated_tag,
-         view_event_state.tag AS event_state_tag,
-         view_event_state.name AS event_state,
+         event_state_localized.language_id AS translated_id,
+         event_state_localized.name AS event_state_name,
          view_event_type.tag AS event_type_tag,
          view_event_type.name AS event_type,
          view_conference_track.tag AS conference_track_tag,
@@ -44,7 +42,7 @@ CREATE OR REPLACE VIEW view_event AS
          mime_type.mime_type,
          mime_type.file_extension
     FROM event
-         INNER JOIN view_event_state USING (event_state_id)
+         INNER JOIN event_state_localized USING (event_state)
          INNER JOIN conference USING (conference_id)
          LEFT OUTER JOIN view_event_type ON (
              event.event_type_id = view_event_type.event_type_id AND

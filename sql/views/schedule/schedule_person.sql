@@ -37,6 +37,8 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                         event_role_state.tag = 'confirmed' )
                     INNER JOIN event ON (
                         event_person.event_id = event.event_id AND
+                        event.event_state = 'accepted' AND
+                        event.event_state_progress = 'confirmed' AND
                         event.f_public = 't' AND
                         event.day IS NOT NULL AND
                         event.start_time IS NOT NULL AND
@@ -44,13 +46,6 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                     INNER JOIN room ON (
                         event.room_id = room.room_id AND
                         room.f_public = 't' )
-                    INNER JOIN event_state ON (
-                        event.event_state_id = event_state.event_state_id AND
-                        event_state.tag = 'accepted' )
-                    INNER JOIN event_state_progress ON (
-                        event.event_state_progress_id = event_state_progress.event_state_progress_id AND
-                        event_state_progress.event_state_id = event.event_state_id AND
-                        event_state_progress.tag = 'confirmed' )
          ) AS speaker USING (person_id)
          LEFT OUTER JOIN conference_person USING (person_id, conference_id)
 ;

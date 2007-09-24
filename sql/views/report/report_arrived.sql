@@ -10,13 +10,9 @@ CREATE OR REPLACE VIEW view_report_arrived AS
                    FROM event_person
                         INNER JOIN event ON (
                           event_person.event_id = event.event_id AND
+                          event.event_state = 'accepted' AND
+                          event.event_state_progress = 'confirmed' AND
                           event.conference_id = person_travel.conference_id)
-                        INNER JOIN event_state ON (
-                          event.event_state_id = event_state.event_state_id AND
-                          event_state.tag = 'accepted')
-                        INNER JOIN event_state_progress ON (
-                          event.event_state_progress_id = event_state_progress.event_state_progress_id AND
-                          event_state_progress.tag = 'confirmed')
                         INNER JOIN event_role ON (
                           event_person.event_role_id = event_role.event_role_id AND
                           event_role.tag IN ('speaker', 'moderator'))

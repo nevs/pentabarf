@@ -18,9 +18,8 @@ CREATE OR REPLACE VIEW view_report_paper AS
                 attachment_type.tag = 'paper')
          AS pages
     FROM event
-         INNER JOIN event_state USING (event_state_id)
-         INNER JOIN event_state_progress USING (event_state_progress_id)
-   WHERE event_state.tag = 'accepted' AND
+   WHERE event.event_state = 'accepted' AND
+         event.event_state_progress = 'confirmed' AND
          event.f_paper = 't'
    ORDER BY lower(title), lower(subtitle)
 ;

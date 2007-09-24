@@ -9,8 +9,8 @@ CREATE OR REPLACE VIEW view_find_event AS
          event.duration,
          event.event_origin_id,
          event.conference_track_id,
-         event.event_state_id,
-         event.event_state_progress_id,
+         event.event_state,
+         event.event_state_progress,
          event.event_type_id,
          event.language_id,
          event.room_id,
@@ -41,10 +41,11 @@ CREATE OR REPLACE VIEW view_find_event AS
              WHERE event_person.event_id = event.event_id), ', '::text) AS speakers
     FROM event
          INNER JOIN conference USING (conference_id)
-         INNER JOIN view_event_state USING (event_state_id)
-         INNER JOIN view_event_state_progress ON (
-             view_event_state.language_id = view_event_state_progress.language_id AND
-             event.event_state_progress_id = view_event_state_progress.event_state_progress_id)
+         INNER JOIN event_state_localized USING (event_state)
+         INNER JOIN event_state_progress_localized ON (
+             event_state_localized.language_id = event_state_progress_localized.language_id AND
+             event.event_state = event_state_progress_localized.event_state AND
+             event.event_state_progress = event_state_progress_localized.event_state_progress)
          LEFT OUTER JOIN conference_track USING (conference_track_id)
          LEFT OUTER JOIN event_image USING (event_id)
          LEFT OUTER JOIN mime_type USING (mime_type_id)

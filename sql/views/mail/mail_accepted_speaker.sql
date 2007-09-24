@@ -23,15 +23,11 @@ CREATE OR REPLACE VIEW view_mail_accepted_speaker AS
              event_role_state.tag = 'confirmed' )
          INNER JOIN event ON (
              event.event_id = event_person.event_id )
-         INNER JOIN event_state ON (
-             event_state.event_state_id = event.event_state_id AND
-             event_state.tag = 'accepted' )
-         INNER JOIN event_state_progress ON (
-             event_state_progress.event_state_progress_id = event.event_state_progress_id AND
-             event_state_progress.event_state_id = event.event_state_id AND
-             event_state_progress.tag = 'confirmed' )
          INNER JOIN conference ON (
              conference.conference_id = event.conference_id )
+    WHERE
+        event.event_state = 'accepted' AND
+        event.event_state_progress = 'confirmed'
 ORDER BY view_person.person_id, event.event_id
 ;
 

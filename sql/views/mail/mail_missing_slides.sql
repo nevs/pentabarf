@@ -24,13 +24,6 @@ CREATE OR REPLACE VIEW view_mail_missing_slides AS
          INNER JOIN event ON (
              event.event_id = event_person.event_id AND
              event.f_slides = 't' )
-         INNER JOIN event_state ON (
-             event_state.event_state_id = event.event_state_id AND
-             event_state.tag = 'accepted' )
-         INNER JOIN event_state_progress ON (
-             event_state_progress.event_state_progress_id = event.event_state_progress_id AND
-             event_state_progress.event_state_id = event.event_state_id AND
-             event_state_progress.tag = 'confirmed' )
          INNER JOIN conference ON (
              conference.conference_id = event.conference_id )
   WHERE NOT EXISTS (SELECT 1
@@ -38,7 +31,9 @@ CREATE OR REPLACE VIEW view_mail_missing_slides AS
                            INNER JOIN attachment_type ON (
                                attachment_type.attachment_type_id = event_attachment.attachment_type_id AND
                                attachment_type.tag = 'slides' )
-                     WHERE event_attachment.event_id = event.event_id  )
+                     WHERE event_attachment.event_id = event.event_id  ) AND
+        event.event_state = 'accepted' AND
+        event.event_state_progress = 'confirmed'
 ORDER BY view_person.person_id, event.event_id
 ;
 

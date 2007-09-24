@@ -6,7 +6,7 @@ SELECT
   event.subtitle,
   event.abstract,
   event.description,
-  event."day",
+  event.day,
   event.start_time,
   event.duration,
   room.room_id,
@@ -26,11 +26,12 @@ SELECT
       INNER JOIN view_person USING (person_id)
       WHERE event_person.event_id = event.event_id), ', '::text) AS speakers
 FROM event
-  INNER JOIN event_state ON (
-    event_state.event_state_id = event.event_state_id AND
-    event_state.tag::text = 'accepted' )
-  INNER JOIN event_state_progress ON (
-    event_state_progress.event_state_progress_id = event.event_state_progress_id AND 
-    event_state_progress.tag::text = 'confirmed' )
   INNER JOIN conference USING (conference_id)
-  INNER JOIN room USING (room_id);
+  INNER JOIN room USING (room_id)
+WHERE
+  event.day IS NOT NULL AND
+  event.start_time IS NOT NULL AND
+  event.room_id IS NOT NULL AND
+  event.event_state = 'accepted' AND
+  event.event_state_progress = 'confirmed'
+;

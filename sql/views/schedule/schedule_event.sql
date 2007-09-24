@@ -38,21 +38,17 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          ) AS event_image USING (event_id)
          INNER JOIN event ON (
              event.event_id = event_person.event_id AND
+             event.event_state = 'accepted' AND
+             event.event_state_progress = 'confirmed' AND
              event.f_public = 't' AND
              event.day IS NOT NULL AND
              event.start_time IS NOT NULL AND
              event.room_id IS NOT NULL )
          INNER JOIN conference USING (conference_id)
-         INNER JOIN view_event_state ON (
-             view_event_state.event_state_id = event.event_state_id AND
-             view_event_state.tag = 'accepted' )
          INNER JOIN view_room ON (
              view_room.language_id = view_event_state.language_id AND
              view_room.room_id = event.room_id AND
              view_room.f_public = 't' )
-         INNER JOIN event_state_progress ON (
-             event_state_progress.event_state_progress_id = event.event_state_progress_id AND
-             event_state_progress.tag = 'confirmed')
          INNER JOIN event_role ON (
              event_person.event_role_id = event_role.event_role_id AND
              event_role.tag IN ('speaker', 'moderator') )
@@ -65,13 +61,11 @@ CREATE OR REPLACE VIEW view_schedule_event AS
                FROM view_person
          ) AS speaker USING (person_id)
          LEFT OUTER JOIN view_conference_track ON (
-             view_conference_track.conference_track_id = event.conference_track_id AND
-             view_conference_track.language_id = view_event_state.language_id)
+             view_conference_track.conference_track_id = event.conference_track_id )
          LEFT OUTER JOIN view_event_type ON (
              view_event_type.event_type_id = event.event_type_id AND
              view_event_type.language_id = view_event_state.language_id)
          LEFT OUTER JOIN view_language ON (
-             view_language.language_id = event.language_id AND
-             view_language.translated_id = view_event_state.language_id)
+             view_language.language_id = event.language_id )
 ;
 
