@@ -87,7 +87,7 @@ class Pope
         domains.push( d )
       end
     end
-    return [:public] if table.table_name == 'event_rating_public'
+    return [:public] if ['event_rating_public','event_transaction'].member?( table.table_name )
     if table.table_name.match( /_rating$/ )
       domains = [:rating]
     end
