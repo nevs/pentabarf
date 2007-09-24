@@ -6,6 +6,6 @@ CREATE OR REPLACE FUNCTION conflict_event_inconsistent_tag(INTEGER) RETURNS SETO
        WHERE event.tag IS NOT NULL AND
              conference_id = $1 AND
              event.event_state = 'accepted' AND
-             event.tag NOT SIMILAR TO '[a-z0-9\\_]+'
+             event.tag NOT SIMILAR TO E'[a-z0-9\\_]+'
 $$ LANGUAGE SQL;
 
