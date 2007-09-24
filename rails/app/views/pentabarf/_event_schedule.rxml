@@ -6,13 +6,13 @@ xml.div(:id=>'content-schedule') do
     xml.legend local('view::pentabarf::event::tab::schedule')
 
     xml.table do
-      xml << select_row( @event, :day, (1..@conference.days).to_a )
+      xml << select_row( @event, :day, (1..@conference.days).to_a, {:with_empty=>true} )
       start_times = []
       range = @conference.day_change..(@conference.day_change + (24*3600) - 1 )
       range.step(@conference.timeslot_duration.seconds_since_midnight) do | current |
         start_times << [current.strftime('%H:%M:%S'),current.strftime('%H:%M')]
       end
-      xml << select_row( @event, :start_time, start_times,{:selected=>@event.start_time ? @event.start_time.strftime('%H:%M:%S') : nil} )
+      xml << select_row( @event, :start_time, start_times,{:selected=>@event.start_time ? @event.start_time.strftime('%H:%M:%S') : nil,:with_empty=>true} )
 
       d = []
       slot_seconds = @conference.timeslot_duration.seconds_since_midnight
@@ -22,7 +22,7 @@ xml.div(:id=>'content-schedule') do
       end
       @event.duration = d[@conference.default_timeslots - 1] if not @event.duration
       xml << select_row( @event, :duration, d, {:selected=>@event.duration.strftime('%H:%M:%S')} )
-      xml << select_row( @event, :room_id, Room.select({:conference_id=>@event.conference_id}).map{|e| [e.room_id, e.short_name]})
+      xml << select_row( @event, :room_id, Room.select({:conference_id=>@event.conference_id}).map{|e| [e.room_id, e.short_name]},{:with_empty=>true})
       xml << check_box_row( @event, :f_public )
     end
   end
