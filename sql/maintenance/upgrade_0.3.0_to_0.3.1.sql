@@ -80,11 +80,15 @@ ALTER TABLE event ADD CONSTRAINT event_event_state_fkey FOREIGN KEY ( event_stat
 ALTER TABLE event ALTER event_state SET NOT NULL;
 ALTER TABLE event ALTER event_state_progress SET NOT NULL;
 
+ALTER TABLE event ALTER event_state SET DEFAULT 'undecided';
+ALTER TABLE event ALTER event_state_progress SET DEFAULT 'new';
+
 -- drop unused columns from event
 
 ALTER TABLE event DROP COLUMN f_conflict;
 ALTER TABLE event DROP COLUMN f_deleted;
 ALTER TABLE event DROP COLUMN f_unmoderated;
+
 
 COMMIT;
 
