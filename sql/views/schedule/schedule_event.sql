@@ -17,9 +17,8 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          view_event_type.event_type_id,
          view_event_type.name AS event_type,
          view_event_type.tag AS event_type_tag,
-         view_conference_track.conference_track_id,
-         view_conference_track.name AS conference_track,
-         view_conference_track.tag AS conference_track_tag,
+         conference_track.conference_track_id,
+         conference_track.tag AS conference_track,
          view_language.language_id,
          view_language.name AS language,
          view_language.tag AS language_tag,
@@ -59,12 +58,12 @@ CREATE OR REPLACE VIEW view_schedule_event AS
                     name
                FROM view_person
          ) AS speaker USING (person_id)
-         LEFT OUTER JOIN view_conference_track ON (
-             view_conference_track.conference_track_id = event.conference_track_id )
+         LEFT OUTER JOIN conference_track USING (conference_track_id)
          LEFT OUTER JOIN view_event_type ON (
              view_event_type.event_type_id = event.event_type_id AND
              view_event_type.language_id = view_room.language_id)
          LEFT OUTER JOIN view_language ON (
+             view_language.translated_id = view_room.language_id AND
              view_language.language_id = event.language_id )
 ;
 
