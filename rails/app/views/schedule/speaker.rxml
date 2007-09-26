@@ -6,7 +6,7 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
       @speakers.select{|e| e.person_id == @person.person_id}.each do | event |
         xml.tr do
           xml.td do
-            xml.a(:href=>url_for(:action=>:event,:id=>event.event_id)) do
+            xml.a(:href=>url_for(:action=>:event,:id=>event.event_id,:conference=>@conference.acronym,:language=>params[:language])) do
               xml.img(:src=>event_image(event.event_id,32))
             end
           end

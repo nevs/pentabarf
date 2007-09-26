@@ -39,22 +39,22 @@ xml.div(:id=>'schedule',:class=>'section') do
             else
               event_id = row[room.room_id][:event_id]
               event = @events.select{|e| e.event_id == event_id }.first
-              xml.td({:rowspan=>row[room.room_id][:slots],:class=>"room event #{sanitize_track(event.conference_track_tag)}"}) do
+              xml.td({:rowspan=>row[room.room_id][:slots],:class=>"room event #{sanitize_track(event.conference_track)}"}) do
                 xml.p(:class=>'title') do
-                  xml.a( event.title, {:href=>url_for(:action=>:event,:id=>event_id)} )
+                  xml.a( event.title, {:href=>url_for(:action=>:event,:id=>event_id,:conference=>@conference.acronym,:language=>params[:language])} )
                 end
                 xml.p(:class=>'subtitle') do
-                  xml.a( event.subtitle, {:href=>url_for(:action=>:event,:id=>event_id)} )
+                  xml.a( event.subtitle, {:href=>url_for(:action=>:event,:id=>event_id,:conference=>@conference.acronym,:language=>params[:language])} )
                 end
                 xml.ul(:class=>'speakers') do
                   @events.select{|e| e.event_id == event_id }.each do | speaker |
                     xml.li do
-                      xml.a(speaker.name, {:href=>url_for(:action=>:speaker,:id=>speaker.person_id)})
+                      xml.a(speaker.name, {:href=>url_for(:action=>:speaker,:id=>speaker.person_id,:conference=>@conference.acronym,:language=>params[:language])})
                     end
                   end
                 end
                 xml.p(:class=>'info') do
-                  xml.a(:href=>url_for({:action=>:event,:id=>event_id})) do
+                  xml.a({:href=>url_for(:action=>:event,:id=>event_id,:conference=>@conference.acronym,:language=>params[:language])} ) do
                     xml.text! local('schedule::language')
                     xml.span(event.language,{:class=>'language'})
                     xml.br

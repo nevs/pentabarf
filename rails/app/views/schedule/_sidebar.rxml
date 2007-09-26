@@ -2,13 +2,13 @@ xml = Builder::XmlMarkup.new(:indent=>1)
 xml.div(:id=>'menu', :class=>'noprint') do
   xml.ul do
     xml.li do
-      xml.a(:href=>url_for({:action=>:index})) do
+      xml.a(:href=>url_for({:action=>:index,:language=>params[:language],:conference=>@conference.acronym})) do
         xml.span('Index', :class=>:normal)
       end
     end
     @conference.days.times do | day |
       xml.li do
-        xml.a(:href=>url_for({:action=>:day,:id=>day + 1})) do
+        xml.a(:href=>url_for({:action=>:day,:id=>day + 1,:language=>params[:language],:conference=>@conference.acronym})) do
           xml.span("#{local(:day)} #{day + 1}", :class=>:normal)
         end
       end
