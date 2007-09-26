@@ -89,6 +89,19 @@ ALTER TABLE event DROP COLUMN f_conflict;
 ALTER TABLE event DROP COLUMN f_deleted;
 ALTER TABLE event DROP COLUMN f_unmoderated;
 
+CREATE SCHEMA auth;
+
+CREATE TABLE auth.domain(
+  domain TEXT,
+  PRIMARY KEY(domain)
+);
+
+CREATE TABLE auth.object_domain(
+  object TEXT,
+  domain TEXT,
+  PRIMARY KEY(object, domain),
+  FOREIGN KEY(domain) REFERENCES auth.domain(domain)
+);
 
 COMMIT;
 
