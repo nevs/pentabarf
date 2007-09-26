@@ -1,4 +1,6 @@
 BEGIN TRANSACTION;
+\i auth.domain.sql
+\i auth.object_domain.sql
 \i language.sql
 \i language_localized.sql
 \i authorisation.sql
