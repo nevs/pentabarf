@@ -9,26 +9,19 @@ SET client_min_messages = warning;
 SET search_path = public, pg_catalog;
 
 --
--- Name: event_state_progress_event_state_progress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('event_state_progress_event_state_progress_id_seq', 10, true);
-
-
---
 -- Data for Name: event_state_progress; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (1, 1, 'new', 1);
-INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (2, 1, 'review', 2);
-INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (3, 1, 'candidate', 3);
-INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (4, 1, 'withdrawn', 4);
-INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (5, 2, 'unconfirmed', 1);
-INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (6, 2, 'confirmed', 2);
-INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (7, 2, 'canceled', 3);
-INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (8, 3, 'unconfirmed', 1);
-INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (9, 3, 'confirmed', 2);
-INSERT INTO event_state_progress (event_state_progress_id, event_state_id, tag, rank) VALUES (10, 1, 'rejection-candidate', 5);
+INSERT INTO event_state_progress (rank, event_state, event_state_progress) VALUES (1, 'undecided', 'new');
+INSERT INTO event_state_progress (rank, event_state, event_state_progress) VALUES (2, 'undecided', 'review');
+INSERT INTO event_state_progress (rank, event_state, event_state_progress) VALUES (3, 'undecided', 'candidate');
+INSERT INTO event_state_progress (rank, event_state, event_state_progress) VALUES (4, 'undecided', 'withdrawn');
+INSERT INTO event_state_progress (rank, event_state, event_state_progress) VALUES (1, 'accepted', 'unconfirmed');
+INSERT INTO event_state_progress (rank, event_state, event_state_progress) VALUES (2, 'accepted', 'confirmed');
+INSERT INTO event_state_progress (rank, event_state, event_state_progress) VALUES (3, 'accepted', 'canceled');
+INSERT INTO event_state_progress (rank, event_state, event_state_progress) VALUES (1, 'rejected', 'unconfirmed');
+INSERT INTO event_state_progress (rank, event_state, event_state_progress) VALUES (2, 'rejected', 'confirmed');
+INSERT INTO event_state_progress (rank, event_state, event_state_progress) VALUES (5, 'undecided', 'rejection-candidate');
 
 
 --

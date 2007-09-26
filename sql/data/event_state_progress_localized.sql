@@ -12,26 +12,26 @@ SET search_path = public, pg_catalog;
 -- Data for Name: event_state_progress_localized; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (2, 144, 'In Rezension');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (1, 120, 'Incomplete');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (1, 144, 'Unvollständig');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (3, 144, 'Kandidat');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (10, 144, 'Ablehnungskandidat');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (6, 120, 'Confirmed');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (6, 144, 'Bestätigt');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (7, 120, 'Canceled');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (7, 144, 'Abgesagt');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (8, 120, 'Unconfirmed');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (8, 144, 'Unbestätigt');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (9, 120, 'Confirmed');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (9, 144, 'Bestätigt');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (2, 120, 'In review');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (3, 120, 'Candidate');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (10, 120, 'Rejection candidate');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (4, 120, 'Withdrawn');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (4, 144, 'Zurückgezogen');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (5, 120, 'Unconfirmed');
-INSERT INTO event_state_progress_localized (event_state_progress_id, language_id, name) VALUES (5, 144, 'Unbestätigt');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (144, 'In Rezension', 'undecided', 'review');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (120, 'Incomplete', 'undecided', 'new');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (144, 'Unvollständig', 'undecided', 'new');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (144, 'Kandidat', 'undecided', 'candidate');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (144, 'Ablehnungskandidat', 'undecided', 'rejection-candidate');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (120, 'Confirmed', 'accepted', 'confirmed');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (144, 'Bestätigt', 'accepted', 'confirmed');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (120, 'Canceled', 'accepted', 'canceled');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (144, 'Abgesagt', 'accepted', 'canceled');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (120, 'Unconfirmed', 'rejected', 'unconfirmed');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (144, 'Unbestätigt', 'rejected', 'unconfirmed');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (120, 'Confirmed', 'rejected', 'confirmed');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (144, 'Bestätigt', 'rejected', 'confirmed');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (120, 'In review', 'undecided', 'review');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (120, 'Candidate', 'undecided', 'candidate');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (120, 'Rejection candidate', 'undecided', 'rejection-candidate');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (120, 'Withdrawn', 'undecided', 'withdrawn');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (144, 'Zurückgezogen', 'undecided', 'withdrawn');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (120, 'Unconfirmed', 'accepted', 'unconfirmed');
+INSERT INTO event_state_progress_localized (language_id, name, event_state, event_state_progress) VALUES (144, 'Unbestätigt', 'accepted', 'unconfirmed');
 
 
 --
