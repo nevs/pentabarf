@@ -27,6 +27,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           view_conference_track.name AS conference_track,
           (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
           event.start_time + conference.day_change AS real_starttime,
+          view_room.language_id AS translated_id,
           view_room.tag AS room_tag,
           view_room.name AS room,
           array_to_string(
@@ -54,17 +55,16 @@ CREATE OR REPLACE VIEW view_schedule AS
           ) AS persons
      FROM event
           INNER JOIN conference USING (conference_id)
+          INNER JOIN view_room USING (room_id)
           LEFT OUTER JOIN view_language ON (
+              view_language.translated_id = view_room.language_id AND
               view_language.language_id = event.language_id )
           LEFT OUTER JOIN view_event_type ON (
                 event.event_type_id = view_event_type.event_type_id AND
-                view_language.language_id = view_event_type.language_id)
+                view_room.language_id = view_event_type.language_id)
           LEFT OUTER JOIN view_conference_track ON (
                 event.conference_track_id = view_conference_track.conference_track_id AND
-                view_language.language_id = view_conference_track.language_id)
-          INNER JOIN view_room ON (
-                event.room_id = view_room.room_id AND
-                view_room.language_id = view_language.language_id )
+                view_room.language_id = view_conference_track.language_id)
     WHERE event.day IS NOT NULL AND
           event.start_time IS NOT NULL AND
           event.room_id IS NOT NULL AND
