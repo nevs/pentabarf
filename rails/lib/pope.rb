@@ -9,6 +9,10 @@ class Pope
 
   def initialize
     @permissions = []
+    @domains = {}
+    Object_domain.select.each do | row |
+      @domains[row.object.to_sym] = row.domain.to_sym
+    end
   end
 
   def auth( user, pass )
@@ -48,59 +52,47 @@ class Pope
   end
 
   def table_write( table, row )
-    table_domains( table ).each do | domain |
-      return if domain == :public
-      action = row.new_record? ? :create : :modify
-      action = :modify if table.table_name.to_sym != domain
-      if action == :modify
-        case domain
-          when :event then return if @own_events.member?( row.event_id )
-          when :person then return if permission?( :modify_own_person ) && row.person_id == @user.person_id
-          when :conference_person then return if @own_conference_persons.member?( row.conference_person_id )
-        end
-      end
-      if domain == :conference_person
-        domain = :person
-        action = :modify
-      end
-      return if permissions.member?( "#{action}_#{domain}".to_sym )
-    end
+    d = domain( table.table_name )
+    return if d == :public
+    action = row.new_record? ? :create : :modify
+    action = :modify if table.table_name.to_sym != d
+    return if permission?( "#{action}_#{d}" )
+    send( "domain_#{d}", action, row )
+   rescue
     raise Pope::PermissionError, "Not allowed to write #{table.table_name}"
   end
 
-  def table_delete( table, row )
-    table_domains( table ).each do | domain |
-      action = :delete
-      action = :modify if table.table_name.to_sym != domain
-      domain = :person if domain == :conference_person
-      next if permissions.member?( "#{action}_#{domain}".to_sym )
-      raise Pope::PermissionError, "Not allowed to delete #{table.table_name} [#{action}_#{domain}]"
+  def domain_event( action, row )
+    if action == :modify && permission?(:modify_own_event)
+      return if @own_events.member?( row.event_id )
     end
+    raise Pope::PermissionError
+  end
+
+  def domain_person( action, row )
+    if action == :modify && permission?( :modify_own_person )
+      return if row.respond_to?( :person_id ) && row.person_id == @user.person_id
+      return if row.respond_to?( :conference_person_id ) && @own_conference_persons.member?( row.conference_person_id )
+    end
+    raise Pope::PermissionError
+  end
+
+  def table_delete( table, row )
+    action = :delete
+    d = domain( table.table_name )
+    action = :modify if table.table_name.to_sym != d
+    return if permission?( "#{action}_#{d}" )
+    send( "domain_#{d}", action, row )
+  rescue
+    raise Pope::PermissionError, "Not allowed to delete #{table.table_name} [#{action}_#{domain}]"
   end
 
   protected
 
-  def table_domains( table )
-    domains = []
-    [:event,:person,:conference,:conference_person].each do | d |
-      if table.columns.key?( "#{d}_id".to_sym )
-        domains.push( d )
-      end
-    end
-    return [:public] if ['event_rating_public','event_transaction'].member?( table.table_name )
-    if table.table_name.match( /_rating$/ )
-      domains = [:rating]
-    end
-    if table.table_name.match( /_localized$/ ) && table.columns.key?(:language_id)
-      domains.push( :localization )
-    end
-    if ['conference_phase_conflict'].member?( table.table_name )
-      domains.push( :config )
-    end
-    # FIXME workaround for no per conference permissions
-    domains.delete( :conference ) if domains.member?( :person ) || domains.member?( :event )
-    raise "No domain found for table #{table}" if domains.empty?
-    domains
+  def domain( object )
+    d = @domains[object.to_sym]
+    raise "No domain found for #{object}" if not d
+    d
   end
 
   def flush
