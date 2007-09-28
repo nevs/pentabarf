@@ -6,6 +6,8 @@ CREATE OR REPLACE VIEW view_review AS
     event.title,
     event.subtitle,
     event.event_state,
+    event_state_localized.name AS event_state_name,
+    event_state_localized.language_id AS translated_id,
     event.event_state_progress,
     array_to_string(ARRAY(
       SELECT view_person.name
@@ -28,6 +30,7 @@ CREATE OR REPLACE VIEW view_review AS
      (2 * coalesce( rating.acceptance, 0 ) + coalesce( rating.relevance, 0 ) + coalesce( rating.actuality, 0 ))/4 AS rating,
      conference_track.tag AS conference_track
     FROM event
+         LEFT OUTER JOIN event_state_localized USING (event_state)
          LEFT OUTER JOIN (
            SELECT event_id,
                   coalesce( sum((relevance - 3) * 50 )/ count(relevance), 0) AS relevance,
