@@ -15,9 +15,6 @@ require 'pope'
 require 'jabberlogger'
 require 'yaml'
 
-
-M = Momomoto
-
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
 
@@ -42,7 +39,6 @@ Rails::Initializer.run do |config|
 
   Momomoto::Database.config( YAML.load_file( config.database_configuration_file )[ENV['RAILS_ENV']] )
   Momomoto::Database.connect
-  ::POPE = Pope.new
 
 end
 
@@ -68,4 +64,6 @@ class NilClass
     ''
   end
 end
+
+::POPE = Pope.new
 
