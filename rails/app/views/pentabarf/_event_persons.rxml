@@ -2,6 +2,8 @@ xml = Builder::XmlMarkup.new(:indent=>1)
 
 xml.div(:id=>'content-persons') do
 
+  xml << text_area_fieldset( @event, :submission_notes, {:rows=>5,:cols=>60})
+
   xml.fieldset do
     xml.legend local('persons')
 

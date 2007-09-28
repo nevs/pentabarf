@@ -14,6 +14,7 @@ xml.div( :id => 'data' ) do
 
     xml.input( nil, {:type=>:hidden,:name=>:transaction,:value=>@transaction.event_transaction_id})
 
+    xml << render( :partial => 'submission_comment' )
     xml << render( :partial => 'modification_buttons' )
 
     tabs.each do | tab |
