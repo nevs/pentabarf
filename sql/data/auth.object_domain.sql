@@ -36,6 +36,9 @@ INSERT INTO object_domain ("object", "domain") VALUES ('room', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('team', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('ui_message_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('person_role', 'account');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_transaction', 'public');
+INSERT INTO object_domain ("object", "domain") VALUES ('person_transaction', 'public');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_transaction', 'public');
 
 
 --
