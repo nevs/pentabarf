@@ -38,6 +38,7 @@ CREATE OR REPLACE VIEW view_schedule AS
                   event_role.event_role_id = event_person.event_role_id AND
                   event_role.tag IN ('speaker','moderator','coordinator')
                 JOIN event_role_localized ON (
+                  event_role_localized.language_id = view_room.language_id AND
                   event_role_localized.event_role_id = event_role.event_role_id )
                 LEFT OUTER JOIN event_role_state ON
                   event_role_state.event_role_state_id = event_person.event_role_state_id
