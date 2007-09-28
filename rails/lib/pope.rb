@@ -62,6 +62,16 @@ class Pope
     raise Pope::PermissionError, "Not allowed to write #{table.table_name}"
   end
 
+  def table_delete( table, row )
+    action = :delete
+    d = domain( table.table_name )
+    action = :modify if table.table_name.to_sym != d
+    return if permission?( "#{action}_#{d}" )
+    send( "domain_#{d}", action, row )
+   rescue
+    raise Pope::PermissionError, "Not allowed to delete #{table.table_name}"
+  end
+
   def domain_event( action, row )
     if action == :modify && permission?(:modify_own_event)
       return if @own_events.member?( row.event_id )
@@ -75,16 +85,6 @@ class Pope
       return if row.respond_to?( :conference_person_id ) && @own_conference_persons.member?( row.conference_person_id )
     end
     raise Pope::PermissionError
-  end
-
-  def table_delete( table, row )
-    action = :delete
-    d = domain( table.table_name )
-    action = :modify if table.table_name.to_sym != d
-    return if permission?( "#{action}_#{d}" )
-    send( "domain_#{d}", action, row )
-  rescue
-    raise Pope::PermissionError, "Not allowed to delete #{table.table_name} [#{action}_#{domain}]"
   end
 
   protected
