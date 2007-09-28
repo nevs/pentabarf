@@ -18,28 +18,25 @@ class PentabarfControllerTest < Test::Unit::TestCase
   end
 
   def test_conference
-    get :conference, {:id => 1}
+    get :conference, {:id =>'new'}
     assert_response :success
   end
 
   def test_event
-    get :event, {:id => 6}
+    get :event, {:id =>'new'}
     assert_response :success
   end
 
   def test_person
-    get :person, {:id => 1}
+    get :person, {:id =>'new'}
     assert_response :success
   end
 
-  def test_review
-    get :review
-    assert_response :success
-  end
-
-  def test_conflicts
-    get :conflicts
-    assert_response :success
+  [:review,:conflicts,:recent_changes,:schedule,:find_person,:find_event,:find_conference].each do | action |
+    define_method "test_#{action}" do
+      get action
+      assert_response :success
+    end
   end
 
 end
