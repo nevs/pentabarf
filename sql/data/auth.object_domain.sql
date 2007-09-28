@@ -39,6 +39,9 @@ INSERT INTO object_domain ("object", "domain") VALUES ('person_role', 'account')
 INSERT INTO object_domain ("object", "domain") VALUES ('event_transaction', 'public');
 INSERT INTO object_domain ("object", "domain") VALUES ('person_transaction', 'public');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_transaction', 'public');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_image', 'event');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_image', 'conference');
+INSERT INTO object_domain ("object", "domain") VALUES ('person_image', 'person');
 
 
 --
