@@ -32,4 +32,14 @@ class PentabarfControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  def test_review
+    get :review
+    assert_response :success
+  end
+
+  def test_conflicts
+    get :conflicts
+    assert_response :success
+  end
+
 end
