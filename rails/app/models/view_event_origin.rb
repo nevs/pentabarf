@@ -1,4 +1,4 @@
 class View_event_origin < Momomoto::Table
-  default_order( M::lower(:name) )
+  default_order( Momomoto::lower(:name) )
 end
 
