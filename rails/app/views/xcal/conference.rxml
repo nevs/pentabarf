@@ -1,5 +1,3 @@
-xml = Builder::XmlMarkup.new
-
 @events.each do | event |
   xml.vevent do
     xml.method( "PUBLISH" )

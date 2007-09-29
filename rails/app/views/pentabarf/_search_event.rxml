@@ -1,5 +1,3 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-
 xml.table do
   fields = [:event_state,:event_state_progress,:day,:room]
   xml.thead do

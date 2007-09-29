@@ -1,5 +1,3 @@
-xml = Builder::XmlMarkup.new
-
 xml.div({:id=>:menu}) do
   xml.ul do
     xml.li do

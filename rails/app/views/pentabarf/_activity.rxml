@@ -1,4 +1,3 @@
-xml = Builder::XmlMarkup.new
 xml.div do
   @last_active.each do | name |
     xml.a({:href=>url_for(:action=>:person,:id=>name.person_id), :title => name.name }) do

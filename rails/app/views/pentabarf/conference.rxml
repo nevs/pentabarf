@@ -1,5 +1,3 @@
-xml = Builder::XmlMarkup.new
-
 tabs = [:general,:teams,:tracks,:rooms,:export,:feedback]
 
 xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/calendar.js')})

@@ -1,4 +1,3 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
 xml.instruct!
 xml.feed({:xmlns=>"http://www.w3.org/2005/Atom"}) do
   xml.title "Pentabarf Recent Changes"

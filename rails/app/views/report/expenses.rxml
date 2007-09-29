@@ -1,5 +1,3 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-
 @report = @report_class.select({:conference_id=>@current_conference.conference_id,:language_id=>@current_language_id})
 
 xml.div({:id=>:data}) do

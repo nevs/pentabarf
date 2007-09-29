@@ -1,5 +1,3 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-
 # collect all active slots
 saved = Person_availability.select({:person_id=>@person.person_id,:conference_id=>@conference.conference_id})
 slots = []

@@ -1,5 +1,3 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-
 xml.div do
   xml.form({:action=>url_for(:action=>:save_conflict_setup),:id=>:content_form}) do
 

@@ -1,5 +1,3 @@
-xml = Builder::XmlMarkup.new
-
 rooms = View_room.select({:conference_id=>@current_conference.conference_id, :language_id=>@current_language_id},{:order=>:rank})
 conf = Conference.select_single({:conference_id=>@current_conference.conference_id})
 day_tabs = []

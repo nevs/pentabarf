@@ -1,5 +1,3 @@
-xml = Builder::XmlMarkup.new
-
 xml.div(:id=>'content-general') do
 
   xml.fieldset do

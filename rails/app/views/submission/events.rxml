@@ -1,4 +1,3 @@
-
 xml.p( local( 'submission::events::introduction' ) )
 
 xml.table do

@@ -1,4 +1,3 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
 date = @conference.start_date + @day - 1
 xml.div(:id=>'schedule',:class=>'section') do
   xml.h1 "#{local('schedule::schedule')} #{local('schedule::day')} #{@day}: #{date.strftime('%d.%m.%Y')}"

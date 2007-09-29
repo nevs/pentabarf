@@ -1,4 +1,3 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
 xml.ul do
   @conference.days.times do | day |
     date = @conference.start_date + day

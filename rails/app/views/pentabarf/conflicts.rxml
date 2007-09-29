@@ -1,5 +1,3 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
-
 xml.div( :id => 'object-image' ) do
   xml.img( :src => image_path( 'icon-list-64x64.png' ), :class => 'object-image' )
 end

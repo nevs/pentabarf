@@ -1,4 +1,3 @@
-xml = Builder::XmlMarkup.new(:indent=>1)
 xml.instruct!
 xml.iCalendar(:"xmlns:xCal"=>"urn:ietf:params:xml:ns:xcal", :"xmlns:pentabarf"=>"http://pentabarf.org") do
   xml.vcalendar do
