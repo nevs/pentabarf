@@ -305,23 +305,6 @@ CREATE OR REPLACE VIEW view_phone_type AS
          ) AS all_lang 
          LEFT OUTER JOIN phone_type_localized USING (language_id, phone_type_id);
 
--- view for roles with fallback to tag
-CREATE OR REPLACE VIEW view_role AS 
-  SELECT role_id, 
-         language_id, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  role_id, 
-                  role.tag, 
-                  language.tag AS 
-                  language_tag FROM 
-                  language CROSS JOIN role
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN role_localized USING (language_id, role_id);
-
 -- view for room with fallback to tag
 CREATE OR REPLACE VIEW view_room AS 
   SELECT room_id, 
