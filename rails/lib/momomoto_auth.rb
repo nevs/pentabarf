@@ -10,8 +10,9 @@ module Momomoto
       def write( *args )
         if args[0].dirty?
           POPE.table_write( self, *args )
-          __write( *args )
+          return __write( *args )
         end
+        false
       end
 
       alias_method( :__delete, :delete )
