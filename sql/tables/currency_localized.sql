@@ -6,5 +6,5 @@ CREATE TABLE currency_localized (
   FOREIGN KEY (currency_id) REFERENCES currency (currency_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (currency_id, language_id)
-) WITHOUT OIDS;
+);
 

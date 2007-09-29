@@ -5,5 +5,5 @@ CREATE TABLE event_role (
   rank INTEGER,
   f_public BOOL,
   PRIMARY KEY (event_role_id)
-) WITHOUT OIDS;
+);
 

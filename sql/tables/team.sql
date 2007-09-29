@@ -6,5 +6,5 @@ CREATE TABLE team (
   rank INTEGER,
   FOREIGN KEY (conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (team_id)
-) WITHOUT OIDS;
+);
 

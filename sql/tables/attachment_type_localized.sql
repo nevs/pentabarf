@@ -6,5 +6,5 @@ CREATE TABLE attachment_type_localized (
   FOREIGN KEY (attachment_type_id) REFERENCES attachment_type (attachment_type_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (attachment_type_id, language_id)
-) WITHOUT OIDS;
+);
 

@@ -5,5 +5,5 @@ CREATE TABLE role_authorisation (
   FOREIGN KEY (role_id) REFERENCES role (role_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (authorisation_id) REFERENCES authorisation (authorisation_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (role_id, authorisation_id)
-) WITHOUT OIDS;
+);
 

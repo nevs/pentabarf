@@ -8,5 +8,5 @@ CREATE TABLE language (
   f_visible BOOL NOT NULL DEFAULT FALSE,
   f_preferred BOOL NOT NULL DEFAULT FALSE,
   PRIMARY KEY (language_id)
-) WITHOUT OIDS;
+);
 

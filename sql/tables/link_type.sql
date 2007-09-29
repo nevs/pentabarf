@@ -5,5 +5,5 @@ CREATE TABLE link_type (
   template VARCHAR(1024),
   rank INTEGER,
   PRIMARY KEY (link_type_id)
-) WITHOUT OIDS;
+);
 

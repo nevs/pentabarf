@@ -4,5 +4,5 @@ CREATE TABLE conference_phase (
   tag VARCHAR(32) NOT NULL UNIQUE,
   rank INTEGER,
   PRIMARY KEY (conference_phase_id)
-) WITHOUT OIDS;
+);
 

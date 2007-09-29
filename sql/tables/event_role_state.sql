@@ -6,5 +6,5 @@ CREATE TABLE event_role_state (
   rank INTEGER,
   FOREIGN KEY (event_role_id) REFERENCES event_role (event_role_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (event_role_state_id)
-) WITHOUT OIDS;
+);
 

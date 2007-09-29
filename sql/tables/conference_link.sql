@@ -7,5 +7,5 @@ CREATE TABLE conference_link (
   rank INTEGER,
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (conference_link_id)
-) WITHOUT OIDS;
+);
 

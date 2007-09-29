@@ -5,5 +5,5 @@ CREATE TABLE activation_string_reset_password (
   password_reset TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   PRIMARY KEY (person_id),
   FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE
-) WITHOUT OIDS;
+);
 

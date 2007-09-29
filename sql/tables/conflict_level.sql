@@ -4,5 +4,5 @@ CREATE TABLE conflict_level (
   tag VARCHAR(64) NOT NULL UNIQUE,
   rank INTEGER,
   PRIMARY KEY (conflict_level_id)
-) WITHOUT OIDS;
+);
 

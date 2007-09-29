@@ -9,5 +9,5 @@ CREATE TABLE person_rating (
   FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (evaluator_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (person_id, evaluator_id)
-) WITHOUT OIDS;
+);
 

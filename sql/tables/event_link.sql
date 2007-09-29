@@ -9,5 +9,5 @@ CREATE TABLE event_link (
   last_modified_by INTEGER,
   FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (event_link_id)
-) WITHOUT OIDS;
+);
 

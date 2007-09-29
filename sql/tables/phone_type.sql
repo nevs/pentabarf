@@ -5,5 +5,5 @@ CREATE TABLE phone_type (
   scheme VARCHAR(32),
   rank INTEGER,
   PRIMARY KEY (phone_type_id)
-) WITHOUT OIDS;
+);
 

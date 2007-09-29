@@ -6,5 +6,5 @@ CREATE TABLE person_language (
   FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   PRIMARY KEY (person_id, language_id)
-) WITHOUT OIDS;
+);
 

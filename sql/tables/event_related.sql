@@ -6,5 +6,5 @@ CREATE TABLE event_related (
   FOREIGN KEY (event_id2) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
   CHECK (event_id1 <> event_id2),
   PRIMARY KEY (event_id1, event_id2)
-) WITHOUT OIDS;
+);
 

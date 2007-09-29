@@ -9,5 +9,5 @@ CREATE TABLE conference_phase_conflict(
   FOREIGN KEY (conflict_level_id) REFERENCES conflict_level (conflict_level_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   UNIQUE (conference_phase_id, conflict_id),
   PRIMARY KEY (conference_phase_conflict_id)
-) WITHOUT OIDS;
+);
 

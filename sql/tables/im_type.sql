@@ -5,5 +5,5 @@ CREATE TABLE im_type (
   scheme VARCHAR(32),
   rank INTEGER,
   PRIMARY KEY (im_type_id)
-) WITHOUT OIDS;
+);
 

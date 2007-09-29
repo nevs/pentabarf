@@ -5,5 +5,5 @@ CREATE TABLE person_role (
   FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (role_id) REFERENCES role (role_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (person_id, role_id)
-) WITHOUT OIDS;
+);
 

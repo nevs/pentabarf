@@ -6,5 +6,5 @@ CREATE TABLE transport_localized (
   FOREIGN KEY (transport_id) REFERENCES transport (transport_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (transport_id, language_id)
-) WITHOUT OIDS;
+);
 

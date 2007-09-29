@@ -8,5 +8,5 @@ CREATE TABLE conference_language (
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   UNIQUE (conference_id, language_id),
   PRIMARY KEY (conference_language_id)
-) WITHOUT OIDS;
+);
 

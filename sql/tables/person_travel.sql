@@ -43,5 +43,5 @@ CREATE TABLE person_travel (
   FOREIGN KEY (fee_currency_id) REFERENCES currency (currency_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (last_modified_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY (person_id, conference_id)
-) WITHOUT OIDS;
+);
 

@@ -4,5 +4,5 @@ CREATE TABLE role (
   tag VARCHAR(32) NOT NULL UNIQUE,
   rank INTEGER,
   PRIMARY KEY (role_id)
-) WITHOUT OIDS;
+);
 

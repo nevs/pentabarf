@@ -6,5 +6,5 @@ CREATE TABLE authorisation_localized (
   FOREIGN KEY (authorisation_id) REFERENCES authorisation (authorisation_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (authorisation_id, language_id)
-) WITHOUT OIDS;
+);
 

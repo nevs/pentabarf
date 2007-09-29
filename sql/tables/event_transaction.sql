@@ -8,5 +8,5 @@ CREATE TABLE event_transaction (
   FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (changed_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (event_transaction_id)
-) WITHOUT OIDS;
+);
 

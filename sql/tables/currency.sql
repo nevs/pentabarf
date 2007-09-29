@@ -7,5 +7,5 @@ CREATE TABLE currency (
   f_preferred BOOL NOT NULL DEFAULT FALSE,
   exchange_rate DECIMAL(15,5),
   PRIMARY KEY (currency_id)
-) WITHOUT OIDS;
+);
 

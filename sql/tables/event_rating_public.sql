@@ -11,5 +11,5 @@ CREATE TABLE event_rating_public (
   rater_ip INET,
   FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (event_id, eval_time)
-) WITHOUT OIDS;
+);
 

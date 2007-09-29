@@ -8,5 +8,5 @@ CREATE TABLE account_activation(
   FOREIGN KEY (person_id) REFERENCES person(person_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (account_activation_id)
-) WITHOUT OIDS;
+);
 

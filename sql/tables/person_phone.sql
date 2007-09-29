@@ -8,5 +8,5 @@ CREATE TABLE person_phone (
   FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (phone_type_id) REFERENCES phone_type (phone_type_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   PRIMARY KEY (person_phone_id)
-) WITHOUT OIDS;
+);
 

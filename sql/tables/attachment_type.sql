@@ -4,5 +4,5 @@ CREATE TABLE attachment_type (
   tag VARCHAR(32) NOT NULL UNIQUE,
   rank INTEGER,
   PRIMARY KEY (attachment_type_id)
-) WITHOUT OIDS;
+);
 

@@ -4,5 +4,5 @@ CREATE TABLE authorisation (
   tag VARCHAR(32) NOT NULL UNIQUE,
   rank INTEGER,
   PRIMARY KEY (authorisation_id)
-) WITHOUT OIDS;
+);
 

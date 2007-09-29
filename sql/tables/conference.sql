@@ -39,5 +39,5 @@ CREATE TABLE conference (
   FOREIGN KEY (currency_id) REFERENCES currency (currency_id) ON UPDATE CASCADE ON DELETE SET NULL,
   FOREIGN KEY (last_modified_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY (conference_id)
-) WITHOUT OIDS;
+);
 

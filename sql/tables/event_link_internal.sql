@@ -9,5 +9,5 @@ CREATE TABLE event_link_internal (
   FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (link_type_id) REFERENCES link_type (link_type_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   PRIMARY KEY (event_link_internal_id)
-) WITHOUT OIDS;
+);
 

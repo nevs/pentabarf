@@ -4,5 +4,5 @@ CREATE TABLE event_origin (
   tag VARCHAR(32) NOT NULL UNIQUE,
   rank INTEGER,
   PRIMARY KEY (event_origin_id)
-) WITHOUT OIDS;
+);
 

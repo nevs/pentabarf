@@ -6,5 +6,5 @@ CREATE TABLE language_localized (
   FOREIGN KEY (translated_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (translated_id, language_id)
-) WITHOUT OIDS;
+);
 

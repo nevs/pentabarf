@@ -6,5 +6,5 @@ CREATE TABLE mime_type_localized (
   FOREIGN KEY (mime_type_id) REFERENCES mime_type (mime_type_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (mime_type_id, language_id)
-) WITHOUT OIDS;
+);
 

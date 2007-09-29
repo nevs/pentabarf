@@ -6,5 +6,5 @@ CREATE TABLE team_localized (
   FOREIGN KEY (team_id) REFERENCES team (team_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (team_id, language_id)
-) WITHOUT OIDS;
+);
 

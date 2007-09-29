@@ -5,5 +5,5 @@ CREATE TABLE mime_type (
   file_extension VARCHAR(16),
   f_image BOOL NOT NULL DEFAULT FALSE,
   PRIMARY KEY (mime_type_id)
-) WITHOUT OIDS;
+);
 

@@ -10,5 +10,5 @@ CREATE TABLE event_rating (
   FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (person_id, event_id)
-) WITHOUT OIDS;
+);
 

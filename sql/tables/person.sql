@@ -40,5 +40,5 @@ CREATE TABLE person (
   CHECK (login_name <> 'logout'),
   CHECK ( strpos( login_name, ':' ) = 0 ),
   PRIMARY KEY (person_id)
-) WITHOUT OIDS;
+);
 

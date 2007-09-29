@@ -15,7 +15,7 @@ CREATE TABLE conference_person (
   FOREIGN KEY (last_modified_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY (conference_person_id),
   UNIQUE( conference_id, person_id)
-) WITHOUT OIDS;
+);
 
 CREATE INDEX conference_person_conference_id_index ON conference_person(conference_id);
 CREATE INDEX conference_person_person_id_index ON conference_person(person_id);

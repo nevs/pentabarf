@@ -38,7 +38,7 @@ CREATE TABLE event (
   FOREIGN KEY (room_id) REFERENCES room (room_id) ON UPDATE CASCADE ON DELETE SET NULL,
   FOREIGN KEY (last_modified_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY (event_id)
-) WITHOUT OIDS;
+);
 
 CREATE INDEX event_conference_id_index ON event(conference_id);
 CREATE INDEX event_event_state_index ON event(event_state,event_state_progress);

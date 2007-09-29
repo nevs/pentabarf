@@ -5,5 +5,5 @@ CREATE TABLE time_zone (
   f_visible BOOL NOT NULL DEFAULT FALSE,
   f_preferred BOOL NOT NULL DEFAULT FALSE,
   PRIMARY KEY (time_zone_id)
-) WITHOUT OIDS;
+);
 
