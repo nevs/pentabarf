@@ -3,8 +3,11 @@ BEGIN TRANSACTION;
 \i auth.object_domain.sql
 \i language.sql
 \i language_localized.sql
-\i authorisation.sql
-\i authorisation_localized.sql
+\i auth.permission.sql
+\i auth.permission_localized.sql
+\i auth.role.sql
+\i auth.role_localized.sql
+\i auth.role_permission.sql
 \i conference_phase.sql
 \i conference_phase_localized.sql
 \i country.sql
@@ -23,9 +26,6 @@ BEGIN TRANSACTION;
 \i event_type_localized.sql
 \i link_type.sql
 \i link_type_localized.sql
-\i role.sql
-\i role_localized.sql
-\i role_authorisation.sql
 \i time_zone.sql
 \i time_zone_localized.sql
 \i transport.sql
