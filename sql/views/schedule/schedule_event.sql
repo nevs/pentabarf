@@ -14,9 +14,8 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change + event.duration)::timestamp AS end_datetime,
          event.start_time + conference.day_change AS real_starttime,
          view_room.language_id AS translated_id,
-         view_event_type.event_type_id,
-         view_event_type.name AS event_type,
-         view_event_type.tag AS event_type_tag,
+         event_type_localized.event_type,
+         event_type_localized.name AS event_type_name,
          conference_track.conference_track_id,
          conference_track.tag AS conference_track,
          view_language.language_id,
@@ -59,9 +58,9 @@ CREATE OR REPLACE VIEW view_schedule_event AS
                FROM view_person
          ) AS speaker USING (person_id)
          LEFT OUTER JOIN conference_track USING (conference_track_id)
-         LEFT OUTER JOIN view_event_type ON (
-             view_event_type.event_type_id = event.event_type_id AND
-             view_event_type.language_id = view_room.language_id)
+         LEFT OUTER JOIN event_type_localized ON (
+             event_type_localized.event_type = event.event_type AND
+             event_type_localized.language_id = view_room.language_id)
          LEFT OUTER JOIN view_language ON (
              view_language.translated_id = view_room.language_id AND
              view_language.language_id = event.language_id )

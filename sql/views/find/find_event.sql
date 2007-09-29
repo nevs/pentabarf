@@ -11,7 +11,7 @@ CREATE OR REPLACE VIEW view_find_event AS
          event.conference_track_id,
          event.event_state,
          event.event_state_progress,
-         event.event_type_id,
+         event.event_type,
          event.language_id,
          event.room_id,
          event.day,

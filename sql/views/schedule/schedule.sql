@@ -8,7 +8,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.subtitle,
           event.conference_track_id,
           event.team_id,
-          event.event_type_id,
+          event.event_type,
           event.duration,
           event.event_state,
           event.event_state_progress,
@@ -21,8 +21,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.f_public,
           view_language.tag AS language_tag,
           view_language.name AS language,
-          view_event_type.tag AS event_type_tag,
-          view_event_type.name AS event_type,
+          event_type_localized.name AS event_type_name,
           view_conference_track.tag AS conference_track_tag,
           view_conference_track.name AS conference_track,
           (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
@@ -60,9 +59,9 @@ CREATE OR REPLACE VIEW view_schedule AS
           LEFT OUTER JOIN view_language ON (
               view_language.translated_id = view_room.language_id AND
               view_language.language_id = event.language_id )
-          LEFT OUTER JOIN view_event_type ON (
-                event.event_type_id = view_event_type.event_type_id AND
-                view_room.language_id = view_event_type.language_id)
+          LEFT OUTER JOIN event_type_localized ON (
+                event.event_type = event_type_localized.event_type AND
+                view_room.language_id = event_type_localized.language_id)
           LEFT OUTER JOIN view_conference_track ON (
                 event.conference_track_id = view_conference_track.conference_track_id AND
                 view_room.language_id = view_conference_track.language_id)

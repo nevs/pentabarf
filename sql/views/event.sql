@@ -8,7 +8,7 @@ CREATE OR REPLACE VIEW view_event AS
          event.subtitle,
          event.conference_track_id,
          event.team_id,
-         event.event_type_id,
+         event.event_type,
          event.duration,
          event.event_state,
          event.event_state_progress,
@@ -25,8 +25,7 @@ CREATE OR REPLACE VIEW view_event AS
          event.remark,
          event_state_localized.language_id AS translated_id,
          event_state_localized.name AS event_state_name,
-         view_event_type.tag AS event_type_tag,
-         view_event_type.name AS event_type,
+         event_type_localized.name AS event_type_name,
          view_conference_track.tag AS conference_track_tag,
          view_conference_track.name AS conference_track,
          view_team.tag AS team_tag,
@@ -42,9 +41,9 @@ CREATE OR REPLACE VIEW view_event AS
     FROM event
          INNER JOIN event_state_localized USING (event_state)
          INNER JOIN conference USING (conference_id)
-         LEFT OUTER JOIN view_event_type ON (
-             event.event_type_id = view_event_type.event_type_id AND
-             event_state_localized.language_id = view_event_type.language_id)
+         LEFT OUTER JOIN event_type_localized ON (
+             event.event_type = event_type_localized.event_type AND
+             event_state_localized.language_id = event_type_localized.language_id)
          LEFT OUTER JOIN view_conference_track ON (
              event.conference_track_id = view_conference_track.conference_track_id AND
              view_conference_track.language_id = event_state_localized.language_id)
