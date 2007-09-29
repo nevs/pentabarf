@@ -1,8 +1,7 @@
 
 CREATE TABLE event_type (
-  event_type_id SERIAL NOT NULL,
-  tag VARCHAR(32) NOT NULL UNIQUE,
+  event_type TEXT,
   rank INTEGER,
-  PRIMARY KEY (event_type_id)
+  PRIMARY KEY (event_type)
 );
 
