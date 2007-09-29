@@ -35,9 +35,9 @@ xml.div({:id=>:data}) do
         xml << select_tag('search_event[row_id][value]', Event_state_localized.select({:language_id=>@current_language_id}).map{|o| [o.event_state, o.name]})
       end
       # search for event type
-      xml.li({:class=>:event_type_id,:title=>local(:event_type)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_type_id})
-        xml << select_tag('search_event[row_id][value]', View_event_type.select({:language_id=>@current_language_id}).map{|o| [o.event_type_id, o.name]})
+      xml.li({:class=>:event_type,:title=>local(:event_type)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_type})
+        xml << select_tag('search_event[row_id][value]', Event_type_localized.select({:language_id=>@current_language_id}).map{|o| [o.event_type, o.name]})
       end
       # search for conference track
       xml.li({:class=>:conference_track_id,:title=>local(:conference_track)}) do
