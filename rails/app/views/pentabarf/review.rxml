@@ -13,7 +13,7 @@ xml.div(:id=>:data) do
       @events.each do | event |
         
         style = "" 
-        style += "background-color: moccasin;" if @ratings.member?( event.event_id )
+        style += "background-color: moccasin;" if not @ratings.member?( event.event_id )
 
         xml.tr({:style=>style}) do 
           xml.td do
