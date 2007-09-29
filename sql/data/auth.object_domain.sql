@@ -42,6 +42,7 @@ INSERT INTO object_domain ("object", "domain") VALUES ('conference_transaction',
 INSERT INTO object_domain ("object", "domain") VALUES ('event_image', 'event');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_image', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('person_image', 'person');
+INSERT INTO object_domain ("object", "domain") VALUES ('person_availability', 'person');
 
 
 --
