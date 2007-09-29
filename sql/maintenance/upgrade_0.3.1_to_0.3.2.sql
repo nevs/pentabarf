@@ -89,5 +89,7 @@ DROP TABLE role CASCADE;
 DROP TABLE authorisation_localized;
 DROP TABLE authorisation;
 
+ALTER TABLE account_activation SET SCHEMA auth;
+
 COMMIT;
 

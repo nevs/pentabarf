@@ -1,5 +1,5 @@
 
-CREATE TABLE account_activation(
+CREATE TABLE auth.account_activation(
   account_activation_id SERIAL NOT NULL,
   person_id INTEGER UNIQUE NOT NULL,
   conference_id INTEGER,

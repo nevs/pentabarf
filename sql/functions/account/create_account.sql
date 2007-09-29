@@ -17,7 +17,7 @@ CREATE OR REPLACE FUNCTION create_account( p_login_name VARCHAR(32), p_email_con
     SELECT INTO binary_salt gen_random_bytes(8);
     INSERT INTO person(person_id, login_name, email_contact, password) VALUES (new_person_id, p_login_name, p_email_contact, encode(binary_salt, 'hex'::text) || md5(binary_salt||textsend(p_password)));
 
-    INSERT INTO account_activation(person_id, activation_string, conference_id) VALUES (new_person_id, p_activation_string, CASE WHEN p_conference_id = 0 THEN NULL ELSE p_conference_id END);
+    INSERT INTO auth.account_activation(person_id, activation_string, conference_id) VALUES (new_person_id, p_activation_string, CASE WHEN p_conference_id = 0 THEN NULL ELSE p_conference_id END);
     RETURN new_person_id;
   END;
 $$ LANGUAGE plpgsql CALLED ON NULL INPUT;
