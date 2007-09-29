@@ -5,16 +5,20 @@
 // recursively on all child nodes of element
 function attribute_replace( element, pattern, substitute, attributes ) {
   if ( ! attributes ) attributes = ['id','name','onchange'];
-  var nodes = $(element).descendants();
-  for( var i = 0; i < nodes.length; i++ ) {
-    var node = nodes[i];
-    for( var k = 0; k < attributes.length; k++ ) {
-      if ( node.getAttribute( attributes[k] ) ) {
-        node.setAttribute( attributes[k], node.getAttribute( attributes[k] ).replace( pattern, substitute ) );
-      }
+  for( var k = 0; k < attributes.length; k++ ) {
+    if ( element.getAttribute( attributes[k] ) ) {
+      element.setAttribute( attributes[k], element.getAttribute( attributes[k] ).replace( pattern, substitute ) );
+    }
+  }
+  if ( element.nodeName != 'SELECT' ) {
+    var nodes = $(element).immediateDescendants();
+    for( var i = 0; i < nodes.length; i++ ) {
+      var node = nodes[i];
+      attribute_replace( node, pattern, substitute, attributes );
     }
   }
 }
+
 
 function enable_save_button() {
   Element.show( 'buttons' );
