@@ -3,6 +3,11 @@ BEGIN;
 
 \i tables/auth/domain.sql
 \i tables/auth/object_domain.sql
+\i tables/auth/permission.sql
+\i tables/auth/permission_localized.sql
+\i tables/auth/role.sql
+\i tables/auth/role_localized.sql
+\i tables/auth/role_permission.sql
 \i tables/language.sql
 \i tables/language_localized.sql
 \i tables/country.sql
@@ -13,11 +18,6 @@ BEGIN;
 \i tables/transport_localized.sql
 \i tables/ui_message.sql
 \i tables/ui_message_localized.sql
-\i tables/role.sql
-\i tables/role_localized.sql
-\i tables/authorisation.sql
-\i tables/authorisation_localized.sql
-\i tables/role_authorization.sql
 \i tables/phone_type.sql
 \i tables/phone_type_localized.sql
 \i tables/mime_type.sql
@@ -29,6 +29,7 @@ BEGIN;
 \i tables/link_type.sql
 \i tables/link_type_localized.sql
 \i tables/person.sql
+\i tables/auth/person_role.sql
 \i tables/conference_phase.sql
 \i tables/conference_phase_localized.sql
 \i tables/conference.sql
@@ -47,7 +48,6 @@ BEGIN;
 \i tables/person_rating.sql
 \i tables/person_travel.sql
 \i tables/person_im.sql
-\i tables/person_role.sql
 \i tables/person_availability.sql
 \i tables/person_image.sql
 \i tables/person_language.sql

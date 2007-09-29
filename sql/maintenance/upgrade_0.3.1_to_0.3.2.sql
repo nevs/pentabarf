@@ -27,5 +27,67 @@ ALTER TABLE event ADD CONSTRAINT event_event_type_fkey FOREIGN KEY( event_type )
 
 ALTER TABLE event_type_localized ALTER name TYPE TEXT;
 
+-- move auth related stuff in auth schema and get rid of surrogate keys while moving
+
+CREATE TABLE auth.permission (
+  permission TEXT,
+  rank INTEGER,
+  PRIMARY KEY(permission)
+);
+
+CREATE TABLE auth.permission_localized (
+  permission TEXT NOT NULL,
+  translated_id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  PRIMARY KEY( permission, translated_id ),
+  FOREIGN KEY( permission ) REFERENCES auth.permission( permission ),
+  FOREIGN KEY( translated_id ) REFERENCES language( language_id )
+);
+
+CREATE TABLE auth.role (
+  role TEXT,
+  rank INTEGER,
+  PRIMARY KEY( role )
+);
+
+CREATE TABLE auth.role_localized (
+  role TEXT NOT NULL,
+  translated_id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  PRIMARY KEY( role, translated_id ),
+  FOREIGN KEY( role ) REFERENCES auth.role( role ),
+  FOREIGN KEY( translated_id ) REFERENCES language( language_id )
+);
+
+CREATE TABLE auth.role_permission (
+  role TEXT NOT NULL,
+  permission TEXT NOT NULL,
+  PRIMARY KEY( role, permission ),
+  FOREIGN KEY( role ) REFERENCES auth.role( role ),
+  FOREIGN KEY( permission ) REFERENCES auth.permission( permission )
+);
+
+CREATE TABLE auth.person_role (
+  person_id INTEGER NOT NULL,
+  role TEXT NOT NULL,
+  PRIMARY KEY( person_id, role ),
+  FOREIGN KEY( person_id) REFERENCES person( person_id ),
+  FOREIGN KEY( role ) REFERENCES auth.role( role )
+);
+
+INSERT INTO auth.permission(permission,rank) SELECT tag,rank FROM authorisation;
+INSERT INTO auth.permission_localized(permission,translated_id,name) SELECT tag,language_id,name FROM authorisation_localized INNER JOIN authorisation USING (authorisation_id);
+INSERT INTO auth.role(role,rank) SELECT tag,rank FROM role;
+INSERT INTO auth.role_localized(role,translated_id,name) SELECT tag,language_id,name FROM role_localized INNER JOIN role USING (role_id);
+INSERT INTO auth.role_permission(role,permission) SELECT role.tag,authorisation.tag FROM role_authorisation INNER JOIN role USING (role_id) INNER JOIN authorisation USING (authorisation_id);
+INSERT INTO auth.person_role(person_id,role) SELECT person_id,tag FROM person_role INNER JOIN role USING (role_id);
+
+DROP TABLE person_role CASCADE;
+DROP TABLE role_authorisation;
+DROP TABLE role_localized;
+DROP TABLE role CASCADE;
+DROP TABLE authorisation_localized;
+DROP TABLE authorisation;
+
 COMMIT;
 
