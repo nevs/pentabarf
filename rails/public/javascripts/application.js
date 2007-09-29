@@ -13,12 +13,10 @@ function attribute_replace( element, pattern, substitute, attributes ) {
   if ( element.nodeName != 'SELECT' ) {
     var nodes = $(element).immediateDescendants();
     for( var i = 0; i < nodes.length; i++ ) {
-      var node = nodes[i];
-      attribute_replace( node, pattern, substitute, attributes );
+      attribute_replace( nodes[i], pattern, substitute, attributes );
     }
   }
 }
-
 
 function enable_save_button() {
   Element.show( 'buttons' );
