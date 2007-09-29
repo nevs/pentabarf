@@ -14,6 +14,7 @@ CREATE OR REPLACE VIEW view_event_person AS
          conference.conference_id,
          conference.acronym,
          view_person.name,
+         view_event_role.language_id AS translated_id,
          view_event_role.tag AS event_role_tag,
          view_event_role.name AS event_role,
          view_event_role_state.tag AS event_role_state_tag,

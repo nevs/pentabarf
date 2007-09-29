@@ -26,7 +26,7 @@ xml.div(:id=>'content-events') do
     end
 
     xml.script(:type=>'text/javascript') do
-      View_event_person.select( :person_id => @person.person_id, :conference_id => @current_conference.conference_id ).each do | e |
+      View_event_person.select( :person_id => @person.person_id, :conference_id => @current_conference.conference_id, :translated_id => @current_language_id ).each do | e |
         xml << js_function( 'add_person_event', e.event_person_id, e.event_id, e.event_role_id, e.event_role_state_id, e.remark )
       end
     end
@@ -35,7 +35,7 @@ xml.div(:id=>'content-events') do
 
   end
 
-  other_events = View_event_person.select( :person_id => @person.person_id,:conference_id =>{:ne=>@current_conference.conference_id} )
+  other_events = View_event_person.select( :person_id => @person.person_id,:conference_id =>{:ne=>@current_conference.conference_id},:translated_id=>@current_language_id )
 
   if not other_events.empty?
     xml.fieldset do
