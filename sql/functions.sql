@@ -2,7 +2,6 @@
 \i functions/auth/activate_account.sql
 \i functions/account/create_account.sql
 \i functions/account/forgot_password.sql
-\i functions/account/get_permissions.sql
 \i functions/account/hash_password.sql
 \i functions/account/own_conference_persons.sql
 \i functions/account/own_events.sql
