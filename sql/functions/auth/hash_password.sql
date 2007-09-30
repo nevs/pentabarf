@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE FUNCTION hash_password( password TEXT ) RETURNS TEXT AS $$
+CREATE OR REPLACE FUNCTION auth.hash_password( password TEXT ) RETURNS TEXT AS $$
   DECLARE
     binary_salt BYTEA;
   BEGIN

@@ -1,8 +1,8 @@
 \i functions/auth/user_permissions.sql
 \i functions/auth/activate_account.sql
+\i functions/auth/hash_password.sql
 \i functions/account/create_account.sql
 \i functions/account/forgot_password.sql
-\i functions/account/hash_password.sql
 \i functions/account/own_conference_persons.sql
 \i functions/account/own_events.sql
 \i functions/account/reset_password.sql

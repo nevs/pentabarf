@@ -90,7 +90,8 @@ DROP TABLE authorisation_localized;
 DROP TABLE authorisation;
 
 ALTER TABLE account_activation SET SCHEMA auth;
-ALTER FUNCTION activate_account( char ) SET SCHEMA auth;
+ALTER FUNCTION activate_account( CHAR ) SET SCHEMA auth;
+ALTER FUNCTION hash_password( TEXT ) SET SCHEMA auth;
 
 COMMIT;
 
