@@ -5,14 +5,18 @@ require 'admin_controller'
 class AdminController; def rescue_action(e) raise e end; end
 
 class AdminControllerTest < Test::Unit::TestCase
+
   def setup
     @controller = AdminController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    POPE.send( :instance_variable_set, :@user, Person.select_single( :person_id => 1 ) )
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_conflict_setup
+    get :conflict_setup
+    assert_response :success
   end
+
 end

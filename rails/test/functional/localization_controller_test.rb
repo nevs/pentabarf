@@ -5,14 +5,18 @@ require 'localization_controller'
 class LocalizationController; def rescue_action(e) raise e end; end
 
 class LocalizationControllerTest < Test::Unit::TestCase
+
   def setup
     @controller = LocalizationController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    POPE.send( :instance_variable_set, :@user, Person.select_single( :person_id => 1 ) )
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_ui_message
+    get :ui_message
+    assert_response :success
   end
+
 end
