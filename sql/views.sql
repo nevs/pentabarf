@@ -33,6 +33,7 @@
 \i views/report/report_events.sql
 \i views/report/report_expenses.sql
 \i views/report/report_feedback.sql
+\i views/report/report_missing.sql
 \i views/report/report_paper.sql
 \i views/report/report_pickup.sql
 \i views/report/report_resources.sql
