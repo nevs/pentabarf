@@ -1,5 +1,5 @@
 \i functions/auth/user_permissions.sql
-\i functions/account/activate_account.sql
+\i functions/auth/activate_account.sql
 \i functions/account/create_account.sql
 \i functions/account/forgot_password.sql
 \i functions/account/get_permissions.sql
