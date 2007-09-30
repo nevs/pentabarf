@@ -13,14 +13,11 @@ class ReportControllerTest < Test::Unit::TestCase
     POPE.instance_variable_set( :@user, Person.select_single(:person_id=>1) )
   end
 
-  def test_expenses
-    get :expenses
-    assert_response :success
-  end
-
-  def test_feedback
-    get :feedback
-    assert_response :success
+  [:expenses,:feedback,:resources].each do | action |
+    define_method "test_#{action}" do
+      get action
+      assert_response :success
+    end
   end
 
 end
