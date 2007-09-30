@@ -8,7 +8,7 @@ class LocalizationController < ApplicationController
   def ui_message
     constraints = {:language_id=>@current_language_id}
     constraints[:ui_message] = {:ilike=>"#{params[:id]}%"} if params[:id]
-    @tags = Ui_message_localized.select(constraints,{:order=>:ui_message})
+    @messages = Ui_message_localized.select(constraints,{:order=>:ui_message})
   end
 
   def save_ui_message
