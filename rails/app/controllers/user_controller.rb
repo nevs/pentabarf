@@ -36,6 +36,12 @@ class UserController < ApplicationController
     end
   end
 
+  def forgot_password
+  end
+
+  def save_forgot_password
+  end
+
   protected
 
   def auth
