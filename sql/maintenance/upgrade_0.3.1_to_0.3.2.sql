@@ -92,6 +92,7 @@ DROP TABLE authorisation;
 ALTER TABLE account_activation SET SCHEMA auth;
 ALTER FUNCTION activate_account( CHAR ) SET SCHEMA auth;
 ALTER FUNCTION hash_password( TEXT ) SET SCHEMA auth;
+ALTER FUNCTION create_account( VARCHAR, VARCHAR, TEXT, CHAR, INTEGER ) SET SCHEMA auth;
 
 COMMIT;
 
