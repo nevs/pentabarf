@@ -5,7 +5,7 @@ BEGIN;
 ALTER TABLE event DROP COLUMN actual_start;
 ALTER TABLE event DROP COLUMN actual_end;
 
--- remove surrogate primary key from event type 
+-- remove surrogate primary key from event type
 ALTER TABLE event_type ADD COLUMN event_type TEXT;
 UPDATE event_type SET event_type = tag;
 ALTER TABLE event_type DROP COLUMN tag CASCADE;
@@ -93,6 +93,9 @@ ALTER TABLE account_activation SET SCHEMA auth;
 ALTER FUNCTION activate_account( CHAR ) SET SCHEMA auth;
 ALTER FUNCTION hash_password( TEXT ) SET SCHEMA auth;
 ALTER FUNCTION create_account( VARCHAR, VARCHAR, TEXT, CHAR, INTEGER ) SET SCHEMA auth;
+
+INSERT INTO auth.permission VALUES ('modify_review');
+INSERT INTO auth.role_permission VALUES ('reviewer','modify_review');
 
 COMMIT;
 

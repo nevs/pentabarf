@@ -45,6 +45,7 @@ INSERT INTO permission (permission, rank) VALUES ('pentabarf_login', 24);
 INSERT INTO permission (permission, rank) VALUES ('submission_login', NULL);
 INSERT INTO permission (permission, rank) VALUES ('view_ratings', NULL);
 INSERT INTO permission (permission, rank) VALUES ('modify_config', NULL);
+INSERT INTO permission (permission, rank) VALUES ('modify_review', NULL);
 
 
 --

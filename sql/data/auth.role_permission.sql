@@ -96,6 +96,7 @@ INSERT INTO role_permission ("role", permission) VALUES ('admin', 'view_ratings'
 INSERT INTO role_permission ("role", permission) VALUES ('committee', 'view_ratings');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_config');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_config');
+INSERT INTO role_permission ("role", permission) VALUES ('reviewer', 'modify_review');
 
 
 --
