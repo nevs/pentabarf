@@ -1,5 +1,5 @@
 
-CREATE TABLE activation_string_reset_password (
+CREATE TABLE auth.password_reset (
   person_id INTEGER UNIQUE NOT NULL,
   activation_string CHAR(64) NOT NULL UNIQUE,
   password_reset TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
