@@ -86,7 +86,7 @@ BEGIN;
 \i tables/conflict_level_localized.sql
 \i tables/conference_phase_conflict.sql
 \i tables/auth/account_activation.sql
-\i tables/auth/password_reset.sql
+\i tables/auth/password_reset_string.sql
 
 COMMIT;
 
