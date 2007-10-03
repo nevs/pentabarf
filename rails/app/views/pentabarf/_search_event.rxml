@@ -1,3 +1,4 @@
+xml.p "#{@results.length} Events found."
 xml.table do
   fields = [:event_state,:event_state_progress,:day,:room]
   xml.thead do
@@ -27,3 +28,4 @@ xml.table do
     end
   end
 end
+
