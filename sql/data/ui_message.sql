@@ -330,6 +330,11 @@ INSERT INTO ui_message (ui_message) VALUES ('table::person_travel::f_need_accomm
 INSERT INTO ui_message (ui_message) VALUES ('table::person_travel::f_need_travel_cost');
 INSERT INTO ui_message (ui_message) VALUES ('table::person_travel::travel_cost');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::submission_notes');
+INSERT INTO ui_message (ui_message) VALUES ('table::event_rating_public::participant_knowledge');
+INSERT INTO ui_message (ui_message) VALUES ('table::event_rating_public::topic_importance');
+INSERT INTO ui_message (ui_message) VALUES ('table::event_rating_public::content_quality');
+INSERT INTO ui_message (ui_message) VALUES ('table::event_rating_public::presentation_quality');
+INSERT INTO ui_message (ui_message) VALUES ('table::event_rating_public::audience_involvement');
 
 
 --

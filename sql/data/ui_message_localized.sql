@@ -578,6 +578,7 @@ INSERT INTO ui_message_localized (language_id, name, ui_message) VALUES (120, 'D
 INSERT INTO ui_message_localized (language_id, name, ui_message) VALUES (120, 'Account owner', 'table::person::account_owner');
 INSERT INTO ui_message_localized (language_id, name, ui_message) VALUES (120, 'Submission notes', 'table::event::submission_notes');
 INSERT INTO ui_message_localized (language_id, name, ui_message) VALUES (144, 'Submission notes', 'table::event::submission_notes');
+INSERT INTO ui_message_localized (language_id, name, ui_message) VALUES (120, 'Participant knowledge', 'table::event_rating_public::participant_knowledge');
 
 
 --
