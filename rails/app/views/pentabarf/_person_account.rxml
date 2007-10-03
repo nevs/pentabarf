@@ -5,11 +5,11 @@ xml.div(:id=>'content-account') do
 
     xml.table do
       xml << text_field_row( @person, :login_name, {:size=>20} )
-      xml.tr do 
+      xml.tr do
         xml.td( local('password'))
         xml.td do xml.input({:type=>:password,:name=>'person[password]',:size=>40}) end
       end
-      xml.tr do 
+      xml.tr do
         xml.td( local('repeat password'))
         xml.td do xml.input({:type=>:password,:name=>'person[password2]',:size=>40}) end 
       end
@@ -19,15 +19,15 @@ xml.div(:id=>'content-account') do
   xml.fieldset do
     xml.legend local('permissions')
 
-    roles = @person_roles.map{|r| r.role_id}
+    roles = @person_roles.map{|r| r.role}
     xml.table do
       Role.select.each do | role |
-        xml.tr do 
+        xml.tr do
           xml.td role.tag
           xml.td do
-            xml.input(:type=>:hidden,:name=>"person_role[#{role.role_id}][role_id]",:value=>role.role_id)
-            checked = roles.member?( role.role_id ) ?  {:checked=>:checked} : {}
-            xml.input({:type=>:checkbox,:name=>"person_role[#{role.role_id}][set]"}.merge(checked))
+            xml.input(:type=>:hidden,:name=>"person_role[#{role.role}][role]",:value=>role.role)
+            checked = roles.member?( role.role ) ?  {:checked=>:checked} : {}
+            xml.input({:type=>:checkbox,:name=>"person_role[#{role.role}][set]"}.merge(checked))
           end
         end
       end
