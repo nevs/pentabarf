@@ -46,4 +46,7 @@
 \i views/schedule/schedule_simple.sql
 \i views/conference_rating.sql
 \i views/event_feedback.sql
+\i views/view_own_events_participant.sql
+\i views/view_own_events_coordinator.sql
+
 
