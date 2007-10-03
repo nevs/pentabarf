@@ -1,3 +1,4 @@
+xml.p "#{@results.length} Persons found."
 xml.table do
   fields = [:name, :first_name, :last_name, :nickname]
   xml.thead do

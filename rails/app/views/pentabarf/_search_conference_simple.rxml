@@ -1,3 +1,4 @@
+xml.p "#{@results.length} Conferences found."
 xml.table do
   fields = [:acronym, :title, :subtitle, :start_date, :venue, :city]
   xml.thead do
