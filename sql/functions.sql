@@ -3,9 +3,9 @@
 \i functions/auth/hash_password.sql
 \i functions/auth/create_account.sql
 \i functions/auth/forgot_password.sql
+\i functions/auth/reset_password.sql
 \i functions/account/own_conference_persons.sql
 \i functions/account/own_events.sql
-\i functions/account/reset_password.sql
 \i functions/add_attendee.sql
 \i functions/admin/merge_person.sql
 \i functions/admin/remove_conference.sql

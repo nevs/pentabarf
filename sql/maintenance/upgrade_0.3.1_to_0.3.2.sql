@@ -106,5 +106,7 @@ ALTER TABLE password_reset_string SET SCHEMA auth;
 ALTER FUNCTION account_forgot_password( INTEGER, CHAR ) RENAME TO forgot_password;
 ALTER FUNCTION forgot_password( INTEGER, CHAR ) SET SCHEMA auth;
 
+DROP FUNCTION account_reset_password( TEXT, CHAR, CHAR );
+
 COMMIT;
 
