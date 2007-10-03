@@ -40,12 +40,36 @@ class UserController < ApplicationController
   end
 
   def save_forgot_password
+    begin
+      p = Person.select_single( :login_name => params[:login_name], :email_contact => params[:email] )
+    rescue
+      raise "There is no user with this login name and email address."
+    end
+    reset = Password_reset_string.select(:person_id=>p.person_id)
+    if reset.length == 1 && reset[0].password_reset > DateTime.now - 1
+      raise "You have been sent a reset link recently."
+    end
+    activation_string = random_string
+    Notifier::deliver_forgot_password( p.login_name, p.email_contact, url_for({:action=>:reset_password,:id=>activation_string,:only_path=>false}) )
+    Forgot_password.call(:p_person_id=>p.person_id,:p_activation_string=>activation_string)
+    redirect_to(:action=>:reset_link_sent)
+  end
+
+  def reset_password
+    Password_reset_string.select_single(:activation_string=>params[:id])
+   rescue
+    raise "Invalid reset string."
+  end
+
+  def save_reset_password
+    raise "Passwords do not match" if params[:password] != params[:password2]
+    Reset_password.call({:new_password=>params[:password],:reset_string=>params[:id]}) 
+    redirect_to(:controller=>'pentabarf',:action=>:index)
   end
 
   protected
 
   def auth
-#    return super unless ['index','new_account','save_account','activate_account'].member?( params[:action] )
     true
   end
 

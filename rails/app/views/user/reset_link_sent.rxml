@@ -1,0 +1,4 @@
+xml.div(:id=>:data) do
+  xml.p "An email with a link to reset your password has been sent to your email address."
+end
+
