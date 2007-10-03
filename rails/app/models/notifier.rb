@@ -11,7 +11,7 @@ class Notifier < ActionMailer::Base
   def general( recipients, subject, body, from = nil )
     @recipients = recipients
     @subject = subject
-    @from = from || @@config[:from] 
+    @from = from || @@config[:from]
     @body['text'] = body
     @cc = @@config[:always_cc]
   end
@@ -19,7 +19,7 @@ class Notifier < ActionMailer::Base
   def activate_account( name, email, link, from = nil )
     @recipients = email
     @subject = "Activate your pentabarf account"
-    @from = from || @@config[:from] 
+    @from = from || @@config[:from]
 
     # variables for usage in mail
     @body["name"] = name
@@ -29,7 +29,7 @@ class Notifier < ActionMailer::Base
   def forgot_password( name, email, link, from = nil )
     @recipients = email
     @subject = "Pentabarf password reset"
-    @from = from || @@config[:from] 
+    @from = from || @@config[:from]
 
     # variables for usage in mail
     @body["name"] = name
