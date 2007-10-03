@@ -100,6 +100,9 @@ INSERT INTO auth.role_permission VALUES ('reviewer','modify_review');
 ALTER TABLE activation_string_reset_password RENAME TO password_reset_string;
 ALTER TABLE password_reset_string SET SCHEMA auth;
 
+ALTER FUNCTION account_forgot_password( INTEGER, CHAR ) RENAME TO forgot_password;
+ALTER FUNCTION forgot_password( INTEGER, CHAR ) SET SCHEMA auth;
+
 
 COMMIT;
 
