@@ -1,0 +1,14 @@
+tabs = [:participant,:coordinator]
+
+xml << js_tabs( tabs )
+
+xml.div({:id=>'data'}) do
+
+  tabs.each do | tab |
+    xml << render( :partial => "own_events_#{tab}")
+  end
+
+  xml.script( "switch_tab();", { :type => 'text/javascript' } )
+end
+
+

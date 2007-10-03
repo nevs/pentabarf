@@ -1,0 +1,30 @@
+xml.div(:id=>'content-coordinator') do
+
+  xml.fieldset do
+
+    xml.table do
+      xml.tr do
+        [:event,:event_state,:event_state_progress,:role,:role_state].each do | col |
+          xml.th col.to_s
+        end
+      end
+      View_own_events_coordinator.select(:person_id=>POPE.user.person_id,:translated_id=>@current_language_id,:conference_id=>@current_conference.conference_id).each do | event |
+        xml.tr do
+          xml.td do
+            xml.a(:href=>url_for(:action=>:event,:id=>event.event_id)) do
+              xml.b event.title
+              xml.br
+              xml.text! event.subtitle
+            end
+          end
+          xml.td do xml.a( event.event_state_name, :href=>url_for(:action=>:event,:id=>event.event_id)) end
+          xml.td do xml.a( event.event_state_progress_name, :href=>url_for(:action=>:event,:id=>event.event_id)) end
+          xml.td do xml.a( event.event_role_name, :href=>url_for(:action=>:event,:id=>event.event_id)) end
+          xml.td do xml.a( event.event_role_state_name, :href=>url_for(:action=>:event,:id=>event.event_id)) end
+        end
+      end
+    end
+
+  end
+
+end
