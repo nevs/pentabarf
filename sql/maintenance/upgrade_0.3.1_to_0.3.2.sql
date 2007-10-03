@@ -84,7 +84,7 @@ INSERT INTO auth.person_role(person_id,role) SELECT person_id,tag FROM person_ro
 
 DROP TABLE person_role CASCADE;
 DROP TABLE role_authorisation;
-DROP TABLE role_localized;
+DROP TABLE role_localized CASCADE;
 DROP TABLE role CASCADE;
 DROP TABLE authorisation_localized;
 DROP TABLE authorisation;
