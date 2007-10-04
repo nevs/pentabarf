@@ -29,9 +29,6 @@ INSERT INTO permission (permission, rank) VALUES ('modify_localization', 11);
 INSERT INTO permission (permission, rank) VALUES ('create_roles', 16);
 INSERT INTO permission (permission, rank) VALUES ('modify_roles', 17);
 INSERT INTO permission (permission, rank) VALUES ('delete_roles', 18);
-INSERT INTO permission (permission, rank) VALUES ('create_login', 19);
-INSERT INTO permission (permission, rank) VALUES ('modify_login', 20);
-INSERT INTO permission (permission, rank) VALUES ('delete_login', 21);
 INSERT INTO permission (permission, rank) VALUES ('modify_own_person', 22);
 INSERT INTO permission (permission, rank) VALUES ('modify_own_event', 23);
 INSERT INTO permission (permission, rank) VALUES ('modify_valuelist', 14);
@@ -46,6 +43,9 @@ INSERT INTO permission (permission, rank) VALUES ('submission_login', NULL);
 INSERT INTO permission (permission, rank) VALUES ('view_ratings', NULL);
 INSERT INTO permission (permission, rank) VALUES ('modify_config', NULL);
 INSERT INTO permission (permission, rank) VALUES ('modify_review', NULL);
+INSERT INTO permission (permission, rank) VALUES ('modify_account', 20);
+INSERT INTO permission (permission, rank) VALUES ('create_account', 19);
+INSERT INTO permission (permission, rank) VALUES ('delete_account', 21);
 
 
 --

@@ -35,17 +35,11 @@ INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_va
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'create_roles');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_roles');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'delete_roles');
-INSERT INTO role_permission ("role", permission) VALUES ('developer', 'create_login');
-INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_login');
-INSERT INTO role_permission ("role", permission) VALUES ('developer', 'delete_login');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_localization');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_valuelist');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'create_roles');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_roles');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'delete_roles');
-INSERT INTO role_permission ("role", permission) VALUES ('admin', 'create_login');
-INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_login');
-INSERT INTO role_permission ("role", permission) VALUES ('admin', 'delete_login');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'show_debug');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_own_event');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_own_event');
@@ -100,6 +94,12 @@ INSERT INTO role_permission ("role", permission) VALUES ('reviewer', 'modify_rev
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_review');
 INSERT INTO role_permission ("role", permission) VALUES ('committee', 'modify_review');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_review');
+INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_account');
+INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_account');
+INSERT INTO role_permission ("role", permission) VALUES ('developer', 'create_account');
+INSERT INTO role_permission ("role", permission) VALUES ('admin', 'create_account');
+INSERT INTO role_permission ("role", permission) VALUES ('developer', 'delete_account');
+INSERT INTO role_permission ("role", permission) VALUES ('admin', 'delete_account');
 
 
 --
