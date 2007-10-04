@@ -23,7 +23,7 @@ xml.div(:id=>'content-account') do
     xml.table do
       Role.select.each do | role |
         xml.tr do
-          xml.td role.tag
+          xml.td role.role
           xml.td do
             xml.input(:type=>:hidden,:name=>"person_role[#{role.role}][role]",:value=>role.role)
             checked = roles.member?( role.role ) ?  {:checked=>:checked} : {}
