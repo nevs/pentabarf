@@ -114,7 +114,7 @@ class PentabarfController < ApplicationController
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     Momomoto::Database.instance.transaction do
       person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:f_spam]} ) do | row |
-        if params[:person][:password].to_s != "" && ( row.person_id == POPE.user.person_id || POPE.permission?( :modify_login ) )
+        if params[:person][:password].to_s != "" && ( row.person_id == POPE.user.person_id || POPE.permission?( :modify_account ) )
           raise "Passwords do not match" if params[:person][:password] != params[:person][:password2]
           row.password = params[:person][:password]
         end
@@ -132,7 +132,7 @@ class PentabarfController < ApplicationController
       write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:f_public],:image=>true})
       write_person_availability( @current_conference, person, params[:person_availability])
 
-      if POPE.permission?(:modify_login)
+      if POPE.permission?(:modify_account)
         params[:person_role].each do | k,v | v[:remove] = true if not v[:set] end
         write_rows( Person_role, params[:person_role], {:preset=>{:person_id=>person.person_id},:except=>[:set]})
       end

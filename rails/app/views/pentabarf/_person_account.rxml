@@ -33,6 +33,6 @@ xml.div(:id=>'content-account') do
       end
     end
 
-  end if POPE.permission?( :modify_login )
+  end if POPE.permission?( :modify_account )
 
 end
