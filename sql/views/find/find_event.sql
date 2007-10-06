@@ -28,15 +28,14 @@ CREATE OR REPLACE VIEW view_find_event AS
          conference_track.tag AS track,
          array_to_string(ARRAY(
            SELECT view_person.name
-             FROM event_person
-             INNER JOIN event_role ON (
-               event_role.event_role_id = event_person.event_role_id AND
-               (event_role.tag IN ('speaker','moderator') ) )
-             INNER JOIN event_role_state ON (
-               event_role_state.event_role_state_id = event_person.event_role_state_id AND 
-               event_role_state.tag::text = 'confirmed' )
-             INNER JOIN view_person USING (person_id)
-             WHERE event_person.event_id = event.event_id), ', '::text) AS speakers
+             FROM
+               event_person
+               INNER JOIN view_person USING (person_id)
+             WHERE
+               event_person.event_role IN ('speaker','moderator') AND
+               event_person.event_role_state = 'confirmed' AND
+               event_person.event_id = event.event_id
+           ), ', '::text) AS speakers
     FROM event
          INNER JOIN conference USING (conference_id)
          INNER JOIN event_state_localized USING (event_state)

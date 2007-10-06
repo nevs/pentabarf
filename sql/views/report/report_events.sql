@@ -5,9 +5,8 @@ SELECT
   event.title,
   event.subtitle,
   array_to_string( ARRAY(
-    SELECT view_person.name || '(' || event_role.tag || ')'
+    SELECT view_person.name || '(' || event_person.event_role || ')'
       FROM event_person
-           INNER JOIN event_role USING(event_role_id)
            INNER JOIN view_person USING (person_id)
      WHERE event_person.event_id=event.event_id
     ), ', ' ) AS persons,

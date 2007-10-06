@@ -14,20 +14,15 @@ CREATE OR REPLACE VIEW view_mail_accepted_speaker AS
          INNER JOIN view_person ON (
              view_person.person_id = event_person.person_id AND
              view_person.email_contact IS NOT NULL )
-         INNER JOIN event_role ON (
-             event_role.event_role_id = event_person.event_role_id AND
-             event_role.tag IN ('speaker', 'moderator') )
-         INNER JOIN event_role_state ON (
-             event_role_state.event_role_state_id = event_person.event_role_state_id AND
-             event_role_state.event_role_id = event_person.event_role_id AND
-             event_role_state.tag = 'confirmed' )
          INNER JOIN event ON (
              event.event_id = event_person.event_id )
          INNER JOIN conference ON (
              conference.conference_id = event.conference_id )
     WHERE
         event.event_state = 'accepted' AND
-        event.event_state_progress = 'confirmed'
+        event.event_state_progress = 'confirmed' AND
+        event_person.event_role IN ('speaker', 'moderator') AND
+        event_person.event_role_state = 'confirmed'
 ORDER BY view_person.person_id, event.event_id
 ;
 

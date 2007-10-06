@@ -28,13 +28,6 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                     event.title,
                     event.subtitle
                FROM event_person
-                    INNER JOIN event_role ON (
-                        event_person.event_role_id = event_role.event_role_id AND
-                        event_role.tag IN ('speaker', 'moderator'))
-                    INNER JOIN event_role_state ON (
-                        event_person.event_role_state_id = event_role_state.event_role_state_id AND
-                        event_role_state.event_role_id = event_role.event_role_id AND
-                        event_role_state.tag = 'confirmed' )
                     INNER JOIN event ON (
                         event_person.event_id = event.event_id AND
                         event.event_state = 'accepted' AND
@@ -46,6 +39,8 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                     INNER JOIN room ON (
                         event.room_id = room.room_id AND
                         room.f_public = 't' )
+              WHERE event_person.event_role IN ('speaker','moderator') AND
+                    event_person.event_role_state = 'confirmed'
          ) AS speaker USING (person_id)
          LEFT OUTER JOIN conference_person USING (person_id, conference_id)
 ;

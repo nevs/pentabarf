@@ -46,12 +46,6 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          INNER JOIN view_room ON (
              view_room.room_id = event.room_id AND
              view_room.f_public = 't' )
-         INNER JOIN event_role ON (
-             event_person.event_role_id = event_role.event_role_id AND
-             event_role.tag IN ('speaker', 'moderator') )
-         INNER JOIN event_role_state ON (
-             event_person.event_role_state_id = event_role_state.event_role_state_id AND
-             event_role_state.tag = 'confirmed' )
          INNER JOIN (
              SELECT person_id,
                     name
@@ -64,5 +58,8 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          LEFT OUTER JOIN view_language ON (
              view_language.translated_id = view_room.language_id AND
              view_language.language_id = event.language_id )
+    WHERE
+      event_person.event_role IN ('speaker','moderator') AND
+      event_person.event_role_state = 'confirmed'
 ;
 

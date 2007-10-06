@@ -33,21 +33,17 @@ CREATE OR REPLACE VIEW view_schedule AS
             ARRAY(
               SELECT view_person.name || ' (' || event_role_localized.name || ')'
                 FROM event_person
-                JOIN event_role ON
-                  event_role.event_role_id = event_person.event_role_id AND
-                  event_role.tag IN ('speaker','moderator','coordinator')
+                INNER JOIN event_role USING(event_role)
                 JOIN event_role_localized ON (
                   event_role_localized.language_id = view_room.language_id AND
-                  event_role_localized.event_role_id = event_role.event_role_id )
-                LEFT OUTER JOIN event_role_state ON
-                  event_role_state.event_role_state_id = event_person.event_role_state_id
+                  event_role_localized.event_role = event_person.event_role )
                 JOIN view_person USING (person_id)
                 WHERE
                   event_person.event_id = event.event_id AND
                   (
-                    ( event_role.tag = 'coordinator' ) OR
-                    ( event_role.tag IN ('speaker','moderator') AND
-                      event_role_state.tag NOT IN ( 'declined','canceled' ) )
+                    ( event_person.event_role = 'coordinator' ) OR
+                    ( event_person.event_role IN ('speaker','moderator') AND
+                      event_person.event_role_state NOT IN ( 'declined','canceled' ) )
                   )
                 ORDER BY event_role.rank, view_person.name
             ),

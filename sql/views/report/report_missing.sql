@@ -14,13 +14,9 @@ CREATE OR REPLACE VIEW view_report_missing AS
                           event.event_state = 'accepted' AND
                           event.event_state_progress = 'confirmed' )
                         INNER JOIN conference USING (conference_id)
-                        INNER JOIN event_role ON (
-                          event_person.event_role_id = event_role.event_role_id AND
-                          event_role.tag IN ('speaker', 'moderator'))
-                        INNER JOIN event_role_state ON (
-                          event_role_state.event_role_state_id = event_person.event_role_state_id AND
-                          event_role_state.tag = 'confirmed')
                   WHERE event_person.person_id = view_person.person_id AND
+                        event_person.event_role IN ('speaker','moderator') AND
+                        event_person.event_role_state = 'confirmed' AND
                         conference.start_date + event.day + '-1 day'::INTERVAL + event.start_time + conference.day_change BETWEEN now() AND now() + '3 hour'::INTERVAL
                 )
    ORDER BY lower(name)

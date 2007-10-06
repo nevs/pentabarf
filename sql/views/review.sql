@@ -11,25 +11,24 @@ CREATE OR REPLACE VIEW view_review AS
     event.event_state_progress,
     array_to_string(ARRAY(
       SELECT view_person.name
-        FROM event_person
-        INNER JOIN event_role ON (
-          event_role.event_role_id = event_person.event_role_id AND
-          (event_role.tag IN ('speaker','moderator') ) )
-        INNER JOIN event_role_state ON (
-          event_role_state.event_role_state_id = event_person.event_role_state_id AND 
-          event_role_state.tag::text = 'confirmed' )
-        INNER JOIN view_person USING (person_id)
-        WHERE event_person.event_id = event.event_id), ', '::text) AS speakers,
-     coalesce( rating.relevance, 0 ) AS relevance,
-     coalesce( rating.relevance_count, 0 ) AS relevance_count,
-     coalesce( rating.actuality, 0 ) AS actuality,
-     coalesce( rating.actuality_count, 0 ) AS actuality_count,
-     coalesce( rating.acceptance, 0 ) AS acceptance,
-     coalesce( rating.acceptance_count, 0 ) AS acceptance_count,
-     coalesce( rating.raters, 0 ) AS raters,
-     (2 * coalesce( rating.acceptance, 0 ) + coalesce( rating.relevance, 0 ) + coalesce( rating.actuality, 0 ))/4 AS rating,
-     conference_track.tag AS conference_track
-    FROM event
+        FROM
+          event_person
+          INNER JOIN view_person USING (person_id)
+        WHERE
+          event_person.event_role IN ('speaker','moderator') AND
+          event_person.event_role_state = 'confirmed' AND
+          event_person.event_id = event.event_id
+      ), ', '::text) AS speakers,
+    coalesce( rating.relevance, 0 ) AS relevance,
+    coalesce( rating.relevance_count, 0 ) AS relevance_count,
+    coalesce( rating.actuality, 0 ) AS actuality,
+    coalesce( rating.actuality_count, 0 ) AS actuality_count,
+    coalesce( rating.acceptance, 0 ) AS acceptance,
+    coalesce( rating.acceptance_count, 0 ) AS acceptance_count,
+    coalesce( rating.raters, 0 ) AS raters,
+    (2 * coalesce( rating.acceptance, 0 ) + coalesce( rating.relevance, 0 ) + coalesce( rating.actuality, 0 ))/4 AS rating,
+    conference_track.tag AS conference_track
+  FROM event
          LEFT OUTER JOIN event_state_localized USING (event_state)
          LEFT OUTER JOIN (
            SELECT event_id,
