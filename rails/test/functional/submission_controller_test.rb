@@ -9,11 +9,10 @@ class SubmissionControllerTest < Test::Unit::TestCase
     @controller = SubmissionController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    hijack_controller_auth( @controller )
     @person = Person.new(:login_name=>'test_submitter')
     Person.__write( @person )
+    @conference = Conference.select_single(:conference_id=>1)
     Person_role.__write( Person_role.new(:person_id=>@person.person_id,:role=>'submitter') )
-    authenticate_user( @person )
   end
 
   def teardown
@@ -26,11 +25,33 @@ class SubmissionControllerTest < Test::Unit::TestCase
     assert true
   end
 
-  def test_submission_index
-    conf = Conference.select_single(:conference_id=>1)
+  def test_index
     get :index
     assert_response :success
-    get :index, :conference => conf.acronym
+    get :index, :conference => @conference.acronym
+    assert_response :success
+    authenticate_user( @person )
+    get :index
+    assert_response :success
+    get :index, :conference => @conference.acronym
+    assert_response :success
+  end
+
+  def test_person
+    authenticate_user( @person )
+    get :person, :conference => @conference.acronym
+    assert_response :success
+  end
+
+  def test_event
+    authenticate_user( @person )
+    get :event, :conference => @conference.acronym
+    assert_response :success
+  end
+
+  def test_events
+    authenticate_user( @person )
+    get :events, :conference => @conference.acronym
     assert_response :success
   end
 

@@ -30,6 +30,7 @@ class Test::Unit::TestCase
   end
 
   def authenticate_user( user )
+    hijack_controller_auth( @controller )
     POPE.send( :instance_variable_set, :@user, user )
     POPE.refresh
   end
