@@ -6,12 +6,11 @@
   top: 0px;
   height: 20px;
   z-index: 5;
-  
   font-size: smaller;
+  background-color: #FF4040;
 }
 
 #activity span {
-  background-color: #FF4040;
   padding: 2px 2px 2px 2px;
 }
 
