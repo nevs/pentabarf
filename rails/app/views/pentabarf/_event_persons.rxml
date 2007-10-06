@@ -17,8 +17,8 @@ xml.div(:id=>'content-persons') do
             xml.input({:type=>:hidden,:id=>'event_person[row_id][event_person_id]',:name=>'event_person[row_id][event_person_id]'})
             xml << select_tag( 'event_person[row_id][person_id]', View_person.select.map{|p| [p.person_id, p.name]} )
           end
-          xml.td do xml << select_tag( 'event_person[row_id][event_role_id]', Event_role.select.map{|e| [e.event_role_id, e.tag]},{:master=>:event_role_state_id}) end
-          xml.td do xml << select_tag( 'event_person[row_id][event_role_state_id]', Event_role_state.select.map{|e| [e.event_role_state_id,e.event_role_id,e.tag]}, {:slave=>true,:with_empty=>true}) end
+          xml.td do xml << select_tag( 'event_person[row_id][event_role]', Event_role.select.map{|e| e.event_role},{:master=>:event_role_state}) end
+          xml.td do xml << select_tag( 'event_person[row_id][event_role_state]', Event_role_state.select.map{|e| [e.event_role_state,e.event_role,e.event_role_state]}, {:slave=>true,:with_empty=>true}) end
           xml.td do xml.input({:type=>:text,:id=>'event_person[row_id][remark]',:name=>'event_person[row_id][remark]'}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'event_person[row_id][remove]',:id=>'event_person[row_id][remove]'}) end
         end
@@ -27,7 +27,7 @@ xml.div(:id=>'content-persons') do
 
     xml.script(:type=>'text/javascript') do 
       Event_person.select( :event_id => @event.event_id ).each do | e |
-        xml << js_function( 'add_event_person', e.event_person_id, e.person_id, e.event_role_id, e.event_role_state_id, e.remark )
+        xml << js_function( 'add_event_person', e.event_person_id, e.person_id, e.event_role, e.event_role_state, e.remark )
       end
     end
 
