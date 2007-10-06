@@ -153,46 +153,6 @@ CREATE OR REPLACE VIEW view_event_origin AS
          ) AS all_lang 
          LEFT OUTER JOIN event_origin_localized USING (language_id, event_origin_id);
 
--- view for event_role with fallback to tag
-CREATE OR REPLACE VIEW view_event_role AS 
-  SELECT event_role_id, 
-         language_id, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         rank, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  event_role_id, 
-                  event_role.tag, 
-                  event_role.rank, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN event_role
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN event_role_localized USING (language_id, event_role_id);
-
--- view for event_role_state with fallback to tag
-CREATE OR REPLACE VIEW view_event_role_state AS 
-  SELECT event_role_state_id,
-         event_role_id,
-         language_id, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         rank, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  event_role_state_id, 
-                  event_role_id, 
-                  event_role_state.tag, 
-                  event_role_state.rank, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN event_role_state
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN event_role_state_localized USING (language_id, event_role_state_id);
-
 -- view for im_type with fallback to tag
 CREATE OR REPLACE VIEW view_im_type AS 
   SELECT im_type_id, 
