@@ -14,6 +14,10 @@ class LocalizationControllerTest < Test::Unit::TestCase
     POPE.send( :instance_variable_set, :@user, Person.select_single( :person_id => 1 ) )
   end
 
+  def teardown
+    POPE.deauth
+  end
+
   def test_ui_message
     get :ui_message
     assert_response :success

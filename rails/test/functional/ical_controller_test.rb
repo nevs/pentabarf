@@ -13,6 +13,10 @@ class IcalControllerTest < Test::Unit::TestCase
     POPE.instance_variable_set( :@user, Person.select_single(:person_id=>1) )
   end
 
+  def teardown
+    POPE.deauth
+  end
+
   def test_conference
     get :conference, {:id => 1}
     assert_response :success

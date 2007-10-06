@@ -9,6 +9,17 @@ class SubmissionControllerTest < Test::Unit::TestCase
     @controller = SubmissionController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    @person = Person.new(:login_name=>'test_submitter')
+    Person.__write( @person )
+    Person_role.__write( Person_role.new(:person_id=>@person.person_id,:role=>'submitter') )
+    POPE.send( :instance_variable_set, :@user, Person.select_single( :person_id => 1 ) )
+    POPE.refresh
+  end
+
+  def teardown
+    Person.__delete( @person )
+    POPE.deauth
   end
 
   # Replace this with your real tests.

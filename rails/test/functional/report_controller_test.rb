@@ -13,6 +13,10 @@ class ReportControllerTest < Test::Unit::TestCase
     POPE.instance_variable_set( :@user, Person.select_single(:person_id=>1) )
   end
 
+  def teardown
+    POPE.deauth
+  end
+
   [:expenses,:feedback,:resources].each do | action |
     define_method "test_#{action}" do
       get action

@@ -14,6 +14,10 @@ class AdminControllerTest < Test::Unit::TestCase
     POPE.send( :instance_variable_set, :@user, Person.select_single( :person_id => 1 ) )
   end
 
+  def teardown
+    POPE.deauth
+  end
+
   def test_conflict_setup
     get :conflict_setup
     assert_response :success
