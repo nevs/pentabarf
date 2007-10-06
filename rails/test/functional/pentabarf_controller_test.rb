@@ -11,6 +11,7 @@ class PentabarfControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
     @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
     POPE.send( :instance_variable_set, :@user, Person.select_single( :person_id => 1 ) )
+    POPE.refresh
   end
 
   def teardown
