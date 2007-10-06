@@ -11,9 +11,8 @@ CREATE OR REPLACE FUNCTION conflict_event_no_coordinator(integer) RETURNS setof 
         WHERE event.conference_id = cur_conference_id
     LOOP
       IF NOT EXISTS (SELECT 1 FROM event_person 
-                                   INNER JOIN event_role USING (event_role_id)
                        WHERE event_person.event_id = cur_event.event_id AND
-                             event_role.tag = 'coordinator')
+                             event_role = 'coordinator')
       THEN
         RETURN NEXT cur_event;
       END IF;

@@ -28,31 +28,22 @@ CREATE OR REPLACE FUNCTION submit_event( e_person_id INTEGER, e_conference_id IN
 
     INSERT INTO event_person( event_id,
                               person_id,
-                              event_role_id,
-                              event_role_state_id,
+                              event_role,
+                              event_role_state,
                               last_modified_by)
                      VALUES ( new_event_id,
                               e_person_id,
-                              ( SELECT event_role_id
-                                  FROM event_role
-                                 WHERE tag = 'speaker'),
-                              ( SELECT event_role_state_id
-                                  FROM event_role_state
-                                       INNER JOIN event_role ON (
-                                          event_role.event_role_id = event_role_state.event_role_id AND
-                                          event_role.tag = 'speaker')
-                                 WHERE event_role_state.tag = 'offer'),
+                              'speaker',
+                              'offer',
                               e_person_id);
 
     INSERT INTO event_person( event_id,
                               person_id,
-                              event_role_id,
+                              event_role,
                               last_modified_by)
                      VALUES ( new_event_id,
                               e_person_id,
-                              ( SELECT event_role_id
-                                  FROM event_role
-                                 WHERE tag = 'submitter'),
+                              'submitter',
                               e_person_id);
     RETURN new_event_id;
   END;

@@ -7,18 +7,16 @@ CREATE OR REPLACE FUNCTION conflict_event_no_speaker(integer) RETURNS SETOF conf
   BEGIN
 -- Loop through all events
     FOR cur_event IN
-      SELECT event_id 
-        FROM event 
+      SELECT event_id
+        FROM event
         WHERE event.conference_id = cur_conference_id AND
               event_state = 'accepted' AND
               event_state_progress = 'confirmed'
     LOOP
-      IF NOT EXISTS (SELECT 1 FROM event_person 
-                              INNER JOIN event_role USING (event_role_id) 
-                              INNER JOIN event_role_state USING (event_role_state_id) 
+      IF NOT EXISTS (SELECT 1 FROM event_person
                        WHERE event_person.event_id = cur_event.event_id AND
-                             event_role.tag IN ('speaker', 'moderator') AND
-                             event_role_state.tag = 'confirmed')
+                             event_role IN ('speaker', 'moderator') AND
+                             event_role_state = 'confirmed')
       THEN
         RETURN NEXT cur_event;
       END IF;

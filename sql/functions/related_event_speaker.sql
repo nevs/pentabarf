@@ -13,14 +13,10 @@ CREATE OR REPLACE FUNCTION related_event_speaker(integer) RETURNS SETOF conflict
               event.event_id <> cur_event_id AND
               event.event_id IN ( SELECT event_id 
                                     FROM event_person
-                                         INNER JOIN event_role USING (event_role_id)
-                                         INNER JOIN event_role_state USING (event_role_state_id)
-                                   WHERE event_role.tag IN (''speaker'',''moderator'') AND
+                                   WHERE event_role IN (''speaker'',''moderator'') AND
                                          person_id IN ( SELECT person_id 
                                                           FROM event_person 
-                                                               INNER JOIN event_role USING (event_role_id)
-                                                               INNER JOIN event_role_state USING (event_role_state_id)
-                                                         WHERE event_role.tag IN (''speaker'', ''moderator'') AND 
+                                                         WHERE event_role IN (''speaker'', ''moderator'') AND 
                                                                event_id = cur_event_id ) )
     LOOP
       RETURN NEXT cur_event;

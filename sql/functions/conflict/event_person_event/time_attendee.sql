@@ -17,10 +17,9 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_attendee(integer) RE
              start_time,
              duration
         FROM event_person
-        INNER JOIN event_role USING (event_role_id)
         INNER JOIN event USING (event_id)
         INNER JOIN event_state_progress USING (event_state_progress_id)
-        WHERE event_role.tag = 'attendee' AND
+        WHERE event_role = 'attendee' AND
               event.conference_id = cur_conference_id AND
               event.event_state = 'accepted' AND
               event.event_state_progress = 'confirmed' AND
@@ -32,7 +31,6 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_attendee(integer) RE
       FOR cur_event IN
         SELECT event_id
           FROM event_person
-          INNER JOIN event_role USING (event_role_id)
           INNER JOIN event USING (event_id)
           INNER JOIN event_state_progress USING (event_state_progress_id)
           WHERE event.day IS NOT NULL AND
@@ -44,7 +42,7 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_attendee(integer) RE
                 ( cur_speaker.start_time::time, cur_speaker.duration::interval) AND
                 event.event_state = 'accepted' AND
                 event.event_state_progress = 'confirmed' AND
-                event_role.tag = 'attendee' AND
+                event_role = 'attendee' AND
                 event_person.person_id = cur_speaker.person_id
 
       LOOP

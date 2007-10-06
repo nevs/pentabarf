@@ -17,11 +17,9 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_speaker_speaker(inte
              start_time,
              duration
         FROM event_person
-        INNER JOIN event_role USING (event_role_id)
-        INNER JOIN event_role_state USING (event_role_state_id)
         INNER JOIN event USING (event_id)
-        WHERE event_role.tag IN ('speaker', 'moderator') AND
-              event_role_state.tag = 'confirmed' AND
+        WHERE event_role IN ('speaker', 'moderator') AND
+              event_role_state = 'confirmed' AND
               event.conference_id = cur_conference_id AND
               event.event_state = 'accepted' AND
               event.event_state_progress <> 'canceled' AND
@@ -33,8 +31,6 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_speaker_speaker(inte
       FOR cur_event IN
         SELECT event_id
           FROM event_person
-          INNER JOIN event_role USING (event_role_id)
-          INNER JOIN event_role_state USING (event_role_state_id)
           INNER JOIN event USING (event_id)
           WHERE event.day IS NOT NULL AND
                 event.start_time IS NOT NULL AND
@@ -45,8 +41,8 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_speaker_speaker(inte
                 ( cur_speaker.start_time::time, cur_speaker.duration::interval) AND
                 event.event_state = 'accepted' AND
                 event.event_state_progress <> 'canceled' AND
-                event_role.tag IN ('speaker', 'moderator') AND
-                event_role_state.tag = 'confirmed' AND
+                event_role IN ('speaker', 'moderator') AND
+                event_role_state = 'confirmed' AND
                 event_person.person_id = cur_speaker.person_id
 
       LOOP

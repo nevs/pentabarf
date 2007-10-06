@@ -63,24 +63,21 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
 
     INSERT INTO event_person( event_id,
                               person_id,
-                              event_role_id,
-                              event_role_state_id,
+                              event_role,
+                              event_role_state,
                               rank,
                               last_modified_by )
                        SELECT new_event_id,
                               person_id,
-                              event_person.event_role_id,
-                              event_person.event_role_state_id,
+                              event_role,
+                              event_role_state,
                               event_person.rank,
                               cur_person_id
                          FROM event_person
-                              INNER JOIN event_role ON
-                                  (event_role.event_role_id = event_person.event_role_id AND
-                                   event_role.tag IN (''speaker'', ''moderator''))
-                              INNER JOIN event_role_state ON
-                                  (event_person.event_role_id = event_role_state.event_role_id AND
-                                   event_role_state.tag = ''unclear'')
-                        WHERE event_person.event_id = cur_event_id;
+                        WHERE
+                          event_person.event_role IN (''speaker'',''moderator'') AND
+                          event_person.event_role_state = ''unclear'' AND
+                          event_person.event_id = cur_event_id;
 
     INSERT INTO event_link( event_id,
                             url,
@@ -99,11 +96,11 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
 
     INSERT INTO event_person( event_id,
                               person_id,
-                              event_role_id,
+                              event_role,
                               last_modified_by )
                      VALUES ( new_event_id,
                               cur_person_id,
-                              (SELECT event_role_id FROM event_role WHERE tag = ''coordinator''),
+                              ''coordinator'',
                               cur_person_id );
 
 

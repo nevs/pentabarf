@@ -12,9 +12,8 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(inte
     FOR cur_speaker IN
       SELECT person_id, event_id, conference_id, day, start_time, duration 
         FROM event_person 
-        INNER JOIN event_role USING (event_role_id)
         INNER JOIN event USING (event_id)
-        WHERE event_role.tag = 'visitor' AND
+        WHERE event_role = 'visitor' AND
               event.conference_id = cur_conference_id AND
               event.event_state = 'accepted' AND
               event.event_state_progress <> 'canceled' AND
@@ -27,7 +26,6 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(inte
         SELECT event_id 
           FROM event
           INNER JOIN event_person USING (event_id)
-          INNER JOIN event_role USING (event_role_id)
           WHERE event.day IS NOT NULL AND
                 event.start_time IS NOT NULL AND
                 event.day = cur_speaker.day AND 
@@ -37,7 +35,7 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(inte
                 ( cur_speaker.start_time::time, cur_speaker.duration::interval) AND
                 event.event_state = 'accepted' AND
                 event.event_state_progress <> 'canceled' AND
-                event_role.tag = 'visitor' AND
+                event_role = 'visitor' AND
                 event_person.person_id = cur_speaker.person_id
 
       LOOP

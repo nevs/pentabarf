@@ -20,12 +20,12 @@ CREATE OR REPLACE FUNCTION add_attendee(INTEGER, INTEGER) RETURNS INTEGER AS $$
     END IF;
     INSERT INTO event_person( event_id,
                               person_id,
-                              event_role_id,
+                              event_role,
                               last_modified,
                               last_modified_by )
                       VALUES( cur_event_id,
                               cur_person_id,
-                              (SELECT event_role_id FROM event_role WHERE tag = 'attendee'),
+                              'attendee',
                               now(),
                               cur_person_id );
     RETURN cur_person_id;

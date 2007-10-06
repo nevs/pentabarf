@@ -19,15 +19,9 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event_after_departure(integer) 
             event.conference_id = conference.conference_id AND
             conference.conference_id = cur_conference_id
         )
-        INNER JOIN event_role ON (
-            event_role.event_role_id = event_person.event_role_id AND
-            event_role.tag IN ('speaker', 'moderator')
-        )
-        INNER JOIN event_role_state ON (
-            event_role_state.event_role_state_id = event_person.event_role_state_id AND
-            event_role_state.tag = 'confirmed'
-        )
       WHERE
+        event_person.event_role IN ('speaker','moderator') AND
+        event_person.event_role_state = 'confirmed' AND
         event.event_state = 'accepted' AND (
         (
           person_travel.departure_date IS NOT NULL AND

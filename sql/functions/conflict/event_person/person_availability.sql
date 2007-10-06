@@ -20,15 +20,9 @@ CREATE OR REPLACE FUNCTION conflict_event_person_person_availability( INTEGER ) 
             conference.conference_id = event.conference_id AND
             conference.conference_id = cur_conference_id
         )
-        INNER JOIN event_role ON (
-            event_role.event_role_id = event_person.event_role_id AND
-            event_role.tag IN ('speaker', 'moderator')
-        )
-        INNER JOIN event_role_state ON (
-            event_role_state.event_role_state_id = event_person.event_role_state_id AND
-            event_role_state.tag = 'confirmed'
-        )
       WHERE
+        event_person.event_role IN ('speaker','moderator') AND
+        event_person.event_role_state = 'confirmed' AND
         event.event_state = 'accepted' AND
         ( ( slot.start_date <= (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change) AND
             ( slot.start_date + slot.duration ) > (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)

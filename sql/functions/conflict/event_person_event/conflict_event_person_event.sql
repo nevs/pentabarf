@@ -9,10 +9,10 @@ CREATE OR REPLACE FUNCTION conflict_event_person_event(integer) RETURNS SETOF co
   BEGIN
 
     FOR cur_conflict IN
-      SELECT conflict.conflict_id, 
-             conflict.conflict_type_id, 
-             conflict.tag 
-        FROM conflict 
+      SELECT conflict.conflict_id,
+             conflict.conflict_type_id,
+             conflict.tag
+        FROM conflict
              INNER JOIN conflict_type USING (conflict_type_id)
              INNER JOIN conference_phase_conflict USING (conflict_id)
              INNER JOIN conference USING (conference_phase_id)

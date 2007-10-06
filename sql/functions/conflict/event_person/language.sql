@@ -12,11 +12,9 @@ CREATE OR REPLACE FUNCTION conflict_event_person_language(integer) RETURNS SETOF
     FOR cur_speaker IN
       SELECT event_id, person_id, language_id 
         FROM event_person
-        INNER JOIN event_role USING (event_role_id)
-        INNER JOIN event_role_state USING (event_role_state_id)
         INNER JOIN event USING (event_id)
-        WHERE event_role.tag IN (''speaker'', ''moderator'') AND
-              event_role_state.tag = ''confirmed'' AND
+        WHERE event_role IN (''speaker'', ''moderator'') AND
+              event_role_state = ''confirmed'' AND
               event.conference_id = cur_conference_id AND
               event.language_id IS NOT NULL
     LOOP
