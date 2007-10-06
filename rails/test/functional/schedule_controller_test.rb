@@ -9,7 +9,8 @@ class ScheduleControllerTest < Test::Unit::TestCase
     @controller = ScheduleController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    hijack_controller_auth( @controller )
+    authenticate_user( Person.select_single(:person_id=>1) )
   end
 
   def test_index

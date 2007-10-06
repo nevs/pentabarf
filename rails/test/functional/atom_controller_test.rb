@@ -9,7 +9,7 @@ class AtomControllerTest < Test::Unit::TestCase
     @controller = AtomController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    hijack_controller_auth( @controller )
   end
 
   def test_recent_changes

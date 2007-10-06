@@ -9,12 +9,11 @@ class SubmissionControllerTest < Test::Unit::TestCase
     @controller = SubmissionController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    hijack_controller_auth( @controller )
     @person = Person.new(:login_name=>'test_submitter')
     Person.__write( @person )
     Person_role.__write( Person_role.new(:person_id=>@person.person_id,:role=>'submitter') )
-    POPE.send( :instance_variable_set, :@user, Person.select_single( :person_id => 1 ) )
-    POPE.refresh
+    authenticate_user( @person )
   end
 
   def teardown
@@ -26,4 +25,13 @@ class SubmissionControllerTest < Test::Unit::TestCase
   def test_truth
     assert true
   end
+
+  def test_submission_index
+    conf = Conference.select_single(:conference_id=>1)
+    get :index
+    assert_response :success
+    get :index, :conference => conf.acronym
+    assert_response :success
+  end
+
 end

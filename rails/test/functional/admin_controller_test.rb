@@ -10,8 +10,8 @@ class AdminControllerTest < Test::Unit::TestCase
     @controller = AdminController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
-    POPE.send( :instance_variable_set, :@user, Person.select_single( :person_id => 1 ) )
+    hijack_controller_auth( @controller )
+    authenticate_user( Person.select_single(:person_id=>1) )
   end
 
   def teardown

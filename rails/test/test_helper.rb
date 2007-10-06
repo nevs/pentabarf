@@ -25,4 +25,13 @@ class Test::Unit::TestCase
   self.use_instantiated_fixtures  = false
 
   # Add more helper methods to be used by all tests here...
+  def hijack_controller_auth( controller )
+    controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+  end
+
+  def authenticate_user( user )
+    POPE.send( :instance_variable_set, :@user, user )
+    POPE.refresh
+  end
+
 end

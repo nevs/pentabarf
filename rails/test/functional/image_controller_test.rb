@@ -9,8 +9,7 @@ class ImageControllerTest < Test::Unit::TestCase
     @controller = ImageController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    # hijack auth
-    @controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    hijack_controller_auth( @controller )
   end
 
   def test_person
