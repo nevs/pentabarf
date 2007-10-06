@@ -58,8 +58,8 @@ class Pope
     action = :modify if table.table_name.to_sym != d
     return if permission?( "#{action}_#{d}" )
     send( "domain_#{d}", action, row )
-   rescue
-    raise Pope::PermissionError, "Not allowed to write #{table.table_name}"
+   rescue PermissionError
+    raise PermissionError, "Not allowed to write #{table.table_name}"
   end
 
   def table_delete( table, row )
@@ -68,8 +68,8 @@ class Pope
     action = :modify if table.table_name.to_sym != d
     return if permission?( "#{action}_#{d}" )
     send( "domain_#{d}", action, row )
-   rescue
-    raise Pope::PermissionError, "Not allowed to delete #{table.table_name}"
+   rescue PermissionError
+    raise PermissionError, "Not allowed to delete #{table.table_name}"
   end
 
   def domain_event( action, row )
