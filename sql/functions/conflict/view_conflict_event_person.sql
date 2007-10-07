@@ -1,17 +1,3 @@
-CREATE TYPE view_conflict_event_person AS (
-  conflict_id INTEGER,
-  event_id INTEGER,
-  person_id INTEGER,
-  conflict_level_id INTEGER,
-  level_name TEXT,
-  level_tag TEXT,
-  language_id INTEGER,
-  conflict_tag TEXT,
-  conflict_name TEXT,
-  title TEXT,
-  name TEXT
-);
-
 CREATE OR REPLACE FUNCTION view_conflict_event_person( conference_id INTEGER ) RETURNS SETOF view_conflict_event_person AS $$
   SELECT conflict_event_person.conflict_id,
          conflict_event_person.event_id,
@@ -32,4 +18,4 @@ CREATE OR REPLACE FUNCTION view_conflict_event_person( conference_id INTEGER ) R
          INNER JOIN (SELECT event_id, title FROM event) AS event USING (event_id)
          INNER JOIN view_person USING (person_id)
 $$ LANGUAGE SQL;
-  
+

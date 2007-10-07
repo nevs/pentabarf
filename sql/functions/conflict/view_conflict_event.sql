@@ -1,17 +1,5 @@
-CREATE TYPE view_conflict_event AS (
-  conflict_id INTEGER,
-  event_id INTEGER,
-  conflict_level_id INTEGER,
-  level_name TEXT,
-  level_tag TEXT,
-  language_id INTEGER,
-  conflict_tag TEXT,
-  conflict_name TEXT,
-  title TEXT
-);
-
 CREATE OR REPLACE FUNCTION view_conflict_event( conference_id INTEGER ) RETURNS SETOF view_conflict_event AS $$
-  SELECT 
+  SELECT
     conflict_event.conflict_id,
     conflict_event.event_id,
     conference_phase_conflict.conflict_level_id,

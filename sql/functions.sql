@@ -10,6 +10,11 @@
 \i functions/admin/merge_person.sql
 \i functions/admin/remove_conference.sql
 \i functions/admin/remove_event.sql
+\i functions/conflict/view_conflict_event_person_event.sql
+\i functions/conflict/view_conflict_event_person.sql
+\i functions/conflict/view_conflict_person.sql
+\i functions/conflict/view_conflict_event_event.sql
+\i functions/conflict/view_conflict_event.sql
 \i functions/conflict/event/abstract_length.sql
 \i functions/conflict/event/accepted_without_timeslot.sql
 \i functions/conflict/event/conference_language.sql
