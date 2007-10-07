@@ -7,11 +7,12 @@
   height: 20px;
   z-index: 5;
   font-size: smaller;
-  background-color: #FF4040;
 }
 
-#activity span {
-  padding: 2px 2px 2px 2px;
+#activity a {
+  margin: 0px 2px;
+  background-color: #FF4040;
+  padding: 3px;
 }
 
 #activity:hover span {
