@@ -30,6 +30,7 @@ FROM
     event_role_localized.event_role = event_person.event_role AND
     event_role_localized.language_id = event_state_localized.language_id )
   INNER JOIN event_role_state_localized ON (
+    event_role_state_localized.event_role = event_person.event_role AND
     event_role_state_localized.event_role_state = event_person.event_role_state AND
     event_role_state_localized.language_id = event_state_localized.language_id )
 ;
