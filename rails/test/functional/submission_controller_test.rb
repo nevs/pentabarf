@@ -20,11 +20,6 @@ class SubmissionControllerTest < Test::Unit::TestCase
     POPE.deauth
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
-  end
-
   def test_index
     get :index
     assert_response :success
