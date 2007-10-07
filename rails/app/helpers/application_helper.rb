@@ -4,10 +4,10 @@ require 'builder_helper'
 require 'localizer'
 
 module ApplicationHelper
-  include Builder_helper 
+  include Builder_helper
 
   def pentabarf_version
-    "0.3.2"
+    "0.3.3"
   end
 
   # tries to read the current revision of pentabarf from subversion meta data
@@ -40,14 +40,14 @@ module ApplicationHelper
   end
 
   def js_function( name, *parameter )
-    parameter.map! do | p | 
+    parameter.map! do | p |
       if p == true then "true"
       elsif p == false then "false"
       elsif p == nil then "null"
       else "'#{js(p.to_s)}'" end
     end
     "#{name}(#{parameter.join(',')});"
-  end 
+  end
 
   def js_tabs( tabs )
     xml = Builder::XmlMarkup.new
