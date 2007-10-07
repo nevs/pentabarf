@@ -23,7 +23,7 @@ module MomomotoHelper
       row.delete if not row.new_record?
       return row
     end
-  
+
     if options[:ignore_empty]
       return row if !values[ options[:ignore_empty] ] || values[ options[:ignore_empty] ] == ""
     end
@@ -63,6 +63,7 @@ module MomomotoHelper
 
   # writes a file from an upload into the database
   def write_file_row( klass, values, options = {} )
+    return if not values
     data_column = options[:image] ? :image : :data
     # read data from tempfile
     tmpfile = values[data_column]
@@ -92,7 +93,7 @@ module MomomotoHelper
     values.each do | key, file |
       next if key == 'rowid'
       write_file_row( Event_attachment, file, options )
-    end
+    end if values
   end
 
   def write_person_availability( conference, person, data )
