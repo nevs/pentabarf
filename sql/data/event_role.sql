@@ -9,24 +9,17 @@ SET client_min_messages = warning;
 SET search_path = public, pg_catalog;
 
 --
--- Name: event_role_event_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('event_role_event_role_id_seq', 8, true);
-
-
---
 -- Data for Name: event_role; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (1, 'speaker', 1, NULL);
-INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (4, 'visitor', 4, NULL);
-INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (5, 'reporter', NULL, NULL);
-INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (6, 'reviewer', NULL, NULL);
-INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (7, 'attendee', NULL, NULL);
-INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (8, 'submitter', NULL, NULL);
-INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (3, 'moderator', 2, NULL);
-INSERT INTO event_role (event_role_id, tag, rank, f_public) VALUES (2, 'coordinator', 3, NULL);
+INSERT INTO event_role (rank, event_role) VALUES (1, 'speaker');
+INSERT INTO event_role (rank, event_role) VALUES (4, 'visitor');
+INSERT INTO event_role (rank, event_role) VALUES (NULL, 'reporter');
+INSERT INTO event_role (rank, event_role) VALUES (NULL, 'reviewer');
+INSERT INTO event_role (rank, event_role) VALUES (NULL, 'attendee');
+INSERT INTO event_role (rank, event_role) VALUES (NULL, 'submitter');
+INSERT INTO event_role (rank, event_role) VALUES (2, 'moderator');
+INSERT INTO event_role (rank, event_role) VALUES (3, 'coordinator');
 
 
 --
