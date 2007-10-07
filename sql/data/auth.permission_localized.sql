@@ -22,12 +22,13 @@ INSERT INTO permission_localized (permission, translated_id, name) VALUES ('crea
 INSERT INTO permission_localized (permission, translated_id, name) VALUES ('modify_conference', 144, 'Modifizieren einer Konferenz');
 INSERT INTO permission_localized (permission, translated_id, name) VALUES ('delete_conference', 144, 'Löschen einer Konferenz');
 INSERT INTO permission_localized (permission, translated_id, name) VALUES ('modify_localization', 144, 'Modifizieren von Lokalisierungen');
+INSERT INTO permission_localized (permission, translated_id, name) VALUES ('modify_valuelist', 144, 'Modifizieren von Werten in Wertelisten');
 INSERT INTO permission_localized (permission, translated_id, name) VALUES ('create_roles', 144, 'Anlegen von Rollen');
 INSERT INTO permission_localized (permission, translated_id, name) VALUES ('modify_roles', 144, 'Bearbeiten von Rollen');
 INSERT INTO permission_localized (permission, translated_id, name) VALUES ('delete_roles', 144, 'Löschen von Rollen');
 INSERT INTO permission_localized (permission, translated_id, name) VALUES ('modify_own_person', 144, 'Modifizierung der Daten zur eigenen Person');
 INSERT INTO permission_localized (permission, translated_id, name) VALUES ('modify_own_event', 144, 'Modifizierung der Daten an der die Person beteiligt ist');
-INSERT INTO permission_localized (permission, translated_id, name) VALUES ('modify_valuelist', 144, 'Modifizieren von Werten in Wertelisten');
+INSERT INTO permission_localized (permission, translated_id, name) VALUES ('modify_account', 144, 'Zuordnung von Personen zu Gruppen');
 INSERT INTO permission_localized (permission, translated_id, name) VALUES ('create_account', 144, 'Zuordnung von Personen zu Gruppen');
 INSERT INTO permission_localized (permission, translated_id, name) VALUES ('delete_account', 144, 'Zuordnung von Personen zu Gruppen');
 
