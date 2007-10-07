@@ -21,7 +21,7 @@ xml.div( :id => 'data' ) do
 
   end
 
-  xml.script( "function send_content(){ $('content_form').submit();  }", { :type => 'text/javascript' } )
+  xml.script( "function send_content(){ if ( $F('event[title]')) { $('content_form').submit(); } else { alert('You have to fill in an event title'); }  }", { :type => 'text/javascript' } )
   xml.script( "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );", { :type => 'text/javascript' } )
   xml.script( "switch_tab();", { :type => 'text/javascript' } )
 
