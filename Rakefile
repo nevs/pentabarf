@@ -16,7 +16,7 @@ end
 
 # finds files which are not included during install
 task :unincluded_files do
-  ['tables','views'].each do | type |
+  ['tables','views','functions'].each do | type |
     files = `(cd sql && find #{type} -type f)`.split
     files.each do | file |
       sql = `grep  #{file} sql/#{type}.sql`
