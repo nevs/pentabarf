@@ -14,18 +14,21 @@ task :unused_views do
   end
 end
 
-# finds view files which are not included during install
-task :unincluded_views do
-  views = `(cd sql && find views -type f)`.split
-  views.each do | view |
-    sql = `grep  #{view} sql/views.sql`
-    if sql.empty?
-      puts "Uninclued view `#{view}` found."
+# finds files which are not included during install
+task :unincluded_files do
+  ['tables','views'].each do | type |
+    files = `(cd sql && find #{type} -type f)`.split
+    files.each do | file |
+      sql = `grep  #{file} sql/#{type}.sql`
+      if sql.empty?
+        puts "Uninclued file `#{file}` found."
+      end
     end
   end
 end
 
-task :check => [:unused_views,:unincluded_views]
+
+task :check => [:unused_views,:unincluded_files]
 
 task :default => [:check]
 
