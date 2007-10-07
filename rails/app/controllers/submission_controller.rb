@@ -35,6 +35,7 @@ class SubmissionController < ApplicationController
   end
 
   def save_event
+    raise "Event title is mandatory" if params[:event][:title].empty?
     Momomoto::Database.instance.transaction do
       if params[:id].to_i == 0
         event = Submit_event.call(:e_person_id=>POPE.user.person_id,:e_conference_id=>@conference.conference_id,:e_title=>params[:event][:title])
