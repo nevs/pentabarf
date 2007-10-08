@@ -14,6 +14,23 @@ task :unused_views do
   end
 end
 
+# finds unused models
+task :unused_models do
+  models = `grep -r '^class ' rails/app/models | sed -e 's/.*:class \\([A-Z][a-z_]\\+\\) .*/\\1/'`.split
+  models.each do | model |
+    controller = `grep -r '\\<#{model}\\>' rails/app/controllers`
+    if controller.empty?
+      views = `grep -r '\\<#{model}\\>' rails/app/views`
+      if views.empty?
+        lib = `grep -r '\\<#{model}\\>' rails/lib`
+        if lib.empty?
+          puts "Unused model `#{model}` found."
+        end
+      end
+    end
+  end
+end
+
 # finds files which are not included during install
 task :unincluded_files do
   ['tables','views','functions'].each do | type |
@@ -28,7 +45,7 @@ task :unincluded_files do
 end
 
 
-task :check => [:unused_views,:unincluded_files]
+task :check => [:unused_views,:unincluded_files,:unused_models]
 
 task :default => [:check]
 
