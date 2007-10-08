@@ -77,7 +77,7 @@ class SubmissionController < ApplicationController
       write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}})
       write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
       write_rows( Conference_person_link, params[:conference_person_link], {:preset=>{:conference_person_id => conference_person.conference_person_id},:ignore_empty=>:url})
-      write_rows( Person_im, params[:person_im], {:preset=>{:person_id => person.person_id}})
+      write_rows( Person_im, params[:person_im], {:preset=>{:person_id => person.person_id},:ignore_empty=>:im_address})
       write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id},:ignore_empty=>:phone_number})
 
       write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:f_public],:image=>true})
