@@ -16,6 +16,7 @@ xml.div(:id=>'content-description') do
     xml.table do
       xml.thead do
         xml.tr do
+          xml.th ''
           [:type,:public,:filename,:title,:pages,:mime_type,:remove].each do | field |
             xml.th( local(field) )
           end
@@ -25,6 +26,11 @@ xml.div(:id=>'content-description') do
         @attachments.each do | attachment |
           row_id = attachment.event_attachment_id
           xml.tr do
+            xml.td do
+              xml.a({:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>row_id)}) do
+                xml.img({:src=>image_path('icon-find-person-32x32.png')})
+              end
+            end
             xml.td do
               xml.input({:type=>:hidden,:name=>"event_attachment[#{row_id}][event_attachment_id]",:value=>row_id})
               xml << select_tag( "event_attachment[#{row_id}][attachment_type_id]", View_attachment_type.select(:language_id=>@current_language_id).map{|e| [e.attachment_type_id,e.name]} )
