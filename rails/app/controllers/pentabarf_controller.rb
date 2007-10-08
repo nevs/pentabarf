@@ -30,7 +30,7 @@ class PentabarfController < ApplicationController
 
   def review
     @events = View_review.select(:conference_id=>@current_conference.conference_id,:translated_id=>POPE.user.current_language_id)
-    @ratings = Event_rating.select({:person_id=>POPE.user.person_id}).map{|r| r.event_id}
+    @ratings = Event_rating.select({:person_id=>POPE.user.person_id}).select{|r| r.remark || r.relevance || r.acceptance || r.actuality }.map{|r| r.event_id}
   end
 
   def conference

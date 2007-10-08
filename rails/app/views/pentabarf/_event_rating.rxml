@@ -20,4 +20,8 @@ xml.div(:id=>'content-rating') do
 
   xml << text_area_fieldset( @event_rating, :remark, {:rows=>5,:cols=>60})
 
+  xml.fieldset do
+
+  end if POPE.permission?(:view_ratings)
+
 end
