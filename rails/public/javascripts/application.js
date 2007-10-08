@@ -54,6 +54,10 @@ function switch_tab( target ) {
 
   if (!target && realm ) 
     target = cookie_read( realm );
+
+  if ( target == 'all' )
+    return show_all_tabs();
+
   if (!target || tabs.indexOf(target) == -1 )
     target = tabs[0];
 
@@ -66,6 +70,10 @@ function switch_tab( target ) {
 }
 
 function show_all_tabs() {
+  var realm = tab_realm();
+  if ( realm )
+    cookie_write( realm, 'all' );
+
   for( var i = 0; i < tabs.length; i++) {
     $( 'tab-' + tabs[i] ).setAttribute('class','tab active');
     Element.show( 'content-' + tabs[i] );
