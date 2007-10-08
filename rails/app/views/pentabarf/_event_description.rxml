@@ -28,7 +28,7 @@ xml.div(:id=>'content-description') do
           xml.tr do
             xml.td do
               xml.a({:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>row_id)}) do
-                xml.img({:src=>image_path('icon-find-person-32x32.png')})
+                xml.img({:src=>image_path('icon-link-32x32.png'),:height=>24,:width=>24})
               end
             end
             xml.td do
