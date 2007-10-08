@@ -3,8 +3,8 @@ class PentabarfController < ApplicationController
   before_filter :init
   before_filter :check_transaction, :only=>[:save_event,:save_person,:save_conference]
   after_filter :set_content_type
-  prepend_after_filter :save_preferences, :only=>[:search_person_simple,:search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
   prepend_after_filter :update_last_login, :except=>[:activity]
+  prepend_after_filter :save_preferences, :only=>[:search_person_simple,:search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
 
   def conflicts
     @conflict_level = ['fatal','error','warning','note']
@@ -162,10 +162,11 @@ class PentabarfController < ApplicationController
   end
 
   def search_person_simple
+    query = params[:search_person_simple].to_s
     conditions = {}
-    conditions[:name] = {:ilike=>params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}} if params[:id]
+    conditions[:name] = {:ilike=>query.split(/ +/).map{|s| "%#{s}%"}} if not query.empty?
     @results = View_find_person.select( conditions, {:limit=>100} )
-    @preferences[:search_person_simple] = params[:id]
+    @preferences[:search_person_simple] = query
     render(:partial=>'search_person')
   end
 
