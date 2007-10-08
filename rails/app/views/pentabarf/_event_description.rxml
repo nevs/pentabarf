@@ -16,7 +16,7 @@ xml.div(:id=>'content-description') do
     xml.table do
       xml.thead do
         xml.tr do
-          xml.th ''
+          xml.th
           [:type,:public,:filename,:title,:pages,:mime_type,:remove].each do | field |
             xml.th( local(field) )
           end
