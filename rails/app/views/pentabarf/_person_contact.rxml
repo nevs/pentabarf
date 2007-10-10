@@ -25,7 +25,7 @@ xml.div(:id=>'content-contact') do
         xml.tr(:id=>'person_im_template',:style=>'display:none') do
           xml.td do
             xml.input({:type=>:hidden,:id=>'person_im[row_id][person_im_id]',:name=>'person_im[row_id][person_im_id]'})
-            xml << select_tag( 'person_im[row_id][im_type_id]', Im_type.select.map{|e| [e.im_type_id,e.tag]} )
+            xml << select_tag( 'person_im[row_id][im_type]', Im_type.select.map{|e| e.im_type} )
           end
           xml.td do xml.input({:type=>:text,:id=>'person_im[row_id][im_address]',:name=>'person_im[row_id][im_address]'}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'person_im[row_id][remove]',:id=>'person_im[row_id][remove]'}) end
@@ -35,7 +35,7 @@ xml.div(:id=>'content-contact') do
 
     xml.script(:type=>'text/javascript') do
       Person_im.select( :person_id => @person.person_id ).each do | c |
-        xml << js_function( 'table_add_row', 'person_im', c.person_im_id, c.im_type_id, c.im_address )
+        xml << js_function( 'table_add_row', 'person_im', c.person_im_id, c.im_type, c.im_address )
       end
     end
 
