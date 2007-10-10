@@ -57,7 +57,7 @@ xml.div(:id=>'content-contact') do
         xml.tr(:id=>'person_phone_template',:style=>'display:none') do
           xml.td do
             xml.input({:type=>:hidden,:id=>'person_phone[row_id][person_phone_id]',:name=>'person_phone[row_id][person_phone_id]'})
-            xml << select_tag( 'person_phone[row_id][phone_type_id]', Phone_type.select.map{|e| [e.phone_type_id,e.tag]} )
+            xml << select_tag( 'person_phone[row_id][phone_type]', Phone_type.select.map{|e| e.phone_type} )
           end
           xml.td do xml.input({:type=>:text,:id=>'person_phone[row_id][phone_number]',:name=>'person_phone[row_id][phone_number]'}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'person_phone[row_id][remove]',:id=>'person_phone[row_id][remove]'}) end
@@ -67,7 +67,7 @@ xml.div(:id=>'content-contact') do
 
     xml.script(:type=>'text/javascript') do
       Person_phone.select( :person_id => @person.person_id ).each do | c |
-        xml << js_function( 'table_add_row', 'person_phone', c.person_phone_id, c.phone_type_id, c.phone_number )
+        xml << js_function( 'table_add_row', 'person_phone', c.person_phone_id, c.phone_type, c.phone_number )
       end
     end
 
