@@ -1,0 +1,14 @@
+xml.html do
+  xml.head do
+    xml.title "Authentication failed."
+  end
+  xml.body do
+    xml.p "Authentication failed."
+    xml.p do
+      xml.text! 'If you forgot your password you may '
+      xml.a 'reset your password', :href=>url_for(:controller=>'user',:action=>:forgot_password)
+      xml.text! '.'
+    end
+  end
+end
+

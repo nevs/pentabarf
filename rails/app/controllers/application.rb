@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
    rescue 
     response.headers["Status"] = "Unauthorized"
     response.headers["WWW-Authenticate"] = "Basic realm=Pentabarf"
-    render( :text => "Authentication failed", :status => 401)
+    render( :file=>'auth_failed', :status => 401, :use_full_path => true)
     return false
   end
 
