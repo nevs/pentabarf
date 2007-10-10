@@ -223,27 +223,6 @@ CREATE OR REPLACE VIEW view_mime_type AS
          ) AS all_lang 
          LEFT OUTER JOIN mime_type_localized USING (language_id, mime_type_id);
 
--- view for phone_type with fallback to tag
-CREATE OR REPLACE VIEW view_phone_type AS 
-  SELECT phone_type_id, 
-         language_id, 
-         scheme, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         rank, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  phone_type_id, 
-                  phone_type.scheme, 
-                  phone_type.tag, 
-                  phone_type.rank, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN phone_type
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN phone_type_localized USING (language_id, phone_type_id);
-
 -- view for room with fallback to tag
 CREATE OR REPLACE VIEW view_room AS 
   SELECT room_id, 
