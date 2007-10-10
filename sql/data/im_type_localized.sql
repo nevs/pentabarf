@@ -12,18 +12,18 @@ SET search_path = public, pg_catalog;
 -- Data for Name: im_type_localized; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (2, 144, 'Jabber');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (3, 144, 'AIM');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (4, 144, 'ICQ');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (5, 144, 'Gadu-Gadu');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (6, 144, 'MSN');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (7, 144, 'Yahoo');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (2, 120, 'Jabber');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (3, 120, 'AIM');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (4, 120, 'ICQ');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (5, 120, 'Gadu Gadu');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (6, 120, 'MSN');
-INSERT INTO im_type_localized (im_type_id, language_id, name) VALUES (7, 120, 'Yahoo');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (144, 'Jabber', 'jabber');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (144, 'AIM', 'aim');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (144, 'ICQ', 'icq');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (144, 'Gadu-Gadu', 'gadugadu');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (144, 'MSN', 'msn');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (144, 'Yahoo', 'yahoo');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (120, 'Jabber', 'jabber');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (120, 'AIM', 'aim');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (120, 'ICQ', 'icq');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (120, 'Gadu Gadu', 'gadugadu');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (120, 'MSN', 'msn');
+INSERT INTO im_type_localized (language_id, name, im_type) VALUES (120, 'Yahoo', 'yahoo');
 
 
 --
