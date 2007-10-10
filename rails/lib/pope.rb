@@ -5,7 +5,7 @@ class Pope
   class PermissionError <  StandardError
   end
 
-  attr_reader :user, :permissions
+  attr_reader :user, :permissions, :own_events
 
   def initialize
     @permissions = []

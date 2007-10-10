@@ -25,6 +25,22 @@ class ImageController < ApplicationController
 
   protected
 
+  def check_permission
+    if POPE.permission?('pentabarf_login')
+      return true
+    elsif POPE.permission?('submission_login')
+      case params[:action]
+        when 'event'
+          return true if POPE.own_events.member?(params[:id].to_i)
+        when 'person'
+          return true if POPE.user.person_id == params[:id].to_i
+        when 'conference'
+          return true if Conference.select(:conference_id=>params[:id].to_i,:f_submission_enabled=>'t').length == 1
+      end
+    end
+    false
+  end
+
   def modified_since
     action = params[:action]
     klass = self.class.const_get( "View_#{action}_image_modification" )

@@ -1,6 +1,7 @@
 xml.div(:id=>'content-general') do
 
   xml.fieldset do
+    xml.img( :src=>url_for(:controller=>'image',:action=>:person,:id=>"#{@person.person_id}-128x128"),:style=>'float: right;')
     xml.legend local('view::pentabarf::person::tab::general')
 
     xml.table do
