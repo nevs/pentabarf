@@ -27,13 +27,13 @@ xml.div(:id=>'content-description') do
           xml.tr do
             xml.td do
               xml.input({:type=>:hidden,:name=>"event_attachment[#{row_id}][event_attachment_id]",:value=>row_id})
-              xml << select_tag( "event_attachment[#{row_id}][attachment_type_id]", View_attachment_type.select(:language_id=>@current_language_id).map{|e| [e.attachment_type_id,e.name]} )
+              xml << select_tag( "event_attachment[#{row_id}][attachment_type_id]", View_attachment_type.select(:language_id=>@current_language_id).map{|e| [e.attachment_type_id,e.name]}, {:selected=>attachment.attachment_type_id} )
             end
             xml.td do xml.input({:type=>:checkbox,:name=>"event_attachment[#{row_id}][f_public]"}.merge(attachment.f_public ? {:checked=>:checked} : {} )) end
             xml.td do xml.input({:type=>:input,:name=>"event_attachment[#{row_id}][filename]",:value=>attachment.filename}) end
             xml.td do xml.input({:type=>:input,:name=>"event_attachment[#{row_id}][title]",:value=>attachment.title}) end
             xml.td do xml.input({:type=>:input,:name=>"event_attachment[#{row_id}][pages]",:value=>attachment.pages,:size=>3}) end
-            xml.td do xml << select_tag( "event_attachment[#{row_id}][mime_type_id]", Mime_type.select.map{|e| [e.mime_type_id,e.mime_type]} ) end
+            xml.td do xml << select_tag( "event_attachment[#{row_id}][mime_type_id]", Mime_type.select.map{|e| [e.mime_type_id,e.mime_type]},:selected=>attachment.mime_type_id ) end
             xml.td do xml.input({:type=>:checkbox,:name=>"event_attachment[#{row_id}][remove]"}) end
           end
         end
