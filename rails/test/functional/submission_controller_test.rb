@@ -42,6 +42,7 @@ class SubmissionControllerTest < Test::Unit::TestCase
     authenticate_user( @person )
     get :event, :conference => @conference.acronym
     assert_response :success
+    authenticate_user( @person )
     submit_form do | form |
       form.event.title = 'Event Submission Test'
     end
