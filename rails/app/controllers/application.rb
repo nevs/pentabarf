@@ -6,11 +6,18 @@ require 'momomoto_helper'
 class ApplicationController < ActionController::Base
   include MomomotoHelper
   session :off
+  around_filter :transaction_wrapper
   before_filter :auth
   before_filter :check_token
-  after_filter :shutdown
 
   protected
+
+  def transaction_wrapper
+    Momomoto::Database.instance.transaction do
+      yield
+    end
+    POPE.deauth
+  end
 
   def rescue_action_in_public( exception )
     @meditation_message = exception.message
@@ -59,10 +66,6 @@ class ApplicationController < ActionController::Base
       end
     end
     true
-  end
-
-  def shutdown
-    POPE.deauth
   end
 
   # check whether we are working on the last version
