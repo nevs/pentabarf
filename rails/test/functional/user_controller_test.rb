@@ -16,7 +16,12 @@ class UserControllerTest < Test::Unit::TestCase
     assert_response :success
     token = extract_token( @response.body )
     assert_not_nil token
-    post :save_account, {:token=>token,:person=>{:login_name=>'chunky',:email_contact=>'chunky@bacon.com',:password=>'bacon'},:password=>'bacon'}
+    submit_form do | form |
+      form.person.login_name = 'chunky'
+      form.person.email_contact = 'chunky@bacon.com'
+      form.person.password = 'bacon'
+      form.password = 'bacon'
+    end
     assert_response :redirect
     assert_redirected_to( :action => :account_done)
     chunky = Person.select_single(:login_name=>'chunky')
@@ -35,7 +40,10 @@ class UserControllerTest < Test::Unit::TestCase
     assert_response :success
     token = extract_token( @response.body )
     assert_not_nil token
-    post :save_forgot_password, {:token=>token,:login_name=>'test_password_reset',:email=>'sven@pentabarf.org'}
+    submit_form do | form |
+      form.login_name = 'test_password_reset'
+      form.email = 'sven@pentabarf.org'
+    end
     assert_response :redirect
     get :reset_link_sent
     assert_response :success
@@ -43,7 +51,10 @@ class UserControllerTest < Test::Unit::TestCase
     get :reset_password, :id=>id.activation_string
     assert_response :success
     token = extract_token( @response.body )
-    post :save_reset_password, :id=>id.activation_string,:password=>'newpass',:password2=>'newpass',:token=>token
+    submit_form do | form |
+      form.password = 'newpass'
+      form.password2 = 'newpass'
+    end
     assert_response :redirect
     assert_not_equal( user.password, Person.select_single(:person_id=>user.person_id).password )
     Person.__delete( user )

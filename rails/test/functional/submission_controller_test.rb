@@ -42,10 +42,10 @@ class SubmissionControllerTest < Test::Unit::TestCase
     authenticate_user( @person )
     get :event, :conference => @conference.acronym
     assert_response :success
-    token = extract_token( @response.body )
-    post :save_event, :conference=>@conference.acronym, :token=>token, :event => {:title=>'Event Submission Test'}
+    submit_form do | form |
+      form.event.title = 'Event Submission Test'
+    end
     assert_response :redirect
-
   end
 
   def test_events
