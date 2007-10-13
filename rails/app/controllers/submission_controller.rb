@@ -36,23 +36,21 @@ class SubmissionController < ApplicationController
 
   def save_event
     raise "Event title is mandatory" if params[:event][:title].empty?
-    Momomoto::Database.instance.transaction do
-      if params[:id].to_i == 0
-        event = Submit_event.call(:e_person_id=>POPE.user.person_id,:e_conference_id=>@conference.conference_id,:e_title=>params[:event][:title])
-        params[:id] = event[0].submit_event
-        POPE.refresh
-      end
-      params[:event][:event_id] = params[:id]
-      event = write_row( Event, params[:event], {:except=>[:event_id],:only=>Event::SubmissionFields} )
-      write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id},:ignore_empty=>:url})
-      write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
-      write_rows( Event_attachment, params[:event_attachment], {:always=>[:f_public]} )
-      write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
-
-      Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
-
-      redirect_to( :action => :event, :id => event.event_id )
+    if params[:id].to_i == 0
+      event = Submit_event.call(:e_person_id=>POPE.user.person_id,:e_conference_id=>@conference.conference_id,:e_title=>params[:event][:title])
+      params[:id] = event[0].submit_event
+      POPE.refresh
     end
+    params[:event][:event_id] = params[:id]
+    event = write_row( Event, params[:event], {:except=>[:event_id],:only=>Event::SubmissionFields} )
+    write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id},:ignore_empty=>:url})
+    write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
+    write_rows( Event_attachment, params[:event_attachment], {:always=>[:f_public]} )
+    write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
+
+    Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
+
+    redirect_to( :action => :event, :id => event.event_id )
   end
 
   def person
@@ -64,29 +62,27 @@ class SubmissionController < ApplicationController
   end
 
   def save_person
-    Momomoto::Database.instance.transaction do
-      params[:person][:person_id] = POPE.user.person_id
-      person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:f_spam]} ) do | row |
-        if params[:person][:password].to_s != ""
-          raise "Passwords do not match" if params[:person][:password] != params[:person][:password2]
-          row.password = params[:person][:password]
-        end
+    params[:person][:person_id] = POPE.user.person_id
+    person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:f_spam]} ) do | row |
+      if params[:person][:password].to_s != ""
+        raise "Passwords do not match" if params[:person][:password] != params[:person][:password2]
+        row.password = params[:person][:password]
       end
-      conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}})
-      POPE.refresh
-      write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}})
-      write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
-      write_rows( Conference_person_link, params[:conference_person_link], {:preset=>{:conference_person_id => conference_person.conference_person_id},:ignore_empty=>:url})
-      write_rows( Person_im, params[:person_im], {:preset=>{:person_id => person.person_id},:ignore_empty=>:im_address})
-      write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id},:ignore_empty=>:phone_number})
-
-      write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:f_public],:image=>true})
-      write_person_availability( @conference, person, params[:person_availability])
-
-      Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
-
-      redirect_to( :action => :person )
     end
+    conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}})
+    POPE.refresh
+    write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}})
+    write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
+    write_rows( Conference_person_link, params[:conference_person_link], {:preset=>{:conference_person_id => conference_person.conference_person_id},:ignore_empty=>:url})
+    write_rows( Person_im, params[:person_im], {:preset=>{:person_id => person.person_id},:ignore_empty=>:im_address})
+    write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id},:ignore_empty=>:phone_number})
+
+    write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:f_public],:image=>true})
+    write_person_availability( @conference, person, params[:person_availability])
+
+    Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
+
+    redirect_to( :action => :person )
   end
 
   protected

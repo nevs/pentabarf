@@ -2,9 +2,9 @@ class PentabarfController < ApplicationController
 
   before_filter :init
   before_filter :check_transaction, :only=>[:save_event,:save_person,:save_conference]
-  after_filter :set_content_type
   prepend_after_filter :update_last_login, :except=>[:activity]
   prepend_after_filter :save_preferences, :only=>[:search_person_simple,:search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
+  append_after_filter :set_content_type
 
   def conflicts
     @conflict_level = ['fatal','error','warning','note']
@@ -47,17 +47,15 @@ class PentabarfController < ApplicationController
 
   def save_conference
     params[:conference][:conference_id] = params[:id] if params[:id].to_i > 0
-    Momomoto::Database.instance.transaction do
-      conf = write_row( Conference, params[:conference], {:except=>[:conference_id],:always=>[:f_submission_enabled,:f_visitor_enabled,:f_feedback_enabled,:f_reconfirmation_enabled]} )
-      write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
-      write_rows( Team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id}})
-      write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
-      write_rows( Room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:f_public]})
-      write_file_row( Conference_image, params[:conference_image], {:preset=>{:conference_id => conf.conference_id},:image=>true})
-      Conference_transaction.new({:conference_id=>conf.conference_id,:changed_by=>POPE.user.person_id}).write
+    conf = write_row( Conference, params[:conference], {:except=>[:conference_id],:always=>[:f_submission_enabled,:f_visitor_enabled,:f_feedback_enabled,:f_reconfirmation_enabled]} )
+    write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
+    write_rows( Team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id}})
+    write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
+    write_rows( Room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:f_public]})
+    write_file_row( Conference_image, params[:conference_image], {:preset=>{:conference_id => conf.conference_id},:image=>true})
+    Conference_transaction.new({:conference_id=>conf.conference_id,:changed_by=>POPE.user.person_id}).write
 
-      redirect_to( :action => :conference, :id => conf.conference_id)
-    end
+    redirect_to( :action => :conference, :id => conf.conference_id)
   end
 
   def event
@@ -77,20 +75,18 @@ class PentabarfController < ApplicationController
 
   def save_event
     params[:event][:event_id] = params[:id] if params[:id].to_i > 0
-    Momomoto::Database.instance.transaction do
-      event = write_row( Event, params[:event], {:except=>[:event_id,:conference_id],:init=>{:conference_id=>@current_conference.conference_id},:always=>[:f_public]} )
-      write_row( Event_rating, params[:event_rating], {:preset=>{:event_id => event.event_id,:person_id=>POPE.user.person_id}})
-      write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}})
-      write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id}})
-      write_rows( Event_link_internal, params[:event_link_internal], {:preset=>{:event_id => event.event_id}})
-      write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
-      write_rows( Event_attachment, params[:event_attachment], {:always=>[:f_public]} )
-      write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
+    event = write_row( Event, params[:event], {:except=>[:event_id,:conference_id],:init=>{:conference_id=>@current_conference.conference_id},:always=>[:f_public]} )
+    write_row( Event_rating, params[:event_rating], {:preset=>{:event_id => event.event_id,:person_id=>POPE.user.person_id}})
+    write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}})
+    write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id}})
+    write_rows( Event_link_internal, params[:event_link_internal], {:preset=>{:event_id => event.event_id}})
+    write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
+    write_rows( Event_attachment, params[:event_attachment], {:always=>[:f_public]} )
+    write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
 
-      Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
+    Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
 
-      redirect_to( :action => :event, :id => event.event_id )
-    end
+    redirect_to( :action => :event, :id => event.event_id )
   end
 
   def person
@@ -112,34 +108,32 @@ class PentabarfController < ApplicationController
 
   def save_person
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
-    Momomoto::Database.instance.transaction do
-      person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:f_spam]} ) do | row |
-        if params[:person][:password].to_s != "" && ( row.person_id == POPE.user.person_id || POPE.permission?( :modify_account ) )
-          raise "Passwords do not match" if params[:person][:password] != params[:person][:password2]
-          row.password = params[:person][:password]
-        end
+    person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:f_spam]} ) do | row |
+      if params[:person][:password].to_s != "" && ( row.person_id == POPE.user.person_id || POPE.permission?( :modify_account ) )
+        raise "Passwords do not match" if params[:person][:password] != params[:person][:password2]
+        row.password = params[:person][:password]
       end
-      conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
-      write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
-      write_row( Person_rating, params[:person_rating], {:preset=>{:person_id => person.person_id,:evaluator_id=>POPE.user.person_id}})
-      write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
-      write_rows( Conference_person_link, params[:conference_person_link], {:preset=>{:conference_person_id => conference_person.conference_person_id},:ignore_empty=>:url})
-      write_rows( Conference_person_link_internal, params[:conference_person_link_internal], {:preset=>{:conference_person_id => conference_person.conference_person_id},:ignore_empty=>:url})
-      write_rows( Person_im, params[:person_im], {:preset=>{:person_id => person.person_id},:ignore_empty=>:im_address})
-      write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id},:ignore_empty=>:phone_number})
-      write_rows( Event_person, params[:event_person], {:preset=>{:person_id => person.person_id}})
-
-      write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:f_public],:image=>true})
-      write_person_availability( @current_conference, person, params[:person_availability])
-
-      if POPE.permission?(:modify_account)
-        params[:person_role].each do | k,v | v[:remove] = true if not v[:set] end
-        write_rows( Person_role, params[:person_role], {:preset=>{:person_id=>person.person_id},:except=>[:set]})
-      end
-      Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
-
-      redirect_to( :action => :person, :id => person.person_id )
     end
+    conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
+    write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
+    write_row( Person_rating, params[:person_rating], {:preset=>{:person_id => person.person_id,:evaluator_id=>POPE.user.person_id}})
+    write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
+    write_rows( Conference_person_link, params[:conference_person_link], {:preset=>{:conference_person_id => conference_person.conference_person_id},:ignore_empty=>:url})
+    write_rows( Conference_person_link_internal, params[:conference_person_link_internal], {:preset=>{:conference_person_id => conference_person.conference_person_id},:ignore_empty=>:url})
+    write_rows( Person_im, params[:person_im], {:preset=>{:person_id => person.person_id},:ignore_empty=>:im_address})
+    write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id},:ignore_empty=>:phone_number})
+    write_rows( Event_person, params[:event_person], {:preset=>{:person_id => person.person_id}})
+
+    write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:f_public],:image=>true})
+    write_person_availability( @current_conference, person, params[:person_availability])
+
+    if POPE.permission?(:modify_account)
+      params[:person_role].each do | k,v | v[:remove] = true if not v[:set] end
+      write_rows( Person_role, params[:person_role], {:preset=>{:person_id=>person.person_id},:except=>[:set]})
+    end
+    Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
+
+    redirect_to( :action => :person, :id => person.person_id )
   end
 
   def activity
