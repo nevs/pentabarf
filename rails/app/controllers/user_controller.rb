@@ -56,6 +56,7 @@ class UserController < ApplicationController
   end
 
   def reset_password
+    return redirect_to(:action=>:forgot_password) if params[:id].to_s.empty?
     Password_reset_string.select_single(:activation_string=>params[:id])
    rescue
     raise "Invalid reset string."
