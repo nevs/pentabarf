@@ -36,9 +36,4 @@ class Test::Unit::TestCase
     POPE.refresh
   end
 
-  def extract_token( body )
-    token = body.match( /<input [^>]+value="([a-f0-9]{40,40})"/ )
-    token ? token[1] : nil
-  end
-
 end

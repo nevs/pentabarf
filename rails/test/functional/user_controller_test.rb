@@ -14,8 +14,6 @@ class UserControllerTest < Test::Unit::TestCase
   def test_account_creation_and_activation
     get :new_account
     assert_response :success
-    token = extract_token( @response.body )
-    assert_not_nil token
     submit_form do | form |
       form.person.login_name = 'chunky'
       form.person.email_contact = 'chunky@bacon.com'
@@ -38,8 +36,6 @@ class UserControllerTest < Test::Unit::TestCase
     Person.__write( user )
     get :forgot_password
     assert_response :success
-    token = extract_token( @response.body )
-    assert_not_nil token
     submit_form do | form |
       form.login_name = 'test_password_reset'
       form.email = 'sven@pentabarf.org'
@@ -50,7 +46,6 @@ class UserControllerTest < Test::Unit::TestCase
     id = Password_reset_string.select_single(:person_id=>user.person_id)
     get :reset_password, :id=>id.activation_string
     assert_response :success
-    token = extract_token( @response.body )
     submit_form do | form |
       form.password = 'newpass'
       form.password2 = 'newpass'
