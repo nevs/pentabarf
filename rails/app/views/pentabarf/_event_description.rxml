@@ -57,7 +57,7 @@ xml.div(:id=>'content-description') do
       xml.tbody(:id=>'attachment_upload_tbody') do
         xml.tr(:id=>'attachment_upload_template',:style=>'display:none') do
           xml.td do xml << select_tag( 'attachment_upload[row_id][attachment_type_id]', View_attachment_type.select(:language_id=>@current_language_id).map{|e| [e.attachment_type_id,e.name]} ) end
-          xml.td do xml.input({:type=>:checkbox,:name=>'attachment_upload[row_id][public]'}) end
+          xml.td do xml.input({:type=>:checkbox,:name=>'attachment_upload[row_id][f_public]'}) end
           xml.td do xml.input({:type=>:input,:name=>'attachment_upload[row_id][filename]'}) end
           xml.td do xml.input({:type=>:input,:name=>'attachment_upload[row_id][title]'}) end
           xml.td do xml << file_field_tag('attachment_upload[row_id][data]', {:tabindex => 0, :onchange => "enable_save_button()"}) end
