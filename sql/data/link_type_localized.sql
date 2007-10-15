@@ -12,12 +12,12 @@ SET search_path = public, pg_catalog;
 -- Data for Name: link_type_localized; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO link_type_localized (link_type_id, language_id, name) VALUES (1, 144, 'URL');
-INSERT INTO link_type_localized (link_type_id, language_id, name) VALUES (1, 120, 'URL');
-INSERT INTO link_type_localized (link_type_id, language_id, name) VALUES (3, 144, 'Request Tracker');
-INSERT INTO link_type_localized (link_type_id, language_id, name) VALUES (3, 120, 'Request Tracker');
-INSERT INTO link_type_localized (link_type_id, language_id, name) VALUES (4, 120, 'Orga-Wiki');
-INSERT INTO link_type_localized (link_type_id, language_id, name) VALUES (4, 144, 'Orga-Wiki');
+INSERT INTO link_type_localized (language_id, name, link_type) VALUES (144, 'URL', 'url');
+INSERT INTO link_type_localized (language_id, name, link_type) VALUES (120, 'URL', 'url');
+INSERT INTO link_type_localized (language_id, name, link_type) VALUES (144, 'Request Tracker', 'rt cccv');
+INSERT INTO link_type_localized (language_id, name, link_type) VALUES (120, 'Request Tracker', 'rt cccv');
+INSERT INTO link_type_localized (language_id, name, link_type) VALUES (120, 'Orga-Wiki', 'orga wiki');
+INSERT INTO link_type_localized (language_id, name, link_type) VALUES (144, 'Orga-Wiki', 'orga wiki');
 
 
 --
