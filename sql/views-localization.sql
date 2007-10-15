@@ -161,27 +161,6 @@ CREATE OR REPLACE VIEW view_language AS
          ) AS all_lang
          LEFT OUTER JOIN language_localized USING (language_id, translated_id);
          
--- view for link_type with fallback to tag
-CREATE OR REPLACE VIEW view_link_type AS 
-  SELECT link_type_id, 
-         language_id, 
-         template, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         rank, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  link_type_id, 
-                  link_type.template, 
-                  link_type.tag, 
-                  link_type.rank, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN link_type
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN link_type_localized USING (language_id, link_type_id);
-             
 -- view for room with fallback to tag
 CREATE OR REPLACE VIEW view_room AS 
   SELECT room_id, 
