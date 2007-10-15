@@ -11,13 +11,12 @@ CREATE OR REPLACE VIEW view_find_person AS
          view_person.email_contact,
          view_person.gender,
          view_person.country_id,
-         person_image.mime_type_id,
-         mime_type.mime_type,
+         person_image.mime_type,
          mime_type.file_extension,
          conference_person.conference_id,
          conference_person.f_reconfirmed
     FROM view_person
          LEFT OUTER JOIN conference_person USING (person_id)
          LEFT OUTER JOIN person_image USING (person_id)
-         LEFT OUTER JOIN mime_type USING (mime_type_id);
+         LEFT OUTER JOIN mime_type USING (mime_type);
 

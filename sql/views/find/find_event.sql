@@ -20,8 +20,7 @@ CREATE OR REPLACE VIEW view_find_event AS
          event_state_localized.language_id AS translated_id,
          event_state_localized.name AS event_state_name,
          event_state_progress_localized.name AS event_state_progress_name,
-         event_image.mime_type_id,
-         mime_type.mime_type,
+         event_image.mime_type,
          mime_type.file_extension,
          view_room.tag AS room_tag,
          view_room.name AS room,
@@ -45,7 +44,7 @@ CREATE OR REPLACE VIEW view_find_event AS
              event.event_state_progress = event_state_progress_localized.event_state_progress)
          LEFT OUTER JOIN conference_track USING (conference_track_id)
          LEFT OUTER JOIN event_image USING (event_id)
-         LEFT OUTER JOIN mime_type USING (mime_type_id)
+         LEFT OUTER JOIN mime_type USING (mime_type)
          LEFT OUTER JOIN view_room ON (
              event_state_localized.language_id = view_room.language_id AND
              event.room_id = view_room.room_id);

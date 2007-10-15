@@ -201,28 +201,6 @@ CREATE OR REPLACE VIEW view_link_type AS
          ) AS all_lang 
          LEFT OUTER JOIN link_type_localized USING (language_id, link_type_id);
              
--- view for mime_type with fallback to tag
-CREATE OR REPLACE VIEW view_mime_type AS 
-  SELECT mime_type_id, 
-         language_id, 
-         tag,
-         tag AS mime_type,
-         coalesce(name,tag) AS name,
-         file_extension,
-         f_image,
-         language_tag
-    FROM ( SELECT language_id, 
-                  mime_type_id, 
-                  mime_type AS tag, 
-                  file_extension,
-                  f_image,
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN mime_type
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN mime_type_localized USING (language_id, mime_type_id);
-
 -- view for room with fallback to tag
 CREATE OR REPLACE VIEW view_room AS 
   SELECT room_id, 

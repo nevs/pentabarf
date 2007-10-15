@@ -1,12 +1,10 @@
 \i views-localization.sql
 \i views/person.sql
 \i views/conference_image_modification.sql
-\i views/conference_image.sql
 \i views/conference_person_link_internal.sql
 \i views/conference_person.sql
 \i views/event_attachment.sql
 \i views/event_image_modification.sql
-\i views/event_image.sql
 \i views/event_link_internal.sql
 \i views/event_person.sql
 \i views/event_rating_public.sql
@@ -22,7 +20,6 @@
 \i views/mail/mail_all_speaker.sql
 \i views/mail/mail_missing_slides.sql
 \i views/person_image_modification.sql
-\i views/person_image.sql
 \i views/person_rating.sql
 \i views/recent_changes.sql
 \i views/report/report_arrived.sql

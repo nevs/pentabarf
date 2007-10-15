@@ -18,7 +18,7 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                     f_public,
                     file_extension
                FROM person_image
-                    INNER JOIN mime_type USING (mime_type_id)
+                    INNER JOIN mime_type USING (mime_type)
               WHERE f_public = 't'
          ) AS person_image USING (person_id)
          INNER JOIN (

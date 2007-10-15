@@ -32,7 +32,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
              SELECT event_id,
                     file_extension
                FROM event_image
-                    INNER JOIN mime_type USING (mime_type_id)
+                    INNER JOIN mime_type USING (mime_type)
          ) AS event_image USING (event_id)
          INNER JOIN event ON (
              event.event_id = event_person.event_id AND

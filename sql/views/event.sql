@@ -35,8 +35,7 @@ CREATE OR REPLACE VIEW view_event AS
          conference.acronym,
          (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
          event.start_time + conference.day_change AS real_starttime,
-         event_image.mime_type_id,
-         mime_type.mime_type,
+         event_image.mime_type,
          mime_type.file_extension
     FROM event
          INNER JOIN event_state_localized USING (event_state)
@@ -54,6 +53,6 @@ CREATE OR REPLACE VIEW view_event AS
              event.room_id = view_room.room_id AND
              view_room.language_id = event_state_localized.language_id)
          LEFT OUTER JOIN event_image USING (event_id)
-         LEFT OUTER JOIN mime_type USING (mime_type_id)
+         LEFT OUTER JOIN mime_type USING (mime_type)
 ;
 
