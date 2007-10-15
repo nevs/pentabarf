@@ -84,7 +84,7 @@ xml.div(:id=>'content-contact') do
       xml << text_field_row( @person, :po_box )
       xml << text_field_row( @person, :po_box_postcode )
       xml << text_field_row( @person, :city )
-      xml << select_row( @person, :country_id, View_country.select(:language_id=>@current_language_id).map{|e| [e.country_id, e.name]})
+      xml << select_row( @person, :country_id, View_country.select(:language_id=>@current_language_id).map{|e| [e.country_id, e.name]}, {:with_empty=>true})
     end
   end
 
