@@ -1,8 +1,7 @@
 
 CREATE TABLE attachment_type (
-  attachment_type_id SERIAL NOT NULL,
-  tag VARCHAR(32) NOT NULL UNIQUE,
+  attachment_type TEXT NOT NULL,
   rank INTEGER,
-  PRIMARY KEY (attachment_type_id)
+  PRIMARY KEY (attachment_type)
 );
 
