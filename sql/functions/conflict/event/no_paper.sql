@@ -8,9 +8,8 @@ CREATE OR REPLACE FUNCTION conflict_event_no_paper(INTEGER) RETURNS SETOF confli
          event.event_state_progress = 'confirmed' AND
          f_paper = 't' AND
          NOT EXISTS (SELECT 1 FROM event_attachment
-                                   INNER JOIN attachment_type USING (attachment_type_id)
                              WHERE event_attachment.event_id = event.event_id AND
-                                   attachment_type.tag = 'paper' AND
+                                   event_attachment.attachment_type = 'paper' AND
                                    event_attachment.f_public = 't')
 $$ LANGUAGE SQL;
 

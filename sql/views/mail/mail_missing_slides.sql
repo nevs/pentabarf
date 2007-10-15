@@ -21,10 +21,8 @@ CREATE OR REPLACE VIEW view_mail_missing_slides AS
              conference.conference_id = event.conference_id )
   WHERE NOT EXISTS (SELECT 1
                       FROM event_attachment
-                           INNER JOIN attachment_type ON (
-                               attachment_type.attachment_type_id = event_attachment.attachment_type_id AND
-                               attachment_type.tag = 'slides' )
-                     WHERE event_attachment.event_id = event.event_id  ) AND
+                     WHERE event_attachment.event_id = event.event_id AND
+                           event_attachment.attachment_type = 'slides' ) AND
         event.event_state = 'accepted' AND
         event.event_state_progress = 'confirmed' AND
         event_person.event_role IN ('speaker','moderator') AND

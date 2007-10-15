@@ -8,9 +8,8 @@ CREATE OR REPLACE FUNCTION conflict_event_no_slides(INTEGER) RETURNS SETOF confl
          event_state_progress = 'confirmed' AND
          f_slides = 't' AND
          NOT EXISTS (SELECT 1 FROM event_attachment
-                                   INNER JOIN attachment_type USING (attachment_type_id)
                              WHERE event_id = event.event_id AND
-                                   attachment_type.tag = 'slides' AND
+                                   event_attachment.attachment_type = 'slides' AND
                                    event_attachment.f_public = 't')
 $$ LANGUAGE SQL;
 

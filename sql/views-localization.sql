@@ -1,23 +1,4 @@
 
--- view for attachment_type with fallback to tag
-CREATE OR REPLACE VIEW view_attachment_type AS 
-  SELECT attachment_type_id, 
-         language_id, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         rank, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  attachment_type_id, 
-                  attachment_type.tag, 
-                  attachment_type.rank, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN attachment_type
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN attachment_type_localized USING (language_id, attachment_type_id);
-
 -- view for conference_track with fallback to tag
 CREATE OR REPLACE VIEW view_conference_track AS 
   SELECT conference_track_id, 
