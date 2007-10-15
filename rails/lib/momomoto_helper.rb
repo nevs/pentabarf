@@ -76,8 +76,8 @@ module MomomotoHelper
         "application/octet-stream"
       constraints = {:mime_type=>type.to_s}
       constraints[:f_image] = 't' if options[:image]
-      mime_type = Mime_type.select_single(constraints) rescue Mime_type.select_single(constraints.merge({:mime_type=>'application/octet-stream'}))
-      values[:mime_type_id] = mime_type.mime_type_id
+      mime_type = Mime_type.select_single(constraints).mime_type rescue 'application/octet-stream'
+      values[:mime_type] = mime_type
     else
       values.delete( data_column )
     end
