@@ -51,11 +51,11 @@ CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER
                   FROM event WHERE event_id = cur_event_id;
 
     INSERT INTO event_image( event_id,
-                             mime_type_id,
+                             mime_type,
                              image,
                              last_modified_by )
                       SELECT new_event_id,
-                             mime_type_id,
+                             mime_type,
                              image,
                              cur_person_id
                         FROM event_image
