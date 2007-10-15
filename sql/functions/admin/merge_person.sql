@@ -2,10 +2,10 @@
 CREATE OR REPLACE FUNCTION merge_person( primary_person INTEGER, secondary_person INTEGER ) RETURNS INTEGER AS $$
   DECLARE
   BEGIN
-    UPDATE person_role SET person_id = primary_person
+    UPDATE auth.person_role SET person_id = primary_person
       WHERE person_id = secondary_person AND
             role NOT IN ( SELECT role FROM auth.person_role WHERE person_id = primary_person );
-    DELETE FROM person_role WHERE person_id = secondary_person;
+    DELETE FROM auth.person_role WHERE person_id = secondary_person;
     UPDATE person_language SET person_id = primary_person
       WHERE person_id = secondary_person AND
             language_id NOT IN ( SELECT language_id FROM person_language WHERE person_id = primary_person );
