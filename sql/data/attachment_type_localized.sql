@@ -12,16 +12,16 @@ SET search_path = public, pg_catalog;
 -- Data for Name: attachment_type_localized; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO attachment_type_localized (attachment_type_id, language_id, name) VALUES (1, 120, 'Slides');
-INSERT INTO attachment_type_localized (attachment_type_id, language_id, name) VALUES (1, 144, 'Folien');
-INSERT INTO attachment_type_localized (attachment_type_id, language_id, name) VALUES (2, 120, 'Paper');
-INSERT INTO attachment_type_localized (attachment_type_id, language_id, name) VALUES (2, 144, 'Paper');
-INSERT INTO attachment_type_localized (attachment_type_id, language_id, name) VALUES (3, 120, 'Other');
-INSERT INTO attachment_type_localized (attachment_type_id, language_id, name) VALUES (3, 144, 'Anderes');
-INSERT INTO attachment_type_localized (attachment_type_id, language_id, name) VALUES (4, 120, 'Audio');
-INSERT INTO attachment_type_localized (attachment_type_id, language_id, name) VALUES (4, 144, 'Audio');
-INSERT INTO attachment_type_localized (attachment_type_id, language_id, name) VALUES (5, 120, 'Video');
-INSERT INTO attachment_type_localized (attachment_type_id, language_id, name) VALUES (5, 144, 'Video');
+INSERT INTO attachment_type_localized (language_id, name, attachment_type) VALUES (120, 'Slides', 'slides');
+INSERT INTO attachment_type_localized (language_id, name, attachment_type) VALUES (144, 'Folien', 'slides');
+INSERT INTO attachment_type_localized (language_id, name, attachment_type) VALUES (120, 'Paper', 'paper');
+INSERT INTO attachment_type_localized (language_id, name, attachment_type) VALUES (144, 'Paper', 'paper');
+INSERT INTO attachment_type_localized (language_id, name, attachment_type) VALUES (120, 'Other', 'other');
+INSERT INTO attachment_type_localized (language_id, name, attachment_type) VALUES (144, 'Anderes', 'other');
+INSERT INTO attachment_type_localized (language_id, name, attachment_type) VALUES (120, 'Audio', 'audio');
+INSERT INTO attachment_type_localized (language_id, name, attachment_type) VALUES (144, 'Audio', 'audio');
+INSERT INTO attachment_type_localized (language_id, name, attachment_type) VALUES (120, 'Video', 'video');
+INSERT INTO attachment_type_localized (language_id, name, attachment_type) VALUES (144, 'Video', 'video');
 
 
 --
