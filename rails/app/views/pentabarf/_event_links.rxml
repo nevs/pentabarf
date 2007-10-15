@@ -44,6 +44,7 @@ xml.div(:id=>'content-links') do
       xml.table(:id=>'event_link_internal_table',:style=>'display:none') do
         xml.thead do
           xml.tr do
+            xml.th
             xml.th( local('url type') )
             xml.th( local('url') )
             xml.th( local('title') )
@@ -53,10 +54,16 @@ xml.div(:id=>'content-links') do
         xml.tbody(:id=>'event_link_internal_tbody') do
           xml.tr(:id=>'event_link_internal_template',:style=>'display:none') do
             xml.td do
-              xml.input({:type=>:hidden,:id=>'event_link_internal[row_id][event_link_internal_id]',:name=>'event_link_internal[row_id][event_link_internal_id]'})
-              xml << select_tag( 'event_link_internal[row_id][link_type_id]', link_types.map{|e| [e.link_type_id, e.tag]} )
+              xml.a(:id=>'event_link_internal[row_id][link]') do
+                xml.img({:src=>image_path('icon-link-32x32.png'),:height=>24,:width=>24})
+              end
             end
-            xml.td do xml.input({:type=>:text,:id=>'event_link_internal[row_id][url]',:name=>'event_link_internal[row_id][url]'}) end
+            xml.td do
+              xml.input({:type=>:hidden,:id=>'event_link_internal[row_id][event_link_internal_id]',:name=>'event_link_internal[row_id][event_link_internal_id]'})
+              xml << select_tag( 'event_link_internal[row_id][link_type_id]', link_types.map{|e| [e.link_type_id, e.template, e.tag]}, {:slave=>true,:onchange=>"$('event_link_internal[row_id][link]').setAttribute('href',$(this).options[$(this).selectedIndex].className + $F('event_link_internal[row_id][url]'));"} )
+            end
+            xml.td do xml.input({:type=>:text,:id=>'event_link_internal[row_id][url]',:name=>'event_link_internal[row_id][url]',:onchange=>"$('event_link_internal[row_id][link]').setAttribute( 'href', $('event_link_internal[row_id][link_type_id]').options[$('event_link_internal[row_id][link_type_id]').selectedIndex].className + $F( this ) );"}) end
+            
             xml.td do xml.input({:type=>:text,:id=>'event_link_internal[row_id][description]',:name=>'event_link_internal[row_id][description]'}) end
             xml.td do xml.input({:type=>:checkbox,:name=>'event_link_internal[row_id][remove]',:id=>'event_link_internal[row_id][remove]'}) end
           end
