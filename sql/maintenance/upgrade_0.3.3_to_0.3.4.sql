@@ -1,4 +1,5 @@
 
+BEGIN;
 
 CREATE SCHEMA base;
 CREATE SCHEMA log;
@@ -48,4 +49,48 @@ ALTER TABLE person_phone ALTER phone_number TYPE TEXT;
 
 ALTER TABLE phone_type DROP COLUMN phone_type_id;
 
+-- mime_type surrogate key removal
+
+DROP VIEW view_mime_type CASCADE;
+DROP VIEW view_conference_image;
+DROP VIEW view_event_image;
+DROP VIEW view_person_image;
+DROP VIEW view_find_person;
+DROP VIEW view_find_event;
+DROP VIEW view_find_conference;
+DROP VIEW view_event;
+ALTER TABLE mime_type ALTER mime_type TYPE TEXT;
+ALTER TABLE mime_type DROP CONSTRAINT mime_type_pkey CASCADE;
+ALTER TABLE mime_type ADD CONSTRAINT mime_type_pkey PRIMARY KEY( mime_type );
+
+ALTER TABLE mime_type_localized ADD COLUMN mime_type TEXT REFERENCES mime_type(mime_type) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE mime_type_localized SET mime_type = ( SELECT mime_type FROM mime_type WHERE mime_type.mime_type_id = mime_type_localized.mime_type_id );
+ALTER TABLE mime_type_localized ALTER mime_type SET NOT NULL;
+ALTER TABLE mime_type_localized DROP COLUMN mime_type_id;
+ALTER TABLE mime_type_localized ADD CONSTRAINT mime_type_localized_pkey PRIMARY KEY( mime_type, language_id );
+ALTER TABLE mime_type_localized ALTER name TYPE TEXT;
+
+ALTER TABLE conference_image ADD COLUMN mime_type TEXT REFERENCES mime_type(mime_type) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE conference_image SET mime_type = ( SELECT mime_type FROM mime_type WHERE mime_type.mime_type_id = conference_image.mime_type_id );
+ALTER TABLE conference_image ALTER mime_type SET NOT NULL;
+ALTER TABLE conference_image DROP COLUMN mime_type_id;
+
+ALTER TABLE event_image ADD COLUMN mime_type TEXT REFERENCES mime_type(mime_type) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE event_image SET mime_type = ( SELECT mime_type FROM mime_type WHERE mime_type.mime_type_id = event_image.mime_type_id );
+ALTER TABLE event_image ALTER mime_type SET NOT NULL;
+ALTER TABLE event_image DROP COLUMN mime_type_id CASCADE;
+
+ALTER TABLE person_image ADD COLUMN mime_type TEXT REFERENCES mime_type(mime_type) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE person_image SET mime_type = ( SELECT mime_type FROM mime_type WHERE mime_type.mime_type_id = person_image.mime_type_id );
+ALTER TABLE person_image ALTER mime_type SET NOT NULL;
+ALTER TABLE person_image DROP COLUMN mime_type_id CASCADE;
+
+ALTER TABLE event_attachment ADD COLUMN mime_type TEXT REFERENCES mime_type(mime_type) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE event_attachment SET mime_type = ( SELECT mime_type FROM mime_type WHERE mime_type.mime_type_id = event_attachment.mime_type_id );
+ALTER TABLE event_attachment ALTER mime_type SET NOT NULL;
+ALTER TABLE event_attachment DROP COLUMN mime_type_id;
+
+ALTER TABLE mime_type DROP COLUMN mime_type_id;
+
+COMMIT;
 
