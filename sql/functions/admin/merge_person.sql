@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION merge_person( primary_person INTEGER, secondary_perso
   BEGIN
     UPDATE person_role SET person_id = primary_person
       WHERE person_id = secondary_person AND
-            role_id NOT IN ( SELECT role_id FROM person_role WHERE person_id = primary_person );
+            role NOT IN ( SELECT role FROM auth.person_role WHERE person_id = primary_person );
     DELETE FROM person_role WHERE person_id = secondary_person;
     UPDATE person_language SET person_id = primary_person
       WHERE person_id = secondary_person AND
