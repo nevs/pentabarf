@@ -6,14 +6,20 @@ xml.div(:id=>'content-links') do
     xml.table(:id=>'conference_person_link_table',:style=>'display:none') do
       xml.thead do
         xml.tr do 
+          xml.th
           [:url,:title, :remove].each do | field | xml.th( local( field ) ) end 
         end
       end
       xml.tbody(:id=>'conference_person_link_tbody') do
         xml.tr(:id=>'conference_person_link_template',:style=>'display:none') do
           xml.td do
+            xml.a(:id=>'conference_person_link[row_id][link]') do
+              xml.img({:src=>image_path('icon-link-32x32.png'),:height=>24,:width=>24})
+            end
+          end
+          xml.td do
             xml.input({:type=>:hidden,:id=>'conference_person_link[row_id][conference_person_link_id]',:name=>'conference_person_link[row_id][conference_person_link_id]'})
-            xml.input({:type=>:text,:id=>'conference_person_link[row_id][url]',:name=>'conference_person_link[row_id][url]'})
+            xml.input({:type=>:text,:id=>'conference_person_link[row_id][url]',:name=>'conference_person_link[row_id][url]',:onchange=>"$('conference_person_link[row_id][link]').setAttribute( 'href', $F(this));"})
           end
           xml.td do xml.input({:type=>:text,:id=>'conference_person_link[row_id][title]',:name=>'conference_person_link[row_id][title]'}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'conference_person_link[row_id][remove]',:id=>'conference_person_link[row_id][remove]'}) end
