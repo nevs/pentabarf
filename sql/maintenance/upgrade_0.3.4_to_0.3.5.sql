@@ -51,6 +51,7 @@ ALTER TABLE conference_person_link_internal ALTER link_type SET NOT NULL;
 ALTER TABLE conference_person_link_internal DROP COLUMN link_type_id;
 ALTER TABLE conference_person_link_internal ALTER description TYPE TEXT;
 
+ALTER TABLE link_type DROP COLUMN link_type_id;
 
 COMMIT;
 
