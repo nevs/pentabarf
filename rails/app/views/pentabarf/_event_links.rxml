@@ -63,16 +63,16 @@ xml.div(:id=>'content-links') do
               xml << select_tag( 'event_link_internal[row_id][link_type]', link_types.map{|e| [e.link_type, e.template, e.link_type]}, {:slave=>true,:onchange=>"$('event_link_internal[row_id][link]').setAttribute('href',$(this).options[$(this).selectedIndex].className + $F('event_link_internal[row_id][url]'));"} )
             end
             xml.td do xml.input({:type=>:text,:id=>'event_link_internal[row_id][url]',:name=>'event_link_internal[row_id][url]',:onchange=>"$('event_link_internal[row_id][link]').setAttribute( 'href', $('event_link_internal[row_id][link_type]').options[$('event_link_internal[row_id][link_type]').selectedIndex].className + $F( this ) );"}) end
-            
+
             xml.td do xml.input({:type=>:text,:id=>'event_link_internal[row_id][description]',:name=>'event_link_internal[row_id][description]'}) end
             xml.td do xml.input({:type=>:checkbox,:name=>'event_link_internal[row_id][remove]',:id=>'event_link_internal[row_id][remove]'}) end
           end
         end
       end
 
-      xml.script(:type=>'text/javascript') do 
+      xml.script(:type=>'text/javascript') do
         Event_link_internal.select( :event_id => @event.event_id ).each do | c |
-          xml << js_function( 'table_add_row', 'event_link_internal', c.event_link_internal_id, c.link_type_id, c.url, c.description )
+          xml << js_function( 'table_add_row', 'event_link_internal', c.event_link_internal_id, c.link_type, c.url, c.description )
         end
       end if @event.event_id
 
