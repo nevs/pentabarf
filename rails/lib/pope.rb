@@ -28,6 +28,7 @@ class Pope
     raise "Wrong Password" if Digest::MD5.hexdigest( salt_bin + pass ) != @user.password[16..47]
 
     refresh
+    Set_config.call(:setting=>'pentabarf.person_id',:value=>@user.person_id,:is_local=>'t')
    rescue => e
     flush
     raise e
@@ -100,6 +101,7 @@ class Pope
     @permissions = []
     @own_events = []
     @own_conference_persons = []
+    Set_config.call(:setting=>'pentabarf.person_id',:value=>0,:is_local=>'f')
   end
 
 end
