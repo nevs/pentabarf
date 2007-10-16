@@ -11,7 +11,7 @@ CREATE OR REPLACE FUNCTION submit_event( e_person_id INTEGER, e_conference_id IN
                        duration,
                        event_state,
                        event_state_progress,
-                       event_origin_id,
+                       event_origin,
                        last_modified_by )
               VALUES ( new_event_id,
                        e_conference_id,
@@ -21,9 +21,7 @@ CREATE OR REPLACE FUNCTION submit_event( e_person_id INTEGER, e_conference_id IN
                           WHERE conference.conference_id = e_conference_id ),
                        'undecided',
                        'new',
-                       ( SELECT event_origin_id
-                           FROM event_origin
-                          WHERE tag = 'submission'),
+                       'submission',
                        e_person_id );
 
     INSERT INTO event_person( event_id,

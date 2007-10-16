@@ -1,8 +1,7 @@
 
 CREATE TABLE event_origin (
-  event_origin_id SERIAL NOT NULL,
-  tag VARCHAR(32) NOT NULL UNIQUE,
+  event_origin TEXT NOT NULL,
   rank INTEGER,
-  PRIMARY KEY (event_origin_id)
+  PRIMARY KEY (event_origin)
 );
 

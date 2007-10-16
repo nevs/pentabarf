@@ -7,7 +7,7 @@ CREATE OR REPLACE VIEW view_find_event AS
          event.abstract,
          event.description,
          event.duration,
-         event.event_origin_id,
+         event.event_origin,
          event.conference_track_id,
          event.event_state,
          event.event_state_progress,

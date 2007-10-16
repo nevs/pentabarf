@@ -115,25 +115,6 @@ CREATE OR REPLACE VIEW view_currency AS
          ) AS all_lang 
          LEFT OUTER JOIN currency_localized USING (language_id, currency_id);
 
--- view for event_origin with fallback to tag
-CREATE OR REPLACE VIEW view_event_origin AS 
-  SELECT event_origin_id, 
-         language_id, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         rank, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  event_origin_id, 
-                  event_origin.tag, 
-                  event_origin.rank, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN event_origin
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN event_origin_localized USING (language_id, event_origin_id);
-
 -- view for languages
 CREATE OR REPLACE VIEW view_language AS
   SELECT language_id,

@@ -53,5 +53,27 @@ ALTER TABLE conference_person_link_internal ALTER description TYPE TEXT;
 
 ALTER TABLE link_type DROP COLUMN link_type_id;
 
+-- event origin surrogate key removal
+
+ALTER TABLE event_origin ADD COLUMN event_origin TEXT;
+UPDATE event_origin SET event_origin = tag;
+ALTER TABLE event_origin DROP COLUMN tag CASCADE;
+ALTER TABLE event_origin DROP CONSTRAINT event_origin_pkey CASCADE;
+ALTER TABLE event_origin ADD CONSTRAINT event_origin_pkey PRIMARY KEY( event_origin );
+
+ALTER TABLE event_origin_localized ADD COLUMN event_origin TEXT REFERENCES event_origin(event_origin) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE event_origin_localized SET event_origin = ( SELECT event_origin FROM event_origin WHERE event_origin.event_origin_id = event_origin_localized.event_origin_id );
+ALTER TABLE event_origin_localized ALTER event_origin SET NOT NULL;
+ALTER TABLE event_origin_localized DROP COLUMN event_origin_id;
+ALTER TABLE event_origin_localized ADD CONSTRAINT event_origin_localized_pkey PRIMARY KEY( event_origin, language_id );
+ALTER TABLE event_origin_localized ALTER name TYPE TEXT;
+
+ALTER TABLE event ADD COLUMN event_origin TEXT REFERENCES event_origin(event_origin) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE event SET event_origin = ( SELECT event_origin FROM event_origin WHERE event_origin.event_origin_id = event.event_origin_id );
+ALTER TABLE event ALTER event_origin SET NOT NULL;
+ALTER TABLE event DROP COLUMN event_origin_id CASCADE;
+
+ALTER TABLE event_origin DROP COLUMN event_origin_id;
+
 COMMIT;
 

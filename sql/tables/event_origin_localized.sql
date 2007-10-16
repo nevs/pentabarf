@@ -1,10 +1,10 @@
 
 CREATE TABLE event_origin_localized (
-  event_origin_id INTEGER NOT NULL,
+  event_origin TEXT NOT NULL,
   language_id INTEGER NOT NULL,
-  name VARCHAR(64) NOT NULL,
-  FOREIGN KEY (event_origin_id) REFERENCES event_origin (event_origin_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  FOREIGN KEY (event_origin) REFERENCES event_origin (event_origin) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  PRIMARY KEY (event_origin_id, language_id)
+  PRIMARY KEY (event_origin, language_id)
 );
 
