@@ -12,10 +12,10 @@ SET search_path = public, pg_catalog;
 -- Data for Name: event_origin_localized; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO event_origin_localized (event_origin_id, language_id, name) VALUES (1, 120, 'Idea');
-INSERT INTO event_origin_localized (event_origin_id, language_id, name) VALUES (2, 120, 'Submission');
-INSERT INTO event_origin_localized (event_origin_id, language_id, name) VALUES (1, 144, 'Idee');
-INSERT INTO event_origin_localized (event_origin_id, language_id, name) VALUES (2, 144, 'Submission');
+INSERT INTO event_origin_localized (language_id, name, event_origin) VALUES (120, 'Idea', 'idea');
+INSERT INTO event_origin_localized (language_id, name, event_origin) VALUES (120, 'Submission', 'submission');
+INSERT INTO event_origin_localized (language_id, name, event_origin) VALUES (144, 'Idee', 'idea');
+INSERT INTO event_origin_localized (language_id, name, event_origin) VALUES (144, 'Submission', 'submission');
 
 
 --
