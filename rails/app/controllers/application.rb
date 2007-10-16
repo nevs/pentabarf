@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
   def transaction_wrapper
     Momomoto::Database.instance.transaction do
       yield
+      POPE.deauth
     end
-    POPE.deauth
   end
 
   def rescue_action_in_public( exception )
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     user, pass = http_auth_data
     POPE.auth( user, pass )
     return check_permission
-   rescue 
+   rescue
     response.headers["Status"] = "Unauthorized"
     response.headers["WWW-Authenticate"] = "Basic realm=Pentabarf"
     render( :file=>'auth_failed', :status => 401, :use_full_path => true)
