@@ -18,6 +18,8 @@ end
 task :unused_models do
   models = `grep -r '^class ' rails/app/models | sed -e 's/.*:class \\([A-Z][a-z_]\\+\\) .*/\\1/'`.split
   models.each do | model |
+    next if model.match(/^Remove_(conference|event)$/)
+    next if model.match(/^View_(conference|event|person)_image_modification$/)
     controller = `grep -r '\\<#{model}\\>' rails/app/controllers`
     if controller.empty?
       views = `grep -r '\\<#{model}\\>' rails/app/views`
