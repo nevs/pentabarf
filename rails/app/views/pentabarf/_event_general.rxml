@@ -7,7 +7,7 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @event, :title )
       xml << text_field_row( @event, :subtitle )
       xml << text_field_row( @event, :tag )
-      xml << select_row( @event, :event_origin_id, Event_origin.select.map{|e| [e.event_origin_id,e.tag]} )
+      xml << select_row( @event, :event_origin, Event_origin.select.map{|e| e.event_origin} )
       xml << select_row( @event, :event_state, Event_state.select.map{|e| [e.event_state,e.event_state]}, {:master=>:event_state_progress} )
       xml << select_row( @event, :event_state_progress, Event_state_progress.select.map{|e| [e.event_state_progress,e.event_state,e.event_state_progress]},{:slave=>true} )
       xml.script("$('event[event_state]').onchange()",{:type=>"text/javascript"})

@@ -25,9 +25,9 @@ xml.div({:id=>:data}) do
         xml << select_tag('search_event[row_id][value]', View_language.select({:translated_id=>@current_language_id},{:order=>:name}).map{|l| [l.language_id, l.name]})
       end
       # search for event origin
-      xml.li({:class=>:event_origin_id,:title=>local(:event_origin)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_origin_id})
-        xml << select_tag('search_event[row_id][value]', View_event_origin.select({:language_id=>@current_language_id}).map{|o| [o.event_origin_id, o.name]})
+      xml.li({:class=>:event_origin,:title=>local(:event_origin)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_origin})
+        xml << select_tag('search_event[row_id][value]', Event_origin_localized.select({:language_id=>@current_language_id}).map{|o| [o.event_origin, o.name]})
       end
       # search for event state
       xml.li({:class=>:event_state,:title=>local(:event_state)}) do
