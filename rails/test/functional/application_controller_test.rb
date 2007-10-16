@@ -14,7 +14,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
       controller = match[2]
       next if ['feedback','user'].member?( controller )
       require( match[1] )
-      klass = const_get("#{match[2].capitalize}Controller")
+      klass = "#{match[2].capitalize}Controller".constantize
       klass.action_methods.each do | method |
         next if controller == "submission" && method == "index"
         define_method "test_auth_#{controller}_#{method}" do

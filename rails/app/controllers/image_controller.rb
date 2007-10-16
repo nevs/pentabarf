@@ -8,7 +8,7 @@ class ImageController < ApplicationController
   [:conference, :event, :person].each do | action |
     define_method( action ) do
       begin
-        img = self.class.const_get("#{action.to_s.capitalize}_image").select_single({"#{action}_id".to_sym=>params[:id].to_i})
+        img = "#{action.to_s.capitalize}_image".constantize.select_single({"#{action}_id".to_sym=>params[:id].to_i})
         data = img.image
         mimetype = img.mime_type
       rescue
@@ -43,7 +43,7 @@ class ImageController < ApplicationController
 
   def modified_since
     action = params[:action]
-    klass = self.class.const_get( "View_#{action}_image_modification" )
+    klass = "View_#{action}_image_modification".constantize
     modification = klass.select({"#{action}_id"=>params[:id].to_i}, {:limit=>1} ).first
     if modification
       @timestamp = modification.last_modified

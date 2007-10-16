@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
   def check_transaction
     action = params[:action].gsub(/^save_/, '')
     if params[:transaction].to_i != 0
-      transaction = self.class.const_get("#{action.capitalize}_transaction").select_single({"#{action}_id"=>params[:id]},{:limit=>1})
+      transaction = "#{action.capitalize}_transaction".constantize.select_single({"#{action}_id"=>params[:id]},{:limit=>1})
       if transaction["#{action}_transaction_id"] != params[:transaction].to_i
         raise "Simultanious edit"
       end
