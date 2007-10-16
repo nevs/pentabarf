@@ -14,6 +14,12 @@ tabs << :account if POPE.permission?(:modify_account) || POPE.user.person_id == 
 
 xml << js_tabs( tabs )
 
+xml.div( :id => 'remove-button' ) do
+  xml.form(:action=>url_for(:action=>:delete_person,:id=>params[:id]),:id=>'delete_person',:method=>'post') do
+    xml.input({:onclick=>"return confirm('Are you sure?');",:value=>"Delete Person",:type=>:submit})
+  end
+end if false && POPE.permission?(:delete_person) && !@person.new_record?
+
 xml.div( :id => 'data' ) do
 
   xml.form(:action=>url_for(:action=>:save_person,:id=>params[:id]),:id=>'content_form',:method=>'post',:enctype=>'multipart/form-data') do

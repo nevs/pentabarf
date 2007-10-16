@@ -33,6 +33,13 @@ class PentabarfController < ApplicationController
     @ratings = Event_rating.select({:person_id=>POPE.user.person_id}).select{|r| r.remark || r.relevance || r.acceptance || r.actuality }.map{|r| r.event_id}
   end
 
+  ["event","conference"].each do | action |
+    define_method("delete_#{action}") do
+      "Remove_#{action}".constantize.call(:event_id=>params[:id])
+      redirect_to(:action=>:index)
+    end
+  end
+
   def conference
     begin
       @conference = Conference.select_single( :conference_id => params[:id] )

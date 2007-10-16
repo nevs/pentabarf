@@ -21,5 +21,4 @@ xml.div(:id=>'content-general') do
     end
   end
 
-
 end
