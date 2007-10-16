@@ -1,6 +1,6 @@
 
--- this function creates a log function for every table found in the
--- logging schema and registers the function as trigger
+-- this function creates a log function for each table found in the
+-- log schema and registers those functions as trigger
 CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
   DECLARE
     logtable    RECORD;
@@ -34,7 +34,7 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
       EXECUTE fundef;
 
       trigname = tablename || '_log_trigger';
-      -- enable function as trigger if it is not yet enables
+      -- enable function as trigger if it is not yet enabled
       IF ( NOT EXISTS( SELECT 1 FROM information_schema.triggers WHERE trigger_name = trigname AND event_object_schema = tableschema AND event_object_table = tablename ) ) THEN
         RAISE NOTICE 'Creating trigger for table %', tablename;
         trigdef = $t$CREATE TRIGGER $t$ || quote_ident( trigname ) || $t$ AFTER INSERT OR UPDATE OR DELETE ON $t$ || quote_ident( tableschema ) || '.' || quote_ident( tablename ) || $t$ FOR EACH ROW EXECUTE PROCEDURE log.$t$ || quote_ident( procname ) || $t$();$t$;
