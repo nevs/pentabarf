@@ -64,15 +64,15 @@ tr:hover td {
 
 /* event states */
 
-tr.accepted {
+tr.accepted, td.accepted {
   background-color: #71ff88;
 }
 
-tr.undecided {
+tr.undecided, td.undecided {
   background-color: #fff371;
 }
 
-tr.rejected {
+tr.rejected, td.rejected {
   background-color: #f16567;
 }
 

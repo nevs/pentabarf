@@ -3,13 +3,15 @@ xml.div({:id=>'data'}) do
   xml.fieldset do
     xml.legend local(:events_by_state)
 
-    xml.ul do
-      View_event_state_statistic.select({:conference_id=>@current_conference.conference_id}).each do | state |
-        xml.li do
-          xml.text! "#{state.count} #{local(:events)} #{state.event_state}"
-          xml.ul do
-            View_event_state_progress_statistic.select({:conference_id=>@current_conference.conference_id,:event_state=>state.event_state}).each do | state_progress |
-              xml.li "#{state_progress.count} #{local(:events)} #{state_progress.event_state_progress}"
+    xml.table do
+      xml.tr do
+        View_event_state_statistic.select({:conference_id=>@current_conference.conference_id}).each do | state |
+          xml.td(:class=>state.event_state,:style=>"vertical-align: top;") do
+            xml.strong "#{state.count} #{local(:events)} #{state.event_state}"
+            xml.ul do
+              View_event_state_progress_statistic.select({:conference_id=>@current_conference.conference_id,:event_state=>state.event_state}).each do | state_progress |
+                xml.li "#{state_progress.count} #{local(:events)} #{state_progress.event_state_progress}"
+              end
             end
           end
         end
