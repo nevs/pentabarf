@@ -1,6 +1,7 @@
 
 BEGIN;
 
+\i tables/base/logging.sql
 \i tables/auth/domain.sql
 \i tables/auth/object_domain.sql
 \i tables/auth/permission.sql

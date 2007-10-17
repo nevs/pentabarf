@@ -75,5 +75,11 @@ ALTER TABLE event DROP COLUMN event_origin_id CASCADE;
 
 ALTER TABLE event_origin DROP COLUMN event_origin_id;
 
+CREATE TABLE base.logging (
+  log_operation   char(1),
+  log_timestamp   TIMESTAMP NOT NULL,
+  log_person_id   INTEGER
+);
+
 COMMIT;
 
