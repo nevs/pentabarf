@@ -20,12 +20,22 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
       -- (re)creating trigger function
       procname = tablename || '_log_function';
       fundef = $f$CREATE OR REPLACE FUNCTION log.$f$ || quote_ident( procname ) || $f$() RETURNS TRIGGER AS $i$
+        DECLARE
+          transaction TEXT;
+          transaction_id BIGINT;
         BEGIN
+          SELECT INTO transaction current_setting('pentabarf.transaction_id');
+          IF ( transaction = '' ) THEN
+            SELECT INTO transaction_id nextval('log.log_transaction_id_seq');
+            PERFORM set_config('pentabarf.transaction_id',transaction_id::text,TRUE); 
+          ELSE
+            transaction_id = current_setting('pentabarf.transaction_id')::int;
+          END IF;
           IF ( TG_OP = 'DELETE' ) THEN
-            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT 'D', now(), current_setting('pentabarf.person_id')::int, OLD.*;
+            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT transaction_id, 'D', now(), current_setting('pentabarf.person_id')::int, OLD.*;
             RETURN OLD;
           ELSE
-            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT substring( TG_OP, 1, 1 ), now(), current_setting('pentabarf.person_id')::int, NEW.*;
+            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT transaction_id, substring( TG_OP, 1, 1 ), now(), current_setting('pentabarf.person_id')::int, NEW.*;
             RETURN NEW;
           END IF;
           RETURN NULL;
