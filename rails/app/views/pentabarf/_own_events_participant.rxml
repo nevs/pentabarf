@@ -5,7 +5,7 @@ xml.div(:id=>'content-participant') do
     xml.table do
       xml.tr do
         [:event,:event_state,:event_state_progress,:role,:role_state].each do | col |
-          xml.th col.to_s
+          xml.th local( col )
         end
       end
       View_own_events_participant.select(:person_id=>POPE.user.person_id,:translated_id=>@current_language_id,:conference_id=>@current_conference.conference_id).each do | event |
