@@ -41,5 +41,7 @@
 \i views/event_feedback.sql
 \i views/view_own_events_participant.sql
 \i views/view_own_events_coordinator.sql
+\i views/view_event_state_statistic.sql
+\i views/view_event_state_progress_statistic.sql
 
 
