@@ -16,7 +16,7 @@ class Localizer
           @cache[language][tag] = local
         rescue Momomoto::Nothing_found
           # warn( "unlocalized tag: `#{tag}` for language #{language}" )
-          local = tag
+          local = tag.gsub('_',' ').capitalize
         end
       end
       local
