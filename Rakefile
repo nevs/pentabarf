@@ -47,7 +47,7 @@ task :unincluded_files do
 end
 
 
-task :check => [:unused_views,:unincluded_files,:unused_models]
+task :check => [:unincluded_files,:unused_views,:unused_models]
 
 task :default => [:check]
 

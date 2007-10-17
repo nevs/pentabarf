@@ -60,3 +60,4 @@
 \i functions/related_event_speaker.sql
 \i functions/remove_attendee.sql
 \i functions/submit_event.sql
+\i functions/log/activate_logging.sql
