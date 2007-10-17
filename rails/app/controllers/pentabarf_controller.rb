@@ -22,7 +22,6 @@ class PentabarfController < ApplicationController
   end
 
   def index
-    render :action => 'own_events'
   end
 
   def own_events
