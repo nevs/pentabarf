@@ -76,10 +76,32 @@ ALTER TABLE event DROP COLUMN event_origin_id CASCADE;
 ALTER TABLE event_origin DROP COLUMN event_origin_id;
 
 CREATE TABLE base.logging (
+  log_transaction_id BIGSERIAL,
   log_operation   char(1),
   log_timestamp   TIMESTAMP NOT NULL,
   log_person_id   INTEGER
 );
+
+CREATE SEQUENCE log.log_transaction_id_seq;
+
+CREATE TABLE base.person_role (
+  person_id INTEGER NOT NULL,
+  role TEXT NOT NULL
+);
+
+CREATE TABLE log.person_role() INHERITS( base.logging, base.person_role );
+
+ALTER TABLE auth.person_role RENAME TO person_role_old;
+
+CREATE TABLE auth.person_role (
+  PRIMARY KEY( person_id, role ),
+  FOREIGN KEY( person_id) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( role ) REFERENCES auth.role( role ) ON UPDATE CASCADE ON DELETE CASCADE
+) INHERITS( base.person_role );
+
+INSERT INTO auth.person_role( person_id, role ) SELECT person_id, role FROM auth.person_role_old;
+DROP TABLE auth.person_role_old;
+
 
 COMMIT;
 
