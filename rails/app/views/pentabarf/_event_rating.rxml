@@ -26,14 +26,18 @@ xml.div(:id=>'content-rating') do
 
     xml.table do
       xml.tr do
+        xml.th
         xml.th 'Rater'
         xml.th 'Remark'
       end
       ratings.each do | rating |
         xml.tr do
           xml.td do
-            xml.a( rating.name, {:href=>url_for(:action=>:person,:id=>rating.person_id)} )
+            xml.a( {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) do
+              xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>rating.person_id)})
+            end
           end
+          xml.td do xml.a( rating.name, {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) end
           xml.td rating.remark
         end
       end
