@@ -16,7 +16,9 @@ class HTMLExport
     end
 
     def get( url )
-      @session.get( url )
+      status = @session.get( url )
+      p status
+      exit
     end
 
     def get_hash( url )
