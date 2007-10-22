@@ -34,7 +34,7 @@ xml.div(:id=>'content-rating') do
         xml.tr do
           xml.td do
             xml.a( {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) do
-              xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>rating.person_id)})
+              xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>"#{rating.person_id}-24x24")})
             end
           end
           xml.td do xml.a( rating.name, {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) end
@@ -42,8 +42,6 @@ xml.div(:id=>'content-rating') do
         end
       end
     end
-
-
 
   end if POPE.permission?(:view_ratings) && ratings.length > 0
 
