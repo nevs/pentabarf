@@ -16,11 +16,12 @@ class HTMLExport
     end
 
     def get( url )
+      p url
       @session.get( url )
     end
 
     def get_hash( url )
-      @session.get( url_for_rails( url ) )
+      get( url_for_rails( url ) )
     end
 
     def url_for_rails( *args )
@@ -35,6 +36,7 @@ class HTMLExport
 
     def make_url( url, prefix )
       url[:controller] ||= 'schedule'
+      url[:language] ||= 'en'
       target = case url[:controller]
         when 'schedule' then
           case url[:action]

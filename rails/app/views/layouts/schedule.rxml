@@ -6,7 +6,7 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
     xml.meta(:name=>'generator',:content=>'Pentabarf')
     xml.meta(:name=>'DC.date',:content=>Date.today.to_s)
     xml.title "#{@conference.acronym}: #{@content_title}"
-    xml.link(:href=>url_for(:action=>:css),:rel=>'Stylesheet',:media=>'screen,print',:type=>'text/css')
+    xml.link(:href=>url_for(:action=>:css,:conference=>@conference.acronym),:rel=>'Stylesheet',:media=>'screen,print',:type=>'text/css')
   end
   xml.body do
     xml.div(:id=>'conference-logo') do

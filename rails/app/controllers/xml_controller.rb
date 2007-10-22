@@ -11,7 +11,7 @@ class XmlController < ApplicationController
   protected
 
   def init
-    @current_language_id = POPE.user.current_language_id || 120
+    @current_language_id = 120
   end
 
 end
