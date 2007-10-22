@@ -22,7 +22,7 @@ xml.div(:id=>'content-general') do
     xml.table do
       xml << text_field_row( @conference, :abstract_length )
       xml << text_field_row( @conference, :description_length )
-      xml << select_row( @conference, :timeslot_duration,  ['00:05','00:10','00:15','00:20','00:30','0:45','1:00'], {:selected=>@conference.timeslot_duration.strftime('%H:%M')} )
+      xml << select_row( @conference, :timeslot_duration,  ['00:05','00:10','00:15','00:20','00:30','00:45','01:00'], {:selected=>@conference.timeslot_duration.strftime('%H:%M')} )
       xml << select_row( @conference, :default_timeslots, 1..(@conference.max_timeslot_duration) )
       xml << select_row( @conference, :max_timeslot_duration, 1..23 )
       xml << select_row( @conference, :day_change, (0..12).map{|e| sprintf("%02d:00:00",e)}, {:selected=>@conference.day_change.strftime('%H:%M:%S')} )
