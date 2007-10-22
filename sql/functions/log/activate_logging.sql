@@ -32,10 +32,10 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
             transaction_id = current_setting('pentabarf.transaction_id')::int;
           END IF;
           IF ( TG_OP = 'DELETE' ) THEN
-            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT transaction_id, 'D', now(), current_setting('pentabarf.person_id')::int, OLD.*;
+            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT transaction_id, 'D', OLD.*;
             RETURN OLD;
           ELSE
-            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT transaction_id, substring( TG_OP, 1, 1 ), now(), current_setting('pentabarf.person_id')::int, NEW.*;
+            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT transaction_id, substring( TG_OP, 1, 1 ), NEW.*;
             RETURN NEW;
           END IF;
           RETURN NULL;
