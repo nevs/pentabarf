@@ -16,7 +16,6 @@ class HTMLExport
     end
 
     def get( url )
-      p url
       @session.get( url )
     end
 
