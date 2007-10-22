@@ -4,7 +4,8 @@ CREATE OR REPLACE VIEW view_event_state_progress_statistic AS
     conference_id,
     event_state,
     event_state_progress,
-    count(event_state_progress) AS count
+    count(event_state_progress) AS count,
+    sum(duration) AS duration
   FROM
     event_state_progress
     INNER JOIN event USING( event_state, event_state_progress )

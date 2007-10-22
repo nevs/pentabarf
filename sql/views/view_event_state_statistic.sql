@@ -3,7 +3,8 @@ CREATE OR REPLACE VIEW view_event_state_statistic AS
   SELECT
     conference_id,
     event_state,
-    count(event_state) AS count
+    count(event_state) AS count,
+    sum(duration) AS duration
   FROM
     event_state
     INNER JOIN event USING( event_state )
