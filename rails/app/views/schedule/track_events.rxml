@@ -12,7 +12,7 @@ xml.div(:id=>'event-index',:class=>'section') do
         next if prev && event.event_id == prev.event_id
         prev = event
         xml.tr do
-          xml.td(:class=>"event #{sanitize_track(event.conference_track_tag)}") do
+          xml.td(:class=>"event #{sanitize_track(event.conference_track)}") do
             xml.a(:href=>url_for(:action=>:track_event,:track=>@track.tag,:id=>event.event_id)) do
               xml.img(:class=>'event-image',:src=>event_image(event.event_id, 48))
             end
@@ -39,7 +39,7 @@ xml.div(:id=>'event-index',:class=>'section') do
               end
             end
           end
-          xml.td(:class=>"speakers #{sanitize_track(event.conference_track_tag)}") do
+          xml.td(:class=>"speakers #{sanitize_track(event.conference_track)}") do
             xml.ul(:class=>'speakers') do
               @events.select{|e| e.event_id == event.event_id}.each do | speaker |
                 xml.li do

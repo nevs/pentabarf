@@ -13,12 +13,12 @@ xml.div(:id=>'menu', :class=>'noprint') do
       end
     end
     xml.li do
-      xml.a(:href=>url_for({:action=>:speakers})) do
+      xml.a(:href=>url_for({:action=>:speakers,:language=>params[:language]})) do
         xml.span(local('schedule::speakers'), :class=>:normal)
       end
     end
     xml.li do
-      xml.a(:href=>url_for({:action=>:events})) do
+      xml.a(:href=>url_for({:action=>:events,:language=>params[:language]})) do
         xml.span(local('schedule::events'), :class=>:normal)
       end
     end
@@ -27,7 +27,7 @@ xml.div(:id=>'menu', :class=>'noprint') do
         xml.ul(:class=>'track') do
           @tracks.each do | track |
             xml.li(:class=>sanitize_track(track.tag)) do
-              xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:track_events,:track=>track.tag})) do
+              xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:track_events,:track=>track.tag,:language=>params[:language]})) do
                 xml.span( track.tag, :class=>:normal)
               end
             end

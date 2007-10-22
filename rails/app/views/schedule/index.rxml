@@ -2,33 +2,33 @@ xml.ul do
   @conference.days.times do | day |
     date = @conference.start_date + day
     xml.li do
-      xml.a(:href=>url_for({:action=>:day,:id=>day + 1})) do
+      xml.a(:href=>url_for({:action=>:day,:id=>day + 1,:language=>params[:language]})) do
         xml.span("#{local(:day)} #{day + 1} (#{date.strftime('%d.%m.%Y')})", :class=>:normal)
       end
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:action=>:speakers})) do
+    xml.a(:href=>url_for({:action=>:speakers,:language=>params[:language]})) do
       xml.span( local('schedule::speakers'), :class=>:normal)
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:action=>:events})) do
+    xml.a(:href=>url_for({:action=>:events,:language=>params[:language]})) do
       xml.span( local('schedule::events'), :class=>:normal)
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:controller=>'ical',:action=>:conference,:id=>@conference.conference_id})) do
+    xml.a(:href=>url_for({:controller=>'ical',:action=>:conference,:id=>@conference.conference_id,:language=>params[:language]})) do
       xml.span('iCal', :class=>:normal)
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:controller=>'xcal',:action=>:conference,:id=>@conference.conference_id})) do
+    xml.a(:href=>url_for({:controller=>'xcal',:action=>:conference,:id=>@conference.conference_id,:language=>params[:language]})) do
       xml.span('xCal', :class=>:normal)
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:controller=>'xml',:action=>:schedule,:id=>@conference.conference_id})) do
+    xml.a(:href=>url_for({:controller=>'xml',:action=>:schedule,:id=>@conference.conference_id,:language=>params[:language]})) do
       xml.span("#{local('schedule::schedule')} (XML)", :class=>:normal)
     end
   end
