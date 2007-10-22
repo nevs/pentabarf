@@ -17,12 +17,14 @@ class HTMLExport
 
     def get( url )
       status = @session.get( url )
-      p status
-      exit
     end
 
     def get_hash( url )
       get( url_for_rails( url ) )
+      if @session.status != 200
+        raise Error, "Error in HTML Export while processing #{url.instruct}"
+        exit 1
+      end
     end
 
     def url_for_rails( *args )
