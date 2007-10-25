@@ -26,7 +26,7 @@ class UserController < ApplicationController
   end
 
   def activate_account
-    raise "Invalid activation sequence." unless params[:id].length == 64
+    raise "Invalid activation sequence." unless params[:id].to_s.length == 64
     begin
       activation = Activate_account.call({:activation_string=>params[:id]})[0]
       @conference = Conference.select_single(:conference_id => activation.activate_account) if activation.activate_account
