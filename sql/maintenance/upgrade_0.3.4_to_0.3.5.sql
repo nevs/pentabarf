@@ -106,13 +106,35 @@ ALTER TABLE conference_phase DROP COLUMN conference_phase_id;
 
 CREATE SCHEMA conflict;
 
+ALTER TABLE conflict ADD COLUMN conflict TEXT;
+UPDATE conflict SET conflict = tag;
+ALTER TABLE conflict DROP COLUMN tag CASCADE;
+ALTER TABLE conflict DROP CONSTRAINT conflict_pkey CASCADE;
+ALTER TABLE conflict ADD CONSTRAINT conflict_pkey PRIMARY KEY( conflict );
+ALTER TABLE conflict SET SCHEMA conflict;
+
+ALTER TABLE conflict_localized ADD COLUMN conflict TEXT REFERENCES conflict.conflict(conflict) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE conflict_localized SET conflict = ( SELECT conflict FROM conflict.conflict WHERE conflict.conflict_id = conflict_localized.conflict_id );
+ALTER TABLE conflict_localized ALTER conflict SET NOT NULL;
+ALTER TABLE conflict_localized DROP COLUMN conflict_id;
+ALTER TABLE conflict_localized ADD CONSTRAINT conflict_localized_pkey PRIMARY KEY( conflict, language_id );
+ALTER TABLE conflict_localized ALTER name TYPE TEXT;
+ALTER TABLE conflict_localized SET SCHEMA conflict;
+
+ALTER TABLE conference_phase_conflict ADD COLUMN conflict TEXT REFERENCES conflict.conflict(conflict) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE conference_phase_conflict SET conflict = ( SELECT conflict FROM conflict.conflict WHERE conflict.conflict_id = conference_phase_conflict.conflict_id );
+ALTER TABLE conference_phase_conflict ALTER conflict SET NOT NULL;
+ALTER TABLE conference_phase_conflict DROP COLUMN conflict_id;
+ALTER TABLE conference_phase_conflict SET SCHEMA conflict;
+
+ALTER TABLE conflict.conflict DROP COLUMN conflict_id;
 
 
 -- inheritance based logging stuff
 
 CREATE TABLE base.logging (
-log_transaction_id BIGSERIAL,
-log_operation CHAR(1)
+  log_transaction_id BIGSERIAL,
+  log_operation CHAR(1)
 );
 
 CREATE TABLE log.log_transaction(
@@ -123,8 +145,8 @@ CREATE TABLE log.log_transaction(
 );
 
 CREATE TABLE base.person_role (
-person_id INTEGER NOT NULL,
-role TEXT NOT NULL
+  person_id INTEGER NOT NULL,
+  role TEXT NOT NULL
 );
 
 CREATE TABLE log.person_role() INHERITS( base.logging, base.person_role );
@@ -132,9 +154,9 @@ CREATE TABLE log.person_role() INHERITS( base.logging, base.person_role );
 ALTER TABLE auth.person_role RENAME TO person_role_old;
 
 CREATE TABLE auth.person_role (
-PRIMARY KEY( person_id, role ),
-FOREIGN KEY( person_id) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE CASCADE,
-FOREIGN KEY( role ) REFERENCES auth.role( role ) ON UPDATE CASCADE ON DELETE CASCADE
+  PRIMARY KEY( person_id, role ),
+  FOREIGN KEY( person_id) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( role ) REFERENCES auth.role( role ) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS( base.person_role );
 
 INSERT INTO auth.person_role( person_id, role ) SELECT person_id, role FROM auth.person_role_old;
