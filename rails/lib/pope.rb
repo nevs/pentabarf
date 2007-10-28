@@ -101,7 +101,7 @@ class Pope
     @permissions = []
     @own_events = []
     @own_conference_persons = []
-    Set_config.call(:setting=>'pentabarf.person_id',:value=>0,:is_local=>'f')
+    Set_config.call(:setting=>'pentabarf.person_id',:value=>'',:is_local=>'f')
   end
 
 end

@@ -111,15 +111,20 @@ CREATE SCHEMA conflict;
 -- inheritance based logging stuff
 
 CREATE TABLE base.logging (
-  log_transaction_id BIGSERIAL,
-  log_operation CHAR(1)
+log_transaction_id BIGSERIAL,
+log_operation CHAR(1)
 );
 
-CREATE SEQUENCE log.log_transaction_id_seq;
+CREATE TABLE log.log_transaction(
+  log_transaction_id SERIAL,
+  log_timestamp TIMESTAMP DEFAULT now(),
+  person_id INTEGER REFERENCES person(person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY( log_transaction_id )
+);
 
 CREATE TABLE base.person_role (
-  person_id INTEGER NOT NULL,
-  role TEXT NOT NULL
+person_id INTEGER NOT NULL,
+role TEXT NOT NULL
 );
 
 CREATE TABLE log.person_role() INHERITS( base.logging, base.person_role );
@@ -127,9 +132,9 @@ CREATE TABLE log.person_role() INHERITS( base.logging, base.person_role );
 ALTER TABLE auth.person_role RENAME TO person_role_old;
 
 CREATE TABLE auth.person_role (
-  PRIMARY KEY( person_id, role ),
-  FOREIGN KEY( person_id) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE CASCADE,
-  FOREIGN KEY( role ) REFERENCES auth.role( role ) ON UPDATE CASCADE ON DELETE CASCADE
+PRIMARY KEY( person_id, role ),
+FOREIGN KEY( person_id) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE CASCADE,
+FOREIGN KEY( role ) REFERENCES auth.role( role ) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS( base.person_role );
 
 INSERT INTO auth.person_role( person_id, role ) SELECT person_id, role FROM auth.person_role_old;
