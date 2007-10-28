@@ -12,23 +12,26 @@ class UserControllerTest < Test::Unit::TestCase
   end
 
   def test_account_creation_and_activation
-    get :new_account
-    assert_response :success
-    submit_form do | form |
-      form.person.login_name = 'chunky'
-      form.person.email_contact = 'chunky@bacon.com'
-      form.person.password = 'bacon'
-      form.password = 'bacon'
+    begin
+      get :new_account
+      assert_response :success
+      submit_form do | form |
+        form.person.login_name = 'chunky'
+        form.person.email_contact = 'chunky@bacon.com'
+        form.person.password = 'bacon'
+        form.password = 'bacon'
+      end
+      assert_response :redirect
+      assert_redirected_to( :action => :account_done)
+      chunky = Person.select_single(:login_name=>'chunky')
+      active = Account_activation.select_single(:person_id=>chunky.person_id)
+      get :activate_account, :id=>active.activation_string
+      assert_response :redirect
+      assert_redirected_to( :controller => 'submission' )
+      assert_equal( 1, Person_role.select(:person_id=>chunky.person_id).length )
+    ensure
+      Person.__delete( chunky )
     end
-    assert_response :redirect
-    assert_redirected_to( :action => :account_done)
-    chunky = Person.select_single(:login_name=>'chunky')
-    active = Account_activation.select_single(:person_id=>chunky.person_id)
-    get :activate_account, :id=>active.activation_string
-    assert_response :redirect
-    assert_redirected_to( :controller => 'submission' )
-    assert_equal( 1, Person_role.select(:person_id=>chunky.person_id).length )
-    Person.__delete( chunky )
   end
 
   def test_resetting_password
