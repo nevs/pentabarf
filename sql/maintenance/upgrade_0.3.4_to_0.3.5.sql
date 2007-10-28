@@ -75,6 +75,33 @@ ALTER TABLE event DROP COLUMN event_origin_id CASCADE;
 
 ALTER TABLE event_origin DROP COLUMN event_origin_id;
 
+-- conference phase migration
+
+ALTER TABLE conference_phase ADD COLUMN conference_phase TEXT;
+UPDATE conference_phase SET conference_phase = tag;
+ALTER TABLE conference_phase DROP COLUMN tag CASCADE;
+ALTER TABLE conference_phase DROP CONSTRAINT conference_phase_pkey CASCADE;
+ALTER TABLE conference_phase ADD CONSTRAINT conference_phase_pkey PRIMARY KEY( conference_phase );
+
+ALTER TABLE conference_phase_localized ADD COLUMN conference_phase TEXT REFERENCES conference_phase(conference_phase) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE conference_phase_localized SET conference_phase = ( SELECT conference_phase FROM conference_phase WHERE conference_phase.conference_phase_id = conference_phase_localized.conference_phase_id );
+ALTER TABLE conference_phase_localized ALTER conference_phase SET NOT NULL;
+ALTER TABLE conference_phase_localized DROP COLUMN conference_phase_id;
+ALTER TABLE conference_phase_localized ADD CONSTRAINT conference_phase_localized_pkey PRIMARY KEY( conference_phase, language_id );
+ALTER TABLE conference_phase_localized ALTER name TYPE TEXT;
+
+ALTER TABLE conference_phase_conflict ADD COLUMN conference_phase TEXT REFERENCES conference_phase(conference_phase) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE conference_phase_conflict SET conference_phase = ( SELECT conference_phase FROM conference_phase WHERE conference_phase.conference_phase_id = conference_phase_conflict.conference_phase_id );
+ALTER TABLE conference_phase_conflict ALTER conference_phase SET NOT NULL;
+ALTER TABLE conference_phase_conflict DROP COLUMN conference_phase_id;
+
+ALTER TABLE conference ADD COLUMN conference_phase TEXT REFERENCES conference_phase(conference_phase) ON UPDATE CASCADE ON DELETE RESTRICT;
+UPDATE conference SET conference_phase = ( SELECT conference_phase FROM conference_phase WHERE conference_phase.conference_phase_id = conference.conference_phase_id );
+ALTER TABLE conference ALTER conference_phase SET NOT NULL;
+ALTER TABLE conference DROP COLUMN conference_phase_id;
+
+ALTER TABLE conference_phase DROP COLUMN conference_phase_id;
+
 -- conflict migration
 
 CREATE SCHEMA conflict;

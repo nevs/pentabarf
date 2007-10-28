@@ -1,8 +1,7 @@
 
 CREATE TABLE conference_phase (
-  conference_phase_id SERIAL NOT NULL,
-  tag VARCHAR(32) NOT NULL UNIQUE,
+  conference_phase TEXT NOT NULL,
   rank INTEGER,
-  PRIMARY KEY (conference_phase_id)
+  PRIMARY KEY (conference_phase)
 );
 

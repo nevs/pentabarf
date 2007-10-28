@@ -1,10 +1,10 @@
 
 CREATE TABLE conference_phase_localized (
-  conference_phase_id INTEGER NOT NULL,
+  conference_phase TEXT NOT NULL,
   language_id INTEGER NOT NULL,
-  name VARCHAR(64) NOT NULL,
-  FOREIGN KEY (conference_phase_id) REFERENCES conference_phase (conference_phase_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  FOREIGN KEY (conference_phase) REFERENCES conference_phase (conference_phase) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  PRIMARY KEY (conference_phase_id, language_id)
+  PRIMARY KEY (conference_phase, language_id)
 );
 
