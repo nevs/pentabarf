@@ -4,13 +4,13 @@ BEGIN;
 \i tables/base/logging.sql
 \i tables/auth/domain.sql
 \i tables/auth/object_domain.sql
+\i tables/language.sql
+\i tables/language_localized.sql
 \i tables/auth/permission.sql
 \i tables/auth/permission_localized.sql
 \i tables/auth/role.sql
 \i tables/auth/role_localized.sql
 \i tables/auth/role_permission.sql
-\i tables/language.sql
-\i tables/language_localized.sql
 \i tables/country.sql
 \i tables/country_localized.sql
 \i tables/currency.sql

@@ -11,7 +11,7 @@ CREATE TABLE event (
   duration INTERVAL NOT NULL,
   event_origin TEXT NOT NULL,
   event_state TEXT NOT NULL DEFAULT 'undecided',
-  event_state_progress TEXT NOT NULL 'new',
+  event_state_progress TEXT NOT NULL DEFAULT 'new',
   language_id INTEGER,
   room_id INTEGER,
   day SMALLINT,
