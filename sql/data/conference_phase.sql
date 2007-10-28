@@ -9,21 +9,14 @@ SET client_min_messages = warning;
 SET search_path = public, pg_catalog;
 
 --
--- Name: conference_phase_conference_phase_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('conference_phase_conference_phase_id_seq', 5, true);
-
-
---
 -- Data for Name: conference_phase; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO conference_phase (conference_phase_id, tag, rank) VALUES (1, 'chaos', 1);
-INSERT INTO conference_phase (conference_phase_id, tag, rank) VALUES (2, 'discord', 2);
-INSERT INTO conference_phase (conference_phase_id, tag, rank) VALUES (3, 'confusion', 3);
-INSERT INTO conference_phase (conference_phase_id, tag, rank) VALUES (4, 'bureaucracy', 4);
-INSERT INTO conference_phase (conference_phase_id, tag, rank) VALUES (5, 'aftermath', 5);
+INSERT INTO conference_phase (rank, conference_phase) VALUES (1, 'chaos');
+INSERT INTO conference_phase (rank, conference_phase) VALUES (2, 'discord');
+INSERT INTO conference_phase (rank, conference_phase) VALUES (3, 'confusion');
+INSERT INTO conference_phase (rank, conference_phase) VALUES (4, 'bureaucracy');
+INSERT INTO conference_phase (rank, conference_phase) VALUES (5, 'aftermath');
 
 
 --

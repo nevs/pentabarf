@@ -12,16 +12,16 @@ SET search_path = public, pg_catalog;
 -- Data for Name: conference_phase_localized; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (4, 144, '[4] Konferenzphase');
-INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (1, 120, '[1] Submission Phase');
-INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (1, 144, '[1] Abgabephase');
-INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (2, 120, '[2] Review Phase');
-INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (2, 144, '[2] Reviewphase');
-INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (3, 120, '[3] Scheduling Phase');
-INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (3, 144, '[3] Zeitplanungsphase');
-INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (4, 120, '[4] Conference Phase');
-INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (5, 120, '[5] Postprocessing Phase');
-INSERT INTO conference_phase_localized (conference_phase_id, language_id, name) VALUES (5, 144, '[5] Nachbearbeitungsphase');
+INSERT INTO conference_phase_localized (language_id, name, conference_phase) VALUES (144, '[4] Konferenzphase', 'bureaucracy');
+INSERT INTO conference_phase_localized (language_id, name, conference_phase) VALUES (120, '[1] Submission Phase', 'chaos');
+INSERT INTO conference_phase_localized (language_id, name, conference_phase) VALUES (144, '[1] Abgabephase', 'chaos');
+INSERT INTO conference_phase_localized (language_id, name, conference_phase) VALUES (120, '[2] Review Phase', 'discord');
+INSERT INTO conference_phase_localized (language_id, name, conference_phase) VALUES (144, '[2] Reviewphase', 'discord');
+INSERT INTO conference_phase_localized (language_id, name, conference_phase) VALUES (120, '[3] Scheduling Phase', 'confusion');
+INSERT INTO conference_phase_localized (language_id, name, conference_phase) VALUES (144, '[3] Zeitplanungsphase', 'confusion');
+INSERT INTO conference_phase_localized (language_id, name, conference_phase) VALUES (120, '[4] Conference Phase', 'bureaucracy');
+INSERT INTO conference_phase_localized (language_id, name, conference_phase) VALUES (120, '[5] Postprocessing Phase', 'aftermath');
+INSERT INTO conference_phase_localized (language_id, name, conference_phase) VALUES (144, '[5] Nachbearbeitungsphase', 'aftermath');
 
 
 --
