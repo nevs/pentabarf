@@ -12,7 +12,7 @@ CREATE OR REPLACE FUNCTION view_conflict_event_person( conference_id INTEGER ) R
          view_person.name
     FROM conflict_event_person( $1 )
          LEFT JOIN conference ON ( conference.conference_id = $1 )
-         INNER JOIN conference_phase_conflict USING (conference_phase_id, conflict_id)
+         INNER JOIN conference_phase_conflict USING (conference_phase, conflict_id)
          INNER JOIN view_conflict USING (conflict_id)
          INNER JOIN view_conflict_level USING (conflict_level_id, language_id)
          INNER JOIN (SELECT event_id, title FROM event) AS event USING (event_id)

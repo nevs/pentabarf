@@ -1,6 +1,6 @@
 
 -- returns all conclicts related to events
-CREATE OR REPLACE FUNCTION conflict_event_event(integer) RETURNS SETOF conflict_event_event_conflict AS '
+CREATE OR REPLACE FUNCTION conflict_event_event(integer) RETURNS SETOF conflict_event_event_conflict AS $$
   DECLARE
     cur_conference_id ALIAS FOR $1;
     cur_conflict_event_event RECORD;
@@ -15,14 +15,14 @@ CREATE OR REPLACE FUNCTION conflict_event_event(integer) RETURNS SETOF conflict_
         FROM conflict 
              INNER JOIN conflict_type USING (conflict_type_id)
              INNER JOIN conference_phase_conflict USING (conflict_id)
-             INNER JOIN conference USING (conference_phase_id)
+             INNER JOIN conference USING (conference_phase)
              INNER JOIN conflict_level USING (conflict_level_id)
-       WHERE conflict_type.tag = ''event_event'' AND
-             conflict_level.tag <> ''silent'' AND
+       WHERE conflict_type.tag = 'event_event' AND
+             conflict_level.tag <> 'silent' AND
              conference.conference_id = cur_conference_id
     LOOP
       FOR cur_conflict_event_event IN
-        EXECUTE ''SELECT conflict_id, event_id1, event_id2 FROM conflict_'' || cur_conflict.tag || ''('' || cur_conference_id || ''), ( SELECT '' || cur_conflict.conflict_id || '' AS conflict_id) AS conflict_id; ''
+        EXECUTE 'SELECT conflict_id, event_id1, event_id2 FROM conflict_' || cur_conflict.tag || '(' || cur_conference_id || '), ( SELECT ' || cur_conflict.conflict_id || ' AS conflict_id) AS conflict_id; '
       LOOP
         RETURN NEXT cur_conflict_event_event;
       END LOOP;
@@ -30,5 +30,5 @@ CREATE OR REPLACE FUNCTION conflict_event_event(integer) RETURNS SETOF conflict_
 
     RETURN;
   END;
-' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+$$ LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
 

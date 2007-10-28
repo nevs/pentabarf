@@ -15,7 +15,7 @@ CREATE OR REPLACE FUNCTION conflict_person(integer) RETURNS SETOF conflict_perso
         FROM conflict
              INNER JOIN conflict_type USING (conflict_type_id)
              INNER JOIN conference_phase_conflict USING (conflict_id)
-             INNER JOIN conference USING (conference_phase_id)
+             INNER JOIN conference USING (conference_phase)
              INNER JOIN conflict_level USING (conflict_level_id)
        WHERE conflict_type.tag = 'person' AND
              conflict_level.tag <> 'silent' AND
