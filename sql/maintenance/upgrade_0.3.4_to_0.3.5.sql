@@ -106,6 +106,8 @@ ALTER TABLE conference_phase DROP COLUMN conference_phase_id;
 
 CREATE SCHEMA conflict;
 
+-- conflict_id removal
+
 ALTER TABLE conflict ADD COLUMN conflict TEXT;
 UPDATE conflict SET conflict = tag;
 ALTER TABLE conflict DROP COLUMN tag CASCADE;
@@ -129,6 +131,21 @@ ALTER TABLE conference_phase_conflict SET SCHEMA conflict;
 
 ALTER TABLE conflict.conflict DROP COLUMN conflict_id;
 
+-- conflict_type_id removal
+
+ALTER TABLE conflict_type ADD COLUMN conflict_type TEXT;
+UPDATE conflict_type SET conflict_type = tag;
+ALTER TABLE conflict_type DROP COLUMN tag CASCADE;
+ALTER TABLE conflict_type DROP CONSTRAINT conflict_type_pkey CASCADE;
+ALTER TABLE conflict_type ADD CONSTRAINT conflict_type_pkey PRIMARY KEY( conflict_type );
+ALTER TABLE conflict_type SET SCHEMA conflict;
+
+ALTER TABLE conflict.conflict ADD COLUMN conflict_type TEXT REFERENCES conflict.conflict_type(conflict_type) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE conflict.conflict SET conflict_type = ( SELECT conflict_type FROM conflict.conflict_type WHERE conflict_type.conflict_type_id = conflict.conflict_type_id );
+ALTER TABLE conflict.conflict ALTER conflict_type SET NOT NULL;
+ALTER TABLE conflict.conflict DROP COLUMN conflict_type_id;
+
+ALTER TABLE conflict.conflict_type DROP COLUMN conflict_type_id;
 
 -- inheritance based logging stuff
 
