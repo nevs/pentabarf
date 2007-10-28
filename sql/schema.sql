@@ -2,4 +2,5 @@
 CREATE SCHEMA auth;
 CREATE SCHEMA base;
 CREATE SCHEMA log;
+CREATE SCHEMA conflict;
 

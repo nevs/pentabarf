@@ -75,11 +75,17 @@ ALTER TABLE event DROP COLUMN event_origin_id CASCADE;
 
 ALTER TABLE event_origin DROP COLUMN event_origin_id;
 
+-- conflict migration
+
+CREATE SCHEMA conflict;
+
+
+
+-- inheritance based logging stuff
+
 CREATE TABLE base.logging (
   log_transaction_id BIGSERIAL,
-  log_operation   char(1),
-  log_timestamp   TIMESTAMP NOT NULL,
-  log_person_id   INTEGER
+  log_operation CHAR(1)
 );
 
 CREATE SEQUENCE log.log_transaction_id_seq;
@@ -100,7 +106,7 @@ CREATE TABLE auth.person_role (
 ) INHERITS( base.person_role );
 
 INSERT INTO auth.person_role( person_id, role ) SELECT person_id, role FROM auth.person_role_old;
-DROP TABLE auth.person_role_old;
+DROP TABLE auth.person_role_old CASCADE;
 
 
 COMMIT;
