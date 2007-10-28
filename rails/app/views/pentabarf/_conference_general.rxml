@@ -6,7 +6,7 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @conference, :acronym )
       xml << text_field_row( @conference, :title )
       xml << text_field_row( @conference, :subtitle )
-      xml << select_row( @conference, :conference_phase_id, Conference_phase.select.map{|e| [e.conference_phase_id, e.tag]} )
+      xml << select_row( @conference, :conference_phase, Conference_phase.select.map{|e| e.conference_phase} )
       xml << text_field_row( @conference, :venue )
       xml << text_field_row( @conference, :city )
       xml << select_row( @conference, :country_id, Country.select.map{|e| [e.country_id, e.iso_3166_code]} )

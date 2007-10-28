@@ -6,7 +6,7 @@ class AdminController < ApplicationController
   end
 
   def conflict_setup
-    @phases = View_conference_phase.select(:language_id=>@current_language_id)
+    @phases = Conference_phase_localized.select(:language_id=>@current_language_id)
     @conflicts = View_conflict.select({:language_id=>@current_language_id})
     @level = View_conflict_level.select(:language_id=>@current_language_id).map{|l|[l.conflict_level_id,l.name]}
     @phase_conflicts = Conference_phase_conflict.select
@@ -14,8 +14,8 @@ class AdminController < ApplicationController
 
   def save_conflict_setup
     params[:conflict].each do | conflict_id, outer |
-      outer.each do | conference_phase_id, value |
-        write_row( Conference_phase_conflict, value, {:preset=>{:conflict_id=>conflict_id,:conference_phase_id=>conference_phase_id}})
+      outer.each do | conference_phase, value |
+        write_row( Conference_phase_conflict, value, {:preset=>{:conflict_id=>conflict_id,:conference_phase=>conference_phase}})
       end
     end
     redirect_to( :action => :conflict_setup )
