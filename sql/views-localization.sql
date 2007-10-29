@@ -37,25 +37,6 @@ CREATE OR REPLACE VIEW view_conflict AS
          ) AS all_lang 
          LEFT OUTER JOIN conflict_localized USING (language_id, conflict_id);
 
--- view for conflict_level with fallback to tag
-CREATE OR REPLACE VIEW view_conflict_level AS 
-  SELECT conflict_level_id, 
-         language_id, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         rank, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  conflict_level_id, 
-                  conflict_level.tag, 
-                  conflict_level.rank, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN conflict_level
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN conflict_level_localized USING (language_id, conflict_level_id);
-
 -- view for country with fallback to tag
 CREATE OR REPLACE VIEW view_country AS 
   SELECT country_id, 
