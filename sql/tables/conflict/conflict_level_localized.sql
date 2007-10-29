@@ -1,5 +1,5 @@
 
-CREATE TABLE conflict_level_localized (
+CREATE TABLE conflict.conflict_level_localized (
   conflict_level TEXT NOT NULL,
   language_id INTEGER NOT NULL,
   name TEXT NOT NULL,
