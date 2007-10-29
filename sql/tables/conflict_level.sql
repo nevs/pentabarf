@@ -1,8 +1,7 @@
 
 CREATE TABLE conflict_level (
-  conflict_level_id SERIAL NOT NULL,
-  tag VARCHAR(64) NOT NULL UNIQUE,
+  conflict_level TEXT NOT NULL,
   rank INTEGER,
-  PRIMARY KEY (conflict_level_id)
+  PRIMARY KEY (conflict_level)
 );
 

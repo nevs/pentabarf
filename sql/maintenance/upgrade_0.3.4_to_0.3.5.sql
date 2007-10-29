@@ -147,6 +147,30 @@ ALTER TABLE conflict.conflict DROP COLUMN conflict_type_id;
 
 ALTER TABLE conflict.conflict_type DROP COLUMN conflict_type_id;
 
+-- conflict_level_id removal
+
+ALTER TABLE conflict_level ADD COLUMN conflict_level TEXT;
+UPDATE conflict_level SET conflict_level = tag;
+ALTER TABLE conflict_level DROP COLUMN tag CASCADE;
+ALTER TABLE conflict_level DROP CONSTRAINT conflict_level_pkey CASCADE;
+ALTER TABLE conflict_level ADD CONSTRAINT conflict_level_pkey PRIMARY KEY( conflict_level );
+ALTER TABLE conflict_level SET SCHEMA conflict;
+
+ALTER TABLE conflict_level_localized ADD COLUMN conflict_level TEXT REFERENCES conflict.conflict_level(conflict_level) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE conflict_level_localized SET conflict_level = ( SELECT conflict_level FROM conflict.conflict_level WHERE conflict_level.conflict_level_id = conflict_level_localized.conflict_level_id );
+ALTER TABLE conflict_level_localized ALTER conflict_level SET NOT NULL;
+ALTER TABLE conflict_level_localized DROP COLUMN conflict_level_id;
+ALTER TABLE conflict_level_localized ADD CONSTRAINT conflict_level_localized_pkey PRIMARY KEY( conflict_level, language_id );
+ALTER TABLE conflict_level_localized ALTER name TYPE TEXT;
+ALTER TABLE conflict_level_localized SET SCHEMA conflict;
+
+ALTER TABLE conflict.conference_phase_conflict ADD COLUMN conflict_level TEXT REFERENCES conflict.conflict_level(conflict_level) ON UPDATE CASCADE ON DELETE CASCADE;
+UPDATE conflict.conference_phase_conflict SET conflict_level = ( SELECT conflict_level FROM conflict.conflict_level WHERE conflict_level.conflict_level_id = conference_phase_conflict.conflict_level_id );
+ALTER TABLE conflict.conference_phase_conflict ALTER conflict_level SET NOT NULL;
+ALTER TABLE conflict.conference_phase_conflict DROP COLUMN conflict_level_id;
+
+ALTER TABLE conflict.conflict_level DROP COLUMN conflict_level_id;
+
 -- inheritance based logging stuff
 
 CREATE TABLE base.logging (
