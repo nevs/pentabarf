@@ -1,11 +1,11 @@
 
 -- returns event_persons with conflicting events
-CREATE OR REPLACE FUNCTION conflict_event_person_event_time_visitor_visitor(integer) RETURNS SETOF conflict_event_person_event AS $$
+CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_visitor_visitor(integer) RETURNS SETOF conflict.conflict_event_person_event AS $$
   DECLARE 
     cur_conference_id ALIAS FOR $1;
     cur_speaker RECORD;
     cur_event RECORD;
-    cur_conflict conflict_event_person_event%rowtype;
+    cur_conflict conflict.conflict_event_person_event%rowtype;
   BEGIN
 
 -- Loop through all event_persons

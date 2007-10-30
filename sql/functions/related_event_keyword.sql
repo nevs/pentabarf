@@ -1,6 +1,6 @@
 
 -- returns all events with identical keywords 
-CREATE OR REPLACE FUNCTION related_event_keyword(integer) RETURNS SETOF conflict_event AS '
+CREATE OR REPLACE FUNCTION related_event_keyword(integer) RETURNS SETOF INTEGER AS '
   DECLARE
     cur_event_id ALIAS FOR $1;
     cur_event RECORD;

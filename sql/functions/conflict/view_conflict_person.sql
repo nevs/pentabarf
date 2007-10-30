@@ -1,19 +1,17 @@
 
-CREATE OR REPLACE FUNCTION view_conflict_person( conference_id INTEGER ) RETURNS SETOF view_conflict_person AS $$
-  SELECT conflict_person.conflict_id,
+CREATE OR REPLACE FUNCTION conflict.view_conflict_person( conference_id INTEGER ) RETURNS SETOF conflict.view_conflict_person AS $$
+  SELECT conflict_person.conflict,
+         conflict_localized.name AS conflict_name,
+         conference_phase_conflict.conflict_level,
+         conflict_level_localized.name AS level_name,
+         conflict_localized.language_id,
          conflict_person.person_id,
-         conference_phase_conflict.conflict_level_id,
-         view_conflict_level.name AS level_name,
-         view_conflict_level.tag AS level_tag,
-         view_conflict.language_id,
-         view_conflict.tag AS conflict_tag,
-         view_conflict.name AS conflict_name,
          view_person.name
-    FROM conflict_person( $1 )
+    FROM conflict.conflict_person( $1 )
          LEFT JOIN conference ON ( conference.conference_id = $1 )
-         INNER JOIN conference_phase_conflict USING (conference_phase, conflict_id)
-         INNER JOIN view_conflict USING (conflict_id)
-         INNER JOIN view_conflict_level USING (conflict_level_id, language_id)
+         INNER JOIN conflict.conference_phase_conflict USING (conference_phase, conflict)
+         INNER JOIN conflict.conflict_localized USING (conflict)
+         INNER JOIN conflict.conflict_level_localized USING (conflict_level, language_id)
          INNER JOIN view_person USING (person_id)
 $$ LANGUAGE SQL;
 

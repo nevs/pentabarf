@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE FUNCTION conflict_person_description_length(INTEGER) RETURNS SETOF conflict_person AS $$
+CREATE OR REPLACE FUNCTION conflict.conflict_person_description_length(INTEGER) RETURNS SETOF conflict.conflict_person AS $$
   DECLARE
     cur_conference_id ALIAS FOR $1;
     cur_conference RECORD;

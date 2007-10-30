@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE FUNCTION conflict_person_no_abstract(INTEGER) RETURNS SETOF conflict_person AS $$
+CREATE OR REPLACE FUNCTION conflict.conflict_person_no_abstract(INTEGER) RETURNS SETOF conflict.conflict_person AS $$
       SELECT person_id
         FROM person
              LEFT OUTER JOIN (

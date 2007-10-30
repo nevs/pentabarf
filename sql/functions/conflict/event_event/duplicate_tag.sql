@@ -1,11 +1,11 @@
 
 -- returns events with conflicting tags
-CREATE OR REPLACE FUNCTION conflict_event_event_duplicate_tag( INTEGER ) RETURNS SETOF conflict_event_event AS $$
+CREATE OR REPLACE FUNCTION conflict.conflict_event_event_duplicate_tag( INTEGER ) RETURNS SETOF conflict.conflict_event_event AS $$
   DECLARE 
     cur_conference_id ALIAS FOR $1;
     cur_event RECORD;
     cur_event2 RECORD;
-    conflicting_event conflict_event_event%ROWTYPE;
+    conflicting_event conflict.conflict_event_event%ROWTYPE;
   BEGIN
 -- Loop through all events
     FOR cur_event IN

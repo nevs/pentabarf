@@ -1,9 +1,9 @@
 
 -- returns all events conflicting with the availability of speakers
-CREATE OR REPLACE FUNCTION conflict_event_person_person_availability( INTEGER ) RETURNS SETOF conflict_event_person AS $$
+CREATE OR REPLACE FUNCTION conflict.conflict_event_person_person_availability( INTEGER ) RETURNS SETOF conflict.conflict_event_person AS $$
   DECLARE
     cur_conference_id ALIAS FOR $1;
-    cur_conflict conflict_event_person%rowtype;
+    cur_conflict conflict.conflict_event_person%rowtype;
   BEGIN
 
     FOR cur_conflict IN
