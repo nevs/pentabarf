@@ -3,7 +3,7 @@ CREATE OR REPLACE FUNCTION conflict.view_conflict_person( conference_id INTEGER 
   SELECT conflict_person.conflict,
          conflict_localized.name AS conflict_name,
          conference_phase_conflict.conflict_level,
-         conflict_level_localized.name AS level_name,
+         conflict_level_localized.name AS conflict_level_name,
          conflict_localized.language_id,
          conflict_person.person_id,
          view_person.name

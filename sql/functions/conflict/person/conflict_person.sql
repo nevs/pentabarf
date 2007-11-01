@@ -2,7 +2,7 @@
 -- returns all conclicts related to persons
 CREATE OR REPLACE FUNCTION conflict.conflict_person(conference_id INTEGER) RETURNS SETOF conflict.conflict_person_conflict AS $$
   DECLARE
-    cur_conflict_person RECORD;
+    cur_conflict_person conflict.conflict_person_conflict%ROWTYPE;
     cur_conflict RECORD;
 
   BEGIN
