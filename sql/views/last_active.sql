@@ -5,7 +5,7 @@ CREATE OR REPLACE VIEW view_last_active AS
          login_name,
          name,
          last_login,
-         now() - last_login AS login_diff
+         date_trunc( 'second', now() - last_login) AS login_diff
     FROM view_person
     WHERE last_login > now() + '-1 hour'::interval
     ORDER BY last_login DESC;
