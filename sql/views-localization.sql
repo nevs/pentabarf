@@ -20,23 +20,6 @@ CREATE OR REPLACE VIEW view_conference_track AS
          ) AS all_lang 
          LEFT OUTER JOIN conference_track_localized USING (language_id, conference_track_id);
 
--- view for conflicts with fallback to tag
-CREATE OR REPLACE VIEW view_conflict AS 
-  SELECT conflict_id, 
-         language_id, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  conflict_id, 
-                  conflict.tag, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN conflict
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN conflict_localized USING (language_id, conflict_id);
-
 -- view for country with fallback to tag
 CREATE OR REPLACE VIEW view_country AS 
   SELECT country_id, 
