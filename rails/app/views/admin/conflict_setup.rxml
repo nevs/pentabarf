@@ -13,12 +13,12 @@ xml.div do
         xml.tr do
           xml.td conflict.name
           @phases.each do | phase |
-            selected = @phase_conflicts.select{|c| c.conflict_id == conflict.conflict_id && c.conference_phase == phase.conference_phase }[0]
+            selected = @phase_conflicts.select{|c| c.conflict == conflict.conflict && c.conference_phase == phase.conference_phase }[0]
             xml.td do
-              prefix = "conflict[#{conflict.conflict_id}][#{phase.conference_phase}]"
+              prefix = "conflict[#{conflict.conflict}][#{phase.conference_phase}]"
               xml.input(:type=>:hidden,:name=>"#{prefix}[conference_phase_conflict_id]",:value=>selected.conference_phase_conflict_id) if selected
-              selected = selected.conflict_level_id if selected
-              xml << select_tag( "#{prefix}[conflict_level_id]", @level, {:selected=>selected} )
+              selected = selected.conflict_level if selected
+              xml << select_tag( "#{prefix}[conflict_level]", @level, {:selected=>selected} )
             end
           end
         end
