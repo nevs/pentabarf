@@ -10,7 +10,6 @@ xml.div(:id=>'content-schedule') do
       (0...(24*60*60)).step(@conference.timeslot_duration) do | current |
         start_times << [TimeInterval.new(current).strftime('%H:%M:%S'),TimeInterval.new(current + offset).strftime('%H:%M')]
       end
-      xml.div @conference.timeslot_duration.to_i
       xml << select_row( @event, :start_time, start_times,{:selected=>@event.start_time ? @event.start_time.strftime('%H:%M:%S') : nil,:with_empty=>true} )
 
       d = []
