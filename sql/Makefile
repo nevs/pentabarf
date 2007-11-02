@@ -15,8 +15,8 @@ install:
 all: install import
 
 import:
-		cd data && ${PSQL} -1 -f import.sql
+		cd data && ${PSQL} -f import.sql
 
 user:
-		${PSQL} -1 -f pentabarf-user.sql
+		${PSQL} -f pentabarf-user.sql
 
