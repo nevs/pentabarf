@@ -58,14 +58,16 @@ class ImageController < ApplicationController
     true
   end
 
-  def resize( image, resolution)
+  def resize( data, resolution)
     return image if not resolution
     height, width = resolution.split('x')
-    image = Magick::Image.from_blob( image )[0]
+    image = Magick::Image.from_blob( data )[0]
     image.x_resolution = 72
     image.y_resolution = 72
     format = nil
     image.resize!( height.to_i, width.to_i ).strip!.to_blob
+   rescue
+    data
   end
 
 
