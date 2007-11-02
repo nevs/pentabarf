@@ -20,23 +20,19 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
       -- (re)creating trigger function
       procname = tablename || '_log_function';
       fundef = $f$CREATE OR REPLACE FUNCTION log.$f$ || quote_ident( procname ) || $f$() RETURNS TRIGGER AS $i$
-        DECLARE
-          transaction TEXT;
-          transaction_id BIGINT;
         BEGIN
-          SELECT INTO transaction current_setting('pentabarf.transaction_id');
-          IF ( transaction = '' ) THEN
-            SELECT INTO transaction_id nextval('log.log_transaction_log_transaction_id_seq');
-            PERFORM set_config('pentabarf.transaction_id',transaction_id::text,TRUE); 
-            INSERT INTO log.log_transaction( person_id ) VALUES ( CASE current_setting('pentabarf.person_id') WHEN '' THEN NULL ELSE current_setting('pentabarf.person_id')::INTEGER END );
-          ELSE
-            transaction_id = currval('log.log_transaction_log_transaction_id_seq');
+          IF ( current_setting('pentabarf.transaction_id') = '' ) THEN
+            PERFORM set_config('pentabarf.transaction_id',nextval('log.log_transaction_log_transaction_id_seq'),TRUE); 
+            INSERT INTO log.log_transaction( log_transaction_id, person_id ) 
+              VALUES ( currval('log.log_transaction_log_transaction_id_seq'), 
+                CASE current_setting('pentabarf.person_id') WHEN '' THEN NULL ELSE current_setting('pentabarf.person_id')::INTEGER END
+            );
           END IF;
           IF ( TG_OP = 'DELETE' ) THEN
-            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT transaction_id, 'D', OLD.*;
+            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT currval('log.log_transaction_log_transaction_id_seq'), 'D', OLD.*;
             RETURN OLD;
           ELSE
-            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT transaction_id, substring( TG_OP, 1, 1 ), NEW.*;
+            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT currval('log.log_transaction_log_transaction_id_seq'), substring( TG_OP, 1, 1 ), NEW.*;
             RETURN NEW;
           END IF;
           RETURN NULL;
