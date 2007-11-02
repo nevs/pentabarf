@@ -19,7 +19,11 @@ class ImageController < ApplicationController
       resolution = params[:id].match( /\d+(-(\d+x\d+))?/ )[2]
       response.headers['Content-Type'] = mimetype
       response.headers['Last-Modified'] = @timestamp
-      render( :text => resize( data, resolution ))
+      if mimetype == "image/svg+xml"
+        render( :text => data )
+      else
+        render( :text => resize( data, resolution ))
+      end
     end
   end
 
@@ -59,7 +63,7 @@ class ImageController < ApplicationController
   end
 
   def resize( data, resolution)
-    return image if not resolution
+    return data if not resolution
     height, width = resolution.split('x')
     image = Magick::Image.from_blob( data )[0]
     image.x_resolution = 72
