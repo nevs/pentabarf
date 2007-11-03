@@ -1,4 +1,8 @@
 
+BEGIN;
+
+ALTER TABLE conference RENAME TO old_conference;
+
 CREATE TABLE base.conference (
   conference_id SERIAL NOT NULL,
   acronym TEXT NOT NULL UNIQUE,
@@ -41,4 +45,8 @@ CREATE TABLE public.conference (
 ) INHERITS( base.conference );
 
 CREATE TABLE log.conference() INHERITS( base.logging, base.conference );
+
+INSERT INTO public.conference( conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country_id, time_zone_id, currency_id, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled ) SELECT conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country_id, time_zone_id, currency_id, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled FROM public.old_conference;
+
+COMMIT;
 
