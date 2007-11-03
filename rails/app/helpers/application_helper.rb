@@ -7,7 +7,7 @@ module ApplicationHelper
   include Builder_helper
 
   def pentabarf_version
-    "0.3.5"
+    "0.3.6"
   end
 
   # tries to read the current revision of pentabarf from subversion meta data
