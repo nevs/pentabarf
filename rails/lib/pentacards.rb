@@ -39,7 +39,7 @@ class Pentacards
       col = index % 2
       row = (index % 4)/ 2
 
-      draw_layout( event.event_id, col, row )
+      draw_event( event, col, row )
     end
   end
 
@@ -49,16 +49,13 @@ class Pentacards
 
   protected
 
-  def draw_layout( event_id, col, row, args={})
-    event = View_event.select_single({:translated_id=> @language_id, :event_id => event_id})
-
+  def draw_event( event, col, row, args={})
     language = View_language.select({:language_id => event.language_id.to_i, :translated_id => @language_id})
-    progress = Event_state_progress_localized.select_single({:language_id=>@language_id,:event_state=>event.event_state, :event_state_progress => event.event_state_progress})
 
     # this is the bottom line with track, state language and event type
-    output_row = [ event.conference_track ,
-                   "#{event.event_state}\n#{progress.name}",
-                   language.length == 1 ? language[0].name : '',
+    output_row = [ event.conference_track,
+                   "#{event.event_state}\n#{event.event_state_progress}",
+                   language[0] ? language[0].name : '',
                    event.event_type ]
 
     output_row.each_with_index do | item, index |
@@ -112,7 +109,6 @@ class Pentacards
                                :height => 70,
                                :x => 0,
                                :y =>88,
-                               :text_color => '#000',
                                :left_margin => 0.2,
                                :top_margin => 0,
                                :border_size => 0,
@@ -124,7 +120,6 @@ class Pentacards
                                :height => 83,
                                :x => 131,
                                :y => 91,
-                               :text_color => '#000',
                                :bgcolor => '#fff',
                                :left_margin => 0.2,
                                :top_margin => 0.3,
@@ -138,7 +133,6 @@ class Pentacards
                                :height => 37,
                                :x => 70,
                                :y => @card_height - 34 - 36 - 4,
-                               :text_color => '#000',
                                :left_margin => 0.2,
                                :top_margin => 0,
                                :border_size => 0,
@@ -151,7 +145,6 @@ class Pentacards
                                :height => 36,
                                :x => 70,
                                :y => @card_height - 32 ,
-                               :text_color => '#000',
                                :left_margin => 0.2,
                                :top_margin => 0.1,
                                :border_size => 0,
@@ -172,7 +165,7 @@ class Pentacards
                                :align => :center,
                                :font_size => 21 } )
 
-    # HACK should be defined some reasonable place not hardcoded:
+    # FIXME should be defined some reasonable place not hardcoded:
     $site_url = "cccv.pentabarf.org"
     # insert image
     begin
