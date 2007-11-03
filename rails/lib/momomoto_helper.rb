@@ -71,13 +71,14 @@ module MomomotoHelper
       values[data_column] = tmpfile.read
 
       # get mimetype
-      type = MIME.check_magics( tmpfile ) ||
-        MIME.check_globs( tmpfile.original_filename ) ||
-        "application/octet-stream"
-      constraints = {:mime_type=>type.to_s}
-      constraints[:f_image] = 't' if options[:image]
-      mime_type = Mime_type.select_single(constraints).mime_type rescue 'application/octet-stream'
-      values[:mime_type] = mime_type
+      type = MIME.check_magics( tmpfile ) || MIME.check_globs( tmpfile.original_filename ) || "application/octet-stream"
+      begin
+        mime_type = Mime_type.select_single(:mime_type=>type.to_s)
+      rescue Momomoto::Nothing_found
+        mime_type = Mime_type.select_single(:mime_type=>'application/octet-stream')
+      end
+      raise "Unsupported image mimetype" if options[:image] && !mimetype.f_image
+      values[:mime_type] = mime_type.mime_type
     else
       values.delete( data_column )
     end
