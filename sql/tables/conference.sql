@@ -10,7 +10,7 @@ CREATE TABLE base.conference (
   venue TEXT,
   city TEXT,
   country_id INTEGER,
-  timezone TEXT,
+  timezone TEXT NOT NULL DEFAULT 'Europe/Berlin',
   currency_id INTEGER,
   timeslot_duration INTERVAL NOT NULL DEFAULT '1:00:00',
   default_timeslots INTEGER NOT NULL DEFAULT 1,

@@ -494,5 +494,8 @@ INSERT INTO auth.account( login_name, email, salt, password, current_language_id
 
 INSERT INTO auth.object_domain VALUES ('account','account');
 
+
+
+
 COMMIT;
 
