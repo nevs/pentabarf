@@ -17,15 +17,14 @@ class Pope
 
   def auth( user, pass )
     deauth
-    @user = Person.select_single(:login_name => user)
+    @user = Account.select_single(:login_name => user)
 
-    salt = @user.password[0..15]
     salt_bin = ''
     8.times do | count |
       count *= 2
-      salt_bin += sprintf( "%c", salt[count..(count+1)].hex )
+      salt_bin += sprintf( "%c", @user.salt[count..(count+1)].hex )
     end
-    raise "Wrong Password" if Digest::MD5.hexdigest( salt_bin + pass ) != @user.password[16..47]
+    raise "Wrong Password" if Digest::MD5.hexdigest( salt_bin + pass ) != @user.password
 
     refresh
     Set_config.call(:setting=>'pentabarf.person_id',:value=>@user.person_id,:is_local=>'t')
