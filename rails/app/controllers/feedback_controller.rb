@@ -36,6 +36,9 @@ class FeedbackController < ApplicationController
 
   def auth
     @conference = Conference.select_single({:acronym=>params[:conference],:f_feedback_enabled=>'t'})
+   rescue
+    render(:text=>"There is currently no feedback enabled for a conference with this name.",:status=>404)
+    false
   end
 
 end
