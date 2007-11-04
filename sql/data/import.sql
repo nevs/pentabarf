@@ -26,8 +26,7 @@ BEGIN TRANSACTION;
 \i event_type_localized.sql
 \i link_type.sql
 \i link_type_localized.sql
-\i time_zone.sql
-\i time_zone_localized.sql
+\i timezone.sql
 \i transport.sql
 \i transport_localized.sql
 \i ui_message.sql
