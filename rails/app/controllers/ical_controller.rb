@@ -6,9 +6,7 @@ class IcalController < ApplicationController
 
   def conference
     conf = Conference.select_single({:conference_id=>params[:id]})
-    tz = View_time_zone.select_single({:time_zone_id => conf.time_zone_id, :language_id => 120})
-    # FIXME put timezone offsets into database
-    tz_offset = tz.tag.match(/^[^0-9]+([+-]\d+)$/)[1].to_i rescue 0
+    tz = Timezone.select_single({:timezone => conf.timezone})
     lang = Language.select_single({:language_id=>@current_language_id})
     rooms = View_room.select({:conference_id=>conf.conference_id,:language_id=>lang.language_id})
     events = View_schedule_simple.select({:conference_id=>conf.conference_id})
@@ -17,14 +15,14 @@ class IcalController < ApplicationController
     cal.prodid "-//Pentabarf//Schedule//#{lang.tag.upcase}"
     # FIXME icalendar library does not support timezones
 #    cal.timezone do
-#      tzid tz.tag
-#      tzname tz.name
+#      tzid tz.abbreviation
+#      tzname tz.timezone
 #    end
     events.each do | event |
       cal.event do
         uid "#{event.event_id}@#{conf.acronym}@pentabarf.org"
-        dtstart "TZID=#{tz.tag}:" + event.start_date.strftime('%Y%m%dT%H%M%S')
-        dtend "TZID=#{tz.tag}:" + event.end_date.strftime('%Y%m%dT%H%M%S')
+        dtstart "TZID=#{tz.abbreviation}:" + event.start_date.strftime('%Y%m%dT%H%M%S')
+        dtend "TZID=#{tz.abbreviation}:" + event.end_date.strftime('%Y%m%dT%H%M%S')
         duration sprintf( 'PT%dH%02dM', event.duration.hour, event.duration.min )
         summary event.title + ( event.subtitle ? " - #{event.subtitle}" : '')
         description event.abstract
