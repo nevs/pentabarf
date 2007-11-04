@@ -1,6 +1,7 @@
 
 BEGIN;
 
+DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
 
 CREATE TABLE timezone (
