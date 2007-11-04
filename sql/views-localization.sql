@@ -135,23 +135,6 @@ CREATE OR REPLACE VIEW view_team AS
          ) AS all_lang 
          LEFT OUTER JOIN team_localized USING (language_id, team_id);
 
--- view for time_zone with fallback to tag
-CREATE OR REPLACE VIEW view_time_zone AS 
-  SELECT time_zone_id, 
-         language_id, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  time_zone_id, 
-                  time_zone.tag, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN time_zone 
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN time_zone_localized USING (language_id, time_zone_id);
-
 -- view for transport with fallback to tag
 CREATE OR REPLACE VIEW view_transport AS 
   SELECT transport_id, 
