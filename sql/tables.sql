@@ -26,7 +26,6 @@ BEGIN;
 \i tables/im_type.sql
 \i tables/im_type_localized.sql
 \i tables/timezone.sql
-\i tables/timezone_localized.sql
 \i tables/link_type.sql
 \i tables/link_type_localized.sql
 \i tables/person.sql
