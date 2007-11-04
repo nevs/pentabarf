@@ -1,44 +1,30 @@
 
-CREATE TABLE person (
+CREATE TABLE base.person (
   person_id SERIAL NOT NULL,
-  login_name VARCHAR(32) UNIQUE,
-  password CHAR(48),
-  title VARCHAR(32),
+  title TEXT,
   gender BOOL,
-  first_name VARCHAR(64),
-  middle_name VARCHAR(64),
-  last_name VARCHAR(64),
-  public_name VARCHAR(64),
-  nickname VARCHAR(64),
-  address VARCHAR(256),
-  street VARCHAR(64),
-  street_postcode VARCHAR(10),
-  po_box VARCHAR(10),
-  po_box_postcode VARCHAR(10),
-  city VARCHAR(64),
+  first_name TEXT,
+  last_name TEXT,
+  public_name TEXT,
+  nickname TEXT,
+  address TEXT,
+  street TEXT,
+  street_postcode TEXT,
+  po_box TEXT,
+  po_box_postcode TEXT,
+  city TEXT,
   country_id INTEGER,
-  email_contact VARCHAR(64),
-  iban VARCHAR(128),
-  bic VARCHAR(32),
-  bank_name VARCHAR(128),
-  account_owner VARCHAR(128),
-  gpg_key TEXT,
-  preferences TEXT,
-  f_conflict BOOL NOT NULL DEFAULT FALSE,
-  f_deleted BOOL NOT NULL DEFAULT FALSE,
-  f_spam BOOL NOT NULL DEFAULT FALSE,
-  last_login TIMESTAMP WITH TIME ZONE,
-  last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
-  last_modified_by INTEGER,
-  current_conference_id INTEGER,
-  current_language_id INTEGER,
-  FOREIGN KEY (country_id) REFERENCES country (country_id) ON UPDATE CASCADE ON DELETE SET NULL,
-  FOREIGN KEY (last_modified_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE SET NULL,
---  FOREIGN KEY (current_conference_id) REFERENCES conference( conference_id ) ON UPDATE CASCADE ON DELETE SET NULL,
---  FOREIGN KEY (current_language_id) REFERENCES language( language_id ) ON UPDATE CASCADE ON DELETE SET NULL,
-  CHECK (login_name IS NOT NULL OR last_name IS NOT NULL OR nickname IS NOT NULL OR public_name IS NOT NULL),
-  CHECK (login_name <> 'logout'),
-  CHECK ( strpos( login_name, ':' ) = 0 ),
-  PRIMARY KEY (person_id)
+  iban TEXT,
+  bic TEXT,
+  bank_name TEXT,
+  account_owner TEXT
 );
+
+CREATE TABLE public.person(
+  CHECK (first_name IS NOT NULL OR last_name IS NOT NULL OR public_name IS NOT NULL OR nickname IS NOT NULL),
+  FOREIGN KEY (country_id) REFERENCES country (country_id) ON UPDATE CASCADE ON DELETE SET NULL,
+  PRIMARY KEY (person_id)
+) INHERITS( base.person );
+
+CREATE TABLE log.person() INHERITS( base.logging, base.person );
 

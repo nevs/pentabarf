@@ -439,5 +439,57 @@ CREATE TABLE log.conference() INHERITS( base.logging, base.conference );
 
 INSERT INTO public.conference( conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country_id, currency_id, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled ) SELECT conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country_id, currency_id, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled FROM public.old_conference;
 
+ALTER TABLE person RENAME TO old_person;
+
+CREATE TABLE base.person (
+  person_id SERIAL NOT NULL,
+  title TEXT,
+  gender BOOL,
+  first_name TEXT,
+  last_name TEXT,
+  public_name TEXT,
+  nickname TEXT,
+  address TEXT,
+  street TEXT,
+  street_postcode TEXT,
+  po_box TEXT,
+  po_box_postcode TEXT,
+  city TEXT,
+  country_id INTEGER,
+  iban TEXT,
+  bic TEXT,
+  bank_name TEXT,
+  account_owner TEXT
+);
+
+CREATE TABLE public.person(
+  CHECK (first_name IS NOT NULL OR last_name IS NOT NULL OR public_name IS NOT NULL OR nickname IS NOT NULL),
+  FOREIGN KEY (country_id) REFERENCES country (country_id) ON UPDATE CASCADE ON DELETE SET NULL,
+  PRIMARY KEY (person_id)
+) INHERITS( base.person );
+
+CREATE TABLE log.person() INHERITS( base.logging, base.person );
+
+INSERT INTO public.person( person_id, title, gender, first_name, last_name, public_name, nickname, address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner ) SELECT person_id, title, gender, first_name, last_name, public_name, coalesce(nickname,login_name), address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner FROM old_person;
+
+CREATE TABLE auth.account (
+  account_id SERIAL,
+  login_name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  salt TEXT,
+  password TEXT,
+  edit_token TEXT,
+  current_language_id INTEGER,
+  current_conference_id INTEGER,
+  preferences TEXT,
+  last_login TIMESTAMP,
+  person_id INTEGER REFERENCES public.person(person_id),
+  CHECK (login_name <> 'logout'),
+  CHECK ( strpos( login_name, ':' ) = 0 ),
+  PRIMARY KEY( account_id )
+);
+
+INSERT INTO auth.account( login_name, email, salt, password, current_language_id, current_conference_id, preferences, last_login, person_id ) SELECT login_name, email_contact, substring(password, 1, 16), substring(password,17,32), current_language_id, current_conference_id, preferences, last_login, person_id FROM old_person WHERE login_name IS NOT NULL AND email_contact IS NOT NULL;
+
 COMMIT;
 
