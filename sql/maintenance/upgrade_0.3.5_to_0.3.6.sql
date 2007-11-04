@@ -449,6 +449,7 @@ CREATE TABLE base.person (
   last_name TEXT,
   public_name TEXT,
   nickname TEXT,
+  email TEXT,
   address TEXT,
   street TEXT,
   street_postcode TEXT,
@@ -470,7 +471,7 @@ CREATE TABLE public.person(
 
 CREATE TABLE log.person() INHERITS( base.logging, base.person );
 
-INSERT INTO public.person( person_id, title, gender, first_name, last_name, public_name, nickname, address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner ) SELECT person_id, title, gender, first_name, last_name, public_name, coalesce(nickname,login_name), address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner FROM old_person;
+INSERT INTO public.person( person_id, title, gender, first_name, last_name, public_name, nickname, email, address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner ) SELECT person_id, title, gender, first_name, last_name, public_name, coalesce(nickname,login_name), email_contact, address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner FROM old_person;
 
 CREATE TABLE auth.account (
   account_id SERIAL,
@@ -490,6 +491,8 @@ CREATE TABLE auth.account (
 );
 
 INSERT INTO auth.account( login_name, email, salt, password, current_language_id, current_conference_id, preferences, last_login, person_id ) SELECT login_name, email_contact, substring(password, 1, 16), substring(password,17,32), current_language_id, current_conference_id, preferences, last_login, person_id FROM old_person WHERE login_name IS NOT NULL AND email_contact IS NOT NULL;
+
+INSERT INTO auth.object_domain VALUES ('account','account');
 
 COMMIT;
 

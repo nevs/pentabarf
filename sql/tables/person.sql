@@ -7,6 +7,7 @@ CREATE TABLE base.person (
   last_name TEXT,
   public_name TEXT,
   nickname TEXT,
+  email TEXT,
   address TEXT,
   street TEXT,
   street_postcode TEXT,
