@@ -494,7 +494,22 @@ INSERT INTO auth.account( login_name, email, salt, password, current_language_id
 
 INSERT INTO auth.object_domain VALUES ('account','account');
 
+CREATE TABLE base.account_role (
+  account_id INTEGER NOT NULL,
+  role TEXT NOT NULL
+);
 
+CREATE TABLE auth.account_role (
+  PRIMARY KEY( account_id, role ),
+  FOREIGN KEY( account_id) REFERENCES auth.account( account_id ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( role ) REFERENCES auth.role( role ) ON UPDATE CASCADE ON DELETE CASCADE
+) INHERITS( base.account_role );
+
+CREATE TABLE log.account_role() INHERITS( base.logging, base.account_role );
+
+INSERT INTO auth.account_role(account_id,role) SELECT account_id, role FROM auth.person_role INNER JOIN auth.account USING(person_id);
+
+DROP TABLE base.person_role CASCADE;
 
 
 COMMIT;
