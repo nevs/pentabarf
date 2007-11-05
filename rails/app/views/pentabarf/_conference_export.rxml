@@ -1,9 +1,9 @@
 xml.div(:id=>'content-export') do
 
-  xml.fieldset do 
+  xml.fieldset do
     xml.legend( 'Export' )
 
-    xml.a({:href=>url_for({:controller=>'schedule',:conference=>@conference.acronym})}) do
+    xml.a({:href=>url_for({:controller=>'schedule',:conference=>@conference.acronym,:action=>:index,:language=>:en})}) do
       xml.button( local( :schedule_export ) )
     end
     xml.a({:href=>url_for({:controller=>'ical',:action=>:conference,:id=>@conference.conference_id})}) do
