@@ -38,7 +38,7 @@ class Pope
   end
 
   def refresh
-    @permissions = User_permissions.call(:person_id=>@user.person_id).map do | row | row.user_permissions.to_sym end
+    @permissions = User_permissions.call(:account_id=>@user.account_id).map do | row | row.user_permissions.to_sym end
     if permission?( :modify_own_event )
       @own_events = Own_events.call(:person_id=>@user.person_id).map do | row | row.own_events end
     end
