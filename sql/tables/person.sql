@@ -8,6 +8,7 @@ CREATE TABLE base.person (
   public_name TEXT,
   nickname TEXT,
   email TEXT,
+  spam BOOL NOT NULL DEFAULT FALSE,
   address TEXT,
   street TEXT,
   street_postcode TEXT,

@@ -3,7 +3,7 @@
 CREATE OR REPLACE VIEW view_mail_accepted_speaker AS
   SELECT view_person.person_id,
          view_person.name,
-         view_person.email_contact,
+         view_person.email,
          event.event_id,
          event.title AS event_title,
          event.subtitle AS event_subtitle,
@@ -13,7 +13,7 @@ CREATE OR REPLACE VIEW view_mail_accepted_speaker AS
     FROM event_person
          INNER JOIN view_person ON (
              view_person.person_id = event_person.person_id AND
-             view_person.email_contact IS NOT NULL )
+             view_person.email IS NOT NULL )
          INNER JOIN event ON (
              event.event_id = event_person.event_id )
          INNER JOIN conference ON (

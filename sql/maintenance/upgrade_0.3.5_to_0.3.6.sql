@@ -1,6 +1,7 @@
 
 BEGIN;
 
+-- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
 
@@ -392,6 +393,7 @@ INSERT INTO timezone (timezone, abbreviation, utf_offset) VALUES ('Europe/Zagreb
 INSERT INTO timezone (timezone, abbreviation, utf_offset) VALUES ('Europe/Zaporozhye', 'EET', '02:00:00');
 INSERT INTO timezone (timezone, abbreviation, utf_offset) VALUES ('Europe/Zurich', 'CET', '01:00:00');
 
+-- make conference use new logging
 ALTER TABLE conference RENAME TO old_conference;
 
 CREATE TABLE base.conference (
@@ -439,6 +441,7 @@ CREATE TABLE log.conference() INHERITS( base.logging, base.conference );
 
 INSERT INTO public.conference( conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country_id, currency_id, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled ) SELECT conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country_id, currency_id, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled FROM public.old_conference;
 
+-- make person use new logging
 ALTER TABLE person RENAME TO old_person;
 
 CREATE TABLE base.person (
@@ -450,6 +453,7 @@ CREATE TABLE base.person (
   public_name TEXT,
   nickname TEXT,
   email TEXT,
+  spam BOOL NOT NULL DEFAULT FALSE,
   address TEXT,
   street TEXT,
   street_postcode TEXT,
@@ -471,7 +475,7 @@ CREATE TABLE public.person(
 
 CREATE TABLE log.person() INHERITS( base.logging, base.person );
 
-INSERT INTO public.person( person_id, title, gender, first_name, last_name, public_name, nickname, email, address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner ) SELECT person_id, title, gender, first_name, last_name, public_name, coalesce(nickname,login_name), email_contact, address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner FROM old_person;
+INSERT INTO public.person( person_id, title, gender, first_name, last_name, public_name, nickname, email, spam, address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner ) SELECT person_id, title, gender, first_name, last_name, public_name, coalesce(nickname,login_name), email_contact, f_spam, address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner FROM old_person;
 
 CREATE TABLE auth.account (
   account_id SERIAL,
@@ -511,6 +515,7 @@ INSERT INTO auth.account_role(account_id,role) SELECT account_id, role FROM auth
 
 DROP TABLE base.person_role CASCADE;
 
+UPDATE auth.object_domain SET object = 'account_role' WHERE object = 'person_role';
 
 COMMIT;
 

@@ -2,13 +2,10 @@
 -- view for persons with name
 CREATE OR REPLACE VIEW view_person AS
   SELECT person_id,
-         login_name,
-         coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname, person.login_name) AS name,
-         password,
+         coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname) AS name,
          title,
          gender,
          first_name,
-         middle_name,
          last_name,
          public_name,
          nickname,
@@ -19,16 +16,11 @@ CREATE OR REPLACE VIEW view_person AS
          po_box_postcode,
          city,
          country_id,
-         email_contact,
+         email,
+         spam,
          iban,
          bic,
          bank_name,
-         account_owner,
-         gpg_key,
-         preferences,
-         f_conflict,
-         f_deleted,
-         f_spam,
-         last_login
+         account_owner
     FROM person;
 
