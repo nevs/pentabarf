@@ -9,7 +9,7 @@ class ScheduleControllerTest < Test::Unit::TestCase
     @controller = ScheduleController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    authenticate_user( Person.select_single(:person_id=>1) )
+    authenticate_user( Account.select_single(:login_name=>'sven') )
   end
 
   def test_index

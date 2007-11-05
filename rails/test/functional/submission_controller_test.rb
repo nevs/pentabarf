@@ -9,14 +9,14 @@ class SubmissionControllerTest < Test::Unit::TestCase
     @controller = SubmissionController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @person = Person.new(:login_name=>'test_submitter')
-    Person.__write( @person )
+    @user = Account.new(:login_name=>'test_submitter')
+    Account.__write( @user )
     @conference = Conference.select_single(:conference_id=>1)
-    Person_role.__write( Person_role.new(:person_id=>@person.person_id,:role=>'submitter') )
+    Account_role.__write( Account_role.new(:account_id=>@user.account_id,:role=>'submitter') )
   end
 
   def teardown
-    Person.__delete( @person )
+    Person.__delete( @user )
     POPE.deauth
   end
 
@@ -25,7 +25,7 @@ class SubmissionControllerTest < Test::Unit::TestCase
     assert_response :success
     get :index, :conference => @conference.acronym
     assert_response :success
-    authenticate_user( @person )
+    authenticate_user( @user )
     get :index
     assert_response :success
     get :index, :conference => @conference.acronym
@@ -33,16 +33,16 @@ class SubmissionControllerTest < Test::Unit::TestCase
   end
 
   def test_person
-    authenticate_user( @person )
+    authenticate_user( @user )
     get :person, :conference => @conference.acronym
     assert_response :success
   end
 
   def test_event
-    authenticate_user( @person )
+    authenticate_user( @user )
     get :event, :conference => @conference.acronym
     assert_response :success
-    authenticate_user( @person )
+    authenticate_user( @user )
     submit_form do | form |
       form.event.title = 'Event Submission Test'
     end
@@ -50,7 +50,7 @@ class SubmissionControllerTest < Test::Unit::TestCase
   end
 
   def test_events
-    authenticate_user( @person )
+    authenticate_user( @user )
     get :events, :conference => @conference.acronym
     assert_response :success
   end

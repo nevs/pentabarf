@@ -9,7 +9,7 @@ class XmlControllerTest < Test::Unit::TestCase
     @controller = XmlController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    authenticate_user( Person.select_single(:person_id=>1) )
+    authenticate_user( Account.select_single(:login_name=>'sven') )
   end
 
   def teardown
