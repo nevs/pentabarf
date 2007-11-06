@@ -1,6 +1,5 @@
 \i functions/auth/user_permissions.sql
 \i functions/auth/activate_account.sql
-\i functions/auth/hash_password.sql
 \i functions/auth/create_account.sql
 \i functions/auth/forgot_password.sql
 \i functions/auth/reset_password.sql
