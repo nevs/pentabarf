@@ -6,7 +6,7 @@ CREATE TABLE auth.account (
   salt TEXT,
   password TEXT,
   edit_token TEXT,
-  current_language_id INTEGER,
+  current_language_id INTEGER NOT NULL DEFAULT 120,
   current_conference_id INTEGER,
   preferences TEXT,
   last_login TIMESTAMP,
