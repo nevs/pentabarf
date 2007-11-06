@@ -21,7 +21,7 @@ xml.div({:id=>:data}) do
       end
       # search for email
       xml.li({:class=>:email,:title=>local(:email)}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:email_contact})
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:email})
         xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
       end
       # search for conference

@@ -8,19 +8,19 @@ class UserController < ApplicationController
   end
 
   def save_account
-    if not params[:person]
+    if not params[:account]
       return redirect_to(:action=>:index)
-    elsif params[:person][:password] != params[:password]
+    elsif params[:account][:password] != params[:password]
       raise "Passwords do not match"
-    elsif not params[:person][:email_contact].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,}$/)
+    elsif not params[:account][:email].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,}$/)
       raise "Invalid email address"
-    elsif Person.select({:login_name=>params[:person][:login_name]}).length != 0
+    elsif Account.select({:login_name=>params[:account][:login_name]}).length != 0
       raise "This login name is already in use."
     else
       @conference = Conference.select_single( :acronym => params[:id] ) if params[:id]
       activation_string = random_string
-      Notifier::deliver_activate_account( params[:person][:login_name], params[:person][:email_contact], url_for({:action=>:activate_account,:id=>activation_string,:only_path=>false}), @conference && @conference.email )
-      account = Create_account.call({:p_login_name=>params[:person][:login_name],:p_password=>params[:person][:password],:p_email_contact=>params[:person][:email_contact],:p_activation_string=>activation_string,:p_conference_id=> @conference.nil? ? 0 : @conference.conference_id })
+      Notifier::deliver_activate_account( params[:account][:login_name], params[:account][:email], url_for({:action=>:activate_account,:id=>activation_string,:only_path=>false}), @conference && @conference.email )
+      account = Create_account.call({:p_login_name=>params[:account][:login_name],:p_password=>params[:account][:password],:p_email=>params[:account][:email],:p_activation_string=>activation_string,:p_conference_id=> @conference.nil? ? 0 : @conference.conference_id })
       redirect_to({:action=>:account_done})
     end
   end
@@ -41,23 +41,23 @@ class UserController < ApplicationController
 
   def save_forgot_password
     begin
-      p = Person.select_single( :login_name => params[:login_name], :email_contact => params[:email] )
+      p = Account.select_single( :login_name => params[:login_name], :email => params[:email] )
     rescue
       raise "There is no user with this login name and email address."
     end
-    reset = Password_reset_string.select(:person_id=>p.person_id)
+    reset = Account_password_reset.select(:account_id=>p.account_id)
     if reset.length == 1 && reset[0].password_reset > DateTime.now - 1
       raise "You have been sent a reset link recently."
     end
     activation_string = random_string
-    Notifier::deliver_forgot_password( p.login_name, p.email_contact, url_for({:action=>:reset_password,:id=>activation_string,:only_path=>false}) )
-    Forgot_password.call(:p_person_id=>p.person_id,:p_activation_string=>activation_string)
+    Notifier::deliver_forgot_password( p.login_name, p.email, url_for({:action=>:reset_password,:id=>activation_string,:only_path=>false}) )
+    Forgot_password.call(:p_account_id=>p.account_id,:p_activation_string=>activation_string)
     redirect_to(:action=>:reset_link_sent)
   end
 
   def reset_password
     return redirect_to(:action=>:forgot_password) if params[:id].to_s.empty?
-    Password_reset_string.select_single(:activation_string=>params[:id])
+    Account_password_reset.select_single(:activation_string=>params[:id])
    rescue
     raise "Invalid reset string."
   end

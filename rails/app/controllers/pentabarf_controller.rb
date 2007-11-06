@@ -108,18 +108,21 @@ class PentabarfController < ApplicationController
     @person_travel = Person_travel.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
     @person_rating = Person_rating.select_or_new({:person_id=>@person.person_id,:evaluator_id=>POPE.user.person_id})
     @person_image = Person_image.select_or_new({:person_id=>@person.person_id})
-    @person_roles = Person_role.select(:person_id=>@person.person_id)
+    @account = Account.select_or_new(:person_id=>@person.person_id)
+    @account_roles = @account.new_record? ? [] : Account_role.select(:account_id=>@account.account_id)
     @transaction = Person_transaction.select_single({:person_id=>@person.person_id}) rescue Person_transaction.new
   end
 
   def save_person
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
-    person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:f_spam]} ) do | row |
-      if params[:person][:password].to_s != "" && ( row.person_id == POPE.user.person_id || POPE.permission?( :modify_account ) )
-        raise "Passwords do not match" if params[:person][:password] != params[:person][:password2]
-        row.password = params[:person][:password]
+    person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam]} )
+    params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
+    account = write_row( Account, params[:account], {:except=>[:person_id,:account_id,:password,:password2]} ) do | row |
+      if params[:account][:password].to_s != "" && ( row.account_id == POPE.user.account_id || POPE.permission?( :modify_account ) )
+        raise "Passwords do not match" if params[:account][:password] != params[:account][:password2]
+        row.password = params[:account][:password]
       end
-    end
+    end if params[:account][:account_id] || POPE.permission?( :modify_account )
     conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
     write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
     write_row( Person_rating, params[:person_rating], {:preset=>{:person_id => person.person_id,:evaluator_id=>POPE.user.person_id}})
@@ -134,8 +137,8 @@ class PentabarfController < ApplicationController
     write_person_availability( @current_conference, person, params[:person_availability])
 
     if POPE.permission?(:modify_account)
-      params[:person_role].each do | k,v | v[:remove] = true if not v[:set] end
-      write_rows( Person_role, params[:person_role], {:preset=>{:person_id=>person.person_id},:except=>[:set]})
+      params[:account_role].each do | k,v | v[:remove] = true if not v[:set] end
+      write_rows( Account_role, params[:account_role], {:preset=>{:account_id=>account.account_id},:except=>[:set]})
     end
     Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
 

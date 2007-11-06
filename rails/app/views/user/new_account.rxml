@@ -4,15 +4,15 @@ xml.div(:id=>:data) do
     xml.table do
       xml.tr do
         xml.td( "Login name" )
-        xml.td do xml.input({:type=>:text,:name=>'person[login_name]'}) end
+        xml.td do xml.input({:type=>:text,:name=>'account[login_name]'}) end
       end
       xml.tr do
         xml.td( "Email address" )
-        xml.td do xml.input({:type=>:text,:name=>'person[email_contact]'}) end
+        xml.td do xml.input({:type=>:text,:name=>'account[email]'}) end
       end
       xml.tr do
         xml.td( 'Password' )
-        xml.td do xml.input({:type=>:password,:name=>'person[password]'}) end
+        xml.td do xml.input({:type=>:password,:name=>'account[password]'}) end
       end
       xml.tr do
         xml.td( 'Repeat Password' )

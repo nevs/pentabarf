@@ -4,9 +4,9 @@ xml.div(:id=>'content-contact') do
     xml.legend local('email')
 
     xml.table do
-      xml << text_field_row( @person, :email_contact )
+      xml << text_field_row( @person, :email )
       xml << text_field_row( @conference_person, :email_public )
-      xml << check_box_row( @person, :f_spam )
+      xml << check_box_row( @person, :spam )
     end
   end
 
