@@ -1,7 +1,7 @@
 
 CREATE TABLE auth.account (
   account_id SERIAL,
-  login_name TEXT NOT NULL,
+  login_name TEXT NOT NULL UNIQUE,
   email TEXT NOT NULL,
   salt TEXT,
   password TEXT,
