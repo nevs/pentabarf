@@ -1,15 +1,17 @@
 
 CREATE OR REPLACE FUNCTION auth.activate_account( activation_string char(64)) RETURNS INTEGER AS $$
   DECLARE
-    cur_person_id INTEGER;
-    cur_person RECORD;
     cur_activation RECORD;
+    cur_person_id INTEGER;
   BEGIN
 
-    SELECT INTO cur_activation person_id, conference_id FROM auth.account_activation WHERE account_activation.activation_string = activation_string AND account_creation > now() + '-1 day';
+    SELECT INTO cur_activation account_id, conference_id FROM auth.account_activation WHERE account_activation.activation_string = activation_string AND account_creation > now() + '-1 day';
     IF FOUND THEN
-      INSERT INTO auth.person_role(person_id, role) VALUES (cur_activation.person_id, 'submitter');
-      INSERT INTO person_transaction( person_id, changed_when, changed_by, f_create ) VALUES (cur_activation.person_id, now(), cur_activation.person_id, 't');
+      INSERT INTO auth.account_role(account_id, role) VALUES (cur_activation.account_id, 'submitter');
+      SELECT INTO cur_person_id nextval(pg_get_serial_sequence('person','person_id'));
+      UPDATE auth.account SET person_id = cur_person_id WHERE account_id = cur_activation.account_id;
+      INSERT INTO person(person_id,nickname,email) SELECT person_id,nickname,email FROM account WHERE account.account_id = cur_activation.account_id;
+      INSERT INTO person_transaction( person_id, changed_when, changed_by, f_create ) VALUES (cur_person_id, now(), cur_person_id, 't');
       DELETE FROM auth.account_activation WHERE account_activation.activation_string = activation_string;
     ELSE
       RAISE EXCEPTION 'invalid activation string.';
