@@ -15,7 +15,8 @@ class Account < Momomoto::Table
       end
 
       hash = Digest::MD5.hexdigest( salt_bin + value.to_s )
-      set_column( :password, salt_hex + hash )
+      set_column( :salt, salt_hex )
+      set_column( :password, hash )
     end
 
     def current_conference_id
