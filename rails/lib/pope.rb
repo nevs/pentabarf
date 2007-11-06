@@ -39,10 +39,10 @@ class Pope
 
   def refresh
     @permissions = User_permissions.call(:account_id=>@user.account_id).map do | row | row.user_permissions.to_sym end
-    if permission?( :modify_own_event )
+    if @user.person_id && permission?( :modify_own_event )
       @own_events = Own_events.call(:person_id=>@user.person_id).map do | row | row.own_events end
     end
-    if permission?( :modify_own_person )
+    if @user.person_id && permission?( :modify_own_person )
       @own_conference_persons = Own_conference_persons.call(:person_id=>@user.person_id).map do | row | row.own_conference_persons end
     end
   end
