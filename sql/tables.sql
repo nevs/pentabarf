@@ -29,7 +29,8 @@ BEGIN;
 \i tables/link_type.sql
 \i tables/link_type_localized.sql
 \i tables/person.sql
-\i tables/auth/person_role.sql
+\i tables/auth/account.sql
+\i tables/auth/account_role.sql
 \i tables/conference_phase.sql
 \i tables/conference_phase_localized.sql
 \i tables/conference.sql
@@ -86,7 +87,7 @@ BEGIN;
 \i tables/conflict/conflict_level_localized.sql
 \i tables/conflict/conference_phase_conflict.sql
 \i tables/auth/account_activation.sql
-\i tables/auth/password_reset_string.sql
+\i tables/auth/account_password_reset.sql
 \i tables/log/log_transaction.sql
 
 COMMIT;
