@@ -441,6 +441,8 @@ CREATE TABLE log.conference() INHERITS( base.logging, base.conference );
 
 INSERT INTO public.conference( conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country_id, currency_id, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled ) SELECT conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country_id, currency_id, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled FROM public.old_conference;
 
+SELECT setval('base.conference_conference_id_seq',(SELECT max(conference_id) FROM conference));
+
 -- make person use new logging
 ALTER TABLE person RENAME TO old_person;
 
@@ -477,14 +479,16 @@ CREATE TABLE log.person() INHERITS( base.logging, base.person );
 
 INSERT INTO public.person( person_id, title, gender, first_name, last_name, public_name, nickname, email, spam, address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner ) SELECT person_id, title, gender, first_name, last_name, public_name, coalesce(nickname,login_name), email_contact, f_spam, address, street, street_postcode, po_box, po_box_postcode, city, country_id, iban, bic, bank_name, account_owner FROM old_person;
 
+SELECT setval('base.person_person_id_seq',(SELECT max(person_id) FROM person));
+
 CREATE TABLE auth.account (
   account_id SERIAL,
-  login_name TEXT NOT NULL,
+  login_name TEXT NOT NULL UNIQUE,
   email TEXT NOT NULL,
   salt TEXT,
   password TEXT,
   edit_token TEXT,
-  current_language_id INTEGER,
+  current_language_id INTEGER NOT NULL DEFAULT 120,
   current_conference_id INTEGER,
   preferences TEXT,
   last_login TIMESTAMP,
@@ -516,6 +520,72 @@ INSERT INTO auth.account_role(account_id,role) SELECT account_id, role FROM auth
 DROP TABLE base.person_role CASCADE;
 
 UPDATE auth.object_domain SET object = 'account_role' WHERE object = 'person_role';
+
+DROP TABLE auth.account_activation;
+
+CREATE TABLE auth.account_activation(
+  account_id INTEGER UNIQUE NOT NULL,
+  conference_id INTEGER,
+  activation_string CHAR(64) NOT NULL UNIQUE,
+  account_creation TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  FOREIGN KEY (account_id) REFERENCES auth.account(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (account_id)
+);
+
+DROP TABLE auth.password_reset_string;
+
+CREATE TABLE auth.account_password_reset (
+  account_id INTEGER UNIQUE NOT NULL,
+  activation_string CHAR(64) NOT NULL UNIQUE,
+  reset_time TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  PRIMARY KEY (account_id),
+  FOREIGN KEY (account_id) REFERENCES auth.account (account_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP FUNCTION auth.hash_password(TEXT);
+
+ALTER TABLE person_transaction RENAME TO old_person_transaction;
+
+CREATE TABLE person_transaction (
+  person_transaction_id SERIAL,
+  person_id INTEGER NOT NULL,
+  changed_when TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  changed_by INTEGER NOT NULL,
+  f_create BOOL NOT NULL DEFAULT FALSE,
+  FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (changed_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (person_transaction_id)
+);
+
+INSERT INTO person_transaction(person_transaction_id,person_id,changed_when,changed_by,f_create) SELECT person_transaction_id,person_id,changed_when,changed_by,f_create FROM old_person_transaction;
+
+SELECT setval(pg_get_serial_sequence('person_transaction','person_transaction_id'),(SELECT max(person_transaction_id) FROM person_transaction));
+
+DROP TABLE old_person_transaction CASCADE;
+
+ALTER TABLE log.log_transaction DROP CONSTRAINT log_transaction_person_id_fkey;
+ALTER TABLE log.log_transaction ADD CONSTRAINT log_transaction_person_id_fkey FOREIGN KEY(person_id) REFERENCES person(person_id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+ALTER TABLE conference_transaction RENAME TO old_conference_transaction;
+
+CREATE TABLE conference_transaction (
+  conference_transaction_id SERIAL,
+  conference_id INTEGER NOT NULL,
+  changed_when TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  changed_by INTEGER NOT NULL,
+  f_create BOOL NOT NULL DEFAULT FALSE,
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (changed_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conference_transaction_id)
+);
+
+INSERT INTO conference_transaction(conference_transaction_id,conference_id,changed_when,changed_by,f_create) SELECT conference_transaction_id,conference_id,changed_when,changed_by,f_create FROM old_conference_transaction;
+
+SELECT setval(pg_get_serial_sequence('conference_transaction','conference_transaction_id'),(SELECT max(conference_transaction_id) FROM conference_transaction));
+
+DROP TABLE old_conference_transaction CASCADE;
+
 
 COMMIT;
 
