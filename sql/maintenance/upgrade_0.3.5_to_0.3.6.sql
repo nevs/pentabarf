@@ -611,5 +611,27 @@ INSERT INTO conference_room(conference_id,conference_room,public,size,remark,ran
 DROP TABLE room_localized CASCADE;
 DROP TABLE room CASCADE;
 
+CREATE TABLE base.conference_team (
+  conference_id INTEGER NOT NULL,
+  conference_team TEXT NOT NULL,
+  rank INTEGER
+);
+
+CREATE TABLE conference_team (
+  FOREIGN KEY (conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conference_id,conference_team)
+) INHERITS (base.conference_team);
+
+CREATE TABLE log.conference_team (
+) INHERITS( base.logging, base.conference_team );
+
+INSERT INTO conference_team(conference_id,conference_team,rank) SELECT conference_id,tag,rank FROM team;
+
+ALTER TABLE event ADD COLUMN conference_team TEXT;
+UPDATE event SET conference_team = (SELECT tag FROM team where team.team_id = event.team_id);
+
+DROP TABLE team_localized CASCADE;
+DROP TABLE team CASCADE;
+
 COMMIT;
 
