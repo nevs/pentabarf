@@ -87,54 +87,6 @@ CREATE OR REPLACE VIEW view_language AS
          ) AS all_lang
          LEFT OUTER JOIN language_localized USING (language_id, translated_id);
          
--- view for room with fallback to tag
-CREATE OR REPLACE VIEW view_room AS 
-  SELECT room_id, 
-         conference_id, 
-         language_id, 
-         tag, 
-         coalesce(public_name , tag) AS name, 
-         f_public, 
-         size, 
-         remark, 
-         rank, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  room.room_id, 
-                  room.conference_id, 
-                  room.short_name AS tag, 
-                  room.f_public, 
-                  room.size, 
-                  room.remark, 
-                  room.rank, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN room
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN room_localized USING (language_id, room_id);
-
--- view for team with fallback to tag
-CREATE OR REPLACE VIEW view_team AS 
-  SELECT team_id, 
-         conference_id,
-         language_id, 
-         tag, 
-         coalesce(name,tag) AS name, 
-         rank, 
-         language_tag
-    FROM ( SELECT language_id, 
-                  team_id, 
-                  conference_id, 
-                  team.tag, 
-                  team.rank, 
-                  language.tag AS language_tag 
-             FROM language 
-                  CROSS JOIN team
-            WHERE language.f_localized = 't'
-         ) AS all_lang 
-         LEFT OUTER JOIN team_localized USING (language_id, team_id);
-
 -- view for transport with fallback to tag
 CREATE OR REPLACE VIEW view_transport AS 
   SELECT transport_id, 
