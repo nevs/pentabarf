@@ -586,6 +586,30 @@ SELECT setval(pg_get_serial_sequence('conference_transaction','conference_transa
 
 DROP TABLE old_conference_transaction CASCADE;
 
+ALTER TABLE event ADD COLUMN conference_room TEXT;
+UPDATE event SET conference_room = (SELECT short_name FROM room where room.room_id = event.room_id);
+
+CREATE TABLE base.conference_room (
+  conference_id INTEGER NOT NULL,
+  conference_room TEXT NOT NULL,
+  public BOOL NOT NULL DEFAULT FALSE,
+  size INTEGER,
+  remark TEXT,
+  rank INTEGER
+);
+
+CREATE TABLE conference_room(
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conference_room, conference_id)
+) INHERITS( base.conference_room );
+
+CREATE TABLE log.conference_room(
+) INHERITS( base.logging, base.conference_room );
+
+INSERT INTO conference_room(conference_id,conference_room,public,size,remark,rank) SELECT conference_id,short_name,f_public,size,remark,rank FROM room;
+
+DROP TABLE room_localized CASCADE;
+DROP TABLE room CASCADE;
 
 COMMIT;
 

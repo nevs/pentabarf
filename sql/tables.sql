@@ -40,8 +40,7 @@ BEGIN;
 \i tables/conference_image.sql
 \i tables/conference_track.sql
 \i tables/conference_track_localized.sql
-\i tables/room.sql
-\i tables/room_localized.sql
+\i tables/conference_room.sql
 \i tables/conference_person.sql
 \i tables/conference_person_link.sql
 \i tables/conference_person_link_internal.sql
