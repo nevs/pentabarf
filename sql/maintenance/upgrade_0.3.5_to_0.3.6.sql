@@ -229,6 +229,17 @@ CREATE TABLE auth.permission ( PRIMARY KEY(permission)) INHERITS( base.permissio
 CREATE TABLE log.permission ( PRIMARY KEY(permission)) INHERITS( base.logging, base.permission );
 INSERT INTO auth.permission(permission,rank) SELECT permission,rank FROM auth.old_permission;
 
+ALTER TABLE auth.permission_localized RENAME TO old_permission_localized;
+CREATE TABLE base.permission_localized ( permission TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE auth.permission_localized (
+  PRIMARY KEY( permission, translated ),
+  FOREIGN KEY( permission ) REFERENCES auth.permission( permission ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( translated ) REFERENCES language( language ) ON UPDATE CASCADE ON DELETE CASCADE
+) INHERITS( base.permission_localized );
+CREATE TABLE log.permission_localized () INHERITS( base.logging, base.permission_localized );
+INSERT INTO auth.permission_localized(permission,translated,name) SELECT permission,(SELECT language FROM old_language WHERE old_language.language_id=old_permission_localized.translated_id),name FROM auth.old_permission_localized;
+DROP TABLE auth.old_permission_localized;
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
