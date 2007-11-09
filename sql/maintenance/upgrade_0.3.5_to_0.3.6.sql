@@ -223,6 +223,12 @@ CREATE TABLE log.language_localized () INHERITS( base.logging, base.language_loc
 INSERT INTO language_localized(language,translated,name) SELECT (SELECT language FROM old_language WHERE old_language.language_id = old_language_localized.language_id),(SELECT language FROM old_language WHERE old_language.language_id = old_language_localized.translated_id), name FROM old_language_localized;
 DROP TABLE old_language_localized CASCADE;
 
+ALTER TABLE auth.permission RENAME TO old_permission;
+CREATE TABLE base.permission ( permission TEXT NOT NULL, rank INTEGER);
+CREATE TABLE auth.permission ( PRIMARY KEY(permission)) INHERITS( base.permission );
+CREATE TABLE log.permission ( PRIMARY KEY(permission)) INHERITS( base.logging, base.permission );
+INSERT INTO auth.permission(permission,rank) SELECT permission,rank FROM auth.old_permission;
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;

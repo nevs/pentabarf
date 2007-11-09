@@ -1,7 +1,14 @@
 
-CREATE TABLE auth.permission (
-  permission TEXT,
-  rank INTEGER,
-  PRIMARY KEY(permission)
+CREATE TABLE base.permission (
+  permission TEXT NOT NULL,
+  rank INTEGER
 );
+
+CREATE TABLE auth.permission (
+  PRIMARY KEY(permission)
+) INHERITS( base.permission );
+
+CREATE TABLE log.permission (
+  PRIMARY KEY(permission)
+) INHERITS( base.logging, base.permission );
 
