@@ -269,6 +269,15 @@ INSERT INTO auth.role_permission(role,permission) SELECT role,permission FROM au
 DROP TABLE auth.old_role_permission;
 DROP TABLE auth.old_permission;
 
+ALTER TABLE country RENAME TO old_country;
+CREATE TABLE base.country ( country TEXT NOT NULL);
+CREATE TABLE country ( PRIMARY KEY( country )) INHERITS( base.country );
+CREATE TABLE log.country () INHERITS( base.logging, base.country );
+INSERT INTO country(country) SELECT iso_3166_code FROM old_country;
+
+
+
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
