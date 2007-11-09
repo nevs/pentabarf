@@ -338,6 +338,12 @@ INSERT INTO ui_message_localized(ui_message,translated,name) SELECT ui_message,(
 DROP TABLE old_ui_message_localized;
 DROP TABLE old_ui_message;
 
+ALTER TABLE phone_type RENAME TO old_phone_type;
+CREATE TABLE base.phone_type ( phone_type TEXT NOT NULL, scheme TEXT, rank INTEGER);
+CREATE TABLE phone_type ( PRIMARY KEY( phone_type )) INHERITS( base.phone_type );
+CREATE TABLE log.phone_type () INHERITS( base.logging, base.phone_type );
+INSERT INTO phone_type(phone_type,scheme,rank) SELECT phone_type,scheme,rank FROM old_phone_type;
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
