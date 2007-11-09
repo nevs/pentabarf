@@ -344,6 +344,17 @@ CREATE TABLE phone_type ( PRIMARY KEY( phone_type )) INHERITS( base.phone_type )
 CREATE TABLE log.phone_type () INHERITS( base.logging, base.phone_type );
 INSERT INTO phone_type(phone_type,scheme,rank) SELECT phone_type,scheme,rank FROM old_phone_type;
 
+ALTER TABLE phone_type_localized RENAME TO old_phone_type_localized;
+CREATE TABLE base.phone_type_localized ( phone_type TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE phone_type_localized (
+  FOREIGN KEY (phone_type) REFERENCES phone_type (phone_type) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (phone_type, translated)
+) INHERITS( base.phone_type_localized );
+CREATE TABLE log.phone_type_localized () INHERITS( base.logging, base.phone_type_localized );
+INSERT INTO phone_type_localized(phone_type,translated,name) SELECT phone_type,(SELECT language FROM old_language WHERE old_language.language_id=old_phone_type_localized.language_id),name FROM old_phone_type_localized;
+DROP TABLE old_phone_type_localized;
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
