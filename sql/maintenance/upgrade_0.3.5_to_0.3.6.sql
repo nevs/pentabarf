@@ -320,6 +320,12 @@ CREATE TABLE log.transport_localized () INHERITS( base.logging, base.transport_l
 INSERT INTO transport_localized(transport,translated,name) SELECT (SELECT tag FROM old_transport WHERE old_transport.transport_id=old_transport_localized.transport_id),(SELECT language FROM old_language WHERE old_language.language_id=old_transport_localized.language_id),name FROM old_transport_localized;
 DROP TABLE old_transport_localized CASCADE;
 
+ALTER TABLE ui_message RENAME TO old_ui_message;
+CREATE TABLE base.ui_message ( ui_message TEXT);
+CREATE TABLE ui_message ( PRIMARY KEY (ui_message)) INHERITS( base.ui_message );
+CREATE TABLE log.ui_message () INHERITS( base.logging, base.ui_message );
+INSERT INTO ui_message(ui_message) SELECT ui_message FROM old_ui_message;
+
 
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
