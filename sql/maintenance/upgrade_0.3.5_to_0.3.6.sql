@@ -355,6 +355,23 @@ CREATE TABLE log.phone_type_localized () INHERITS( base.logging, base.phone_type
 INSERT INTO phone_type_localized(phone_type,translated,name) SELECT phone_type,(SELECT language FROM old_language WHERE old_language.language_id=old_phone_type_localized.language_id),name FROM old_phone_type_localized;
 DROP TABLE old_phone_type_localized;
 
+ALTER TABLE mime_type RENAME TO old_mime_type;
+CREATE TABLE base.mime_type ( mime_type TEXT NOT NULL, file_extension TEXT, image BOOL NOT NULL DEFAULT FALSE);
+CREATE TABLE mime_type ( PRIMARY KEY (mime_type)) INHERITS( base.mime_type );
+CREATE TABLE log.mime_type () INHERITS( base.logging, base.mime_type );
+INSERT INTO mime_type(mime_type,file_extension,image) SELECT mime_type,file_extension,f_image FROM old_mime_type;
+
+ALTER TABLE mime_type_localized RENAME TO old_mime_type_localized;
+CREATE TABLE base.mime_type_localized ( mime_type TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE mime_type_localized (
+  FOREIGN KEY (mime_type) REFERENCES mime_type (mime_type) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (mime_type, translated)
+) INHERITS( base.mime_type_localized );
+CREATE TABLE log.mime_type_localized () INHERITS( base.logging, base.mime_type_localized );
+INSERT INTO mime_type_localized(mime_type,translated,name) SELECT mime_type,(SELECT language FROM old_language WHERE old_language.language_id=old_mime_type_localized.language_id),name FROM old_mime_type_localized;
+DROP TABLE old_mime_type_localized CASCADE;
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
