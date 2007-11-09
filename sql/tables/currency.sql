@@ -1,11 +1,13 @@
 
-CREATE TABLE currency (
-  currency_id SERIAL NOT NULL,
-  iso_4217_code CHAR(3) NOT NULL UNIQUE,
-  f_default BOOL NOT NULL DEFAULT FALSE,
-  f_visible BOOL NOT NULL DEFAULT FALSE,
-  f_preferred BOOL NOT NULL DEFAULT FALSE,
-  exchange_rate DECIMAL(15,5),
-  PRIMARY KEY (currency_id)
+CREATE TABLE base.currency (
+  currency TEXT NOT NULL,
+  exchange_rate DECIMAL(15,5)
 );
+
+CREATE TABLE currency (
+  PRIMARY KEY( currency )
+) INHERITS( base.currency );
+
+CREATE TABLE log.currency (
+) INHERITS( base.logging, base.currency );
 

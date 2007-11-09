@@ -286,6 +286,12 @@ CREATE TABLE log.country_localized () INHERITS( base.logging, base.country_local
 INSERT INTO country_localized(country,translated,name) SELECT (SELECT iso_3166_code FROM old_country WHERE old_country.country_id=old_country_localized.country_id),(SELECT language FROM old_language WHERE old_language.language_id=old_country_localized.language_id),name FROM old_country_localized;
 DROP TABLE old_country_localized CASCADE;
 
+ALTER TABLE currency RENAME TO old_currency;
+CREATE TABLE base.currency ( currency TEXT NOT NULL, exchange_rate DECIMAL(15,5));
+CREATE TABLE currency ( PRIMARY KEY( currency )) INHERITS( base.currency ); 
+CREATE TABLE log.currency () INHERITS( base.logging, base.currency );
+INSERT INTO currency(currency) SELECT iso_4217_code FROM old_currency;
+
 
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
