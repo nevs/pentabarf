@@ -275,7 +275,16 @@ CREATE TABLE country ( PRIMARY KEY( country )) INHERITS( base.country );
 CREATE TABLE log.country () INHERITS( base.logging, base.country );
 INSERT INTO country(country) SELECT iso_3166_code FROM old_country;
 
-
+ALTER TABLE country_localized RENAME TO old_country_localized;
+CREATE TABLE base.country_localized ( country TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE country_localized (
+  FOREIGN KEY( country ) REFERENCES country( country ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( translated ) REFERENCES language( language ) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY( country, translated )
+) INHERITS( base.country_localized );
+CREATE TABLE log.country_localized () INHERITS( base.logging, base.country_localized );
+INSERT INTO country_localized(country,translated,name) SELECT (SELECT iso_3166_code FROM old_country WHERE old_country.country_id=old_country_localized.country_id),(SELECT language FROM old_language WHERE old_language.language_id=old_country_localized.language_id),name FROM old_country_localized;
+DROP TABLE old_country_localized CASCADE;
 
 
 -- get proper timezone stuff

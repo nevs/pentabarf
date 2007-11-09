@@ -1,10 +1,16 @@
 
-CREATE TABLE country_localized (
-  country_id INTEGER NOT NULL,
-  language_id INTEGER NOT NULL,
-  name VARCHAR(64) NOT NULL,
-  FOREIGN KEY (country_id) REFERENCES country (country_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  PRIMARY KEY (country_id, language_id)
+CREATE TABLE base.country_localized (
+  country TEXT NOT NULL,
+  translated TEXT NOT NULL,
+  name TEXT NOT NULL
 );
+
+CREATE TABLE country_localized (
+  FOREIGN KEY( country ) REFERENCES country( country ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( translated ) REFERENCES language( language ) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY( country, translated )
+) INHERITS( base.country_localized );
+
+CREATE TABLE log.country_localized (
+) INHERITS( base.logging, base.country_localized );
 
