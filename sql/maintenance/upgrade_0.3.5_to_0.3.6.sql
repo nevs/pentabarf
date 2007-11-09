@@ -372,6 +372,23 @@ CREATE TABLE log.mime_type_localized () INHERITS( base.logging, base.mime_type_l
 INSERT INTO mime_type_localized(mime_type,translated,name) SELECT mime_type,(SELECT language FROM old_language WHERE old_language.language_id=old_mime_type_localized.language_id),name FROM old_mime_type_localized;
 DROP TABLE old_mime_type_localized CASCADE;
 
+ALTER TABLE im_type RENAME TO old_im_type;
+CREATE TABLE base.im_type ( im_type TEXT NOT NULL, scheme TEXT, rank INTEGER);
+CREATE TABLE im_type ( PRIMARY KEY (im_type)) INHERITS( base.im_type );
+CREATE TABLE log.im_type () INHERITS( base.logging, base.im_type );
+INSERT INTO im_type( im_type, scheme, rank ) SELECT im_type,scheme,rank FROM old_im_type;
+
+ALTER TABLE im_type_localized RENAME TO old_im_type_localized;
+CREATE TABLE base.im_type_localized ( im_type TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE im_type_localized (
+  FOREIGN KEY (im_type) REFERENCES im_type (im_type) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (im_type, translated)
+) INHERITS( base.im_type_localized );
+CREATE TABLE log.im_type_localized () INHERITS( base.logging, base.im_type_localized );
+INSERT INTO im_type_localized(im_type,translated,name) SELECT im_type,(SELECT language FROM old_language WHERE old_language.language_id=old_im_type_localized.language_id),name FROM old_im_type_localized;
+DROP TABLE old_im_type_localized;
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;

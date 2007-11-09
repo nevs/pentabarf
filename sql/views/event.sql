@@ -7,13 +7,13 @@ CREATE OR REPLACE VIEW view_event AS
          event.title,
          event.subtitle,
          event.conference_track_id,
-         event.team_id,
+         event.conference_team,
          event.event_type,
          event.duration,
          event.event_state,
          event.event_state_progress,
          event.language_id,
-         event.room_id,
+         event.conference_room,
          event.day,
          event.start_time,
          event.abstract,
@@ -28,10 +28,6 @@ CREATE OR REPLACE VIEW view_event AS
          event_type_localized.name AS event_type_name,
          view_conference_track.tag AS conference_track_tag,
          view_conference_track.name AS conference_track,
-         view_team.tag AS team_tag,
-         view_team.name as team,
-         view_room.tag AS room_tag,
-         view_room.name AS room,
          conference.acronym,
          (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
          event.start_time + conference.day_change AS real_starttime,
@@ -46,12 +42,6 @@ CREATE OR REPLACE VIEW view_event AS
          LEFT OUTER JOIN view_conference_track ON (
              event.conference_track_id = view_conference_track.conference_track_id AND
              view_conference_track.language_id = event_state_localized.language_id)
-         LEFT OUTER JOIN view_team ON (
-             event.team_id = view_team.team_id AND
-             view_team.language_id = event_state_localized.language_id)
-         LEFT OUTER JOIN view_room ON (
-             event.room_id = view_room.room_id AND
-             view_room.language_id = event_state_localized.language_id)
          LEFT OUTER JOIN event_image USING (event_id)
          LEFT OUTER JOIN mime_type USING (mime_type)
 ;
