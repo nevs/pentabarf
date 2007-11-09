@@ -2,15 +2,15 @@
 BEGIN;
 
 ALTER TABLE auth.domain RENAME TO old_domain;
-CREATE TABLE base.domain( domain TEXT);
+CREATE TABLE base.domain( domain TEXT NOT NULL);
 CREATE TABLE auth.domain( PRIMARY KEY(domain) ) INHERITS( base.domain );
 CREATE TABLE log.domain() INHERITS( base.logging,base.domain );
 INSERT INTO auth.domain SELECT domain FROM auth.old_domain;
 DROP TABLE auth.old_domain CASCADE;
-  
+
 ALTER TABLE auth.object_domain RENAME TO old_object_domain;
 CREATE TABLE base.object_domain( object TEXT NOT NULL, domain TEXT NOT NULL);
-CREATE TABLE auth.object_domain( PRIMARY KEY(object, domain), FOREIGN KEY(domain) REFERENCES auth.domain(domain)) INHERITS( base.object_domain);
+CREATE TABLE auth.object_domain( PRIMARY KEY(object, domain), FOREIGN KEY(domain) REFERENCES auth.domain(domain) ON UPDATE CASCADE ON DELETE CASCADE ) INHERITS( base.object_domain);
 CREATE TABLE log.object_domain() INHERITS( base.logging, base.object_domain ); 
 INSERT INTO auth.object_domain(object,domain) SELECT object,domain FROM auth.old_object_domain;
 DROP TABLE auth.old_object_domain;
@@ -250,8 +250,8 @@ ALTER TABLE auth.role_localized RENAME TO old_role_localized;
 CREATE TABLE base.role_localized ( role TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
 CREATE TABLE auth.role_localized (
   PRIMARY KEY( role, translated ),
-  FOREIGN KEY( role ) REFERENCES auth.role( role ),
-  FOREIGN KEY( translated ) REFERENCES language( language )
+  FOREIGN KEY( role ) REFERENCES auth.role( role ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( translated ) REFERENCES language( language ) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS( base.role_localized );
 CREATE TABLE log.role_localized () INHERITS( base.logging, base.role_localized );
 INSERT INTO auth.role_localized(role,translated,name) SELECT role,(SELECT language FROM old_language WHERE old_language.language_id=old_role_localized.translated_id),name FROM auth.old_role_localized;

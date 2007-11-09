@@ -1,6 +1,6 @@
 
 CREATE TABLE base.domain(
-  domain TEXT
+  domain TEXT NOT NULL
 );
 
 CREATE TABLE auth.domain(

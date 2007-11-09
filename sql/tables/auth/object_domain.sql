@@ -6,7 +6,7 @@ CREATE TABLE base.object_domain(
 
 CREATE TABLE auth.object_domain(
   PRIMARY KEY(object, domain),
-  FOREIGN KEY(domain) REFERENCES auth.domain(domain)
+  FOREIGN KEY(domain) REFERENCES auth.domain(domain) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS( base.object_domain );
 
 CREATE TABLE log.object_domain(

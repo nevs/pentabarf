@@ -7,8 +7,8 @@ CREATE TABLE base.role_localized (
 
 CREATE TABLE auth.role_localized (
   PRIMARY KEY( role, translated ),
-  FOREIGN KEY( role ) REFERENCES auth.role( role ),
-  FOREIGN KEY( translated ) REFERENCES language( language )
+  FOREIGN KEY( role ) REFERENCES auth.role( role ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( translated ) REFERENCES language( language ) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS( base.role_localized );
 
 CREATE TABLE log.role_localized (

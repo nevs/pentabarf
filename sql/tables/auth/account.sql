@@ -10,9 +10,10 @@ CREATE TABLE auth.account (
   current_conference_id INTEGER,
   preferences TEXT,
   last_login TIMESTAMP,
-  person_id INTEGER REFERENCES public.person(person_id),
+  person_id INTEGER,
   CHECK (login_name <> 'logout'),
   CHECK ( strpos( login_name, ':' ) = 0 ),
+  FOREIGN KEY( person_id ) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY( account_id )
 );
 
