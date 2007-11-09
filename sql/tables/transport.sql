@@ -1,8 +1,13 @@
 
-CREATE TABLE transport (
-  transport_id SERIAL NOT NULL,
-  tag VARCHAR(32) NOT NULL UNIQUE,
-  rank INTEGER,
-  PRIMARY KEY (transport_id)
+CREATE TABLE base.transport (
+  transport TEXT,
+  rank INTEGER
 );
+
+CREATE TABLE transport (
+  PRIMARY KEY (transport)
+) INHERITS( base.transport );
+
+CREATE TABLE log.transport (
+) INHERITS( base.logging, base.transport );
 

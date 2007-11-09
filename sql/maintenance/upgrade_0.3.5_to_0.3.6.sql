@@ -292,6 +292,23 @@ CREATE TABLE currency ( PRIMARY KEY( currency )) INHERITS( base.currency );
 CREATE TABLE log.currency () INHERITS( base.logging, base.currency );
 INSERT INTO currency(currency) SELECT iso_4217_code FROM old_currency;
 
+ALTER TABLE currency_localized RENAME TO old_currency_localized;
+CREATE TABLE base.currency_localized ( currency TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE currency_localized (
+  FOREIGN KEY (currency) REFERENCES currency (currency) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (currency, translated)
+) INHERITS( base.currency_localized );
+CREATE TABLE log.currency_localized () INHERITS( base.logging, base.currency_localized );
+INSERT INTO currency_localized(currency,translated,name) SELECT (SELECT iso_4217_code FROM old_currency WHERE old_currency.currency_id=old_currency_localized.currency_id),(SELECT language FROM old_language WHERE old_language.language_id=old_currency_localized.language_id),name FROM old_currency_localized;
+DROP TABLE old_currency_localized CASCADE;
+
+ALTER TABLE transport RENAME TO old_transport;
+CREATE TABLE base.transport ( transport TEXT, rank INTEGER); 
+CREATE TABLE transport ( PRIMARY KEY (transport)) INHERITS( base.transport );
+CREATE TABLE log.transport () INHERITS( base.logging, base.transport );
+INSERT INTO transport(transport) SELECT tag FROM old_transport;
+
 
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
