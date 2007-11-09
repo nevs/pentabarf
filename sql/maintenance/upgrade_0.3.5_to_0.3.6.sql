@@ -240,6 +240,12 @@ CREATE TABLE log.permission_localized () INHERITS( base.logging, base.permission
 INSERT INTO auth.permission_localized(permission,translated,name) SELECT permission,(SELECT language FROM old_language WHERE old_language.language_id=old_permission_localized.translated_id),name FROM auth.old_permission_localized;
 DROP TABLE auth.old_permission_localized;
 
+ALTER TABLE auth.role RENAME TO old_role;
+CREATE TABLE base.role ( role TEXT NOT NULL, rank INTEGER);
+CREATE TABLE auth.role ( PRIMARY KEY( role )) INHERITS( base.role );
+CREATE TABLE log.role () INHERITS( base.logging, base.role );
+INSERT INTO auth.role(role,rank) SELECT role,rank FROM auth.old_role;
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
