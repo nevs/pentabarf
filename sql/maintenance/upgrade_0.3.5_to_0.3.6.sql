@@ -257,6 +257,18 @@ CREATE TABLE log.role_localized () INHERITS( base.logging, base.role_localized )
 INSERT INTO auth.role_localized(role,translated,name) SELECT role,(SELECT language FROM old_language WHERE old_language.language_id=old_role_localized.translated_id),name FROM auth.old_role_localized;
 DROP TABLE auth.old_role_localized;
 
+ALTER TABLE auth.role_permission RENAME TO old_role_permission;
+CREATE TABLE base.role_permission ( role TEXT NOT NULL, permission TEXT NOT NULL);
+CREATE TABLE auth.role_permission (
+  PRIMARY KEY( role, permission ),
+  FOREIGN KEY( role ) REFERENCES auth.role( role ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( permission ) REFERENCES auth.permission( permission ) ON UPDATE CASCADE ON DELETE CASCADE
+) INHERITS( base.role_permission );
+CREATE TABLE log.role_permission () INHERITS( base.logging, base.role_permission );
+INSERT INTO auth.role_permission(role,permission) SELECT role,permission FROM auth.old_role_permission;
+DROP TABLE auth.old_role_permission;
+DROP TABLE auth.old_permission;
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
