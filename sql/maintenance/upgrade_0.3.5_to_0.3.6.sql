@@ -309,6 +309,17 @@ CREATE TABLE transport ( PRIMARY KEY (transport)) INHERITS( base.transport );
 CREATE TABLE log.transport () INHERITS( base.logging, base.transport );
 INSERT INTO transport(transport) SELECT tag FROM old_transport;
 
+ALTER TABLE transport_localized RENAME TO old_transport_localized;
+CREATE TABLE base.transport_localized ( transport TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE transport_localized (
+  FOREIGN KEY (transport) REFERENCES transport (transport) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (transport, translated)
+) INHERITS( base.transport_localized );
+CREATE TABLE log.transport_localized () INHERITS( base.logging, base.transport_localized );
+INSERT INTO transport_localized(transport,translated,name) SELECT (SELECT tag FROM old_transport WHERE old_transport.transport_id=old_transport_localized.transport_id),(SELECT language FROM old_language WHERE old_language.language_id=old_transport_localized.language_id),name FROM old_transport_localized;
+DROP TABLE old_transport_localized CASCADE;
+
 
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
