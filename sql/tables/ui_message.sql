@@ -1,6 +1,6 @@
 
 CREATE TABLE base.ui_message (
-  ui_message TEXT
+  ui_message TEXT NOT NULL
 );
 
 CREATE TABLE ui_message (

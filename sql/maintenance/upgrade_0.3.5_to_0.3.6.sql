@@ -321,11 +321,22 @@ INSERT INTO transport_localized(transport,translated,name) SELECT (SELECT tag FR
 DROP TABLE old_transport_localized CASCADE;
 
 ALTER TABLE ui_message RENAME TO old_ui_message;
-CREATE TABLE base.ui_message ( ui_message TEXT);
+CREATE TABLE base.ui_message ( ui_message TEXT NOT NULL );
 CREATE TABLE ui_message ( PRIMARY KEY (ui_message)) INHERITS( base.ui_message );
 CREATE TABLE log.ui_message () INHERITS( base.logging, base.ui_message );
 INSERT INTO ui_message(ui_message) SELECT ui_message FROM old_ui_message;
 
+ALTER TABLE ui_message_localized RENAME TO old_ui_message_localized;
+CREATE TABLE base.ui_message_localized ( ui_message TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE ui_message_localized (
+  FOREIGN KEY (ui_message) REFERENCES ui_message (ui_message) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (ui_message, translated)
+) INHERITS( base.ui_message_localized );
+CREATE TABLE log.ui_message_localized () INHERITS( base.logging, base.ui_message_localized );
+INSERT INTO ui_message_localized(ui_message,translated,name) SELECT ui_message,(SELECT language FROM old_language WHERE old_language.language_id=old_ui_message_localized.language_id),name FROM old_ui_message_localized;
+DROP TABLE old_ui_message_localized;
+DROP TABLE old_ui_message;
 
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
