@@ -1,12 +1,13 @@
 
-CREATE TABLE language (
-  language_id SERIAL NOT NULL,
-  iso_639_code CHAR(3) NOT NULL UNIQUE,
-  tag VARCHAR(32) NOT NULL UNIQUE,
-  f_default BOOL NOT NULL DEFAULT FALSE,
-  f_localized BOOL NOT NULL DEFAULT FALSE,
-  f_visible BOOL NOT NULL DEFAULT FALSE,
-  f_preferred BOOL NOT NULL DEFAULT FALSE,
-  PRIMARY KEY (language_id)
+CREATE TABLE base.language (
+  language TEXT NOT NULL,
+  localized BOOL NOT NULL DEFAULT FALSE
 );
+
+CREATE TABLE language (
+  PRIMARY KEY (language)
+) INHERITS( base.language );
+
+CREATE TABLE log.language (
+) INHERITS( base.logging, base.language );
 
