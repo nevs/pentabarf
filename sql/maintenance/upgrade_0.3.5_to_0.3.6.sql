@@ -246,6 +246,17 @@ CREATE TABLE auth.role ( PRIMARY KEY( role )) INHERITS( base.role );
 CREATE TABLE log.role () INHERITS( base.logging, base.role );
 INSERT INTO auth.role(role,rank) SELECT role,rank FROM auth.old_role;
 
+ALTER TABLE auth.role_localized RENAME TO old_role_localized;
+CREATE TABLE base.role_localized ( role TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE auth.role_localized (
+  PRIMARY KEY( role, translated ),
+  FOREIGN KEY( role ) REFERENCES auth.role( role ),
+  FOREIGN KEY( translated ) REFERENCES language( language )
+) INHERITS( base.role_localized );
+CREATE TABLE log.role_localized () INHERITS( base.logging, base.role_localized );
+INSERT INTO auth.role_localized(role,translated,name) SELECT role,(SELECT language FROM old_language WHERE old_language.language_id=old_role_localized.translated_id),name FROM auth.old_role_localized;
+DROP TABLE auth.old_role_localized;
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
