@@ -212,6 +212,17 @@ CREATE TABLE language ( PRIMARY KEY (language)) INHERITS( base.language );
 CREATE TABLE log.language () INHERITS( base.logging, base.language );
 INSERT INTO language(language,localized) SELECT language,f_localized FROM old_language;
 
+ALTER TABLE language_localized RENAME TO old_language_localized;
+CREATE TABLE base.language_localized ( language TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE language_localized (
+  FOREIGN KEY( language ) REFERENCES language( language ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( translated ) REFERENCES language( language ) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY ( language, translated )
+) INHERITS( base.language_localized );
+CREATE TABLE log.language_localized () INHERITS( base.logging, base.language_localized );
+INSERT INTO language_localized(language,translated,name) SELECT (SELECT language FROM old_language WHERE old_language.language_id = old_language_localized.language_id),(SELECT language FROM old_language WHERE old_language.language_id = old_language_localized.translated_id), name FROM old_language_localized;
+DROP TABLE old_language_localized CASCADE;
+
 -- get proper timezone stuff
 DROP TABLE time_zone_localized CASCADE;
 DROP TABLE time_zone CASCADE;
