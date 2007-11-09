@@ -1,8 +1,14 @@
 
-CREATE TABLE timezone (
+CREATE TABLE base.timezone (
   timezone TEXT NOT NULL,
   abbreviation TEXT NOT NULL,
-  utf_offset INTERVAL NOT NULL,
-  PRIMARY KEY( name )
+  utc_offset INTERVAL NOT NULL
 );
+
+CREATE TABLE timezone (
+  PRIMARY KEY( timezone )
+) INHERITS( base.timezone );
+
+CREATE TABLE log.timezone (
+) INHERITS( base.logging, base.timezone );
 
