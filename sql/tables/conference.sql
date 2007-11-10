@@ -9,9 +9,9 @@ CREATE TABLE base.conference (
   days SMALLINT NOT NULL DEFAULT 1,
   venue TEXT,
   city TEXT,
-  country_id INTEGER,
+  country TEXT,
   timezone TEXT NOT NULL DEFAULT 'Europe/Berlin',
-  currency_id INTEGER,
+  currency TEXT,
   timeslot_duration INTERVAL NOT NULL DEFAULT '1:00:00',
   default_timeslots INTEGER NOT NULL DEFAULT 1,
   max_timeslot_duration INTEGER NOT NULL DEFAULT 10,
@@ -32,11 +32,11 @@ CREATE TABLE base.conference (
   f_reconfirmation_enabled BOOL NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE public.conference (
+CREATE TABLE conference (
   FOREIGN KEY (conference_phase) REFERENCES conference_phase (conference_phase) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (country_id) REFERENCES country (country_id) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY (country) REFERENCES country (country) ON UPDATE CASCADE ON DELETE SET NULL,
   FOREIGN KEY (timezone) REFERENCES timezone (timezone) ON UPDATE CASCADE ON DELETE SET NULL,
-  FOREIGN KEY (currency_id) REFERENCES currency (currency_id) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY (currency) REFERENCES currency (currency) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY (conference_id)
 ) INHERITS( base.conference );
 

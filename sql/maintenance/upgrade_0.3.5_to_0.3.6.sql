@@ -814,7 +814,6 @@ DROP TABLE old_conference_phase_localized;
 
 -- make conference use new logging
 ALTER TABLE conference RENAME TO old_conference;
-
 CREATE TABLE base.conference (
   conference_id SERIAL NOT NULL,
   acronym TEXT NOT NULL UNIQUE,
@@ -825,9 +824,9 @@ CREATE TABLE base.conference (
   days SMALLINT NOT NULL DEFAULT 1,
   venue TEXT,
   city TEXT,
-  country_id INTEGER,
+  country TEXT,
   timezone TEXT NOT NULL DEFAULT 'Europe/Berlin',
-  currency_id INTEGER,
+  currency TEXT,
   timeslot_duration INTERVAL NOT NULL DEFAULT '1:00:00',
   default_timeslots INTEGER NOT NULL DEFAULT 1,
   max_timeslot_duration INTEGER NOT NULL DEFAULT 10,
@@ -847,18 +846,16 @@ CREATE TABLE base.conference (
   f_visitor_enabled BOOL NOT NULL DEFAULT FALSE,
   f_reconfirmation_enabled BOOL NOT NULL DEFAULT FALSE
 );
-
-CREATE TABLE public.conference (
+CREATE TABLE conference (
   FOREIGN KEY (conference_phase) REFERENCES conference_phase (conference_phase) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (country_id) REFERENCES country (country_id) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY (country) REFERENCES country (country) ON UPDATE CASCADE ON DELETE SET NULL,
   FOREIGN KEY (timezone) REFERENCES timezone (timezone) ON UPDATE CASCADE ON DELETE SET NULL,
-  FOREIGN KEY (currency_id) REFERENCES currency (currency_id) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY (currency) REFERENCES currency (currency) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY (conference_id)
 ) INHERITS( base.conference );
-
 CREATE TABLE log.conference() INHERITS( base.logging, base.conference );
 
-INSERT INTO public.conference( conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country_id, currency_id, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled ) SELECT conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country_id, currency_id, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled FROM public.old_conference;
+INSERT INTO conference( conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country, currency, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled ) SELECT conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, (SELECT iso_3166_code FROM old_country WHERE old_country.country_id = old_conference.country_id), (SELECT iso_4217_code FROM old_currency WHERE old_currency.currency_id = old_conference.currency_id), timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled FROM old_conference;
 
 SELECT setval('base.conference_conference_id_seq',(SELECT max(conference_id) FROM conference));
 
