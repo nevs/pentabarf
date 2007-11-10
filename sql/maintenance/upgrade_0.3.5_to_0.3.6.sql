@@ -854,10 +854,19 @@ CREATE TABLE conference (
   PRIMARY KEY (conference_id)
 ) INHERITS( base.conference );
 CREATE TABLE log.conference() INHERITS( base.logging, base.conference );
-
 INSERT INTO conference( conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, country, currency, timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled ) SELECT conference_id, acronym, title, subtitle, conference_phase, start_date, days, venue, city, (SELECT iso_3166_code FROM old_country WHERE old_country.country_id = old_conference.country_id), (SELECT iso_4217_code FROM old_currency WHERE old_currency.currency_id = old_conference.currency_id), timeslot_duration, default_timeslots, max_timeslot_duration, day_change, remark, release, homepage, abstract_length, description_length, export_base_url, export_css_file, feedback_base_url, css, email, f_feedback_enabled, f_submission_enabled, f_visitor_enabled, f_reconfirmation_enabled FROM old_conference;
-
 SELECT setval('base.conference_conference_id_seq',(SELECT max(conference_id) FROM conference));
+
+ALTER TABLE conference_language RENAME TO old_conference_language;
+CREATE TABLE base.conference_language ( conference_id INTEGER NOT NULL, language TEXT NOT NULL, rank INTEGER);
+CREATE TABLE conference_language (
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (language) REFERENCES language (language) ON UPDATE CASCADE ON DELETE RESTRICT,
+  PRIMARY KEY (conference_id, language)
+) INHERITS( base.conference_language );
+CREATE TABLE log.conference_language () INHERITS( base.logging, base.conference_language );
+INSERT INTO conference_language(conference_id,language) SELECT conference_id, (SELECT language FROM old_language WHERE old_language.language_id = old_conference_language.language_id) FROM old_conference_language;
+DROP TABLE old_conference_language;
 
 -- make person use new logging
 ALTER TABLE person RENAME TO old_person;

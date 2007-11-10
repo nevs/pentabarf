@@ -1,12 +1,16 @@
 
-CREATE TABLE conference_language (
-  conference_language_id SERIAL NOT NULL,
+CREATE TABLE base.conference_language (
   conference_id INTEGER NOT NULL,
-  language_id INTEGER NOT NULL,
-  rank INTEGER,
-  FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  FOREIGN KEY (language_id) REFERENCES language (language_id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  UNIQUE (conference_id, language_id),
-  PRIMARY KEY (conference_language_id)
+  language TEXT NOT NULL,
+  rank INTEGER
 );
+
+CREATE TABLE conference_language (
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (language) REFERENCES language (language) ON UPDATE CASCADE ON DELETE RESTRICT,
+  PRIMARY KEY (conference_id, language)
+) INHERITS( base.conference_language );
+
+CREATE TABLE log.conference_language (
+) INHERITS( base.logging, base.conference_language );
 
