@@ -996,25 +996,32 @@ CREATE TABLE log.account () INHERITS( base.logging, base.account );
 INSERT INTO auth.account( login_name, email, salt, password, current_language, current_conference_id, preferences, last_login, person_id ) SELECT login_name, email_contact, substring(password, 1, 16), substring(password,17,32), 'en', current_conference_id, preferences, last_login, person_id FROM old_person WHERE login_name IS NOT NULL AND email_contact IS NOT NULL;
 INSERT INTO auth.object_domain VALUES ('account','account');
 
-
-CREATE TABLE base.account_role (
-  account_id INTEGER NOT NULL,
-  role TEXT NOT NULL
-);
-
+CREATE TABLE base.account_role ( account_id INTEGER NOT NULL, role TEXT NOT NULL);
 CREATE TABLE auth.account_role (
   PRIMARY KEY( account_id, role ),
   FOREIGN KEY( account_id) REFERENCES auth.account( account_id ) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY( role ) REFERENCES auth.role( role ) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS( base.account_role );
-
 CREATE TABLE log.account_role() INHERITS( base.logging, base.account_role );
-
 INSERT INTO auth.account_role(account_id,role) SELECT account_id, role FROM auth.person_role INNER JOIN auth.account USING(person_id);
-
 DROP TABLE base.person_role CASCADE;
-
 UPDATE auth.object_domain SET object = 'account_role' WHERE object = 'person_role';
+
+ALTER TABLE person_phone RENAME TO old_person_phone;
+CREATE TABLE base.person_phone ( person_phone_id SERIAL NOT NULL, person_id INTEGER NOT NULL, phone_type TEXT NOT NULL, phone_number TEXT NOT NULL, rank INTEGER);
+CREATE TABLE person_phone (
+  FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (phone_type) REFERENCES phone_type (phone_type) ON UPDATE CASCADE ON DELETE RESTRICT,
+  PRIMARY KEY (person_phone_id)
+) INHERITS( base.person_phone );
+CREATE TABLE log.person_phone () INHERITS( base.logging, base.person_phone );
+INSERT INTO person_phone(person_id,phone_type,phone_number,rank) SELECT person_id,phone_type,phone_number,rank FROM old_person_phone;
+DROP TABLE old_person_phone;
+
+
+
+
+
 
 DROP TABLE auth.account_activation;
 
