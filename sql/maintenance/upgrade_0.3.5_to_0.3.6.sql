@@ -985,32 +985,17 @@ CREATE TABLE log.conference_person_link_internal () INHERITS( base.logging, base
 INSERT INTO conference_person_link_internal(conference_person_id,link_type,url,description,rank) SELECT conference_person_id,link_type,url,description,rank FROM old_conference_person_link_internal;
 DROP TABLE old_conference_person_link_internal;
 
-
-
-
-
-
-
+CREATE TABLE base.account ( account_id SERIAL, login_name TEXT NOT NULL UNIQUE, email TEXT NOT NULL, salt TEXT, password TEXT, edit_token TEXT, current_language TEXT NOT NULL DEFAULT 'en', current_conference_id INTEGER, preferences TEXT, last_login TIMESTAMP, person_id INTEGER, CHECK (login_name <> 'logout'), CHECK ( strpos( login_name, ':' ) = 0 ));
 CREATE TABLE auth.account (
-  account_id SERIAL,
-  login_name TEXT NOT NULL UNIQUE,
-  email TEXT NOT NULL,
-  salt TEXT,
-  password TEXT,
-  edit_token TEXT,
-  current_language_id INTEGER NOT NULL DEFAULT 120,
-  current_conference_id INTEGER,
-  preferences TEXT,
-  last_login TIMESTAMP,
-  person_id INTEGER REFERENCES public.person(person_id),
-  CHECK (login_name <> 'logout'),
-  CHECK ( strpos( login_name, ':' ) = 0 ),
+  FOREIGN KEY( current_language ) REFERENCES language( language ) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY( current_conference_id ) REFERENCES conference( conference_id ) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY( person_id ) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY( account_id )
-);
-
-INSERT INTO auth.account( login_name, email, salt, password, current_language_id, current_conference_id, preferences, last_login, person_id ) SELECT login_name, email_contact, substring(password, 1, 16), substring(password,17,32), current_language_id, current_conference_id, preferences, last_login, person_id FROM old_person WHERE login_name IS NOT NULL AND email_contact IS NOT NULL;
-
+) INHERITS( base.account );
+CREATE TABLE log.account () INHERITS( base.logging, base.account );
+INSERT INTO auth.account( login_name, email, salt, password, current_language, current_conference_id, preferences, last_login, person_id ) SELECT login_name, email_contact, substring(password, 1, 16), substring(password,17,32), 'en', current_conference_id, preferences, last_login, person_id FROM old_person WHERE login_name IS NOT NULL AND email_contact IS NOT NULL;
 INSERT INTO auth.object_domain VALUES ('account','account');
+
 
 CREATE TABLE base.account_role (
   account_id INTEGER NOT NULL,
