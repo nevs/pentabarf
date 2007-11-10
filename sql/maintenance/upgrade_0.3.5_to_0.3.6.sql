@@ -868,6 +868,15 @@ CREATE TABLE log.conference_language () INHERITS( base.logging, base.conference_
 INSERT INTO conference_language(conference_id,language) SELECT conference_id, (SELECT language FROM old_language WHERE old_language.language_id = old_conference_language.language_id) FROM old_conference_language;
 DROP TABLE old_conference_language;
 
+ALTER TABLE conference_link RENAME TO old_conference_link;
+CREATE TABLE base.conference_link ( conference_link_id SERIAL NOT NULL, conference_id INTEGER NOT NULL, url TEXT NOT NULL, title TEXT, rank INTEGER);
+CREATE TABLE conference_link ( FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE, PRIMARY KEY (conference_link_id)) INHERITS( base.conference_link );
+CREATE TABLE log.conference_link () INHERITS( base.logging,base.conference_link );
+INSERT INTO conference_link(conference_id,url,title,rank) SELECT conference_id,url,title,rank FROM old_conference_link;
+DROP TABLE old_conference_link;
+
+DROP TABLE conference_localized;
+
 -- make person use new logging
 ALTER TABLE person RENAME TO old_person;
 

@@ -33,7 +33,6 @@ BEGIN;
 \i tables/conference.sql
 \i tables/conference_language.sql
 \i tables/conference_link.sql
-\i tables/conference_localized.sql
 \i tables/conference_image.sql
 \i tables/conference_track.sql
 \i tables/conference_track_localized.sql
