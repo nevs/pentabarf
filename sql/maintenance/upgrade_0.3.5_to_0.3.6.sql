@@ -795,6 +795,23 @@ CREATE TABLE log.link_type_localized () INHERITS( base.logging, base.link_type_l
 INSERT INTO link_type_localized(link_type,translated,name) SELECT link_type,(SELECT language FROM old_language WHERE old_language.language_id=old_link_type_localized.language_id),name FROM old_link_type_localized;
 DROP TABLE old_link_type_localized CASCADE;
 
+ALTER TABLE conference_phase RENAME TO old_conference_phase;
+CREATE TABLE base.conference_phase ( conference_phase TEXT NOT NULL, rank INTEGER);
+CREATE TABLE conference_phase ( PRIMARY KEY (conference_phase)) INHERITS( base.conference_phase ); 
+CREATE TABLE log.conference_phase () INHERITS( base.logging, base.conference_phase );
+INSERT INTO conference_phase(conference_phase,rank) SELECT conference_phase,rank FROM old_conference_phase;
+
+ALTER TABLE conference_phase_localized RENAME TO old_conference_phase_localized;
+CREATE TABLE base.conference_phase_localized ( conference_phase TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE conference_phase_localized (
+  FOREIGN KEY (conference_phase) REFERENCES conference_phase (conference_phase) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conference_phase, translated)
+) INHERITS( base.conference_phase_localized );
+CREATE TABLE log.conference_phase_localized () INHERITS( base.logging, base.conference_phase_localized );
+INSERT INTO conference_phase_localized(conference_phase,translated,name) SELECT conference_phase,(SELECT language FROM old_language WHERE old_language.language_id=old_conference_phase_localized.language_id),name FROM old_conference_phase_localized;
+DROP TABLE old_conference_phase_localized;
+
 -- make conference use new logging
 ALTER TABLE conference RENAME TO old_conference;
 

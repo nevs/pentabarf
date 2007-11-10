@@ -28,9 +28,6 @@ BEGIN;
 \i tables/timezone.sql
 \i tables/link_type.sql
 \i tables/link_type_localized.sql
-\i tables/person.sql
-\i tables/auth/account.sql
-\i tables/auth/account_role.sql
 \i tables/conference_phase.sql
 \i tables/conference_phase_localized.sql
 \i tables/conference.sql
@@ -44,6 +41,9 @@ BEGIN;
 \i tables/conference_person.sql
 \i tables/conference_person_link.sql
 \i tables/conference_person_link_internal.sql
+\i tables/auth/account.sql
+\i tables/auth/account_role.sql
+\i tables/person.sql
 \i tables/person_phone.sql
 \i tables/person_rating.sql
 \i tables/person_travel.sql
