@@ -778,6 +778,23 @@ INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Europe/Zagreb
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Europe/Zaporozhye', 'EET', '02:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Europe/Zurich', 'CET', '01:00:00');
 
+ALTER TABLE link_type RENAME TO old_link_type;
+CREATE TABLE base.link_type ( link_type TEXT NOT NULL, template TEXT, rank INTEGER);
+CREATE TABLE link_type ( PRIMARY KEY (link_type)) INHERITS( base.link_type ); 
+CREATE TABLE log.link_type () INHERITS( base.logging, base.link_type );
+INSERT INTO link_type(link_type,template,rank) SELECT link_type,template,rank FROM old_link_type;
+
+ALTER TABLE link_type_localized RENAME TO old_link_type_localized;
+CREATE TABLE base.link_type_localized ( link_type TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE link_type_localized (
+  FOREIGN KEY (link_type) REFERENCES link_type (link_type) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (link_type, translated)
+) INHERITS( base.link_type_localized );
+CREATE TABLE log.link_type_localized () INHERITS( base.logging, base.link_type_localized );
+INSERT INTO link_type_localized(link_type,translated,name) SELECT link_type,(SELECT language FROM old_language WHERE old_language.language_id=old_link_type_localized.language_id),name FROM old_link_type_localized;
+DROP TABLE old_link_type_localized CASCADE;
+
 -- make conference use new logging
 ALTER TABLE conference RENAME TO old_conference;
 
