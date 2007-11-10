@@ -964,6 +964,20 @@ CREATE TABLE log.conference_person (
 INSERT INTO conference_person(conference_person_id,conference_id,person_id,abstract,description,remark,email) SELECT conference_person_id,conference_id,person_id,abstract,description,remark,email_public FROM old_conference_person;
 SELECT setval('base.conference_person_conference_person_id_seq',(SELECT max(conference_person_id) FROM conference_person));
 
+ALTER TABLE conference_person_link RENAME TO old_conference_person_link;
+CREATE TABLE base.conference_person_link ( conference_person_link_id SERIAL NOT NULL, conference_person_id INTEGER NOT NULL, url TEXT NOT NULL, title TEXT, rank INTEGER);
+CREATE TABLE conference_person_link (
+  FOREIGN KEY (conference_person_id) REFERENCES conference_person (conference_person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conference_person_link_id)
+) INHERITS( base.conference_person_link );
+CREATE TABLE log.conference_person_link () INHERITS( base.logging, base.conference_person_link );
+INSERT INTO conference_person_link(conference_person_id,url,title,rank) SELECT conference_person_id,url,title,rank FROM old_conference_person_link;
+DROP TABLE old_conference_person_link;
+
+
+
+
+
 
 CREATE TABLE auth.account (
   account_id SERIAL,
