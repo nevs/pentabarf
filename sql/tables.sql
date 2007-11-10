@@ -36,12 +36,12 @@ BEGIN;
 \i tables/conference_image.sql
 \i tables/conference_track.sql
 \i tables/conference_room.sql
+\i tables/person.sql
 \i tables/conference_person.sql
 \i tables/conference_person_link.sql
 \i tables/conference_person_link_internal.sql
 \i tables/auth/account.sql
 \i tables/auth/account_role.sql
-\i tables/person.sql
 \i tables/person_phone.sql
 \i tables/person_rating.sql
 \i tables/person_travel.sql

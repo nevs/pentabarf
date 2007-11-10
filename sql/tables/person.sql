@@ -15,7 +15,7 @@ CREATE TABLE base.person (
   po_box TEXT,
   po_box_postcode TEXT,
   city TEXT,
-  country_id INTEGER,
+  country TEXT,
   iban TEXT,
   bic TEXT,
   bank_name TEXT,
@@ -24,7 +24,7 @@ CREATE TABLE base.person (
 
 CREATE TABLE public.person(
   CHECK (first_name IS NOT NULL OR last_name IS NOT NULL OR public_name IS NOT NULL OR nickname IS NOT NULL),
-  FOREIGN KEY (country_id) REFERENCES country (country_id) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY (country) REFERENCES country (country) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY (person_id)
 ) INHERITS( base.person );
 
