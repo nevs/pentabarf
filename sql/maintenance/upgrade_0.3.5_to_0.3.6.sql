@@ -1018,6 +1018,23 @@ CREATE TABLE log.person_phone () INHERITS( base.logging, base.person_phone );
 INSERT INTO person_phone(person_id,phone_type,phone_number,rank) SELECT person_id,phone_type,phone_number,rank FROM old_person_phone;
 DROP TABLE old_person_phone;
 
+ALTER TABLE person_rating RENAME TO old_person_rating;
+CREATE TABLE base.person_rating (
+  person_id INTEGER NOT NULL,
+  evaluator_id INTEGER NOT NULL,
+  speaker_quality SMALLINT CHECK (speaker_quality > 0 AND speaker_quality < 6),
+  competence SMALLINT CHECK (competence > 0 AND competence < 6),
+  remark TEXT,
+  eval_time TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+CREATE TABLE person_rating (
+  FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (evaluator_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (person_id, evaluator_id)
+) INHERITS( base.person_rating );
+INSERT INTO person_rating(person_id,evaluator_id,speaker_quality,competence,remark,eval_time) SELECT person_id,evaluator_id,speaker_quality,competence,remark,eval_time FROM old_person_rating;
+DROP TABLE old_person_rating;
+
 
 
 
