@@ -888,6 +888,17 @@ CREATE TABLE log.conference_image () INHERITS( base.logging, base.conference_ima
 INSERT INTO conference_image(conference_id,mime_type,image) SELECT conference_id,mime_type,image FROM old_conference_image;
 DROP TABLE old_conference_image CASCADE;
 
+ALTER TABLE conference_track RENAME TO old_conference_track;
+CREATE TABLE base.conference_track ( conference_track TEXT NOT NULL, conference_id INTEGER NOT NULL, rank INTEGER, CHECK (strpos( conference_track, '/' ) = 0));
+CREATE TABLE conference_track (
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conference_track,conference_id)
+) INHERITS( base.conference_track );
+CREATE TABLE log.conference_track () INHERITS( base.logging, base.conference_track );
+INSERT INTO conference_track(conference_track,conference_id,rank) SELECT tag,conference_id,rank FROM old_conference_track;
+
+DROP TABLE conference_track_localized CASCADE;
+
 -- make person use new logging
 ALTER TABLE person RENAME TO old_person;
 
