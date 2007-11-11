@@ -1234,6 +1234,17 @@ CREATE TABLE event (
 CREATE TABLE log.event () INHERITS( base.logging, base.event );
 INSERT INTO event( event_id,conference_id,tag,title,subtitle,conference_track,conference_team,event_type,duration,event_origin,event_state,event_state_progress,language,conference_room,day,start_time,abstract,description,resources,public,paper,slides,remark,submission_notes ) SELECT event_id,conference_id,tag,title,subtitle,(SELECT tag FROM old_conference_track WHERE old_conference_track.conference_track_id = old_event.conference_track_id),conference_team,event_type,duration,event_origin,event_state,event_state_progress,(SELECT language FROM old_language WHERE old_language.language_id = old_event.language_id),conference_room,day,start_time,abstract,description,resources,f_public,f_paper,f_slides,remark,submission_notes FROM old_event;
 
+ALTER TABLE event_image RENAME TO old_event_image;
+CREATE TABLE base.event_image ( event_id INTEGER NOT NULL, mime_type TEXT NOT NULL, image BYTEA NOT NULL);
+CREATE TABLE event_image (
+  FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (mime_type) REFERENCES mime_type (mime_type) ON UPDATE CASCADE ON DELETE RESTRICT,
+  PRIMARY KEY (event_id)
+) INHERITS( base.event_image );
+CREATE TABLE log.event_image () INHERITS( base.logging, base.event_image );
+INSERT INTO event_image(event_id,mime_type,image) SELECT event_id,mime_type,image FROM old_event_image;
+DROP TABLE event_image CASCADE;
+
 
 
 
