@@ -1035,8 +1035,53 @@ CREATE TABLE person_rating (
 INSERT INTO person_rating(person_id,evaluator_id,speaker_quality,competence,remark,eval_time) SELECT person_id,evaluator_id,speaker_quality,competence,remark,eval_time FROM old_person_rating;
 DROP TABLE old_person_rating;
 
-
-
+CREATE TABLE base.conference_person_travel (
+  conference_person_id INTEGER NOT NULL,
+  arrival_transport TEXT NOT NULL,
+  arrival_from TEXT,
+  arrival_to TEXT,
+  arrival_number TEXT,
+  arrival_date DATE,
+  arrival_time TIME(0) WITH TIME ZONE,
+  arrival_pickup BOOL NOT NULL DEFAULT FALSE,
+  departure_pickup BOOL NOT NULL DEFAULT FALSE,
+  departure_transport TEXT NOT NULL,
+  departure_from TEXT,
+  departure_to TEXT,
+  departure_number TEXT,
+  departure_date DATE,
+  departure_time TIME(0) WITH TIME ZONE,
+  travel_cost DECIMAL(16,2),
+  travel_currency TEXT NOT NULL,
+  accommodation_cost DECIMAL(16,2),
+  accommodation_currency TEXT NOT NULL,
+  accommodation_name TEXT,
+  accommodation_street TEXT,
+  accommodation_postcode TEXT,
+  accommodation_city TEXT,
+  accommodation_phone TEXT,
+  accommodation_phone_room TEXT,
+  arrived BOOL NOT NULL DEFAULT FALSE,
+  fee DECIMAL(16,2),
+  fee_currency TEXT NOT NULL,
+  need_travel_cost BOOL NOT NULL DEFAULT FALSE,
+  need_accommodation BOOL NOT NULL DEFAULT FALSE,
+  need_accommodation_cost BOOL NOT NULL DEFAULT FALSE
+);
+CREATE TABLE conference_person_travel (
+  FOREIGN KEY (conference_person_id) REFERENCES conference_person(conference_person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (arrival_transport) REFERENCES transport (transport) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (departure_transport) REFERENCES transport (transport) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (travel_currency) REFERENCES currency (currency) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (accommodation_currency) REFERENCES currency (currency) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (fee_currency) REFERENCES currency (currency) ON UPDATE CASCADE ON DELETE RESTRICT,
+  PRIMARY KEY (conference_person_id)
+) INHERITS( base.conference_person_travel );
+CREATE TABLE log.conference_person_travel () INHERITS( base.logging, base.conference_person_travel );
+INSERT INTO conference_person(person_id,conference_id) SELECT person_id, conference_id FROM person_travel WHERE NOT EXISTS( SELECT 1 FROM conference_person WHERE conference_person.conference_id = person_travel.conference_id AND conference_person.person_id = person_travel.person_id );
+INSERT INTO conference_person_travel(conference_person_id,arrival_transport,arrival_from,arrival_to,arrival_number,arrival_date,arrival_time,arrival_pickup,departure_pickup,departure_transport,departure_from,departure_to,departure_number,departure_date,departure_time,travel_cost,travel_currency,accommodation_cost,accommodation_currency,accommodation_name,accommodation_street,accommodation_postcode,accommodation_city,accommodation_phone,accommodation_phone_room,arrived,fee,fee_currency,need_travel_cost,need_accommodation,need_accommodation_cost) SELECT (SELECT conference_person_id FROM conference_person WHERE conference_person.person_id = person_travel.person_id AND conference_person.conference_id = person_travel.conference_id),(SELECT tag FROM old_transport WHERE old_transport.transport_id = person_travel.arrival_transport_id),arrival_from,arrival_to,arrival_number,arrival_date,arrival_time,f_arrival_pickup,f_departure_pickup,(SELECT tag FROM old_transport WHERE old_transport.transport_id = person_travel.departure_transport_id),departure_from,departure_to,departure_number,departure_date,departure_time,travel_cost,(SELECT iso_4217_code FROM old_currency WHERE old_currency.currency_id = person_travel.travel_currency_id),accommodation_cost,(SELECT iso_4217_code FROM old_currency WHERE old_currency.currency_id = person_travel.accommodation_currency_id),accommodation_name,accommodation_street,accommodation_postcode,accommodation_city,accommodation_phone,accommodation_phone_room,f_arrived,fee,(SELECT iso_4217_code FROM old_currency WHERE old_currency.currency_id = person_travel.fee_currency_id),f_need_travel_cost,f_need_accommodation,f_need_accommodation_cost FROM person_travel;
+DROP TABLE person_travel;
+DROP TABLE old_transport;
 
 
 
