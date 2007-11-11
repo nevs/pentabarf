@@ -1107,6 +1107,17 @@ CREATE TABLE log.person_availability () INHERITS( base.logging, base.person_avai
 INSERT INTO person_availability(person_id,conference_id,start_date,duration) SELECT person_id,conference_id,start_date,duration FROM old_person_availability;
 DROP TABLE old_person_availability;
 
+ALTER TABLE person_image RENAME TO old_person_image;
+CREATE TABLE base.person_image ( person_id INTEGER NOT NULL, mime_type TEXT NOT NULL, public BOOL NOT NULL DEFAULT FALSE, image BYTEA NOT NULL);
+CREATE TABLE person_image (
+  FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (mime_type) REFERENCES mime_type (mime_type) ON UPDATE CASCADE ON DELETE RESTRICT,
+  PRIMARY KEY (person_id)
+) INHERITS( base.person_image );
+CREATE TABLE log.person_image () INHERITS( base.logging, base.person_image );
+INSERT INTO person_image(person_id,mime_type,public,image) SELECT person_id,mime_type,f_public,image FROM old_person_image;
+DROP TABLE old_person_image CASCADE;
+
 
 
 
