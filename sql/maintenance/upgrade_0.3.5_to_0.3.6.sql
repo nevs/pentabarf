@@ -1201,6 +1201,22 @@ CREATE TABLE log.event_origin_localized () INHERITS( base.logging, base.event_or
 INSERT INTO event_origin_localized(event_origin,translated,name) SELECT event_origin,(SELECT language FROM old_language WHERE old_language.language_id=old_event_origin_localized.language_id),name FROM old_event_origin_localized;
 DROP TABLE old_event_origin_localized;
 
+CREATE TABLE base.conference_team ( conference_id INTEGER NOT NULL, conference_team TEXT NOT NULL, rank INTEGER);
+CREATE TABLE conference_team (
+  FOREIGN KEY (conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conference_id,conference_team)
+) INHERITS (base.conference_team);
+CREATE TABLE log.conference_team (
+) INHERITS( base.logging, base.conference_team );
+INSERT INTO conference_team(conference_id,conference_team,rank) SELECT conference_id,tag,rank FROM team;
+ALTER TABLE event ADD COLUMN conference_team TEXT;
+UPDATE event SET conference_team = (SELECT tag FROM team where team.team_id = event.team_id);
+DROP TABLE team_localized CASCADE;
+DROP TABLE team CASCADE;
+
+
+
+
 
 
 
@@ -1274,28 +1290,6 @@ ALTER TABLE event ADD COLUMN conference_room TEXT;
 UPDATE event SET conference_room = (SELECT short_name FROM old_room WHERE old_room.room_id = event.room_id);
 
 DROP TABLE old_room CASCADE;
-
-CREATE TABLE base.conference_team (
-  conference_id INTEGER NOT NULL,
-  conference_team TEXT NOT NULL,
-  rank INTEGER
-);
-
-CREATE TABLE conference_team (
-  FOREIGN KEY (conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  PRIMARY KEY (conference_id,conference_team)
-) INHERITS (base.conference_team);
-
-CREATE TABLE log.conference_team (
-) INHERITS( base.logging, base.conference_team );
-
-INSERT INTO conference_team(conference_id,conference_team,rank) SELECT conference_id,tag,rank FROM team;
-
-ALTER TABLE event ADD COLUMN conference_team TEXT;
-UPDATE event SET conference_team = (SELECT tag FROM team where team.team_id = event.team_id);
-
-DROP TABLE team_localized CASCADE;
-DROP TABLE team CASCADE;
 
 COMMIT;
 

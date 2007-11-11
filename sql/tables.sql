@@ -57,8 +57,7 @@ BEGIN;
 \i tables/event_type_localized.sql
 \i tables/event_origin.sql
 \i tables/event_origin_localized.sql
-\i tables/team.sql
-\i tables/team_localized.sql
+\i tables/conference_team.sql
 \i tables/event.sql
 \i tables/event_image.sql
 \i tables/event_rating.sql
