@@ -1135,6 +1135,17 @@ CREATE TABLE event_state ( PRIMARY KEY (event_state)) INHERITS( base.event_state
 CREATE TABLE log.event_state () INHERITS( base.logging, base.event_state );
 INSERT INTO event_state(event_state) SELECT event_state FROM old_event_state;
 
+ALTER TABLE event_state_localized RENAME TO old_event_state_localized;
+CREATE TABLE base.event_state_localized ( event_state TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE event_state_localized (
+  FOREIGN KEY (event_state) REFERENCES event_state (event_state) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_state, translated)
+) INHERITS( base.event_state_localized );
+CREATE TABLE log.event_state_localized () INHERITS( base.logging, base.event_state_localized );
+INSERT INTO event_state_localized(event_state,translated,name) SELECT event_state,(SELECT language FROM old_language WHERE old_language.language_id=old_event_state_localized.language_id),name FROM old_event_state_localized;
+DROP TABLE old_event_state_localized;
+
 
 
 
