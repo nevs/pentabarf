@@ -1127,6 +1127,13 @@ CREATE TABLE person_language (
 ) INHERITS( base.person_language );
 CREATE TABLE log.person_language () INHERITS( base.logging, base.person_language );
 INSERT INTO person_language(person_id,language,rank) SELECT person_id,(SELECT language FROM old_language WHERE old_language.language_id=old_person_language.language_id),rank FROM old_person_language;
+DROP TABLE old_person_language;
+
+ALTER TABLE event_state RENAME TO old_event_state;
+CREATE TABLE base.event_state ( event_state TEXT, rank INTEGER);
+CREATE TABLE event_state ( PRIMARY KEY (event_state)) INHERITS( base.event_state );
+CREATE TABLE log.event_state () INHERITS( base.logging, base.event_state );
+INSERT INTO event_state(event_state) SELECT event_state FROM old_event_state;
 
 
 
