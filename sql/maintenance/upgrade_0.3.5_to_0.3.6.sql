@@ -1155,6 +1155,18 @@ CREATE TABLE event_state_progress (
 CREATE TABLE log.event_state_progress () INHERITS( base.logging, base.event_state_progress );
 INSERT INTO event_state_progress(event_state_progress,event_state,rank) SELECT event_state_progress,event_state,rank FROM old_event_state_progress;
 
+ALTER TABLE event_state_progress_localized RENAME TO old_event_state_progress_localized;
+CREATE TABLE base.event_state_progress_localized ( event_state TEXT NOT NULL, event_state_progress TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE event_state_progress_localized (
+  FOREIGN KEY (event_state,event_state_progress) REFERENCES event_state_progress (event_state,event_state_progress) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_state, event_state_progress, translated)
+) INHERITS( base.event_state_progress_localized );
+CREATE TABLE log.event_state_progress_localized () INHERITS( base.logging, base.event_state_progress_localized );
+INSERT INTO event_state_progress_localized(event_state,event_state_progress,translated,name) SELECT event_state,event_state_progress,(SELECT language FROM old_language WHERE old_language.language_id=old_event_state_progress_localized.language_id),name FROM old_event_state_progress_localized;
+DROP TABLE old_event_state_progress_localized;
+
+
 
 
 
