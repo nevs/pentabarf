@@ -1166,6 +1166,23 @@ CREATE TABLE log.event_state_progress_localized () INHERITS( base.logging, base.
 INSERT INTO event_state_progress_localized(event_state,event_state_progress,translated,name) SELECT event_state,event_state_progress,(SELECT language FROM old_language WHERE old_language.language_id=old_event_state_progress_localized.language_id),name FROM old_event_state_progress_localized;
 DROP TABLE old_event_state_progress_localized;
 
+ALTER TABLE event_type RENAME TO old_event_type;
+CREATE TABLE base.event_type ( event_type TEXT, rank INTEGER);
+CREATE TABLE event_type ( PRIMARY KEY (event_type)) INHERITS( base.event_type );
+CREATE TABLE log.event_type () INHERITS( base.logging, base.event_type );
+INSERT INTO event_type( event_type, rank ) SELECT event_type, rank FROM old_event_type;
+
+ALTER TABLE event_type_localized RENAME TO old_event_type_localized;
+CREATE TABLE base.event_type_localized ( event_type TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE event_type_localized (
+  FOREIGN KEY (event_type) REFERENCES event_type(event_type) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_type, translated)
+) INHERITS( base.event_type_localized );
+CREATE TABLE log.event_type_localized (
+) INHERITS( base.logging, base.event_type_localized );
+INSERT INTO event_type_localized(event_type,translated,name) SELECT event_type,(SELECT language FROM old_language WHERE old_language.language_id=old_event_type_localized.language_id),name FROM old_event_type_localized;
+DROP TABLE old_event_type_localized;
 
 
 
