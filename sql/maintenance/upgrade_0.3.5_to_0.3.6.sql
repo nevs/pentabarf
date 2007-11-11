@@ -1118,6 +1118,16 @@ CREATE TABLE log.person_image () INHERITS( base.logging, base.person_image );
 INSERT INTO person_image(person_id,mime_type,public,image) SELECT person_id,mime_type,f_public,image FROM old_person_image;
 DROP TABLE old_person_image CASCADE;
 
+ALTER TABLE person_language RENAME TO old_person_language;
+CREATE TABLE base.person_language ( person_id INTEGER NOT NULL, language TEXT NOT NULL, rank INTEGER);
+CREATE TABLE person_language (
+  FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (language) REFERENCES language (language) ON UPDATE CASCADE ON DELETE RESTRICT,
+  PRIMARY KEY (person_id, language)
+) INHERITS( base.person_language );
+CREATE TABLE log.person_language () INHERITS( base.logging, base.person_language );
+INSERT INTO person_language(person_id,language,rank) SELECT person_id,(SELECT language FROM old_language WHERE old_language.language_id=old_person_language.language_id),rank FROM old_person_language;
+
 
 
 
