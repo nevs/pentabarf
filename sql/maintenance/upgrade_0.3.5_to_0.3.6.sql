@@ -1184,6 +1184,23 @@ CREATE TABLE log.event_type_localized (
 INSERT INTO event_type_localized(event_type,translated,name) SELECT event_type,(SELECT language FROM old_language WHERE old_language.language_id=old_event_type_localized.language_id),name FROM old_event_type_localized;
 DROP TABLE old_event_type_localized;
 
+ALTER TABLE event_origin RENAME TO old_event_origin;
+CREATE TABLE base.event_origin ( event_origin TEXT NOT NULL, rank INTEGER);
+CREATE TABLE event_origin ( PRIMARY KEY (event_origin)) INHERITS( base.event_origin ); 
+CREATE TABLE log.event_origin () INHERITS( base.logging, base.event_origin );
+INSERT INTO event_origin( event_origin, rank ) SELECT event_origin, rank FROM old_event_origin;
+
+ALTER TABLE event_origin_localized RENAME TO old_event_origin_localized;
+CREATE TABLE base.event_origin_localized ( event_origin TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE event_origin_localized (
+  FOREIGN KEY (event_origin) REFERENCES event_origin (event_origin) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_origin, translated)
+) INHERITS( base.event_origin_localized );
+CREATE TABLE log.event_origin_localized () INHERITS( base.logging, base.event_origin_localized );
+INSERT INTO event_origin_localized(event_origin,translated,name) SELECT event_origin,(SELECT language FROM old_language WHERE old_language.language_id=old_event_origin_localized.language_id),name FROM old_event_origin_localized;
+DROP TABLE old_event_origin_localized;
+
 
 
 
