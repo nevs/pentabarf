@@ -1484,8 +1484,49 @@ CREATE TABLE log.event_related () INHERITS( base.logging, base.event_related );
 INSERT INTO event_related(event_id1,event_id2) SELECT event_id1,event_id2 FROM old_event_related;
 DROP TABLE old_event_related CASCADE;
 
+ALTER TABLE conflict.conflict_type RENAME TO old_conflict_type;
+CREATE TABLE base.conflict_type ( conflict_type TEXT);
+CREATE TABLE conflict.conflict_type ( PRIMARY KEY (conflict_type)) INHERITS( base.conflict_type );
+CREATE TABLE log.conflict_type () INHERITS( base.logging, base.conflict_type );
+INSERT INTO conflict.conflict_type(conflict_type) SELECT conflict_type FROM conflict.old_conflict_type;
 
+ALTER TABLE conflict.conflict RENAME TO old_conflict;
+CREATE TABLE base.conflict ( conflict TEXT NOT NULL, conflict_type TEXT NOT NULL, CHECK (conflict ~ '^[a-z_]+$'));
+CREATE TABLE conflict.conflict (
+  FOREIGN KEY (conflict_type) REFERENCES conflict.conflict_type (conflict_type) ON UPDATE CASCADE ON DELETE RESTRICT,
+  PRIMARY KEY (conflict)
+) INHERITS( base.conflict );
+CREATE TABLE log.conflict () INHERITS( base.logging, base.conflict );
+INSERT INTO conflict.conflict(conflict_type,conflict) SELECT conflict_type,conflict FROM conflict.old_conflict;
 
+ALTER TABLE conflict.conflict_localized RENAME TO old_conflict_localized;
+CREATE TABLE base.conflict_localized ( conflict TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL); 
+CREATE TABLE conflict.conflict_localized (
+  FOREIGN KEY (conflict) REFERENCES conflict.conflict (conflict) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conflict, translated)
+) INHERITS( base.conflict_localized );
+CREATE TABLE log.conflict_localized () INHERITS( base.logging, base.conflict_localized );
+INSERT INTO conflict.conflict_localized(conflict,translated,name) SELECT conflict,(SELECT language FROM old_language WHERE old_language.language_id=old_conflict_localized.language_id),name FROM conflict.old_conflict_localized;
+DROP TABLE conflict.old_conflict_localized;
+
+ALTER TABLE conflict.conflict_level RENAME TO old_conflict_level;
+CREATE TABLE base.conflict_level ( conflict_level TEXT NOT NULL, rank INTEGER);
+CREATE TABLE conflict.conflict_level ( PRIMARY KEY (conflict_level)) INHERITS( base.conflict_level );
+CREATE TABLE log.conflict_level () INHERITS( base.logging, base.conflict_level );
+INSERT INTO conflict.conflict_level(conflict_level,rank) SELECT conflict_level,rank FROM conflict.old_conflict_level;
+
+ALTER TABLE conflict.conflict_level_localized RENAME TO old_conflict_level_localized;
+CREATE TABLE base.conflict_level_localized ( conflict_level TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
+CREATE TABLE conflict.conflict_level_localized (
+  FOREIGN KEY (conflict_level) REFERENCES conflict.conflict_level (conflict_level) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conflict_level, translated)
+) INHERITS( base.conflict_level_localized );
+CREATE TABLE log.conflict_level_localized () INHERITS( base.logging, base.conflict_level_localized );
+INSERT INTO conflict.conflict_level_localized(conflict_level,translated,name) SELECT conflict_level,(SELECT language FROM old_language WHERE old_language.language_id=old_conflict_level_localized.language_id),name FROM conflict.old_conflict_level_localized;
+
+DROP TABLE conflict.old_conflict_level_localized;
 
 
 
