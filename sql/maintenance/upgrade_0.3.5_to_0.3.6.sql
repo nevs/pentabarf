@@ -1298,6 +1298,27 @@ CREATE TABLE log.event_link_internal () INHERITS( base.logging, base.event_link_
 INSERT INTO event_link_internal(event_id,link_type,url,description,rank) SELECT event_id,link_type,url,description,rank FROM old_event_link_internal;
 DROP TABLE old_event_link_internal;
 
+ALTER TABLE event_role RENAME TO old_event_role;
+CREATE TABLE base.event_role ( event_role TEXT NOT NULL, rank INTEGER);
+CREATE TABLE event_role (
+  PRIMARY KEY (event_role)
+) INHERITS( base.event_role );
+CREATE TABLE log.event_role () INHERITS( base.logging, base.event_role );
+INSERT INTO event_role(event_role,rank) SELECT event_role,rank FROM old_event_role;
+
+ALTER TABLE event_role_localized RENAME TO old_event_role_localized;
+CREATE TABLE base.event_role_localized ( event_role TEXT NOT NULL, translated TEXT NOT NULL, name TEXT);
+CREATE TABLE event_role_localized (
+  FOREIGN KEY (event_role) REFERENCES event_role (event_role) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_role, translated)
+) INHERITS( base.event_role_localized );
+CREATE TABLE log.event_role_localized () INHERITS( base.logging, base.event_role_localized );
+INSERT INTO event_role_localized(event_role,translated,name) SELECT event_role,(SELECT language FROM old_language WHERE old_language.language_id = old_event_role_localized.language_id),name FROM old_event_role_localized;
+
+
+
+
 
 
 
