@@ -6,10 +6,10 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_no_slides(INTEGER) RETURNS SE
    WHERE conference_id = $1 AND
          event_state = 'accepted' AND
          event_state_progress = 'confirmed' AND
-         f_slides = 't' AND
+         slides = 't' AND
          NOT EXISTS (SELECT 1 FROM event_attachment
                              WHERE event_id = event.event_id AND
                                    event_attachment.attachment_type = 'slides' AND
-                                   event_attachment.f_public = 't')
+                                   event_attachment.public = 't')
 $$ LANGUAGE SQL;
 

@@ -7,10 +7,10 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_incomplete(INTEGER) RETURNS S
           event_state = 'accepted' AND
           event_state_progress = 'confirmed' AND
           (day IS NULL OR
-           room_id IS NULL OR
+           conference_room IS NULL OR
            start_time IS NULL) AND
           (day IS NOT NULL OR
-           room_id IS NOT NULL OR
+           conference_room IS NOT NULL OR
            start_time IS NOT NULL)
 $$ LANGUAGE SQL;
 

@@ -6,6 +6,6 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_unconfirmed_with_timeslot(INT
          event.event_state = 'accepted' AND
          event.event_state_progress <> 'confirmed' AND
          event.start_time IS NOT NULL AND
-         event.room_id IS NOT NULL
+         event.conference_room IS NOT NULL
 $$ LANGUAGE SQL;
 

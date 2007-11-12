@@ -4,6 +4,6 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_slides_unknown( conference_id
     FROM event
    WHERE event.conference_id = $1 AND
          event.event_state = 'accepted' AND
-         event.f_slides IS NULL
+         event.slides IS NULL
 $$ LANGUAGE SQL;
 

@@ -7,10 +7,10 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_conference_language(INTEGER) 
     event
   WHERE
     event.conference_id = $1 AND
-    event.language_id IS NOT NULL AND
+    event.language IS NOT NULL AND
     NOT EXISTS (SELECT 1
       FROM conference_language
       WHERE conference_id = $1 AND
-        language_id = event.language_id);
+        language = event.language);
 $$ LANGUAGE SQL;
 

@@ -5,6 +5,6 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_no_track(INTEGER) RETURNS SET
         FROM event
        WHERE conference_id = $1 AND
              event_state = 'accepted' AND
-             conference_track_id IS NULL
+             conference_track IS NULL
 $$ LANGUAGE SQL;
 
