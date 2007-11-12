@@ -1599,5 +1599,69 @@ DROP TABLE conflict.old_conflict_type;
 DROP TABLE conflict.old_conflict_level;
 DROP TABLE old_phone_type;
 
+DROP TYPE conflict.view_conflict_event CASCADE;
+DROP TYPE conflict.view_conflict_event_event CASCADE;
+DROP TYPE conflict.view_conflict_event_person CASCADE;
+DROP TYPE conflict.view_conflict_event_person_event CASCADE;
+DROP TYPE conflict.view_conflict_person CASCADE;
+
+CREATE TYPE conflict.view_conflict_event AS (
+  conflict    TEXT,
+  conflict_name TEXT,
+  conflict_level TEXT,
+  conflict_level_name TEXT,
+  translated TEXT,
+  event_id    INTEGER,
+  title TEXT
+);
+
+CREATE TYPE conflict.view_conflict_event_event AS (
+  conflict    TEXT,
+  conflict_name TEXT,
+  conflict_level TEXT,
+  conflict_level_name TEXT,
+  translated TEXT,
+  event_id1 INTEGER,
+  event_id2 INTEGER,
+  title1 TEXT,
+  title2 TEXT
+);
+
+CREATE TYPE conflict.view_conflict_event_person AS (
+  conflict    TEXT,
+  conflict_name TEXT,
+  conflict_level TEXT,
+  conflict_level_name TEXT,
+  translated TEXT,
+  event_id INTEGER,
+  person_id INTEGER,
+  title TEXT,
+  name TEXT
+);
+
+CREATE TYPE conflict.view_conflict_event_person_event AS (
+  conflict    TEXT,
+  conflict_name TEXT,
+  conflict_level TEXT,
+  conflict_level_name TEXT,
+  translated TEXT,
+  person_id INTEGER,
+  event_id1 INTEGER,
+  event_id2 INTEGER,
+  name TEXT,
+  title1 TEXT,
+  title2 TEXT
+);
+
+CREATE TYPE conflict.view_conflict_person AS (
+  conflict    TEXT,
+  conflict_name TEXT,
+  conflict_level TEXT,
+  conflict_level_name TEXT,
+  translated TEXT,
+  person_id INTEGER,
+  name TEXT
+);
+
 COMMIT;
 

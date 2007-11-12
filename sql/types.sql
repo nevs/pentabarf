@@ -62,7 +62,7 @@ CREATE TYPE conflict.view_conflict_event AS (
   conflict_name TEXT,
   conflict_level TEXT,
   conflict_level_name TEXT,
-  language_id INTEGER,
+  translated TEXT,
   event_id    INTEGER,
   title TEXT
 );
@@ -72,7 +72,7 @@ CREATE TYPE conflict.view_conflict_event_event AS (
   conflict_name TEXT,
   conflict_level TEXT,
   conflict_level_name TEXT,
-  language_id INTEGER,
+  translated TEXT,
   event_id1 INTEGER,
   event_id2 INTEGER,
   title1 TEXT,
@@ -84,7 +84,7 @@ CREATE TYPE conflict.view_conflict_event_person AS (
   conflict_name TEXT,
   conflict_level TEXT,
   conflict_level_name TEXT,
-  language_id INTEGER,
+  translated TEXT,
   event_id INTEGER,
   person_id INTEGER,
   title TEXT,
@@ -96,7 +96,7 @@ CREATE TYPE conflict.view_conflict_event_person_event AS (
   conflict_name TEXT,
   conflict_level TEXT,
   conflict_level_name TEXT,
-  language_id INTEGER,
+  translated TEXT,
   person_id INTEGER,
   event_id1 INTEGER,
   event_id2 INTEGER,
@@ -110,7 +110,7 @@ CREATE TYPE conflict.view_conflict_person AS (
   conflict_name TEXT,
   conflict_level TEXT,
   conflict_level_name TEXT,
-  language_id INTEGER,
+  translated TEXT,
   person_id INTEGER,
   name TEXT
 );
