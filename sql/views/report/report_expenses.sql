@@ -12,10 +12,10 @@ CREATE OR REPLACE VIEW view_report_expenses AS
          fee,
          fee_currency_id,
          fee_currency.name AS fee_currency_name,
-         travel_currency.language_id
-    FROM person_travel
+         travel_currency.language
+    FROM conference_person_travel
          INNER JOIN view_person USING (person_id)
-         INNER JOIN view_currency AS travel_currency ON (
+         INNER JOIN currency AS travel_currency ON (
              person_travel.travel_currency_id = travel_currency.currency_id)
          INNER JOIN view_currency AS accommodation_currency ON (
              person_travel.accommodation_currency_id = accommodation_currency.currency_id AND

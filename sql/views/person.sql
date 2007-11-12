@@ -15,7 +15,7 @@ CREATE OR REPLACE VIEW view_person AS
          po_box,
          po_box_postcode,
          city,
-         country_id,
+         country,
          email,
          spam,
          iban,

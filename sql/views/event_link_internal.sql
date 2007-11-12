@@ -6,7 +6,7 @@ CREATE OR REPLACE VIEW view_event_link_internal AS
          url,
          description,
          event_link_internal.rank,
-         language_id,
+         translated,
          template,
          link_type_localized.name AS link_type_name
   FROM event_link_internal

@@ -9,8 +9,7 @@ SELECT
   event.day,
   event.start_time,
   event.duration,
-  room.room_id,
-  room.short_name AS room,
+  conference_room.conference_room,
   event.start_time + conference.day_change AS "time",
   conference.start_date + event."day"::integer + -1 + event.start_time + conference.day_change::interval AS start_date,
   conference.start_date + event."day"::integer + -1 + event.start_time + conference.day_change::interval + event.duration AS end_date,
@@ -24,11 +23,11 @@ SELECT
         event_person.event_id = event.event_id), ', '::text) AS speakers
 FROM event
   INNER JOIN conference USING (conference_id)
-  INNER JOIN room USING (room_id)
+  INNER JOIN conference_room USING (conference_id,conference_room)
 WHERE
   event.day IS NOT NULL AND
   event.start_time IS NOT NULL AND
-  event.room_id IS NOT NULL AND
+  event.conference_room IS NOT NULL AND
   event.event_state = 'accepted' AND
   event.event_state_progress = 'confirmed'
 ;

@@ -16,7 +16,7 @@ CREATE OR REPLACE VIEW view_mail_missing_slides AS
              view_person.email IS NOT NULL )
          INNER JOIN event ON (
              event.event_id = event_person.event_id AND
-             event.f_slides = 't' )
+             event.slides = 't' )
          INNER JOIN conference ON (
              conference.conference_id = event.conference_id )
   WHERE NOT EXISTS (SELECT 1

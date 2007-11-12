@@ -13,10 +13,10 @@ CREATE OR REPLACE VIEW view_report_pickup AS
          arrival_date AS "date",
          arrival_time AS "time",
          arrival_number AS "number"
-    FROM person_travel
+    FROM conference_person_travel
          INNER JOIN view_person USING (person_id)
          LEFT OUTER JOIN view_transport ON (
-             person_travel.arrival_transport_id = view_transport.transport_id )
+             conference_person_travel.arrival_transport_id = view_transport.transport_id )
    WHERE f_arrival_pickup = 't'
 UNION
  (SELECT person_id,
@@ -32,7 +32,7 @@ UNION
          departure_date AS "date",
          departure_time AS "time",
          departure_number AS "number"
-    FROM person_travel
+    FROM conference_person_travel
          INNER JOIN view_person USING (person_id)
          LEFT OUTER JOIN view_transport ON (
              departure_transport_id = view_transport.transport_id )

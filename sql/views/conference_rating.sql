@@ -13,7 +13,7 @@ CREATE OR REPLACE VIEW view_conference_rating AS
          count(audience_involvement) AS audience_involvement_count
     FROM conference
          LEFT OUTER JOIN event USING (conference_id)
-         LEFT OUTER JOIN event_rating_public USING (event_id)
+         LEFT OUTER JOIN event_feedback USING (event_id)
    GROUP BY conference.conference_id
 ;
 
