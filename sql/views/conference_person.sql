@@ -7,7 +7,7 @@ CREATE OR REPLACE VIEW view_conference_person AS
          abstract,
          description,
          remark,
-         email_public
+         conference_person.email
     FROM conference_person
          INNER JOIN view_person USING (person_id)
 ;

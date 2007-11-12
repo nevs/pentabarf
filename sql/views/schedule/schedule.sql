@@ -6,29 +6,23 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.tag,
           event.title,
           event.subtitle,
-          event.conference_track_id,
-          event.team_id,
+          event.conference_track,
+          event.conference_team,
           event.event_type,
           event.duration,
           event.event_state,
           event.event_state_progress,
-          event.language_id,
-          event.room_id,
+          event.language,
+          event.conference_room,
           event.day,
           event.start_time,
           event.abstract,
           event.description,
-          event.f_public,
-          view_language.tag AS language_tag,
-          view_language.name AS language,
+          event.public,
+          language_localized.name AS language_name,
           event_type_localized.name AS event_type_name,
-          view_conference_track.tag AS conference_track_tag,
-          view_conference_track.name AS conference_track,
           (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
           event.start_time + conference.day_change AS real_starttime,
-          view_room.language_id AS translated_id,
-          view_room.tag AS room_tag,
-          view_room.name AS room,
           array_to_string(
             ARRAY(
               SELECT view_person.name || ' (' || event_role_localized.name || ')'
@@ -51,19 +45,15 @@ CREATE OR REPLACE VIEW view_schedule AS
           ) AS persons
      FROM event
           INNER JOIN conference USING (conference_id)
-          INNER JOIN view_room USING (room_id)
-          LEFT OUTER JOIN view_language ON (
-              view_language.translated_id = view_room.language_id AND
-              view_language.language_id = event.language_id )
+          LEFT OUTER JOIN language_localized ON (
+              language_localized.translated = view_room.language AND
+              language_localized.language = event.language )
           LEFT OUTER JOIN event_type_localized ON (
                 event.event_type = event_type_localized.event_type AND
                 view_room.language_id = event_type_localized.language_id)
-          LEFT OUTER JOIN view_conference_track ON (
-                event.conference_track_id = view_conference_track.conference_track_id AND
-                view_room.language_id = view_conference_track.language_id)
     WHERE event.day IS NOT NULL AND
           event.start_time IS NOT NULL AND
-          event.room_id IS NOT NULL AND
+          event.conference_room IS NOT NULL AND
           event.event_state = 'accepted' AND
           event.event_state_progress != 'canceled'
 ;

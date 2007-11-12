@@ -11,7 +11,7 @@ SELECT
      WHERE event_person.event_id=event.event_id
     ), ', ' ) AS persons,
   event.resources,
-  CASE event.f_slides WHEN TRUE THEN 'yes' WHEN FALSE THEN 'no' ELSE 'unknown' END AS slides
+  CASE event.slides WHEN TRUE THEN 'yes' WHEN FALSE THEN 'no' ELSE 'unknown' END AS slides
 
 FROM event;
 

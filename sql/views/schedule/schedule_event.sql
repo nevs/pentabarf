@@ -7,6 +7,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          event.subtitle,
          event.abstract,
          event.description,
+         event.conference_track,
          event.day,
          event.duration,
          event.start_time,
@@ -16,12 +17,9 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          event.conference_room,
          event_type_localized.event_type,
          event_type_localized.name AS event_type_name,
-         conference_track.conference_track_id,
-         conference_track.tag AS conference_track,
-         view_language.language_id,
-         view_language.translated_id,
-         view_language.name AS language,
-         view_language.tag AS language_tag,
+         language_localized.language,
+         language_localized.translated,
+         language_localized.name AS language_name,
          speaker.person_id,
          speaker.name,
          event_image.file_extension
@@ -36,21 +34,18 @@ CREATE OR REPLACE VIEW view_schedule_event AS
              event.event_id = event_person.event_id AND
              event.event_state = 'accepted' AND
              event.event_state_progress = 'confirmed' AND
-             event.f_public = 't' AND
+             event.public = 't' AND
              event.day IS NOT NULL AND
              event.start_time IS NOT NULL AND
              event.conference_room IS NOT NULL )
-         INNER JOIN view_language USING (language_id)
+         INNER JOIN language_localized USING (language)
          INNER JOIN conference USING (conference_id)
          INNER JOIN (
              SELECT person_id,
                     name
                FROM view_person
          ) AS speaker USING (person_id)
-         LEFT OUTER JOIN conference_track USING (conference_track_id)
-         LEFT OUTER JOIN event_type_localized ON (
-             event_type_localized.event_type = event.event_type AND
-             event_type_localized.language_id = view_language.translated_id)
+         LEFT OUTER JOIN event_type_localized USING (event_type,translated)
     WHERE
       event_person.event_role IN ('speaker','moderator') AND
       event_person.event_role_state = 'confirmed'
