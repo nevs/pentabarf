@@ -1307,7 +1307,7 @@ CREATE TABLE log.event_role () INHERITS( base.logging, base.event_role );
 INSERT INTO event_role(event_role,rank) SELECT event_role,rank FROM old_event_role;
 
 ALTER TABLE event_role_localized RENAME TO old_event_role_localized;
-CREATE TABLE base.event_role_localized ( event_role TEXT NOT NULL, translated TEXT NOT NULL, name TEXT);
+CREATE TABLE base.event_role_localized ( event_role TEXT NOT NULL, translated TEXT NOT NULL, name TEXT NOT NULL);
 CREATE TABLE event_role_localized (
   FOREIGN KEY (event_role) REFERENCES event_role (event_role) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -1315,6 +1315,56 @@ CREATE TABLE event_role_localized (
 ) INHERITS( base.event_role_localized );
 CREATE TABLE log.event_role_localized () INHERITS( base.logging, base.event_role_localized );
 INSERT INTO event_role_localized(event_role,translated,name) SELECT event_role,(SELECT language FROM old_language WHERE old_language.language_id = old_event_role_localized.language_id),name FROM old_event_role_localized;
+DROP TABLE old_event_role_localized;
+
+ALTER TABLE event_role_state RENAME TO old_event_role_state;
+CREATE TABLE base.event_role_state ( event_role_state TEXT NOT NULL, event_role TEXT NOT NULL, rank INTEGER);
+CREATE TABLE event_role_state (
+  FOREIGN KEY (event_role) REFERENCES event_role (event_role) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_role,event_role_state)
+) INHERITS( base.event_role_state );
+CREATE TABLE log.event_role_state () INHERITS( base.logging, base.event_role_state );
+INSERT INTO event_role_state(event_role_state,event_role,rank) SELECT event_role_state,event_role,rank FROM old_event_role_state;
+
+ALTER TABLE event_role_state_localized RENAME TO old_event_role_state_localized;
+CREATE TABLE base.event_role_state_localized (
+  event_role TEXT NOT NULL,
+  event_role_state TEXT NOT NULL,
+  translated TEXT NOT NULL,
+  name TEXT NOT NULL
+);
+CREATE TABLE event_role_state_localized (
+  FOREIGN KEY (event_role,event_role_state) REFERENCES event_role_state (event_role,event_role_state) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_role, event_role_state, translated)
+) INHERITS( base.event_role_state_localized );
+CREATE TABLE log.event_role_state_localized () INHERITS( base.logging, base.event_role_state_localized );
+INSERT INTO event_role_state_localized(event_role,event_role_state,translated,name) SELECT event_role,event_role_state,(SELECT language FROM old_language WHERE old_language.language_id = old_event_role_state_localized.language_id),name FROM old_event_role_state_localized;
+DROP TABLE old_event_role_state_localized;
+
+ALTER TABLE event_person RENAME TO old_event_person;
+CREATE TABLE base.event_person (
+  event_person_id SERIAL NOT NULL,
+  event_id INTEGER NOT NULL,
+  person_id INTEGER NOT NULL,
+  event_role TEXT NOT NULL,
+  event_role_state TEXT,
+  remark TEXT,
+  rank INTEGER
+);
+CREATE TABLE event_person (
+  FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (event_role) REFERENCES event_role (event_role) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (event_role,event_role_state) REFERENCES event_role_state (event_role,event_role_state) ON UPDATE CASCADE ON DELETE RESTRICT,
+  UNIQUE (event_id, person_id, event_role),
+  PRIMARY KEY (event_person_id)
+) INHERITS( base.event_person );
+CREATE TABLE log.event_person () INHERITS( base.logging, base.event_person );
+INSERT INTO event_person(event_id,person_id,event_role,event_role_state,remark,rank) SELECT event_id,person_id,event_role,event_role_state,remark,rank FROM old_event_person;
+DROP TABLE old_event_person;
+DROP TABLE old_event_role_state;
+DROP TABLE old_event_role;
 
 
 

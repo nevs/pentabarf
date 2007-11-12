@@ -2,7 +2,7 @@
 CREATE TABLE base.event_role_localized (
   event_role TEXT NOT NULL,
   translated TEXT NOT NULL,
-  name TEXT
+  name TEXT NOT NULL
 );
 
 CREATE TABLE event_role_localized (
