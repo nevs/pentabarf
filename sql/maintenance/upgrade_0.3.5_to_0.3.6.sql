@@ -1414,7 +1414,31 @@ CREATE TABLE person_transaction (
 INSERT INTO person_transaction( person_id,changed_when,changed_by,f_create) SELECT person_id,changed_when,changed_by,f_create FROM old_person_transaction;
 DROP TABLE old_person_transaction;
 
+ALTER TABLE attachment_type RENAME TO old_attachment_type;
+CREATE TABLE base.attachment_type (
+  attachment_type TEXT NOT NULL,
+  rank INTEGER
+);
+CREATE TABLE attachment_type (
+  PRIMARY KEY (attachment_type)
+) INHERITS( base.attachment_type );
+CREATE TABLE log.attachment_type () INHERITS( base.logging, base.attachment_type );
+INSERT INTO attachment_type(attachment_type,rank) SELECT attachment_type,rank FROM old_attachment_type;
 
+ALTER TABLE attachment_type_localized RENAME TO old_attachment_type_localized;
+CREATE TABLE base.attachment_type_localized (
+  attachment_type TEXT NOT NULL,
+  translated TEXT NOT NULL,
+  name TEXT NOT NULL
+);
+CREATE TABLE attachment_type_localized (
+  FOREIGN KEY (attachment_type) REFERENCES attachment_type (attachment_type) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (translated) REFERENCES language (language) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (attachment_type, translated)
+) INHERITS( base.attachment_type_localized );
+CREATE TABLE log.attachment_type_localized () INHERITS( base.logging, base.attachment_type_localized );
+INSERT INTO attachment_type_localized(attachment_type,translated,name) SELECT attachment_type,(SELECT language FROM old_language WHERE old_language.language_id=old_attachment_type_localized.language_id),name FROM old_attachment_type_localized;
+DROP TABLE attachment_type_localized;
 
 
 
