@@ -1,4 +1,3 @@
-\i views-localization.sql
 \i views/person.sql
 \i views/conference_image_modification.sql
 \i views/conference_person_link_internal.sql
@@ -7,7 +6,6 @@
 \i views/event_image_modification.sql
 \i views/event_link_internal.sql
 \i views/event_person.sql
-\i views/event_rating_public.sql
 \i views/event_rating.sql
 \i views/event_related.sql
 \i views/event.sql
@@ -39,6 +37,7 @@
 \i views/schedule/schedule_simple.sql
 \i views/conference_rating.sql
 \i views/event_feedback.sql
+\i views/event_feedback_statistics.sql
 \i views/view_own_events_participant.sql
 \i views/view_own_events_coordinator.sql
 \i views/view_event_state_statistic.sql
