@@ -1525,41 +1525,80 @@ CREATE TABLE conflict.conflict_level_localized (
 ) INHERITS( base.conflict_level_localized );
 CREATE TABLE log.conflict_level_localized () INHERITS( base.logging, base.conflict_level_localized );
 INSERT INTO conflict.conflict_level_localized(conflict_level,translated,name) SELECT conflict_level,(SELECT language FROM old_language WHERE old_language.language_id=old_conflict_level_localized.language_id),name FROM conflict.old_conflict_level_localized;
-
 DROP TABLE conflict.old_conflict_level_localized;
 
-
-
-
-
+ALTER TABLE conflict.conference_phase_conflict RENAME TO old_conference_phase_conflict;
+CREATE TABLE base.conference_phase_conflict( conference_phase_conflict_id SERIAL NOT NULL, conference_phase TEXT NOT NULL, conflict TEXT NOT NULL, conflict_level TEXT NOT NULL);
+CREATE TABLE conflict.conference_phase_conflict(
+  FOREIGN KEY (conference_phase) REFERENCES conference_phase (conference_phase) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (conflict) REFERENCES conflict.conflict (conflict) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (conflict_level) REFERENCES conflict.conflict_level (conflict_level) ON UPDATE CASCADE ON DELETE RESTRICT,
+  UNIQUE (conference_phase, conflict),
+  PRIMARY KEY (conference_phase_conflict_id)
+) INHERITS( base.conference_phase_conflict );
+CREATE TABLE log.conference_phase_conflict() INHERITS( base.logging, base.conference_phase_conflict );
+INSERT INTO conflict.conference_phase_conflict(conference_phase,conflict,conflict_level) SELECT conference_phase,conflict,conflict_level FROM conflict.old_conference_phase_conflict;
 
 DROP TABLE auth.account_activation;
-
-CREATE TABLE auth.account_activation(
+CREATE TABLE base.account_activation (
   account_id INTEGER UNIQUE NOT NULL,
   conference_id INTEGER,
   activation_string CHAR(64) NOT NULL UNIQUE,
-  account_creation TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  account_creation TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+CREATE TABLE auth.account_activation (
   FOREIGN KEY (account_id) REFERENCES auth.account(account_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (account_id)
-);
+) INHERITS( base.account_activation );
+CREATE TABLE log.account_activation () INHERITS( base.logging, base.account_activation );
 
 DROP TABLE auth.password_reset_string;
-
-CREATE TABLE auth.account_password_reset (
+CREATE TABLE base.account_password_reset (
   account_id INTEGER UNIQUE NOT NULL,
   activation_string CHAR(64) NOT NULL UNIQUE,
-  reset_time TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  reset_time TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+CREATE TABLE auth.account_password_reset (
   PRIMARY KEY (account_id),
   FOREIGN KEY (account_id) REFERENCES auth.account (account_id) ON UPDATE CASCADE ON DELETE CASCADE
-);
+) INHERITS( base.account_password_reset );
+CREATE TABLE log.account_password_reset () INHERITS( base.logging, base.account_password_reset );
 
 DROP FUNCTION auth.hash_password(TEXT);
 
+DROP TABLE log.log_transaction;
+CREATE TABLE base.log_transaction (
+  log_transaction_id SERIAL,
+  log_timestamp TIMESTAMP DEFAULT now(),
+  person_id INTEGER
+);
+CREATE TABLE log.log_transaction (
+  FOREIGN KEY (person_id) REFERENCES person(person_id) ON UPDATE CASCADE ON DELETE SET NULL,
+  PRIMARY KEY( log_transaction_id )
+) INHERITS( base.log_transaction );
 
-ALTER TABLE log.log_transaction DROP CONSTRAINT log_transaction_person_id_fkey;
-ALTER TABLE log.log_transaction ADD CONSTRAINT log_transaction_person_id_fkey FOREIGN KEY(person_id) REFERENCES person(person_id) ON UPDATE CASCADE ON DELETE SET NULL;
+DROP TABLE old_event CASCADE;
+DROP TABLE old_conference_person;
+DROP TABLE old_person CASCADE;
+DROP TABLE old_conference_track;
+DROP TABLE old_conference;
+DROP TABLE old_country;
+DROP TABLE old_link_type;
+DROP TABLE conflict.old_conference_phase_conflict;
+DROP TABLE old_conference_phase;
+DROP TABLE old_timezone;
+DROP TABLE old_currency;
+DROP TABLE old_event_origin;
+DROP TABLE old_event_state_progress;
+DROP TABLE old_language;
+DROP TABLE auth.old_role;
+DROP TABLE old_event_state;
+DROP TABLE old_event_type;
+DROP TABLE conflict.old_conflict;
+DROP TABLE conflict.old_conflict_type;
+DROP TABLE conflict.old_conflict_level;
+DROP TABLE old_phone_type;
 
 COMMIT;
 
