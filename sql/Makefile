@@ -5,7 +5,6 @@ install:
 		-createlang plpgsql
 		${PSQL} -f schema.sql
 		${PSQL} -f tables.sql
-		${PSQL} -f views-localization.sql
 		${PSQL} -f views.sql
 		${PSQL} -f trigger.sql
 		${PSQL} -f activate_trigger.sql
