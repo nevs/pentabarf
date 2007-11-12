@@ -22,6 +22,3 @@ CREATE TABLE auth.account (
   PRIMARY KEY( account_id )
 ) INHERITS( base.account );
 
-CREATE TABLE log.account (
-) INHERITS( base.logging, base.account );
-
