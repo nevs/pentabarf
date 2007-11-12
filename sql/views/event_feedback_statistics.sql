@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE VIEW view_event_feedback AS
+CREATE OR REPLACE VIEW view_event_feedback_statistics AS
   SELECT event.event_id,
          round(sum((participant_knowledge-3)*50::numeric)/count(participant_knowledge), -1) AS participant_knowledge,
          count(participant_knowledge) AS participant_knowledge_count,
@@ -12,7 +12,7 @@ CREATE OR REPLACE VIEW view_event_feedback AS
          round(sum((audience_involvement-3)*50::numeric)/count(audience_involvement), -1) AS audience_involvement,
          count(audience_involvement) AS audience_involvement_count
     FROM event
-         LEFT OUTER JOIN event_rating_public USING (event_id)
+         LEFT OUTER JOIN event_feedback USING (event_id)
    GROUP BY event.event_id
 ;
 
