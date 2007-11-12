@@ -61,7 +61,7 @@ BEGIN;
 \i tables/event.sql
 \i tables/event_image.sql
 \i tables/event_rating.sql
-\i tables/event_rating_public.sql
+\i tables/event_feedback.sql
 \i tables/event_link.sql
 \i tables/event_link_internal.sql
 \i tables/event_role.sql
