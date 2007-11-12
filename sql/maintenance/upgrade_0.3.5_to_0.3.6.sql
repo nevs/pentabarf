@@ -1440,6 +1440,34 @@ CREATE TABLE log.attachment_type_localized () INHERITS( base.logging, base.attac
 INSERT INTO attachment_type_localized(attachment_type,translated,name) SELECT attachment_type,(SELECT language FROM old_language WHERE old_language.language_id=old_attachment_type_localized.language_id),name FROM old_attachment_type_localized;
 DROP TABLE attachment_type_localized;
 
+ALTER TABLE event_attachment RENAME TO old_event_attachment;
+CREATE TABLE base.event_attachment (
+  event_attachment_id SERIAL NOT NULL,
+  attachment_type TEXT NOT NULL,
+  event_id INTEGER NOT NULL,
+  mime_type TEXT NOT NULL,
+  filename TEXT,
+  title TEXT,
+  pages INTEGER,
+  data BYTEA NOT NULL,
+  public BOOL NOT NULL DEFAULT TRUE,
+  CHECK (strpos( filename, '/' ) = 0)
+);
+CREATE TABLE event_attachment (
+  FOREIGN KEY (attachment_type) REFERENCES attachment_type (attachment_type) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (mime_type) REFERENCES mime_type (mime_type) ON UPDATE CASCADE ON DELETE RESTRICT,
+  PRIMARY KEY (event_attachment_id)
+) INHERITS( base.event_attachment );
+CREATE TABLE log.event_attachment () INHERITS( base.logging, base.event_attachment );
+INSERT INTO event_attachment(attachment_type,event_id,mime_type,filename,title,pages,data) SELECT attachment_type,event_id,mime_type,filename,title,pages,data FROM old_event_attachment;
+DROP TABLE old_event_attachment CASCADE;
+DROP TABLE old_event_image CASCADE;
+DROP TABLE old_mime_type;
+DROP TABLE old_attachment_type_localized;
+DROP TABLE old_attachment_type;
+
+
 
 
 
