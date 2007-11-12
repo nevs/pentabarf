@@ -1467,6 +1467,23 @@ DROP TABLE old_mime_type;
 DROP TABLE old_attachment_type_localized;
 DROP TABLE old_attachment_type;
 
+ALTER TABLE event_related RENAME TO old_event_related;
+CREATE TABLE base.event_related (
+  event_id1 INTEGER NOT NULL,
+  event_id2 INTEGER NOT NULL,
+  CHECK (event_id1 <> event_id2)
+);
+CREATE TABLE event_related (
+  event_id1 INTEGER NOT NULL,
+  event_id2 INTEGER NOT NULL,
+  FOREIGN KEY (event_id1) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (event_id2) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_id1, event_id2)
+) INHERITS( base.event_related );
+CREATE TABLE log.event_related () INHERITS( base.logging, base.event_related );
+INSERT INTO event_related(event_id1,event_id2) SELECT event_id1,event_id2 FROM old_event_related;
+DROP TABLE old_event_related CASCADE;
+
 
 
 
