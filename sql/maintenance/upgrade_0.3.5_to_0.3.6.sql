@@ -1366,6 +1366,53 @@ DROP TABLE old_event_person;
 DROP TABLE old_event_role_state;
 DROP TABLE old_event_role;
 
+ALTER TABLE conference_transaction RENAME TO old_conference_transaction;
+CREATE TABLE base.conference_transaction (
+  conference_transaction_id SERIAL NOT NULL,
+  conference_id INTEGER NOT NULL,
+  changed_when TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  changed_by INTEGER NOT NULL,
+  f_create BOOL NOT NULL DEFAULT FALSE
+);
+CREATE TABLE conference_transaction (
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (changed_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conference_transaction_id)
+) INHERITS( base.conference_transaction );
+INSERT INTO conference_transaction( conference_id,changed_when,changed_by,f_create ) SELECT conference_id,changed_when,changed_by,f_create FROM old_conference_transaction;
+DROP TABLE old_conference_transaction;
+
+ALTER TABLE event_transaction RENAME TO old_event_transaction;
+CREATE TABLE base.event_transaction (
+  event_transaction_id SERIAL NOT NULL,
+  event_id INTEGER NOT NULL,
+  changed_when TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  changed_by INTEGER NOT NULL,
+  f_create BOOL NOT NULL DEFAULT FALSE
+);
+CREATE TABLE event_transaction (
+  FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (changed_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_transaction_id)
+) INHERITS( base.event_transaction );
+INSERT INTO event_transaction( event_id,changed_when,changed_by,f_create) SELECT event_id,changed_when,changed_by,f_create FROM old_event_transaction;
+DROP TABLE old_event_transaction;
+
+ALTER TABLE person_transaction RENAME TO old_person_transaction;
+CREATE TABLE base.person_transaction (
+  person_transaction_id SERIAL NOT NULL,
+  person_id INTEGER NOT NULL,
+  changed_when TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  changed_by INTEGER NOT NULL,
+  f_create BOOL NOT NULL DEFAULT FALSE
+);
+CREATE TABLE person_transaction (
+  FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (changed_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (person_transaction_id)
+) INHERITS( base.person_transaction );
+INSERT INTO person_transaction( person_id,changed_when,changed_by,f_create) SELECT person_id,changed_when,changed_by,f_create FROM old_person_transaction;
+DROP TABLE old_person_transaction;
 
 
 
@@ -1400,47 +1447,9 @@ CREATE TABLE auth.account_password_reset (
 
 DROP FUNCTION auth.hash_password(TEXT);
 
-ALTER TABLE person_transaction RENAME TO old_person_transaction;
-
-CREATE TABLE person_transaction (
-  person_transaction_id SERIAL,
-  person_id INTEGER NOT NULL,
-  changed_when TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
-  changed_by INTEGER NOT NULL,
-  f_create BOOL NOT NULL DEFAULT FALSE,
-  FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  FOREIGN KEY (changed_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  PRIMARY KEY (person_transaction_id)
-);
-
-INSERT INTO person_transaction(person_transaction_id,person_id,changed_when,changed_by,f_create) SELECT person_transaction_id,person_id,changed_when,changed_by,f_create FROM old_person_transaction;
-
-SELECT setval(pg_get_serial_sequence('person_transaction','person_transaction_id'),(SELECT max(person_transaction_id) FROM person_transaction));
-
-DROP TABLE old_person_transaction CASCADE;
 
 ALTER TABLE log.log_transaction DROP CONSTRAINT log_transaction_person_id_fkey;
 ALTER TABLE log.log_transaction ADD CONSTRAINT log_transaction_person_id_fkey FOREIGN KEY(person_id) REFERENCES person(person_id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-ALTER TABLE conference_transaction RENAME TO old_conference_transaction;
-
-CREATE TABLE conference_transaction (
-  conference_transaction_id SERIAL,
-  conference_id INTEGER NOT NULL,
-  changed_when TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
-  changed_by INTEGER NOT NULL,
-  f_create BOOL NOT NULL DEFAULT FALSE,
-  FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  FOREIGN KEY (changed_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  PRIMARY KEY (conference_transaction_id)
-);
-
-INSERT INTO conference_transaction(conference_transaction_id,conference_id,changed_when,changed_by,f_create) SELECT conference_transaction_id,conference_id,changed_when,changed_by,f_create FROM old_conference_transaction;
-
-SELECT setval(pg_get_serial_sequence('conference_transaction','conference_transaction_id'),(SELECT max(conference_transaction_id) FROM conference_transaction));
-
-DROP TABLE old_conference_transaction CASCADE;
-
 
 COMMIT;
 
