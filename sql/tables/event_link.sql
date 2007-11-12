@@ -1,13 +1,17 @@
 
-CREATE TABLE event_link (
+CREATE TABLE base.event_link (
   event_link_id SERIAL NOT NULL,
   event_id INTEGER NOT NULL,
-  url VARCHAR(1024) NOT NULL,
-  title VARCHAR(256),
-  rank INTEGER,
-  last_modified TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
-  last_modified_by INTEGER,
+  url TEXT NOT NULL,
+  title TEXT,
+  rank INTEGER
+);
+
+CREATE TABLE event_link (
   FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (event_link_id)
-);
+) INHERITS( base.event_link );
+
+CREATE TABLE log.event_link (
+) INHERITS( base.logging, base.event_link );
 

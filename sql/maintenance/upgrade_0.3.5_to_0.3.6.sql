@@ -1233,6 +1233,7 @@ CREATE TABLE event (
 ) INHERITS( base.event );
 CREATE TABLE log.event () INHERITS( base.logging, base.event );
 INSERT INTO event( event_id,conference_id,tag,title,subtitle,conference_track,conference_team,event_type,duration,event_origin,event_state,event_state_progress,language,conference_room,day,start_time,abstract,description,resources,public,paper,slides,remark,submission_notes ) SELECT event_id,conference_id,tag,title,subtitle,(SELECT tag FROM old_conference_track WHERE old_conference_track.conference_track_id = old_event.conference_track_id),conference_team,event_type,duration,event_origin,event_state,event_state_progress,(SELECT language FROM old_language WHERE old_language.language_id = old_event.language_id),conference_room,day,start_time,abstract,description,resources,f_public,f_paper,f_slides,remark,submission_notes FROM old_event;
+SELECT setval(pg_get_serial_sequence('base.event','event_id'),(SELECT max(event_id) FROM event));
 
 ALTER TABLE event_image RENAME TO old_event_image;
 CREATE TABLE base.event_image ( event_id INTEGER NOT NULL, mime_type TEXT NOT NULL, image BYTEA NOT NULL);
@@ -1276,6 +1277,26 @@ CREATE TABLE log.event_feedback () INHERITS( base.logging, base.event_feedback )
 INSERT INTO event_feedback(event_id,participant_knowledge,topic_importance,content_quality,presentation_quality,audience_involvement,remark,eval_time) SELECT event_id,participant_knowledge,topic_importance,content_quality,presentation_quality,audience_involvement,remark,eval_time FROM event_rating_public;
 DROP TABLE event_rating_public CASCADE;
 
+ALTER TABLE event_link RENAME TO old_event_link;
+CREATE TABLE base.event_link ( event_link_id SERIAL NOT NULL, event_id INTEGER NOT NULL, url TEXT NOT NULL, title TEXT, rank INTEGER);
+CREATE TABLE event_link (
+  FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_link_id)
+) INHERITS( base.event_link );
+CREATE TABLE log.event_link () INHERITS( base.logging, base.event_link );
+INSERT INTO event_link(event_id,url,title,rank) SELECT event_id,url,title,rank FROM old_event_link;
+DROP TABLE old_event_link;
+
+ALTER TABLE event_link_internal RENAME TO old_event_link_internal;
+CREATE TABLE base.event_link_internal ( event_link_internal_id SERIAL NOT NULL, event_id INTEGER NOT NULL, link_type TEXT NOT NULL, url TEXT NOT NULL, description TEXT, rank INTEGER);
+CREATE TABLE event_link_internal (
+  FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (link_type) REFERENCES link_type (link_type) ON UPDATE CASCADE ON DELETE RESTRICT,
+  PRIMARY KEY (event_link_internal_id)
+) INHERITS( base.event_link_internal );
+CREATE TABLE log.event_link_internal () INHERITS( base.logging, base.event_link_internal );
+INSERT INTO event_link_internal(event_id,link_type,url,description,rank) SELECT event_id,link_type,url,description,rank FROM old_event_link_internal;
+DROP TABLE old_event_link_internal;
 
 
 
