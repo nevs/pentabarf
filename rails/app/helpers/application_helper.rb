@@ -32,7 +32,7 @@ module ApplicationHelper
   end
 
   def local( tag )
-    Localizer.lookup( tag.to_s, @current_language_id )
+    Localizer.lookup( tag.to_s, @current_language )
   end
 
   def js( text )
