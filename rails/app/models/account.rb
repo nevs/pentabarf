@@ -23,8 +23,8 @@ class Account < Momomoto::Table
       get_column(:current_conference_id) || 1
     end
 
-    def current_language_id
-      get_column(:current_language_id) || 120
+    def current_language
+      get_column(:current_language) || 'en'
     end
 
     def preferences
