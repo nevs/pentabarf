@@ -4,15 +4,14 @@ CREATE OR REPLACE FUNCTION submit_event( e_person_id INTEGER, e_conference_id IN
   DECLARE
     new_event_id INTEGER;
   BEGIN
-    SELECT INTO new_event_id nextval('event_event_id_seq');
+    SELECT INTO new_event_id nextval(pg_get_serial_sequence('base.event','event_id'));
     INSERT INTO event( event_id,
                        conference_id,
                        title,
                        duration,
                        event_state,
                        event_state_progress,
-                       event_origin,
-                       last_modified_by )
+                       event_origin )
               VALUES ( new_event_id,
                        e_conference_id,
                        e_title,
@@ -21,28 +20,23 @@ CREATE OR REPLACE FUNCTION submit_event( e_person_id INTEGER, e_conference_id IN
                           WHERE conference.conference_id = e_conference_id ),
                        'undecided',
                        'new',
-                       'submission',
-                       e_person_id );
+                       'submission' );
 
     INSERT INTO event_person( event_id,
                               person_id,
                               event_role,
-                              event_role_state,
-                              last_modified_by)
+                              event_role_state )
                      VALUES ( new_event_id,
                               e_person_id,
                               'speaker',
-                              'offer',
-                              e_person_id);
+                              'offer' );
 
     INSERT INTO event_person( event_id,
                               person_id,
-                              event_role,
-                              last_modified_by)
+                              event_role )
                      VALUES ( new_event_id,
                               e_person_id,
-                              'submitter',
-                              e_person_id);
+                              'submitter' );
     RETURN new_event_id;
   END;
 $$ LANGUAGE plpgsql RETURNS NULL ON NULL INPUT;
