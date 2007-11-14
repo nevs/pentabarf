@@ -42,5 +42,6 @@
 \i views/view_own_events_coordinator.sql
 \i views/view_event_state_statistic.sql
 \i views/view_event_state_progress_statistic.sql
+\i views/view_conference_language.sql
 
 
