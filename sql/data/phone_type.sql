@@ -12,14 +12,14 @@ SET search_path = public, pg_catalog;
 -- Data for Name: phone_type; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO phone_type (scheme, rank, phone_type) VALUES ('tel', NULL, 'phone');
-INSERT INTO phone_type (scheme, rank, phone_type) VALUES ('tel', NULL, 'mobile');
-INSERT INTO phone_type (scheme, rank, phone_type) VALUES ('tel', NULL, 'secretary');
-INSERT INTO phone_type (scheme, rank, phone_type) VALUES ('tel', NULL, 'work');
-INSERT INTO phone_type (scheme, rank, phone_type) VALUES ('tel', NULL, 'private');
-INSERT INTO phone_type (scheme, rank, phone_type) VALUES ('tel', NULL, 'dect');
-INSERT INTO phone_type (scheme, rank, phone_type) VALUES ('skype', NULL, 'skype');
-INSERT INTO phone_type (scheme, rank, phone_type) VALUES ('fax', NULL, 'fax');
+INSERT INTO phone_type (phone_type, scheme, rank) VALUES ('phone', 'tel', NULL);
+INSERT INTO phone_type (phone_type, scheme, rank) VALUES ('mobile', 'tel', NULL);
+INSERT INTO phone_type (phone_type, scheme, rank) VALUES ('secretary', 'tel', NULL);
+INSERT INTO phone_type (phone_type, scheme, rank) VALUES ('work', 'tel', NULL);
+INSERT INTO phone_type (phone_type, scheme, rank) VALUES ('private', 'tel', NULL);
+INSERT INTO phone_type (phone_type, scheme, rank) VALUES ('dect', 'tel', NULL);
+INSERT INTO phone_type (phone_type, scheme, rank) VALUES ('skype', 'skype', NULL);
+INSERT INTO phone_type (phone_type, scheme, rank) VALUES ('fax', 'fax', NULL);
 
 
 --

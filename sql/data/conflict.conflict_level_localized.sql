@@ -12,16 +12,16 @@ SET search_path = conflict, pg_catalog;
 -- Data for Name: conflict_level_localized; Type: TABLE DATA; Schema: conflict; Owner: -
 --
 
-INSERT INTO conflict_level_localized (language_id, name, conflict_level) VALUES (120, 'Other notes', 'note');
-INSERT INTO conflict_level_localized (language_id, name, conflict_level) VALUES (144, 'Weitere Hinweise', 'note');
-INSERT INTO conflict_level_localized (language_id, name, conflict_level) VALUES (120, 'Please observe', 'warning');
-INSERT INTO conflict_level_localized (language_id, name, conflict_level) VALUES (120, 'Should be fixed', 'error');
-INSERT INTO conflict_level_localized (language_id, name, conflict_level) VALUES (144, 'Sollte behoben werden', 'error');
-INSERT INTO conflict_level_localized (language_id, name, conflict_level) VALUES (120, 'Must be fixed', 'fatal');
-INSERT INTO conflict_level_localized (language_id, name, conflict_level) VALUES (144, 'Muss behoben werden', 'fatal');
-INSERT INTO conflict_level_localized (language_id, name, conflict_level) VALUES (144, 'Bitte beachten', 'warning');
-INSERT INTO conflict_level_localized (language_id, name, conflict_level) VALUES (120, 'silent', 'silent');
-INSERT INTO conflict_level_localized (language_id, name, conflict_level) VALUES (144, 'still', 'silent');
+INSERT INTO conflict_level_localized (conflict_level, translated, name) VALUES ('note', 'en', 'Other notes');
+INSERT INTO conflict_level_localized (conflict_level, translated, name) VALUES ('note', 'de', 'Weitere Hinweise');
+INSERT INTO conflict_level_localized (conflict_level, translated, name) VALUES ('warning', 'en', 'Please observe');
+INSERT INTO conflict_level_localized (conflict_level, translated, name) VALUES ('error', 'en', 'Should be fixed');
+INSERT INTO conflict_level_localized (conflict_level, translated, name) VALUES ('error', 'de', 'Sollte behoben werden');
+INSERT INTO conflict_level_localized (conflict_level, translated, name) VALUES ('fatal', 'en', 'Must be fixed');
+INSERT INTO conflict_level_localized (conflict_level, translated, name) VALUES ('fatal', 'de', 'Muss behoben werden');
+INSERT INTO conflict_level_localized (conflict_level, translated, name) VALUES ('warning', 'de', 'Bitte beachten');
+INSERT INTO conflict_level_localized (conflict_level, translated, name) VALUES ('silent', 'en', 'silent');
+INSERT INTO conflict_level_localized (conflict_level, translated, name) VALUES ('silent', 'de', 'still');
 
 
 --

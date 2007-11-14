@@ -12,11 +12,11 @@ SET search_path = public, pg_catalog;
 -- Data for Name: attachment_type; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO attachment_type (rank, attachment_type) VALUES (1, 'slides');
-INSERT INTO attachment_type (rank, attachment_type) VALUES (2, 'paper');
-INSERT INTO attachment_type (rank, attachment_type) VALUES (3, 'other');
-INSERT INTO attachment_type (rank, attachment_type) VALUES (4, 'audio');
-INSERT INTO attachment_type (rank, attachment_type) VALUES (5, 'video');
+INSERT INTO attachment_type (attachment_type, rank) VALUES ('slides', 1);
+INSERT INTO attachment_type (attachment_type, rank) VALUES ('paper', 2);
+INSERT INTO attachment_type (attachment_type, rank) VALUES ('other', 3);
+INSERT INTO attachment_type (attachment_type, rank) VALUES ('audio', 4);
+INSERT INTO attachment_type (attachment_type, rank) VALUES ('video', 5);
 
 
 --

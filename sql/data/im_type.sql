@@ -12,12 +12,12 @@ SET search_path = public, pg_catalog;
 -- Data for Name: im_type; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO im_type (scheme, rank, im_type) VALUES ('jabber', 1, 'jabber');
-INSERT INTO im_type (scheme, rank, im_type) VALUES ('icq', 2, 'icq');
-INSERT INTO im_type (scheme, rank, im_type) VALUES ('aim', 3, 'aim');
-INSERT INTO im_type (scheme, rank, im_type) VALUES ('msn', 4, 'msn');
-INSERT INTO im_type (scheme, rank, im_type) VALUES ('yahoo', 5, 'yahoo');
-INSERT INTO im_type (scheme, rank, im_type) VALUES ('gadugadu', 6, 'gadugadu');
+INSERT INTO im_type (im_type, scheme, rank) VALUES ('jabber', 'jabber', 1);
+INSERT INTO im_type (im_type, scheme, rank) VALUES ('icq', 'icq', 2);
+INSERT INTO im_type (im_type, scheme, rank) VALUES ('aim', 'aim', 3);
+INSERT INTO im_type (im_type, scheme, rank) VALUES ('msn', 'msn', 4);
+INSERT INTO im_type (im_type, scheme, rank) VALUES ('yahoo', 'yahoo', 5);
+INSERT INTO im_type (im_type, scheme, rank) VALUES ('gadugadu', 'gadugadu', 6);
 
 
 --

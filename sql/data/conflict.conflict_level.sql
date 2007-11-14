@@ -12,11 +12,11 @@ SET search_path = conflict, pg_catalog;
 -- Data for Name: conflict_level; Type: TABLE DATA; Schema: conflict; Owner: -
 --
 
-INSERT INTO conflict_level (rank, conflict_level) VALUES (1, 'silent');
-INSERT INTO conflict_level (rank, conflict_level) VALUES (3, 'warning');
-INSERT INTO conflict_level (rank, conflict_level) VALUES (5, 'fatal');
-INSERT INTO conflict_level (rank, conflict_level) VALUES (2, 'note');
-INSERT INTO conflict_level (rank, conflict_level) VALUES (4, 'error');
+INSERT INTO conflict_level (conflict_level, rank) VALUES ('silent', 1);
+INSERT INTO conflict_level (conflict_level, rank) VALUES ('warning', 3);
+INSERT INTO conflict_level (conflict_level, rank) VALUES ('fatal', 5);
+INSERT INTO conflict_level (conflict_level, rank) VALUES ('note', 2);
+INSERT INTO conflict_level (conflict_level, rank) VALUES ('error', 4);
 
 
 --

@@ -12,16 +12,16 @@ SET search_path = public, pg_catalog;
 -- Data for Name: transport_localized; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO transport_localized (transport_id, language_id, name) VALUES (1, 144, 'Zug');
-INSERT INTO transport_localized (transport_id, language_id, name) VALUES (3, 144, 'Auto');
-INSERT INTO transport_localized (transport_id, language_id, name) VALUES (4, 144, 'UFO');
-INSERT INTO transport_localized (transport_id, language_id, name) VALUES (5, 144, 'U-Boot');
-INSERT INTO transport_localized (transport_id, language_id, name) VALUES (4, 120, 'UFO');
-INSERT INTO transport_localized (transport_id, language_id, name) VALUES (2, 144, 'Flugzeug');
-INSERT INTO transport_localized (transport_id, language_id, name) VALUES (1, 120, 'Train');
-INSERT INTO transport_localized (transport_id, language_id, name) VALUES (2, 120, 'Plane');
-INSERT INTO transport_localized (transport_id, language_id, name) VALUES (3, 120, 'Car');
-INSERT INTO transport_localized (transport_id, language_id, name) VALUES (5, 120, 'Submarine');
+INSERT INTO transport_localized (transport, translated, name) VALUES ('train', 'de', 'Zug');
+INSERT INTO transport_localized (transport, translated, name) VALUES ('car', 'de', 'Auto');
+INSERT INTO transport_localized (transport, translated, name) VALUES ('ufo', 'de', 'UFO');
+INSERT INTO transport_localized (transport, translated, name) VALUES ('submarine', 'de', 'U-Boot');
+INSERT INTO transport_localized (transport, translated, name) VALUES ('ufo', 'en', 'UFO');
+INSERT INTO transport_localized (transport, translated, name) VALUES ('plane', 'de', 'Flugzeug');
+INSERT INTO transport_localized (transport, translated, name) VALUES ('train', 'en', 'Train');
+INSERT INTO transport_localized (transport, translated, name) VALUES ('plane', 'en', 'Plane');
+INSERT INTO transport_localized (transport, translated, name) VALUES ('car', 'en', 'Car');
+INSERT INTO transport_localized (transport, translated, name) VALUES ('submarine', 'en', 'Submarine');
 
 
 --

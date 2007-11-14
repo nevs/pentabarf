@@ -12,22 +12,22 @@ SET search_path = public, pg_catalog;
 -- Data for Name: phone_type_localized; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (144, 'Telefon', 'phone');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (144, 'Fax', 'fax');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (144, 'Mobil', 'mobile');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (144, 'Arbeit', 'work');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (144, 'Privat', 'private');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (144, 'DECT', 'dect');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (144, 'Skype', 'skype');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (120, 'Telephone', 'phone');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (120, 'Fax', 'fax');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (120, 'Mobile', 'mobile');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (120, 'Secretary', 'secretary');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (120, 'Work', 'work');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (120, 'Private', 'private');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (120, 'DECT', 'dect');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (120, 'Skype', 'skype');
-INSERT INTO phone_type_localized (language_id, name, phone_type) VALUES (144, 'Sekretariat', 'secretary');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('phone', 'de', 'Telefon');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('fax', 'de', 'Fax');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('mobile', 'de', 'Mobil');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('work', 'de', 'Arbeit');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('private', 'de', 'Privat');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('dect', 'de', 'DECT');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('skype', 'de', 'Skype');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('phone', 'en', 'Telephone');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('fax', 'en', 'Fax');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('mobile', 'en', 'Mobile');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('secretary', 'en', 'Secretary');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('work', 'en', 'Work');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('private', 'en', 'Private');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('dect', 'en', 'DECT');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('skype', 'en', 'Skype');
+INSERT INTO phone_type_localized (phone_type, translated, name) VALUES ('secretary', 'de', 'Sekretariat');
 
 
 --

@@ -12,14 +12,14 @@ SET search_path = public, pg_catalog;
 -- Data for Name: event_role; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO event_role (rank, event_role) VALUES (1, 'speaker');
-INSERT INTO event_role (rank, event_role) VALUES (4, 'visitor');
-INSERT INTO event_role (rank, event_role) VALUES (NULL, 'reporter');
-INSERT INTO event_role (rank, event_role) VALUES (NULL, 'reviewer');
-INSERT INTO event_role (rank, event_role) VALUES (NULL, 'attendee');
-INSERT INTO event_role (rank, event_role) VALUES (NULL, 'submitter');
-INSERT INTO event_role (rank, event_role) VALUES (2, 'moderator');
-INSERT INTO event_role (rank, event_role) VALUES (3, 'coordinator');
+INSERT INTO event_role (event_role, rank) VALUES ('speaker', 1);
+INSERT INTO event_role (event_role, rank) VALUES ('visitor', 4);
+INSERT INTO event_role (event_role, rank) VALUES ('reporter', NULL);
+INSERT INTO event_role (event_role, rank) VALUES ('reviewer', NULL);
+INSERT INTO event_role (event_role, rank) VALUES ('attendee', NULL);
+INSERT INTO event_role (event_role, rank) VALUES ('submitter', NULL);
+INSERT INTO event_role (event_role, rank) VALUES ('moderator', 2);
+INSERT INTO event_role (event_role, rank) VALUES ('coordinator', 3);
 
 
 --

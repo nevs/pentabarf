@@ -12,22 +12,22 @@ SET search_path = public, pg_catalog;
 -- Data for Name: event_type_localized; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (120, 'Lecture', 'lecture');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (120, 'Workshop', 'workshop');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (120, 'Movie', 'movie');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (120, 'Podium', 'podium');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (120, 'Meeting', 'meeting');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (120, 'Other', 'other');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (144, 'Podium', 'podium');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (144, 'Treffen', 'meeting');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (144, 'Sonstiges', 'other');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (144, 'Vortrag', 'lecture');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (144, 'Workshop', 'workshop');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (144, 'Film', 'movie');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (120, 'Lightning-Talk', 'lightning');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (144, 'Lightning-Talk', 'lightning');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (120, 'Contest', 'contest');
-INSERT INTO event_type_localized (language_id, name, event_type) VALUES (144, 'Wettkampf', 'contest');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('lecture', 'en', 'Lecture');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('workshop', 'en', 'Workshop');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('movie', 'en', 'Movie');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('podium', 'en', 'Podium');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('meeting', 'en', 'Meeting');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('other', 'en', 'Other');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('podium', 'de', 'Podium');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('meeting', 'de', 'Treffen');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('other', 'de', 'Sonstiges');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('lecture', 'de', 'Vortrag');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('workshop', 'de', 'Workshop');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('movie', 'de', 'Film');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('lightning', 'en', 'Lightning-Talk');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('lightning', 'de', 'Lightning-Talk');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('contest', 'en', 'Contest');
+INSERT INTO event_type_localized (event_type, translated, name) VALUES ('contest', 'de', 'Wettkampf');
 
 
 --

@@ -12,20 +12,20 @@ SET search_path = public, pg_catalog;
 -- Data for Name: event_role_state; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (1, 'moderator', 'idea');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (2, 'moderator', 'enquired');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (3, 'moderator', 'canceled');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (4, 'moderator', 'declined');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (5, 'moderator', 'confirmed');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (5, 'speaker', 'confirmed');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (6, 'moderator', 'unclear');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (7, 'moderator', 'offer');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (1, 'speaker', 'idea');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (2, 'speaker', 'enquired');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (3, 'speaker', 'canceled');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (4, 'speaker', 'declined');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (6, 'speaker', 'unclear');
-INSERT INTO event_role_state (rank, event_role, event_role_state) VALUES (7, 'speaker', 'offer');
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('idea', 'moderator', 1);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('enquired', 'moderator', 2);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('canceled', 'moderator', 3);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('declined', 'moderator', 4);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('confirmed', 'moderator', 5);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('confirmed', 'speaker', 5);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('unclear', 'moderator', 6);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('offer', 'moderator', 7);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('idea', 'speaker', 1);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('enquired', 'speaker', 2);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('canceled', 'speaker', 3);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('declined', 'speaker', 4);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('unclear', 'speaker', 6);
+INSERT INTO event_role_state (event_role_state, event_role, rank) VALUES ('offer', 'speaker', 7);
 
 
 --

@@ -12,11 +12,11 @@ SET search_path = public, pg_catalog;
 -- Data for Name: conference_phase; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO conference_phase (rank, conference_phase) VALUES (1, 'chaos');
-INSERT INTO conference_phase (rank, conference_phase) VALUES (2, 'discord');
-INSERT INTO conference_phase (rank, conference_phase) VALUES (3, 'confusion');
-INSERT INTO conference_phase (rank, conference_phase) VALUES (4, 'bureaucracy');
-INSERT INTO conference_phase (rank, conference_phase) VALUES (5, 'aftermath');
+INSERT INTO conference_phase (conference_phase, rank) VALUES ('chaos', 1);
+INSERT INTO conference_phase (conference_phase, rank) VALUES ('discord', 2);
+INSERT INTO conference_phase (conference_phase, rank) VALUES ('confusion', 3);
+INSERT INTO conference_phase (conference_phase, rank) VALUES ('bureaucracy', 4);
+INSERT INTO conference_phase (conference_phase, rank) VALUES ('aftermath', 5);
 
 
 --
