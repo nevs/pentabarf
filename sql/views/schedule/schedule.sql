@@ -19,6 +19,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.abstract,
           event.description,
           event.public,
+          translated.language AS translated,
           language_localized.name AS language_name,
           event_type_localized.name AS event_type_name,
           (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
