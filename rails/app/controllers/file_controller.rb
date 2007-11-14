@@ -1,11 +1,11 @@
 class FileController < ApplicationController
 
   def initialize
-    @current_language_id = 120
+    @current_language = 120
   end
 
   def event_attachment
-    data = View_event_attachment.select_single({:event_attachment_id => params[:id], :language_id => @current_language_id})
+    data = View_event_attachment.select_single({:event_attachment_id => params[:id], :language_id => @current_language})
     file = Event_attachment.select_single({:event_attachment_id => params[:id]})
     response.headers['Content-Disposition'] = "attachment; filename=\"#{file.filename}\""
     response.headers['Content-Type'] = data.mime_type
