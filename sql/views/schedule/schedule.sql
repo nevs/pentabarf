@@ -29,7 +29,7 @@ CREATE OR REPLACE VIEW view_schedule AS
                 FROM event_person
                 INNER JOIN event_role USING(event_role)
                 JOIN event_role_localized ON (
-                  event_role_localized.language_id = view_room.language_id AND
+                  event_role_localized.translated = translated.language AND
                   event_role_localized.event_role = event_person.event_role )
                 JOIN view_person USING (person_id)
                 WHERE
@@ -44,13 +44,12 @@ CREATE OR REPLACE VIEW view_schedule AS
             ', '
           ) AS persons
      FROM event
+          CROSS JOIN language AS translated
           INNER JOIN conference USING (conference_id)
           LEFT OUTER JOIN language_localized ON (
-              language_localized.translated = view_room.language AND
+              language_localized.translated = translated.language AND
               language_localized.language = event.language )
-          LEFT OUTER JOIN event_type_localized ON (
-                event.event_type = event_type_localized.event_type AND
-                view_room.language_id = event_type_localized.language_id)
+          LEFT OUTER JOIN event_type_localized USING (event_type,translated)
     WHERE event.day IS NOT NULL AND
           event.start_time IS NOT NULL AND
           event.conference_room IS NOT NULL AND

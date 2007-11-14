@@ -10,10 +10,9 @@ CREATE OR REPLACE VIEW view_event_attachment AS
          filename,
          title,
          pages,
-         f_public,
-         last_modified,
+         public,
          octet_length( data ) AS filesize,
-         attachment_type_localized.language_id
+         attachment_type_localized.translated
     FROM event_attachment
          INNER JOIN (
              SELECT event_id,
@@ -21,6 +20,6 @@ CREATE OR REPLACE VIEW view_event_attachment AS
                FROM event
          ) AS event USING (event_id)
          INNER JOIN attachment_type_localized USING (attachment_type)
-         INNER JOIN mime_type_localized USING (mime_type, language_id)
+         INNER JOIN mime_type_localized USING (mime_type, translated)
 ;
 

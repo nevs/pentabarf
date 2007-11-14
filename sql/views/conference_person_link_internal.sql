@@ -6,7 +6,7 @@ CREATE OR REPLACE VIEW view_conference_person_link_internal AS
          url,
          description,
          conference_person_link_internal.rank,
-         language_id,
+         translated,
          template,
          link_type_localized.name AS link_type_name
     FROM conference_person_link_internal
