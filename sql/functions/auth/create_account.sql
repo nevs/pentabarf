@@ -12,7 +12,7 @@ CREATE OR REPLACE FUNCTION auth.create_account( p_login_name VARCHAR(32), p_emai
       RAISE EXCEPTION 'login name already in use.';
     END IF;
 
-    SELECT INTO new_account_id nextval(pg_get_serial_sequence('auth.account', 'account_id'));
+    SELECT INTO new_account_id nextval(pg_get_serial_sequence('base.account', 'account_id'));
     SELECT INTO binary_salt gen_random_bytes(8);
     INSERT INTO auth.account(account_id, login_name, email, salt, password) VALUES (new_account_id, p_login_name, p_email, encode(binary_salt, 'hex'::text), md5(binary_salt||textsend(p_password)));
 
