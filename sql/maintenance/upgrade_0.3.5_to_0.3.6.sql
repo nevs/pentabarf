@@ -1243,7 +1243,7 @@ CREATE TABLE event_image (
 ) INHERITS( base.event_image );
 CREATE TABLE log.event_image () INHERITS( base.logging, base.event_image );
 INSERT INTO event_image(event_id,mime_type,image) SELECT event_id,mime_type,image FROM old_event_image;
-DROP TABLE event_image CASCADE;
+DROP TABLE old_event_image CASCADE;
 
 ALTER TABLE event_rating RENAME TO old_event_rating;
 CREATE TABLE base.event_rating ( person_id INTEGER NOT NULL, event_id INTEGER NOT NULL, relevance SMALLINT CHECK (relevance > 0 AND relevance < 6), actuality SMALLINT CHECK (actuality > 0 AND actuality < 6), acceptance SMALLINT CHECK (acceptance > 0 AND acceptance < 6), remark TEXT, eval_time TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now());
@@ -1437,7 +1437,7 @@ CREATE TABLE attachment_type_localized (
 ) INHERITS( base.attachment_type_localized );
 CREATE TABLE log.attachment_type_localized () INHERITS( base.logging, base.attachment_type_localized );
 INSERT INTO attachment_type_localized(attachment_type,translated,name) SELECT attachment_type,(SELECT language FROM old_language WHERE old_language.language_id=old_attachment_type_localized.language_id),name FROM old_attachment_type_localized;
-DROP TABLE attachment_type_localized;
+DROP TABLE old_attachment_type_localized;
 
 ALTER TABLE event_attachment RENAME TO old_event_attachment;
 CREATE TABLE base.event_attachment (
