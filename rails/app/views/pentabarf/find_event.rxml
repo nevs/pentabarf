@@ -45,7 +45,7 @@ xml.div({:id=>:data}) do
         xml << select_tag('search_event[row_id][value]', Conference_track.select({:conference_id=>@current_conference.conference_id}).map(&:conference_track))
       end
       # search for room
-      xml.li({:class=>:room_id,:title=>local(:room)}) do
+      xml.li({:class=>:conference_room,:title=>local(:conference_room)}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_room})
         xml << select_tag('search_event[row_id][value]', Conference_room.select({:conference_id=>@current_conference.conference_id}).map(&:conference_room))
       end

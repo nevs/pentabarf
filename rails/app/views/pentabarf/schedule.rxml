@@ -8,12 +8,12 @@ colors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosyb
 xml.div({:id=>:data}) do
   xml << js_tabs(day_tabs)
 
-  track_color = []
+  track_color = {}
   xml.div({:id=>:colors}) do
     Conference_track.select({:conference_id=>@current_conference.conference_id}).each_with_index do | track, index |
       track_color[track.conference_track] = colors[index % colors.length]
       xml.span({:style=>"margin: 20px 3px;padding: 5px 15px; background-color: #{track_color[track.conference_track]}"}) do
-        xml.strong(track.name)
+        xml.strong(track.conference_track)
       end
     end
   end
@@ -26,7 +26,7 @@ xml.div({:id=>:data}) do
           xml.tr do
             xml.th(local(:time))
             rooms.each do | room |
-              xml.th(room.name)
+              xml.th(room.conference_room)
             end
           end
         end
@@ -36,13 +36,13 @@ xml.div({:id=>:data}) do
             xml.tr do
               xml.td(row[0])
               rooms.each do | room |
-                next if row[room.room_id] == 0
-                if row[room.room_id].nil?
+                next if row[room.conference_room] == 0
+                if row[room.conference_room].nil?
                   xml.td
                 else
-                  event = @events.select{|e| e.event_id == row[room.room_id][:event_id]}.first
-                  xml.td({:rowspan=>row[room.room_id][:slots],:style=>"background-color: #{track_color[event.conference_track || 0]}"}) do
-                    xml.a({:href=>url_for({:action=>:event,:id=>row[room.room_id][:event_id]})}) do
+                  event = @events.select{|e| e.event_id == row[room.conference_room][:event_id]}.first
+                  xml.td({:rowspan=>row[room.conference_room][:slots],:style=>"background-color: #{track_color[event.conference_track || 0]}"}) do
+                    xml.a({:href=>url_for({:action=>:event,:id=>row[room.conference_room][:event_id]})}) do
                       xml.strong(event.title)
                       if event.subtitle
                         xml.br

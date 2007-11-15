@@ -16,7 +16,7 @@ xml.schedule do
     day += 1
     xml.day(:index=>day,:date=>(@conference.start_date + (day - 1))) do
       @rooms.each do | room |
-        xml.room({:name => room.name}) do
+        xml.room({:name => room.conference_room}) do
           room_events = {}
           @events.select{|e| e.day == day and e.conference_room == room.conference_room}.each do | event |
             next if room_events.values.member?( event.event_id )
@@ -29,7 +29,7 @@ xml.schedule do
             xml.event(:id=>event_id) do
               xml.start event.real_starttime.strftime('%H:%M')
               xml.duration event.duration.strftime('%H:%M')
-              xml.room event.room
+              xml.room event.conference_room
               xml.tag event.event_tag
               xml.title event.title
               xml.subtitle event.subtitle
