@@ -44,7 +44,13 @@ xml.div(:id=>'content-events') do
         xml.thead do xml.tr do fields.each do | field | xml.th field.to_s end end end
         xml.tbody do
           other_events.each do | event |
-            xml.tr do fields.each do | field | xml.td event.send( field ) end end
+            xml.tr do 
+              fields.each do | field | 
+                xml.td do 
+                  xml.a( event.send( field ), :href=>url_for(:action=>:event,:id=>event.event_id) )
+                end
+              end 
+            end
           end
         end
       end
