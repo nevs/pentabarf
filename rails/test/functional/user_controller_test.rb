@@ -12,25 +12,27 @@ class UserControllerTest < Test::Unit::TestCase
   end
 
   def test_account_creation_and_activation
+    login_name = 'account_creation_test'
+    chunky = nil
     begin
       get :new_account
       assert_response :success
       submit_form do | form |
-        form.account.login_name = 'chunky'
+        form.account.login_name = login_name
         form.account.email = 'chunky@bacon.com'
         form.account.password = 'bacon'
         form.password = 'bacon'
       end
       assert_response :redirect
       assert_redirected_to( :action => :account_done)
-      chunky = Account.select_single(:login_name=>'chunky')
+      chunky = Account.select_single(:login_name=>login_name)
       active = Account_activation.select_single(:account_id=>chunky.account_id)
       get :activate_account, :id=>active.activation_string
       assert_response :redirect
       assert_redirected_to( :controller => 'submission' )
       assert_equal( 1, Account_role.select(:account_id=>chunky.account_id).length )
     ensure
-      Account.__delete( chunky )
+      Account.__delete( chunky ) if chunky
     end
   end
 
