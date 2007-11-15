@@ -37,6 +37,7 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                         event.start_time IS NOT NULL AND
                         event.conference_room IS NOT NULL )
                     INNER JOIN conference_room ON (
+                        event.conference_id = conference_room.conference_id AND
                         event.conference_room = conference_room.conference_room AND
                         conference_room.public = 't' )
               WHERE event_person.event_role IN ('speaker','moderator') AND

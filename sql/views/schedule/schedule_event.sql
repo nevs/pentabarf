@@ -40,6 +40,10 @@ CREATE OR REPLACE VIEW view_schedule_event AS
              event.conference_room IS NOT NULL )
          INNER JOIN language_localized USING (language)
          INNER JOIN conference USING (conference_id)
+         INNER JOIN conference_room ON (
+             event.conference_id = conference_room.conference_id AND
+             event.conference_room = conference_room.conference_room AND
+             conference_room.public = 't' )
          INNER JOIN (
              SELECT person_id,
                     name
