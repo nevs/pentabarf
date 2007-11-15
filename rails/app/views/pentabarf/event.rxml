@@ -25,7 +25,7 @@ xml.div( :id => 'data' ) do
       xml.script(:type=>'text/javascript') do
         xml.text! "new Ajax.Updater('conflicts','#{url_for(:action=>:conflict_event,:id=>@event.event_id)}');"
       end
-    end if not @person.new_record?
+    end if not @event.new_record?
 
     tabs.each do | tab |
       xml << render( :partial => "event_#{tab}")
