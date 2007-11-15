@@ -12,8 +12,7 @@ xml.div(:id=>'content-tracks') do
       xml.tbody(:id=>'conference_track_tbody') do
         xml.tr(:id=>'conference_track_template',:style=>'display:none') do
           xml.td do
-            xml.input({:type=>:hidden,:id=>'conference_track[row_id][conference_track_id]',:name=>'conference_track[row_id][conference_track_id]'})
-            xml.input({:type=>:text,:id=>'conference_track[row_id][tag]',:name=>'conference_track[row_id][tag]'})
+            xml.input({:type=>:text,:id=>'conference_track[row_id][conference_track]',:name=>'conference_track[row_id][conference_track]'})
           end
           xml.td do
             xml.input({:type=>:checkbox,:name=>'conference_track[row_id][remove]',:id=>'conference_track[row_id][remove]'})
@@ -24,7 +23,7 @@ xml.div(:id=>'content-tracks') do
 
     xml.script(:type=>'text/javascript') do 
       Conference_track.select( :conference_id => @conference.conference_id ).each do | c |
-        xml << js_function( 'table_add_row', 'conference_track', c.conference_track_id, c.tag )
+        xml << js_function( 'table_add_row', 'conference_track', c.conference_track )
       end
     end
 

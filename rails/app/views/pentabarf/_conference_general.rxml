@@ -9,11 +9,11 @@ xml.div(:id=>'content-general') do
       xml << select_row( @conference, :conference_phase, Conference_phase.select.map{|e| e.conference_phase} )
       xml << text_field_row( @conference, :venue )
       xml << text_field_row( @conference, :city )
-      xml << select_row( @conference, :country_id, Country.select.map{|e| [e.country_id, e.iso_3166_code]} )
+      xml << select_row( @conference, :country, Country_localized.select({:translated=>@current_language}).map{|e| [e.country, e.name]} )
       xml << date_button_row( @conference, :start_date )
       xml << select_row( @conference, :days, 1..23 )
-      xml << select_row( @conference, :timezone, Timezone.select.map{|e| e.timezone} )
-      xml << select_row( @conference, :currency_id, Currency.select.map{|e| [e.currency_id,e.iso_4217_code]} )
+      xml << select_row( @conference, :timezone, Timezone.select.map(&:timezone) )
+      xml << select_row( @conference, :currency, Currency.select.map(&:currency) )
       xml << text_field_row( @conference, :email )
       xml << file_row( :conference_image, :image )
     end
@@ -42,8 +42,7 @@ xml.div(:id=>'content-general') do
       xml.tbody(:id=>'conference_language_tbody') do
         xml.tr(:id=>'conference_language_template',:style=>'display:none') do
           xml.td do
-            xml.input({:type=>:hidden,:id=>'conference_language[row_id][conference_language_id]',:name=>'conference_language[row_id][conference_language_id]'})
-            xml << select_tag( 'conference_language[row_id][language_id]', View_language.select(:f_visible=>true,:translated_id=>@current_language_id).map{|e| [e.language_id,e.name]} )
+            xml << select_tag( 'conference_language[row_id][language]', Language_localized.select(:translated=>@current_language).map{|e| [e.language,e.name]} )
           end
           xml.td do
             xml.input({:type=>:checkbox,:name=>'conference_language[row_id][remove]',:id=>'conference_language[row_id][remove]'})
@@ -54,7 +53,7 @@ xml.div(:id=>'content-general') do
 
     xml.script(:type=>'text/javascript') do 
       Conference_language.select( :conference_id => @conference.conference_id ).each do | c |
-        xml << js_function( 'table_add_row', 'conference_language', c.conference_language_id, c.language_id )
+        xml << js_function( 'table_add_row', 'conference_language', c.language )
       end
     end
 

@@ -20,34 +20,34 @@ xml.div({:id=>:data}) do
         xml.input({:type=>:text,:name=>'search_event[row_id][value]'})
       end
       # search for language
-      xml.li({:class=>:language_id,:title=>local(:language)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:language_id})
-        xml << select_tag('search_event[row_id][value]', View_language.select({:translated_id=>@current_language_id},{:order=>:name}).map{|l| [l.language_id, l.name]})
+      xml.li({:class=>:language,:title=>local(:language)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:language})
+        xml << select_tag('search_event[row_id][value]', Language_localized.select({:translated=>@current_language},{:order=>:name}).map{|l| [l.language, l.name]})
       end
       # search for event origin
       xml.li({:class=>:event_origin,:title=>local(:event_origin)}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_origin})
-        xml << select_tag('search_event[row_id][value]', Event_origin_localized.select({:language_id=>@current_language_id}).map{|o| [o.event_origin, o.name]})
+        xml << select_tag('search_event[row_id][value]', Event_origin_localized.select({:translated=>@current_language}).map{|o| [o.event_origin, o.name]})
       end
       # search for event state
       xml.li({:class=>:event_state,:title=>local(:event_state)}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_state})
-        xml << select_tag('search_event[row_id][value]', Event_state_localized.select({:language_id=>@current_language_id}).map{|o| [o.event_state, o.name]})
+        xml << select_tag('search_event[row_id][value]', Event_state_localized.select({:translated=>@current_language}).map{|o| [o.event_state, o.name]})
       end
       # search for event type
       xml.li({:class=>:event_type,:title=>local(:event_type)}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_type})
-        xml << select_tag('search_event[row_id][value]', Event_type_localized.select({:language_id=>@current_language_id}).map{|o| [o.event_type, o.name]})
+        xml << select_tag('search_event[row_id][value]', Event_type_localized.select({:translated=>@current_language}).map{|o| [o.event_type, o.name]})
       end
       # search for conference track
-      xml.li({:class=>:conference_track_id,:title=>local(:conference_track)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_track_id})
-        xml << select_tag('search_event[row_id][value]', Conference_track.select({:conference_id=>@current_conference.conference_id}).map{|t| [t.conference_track_id, t.tag]})
+      xml.li({:class=>:conference_track,:title=>local(:conference_track)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_track})
+        xml << select_tag('search_event[row_id][value]', Conference_track.select({:conference_id=>@current_conference.conference_id}).map(&:conference_track))
       end
       # search for room
       xml.li({:class=>:room_id,:title=>local(:room)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:room_id})
-        xml << select_tag('search_event[row_id][value]', Room.select({:conference_id=>@current_conference.conference_id}).map{|t| [t.room_id, t.short_name]})
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_room})
+        xml << select_tag('search_event[row_id][value]', Conference_room.select({:conference_id=>@current_conference.conference_id}).map(&:conference_room))
       end
     end
 

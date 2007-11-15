@@ -12,8 +12,7 @@ xml.div(:id=>'content-teams') do
       xml.tbody(:id=>'conference_team_tbody') do
         xml.tr(:id=>'conference_team_template',:style=>'display:none') do
           xml.td do
-            xml.input({:type=>:hidden,:id=>'conference_team[row_id][team_id]',:name=>'conference_team[row_id][team_id]'})
-            xml.input({:type=>:text,:id=>'conference_team[row_id][tag]',:name=>'conference_team[row_id][tag]'})
+            xml.input({:type=>:text,:id=>'conference_team[row_id][conference_team]',:name=>'conference_team[row_id][conference_team]'})
           end
           xml.td do
             xml.input({:type=>:checkbox,:name=>'conference_team[row_id][remove]',:id=>'conference_team[row_id][remove]'})
@@ -23,8 +22,8 @@ xml.div(:id=>'content-teams') do
     end
 
     xml.script(:type=>'text/javascript') do 
-      Team.select( :conference_id => @conference.conference_id ).each do | c |
-        xml << js_function( 'table_add_row', 'conference_team', c.team_id, c.tag )
+      Conference_team.select( :conference_id => @conference.conference_id ).each do | c |
+        xml << js_function( 'table_add_row', 'conference_team', c.conference_team )
       end
     end
 

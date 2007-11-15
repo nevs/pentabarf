@@ -1,4 +1,4 @@
-rooms = View_room.select({:conference_id=>@current_conference.conference_id, :language_id=>@current_language_id},{:order=>:rank})
+rooms = Conference_room.select({:conference_id=>@current_conference.conference_id},{:order=>:rank})
 conf = Conference.select_single({:conference_id=>@current_conference.conference_id})
 day_tabs = []
 conf.days.times do | i | day_tabs.push("day_#{i+1}") end
@@ -10,9 +10,9 @@ xml.div({:id=>:data}) do
 
   track_color = []
   xml.div({:id=>:colors}) do
-    View_conference_track.select({:conference_id=>@current_conference.conference_id,:language_id=>@current_language_id}).each_with_index do | track, index |
-      track_color[track.conference_track_id] = colors[index % colors.length]
-      xml.span({:style=>"margin: 20px 3px;padding: 5px 15px; background-color: #{track_color[track.conference_track_id]}"}) do
+    Conference_track.select({:conference_id=>@current_conference.conference_id}).each_with_index do | track, index |
+      track_color[track.conference_track] = colors[index % colors.length]
+      xml.span({:style=>"margin: 20px 3px;padding: 5px 15px; background-color: #{track_color[track.conference_track]}"}) do
         xml.strong(track.name)
       end
     end
@@ -41,7 +41,7 @@ xml.div({:id=>:data}) do
                   xml.td
                 else
                   event = @events.select{|e| e.event_id == row[room.room_id][:event_id]}.first
-                  xml.td({:rowspan=>row[room.room_id][:slots],:style=>"background-color: #{track_color[event.conference_track_id || 0]}"}) do
+                  xml.td({:rowspan=>row[room.room_id][:slots],:style=>"background-color: #{track_color[event.conference_track || 0]}"}) do
                     xml.a({:href=>url_for({:action=>:event,:id=>row[room.room_id][:event_id]})}) do
                       xml.strong(event.title)
                       if event.subtitle

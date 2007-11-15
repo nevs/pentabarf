@@ -9,11 +9,11 @@ class PentabarfController < ApplicationController
   def conflicts
     @conflict_level = ['fatal','error','warning','note']
     conflicts = []
-    conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
-    conflicts += View_conflict_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
-    conflicts += View_conflict_event_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
-    conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
-    conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{ :language_id => @current_language_id })
+    conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{ :translated => @current_language})
+    conflicts += View_conflict_event.call({:conference_id => @current_conference.conference_id},{ :translated => @current_language})
+    conflicts += View_conflict_event_event.call({:conference_id => @current_conference.conference_id},{ :translated => @current_language})
+    conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{ :translated => @current_language})
+    conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{ :translated => @current_language})
     @conflicts = Hash.new do | k, v | k[v] = Array.new end
     conflicts.each do | c |
       next if not @conflict_level.member?( c.conflict_level )
@@ -28,7 +28,7 @@ class PentabarfController < ApplicationController
   end
 
   def review
-    @events = View_review.select(:conference_id=>@current_conference.conference_id,:translated_id=>POPE.user.current_language_id)
+    @events = View_review.select(:conference_id=>@current_conference.conference_id,:translated=>POPE.user.current_language)
     @ratings = Event_rating.select({:person_id=>POPE.user.person_id}).select{|r| r.remark || r.relevance || r.acceptance || r.actuality }.map{|r| r.event_id}
   end
 
@@ -55,9 +55,9 @@ class PentabarfController < ApplicationController
     params[:conference][:conference_id] = params[:id] if params[:id].to_i > 0
     conf = write_row( Conference, params[:conference], {:except=>[:conference_id],:always=>[:f_submission_enabled,:f_visitor_enabled,:f_feedback_enabled,:f_reconfirmation_enabled]} )
     write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
-    write_rows( Team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id}})
+    write_rows( Conference_team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id}})
     write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})
-    write_rows( Room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:f_public]})
+    write_rows( Conference_room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:public]})
     write_file_row( Conference_image, params[:conference_image], {:preset=>{:conference_id => conf.conference_id},:image=>true})
     Conference_transaction.new({:conference_id=>conf.conference_id,:changed_by=>POPE.user.person_id}).write
 
@@ -75,19 +75,19 @@ class PentabarfController < ApplicationController
     end
     @event_rating = Event_rating.select_or_new({:event_id=>@event.event_id,:person_id=>POPE.user.person_id})
     @conference = Conference.select_single( :conference_id => @event.conference_id )
-    @attachments = View_event_attachment.select({:event_id=>@event.event_id,:language_id=>@current_language_id})
+    @attachments = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language})
     @transaction = Event_transaction.select_single({:event_id=>@event.event_id}) rescue Event_transaction.new
   end
 
   def save_event
     params[:event][:event_id] = params[:id] if params[:id].to_i > 0
-    event = write_row( Event, params[:event], {:except=>[:event_id,:conference_id],:init=>{:conference_id=>@current_conference.conference_id},:always=>[:f_public]} )
+    event = write_row( Event, params[:event], {:except=>[:event_id,:conference_id],:init=>{:conference_id=>@current_conference.conference_id},:always=>[:public]} )
     write_row( Event_rating, params[:event_rating], {:preset=>{:event_id => event.event_id,:person_id=>POPE.user.person_id}})
     write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}})
     write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id},:ignore_empty=>:url})
     write_rows( Event_link_internal, params[:event_link_internal], {:preset=>{:event_id => event.event_id},:ignore_empty=>:url})
     write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
-    write_rows( Event_attachment, params[:event_attachment], {:always=>[:f_public]} )
+    write_rows( Event_attachment, params[:event_attachment], {:always=>[:public]} )
     write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
 
     Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
@@ -105,7 +105,7 @@ class PentabarfController < ApplicationController
     end
     @conference = @current_conference
     @conference_person = Conference_person.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
-    @person_travel = Person_travel.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
+    @conference_person_travel = Conference_person_travel.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
     @person_rating = Person_rating.select_or_new({:person_id=>@person.person_id,:evaluator_id=>POPE.user.person_id})
     @person_image = Person_image.select_or_new({:person_id=>@person.person_id})
     @account = Account.select_or_new(:person_id=>@person.person_id)
@@ -124,7 +124,7 @@ class PentabarfController < ApplicationController
       end
     end if params[:account][:account_id] || POPE.permission?( :modify_account )
     conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
-    write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
+    write_row( Conference_person_travel, params[:conference_person_travel], {:preset=>{:conference_person_id => conference_person.conference_person_id}})
     write_row( Person_rating, params[:person_rating], {:preset=>{:person_id => person.person_id,:evaluator_id=>POPE.user.person_id}})
     write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
     write_rows( Conference_person_link, params[:conference_person_link], {:preset=>{:conference_person_id => conference_person.conference_person_id},:ignore_empty=>:url})
@@ -133,7 +133,7 @@ class PentabarfController < ApplicationController
     write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id},:ignore_empty=>:phone_number})
     write_rows( Event_person, params[:event_person], {:preset=>{:person_id => person.person_id}})
 
-    write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:f_public],:image=>true})
+    write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:public],:image=>true})
     write_person_availability( @current_conference, person, params[:person_availability])
 
     if POPE.permission?(:modify_account)
@@ -157,7 +157,7 @@ class PentabarfController < ApplicationController
 
   def schedule
     @content_title = 'Schedule'
-    @events = View_schedule.select({:conference_id => @current_conference.conference_id, :translated_id => @current_language_id})
+    @events = View_schedule.select({:conference_id => @current_conference.conference_id, :translated => @current_language})
   end
 
   def find_person
@@ -186,7 +186,7 @@ class PentabarfController < ApplicationController
 
   def search_event_simple
     conditions = {}
-    conditions[:translated_id] = @current_language_id
+    conditions[:translated] = @current_language
     conditions[:conference_id] = @current_conference.conference_id
     conditions[:title] = {:ilike=>params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}} if params[:id]
     @results = View_find_event.select( conditions, {:limit=>100} )
@@ -196,7 +196,7 @@ class PentabarfController < ApplicationController
 
   def search_event_advanced
     conditions = form_to_condition( params[:search_event], View_find_event )
-    conditions[:translated_id] = @current_language_id
+    conditions[:translated] = @current_language
     conditions[:conference_id] = @current_conference.conference_id
     @results = View_find_event.select( conditions, {:limit=>100} )
     @preferences[:search_event_advanced] = params[:search_event]
@@ -224,7 +224,7 @@ class PentabarfController < ApplicationController
   def init
     @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id) rescue Conference.new
     @preferences = POPE.user.preferences
-    @current_language_id = POPE.user.current_language_id || 120
+    @current_language = POPE.user.current_language
   end
 
   def check_permission

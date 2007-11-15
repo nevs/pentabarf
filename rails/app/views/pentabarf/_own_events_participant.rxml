@@ -8,7 +8,7 @@ xml.div(:id=>'content-participant') do
           xml.th local( col )
         end
       end
-      View_own_events_participant.select(:person_id=>POPE.user.person_id,:translated_id=>@current_language_id,:conference_id=>@current_conference.conference_id).each do | event |
+      View_own_events_participant.select(:person_id=>POPE.user.person_id,:translated=>@current_language,:conference_id=>@current_conference.conference_id).each do | event |
         xml.tr do
           xml.td do
             xml.a(:href=>url_for(:action=>:event,:id=>event.event_id)) do

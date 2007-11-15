@@ -50,7 +50,7 @@ class Pentacards
   protected
 
   def draw_event( event, col, row, args={})
-    language = View_language.select({:language_id => event.language_id.to_i, :translated_id => @language_id})
+    language = View_language.select({:language_id => event.language_id.to_i, :translated => @language_id})
 
     # this is the bottom line with track, state language and event type
     output_row = [ event.conference_track,
@@ -93,7 +93,7 @@ class Pentacards
     end
 
     # Draw Persons box
-    persons = View_event_person.select({:event_id => event.event_id, :translated_id => @language_id})
+    persons = View_event_person.select({:event_id => event.event_id, :translated => @language_id})
 
     speakers, moderators, coordinators = [], [], []
     persons.each do |person|

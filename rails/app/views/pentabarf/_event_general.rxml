@@ -11,12 +11,12 @@ xml.div(:id=>'content-general') do
       xml << select_row( @event, :event_state, Event_state.select.map{|e| [e.event_state,e.event_state]}, {:master=>:event_state_progress} )
       xml << select_row( @event, :event_state_progress, Event_state_progress.select.map{|e| [e.event_state_progress,e.event_state,e.event_state_progress]},{:slave=>true} )
       xml.script("$('event[event_state]').onchange()",{:type=>"text/javascript"})
-      xml << select_row( @event, :team_id, Team.select({:conference_id=>@event.conference_id}).map{|e| [e.team_id, e.tag]}, {:with_empty=>true} )
-      xml << select_row( @event, :f_paper, [[nil,'unknown'],[true,'yes'],[false,'no']] )
-      xml << select_row( @event, :f_slides, [[nil,'unknown'],[true,'yes'],[false,'no']] )
-      xml << select_row( @event, :language_id, View_conference_language.select({:conference_id=>@event.conference_id,:translated_id=>@current_language_id}).map{|e| [e.language_id,e.name]}, {:with_empty=>true} )
-      xml << select_row( @event, :conference_track_id, Conference_track.select(:conference_id=>@event.conference_id).map{|e| [e.conference_track_id, e.tag]},{:with_empty=>true})
-      xml << select_row( @event, :event_type, Event_type_localized.select(:language_id=>@current_language_id).map{|e| [e.event_type,e.name]}, {:with_empty=>true} )
+      xml << select_row( @event, :conference_team, Conference_team.select({:conference_id=>@event.conference_id}).map(&:conference_team), {:with_empty=>true} )
+      xml << select_row( @event, :paper, [[nil,'unknown'],[true,'yes'],[false,'no']] )
+      xml << select_row( @event, :slides, [[nil,'unknown'],[true,'yes'],[false,'no']] )
+      xml << select_row( @event, :language, View_conference_language.select({:conference_id=>@event.conference_id,:translated=>@current_language}).map{|e| [e.language,e.name]}, {:with_empty=>true} )
+      xml << select_row( @event, :conference_track, Conference_track.select(:conference_id=>@event.conference_id).map(&:conference_track),{:with_empty=>true})
+      xml << select_row( @event, :event_type, Event_type_localized.select(:translated=>@current_language).map{|e| [e.event_type,e.name]}, {:with_empty=>true} )
       xml << file_row( :event_image, :image )
     end
   end

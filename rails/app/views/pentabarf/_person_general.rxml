@@ -11,7 +11,7 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @person, :title )
       xml << select_row( @person, :gender, [[true,'male'],[false,'female']], {:with_empty=>true})
       xml << file_row( :person_image, :image )
-      xml << check_box_row( @person_image, :f_public )
+      xml << check_box_row( @person_image, :public )
     end
   end
 
@@ -27,7 +27,7 @@ xml.div(:id=>'content-general') do
       xml.tbody(:id=>'person_language_tbody') do
         xml.tr(:id=>'person_language_template',:style=>'display:none') do
           xml.td do
-            xml << select_tag( 'person_language[row_id][language_id]', View_language.select(:f_visible=>true,:translated_id=>@current_language_id).map{|e| [e.language_id, e.name]})
+            xml << select_tag( 'person_language[row_id][language]', Language_localized.select(:translated=>@current_language).map{|e| [e.language, e.name]})
           end
           xml.td do
             xml.input({:type=>:checkbox,:name=>'person_language[row_id][remove]',:id=>'person_language[row_id][remove]'})
@@ -38,7 +38,7 @@ xml.div(:id=>'content-general') do
 
     xml.script(:type=>'text/javascript') do
       Person_language.select( :person_id => @person.person_id ).each do | c |
-        xml << js_function( 'table_add_row', 'person_language', c.language_id )
+        xml << js_function( 'table_add_row', 'person_language', c.language )
       end
     end
 

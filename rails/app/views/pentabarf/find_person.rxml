@@ -30,13 +30,13 @@ xml.div({:id=>:data}) do
         xml << select_tag('search_person[row_id][value]', Conference.select.map{|c| [c.conference_id, c.acronym]})
       end
       # search for country
-      xml.li({:class=>:country_id,:title=>local(:country)}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:country_id})
-        xml << select_tag('search_person[row_id][value]', View_country.select({:language_id=>@current_language_id}).map{|c| [c.country_id, c.name]})
+      xml.li({:class=>:country,:title=>local(:country)}) do
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:country})
+        xml << select_tag('search_person[row_id][value]', Country_localized.select({:translated=>@current_language}).map{|c| [c.country, c.name]})
       end
       # search for confirmed flag
       xml.li({:class=>:confirmed,:title=>local(:confirmed)}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:f_reconfirmed})
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:reconfirmed})
         xml << select_tag('search_person[row_id][value]', [['t','Yes'],['n','No']])
       end
     end
