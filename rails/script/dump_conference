@@ -144,9 +144,6 @@ end
 events = Event.select({:conference_id=>conf.conference_id})
 events.each do | event |
   event.conference_id = "currval('conference_conference_id_seq')"
-  event.room_id = "(SELECT new_id FROM room_map WHERE old_id = #{event.room_id})" if event.room_id
-  event.team_id = "(SELECT new_id FROM team_map WHERE old_id = #{event.team_id})" if event.team_id
-  event.conference_track_id = "(SELECT new_id FROM conference_track_map WHERE old_id = #{event.conference_track_id})" if event.conference_track_id
   puts build_insert( Event, event )
 
   [Event_image].each do | klass |

@@ -11,7 +11,7 @@ end
 conference = Conference.select_single({:acronym=>ARGV[0]})
 
 # find all events
-events = View_event.select({:translated_id => 144, :conference_id => conference.conference_id})
+events = View_event.select({:translated => 'en', :conference_id => conference.conference_id})
 
 puts "creating pentacards for #{events.length} events"
 
