@@ -1663,5 +1663,10 @@ CREATE TYPE conflict.view_conflict_person AS (
   name TEXT
 );
 
+UPDATE auth.object_domain SET object = 'conference_person_travel' WHERE object = 'person_travel';
+UPDATE auth.object_domain SET object = 'conference_room' WHERE object = 'room';
+UPDATE auth.object_domain SET object = 'conference_team' WHERE object = 'team';
+
+
 COMMIT;
 
