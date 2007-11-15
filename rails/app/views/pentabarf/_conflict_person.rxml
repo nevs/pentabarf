@@ -1,0 +1,22 @@
+xml.fieldset(:class=>:conflicts) do
+  xml.legend local(:conflicts)
+  xml.ul do
+    @conflicts.each do | conflict |
+      xml.li do
+        case conflict
+          when View_conflict_person::Row
+            xml.span(conflict.conflict_name)
+          when View_conflict_event_person::Row
+            xml.a("#{conflict.conflict_name}: #{conflict.title}",:href=>url_for(:action=>:event,:id=>conflict.event_id))
+          when View_conflict_event_person_event::Row
+            xml.span(conflict.conflict_name)
+            xml.a(conflict.title1,:href=>url_for(:action=>:event,:id=>conflict.event_id1))
+            xml.a(conflict.title2,:href=>url_for(:action=>:event,:id=>conflict.event_id2))
+          else
+            raise Error, "Unknown conflict: #{conflict.inspect}"
+        end
+      end
+    end
+  end
+end if @conflicts.length > 0
+

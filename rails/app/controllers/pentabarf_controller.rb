@@ -21,6 +21,23 @@ class PentabarfController < ApplicationController
     end
   end
 
+  def conflict_event
+    @conflicts = []
+    @conflicts += View_conflict_event.call({:conference_id => @current_conference.conference_id},{:event_id=>params[:id],:translated=>@current_language})
+    @conflicts += View_conflict_event_event.call({:conference_id => @current_conference.conference_id},{:event_id1=>params[:id],:translated=>@current_language})
+    @conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{:event_id=>params[:id],:translated=>@current_language})
+    @conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{:event_id1=>params[:id],:translated=>@current_language})
+    @conflicts.length > 0 ? render( :partial => 'conflict_event' ) : render( :text => '' )
+  end
+
+  def conflict_person
+    @conflicts = []
+    @conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})
+    @conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})
+    @conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})
+    @conflicts.length > 0 ? render( :partial => 'conflict_event' ) : render( :text => '' )
+  end
+
   def index
   end
 
@@ -224,7 +241,7 @@ class PentabarfController < ApplicationController
   def init
     @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id) rescue Conference.new
     @preferences = POPE.user.preferences
-    @current_language = POPE.user.current_language
+    @current_language = POPE.user.current_language || 'en'
   end
 
   def check_permission
