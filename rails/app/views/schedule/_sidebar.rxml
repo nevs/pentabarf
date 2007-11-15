@@ -26,9 +26,9 @@ xml.div(:id=>'menu', :class=>'noprint') do
       xml.li do
         xml.ul(:class=>'track') do
           @tracks.each do | track |
-            xml.li(:class=>sanitize_track(track.tag)) do
-              xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:track_events,:track=>track.tag,:language=>params[:language]})) do
-                xml.span( track.tag, :class=>:normal)
+            xml.li(:class=>sanitize_track(track.conference_track)) do
+              xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:track_events,:track=>track.conference_track,:language=>params[:language]})) do
+                xml.span( track.conference_track, :class=>:normal)
               end
             end
           end

@@ -84,7 +84,7 @@ xml.div(:id=>'event',:class=>'section vevent') do
     xml << markup(@event.description)
   end
 
-  files = View_event_attachment.select({:event_id=>@event.event_id,:language_id=>@current_language_id,:f_public=>'t'})
+  files = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language,:public=>'t'})
   if files.length > 0
     xml.div(:class=>'attachments') do
       xml.h2( local( 'schedule::attachments' ) )

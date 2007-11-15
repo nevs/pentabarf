@@ -27,7 +27,7 @@ xml.div(:id=>'event',:class=>'section') do
       end
       xml.tr do
         xml.td( local( 'schedule::room' ),{:class=>'keyword'})
-        xml.td(@event.room,{:class=>'value'})
+        xml.td(@event.conference_room,{:class=>'value'})
       end
       xml.tr do
         xml.td( local( 'schedule::start_time' ),{:class=>'keyword'})
@@ -84,7 +84,7 @@ xml.div(:id=>'event',:class=>'section') do
     xml << markup(@event.description)
   end
 
-  files = View_event_attachment.select({:event_id=>@event.event_id,:language_id=>@current_language_id,:f_public=>'t'})
+  files = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language,:public=>'t'})
   if files.length > 0
     xml.div(:class=>'attachments') do
       xml.h2( local( 'schedule::attachments' ) )
@@ -120,7 +120,7 @@ xml.div(:id=>'event',:class=>'section') do
     end
 
     if prev
-      xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.tag,:id=>prev.event_id)) do
+      xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>prev.event_id)) do
         xml.span('<<<',{:class=>'previous',:title=>prev.title})
       end
     end
@@ -132,7 +132,7 @@ xml.div(:id=>'event',:class=>'section') do
     end
 
     if fwd
-      xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.tag,:id=>fwd.event_id)) do
+      xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>fwd.event_id)) do
         xml.span('>>>',{:class=>'next',:title=>fwd.title})
       end
     end

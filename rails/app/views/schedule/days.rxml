@@ -31,13 +31,13 @@ xml.div(:id=>'schedule',:class=>'section') do
           xml.tr do
             xml.td(row[0],{:class=>"time"})
             @rooms.each do | room |
-              next if row[room.room_id] == 0
-              if row[room.room_id].nil?
+              next if row[room.conference_room] == 0
+              if row[room.conference_room].nil?
                 xml.td({:class=>'room empty'}) 
               else
-                event_id = row[room.room_id][:event_id]
+                event_id = row[room.conference_room][:event_id]
                 event = @events.select{|e| e.event_id == event_id }.first
-                xml.td({:rowspan=>row[room.room_id][:slots],:class=>"room event #{sanitize_track(event.conference_track)}"}) do
+                xml.td({:rowspan=>row[room.conference_room][:slots],:class=>"room event #{sanitize_track(event.conference_track)}"}) do
                   xml.p(:class=>'title') do 
                     xml.a( event.title, {:href=>url_for(:action=>:event,:id=>event_id)} )
                   end

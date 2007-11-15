@@ -22,9 +22,9 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
   xml.div(:class=>'abstract note') do xml << markup(@speaker.abstract) end
   xml.div(:class=>:description) do xml << markup(@speaker.description) end
 
-  if @speaker.email_public
+  if @speaker.email
     xml.h2 'Contact'
-    xml.p @speaker.email_public.gsub(/@/, ' at ').gsub(/\./, ' dot ')
+    xml.p @speaker.email.gsub(/@/, ' at ').gsub(/\./, ' dot ')
   end
 
   if @speaker.conference_person_id

@@ -7,13 +7,13 @@ module ScheduleHelper
     return track == '' ? '' : h("track-#{track}")
   end
 
-  # returns an array with the ids of rooms that are really used in a schedule table
+  # returns an array with the names of rooms that are really used in a schedule table
   def schedule_rooms( table, rooms )
     used_rooms = []
     rooms.each do | room |
       table.each do | row |
-        if row[room.room_id]
-          used_rooms.push( room.room_id)
+        if row[room.conference_room]
+          used_rooms.push( room.conference_room)
           break
         end
       end

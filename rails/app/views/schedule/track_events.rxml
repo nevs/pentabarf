@@ -13,14 +13,14 @@ xml.div(:id=>'event-index',:class=>'section') do
         prev = event
         xml.tr do
           xml.td(:class=>"event #{sanitize_track(event.conference_track)}") do
-            xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.tag,:language=>params[:language],:id=>event.event_id)) do
+            xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:language=>params[:language],:id=>event.event_id)) do
               xml.img(:class=>'event-image',:src=>event_image(event.event_id, 48))
             end
             xml.p(:class=>'title') do
-              xml.a(event.title,{:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.tag,:id=>event.event_id,:language=>params[:language])})
+              xml.a(event.title,{:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>event.event_id,:language=>params[:language])})
             end
             xml.p(:class=>'subtitle') do
-              xml.a(event.subtitle,{:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.tag,:id=>event.event_id,:language=>params[:language])})
+              xml.a(event.subtitle,{:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>event.event_id,:language=>params[:language])})
             end
             xml.p(:class=>'info') do
               xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
