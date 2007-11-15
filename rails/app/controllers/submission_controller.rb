@@ -20,7 +20,7 @@ class SubmissionController < ApplicationController
     else
       @event = Event.new({:conference_id=>@conference.conference_id,:event_id=>0})
     end
-    @attachments = View_event_attachment.select({:event_id=>@event.event_id,:language_id=>@current_language_id})
+    @attachments = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language})
     @transaction = Event_transaction.select_single({:event_id=>@event.event_id}) rescue Event_transaction.new
   end
 
@@ -28,7 +28,7 @@ class SubmissionController < ApplicationController
     own_events = Own_conference_events.call(:conference_id=>@conference.conference_id,:person_id=>POPE.user.person_id)
     own_events = own_events.map{|e| e.own_conference_events }
     if own_events.length > 0
-      @events = View_event.select(:event_id=>own_events,:translated_id=>@current_language_id,:conference_id=>@conference.conference_id)
+      @events = View_event.select(:event_id=>own_events,:translated=>@current_language,:conference_id=>@conference.conference_id)
     else
       @events = []
     end
@@ -45,7 +45,7 @@ class SubmissionController < ApplicationController
     event = write_row( Event, params[:event], {:except=>[:event_id],:only=>Event::SubmissionFields} )
     write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id},:ignore_empty=>:url})
     write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
-    write_rows( Event_attachment, params[:event_attachment], {:always=>[:f_public]} )
+    write_rows( Event_attachment, params[:event_attachment], {:always=>[:public]} )
     write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
 
     Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
@@ -56,7 +56,7 @@ class SubmissionController < ApplicationController
   def person
     @person = Person.select_single(:person_id=>POPE.user.person_id)
     @conference_person = Conference_person.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
-    @person_travel = Person_travel.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
+    @conference_person_travel = Conference_person_travel.select_or_new({:conference_person_id=>@conference_person.conference_person_id})
     @person_image = Person_image.select_or_new({:person_id=>@person.person_id})
     @transaction = Person_transaction.select_single({:person_id=>@person.person_id}) rescue Person_transaction.new
   end
@@ -71,13 +71,13 @@ class SubmissionController < ApplicationController
     end
     conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}})
     POPE.refresh
-    write_row( Person_travel, params[:person_travel], {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}})
+    write_row( Conference_person_travel, params[:conference_person_travel], {:preset=>{:conference_person_id => conference_person.conference_person_id}})
     write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
     write_rows( Conference_person_link, params[:conference_person_link], {:preset=>{:conference_person_id => conference_person.conference_person_id},:ignore_empty=>:url})
     write_rows( Person_im, params[:person_im], {:preset=>{:person_id => person.person_id},:ignore_empty=>:im_address})
     write_rows( Person_phone, params[:person_phone], {:preset=>{:person_id => person.person_id},:ignore_empty=>:phone_number})
 
-    write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:f_public],:image=>true})
+    write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:public],:image=>true})
     write_person_availability( @conference, person, params[:person_availability])
 
     Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
@@ -89,7 +89,7 @@ class SubmissionController < ApplicationController
 
   def init
     @conference = Conference.select_single(:acronym=>params[:conference],:f_submission_enabled=>'t') rescue nil
-    @current_language_id = POPE.user.current_language_id rescue 120
+    @current_language = POPE.user ? POPE.user.current_language : 'en'
   end
 
   def auth

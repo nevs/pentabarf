@@ -27,9 +27,9 @@ xml.div(:id=>'content-description') do
           xml.tr do
             xml.td do
               xml.input({:type=>:hidden,:name=>"event_attachment[#{row_id}][event_attachment_id]",:value=>row_id})
-              xml << select_tag( "event_attachment[#{row_id}][attachment_type]", Attachment_type_localized.select(:language_id=>@current_language_id).map{|e| [e.attachment_type,e.name]}, {:selected=>attachment.attachment_type} )
+              xml << select_tag( "event_attachment[#{row_id}][attachment_type]", Attachment_type_localized.select(:translated=>@current_language).map{|e| [e.attachment_type,e.name]}, {:selected=>attachment.attachment_type} )
             end
-            xml.td do xml.input({:type=>:checkbox,:name=>"event_attachment[#{row_id}][f_public]"}.merge(attachment.f_public ? {:checked=>:checked} : {} )) end
+            xml.td do xml.input({:type=>:checkbox,:name=>"event_attachment[#{row_id}][public]"}.merge(attachment.public ? {:checked=>:checked} : {} )) end
             xml.td do xml.input({:type=>:input,:name=>"event_attachment[#{row_id}][filename]",:value=>attachment.filename}) end
             xml.td do xml.input({:type=>:input,:name=>"event_attachment[#{row_id}][title]",:value=>attachment.title}) end
             xml.td do xml.input({:type=>:input,:name=>"event_attachment[#{row_id}][pages]",:value=>attachment.pages,:size=>3}) end
@@ -43,15 +43,15 @@ xml.div(:id=>'content-description') do
     xml.table(:id=>'attachment_upload_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          [:type,:f_public,:filename,:title,:file].each do | field |
+          [:type,:public,:filename,:title,:file].each do | field |
             xml.th( local(field) )
           end
         end
       end
       xml.tbody(:id=>'attachment_upload_tbody') do
         xml.tr(:id=>'attachment_upload_template',:style=>'display:none') do
-          xml.td do xml << select_tag( 'attachment_upload[row_id][attachment_type]', Attachment_type_localized.select(:language_id=>@current_language_id).map{|e| [e.attachment_type,e.name]} ) end
-          xml.td do xml.input({:type=>:checkbox,:name=>'attachment_upload[row_id][f_public]'}) end
+          xml.td do xml << select_tag( 'attachment_upload[row_id][attachment_type]', Attachment_type_localized.select(:translated=>@current_language).map{|e| [e.attachment_type,e.name]} ) end
+          xml.td do xml.input({:type=>:checkbox,:name=>'attachment_upload[row_id][public]'}) end
           xml.td do xml.input({:type=>:input,:name=>'attachment_upload[row_id][filename]'}) end
           xml.td do xml.input({:type=>:input,:name=>'attachment_upload[row_id][title]'}) end
           xml.td do xml << file_field_tag('attachment_upload[row_id][data]', {:tabindex => 0, :onchange => "enable_save_button()"}) end

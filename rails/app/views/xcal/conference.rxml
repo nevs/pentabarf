@@ -6,8 +6,8 @@
     xml.tag!( "pentabarf:event-tag", event.event_tag )
     xml.tag!( "pentabarf:title", event.title )
     xml.tag!( "pentabarf:subtitle", event.subtitle )
-    xml.tag!( "pentabarf:language", event.language )
-    xml.tag!( "pentabarf:language-code", event.language_tag )
+    xml.tag!( "pentabarf:language", event.language_name )
+    xml.tag!( "pentabarf:language-code", event.language )
     xml.dtstart( event.start_datetime.strftime('%Y%m%dT%H%M%S') )
     xml.dtend( event.end_datetime.strftime('%Y%m%dT%H%M%S') )
     xml.duration( event.duration.strftime('%HH%MM%SS') )
@@ -18,7 +18,7 @@
     xml.category( "Lecture" )
     xml.url( "#{@conference.export_base_url}events/#{event.event_id}.en.html" )
     if event.event_id
-      xml.location( @rooms.select{|r| r.room_id == event.room_id}.first.name )
+      xml.location( @rooms.select{|r| r.conference_room == event.conference_room}.first.conference_room )
     end
     @events.select{|e| e.event_id == event.event_id}.each do | speaker |
       xml.attendee( speaker.name )

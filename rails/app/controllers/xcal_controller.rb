@@ -5,15 +5,15 @@ class XcalController < ApplicationController
 
   def conference
     @conference = Conference.select_single({:conference_id=>params[:id]})
-    @rooms = View_room.select({:conference_id=>@conference.conference_id, :language_id=>@current_language_id})
-    @events = View_schedule_event.select({:conference_id => @conference.conference_id, :translated_id => @current_language_id})
+    @rooms = Conference_room.select({:conference_id=>@conference.conference_id})
+    @events = View_schedule_event.select({:conference_id => @conference.conference_id, :translated => @current_language})
     @filename = "#{@conference.acronym}.xcs"
   end
 
   protected
 
   def init
-    @current_language_id = 120
+    @current_language = 'en'
   end
 
   def content_type

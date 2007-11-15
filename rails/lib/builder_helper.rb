@@ -119,7 +119,7 @@ module Builder_helper
     name = "#{row.class.table.table_name}[#{currency_column}]"
     xml = Builder::XmlMarkup.new
     xml << text_field_row( row, sum_column, {:size=>10} ) do | x |
-      x << select_tag( name, Currency.select.map{|e| [e.currency_id, e.iso_4217_code]}, {:selected=>@person_travel.send(currency_column)})
+      x << select_tag( name, Currency.select.map(&:currency), {:selected=>@conference_person_travel.send(currency_column)})
     end
   end
 

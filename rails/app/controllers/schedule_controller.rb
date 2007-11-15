@@ -13,24 +13,24 @@ class ScheduleController < ApplicationController
   def day
     @day = params[:id].to_i
 #    @content_title = "#{local(:schedule)} #{local(:day)} #{@day}"
-    @rooms = View_room.select({:conference_id=>@conference.conference_id, :language_id=>@current_language_id, :f_public=>'t'})
-    @events = View_schedule_event.select({:day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},{:order=>[:title,:subtitle]})
+    @rooms = Conference_room.select({:conference_id=>@conference.conference_id, :public=>'t'})
+    @events = View_schedule_event.select({:day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
   end
 
   def days
 #    @content_title = local(:schedule)
-    @rooms = View_room.select({:conference_id=>@conference.conference_id, :language_id=>@current_language_id, :f_public=>'t'})
-    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},{:order=>[:title,:subtitle]})
+    @rooms = Conference_room.select({:conference_id=>@conference.conference_id, :public=>'t'})
+    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
   end
 
   def event
-    @event = View_event.select_single({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id,:event_id=>params[:id]})
-    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},{:order=>[:title,:subtitle]})
+    @event = View_event.select_single({:conference_id=>@conference.conference_id,:translated=>@current_language,:event_id=>params[:id]})
+    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
     @content_title = @event.title
   end
 
   def events
-    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id},{:order=>[:title,:subtitle]})
+    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
   end
 
   def speaker
@@ -46,16 +46,16 @@ class ScheduleController < ApplicationController
   end
 
   def track_event
-    @track = View_conference_track.select_single({:conference_id=>@conference.conference_id,:language_id=>@current_language_id,:tag=>params[:track]})
-    @event = View_event.select_single({:conference_id=>@conference.conference_id,:translated_id=>@current_language_id,:event_id=>params[:id]})
-    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:conference_track_id=>@track.conference_track_id,:translated_id=>@current_language_id}, {:order=>[:title,:subtitle]})
+    @track = Conference_track.select_single({:conference_id=>@conference.conference_id,:conference_track=>params[:track]})
+    @event = View_event.select_single({:conference_id=>@conference.conference_id,:translated=>@current_language,:event_id=>params[:id]})
+    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:conference_track=>@track.conference_track,:translated=>@current_language}, {:order=>[:title,:subtitle]})
     @content_title = @event.title
   end
 
   def track_events
 #    @content_title = "Lectures and workshops"
-    @track = View_conference_track.select_single({:conference_id=>@conference.conference_id,:language_id=>@current_language_id,:tag=>params[:track]})
-    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:conference_track_id=>@track.conference_track_id,:translated_id=>@current_language_id}, {:order=>[:title,:subtitle]})
+    @track = Conference_track.select_single({:conference_id=>@conference.conference_id,:conference_track=>params[:track]})
+    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:conference_track=>@track.conference_track,:translated=>@current_language}, {:order=>[:title,:subtitle]})
   end
 
   protected
@@ -63,7 +63,7 @@ class ScheduleController < ApplicationController
   def init
     @conference = Conference.select_single(:acronym=>params[:conference])
     @tracks = Conference_track.select(:conference_id=>@conference.conference_id)
-    @current_language_id = Language.select_single(:tag=>params[:language]).language_id rescue 120
+    @current_language = params[:language] || 'en'
   end
 
 end

@@ -22,7 +22,7 @@ class ReportController < ApplicationController
 
   def init
     @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
-    @current_language_id = POPE.user.current_language_id
+    @current_language = POPE.user.current_language
   end
 
 end

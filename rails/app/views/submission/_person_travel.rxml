@@ -8,34 +8,34 @@ xml.div(:id=>'content-travel') do
         xml.td do
           xml.table do
             xml.tr do xml.th( local( 'arrival' ), {:colspan=>2}) end
-            xml << text_field_row( @person_travel, :arrival_from )
-            xml << text_field_row( @person_travel, :arrival_to )
-            xml << date_button_row( @person_travel, :arrival_date )
-            xml << text_field_row( @person_travel, :arrival_time )
-            xml << text_field_row( @person_travel, :arrival_number )
-            xml << select_row( @person_travel, :arrival_transport_id, View_transport.select(:language_id=>@current_language_id).map{|e| [e.transport_id, e.name]} )
-            xml << check_box_row( @person_travel, :f_arrival_pickup )
+            xml << text_field_row( @conference_person_travel, :arrival_from )
+            xml << text_field_row( @conference_person_travel, :arrival_to )
+            xml << date_button_row( @conference_person_travel, :arrival_date )
+            xml << text_field_row( @conference_person_travel, :arrival_time )
+            xml << text_field_row( @conference_person_travel, :arrival_number )
+            xml << select_row( @conference_person_travel, :arrival_transport, Transport_localized.select(:translated=>@current_language).map{|e| [e.transport, e.name]} )
+            xml << check_box_row( @conference_person_travel, :arrival_pickup )
           end
         end
         xml.td do
           xml.table do
             xml.tr do xml.th( local( 'departure' ), {:colspan=>2}) end
-            xml << text_field_row( @person_travel, :departure_from )
-            xml << text_field_row( @person_travel, :departure_to )
-            xml << date_button_row( @person_travel, :departure_date )
-            xml << text_field_row( @person_travel, :departure_time )
-            xml << text_field_row( @person_travel, :departure_number )
-            xml << select_row( @person_travel, :departure_transport_id, View_transport.select(:language_id=>@current_language_id).map{|e| [e.transport_id, e.name]} )
-            xml << check_box_row( @person_travel, :f_departure_pickup )
+            xml << text_field_row( @conference_person_travel, :departure_from )
+            xml << text_field_row( @conference_person_travel, :departure_to )
+            xml << date_button_row( @conference_person_travel, :departure_date )
+            xml << text_field_row( @conference_person_travel, :departure_time )
+            xml << text_field_row( @conference_person_travel, :departure_number )
+            xml << select_row( @conference_person_travel, :departure_transport, Transport_localized.select(:translated=>@current_language).map{|e| [e.transport, e.name]} )
+            xml << check_box_row( @conference_person_travel, :departure_pickup )
           end
         end
       end
     end
 
     xml.table do
-      xml << check_box_row( @person_travel, :f_need_travel_cost )
-      xml << money_currency_row( @person_travel, :travel_cost, :travel_currency_id )
-      xml << money_currency_row( @person_travel, :fee, :fee_currency_id )
+      xml << check_box_row( @conference_person_travel, :need_travel_cost )
+      xml << money_currency_row( @conference_person_travel, :travel_cost, :travel_currency )
+      xml << money_currency_row( @conference_person_travel, :fee, :fee_currency )
     end
 
   end
@@ -43,15 +43,15 @@ xml.div(:id=>'content-travel') do
   xml.fieldset do
     xml.legend local('accommodation')
     xml.table do
-      xml << text_field_row( @person_travel, :accommodation_name )
-      xml << text_field_row( @person_travel, :accommodation_phone )
-      xml << text_field_row( @person_travel, :accommodation_phone_room )
-      xml << text_field_row( @person_travel, :accommodation_street )
-      xml << text_field_row( @person_travel, :accommodation_postcode )
-      xml << text_field_row( @person_travel, :accommodation_city )
-      xml << check_box_row( @person_travel, :f_need_accommodation )
-      xml << check_box_row( @person_travel, :f_need_accommodation_cost )
-      xml << money_currency_row( @person_travel, :accommodation_cost, :accommodation_currency_id )
+      xml << text_field_row( @conference_person_travel, :accommodation_name )
+      xml << text_field_row( @conference_person_travel, :accommodation_phone )
+      xml << text_field_row( @conference_person_travel, :accommodation_phone_room )
+      xml << text_field_row( @conference_person_travel, :accommodation_street )
+      xml << text_field_row( @conference_person_travel, :accommodation_postcode )
+      xml << text_field_row( @conference_person_travel, :accommodation_city )
+      xml << check_box_row( @conference_person_travel, :need_accommodation )
+      xml << check_box_row( @conference_person_travel, :need_accommodation_cost )
+      xml << money_currency_row( @conference_person_travel, :accommodation_cost, :accommodation_currency )
     end
   end
 

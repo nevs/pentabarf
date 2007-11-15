@@ -5,7 +5,7 @@ xml.div(:id=>'content-contact') do
 
     xml.table do
       xml << text_field_row( @person, :email )
-      xml << text_field_row( @conference_person, :email_public )
+      xml << text_field_row( @conference_person, :email )
       xml << check_box_row( @person, :spam )
     end
   end
@@ -84,7 +84,7 @@ xml.div(:id=>'content-contact') do
       xml << text_field_row( @person, :po_box )
       xml << text_field_row( @person, :po_box_postcode )
       xml << text_field_row( @person, :city )
-      xml << select_row( @person, :country_id, View_country.select(:language_id=>@current_language_id).map{|e| [e.country_id, e.name]}, {:with_empty=>true})
+      xml << select_row( @person, :country, Country_localized.select(:translated=>@current_language).map{|e| [e.country, e.name]}, {:with_empty=>true})
     end
   end
 

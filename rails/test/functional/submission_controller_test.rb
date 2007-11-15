@@ -9,7 +9,7 @@ class SubmissionControllerTest < Test::Unit::TestCase
     @controller = SubmissionController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @user = Account.new(:login_name=>'test_submitter',:email=>'test@localhost',:current_language_id=>120,:person_id=>1)
+    @user = Account.new(:login_name=>'test_submitter',:email=>'test@localhost',:current_language=>'en',:person_id=>1)
     Account.__write( @user )
     @conference = Conference.select_single(:conference_id=>1)
     Account_role.__write( Account_role.new(:account_id=>@user.account_id,:role=>'submitter') )
