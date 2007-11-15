@@ -27,7 +27,7 @@ xml.div(:id=>'event',:class=>'section vevent') do
       end
       xml.tr do
         xml.td( local( 'schedule::room' ),{:class=>'keyword'})
-        xml.td(@event.room,{:class=>'value location'})
+        xml.td(@event.conference_room,{:class=>'value location'})
       end
       xml.tr do
         xml.td( local( 'schedule::start_time' ),{:class=>'keyword'})

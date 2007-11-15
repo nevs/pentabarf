@@ -90,7 +90,7 @@ class HTMLExport
       dirs = %w(/ images track events speakers attachments)
       tracks = Conference_track.select(:conference_id=>conference.conference_id)
       tracks.each do | t |
-        dirs << "track/#{t.tag}"
+        dirs << "track/#{t.conference_track}"
       end
       dirs.each do | d |
         begin

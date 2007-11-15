@@ -23,8 +23,8 @@ class ActionController::Base
 end
 
 conf = Conference.select_single(:acronym=>ARGV[0])
-languages = View_conference_language.select(:conference_id=>conf.conference_id,:translated_id=>120)
-languages = languages.map do | l | l.tag end
+languages = View_conference_language.select(:conference_id=>conf.conference_id,:translated=>'en')
+languages = languages.map(&:language)
 languages << 'en' if languages.length < 1
 
 HTMLExport.init(conf)
