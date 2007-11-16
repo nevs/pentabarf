@@ -161,7 +161,7 @@ UPDATE language SET language='sc' WHERE iso_639_code='srd';
 UPDATE language SET language='sd' WHERE iso_639_code='snd';
 UPDATE language SET language='se' WHERE iso_639_code='sme';
 UPDATE language SET language='sg' WHERE iso_639_code='sag';
-INSERT INTO language(language) VALUES ('sh');
+INSERT INTO language(language,iso_639_code,tag) VALUES ('sh','sh','sh');
 UPDATE language SET language='si' WHERE iso_639_code='sin';
 UPDATE language SET language='sk' WHERE iso_639_code='slo';
 UPDATE language SET language='sl' WHERE iso_639_code='slv';
@@ -205,6 +205,7 @@ UPDATE language SET language='za' WHERE iso_639_code='zha';
 UPDATE language SET language='zh' WHERE iso_639_code='chi';
 UPDATE language SET language='zu' WHERE iso_639_code='zul';
 
+DELETE FROM language_localized WHERE language_id IN (SELECT language_id FROM language WHERE language IS NULL);
 DELETE FROM language WHERE language IS NULL;
 ALTER TABLE language RENAME TO old_language;
 CREATE TABLE base.language ( language TEXT NOT NULL, localized BOOL NOT NULL DEFAULT FALSE);
@@ -1032,7 +1033,7 @@ CREATE TABLE person_rating (
   PRIMARY KEY (person_id, evaluator_id)
 ) INHERITS( base.person_rating );
 INSERT INTO person_rating(person_id,evaluator_id,speaker_quality,competence,remark,eval_time) SELECT person_id,evaluator_id,speaker_quality,competence,remark,eval_time FROM old_person_rating;
-DROP TABLE old_person_rating;
+DROP TABLE old_person_rating CASCADE;
 
 CREATE TABLE base.conference_person_travel (
   conference_person_id INTEGER NOT NULL,
@@ -1079,8 +1080,6 @@ CREATE TABLE conference_person_travel (
 CREATE TABLE log.conference_person_travel () INHERITS( base.logging, base.conference_person_travel );
 INSERT INTO conference_person(person_id,conference_id) SELECT person_id, conference_id FROM person_travel WHERE NOT EXISTS( SELECT 1 FROM conference_person WHERE conference_person.conference_id = person_travel.conference_id AND conference_person.person_id = person_travel.person_id );
 INSERT INTO conference_person_travel(conference_person_id,arrival_transport,arrival_from,arrival_to,arrival_number,arrival_date,arrival_time,arrival_pickup,departure_pickup,departure_transport,departure_from,departure_to,departure_number,departure_date,departure_time,travel_cost,travel_currency,accommodation_cost,accommodation_currency,accommodation_name,accommodation_street,accommodation_postcode,accommodation_city,accommodation_phone,accommodation_phone_room,arrived,fee,fee_currency,need_travel_cost,need_accommodation,need_accommodation_cost) SELECT (SELECT conference_person_id FROM conference_person WHERE conference_person.person_id = person_travel.person_id AND conference_person.conference_id = person_travel.conference_id),(SELECT tag FROM old_transport WHERE old_transport.transport_id = person_travel.arrival_transport_id),arrival_from,arrival_to,arrival_number,arrival_date,arrival_time,f_arrival_pickup,f_departure_pickup,(SELECT tag FROM old_transport WHERE old_transport.transport_id = person_travel.departure_transport_id),departure_from,departure_to,departure_number,departure_date,departure_time,travel_cost,(SELECT iso_4217_code FROM old_currency WHERE old_currency.currency_id = person_travel.travel_currency_id),accommodation_cost,(SELECT iso_4217_code FROM old_currency WHERE old_currency.currency_id = person_travel.accommodation_currency_id),accommodation_name,accommodation_street,accommodation_postcode,accommodation_city,accommodation_phone,accommodation_phone_room,f_arrived,fee,(SELECT iso_4217_code FROM old_currency WHERE old_currency.currency_id = person_travel.fee_currency_id),f_need_travel_cost,f_need_accommodation,f_need_accommodation_cost FROM person_travel;
-DROP TABLE person_travel;
-DROP TABLE old_transport;
 
 ALTER TABLE person_im RENAME TO old_person_im;
 CREATE TABLE base.person_im ( person_im_id SERIAL NOT NULL, person_id INTEGER NOT NULL, im_type TEXT NOT NULL, im_address TEXT NOT NULL, rank INTEGER);
@@ -1143,7 +1142,7 @@ CREATE TABLE event_state_localized (
 ) INHERITS( base.event_state_localized );
 CREATE TABLE log.event_state_localized () INHERITS( base.logging, base.event_state_localized );
 INSERT INTO event_state_localized(event_state,translated,name) SELECT event_state,(SELECT language FROM old_language WHERE old_language.language_id=old_event_state_localized.language_id),name FROM old_event_state_localized;
-DROP TABLE old_event_state_localized;
+DROP TABLE old_event_state_localized CASCADE;
 
 ALTER TABLE event_state_progress RENAME TO old_event_state_progress;
 CREATE TABLE base.event_state_progress ( event_state_progress TEXT NOT NULL, event_state TEXT NOT NULL, rank INTEGER);
@@ -1255,7 +1254,7 @@ CREATE TABLE event_rating (
 CREATE TABLE log.event_rating (
 ) INHERITS( base.logging, base.event_rating );
 INSERT INTO event_rating(person_id,event_id,relevance,actuality,acceptance,remark,eval_time) SELECT person_id,event_id,relevance,actuality,acceptance,remark,eval_time FROM old_event_rating;
-DROP TABLE old_event_rating;
+DROP TABLE old_event_rating CASCADE;
 
 CREATE TABLE base.event_feedback (
   event_feedback_id SERIAL NOT NULL,
@@ -1314,7 +1313,7 @@ CREATE TABLE event_role_localized (
 ) INHERITS( base.event_role_localized );
 CREATE TABLE log.event_role_localized () INHERITS( base.logging, base.event_role_localized );
 INSERT INTO event_role_localized(event_role,translated,name) SELECT event_role,(SELECT language FROM old_language WHERE old_language.language_id = old_event_role_localized.language_id),name FROM old_event_role_localized;
-DROP TABLE old_event_role_localized;
+DROP TABLE old_event_role_localized CASCADE;
 
 ALTER TABLE event_role_state RENAME TO old_event_role_state;
 CREATE TABLE base.event_role_state ( event_role_state TEXT NOT NULL, event_role TEXT NOT NULL, rank INTEGER);
@@ -1361,7 +1360,7 @@ CREATE TABLE event_person (
 ) INHERITS( base.event_person );
 CREATE TABLE log.event_person () INHERITS( base.logging, base.event_person );
 INSERT INTO event_person(event_id,person_id,event_role,event_role_state,remark,rank) SELECT event_id,person_id,event_role,event_role_state,remark,rank FROM old_event_person;
-DROP TABLE old_event_person;
+DROP TABLE old_event_person CASCADE;
 DROP TABLE old_event_role_state;
 DROP TABLE old_event_role;
 
@@ -1379,7 +1378,7 @@ CREATE TABLE conference_transaction (
   PRIMARY KEY (conference_transaction_id)
 ) INHERITS( base.conference_transaction );
 INSERT INTO conference_transaction( conference_id,changed_when,changed_by,f_create ) SELECT conference_id,changed_when,changed_by,f_create FROM old_conference_transaction;
-DROP TABLE old_conference_transaction;
+DROP TABLE old_conference_transaction CASCADE;
 
 ALTER TABLE event_transaction RENAME TO old_event_transaction;
 CREATE TABLE base.event_transaction (
@@ -1461,9 +1460,7 @@ CREATE TABLE event_attachment (
 CREATE TABLE log.event_attachment () INHERITS( base.logging, base.event_attachment );
 INSERT INTO event_attachment(attachment_type,event_id,mime_type,filename,title,pages,data) SELECT attachment_type,event_id,mime_type,filename,title,pages,data FROM old_event_attachment;
 DROP TABLE old_event_attachment CASCADE;
-DROP TABLE old_event_image CASCADE;
 DROP TABLE old_mime_type;
-DROP TABLE old_attachment_type_localized;
 DROP TABLE old_attachment_type;
 
 ALTER TABLE event_related RENAME TO old_event_related;
@@ -1577,16 +1574,17 @@ CREATE TABLE log.log_transaction (
   PRIMARY KEY( log_transaction_id )
 ) INHERITS( base.log_transaction );
 
+DROP TABLE person_travel;
+DROP TABLE old_transport;
 DROP TABLE old_event CASCADE;
-DROP TABLE old_conference_person;
+DROP TABLE old_conference_person CASCADE;
 DROP TABLE old_person CASCADE;
 DROP TABLE old_conference_track;
-DROP TABLE old_conference;
+DROP TABLE old_conference CASCADE;
 DROP TABLE old_country;
 DROP TABLE old_link_type;
 DROP TABLE conflict.old_conference_phase_conflict;
 DROP TABLE old_conference_phase;
-DROP TABLE old_timezone;
 DROP TABLE old_currency;
 DROP TABLE old_event_origin;
 DROP TABLE old_event_state_progress;
