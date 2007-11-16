@@ -72,6 +72,13 @@ class Pope
     raise PermissionError, "Not allowed to delete #{table.table_name}"
   end
 
+  def domain_account( action, row )
+    if action == :modify && permission?( :modify_own_person )
+      return if row.respond_to?( :account_id ) && row.account_id == @user.account_id
+    end
+    raise Pope::PermissionError
+  end
+
   def domain_event( action, row )
     if action == :modify && permission?(:modify_own_event)
       return if @own_events.member?( row.event_id )
