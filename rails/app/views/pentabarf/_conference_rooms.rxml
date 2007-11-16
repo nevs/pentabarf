@@ -26,7 +26,7 @@ xml.div(:id=>'content-rooms') do
     end
 
     xml.script(:type=>'text/javascript') do 
-      Conference_room.select( :conference_id => @conference.conference_id, {:order=>[:rank,:conference_room]} ).each do | c |
+      Conference_room.select({:conference_id => @conference.conference_id}, {:order=>[:rank,:conference_room]} ).each do | c |
         xml << js_function( 'table_add_row', 'conference_room', c.conference_room, c.rank, c.size, c.public )
       end
     end
