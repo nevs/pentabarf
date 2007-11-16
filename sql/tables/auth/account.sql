@@ -2,7 +2,7 @@
 CREATE TABLE base.account (
   account_id SERIAL,
   login_name TEXT NOT NULL UNIQUE,
-  email TEXT NOT NULL,
+  email TEXT,
   salt TEXT,
   password TEXT,
   edit_token TEXT,
