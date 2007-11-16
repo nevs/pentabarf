@@ -1,5 +1,5 @@
 xml.div( :id => 'buttons', :style => 'display: none;' ) do
-  xml.button( local('form::cancel'), {:type=>'button',:id=>'cancel-button',:acesskey=>'c',:onclick=>'clear_tainting()'} )
+  xml.button( local('form::cancel'), {:type=>'button',:id=>'cancel-button',:acesskey=>'c',:onclick=>'clear_tainting();window.location.reload( true );'} )
   xml.button( local('form::save'), {:type=>'button',:id=>'submit-button',:acesskey=>'s',:onclick=>'clear_tainting();submit()'} )
 end
 xml.script( "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );", { :type => 'text/javascript' } )
