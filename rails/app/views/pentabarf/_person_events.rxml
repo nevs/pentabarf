@@ -33,7 +33,7 @@ xml.div(:id=>'content-events') do
 
   end
 
-  other_events = View_event_person.select( :person_id => @person.person_id,:conference_id =>{:ne=>@current_conference.conference_id},:translated=>@current_language )
+  other_events = View_event_person.select( :person_id => @person.person_id,:conference_id =>{:ne=>@current_conference.conference_id},:event_role=>['speaker','moderator'],:translated=>@current_language )
 
   if not other_events.empty?
     xml.fieldset do
@@ -44,12 +44,12 @@ xml.div(:id=>'content-events') do
         xml.thead do xml.tr do fields.each do | field | xml.th field.to_s end end end
         xml.tbody do
           other_events.each do | event |
-            xml.tr do 
-              fields.each do | field | 
-                xml.td do 
+            xml.tr do
+              fields.each do | field |
+                xml.td do
                   xml.a( event.send( field ), :href=>url_for(:action=>:event,:id=>event.event_id) )
                 end
-              end 
+              end
             end
           end
         end
