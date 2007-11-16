@@ -59,7 +59,7 @@ function ts_getInnerText(el) {
         break;
     }
   }
-  return str;
+  return str.strip();
 }
 
 function ts_resortTable(lnk,clid) {
