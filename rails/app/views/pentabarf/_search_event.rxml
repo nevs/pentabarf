@@ -1,6 +1,6 @@
 xml.p "#{@results.length} Events found."
 xml.table do
-  fields = [:event_state,:event_state_progress,:day,:room]
+  fields = [:event_state,:event_state_progress,:day,:conference_room]
   xml.thead do
     xml.tr do
       xml.th(local(:event))

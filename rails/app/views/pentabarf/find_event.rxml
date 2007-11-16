@@ -4,7 +4,7 @@ xml.div({:id=>:data}) do
   xml.fieldset({:id=>'content-simple'}) do
     xml.label(local('find event'))
     xml.form(:id=>:simple_search,:action=>url_for) do
-      xml.input({:type=>:text,:name=>:find_event_simple,:id=>:find_event_simple,:value=>@preferences[:search_event_simple]})
+      xml.input({:type=>:text,:name=>:search_event_simple,:id=>:search_event_simple,:value=>@preferences[:search_event_simple]})
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
     end
   end
@@ -87,7 +87,7 @@ xml.script(:type=>'text/javascript') do
   xml.text! <<-JS
     switch_tab();
     new Form.Observer('advanced_search', 1, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_event_advanced', { asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value });});
-    new Form.Element.Observer('find_event_simple', 1, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_event_simple/' + $('find_event_simple').value , {asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value});});
+    new Form.Observer('simple_search', 1, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_event_simple', { asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value });});
     if ( $('content-simple').visible() )
       new Ajax.Updater('results', '/pentabarf/search_event_simple/' + $('find_event_simple').value , {asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}});
     else

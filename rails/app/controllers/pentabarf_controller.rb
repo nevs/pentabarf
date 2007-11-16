@@ -192,13 +192,13 @@ class PentabarfController < ApplicationController
     query = params[:search_person_simple].to_s
     conditions = {}
     if not query.empty?
-      conditions[:OR] = []
+      conditions[:AND] = []
       query.split(/ +/).each do | word |
         cond = {}
         [:first_name,:last_name,:nickname,:public_name,:email].each do | field |
           cond[field] = {:ilike=>"%#{word}%"}
         end
-        conditions[:OR] << cond
+        conditions[:AND] << {:OR=>cond}
       end
     end
     @results = View_find_person.select( conditions )
@@ -221,7 +221,17 @@ class PentabarfController < ApplicationController
     conditions = {}
     conditions[:translated] = @current_language
     conditions[:conference_id] = @current_conference.conference_id
-    conditions[:title] = {:ilike=>params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}} if params[:id]
+    query = params[:search_event_simple].to_s
+    if not query.empty?
+      conditions[:AND] = []
+      query.split(/ +/).each do | word |
+        cond = {}
+        [:title,:subtitle].each do | field |
+          cond[field] = {:ilike=>"%#{word}%"}
+        end
+        conditions[:AND] << {:OR=>cond}
+      end
+    end
     @results = View_find_event.select( conditions )
     @preferences[:search_event_simple] = params[:id]
     render(:partial=>'search_event')
