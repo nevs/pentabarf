@@ -35,7 +35,7 @@ class PentabarfController < ApplicationController
     @conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})
     @conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})
     @conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})
-    @conflicts.length > 0 ? render( :partial => 'conflict_event' ) : render( :text => '' )
+    @conflicts.length > 0 ? render( :partial => 'conflict_person' ) : render( :text => '' )
   end
 
   def index
@@ -185,14 +185,14 @@ class PentabarfController < ApplicationController
     query = params[:search_person_simple].to_s
     conditions = {}
     conditions[:name] = {:ilike=>query.split(/ +/).map{|s| "%#{s}%"}} if not query.empty?
-    @results = View_find_person.select( conditions, {:limit=>100} )
+    @results = View_find_person.select( conditions )
     @preferences[:search_person_simple] = query
     render(:partial=>'search_person')
   end
 
   def search_person_advanced
     conditions = form_to_condition( params[:search_person], View_find_person )
-    @results = View_find_person.select( conditions, {:limit=>100} )
+    @results = View_find_person.select( conditions )
     @preferences[:search_person_advanced] = params[:search_person]
     render(:partial=>'search_person')
   end
@@ -206,7 +206,7 @@ class PentabarfController < ApplicationController
     conditions[:translated] = @current_language
     conditions[:conference_id] = @current_conference.conference_id
     conditions[:title] = {:ilike=>params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}} if params[:id]
-    @results = View_find_event.select( conditions, {:limit=>100} )
+    @results = View_find_event.select( conditions )
     @preferences[:search_event_simple] = params[:id]
     render(:partial=>'search_event')
   end
@@ -215,7 +215,7 @@ class PentabarfController < ApplicationController
     conditions = form_to_condition( params[:search_event], View_find_event )
     conditions[:translated] = @current_language
     conditions[:conference_id] = @current_conference.conference_id
-    @results = View_find_event.select( conditions, {:limit=>100} )
+    @results = View_find_event.select( conditions )
     @preferences[:search_event_advanced] = params[:search_event]
     render(:partial=>'search_event')
   end
