@@ -21,6 +21,7 @@ class ReportController < ApplicationController
   protected
 
   def init
+    @content_title = "Reports"
     @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
     @current_language = POPE.user.current_language
   end

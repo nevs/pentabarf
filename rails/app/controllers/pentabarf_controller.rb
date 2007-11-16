@@ -7,6 +7,7 @@ class PentabarfController < ApplicationController
   append_after_filter :set_content_type
 
   def conflicts
+    @content_title = "Conflicts"
     @conflict_level = ['fatal','error','warning','note']
     conflicts = []
     conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{ :translated => @current_language})
@@ -45,6 +46,7 @@ class PentabarfController < ApplicationController
   end
 
   def review
+    @content_title = "Review"
     @events = View_review.select(:conference_id=>@current_conference.conference_id,:translated=>POPE.user.current_language)
     @ratings = Event_rating.select({:person_id=>POPE.user.person_id}).select{|r| r.remark || r.relevance || r.acceptance || r.actuality }.map{|r| r.event_id}
   end
@@ -59,8 +61,9 @@ class PentabarfController < ApplicationController
   def conference
     begin
       @conference = Conference.select_single( :conference_id => params[:id] )
-      @content_title = @conference.acronym
+      @content_title = @conference.title
     rescue
+      raise "Not allowed to create conference." if not POPE.permission?( :create_conference )
       @content_title = "New Conference"
       return redirect_to(:action=>:conference,:id=>'new') if params[:id] != 'new'
       @conference = Conference.new(:conference_id=>0)
@@ -86,6 +89,7 @@ class PentabarfController < ApplicationController
       @event = Event.select_single( :event_id => params[:id] )
       @content_title = @event.title
     rescue
+      raise "Not allowed to create event." if not POPE.permission?( :create_event )
       return redirect_to(:action=>:event,:id=>'new') if params[:id] != 'new'
       @content_title = "New Event"
       @event = Event.new(:event_id=>0,:conference_id=>@current_conference.conference_id)
@@ -115,7 +119,9 @@ class PentabarfController < ApplicationController
   def person
     begin
       @person = Person.select_single( :person_id => params[:id] )
+      @content_title = @person.name
     rescue
+      raise "Not allowed to create person." if not POPE.permission?( :create_person )
       return redirect_to(:action=>:person,:id=>'new') if params[:id] != 'new'
       @content_title = "New Person"
       @person = Person.new(:person_id=>0)
