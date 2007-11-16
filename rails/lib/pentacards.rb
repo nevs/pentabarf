@@ -12,7 +12,7 @@ class Pentacards
 
   def initialize( events, rows, cols, paper_dimensions=[21.0, 29.7])
     @converter = Iconv.new('iso-8859-15', 'UTF-8')
-    @language_id = 120
+    @language = 'en'
     @border_between_cards = 1 #in cm
 
     # we ignore custom col and row settigns for now, till the layout can cope with it.
@@ -50,7 +50,7 @@ class Pentacards
   protected
 
   def draw_event( event, col, row, args={})
-    language = View_language.select({:language_id => event.language_id.to_i, :translated => @language_id})
+    language = Language_localized.select({:language => event.language.to_s, :translated => @language})
 
     # this is the bottom line with track, state language and event type
     output_row = [ event.conference_track,
@@ -73,7 +73,7 @@ class Pentacards
     end
 
     output_row = [ event.day,
-                   event.room,
+                   event.conference_room,
                    event.start_time ? event.start_time.strftime('%H:%M') : '',
                    event.duration.strftime('%H:%M') ]
 
@@ -93,7 +93,7 @@ class Pentacards
     end
 
     # Draw Persons box
-    persons = View_event_person.select({:event_id => event.event_id, :translated => @language_id})
+    persons = View_event_person.select({:event_id => event.event_id, :translated => @language})
 
     speakers, moderators, coordinators = [], [], []
     persons.each do |person|
