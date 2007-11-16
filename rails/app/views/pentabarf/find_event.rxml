@@ -86,8 +86,8 @@ xml.script(:type=>'text/javascript') do
   end
   xml.text! <<-JS
     switch_tab();
-    new Form.Observer('advanced_search', 0.3, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_event_advanced', { asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value });});
-    new Form.Element.Observer('find_event_simple', 0.2, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_event_simple/' + $('find_event_simple').value , {asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value});});
+    new Form.Observer('advanced_search', 1, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_event_advanced', { asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value });});
+    new Form.Element.Observer('find_event_simple', 1, function(element, value) { new Ajax.Updater('results', '/pentabarf/search_event_simple/' + $('find_event_simple').value , {asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value});});
     if ( $('content-simple').visible() )
       new Ajax.Updater('results', '/pentabarf/search_event_simple/' + $('find_event_simple').value , {asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}});
     else
