@@ -51,9 +51,10 @@ class PentabarfController < ApplicationController
     @ratings = Event_rating.select({:person_id=>POPE.user.person_id}).select{|r| r.remark || r.relevance || r.acceptance || r.actuality }.map{|r| r.event_id}
   end
 
-  ["event","conference"].each do | action |
+  ["event","person","conference"].each do | action |
     define_method("delete_#{action}") do
-      "Remove_#{action}".constantize.call(:event_id=>params[:id])
+      row = action.capitalize.constantize.select_single("#{action}_id"=>params[:id])
+      row.delete
       redirect_to(:action=>:index)
     end
   end
@@ -190,7 +191,16 @@ class PentabarfController < ApplicationController
   def search_person_simple
     query = params[:search_person_simple].to_s
     conditions = {}
-    conditions[:name] = {:ilike=>query.split(/ +/).map{|s| "%#{s}%"}} if not query.empty?
+    if not query.empty?
+      conditions[:OR] = []
+      query.split(/ +/).each do | word |
+        cond = {}
+        [:first_name,:last_name,:nickname,:public_name,:email].each do | field |
+          cond[field] = {:ilike=>"%#{word}%"}
+        end
+        conditions[:OR] << cond
+      end
+    end
     @results = View_find_person.select( conditions )
     @preferences[:search_person_simple] = query
     render(:partial=>'search_person')
