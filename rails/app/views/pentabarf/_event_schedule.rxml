@@ -20,7 +20,7 @@ xml.div(:id=>'content-schedule') do
       end
       @event.duration = d[@conference.default_timeslots - 1] if not @event.duration
       xml << select_row( @event, :duration, d, {:selected=>@event.duration.strftime('%H:%M:%S')} )
-      xml << select_row( @event, :conference_room, Conference_room.select({:conference_id=>@event.conference_id}).map(&:conference_room),{:with_empty=>true})
+      xml << select_row( @event, :conference_room, Conference_room.select({:conference_id=>@event.conference_id},{:order=>[:rank,:conference_room]}).map(&:conference_room),{:with_empty=>true})
       xml << check_box_row( @event, :public )
     end
   end

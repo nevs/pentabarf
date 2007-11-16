@@ -8,9 +8,9 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @event, :subtitle )
       xml << select_row( @event, :paper, [[nil,'unknown'],[true,'yes'],[false,'no']] )
       xml << select_row( @event, :slides, [[nil,'unknown'],[true,'yes'],[false,'no']] )
-      xml << select_row( @event, :language, View_conference_language.select({:conference_id=>@event.conference_id,:translated=>@current_language}).map{|e| [e.language,e.name]}, {:with_empty=>true} )
-      xml << select_row( @event, :conference_track, Conference_track.select(:conference_id=>@event.conference_id).map(&:conference_track),{:with_empty=>true})
-      xml << select_row( @event, :event_type, Event_type_localized.select(:translated=>@current_language).map{|e| [e.event_type,e.name]}, {:with_empty=>true} )
+      xml << select_row( @event, :language, View_conference_language.select({:conference_id=>@event.conference_id,:translated=>@current_language},{:order=>:name}).map{|e| [e.language,e.name]}, {:with_empty=>true} )
+      xml << select_row( @event, :conference_track, Conference_track.select({:conference_id=>@event.conference_id},{:order=>[:rank,:conference_track]}).map(&:conference_track),{:with_empty=>true})
+      xml << select_row( @event, :event_type, Event_type_localized.select({:translated=>@current_language},{:order=>:name}).map{|e| [e.event_type,e.name]}, {:with_empty=>true} )
       xml << file_row( :event_image, :image )
     end
   end

@@ -13,7 +13,7 @@ xml.div(:id=>'content-travel') do
             xml << date_button_row( @conference_person_travel, :arrival_date )
             xml << text_field_row( @conference_person_travel, :arrival_time )
             xml << text_field_row( @conference_person_travel, :arrival_number )
-            xml << select_row( @conference_person_travel, :arrival_transport, Transport_localized.select(:translated=>@current_language).map{|e| [e.transport, e.name]} )
+            xml << select_row( @conference_person_travel, :arrival_transport, Transport_localized.select({:translated=>@current_language},{:order=>:name}).map{|e| [e.transport, e.name]} )
             xml << check_box_row( @conference_person_travel, :arrival_pickup )
           end
         end
@@ -25,7 +25,7 @@ xml.div(:id=>'content-travel') do
             xml << date_button_row( @conference_person_travel, :departure_date )
             xml << text_field_row( @conference_person_travel, :departure_time )
             xml << text_field_row( @conference_person_travel, :departure_number )
-            xml << select_row( @conference_person_travel, :departure_transport, Transport_localized.select(:translated=>@current_language).map{|e| [e.transport, e.name]} )
+            xml << select_row( @conference_person_travel, :departure_transport, Transport_localized.select({:translated=>@current_language},{:order=>:name}).map{|e| [e.transport, e.name]} )
             xml << check_box_row( @conference_person_travel, :departure_pickup )
           end
         end
