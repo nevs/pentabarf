@@ -134,7 +134,7 @@ class PentabarfController < ApplicationController
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam]} )
     params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
-    account = write_row( Account, params[:account], {:except=>[:person_id,:account_id,:password,:password2]} ) do | row |
+    account = write_row( Account, params[:account], {:except=>[:person_id,:account_id,:password,:password2],:ignore_empty=>:login_name} ) do | row |
       if params[:account][:password].to_s != "" && ( row.account_id == POPE.user.account_id || POPE.permission?( :modify_account ) )
         raise "Passwords do not match" if params[:account][:password] != params[:account][:password2]
         row.password = params[:account][:password]
