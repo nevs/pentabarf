@@ -22,17 +22,17 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
       fundef = $f$CREATE OR REPLACE FUNCTION log.$f$ || quote_ident( procname ) || $f$() RETURNS TRIGGER AS $i$
         BEGIN
           IF ( current_setting('pentabarf.transaction_id') = '' ) THEN
-            PERFORM set_config('pentabarf.transaction_id',nextval('log.log_transaction_log_transaction_id_seq'),TRUE); 
+            PERFORM set_config('pentabarf.transaction_id',nextval('base.log_transaction_log_transaction_id_seq'),TRUE); 
             INSERT INTO log.log_transaction( log_transaction_id, person_id ) 
-              VALUES ( currval('log.log_transaction_log_transaction_id_seq'), 
+              VALUES ( currval('base.log_transaction_log_transaction_id_seq'), 
                 CASE current_setting('pentabarf.person_id') WHEN '' THEN NULL ELSE current_setting('pentabarf.person_id')::INTEGER END
             );
           END IF;
           IF ( TG_OP = 'DELETE' ) THEN
-            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT currval('log.log_transaction_log_transaction_id_seq'), 'D', OLD.*;
+            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT currval('base.log_transaction_log_transaction_id_seq'), 'D', OLD.*;
             RETURN OLD;
           ELSE
-            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT currval('log.log_transaction_log_transaction_id_seq'), substring( TG_OP, 1, 1 ), NEW.*;
+            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT currval('base.log_transaction_log_transaction_id_seq'), substring( TG_OP, 1, 1 ), NEW.*;
             RETURN NEW;
           END IF;
           RETURN NULL;
