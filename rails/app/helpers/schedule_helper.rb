@@ -22,6 +22,8 @@ module ScheduleHelper
   end
             
   def person_image( person_id = 0, size = 32, extension = nil )
+    image = Person_image.select({:person_id=>person_id},{:columns=>[:public]}).first
+    person_id = 0 if !image || !image.public
     url_for({:controller=>'image',:action=>:person,:id=>person_id}) + "-#{size}x#{size}" + ( extension ? ".#{extension}" : '')
   end
 
