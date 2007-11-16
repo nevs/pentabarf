@@ -233,7 +233,7 @@ class PentabarfController < ApplicationController
       end
     end
     @results = View_find_event.select( conditions )
-    @preferences[:search_event_simple] = params[:id]
+    @preferences[:search_event_simple] = query
     render(:partial=>'search_event')
   end
 
@@ -251,8 +251,20 @@ class PentabarfController < ApplicationController
   end
 
   def search_conference_simple
-    @results = View_find_conference.select(params[:id] ? {:title=>{:ilike => params[:id].to_s.split(/ +/).map{|s| "%#{s}%"}}} : {} )
-    @preferences[:search_conference_simple] = params[:id]
+    conditions = {}
+    query = params[:search_conference_simple].to_s
+    if not query.empty?
+      conditions[:AND] = []
+      query.split(/ +/).each do | word |
+        cond = {}
+        [:acronym,:title,:subtitle].each do | field |
+          cond[field] = {:ilike=>"%#{word}%"}
+        end
+        conditions[:AND] << {:OR=>cond}
+      end
+    end
+    @results = View_find_conference.select( conditions )
+    @preferences[:search_conference_simple] = query
     render(:partial=>'search_conference_simple')
   end
 
