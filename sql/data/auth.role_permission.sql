@@ -91,15 +91,15 @@ INSERT INTO role_permission ("role", permission) VALUES ('committee', 'view_rati
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_config');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_config');
 INSERT INTO role_permission ("role", permission) VALUES ('reviewer', 'modify_review');
+INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_review');
+INSERT INTO role_permission ("role", permission) VALUES ('committee', 'modify_review');
+INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_review');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_account');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_account');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'create_account');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'create_account');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'delete_account');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'delete_account');
-INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_review');
-INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_review');
-INSERT INTO role_permission ("role", permission) VALUES ('committee', 'modify_review');
 
 
 --

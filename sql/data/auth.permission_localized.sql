@@ -22,15 +22,15 @@ INSERT INTO permission_localized (permission, translated, name) VALUES ('create_
 INSERT INTO permission_localized (permission, translated, name) VALUES ('modify_conference', 'de', 'Modifizieren einer Konferenz');
 INSERT INTO permission_localized (permission, translated, name) VALUES ('delete_conference', 'de', 'Löschen einer Konferenz');
 INSERT INTO permission_localized (permission, translated, name) VALUES ('modify_localization', 'de', 'Modifizieren von Lokalisierungen');
-INSERT INTO permission_localized (permission, translated, name) VALUES ('modify_valuelist', 'de', 'Modifizieren von Werten in Wertelisten');
 INSERT INTO permission_localized (permission, translated, name) VALUES ('create_roles', 'de', 'Anlegen von Rollen');
 INSERT INTO permission_localized (permission, translated, name) VALUES ('modify_roles', 'de', 'Bearbeiten von Rollen');
 INSERT INTO permission_localized (permission, translated, name) VALUES ('delete_roles', 'de', 'Löschen von Rollen');
 INSERT INTO permission_localized (permission, translated, name) VALUES ('modify_own_person', 'de', 'Modifizierung der Daten zur eigenen Person');
 INSERT INTO permission_localized (permission, translated, name) VALUES ('modify_own_event', 'de', 'Modifizierung der Daten an der die Person beteiligt ist');
-INSERT INTO permission_localized (permission, translated, name) VALUES ('modify_account', 'de', 'Zuordnung von Personen zu Gruppen');
+INSERT INTO permission_localized (permission, translated, name) VALUES ('modify_valuelist', 'de', 'Modifizieren von Werten in Wertelisten');
 INSERT INTO permission_localized (permission, translated, name) VALUES ('create_account', 'de', 'Zuordnung von Personen zu Gruppen');
 INSERT INTO permission_localized (permission, translated, name) VALUES ('delete_account', 'de', 'Zuordnung von Personen zu Gruppen');
+INSERT INTO permission_localized (permission, translated, name) VALUES ('modify_account', 'de', 'Zuordnung von Personen zu Gruppen');
 
 
 --
