@@ -17,5 +17,32 @@ xml.div(:id=>'content-rating') do
 
   xml << text_area_fieldset( @person_rating, :remark, {:rows=>5,:cols=>60})
 
+  ratings = View_person_rating.select({:person_id=>@person.person_id},{:order=>:eval_time})
+  xml.fieldset do
+    xml.legend local('other ratings')
+
+    xml.table do
+      xml.tr do
+        xml.th('Rater',:colspan=>2)
+        xml.th('Rating',:colspan=>2)
+        xml.th 'Remark'
+        xml.th 'Time'
+      end
+      ratings.each do | rating |
+        xml.tr do
+          xml.td do
+            xml.a( {:href=>url_for(:action=>:person,:id=>rating.evaluator_id)} ) do
+              xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>"#{rating.evaluator_id}-24x24")})
+            end
+          end
+          xml.td do xml.a( rating.name, {:href=>url_for(:action=>:person,:id=>rating.evaluator_id)} ) end
+          xml << rating_bar_small( rating, [:speaker_quality,:competence] )
+          xml.td rating.remark
+          xml.td rating.eval_time.strftime('%Y-%m-%d %H:%M')
+        end
+      end
+    end
+
+  end if POPE.permission?(:view_ratings) && ratings.length > 0
 end
 
