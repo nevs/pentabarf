@@ -8,12 +8,12 @@ xml.div(:id=>'event',:class=>'section') do
       @events.select{|e| e.event_id == @event.event_id}.each do | speaker |
         xml.tr do
           xml.td do
-            xml.a(:href=>url_for(:action=>:speaker,:id=>speaker.person_id)) do
+            xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>speaker.person_id)) do
               xml.img(:src=>person_image( speaker.person_id, 32))
             end
           end
           xml.td do
-            xml.a(speaker.name,{:href=>url_for(:action=>:speaker,:id=>speaker.person_id)})
+            xml.a(speaker.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>speaker.person_id)})
           end
         end
       end
