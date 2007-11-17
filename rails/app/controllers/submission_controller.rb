@@ -56,7 +56,7 @@ class SubmissionController < ApplicationController
   def person
     @person = Person.select_single(:person_id=>POPE.user.person_id)
     @conference_person = Conference_person.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
-    @conference_person_travel = Conference_person_travel.select_or_new({:conference_person_id=>@conference_person.conference_person_id})
+    @conference_person_travel = Conference_person_travel.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
     @person_image = Person_image.select_or_new({:person_id=>@person.person_id})
     @transaction = Person_transaction.select_single({:person_id=>@person.person_id}) rescue Person_transaction.new
   end
