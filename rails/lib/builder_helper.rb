@@ -98,7 +98,7 @@ module Builder_helper
 
   def radio_row( row, column, collection, options = {} )
     name = "#{row.class.table.table_name}[#{column}]"
-    options[:checked] = row.send(column) unless options[:checked]
+    options[:checked] ||= row.send(column)
     xml = Builder::XmlMarkup.new
     xml.tr do
       xml.td do xml.label( local( "table::#{row.class.table.table_name}::#{column}" ) ) end

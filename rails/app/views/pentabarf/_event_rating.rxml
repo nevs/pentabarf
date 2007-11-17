@@ -20,15 +20,16 @@ xml.div(:id=>'content-rating') do
 
   xml << text_area_fieldset( @event_rating, :remark, {:rows=>5,:cols=>60})
 
-  ratings = View_event_rating.select({:event_id=>@event.event_id,:person_id=>{:ne=>POPE.user.person_id}})
+  ratings = View_event_rating.select({:event_id=>@event.event_id},{:order=>:eval_time})
   xml.fieldset do
     xml.legend local('other ratings')
 
     xml.table do
       xml.tr do
-        xml.th
-        xml.th 'Rater'
+        xml.th('Rater',:colspan=>2)
+        xml.th('Rating',:colspan=>2)
         xml.th 'Remark'
+        xml.th 'Time'
       end
       ratings.each do | rating |
         xml.tr do
@@ -38,7 +39,9 @@ xml.div(:id=>'content-rating') do
             end
           end
           xml.td do xml.a( rating.name, {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) end
+          xml << rating_bar_small( rating, [:relevance,:actuality,:acceptance] )
           xml.td rating.remark
+          xml.td rating.eval_time.strftime('%Y-%m-%d %H:%M')
         end
       end
     end

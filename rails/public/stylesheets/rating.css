@@ -23,58 +23,29 @@ td.rating-bar span.positive {
   text-align: left;
 }
 
-td.rating-bar span.p0 {
-  width: 0;
-}
-
-td.rating-bar span.p10 {
-  width: 15px;
-}
-
-td.rating-bar span.p20 {
-  width: 30px;
-}
-
-td.rating-bar span.p30 {
-  width: 45px;
-}
-
-td.rating-bar span.p40 {
-  width: 60px;
-}
-
-td.rating-bar span.p50 {
-  width: 75px;
-}
-
-td.rating-bar span.p60 {
-  width: 90px;
-}
-
-td.rating-bar span.p70 {
-  width: 105px;
-}
-
-td.rating-bar span.p80 {
-  width: 120px;
-}
-
-td.rating-bar span.p90 {
-  width: 135px;
-}
-
-td.rating-bar span.p100 {
-  width: 150px;
-}
+td.rating-bar span.p0  { width:  0px; }
+td.rating-bar span.p10 { width: 15px; }
+td.rating-bar span.p20 { width: 30px; }
+td.rating-bar span.p30 { width: 45px; }
+td.rating-bar span.p40 { width: 60px; }
+td.rating-bar span.p50 { width: 75px; }
+td.rating-bar span.p60 { width: 90px; }
+td.rating-bar span.p70 { width: 105px; }
+td.rating-bar span.p80 { width: 120px; }
+td.rating-bar span.p90 { width: 135px; }
+td.rating-bar span.p100 { width: 150px; }
 
 td.rating-bar-small {
   width: 20px;
+  line-height: 8px;
+  vertical-align: top;
+  padding: 1px;
 }
 
 td.rating-bar-small span {
   display: block;
   color: white;
-  height: 13px;
+  height: 8px;
 }
 
 td.rating-bar-small span.negative {
@@ -91,16 +62,8 @@ td.rating-bar-small span.positive {
   margin: 1px 1px 1px 0px;
 }
 
-td.rating-bar-small span.p0 {
-  width: 0;
-}
-
-td.rating-bar-small span.p1 {
-  width: 10px;
-}
-
-td.rating-bar-small span.p2 {
-  width: 20px;
-}
+td.rating-bar-small span.p0 { width: 0; }
+td.rating-bar-small span.p1 { width: 10px; }
+td.rating-bar-small span.p2 { width: 20px; }
 
 
