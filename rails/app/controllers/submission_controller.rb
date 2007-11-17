@@ -88,8 +88,15 @@ class SubmissionController < ApplicationController
   protected
 
   def init
-    @conference = Conference.select_single(:acronym=>params[:conference],:f_submission_enabled=>'t') rescue nil
     @current_language = POPE.user ? POPE.user.current_language : 'en'
+    begin
+      @conference = Conference.select_single(:acronym=>params[:conference],:f_submission_enabled=>'t')
+    rescue Momomoto::Error
+      if params[:action] != 'index' || params[:conference]
+        redirect_to(:controller=>'submission', :action => :index, :conference => nil )
+        return false
+      end
+    end
   end
 
   def auth
