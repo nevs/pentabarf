@@ -9,8 +9,9 @@ xml.div(:id=>'content-rating') do
         xml.th(local(:rating), {:colspan=>5})
         xml.th
       end
-      xml << radio_row( @person_rating, :speaker_quality, [[],[1,'--'],[2,'-'],[3,'o'],[4,'+'],[5,'++']])
-      xml << radio_row( @person_rating, :competence, [[],[1,'--'],[2,'-'],[3,'o'],[4,'+'],[5,'++']])
+      [:speaker_quality,:competence].each do | field |
+        xml << radio_row( @person_rating, field, [1,2,3,4,5,nil] )
+      end
     end
 
   end
