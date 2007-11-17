@@ -11,6 +11,7 @@ install:
 		${PSQL} -f activate_trigger.sql
 		${PSQL} -f types.sql
 		${PSQL} -f functions.sql
+		${PSQL} -c 'SELECT log.activate_logging();'
 
 all: install import
 
