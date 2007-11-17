@@ -12,7 +12,6 @@ CREATE TABLE base.conference_person (
 CREATE TABLE conference_person (
   FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
-  FOREIGN KEY (last_modified_by) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY (conference_person_id),
   UNIQUE( conference_id, person_id)
 ) INHERITS( base.conference_person );
