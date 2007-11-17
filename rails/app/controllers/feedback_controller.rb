@@ -10,7 +10,7 @@ class FeedbackController < ApplicationController
   def event
     @language = Language.select_single({:tag=>params[:language]})
     @event = View_schedule_simple.select_single({:event_id => params[:id], :conference_id => @conference.conference_id})
-    @event_rating = Event_rating_public.new
+    @event_feedback = Event_feedback.new
   end
 
   def save_event

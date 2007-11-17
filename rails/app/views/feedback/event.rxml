@@ -4,7 +4,7 @@ xml.div({:id=>'event-feedback',:class=>:section}) do
   xml.p( @event.subtitle, {:class=>:subtitle})
   xml.div( markup(@event.abstract), {:class=>:abstract})
 
-  xml.form({:method=>:post,:action=>url_for({:action=>:save_event,:id=>@event.event_id,:language=>@language.tag,:conference=>@conference.acronym})}) do
+  xml.form({:method=>:post,:action=>url_for({:action=>:save_event,:id=>@event.event_id,:language=>@language.language,:conference=>@conference.acronym})}) do
     xml.fieldset do
       xml.legend(local('feedback::my_rating'))
       xml.p(local('feedback::please_answer'))
@@ -18,7 +18,7 @@ xml.div({:id=>'event-feedback',:class=>:section}) do
         end
 
         [:participant_knowledge,:topic_importance,:content_quality,:presentation_quality,:audience_involvement].each do | field |
-          xml << radio_row( @event_rating, field, [1,2,3,4,5,nil], {:checked=>nil} )
+          xml << radio_row( @event_feedback, field, [1,2,3,4,5,nil], {:checked=>nil} )
         end
       end
     end
