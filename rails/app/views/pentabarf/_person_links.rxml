@@ -5,9 +5,9 @@ xml.div(:id=>'content-links') do
 
     xml.table(:id=>'conference_person_link_table',:style=>'display:none') do
       xml.thead do
-        xml.tr do 
+        xml.tr do
           xml.th
-          [:url,:title, :remove].each do | field | xml.th( local( field ) ) end 
+          [:url,:title, :remove].each do | field | xml.th( local( field ) ) end
         end
       end
       xml.tbody(:id=>'conference_person_link_tbody') do
@@ -19,7 +19,7 @@ xml.div(:id=>'content-links') do
           end
           xml.td do
             xml.input({:type=>:hidden,:id=>'conference_person_link[row_id][conference_person_link_id]',:name=>'conference_person_link[row_id][conference_person_link_id]'})
-            xml.input({:type=>:text,:id=>'conference_person_link[row_id][url]',:name=>'conference_person_link[row_id][url]',:onchange=>"$('conference_person_link[row_id][link]').setAttribute( 'href', $F(this));"})
+            xml.input({:type=>:text,:id=>'conference_person_link[row_id][url]',:name=>'conference_person_link[row_id][url]',:value=>'http://',:onchange=>"$('conference_person_link[row_id][link]').setAttribute( 'href', $F(this));"})
           end
           xml.td do xml.input({:type=>:text,:id=>'conference_person_link[row_id][title]',:name=>'conference_person_link[row_id][title]'}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'conference_person_link[row_id][remove]',:id=>'conference_person_link[row_id][remove]'}) end
@@ -27,7 +27,7 @@ xml.div(:id=>'content-links') do
       end
     end
 
-    xml.script(:type=>'text/javascript') do 
+    xml.script(:type=>'text/javascript') do
       Conference_person_link.select( :conference_person_id => @conference_person.conference_person_id ).each do | c |
         xml << js_function( 'table_add_row', 'conference_person_link', c.conference_person_link_id, c.url, c.title )
       end

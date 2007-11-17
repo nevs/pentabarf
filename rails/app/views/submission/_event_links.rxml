@@ -19,7 +19,7 @@ xml.div(:id=>'content-links') do
           end
           xml.td do
             xml.input({:type=>:hidden,:id=>'event_link[row_id][event_link_id]',:name=>'event_link[row_id][event_link_id]'})
-            xml.input({:type=>:text,:id=>'event_link[row_id][url]',:name=>'event_link[row_id][url]',:onchange=>"$('event_link[row_id][link]').setAttribute( 'href', $F(this));"})
+            xml.input({:type=>:text,:id=>'event_link[row_id][url]',:name=>'event_link[row_id][url]',:value=>"http://",:onchange=>"$('event_link[row_id][link]').setAttribute( 'href', $F(this));"})
           end
           xml.td do xml.input({:type=>:text,:id=>'event_link[row_id][title]',:name=>'event_link[row_id][title]'}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'event_link[row_id][remove]',:id=>'event_link[row_id][remove]'}) end

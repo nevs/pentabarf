@@ -19,7 +19,7 @@ xml.div(:id=>'content-links') do
           end
           xml.td do
             xml.input({:type=>:hidden,:id=>'conference_person_link[row_id][conference_person_link_id]',:name=>'conference_person_link[row_id][conference_person_link_id]'})
-            xml.input({:type=>:text,:id=>'conference_person_link[row_id][url]',:name=>'conference_person_link[row_id][url]',:onchange=>"$('conference_person_link[row_id][link]').setAttribute( 'href', $F(this));"})
+            xml.input({:type=>:text,:id=>'conference_person_link[row_id][url]',:name=>'conference_person_link[row_id][url]',:value=>'http://',:onchange=>"$('conference_person_link[row_id][link]').setAttribute( 'href', $F(this));"})
           end
           xml.td do xml.input({:type=>:text,:id=>'conference_person_link[row_id][title]',:name=>'conference_person_link[row_id][title]'}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'conference_person_link[row_id][remove]',:id=>'conference_person_link[row_id][remove]'}) end
