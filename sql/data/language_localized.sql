@@ -162,6 +162,7 @@ INSERT INTO language_localized ("language", translated, name) VALUES ('xh', 'de'
 INSERT INTO language_localized ("language", translated, name) VALUES ('zu', 'de', 'isizulu');
 INSERT INTO language_localized ("language", translated, name) VALUES ('jv', 'de', 'javanisch');
 INSERT INTO language_localized ("language", translated, name) VALUES ('yi', 'de', 'jiddisch');
+INSERT INTO language_localized ("language", translated, name) VALUES ('co', 'fr', 'corse');
 INSERT INTO language_localized ("language", translated, name) VALUES ('kn', 'de', 'kannada; kanaresisch');
 INSERT INTO language_localized ("language", translated, name) VALUES ('kr', 'de', 'kanuri');
 INSERT INTO language_localized ("language", translated, name) VALUES ('kk', 'de', 'kasachisch');
@@ -498,7 +499,6 @@ INSERT INTO language_localized ("language", translated, name) VALUES ('es', 'de'
 INSERT INTO language_localized ("language", translated, name) VALUES ('ru', 'de', 'russisch');
 INSERT INTO language_localized ("language", translated, name) VALUES ('pl', 'de', 'polnisch');
 INSERT INTO language_localized ("language", translated, name) VALUES ('kw', 'fr', 'cornique');
-INSERT INTO language_localized ("language", translated, name) VALUES ('co', 'fr', 'corse');
 INSERT INTO language_localized ("language", translated, name) VALUES ('it', 'de', 'italienisch');
 INSERT INTO language_localized ("language", translated, name) VALUES ('tg', 'de', 'tadschikisch');
 INSERT INTO language_localized ("language", translated, name) VALUES ('no', 'de', 'norwegisch');
