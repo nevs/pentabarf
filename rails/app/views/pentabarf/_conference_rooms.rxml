@@ -14,18 +14,18 @@ xml.div(:id=>'content-rooms') do
       end
       xml.tbody(:id=>'conference_room_tbody') do
         xml.tr(:id=>'conference_room_template',:style=>'display:none') do
-          xml.td do 
+          xml.td do
             xml.input({:type=>:text,:id=>'conference_room[row_id][conference_room]',:name=>'conference_room[row_id][conference_room]'})
           end
           xml.td do xml.input({:type=>:text,:id=>'conference_room[row_id][rank]',:name=>'conference_room[row_id][rank]'}) end
           xml.td do xml.input({:type=>:text,:id=>'conference_room[row_id][size]',:name=>'conference_room[row_id][size]'}) end
-          xml.td do xml.input({:type=>:checkbox,:name=>'conference_room[row_id][public]',:id=>'conference_room[row_id][public]'}) end
+          xml.td do xml.input({:type=>:checkbox,:name=>'conference_room[row_id][public]',:id=>'conference_room[row_id][public]',:checked=>:checked}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'conference_room[row_id][remove]',:id=>'conference_room[row_id][remove]'}) end
         end
       end
     end
 
-    xml.script(:type=>'text/javascript') do 
+    xml.script(:type=>'text/javascript') do
       Conference_room.select({:conference_id => @conference.conference_id}, {:order=>[:rank,:conference_room]} ).each do | c |
         xml << js_function( 'table_add_row', 'conference_room', c.conference_room, c.rank, c.size, c.public )
       end
