@@ -1,24 +1,24 @@
 xml.div({:id=>:menu}) do
   xml.ul do
     xml.li do
-      xml.a({:href=>@conference.export_base_url + "index.#{@language.language}.html"}) do
+      xml.a({:href=>@conference.export_base_url + "index.#{@current_language}.html"}) do
         xml.span( local(:index), {:class=>:normal})
       end
     end
     @conference.days.times do | day |
       xml.li do
-        xml.a({:href=>@conference.export_base_url + "day_#{day+1}.#{@language.language}.html"}) do
+        xml.a({:href=>@conference.export_base_url + "day_#{day+1}.#{@current_language}.html"}) do
           xml.span( "#{local(:day)} #{day+1}", {:class=>:normal})
         end
       end
     end
     xml.li do
-      xml.a({:href=>@conference.export_base_url + "speakers.#{@language.language}.html"}) do
+      xml.a({:href=>@conference.export_base_url + "speakers.#{@current_language}.html"}) do
         xml.span( local(:speakers), {:class=>:normal})
       end
     end
     xml.li do
-      xml.a({:href=>@conference.export_base_url + "events.#{@language.language}.html"}) do
+      xml.a({:href=>@conference.export_base_url + "events.#{@current_language}.html"}) do
         xml.span( local(:events), {:class=>:normal})
       end
     end

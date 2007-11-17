@@ -8,20 +8,17 @@ class FeedbackController < ApplicationController
   end
 
   def event
-    @language = Language.select_single({:tag=>params[:language]})
     @event = View_schedule_simple.select_single({:event_id => params[:id], :conference_id => @conference.conference_id})
     @event_feedback = Event_feedback.new
   end
 
   def save_event
     @event = View_schedule_simple.select_single({:event_id => params[:id], :conference_id => @conference.conference_id})
-    @language = Language.select_single({:tag=>params[:language]})
-    write_row( Event_rating_public, params[:event_rating_public], {:preset=>{:event_id=>@event.event_id}} )
-    redirect_to( :action=>:thankyou, :id => @event.event_id, :conference=>@conference.acronym, :language=>@language.tag )
+    write_row( Event_feedback, params[:event_feedback], {:preset=>{:event_id=>@event.event_id}} )
+    redirect_to( :action=>:thankyou, :id => @event.event_id, :conference=>@conference.acronym, :language=>@current_language )
   end
 
   def thankyou
-    @language = Language.select_single({:tag=>params[:language]})
     @event = View_schedule_simple.select_single({:event_id => params[:id], :conference_id => @conference.conference_id})
   end
 

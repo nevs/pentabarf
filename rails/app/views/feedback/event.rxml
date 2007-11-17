@@ -4,7 +4,7 @@ xml.div({:id=>'event-feedback',:class=>:section}) do
   xml.p( @event.subtitle, {:class=>:subtitle})
   xml.div( markup(@event.abstract), {:class=>:abstract})
 
-  xml.form({:method=>:post,:action=>url_for({:action=>:save_event,:id=>@event.event_id,:language=>@language.language,:conference=>@conference.acronym})}) do
+  xml.form({:method=>:post,:action=>url_for({:action=>:save_event,:id=>@event.event_id,:language=>@current_language,:conference=>@conference.acronym})}) do
     xml.fieldset do
       xml.legend(local('feedback::my_rating'))
       xml.p(local('feedback::please_answer'))
@@ -25,7 +25,7 @@ xml.div({:id=>'event-feedback',:class=>:section}) do
     xml.fieldset do
       xml.legend(local('feedback::my_opinion'))
       xml.p(local('feedback::criticism'))
-      xml.textarea({:name=>'event_rating_public[remark]',:cols=>80,:rows=>7})
+      xml.textarea({:name=>'event_feedback[remark]',:cols=>80,:rows=>7})
     end
     xml.fieldset do
       xml.input({:type=>:submit,:value=>local(:submit)})
