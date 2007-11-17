@@ -34,6 +34,7 @@ INSERT INTO mime_type (mime_type, file_extension, image) VALUES ('text/rtf', 'rt
 INSERT INTO mime_type (mime_type, file_extension, image) VALUES ('application/octet-stream', NULL, false);
 INSERT INTO mime_type (mime_type, file_extension, image) VALUES ('application/x-shockwave-flash', 'swf', false);
 INSERT INTO mime_type (mime_type, file_extension, image) VALUES ('image/pjpeg', 'jpg', true);
+INSERT INTO mime_type (mime_type, file_extension, image) VALUES ('image/svg+xml', 'svg', false);
 
 
 --
