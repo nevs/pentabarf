@@ -140,13 +140,15 @@ class PentabarfController < ApplicationController
   def save_person
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam]} )
-    params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
-    account = write_row( Account, params[:account], {:except=>[:person_id,:account_id,:password,:password2],:ignore_empty=>:login_name} ) do | row |
-      if params[:account][:password].to_s != "" && ( row.account_id == POPE.user.account_id || POPE.permission?( :modify_account ) )
-        raise "Passwords do not match" if params[:account][:password] != params[:account][:password2]
-        row.password = params[:account][:password]
+    if params[:account] || POPE.permission?( :modify_account )
+      params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
+      account = write_row( Account, params[:account], {:except=>[:account_id,:password,:password2],:preset=>{:person_id=>person.person_id},:ignore_empty=>:login_name} ) do | row |
+        if params[:account][:password].to_s != "" && ( row.account_id == POPE.user.account_id || POPE.permission?( :modify_account ) )
+          raise "Passwords do not match" if params[:account][:password] != params[:account][:password2]
+          row.password = params[:account][:password]
+        end
       end
-    end if params[:account][:account_id] || POPE.permission?( :modify_account )
+    end
     conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
     write_row( Conference_person_travel, params[:conference_person_travel], {:preset=>{:conference_person_id => conference_person.conference_person_id}})
     write_row( Person_rating, params[:person_rating], {:preset=>{:person_id => person.person_id,:evaluator_id=>POPE.user.person_id}})
