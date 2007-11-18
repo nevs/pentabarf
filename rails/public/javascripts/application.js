@@ -52,8 +52,12 @@ function switch_tab( target ) {
   if ( target && realm )
     cookie_write( realm, target );
 
-  if (!target && realm ) 
-    target = cookie_read( realm );
+  if (!target && realm ) {
+    if ( document.location.hash.length > 0 )
+      target = document.location.hash.replace('#','');
+    else
+      target = cookie_read( realm );
+  }
 
   if ( target == 'all' )
     return show_all_tabs();
