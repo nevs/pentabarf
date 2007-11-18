@@ -8,8 +8,8 @@ CREATE OR REPLACE VIEW view_event_state_statistic AS
   FROM
     event_state
     INNER JOIN event USING( event_state )
-  GROUP BY 
-    conference_id, 
+  GROUP BY
+    conference_id,
     event_state,
     event_state.rank
   ORDER BY event_state.rank;
