@@ -114,7 +114,7 @@ xml.div(:id=>'event',:class=>'section') do
 
   xml.div(:id=>'navigation') do
     prev = nil
-    @events.each do | e | 
+    @events.each do | e |
       break if e.event_id == event.event_id
       prev = e
     end
@@ -126,7 +126,7 @@ xml.div(:id=>'event',:class=>'section') do
     end
 
     fwd = nil
-    @events.reverse_each do | e | 
+    @events.reverse_each do | e |
       break if e.event_id == event.event_id
       fwd = e
     end
@@ -137,5 +137,5 @@ xml.div(:id=>'event',:class=>'section') do
       end
     end
   end
-  
+
 end
