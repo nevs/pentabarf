@@ -18,7 +18,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_attendee(in
              duration
         FROM event_person
         INNER JOIN event USING (event_id)
-        INNER JOIN event_state_progress USING (event_state_progress_id)
+        INNER JOIN event_state_progress USING (event_state,event_state_progress)
         WHERE event_role = 'attendee' AND
               event.conference_id = cur_conference_id AND
               event.event_state = 'accepted' AND
@@ -32,7 +32,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_attendee(in
         SELECT event_id
           FROM event_person
           INNER JOIN event USING (event_id)
-          INNER JOIN event_state_progress USING (event_state_progress_id)
+          INNER JOIN event_state_progress USING (event_state,event_state_progress)
           WHERE event.day IS NOT NULL AND
                 event.start_time IS NOT NULL AND
                 event.day = cur_speaker.day AND
