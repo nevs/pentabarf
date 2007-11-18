@@ -11,7 +11,7 @@ xml.div({:id=>'data'}) do
             xml.em state.duration.strftime('(%Hh%Mm)')
             xml.ul do
               View_event_state_progress_statistic.select({:conference_id=>@current_conference.conference_id,:event_state=>state.event_state}).each do | state_progress |
-                xml.li do 
+                xml.li do
                   xml.text! "#{state_progress.count} #{local(:events)} #{state_progress.event_state_progress}"
                   xml.em state_progress.duration.strftime('(%Hh%Mm)')
                 end
@@ -22,6 +22,17 @@ xml.div({:id=>'data'}) do
       end
     end
 
+  end
+
+  xml.fieldset do
+    xml.legend local(:conflicts)
+    xml.ul do
+      Conflict_statistics.call({:conference_id=>@current_conference.conference_id}).reverse_each do | level |
+        xml.li do
+          xml.a( "#{level.conflicts} Conflicts with severity '#{level.conflict_level}'", {:href=>url_for(:action=>:conflicts,:anchor=>level.conflict_level)} )
+        end
+      end
+    end
   end
 
 end
