@@ -15,7 +15,11 @@ module Builder_helper
       xml.td do xml.label( local( "table::#{table}::#{column}") ) end
       xml.td do
         options[:id] = options[:name] = "#{table}[#{column}]"
-        options[:value] = row[column]
+        options[:value] = case row[column]
+          when Time then row[column].strftime('%H:%M:%S')
+          else row[column]
+        end
+
         options[:tabindex] = 0
         xml.input( options )
         yield( xml ) if block_given?
