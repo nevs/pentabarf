@@ -77,7 +77,7 @@ module MomomotoHelper
       rescue Momomoto::Nothing_found
         mime_type = Mime_type.select_single(:mime_type=>'application/octet-stream')
       end
-      raise "Unsupported image mimetype" if options[:image] && !mime_type.image
+      raise "Unsupported image mimetype '#{type}'" if options[:image] && !mime_type.image
       values[:mime_type] = mime_type.mime_type
     else
       values.delete( data_column )
