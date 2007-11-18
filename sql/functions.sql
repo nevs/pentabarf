@@ -54,6 +54,7 @@
 \i functions/conflict/view_conflict_person.sql
 \i functions/conflict/view_conflict_event_event.sql
 \i functions/conflict/view_conflict_event.sql
+\i functions/conflict/conflict_statistics.sql
 \i functions/copy_event.sql
 \i functions/related_event_keyword.sql
 \i functions/related_event_speaker.sql
