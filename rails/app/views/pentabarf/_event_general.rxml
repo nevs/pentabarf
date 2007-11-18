@@ -18,6 +18,15 @@ xml.div(:id=>'content-general') do
       xml << select_row( @event, :conference_track, Conference_track.select({:conference_id=>@event.conference_id},{:order=>[:rank,:conference_track]}).map(&:conference_track),{:with_empty=>true})
       xml << select_row( @event, :event_type, Event_type_localized.select({:translated=>@current_language},{:order=>:name}).map{|e| [e.event_type,e.name]}, {:with_empty=>true} )
       xml << file_row( :event_image, :image )
+
+      if @event.event_id
+        created = Event_transaction.select({:event_id=>@event.event_id},{:order=>:changed_when,:limit=>1})[0]
+        xml.tr do
+          xml.td do xml.label( local(:created) ) end
+          xml.td created.changed_when.strftime('%Y-%m-%d %H:%M:%S')
+        end if created
+      end
+
     end
   end
 
