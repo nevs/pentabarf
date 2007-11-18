@@ -7,6 +7,6 @@ CREATE OR REPLACE VIEW view_conference_language AS
     language_localized.name
   FROM
     conference_language
-    INNER JOIN language_localized ON ( conference_language.language = language_localized.language )
+    INNER JOIN language_localized USING (language)
 ;
 
