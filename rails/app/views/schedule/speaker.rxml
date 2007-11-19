@@ -51,7 +51,7 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
     end
 
     if prev
-      xml.a(:href=>url_for(:action=>:speaker,:id=>prev.person_id)) do
+      xml.a(:href=>url_for(:conference=>@conference.acronym,:language=>params[:language],:action=>:speaker,:id=>prev.person_id)) do
         xml.span('<<<',{:class=>'previous',:title=>prev.name})
       end
     end
@@ -63,7 +63,7 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
     end
 
     if fwd
-      xml.a(:href=>url_for(:action=>:speaker,:id=>fwd.person_id)) do
+      xml.a(:href=>url_for(:conference=>@conference.acronym,:language=>params[:language],:action=>:speaker,:id=>fwd.person_id)) do
         xml.span('>>>',{:class=>'next',:title=>fwd.name})
       end
     end
