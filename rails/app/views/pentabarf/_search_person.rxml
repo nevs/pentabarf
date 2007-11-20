@@ -1,20 +1,21 @@
-xml.p "#{@results.length} Persons found."
-xml.table do
-  fields = [:name, :first_name, :last_name, :nickname]
-  xml.thead do
-    xml.tr do
-      fields.each do | field |
-        xml.th( local(field) )
-      end
-    end
-  end
-  xml.tbody do
-    @results.each do | person |
+paginate( xml, @results, params[:id].to_i ) do | results |
+  xml.table do
+    fields = [:name, :first_name, :last_name, :nickname]
+    xml.thead do
       xml.tr do
         fields.each do | field |
-          xml.td do xml.a( person.send(field), {:href=>url_for(:action=>:person,:id=>person.person_id)}) end
+          xml.th( local(field) )
         end
       end
     end
-  end
+    xml.tbody do
+      results.each do | person |
+        xml.tr do
+          fields.each do | field |
+            xml.td do xml.a( person.send(field), {:href=>url_for(:action=>:person,:id=>person.person_id)}) end
+          end
+        end
+      end
+    end
+  end if results.length > 0
 end

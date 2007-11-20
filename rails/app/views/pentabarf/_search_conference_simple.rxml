@@ -1,20 +1,22 @@
-xml.p "#{@results.length} Conferences found."
-xml.table do
-  fields = [:acronym, :title, :subtitle, :start_date, :venue, :city]
-  xml.thead do
-    xml.tr do
-      fields.each do | field |
-        xml.th( local(field) )
-      end
-    end
-  end
-  xml.tbody do
-    @results.each do | conference |
+paginate( xml, @results, params[:id].to_i ) do | results |
+  xml.table do
+    fields = [:acronym, :title, :subtitle, :start_date, :venue, :city]
+    xml.thead do
       xml.tr do
         fields.each do | field |
-          xml.td do xml.a( conference.send(field), {:href=>url_for(:action=>:conference,:id=>conference.conference_id)}) end
+          xml.th( local(field) )
         end
       end
     end
-  end
+    xml.tbody do
+      results.each do | conference |
+        xml.tr do
+          fields.each do | field |
+            xml.td do xml.a( conference.send(field), {:href=>url_for(:action=>:conference,:id=>conference.conference_id)}) end
+          end
+        end
+      end
+    end
+  end if results.length > 0
 end
+

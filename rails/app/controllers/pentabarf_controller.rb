@@ -191,7 +191,7 @@ class PentabarfController < ApplicationController
   end
 
   def search_person_simple
-    query = params[:search_person_simple].to_s
+    query = params[:id] ? @preferences[:search_person_simple] : params[:search_person_simple]
     conditions = {}
     if not query.empty?
       conditions[:AND] = []
@@ -209,6 +209,7 @@ class PentabarfController < ApplicationController
   end
 
   def search_person_advanced
+    params[:search_person] = @preferences[:search_person_advanced] if params[:id]
     conditions = form_to_condition( params[:search_person], View_find_person )
     @results = View_find_person.select( conditions )
     @preferences[:search_person_advanced] = params[:search_person]
@@ -255,7 +256,7 @@ class PentabarfController < ApplicationController
 
   def search_conference_simple
     conditions = {}
-    query = params[:search_conference_simple].to_s
+    query = params[:id] ? @preferences[:search_conference_simple] : params[:search_conference_simple]
     if not query.empty?
       conditions[:AND] = []
       query.split(/ +/).each do | word |

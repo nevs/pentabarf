@@ -111,7 +111,7 @@ module ApplicationHelper
   end
 
   def paginate( xml, results, active_page )
-    results_per_page = 23
+    results_per_page = 42
     show_first, show_last, show_around = 3, 3, 4
     pages = (results.length / results_per_page.to_f).ceil
     active_page = pages - 1 if active_page >= pages
