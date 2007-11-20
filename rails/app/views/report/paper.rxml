@@ -18,7 +18,7 @@ xml.div({:id=>:data}) do
               xml.text! row.subtitle
             end
           end
-          xml.td do xml.a(row.paper_submitted,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) end
+          xml.td do xml.a(row.paper_submitted > 0 ? 'yes','no',{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) end
           xml.td do xml.a(row.pages,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) end
         end
       end
