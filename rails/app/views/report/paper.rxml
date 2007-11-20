@@ -1,0 +1,37 @@
+xml.div({:id=>:data}) do
+  xml.table({:class=>:sortable}) do
+    xml.thead do
+      xml.tr do
+        xml.th( local( :event ) )
+        xml.th( local( :paper_submitted ) )
+        xml.th( local( :pages ) )
+      end
+    end
+
+    xml.tbody do
+      View_report_paper.select({:conference_id=>@current_conference.conference_id}).each do | row |
+        xml.tr do
+          xml.td do
+            xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) do
+              xml.text! row.title
+              xml.br
+              xml.text! row.subtitle
+            end
+          end
+          xml.td do xml.a(row.paper_submitted,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) end
+          xml.td do xml.a(row.pages,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) end
+        end
+      end
+    end
+
+    xml.tfoot do
+      xml.tr do
+        xml.th( local( :event ) )
+        xml.th( local( :paper_submitted ) )
+        xml.th( local( :pages ) )
+      end
+    end
+
+  end
+end
+

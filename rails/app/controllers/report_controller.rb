@@ -1,7 +1,7 @@
 class ReportController < ApplicationController
   before_filter :init
 
-  REPORTS = [:expenses,:feedback,:resources]
+  REPORTS = [:expenses,:feedback,:paper,:resources]
 
   def index
   end
@@ -10,7 +10,10 @@ class ReportController < ApplicationController
     @report_class = View_report_expenses
   end
 
-  REPORTS.each do | report |
+  def paper
+  end
+
+  [:feedback,:resources].each do | report |
     next if ReportController.instance_methods(false).member?( report.to_s )
     define_method( report ) do
       @report_class = Object.const_get("View_report_#{report}")
