@@ -223,7 +223,7 @@ class PentabarfController < ApplicationController
     conditions = {}
     conditions[:translated] = @current_language
     conditions[:conference_id] = @current_conference.conference_id
-    query = params[:search_event_simple].to_s
+    query = params[:id] ? @preferences[:search_event_simple] : params[:search_event_simple]
     if not query.empty?
       conditions[:AND] = []
       query.split(/ +/).each do | word |
