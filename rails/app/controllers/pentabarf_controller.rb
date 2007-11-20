@@ -240,6 +240,7 @@ class PentabarfController < ApplicationController
   end
 
   def search_event_advanced
+    params[:search_event] = @preferences[:search_event_advanced] if params[:id]
     conditions = form_to_condition( params[:search_event], View_find_event )
     conditions[:translated] = @current_language
     conditions[:conference_id] = @current_conference.conference_id
