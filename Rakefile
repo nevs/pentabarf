@@ -46,8 +46,13 @@ task :unincluded_files do
   end
 end
 
+task :update_css do
+  `(cd rails/public/stylesheets && make)`
+end
+
 
 task :check => [:unincluded_files,:unused_views,:unused_models]
 
 task :default => [:check]
+
 
