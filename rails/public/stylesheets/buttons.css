@@ -28,7 +28,7 @@
 }
 
 button {
-  border: 2px solid black;  
+  border: 2px solid black;
 
   display: inline;
   cursor: pointer;
@@ -42,6 +42,10 @@ button {
   padding-right: 3px;
 
   text-align: center;
+}
+
+button.paginate {
+  border: 1px solid black;
 }
 
 button:hover {
