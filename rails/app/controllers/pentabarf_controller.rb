@@ -191,17 +191,15 @@ class PentabarfController < ApplicationController
   end
 
   def search_person_simple
-    query = params[:id] ? @preferences[:search_person_simple] : params[:search_person_simple]
+    query = params[:id] ? @preferences[:search_person_simple].to_s : params[:search_person_simple].to_s
     conditions = {}
-    if not query.empty?
-      conditions[:AND] = []
-      query.split(/ +/).each do | word |
-        cond = {}
-        [:first_name,:last_name,:nickname,:public_name,:email].each do | field |
-          cond[field] = {:ilike=>"%#{word}%"}
-        end
-        conditions[:AND] << {:OR=>cond}
+    conditions[:AND] = []
+    query.split(/ +/).each do | word |
+      cond = {}
+      [:first_name,:last_name,:nickname,:public_name,:email].each do | field |
+        cond[field] = {:ilike=>"%#{word}%"}
       end
+      conditions[:AND] << {:OR=>cond}
     end
     @results = View_find_person.select( conditions )
     @preferences[:search_person_simple] = query
@@ -224,16 +222,14 @@ class PentabarfController < ApplicationController
     conditions = {}
     conditions[:translated] = @current_language
     conditions[:conference_id] = @current_conference.conference_id
-    query = params[:id] ? @preferences[:search_event_simple] : params[:search_event_simple]
-    if not query.empty?
-      conditions[:AND] = []
-      query.split(/ +/).each do | word |
-        cond = {}
-        [:title,:subtitle].each do | field |
-          cond[field] = {:ilike=>"%#{word}%"}
-        end
-        conditions[:AND] << {:OR=>cond}
+    query = params[:id] ? @preferences[:search_event_simple].to_s : params[:search_event_simple].to_s
+    conditions[:AND] = []
+    query.split(/ +/).each do | word |
+      cond = {}
+      [:title,:subtitle].each do | field |
+        cond[field] = {:ilike=>"%#{word}%"}
       end
+      conditions[:AND] << {:OR=>cond}
     end
     @results = View_find_event.select( conditions )
     @preferences[:search_event_simple] = query
@@ -256,7 +252,7 @@ class PentabarfController < ApplicationController
 
   def search_conference_simple
     conditions = {}
-    query = params[:id] ? @preferences[:search_conference_simple] : params[:search_conference_simple]
+    query = params[:id] ? @preferences[:search_conference_simple].to_s : params[:search_conference_simple].to_s
     if not query.empty?
       conditions[:AND] = []
       query.split(/ +/).each do | word |
