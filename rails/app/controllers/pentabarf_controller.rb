@@ -40,9 +40,11 @@ class PentabarfController < ApplicationController
   end
 
   def index
+    @content_title = "Overview"
   end
 
   def own_events
+    @content_title = "Own events"
   end
 
   def review
