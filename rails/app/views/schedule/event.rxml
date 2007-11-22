@@ -8,12 +8,12 @@ xml.div(:id=>'event',:class=>'section vevent') do
       @events.select{|e| e.event_id == @event.event_id}.each do | speaker |
         xml.tr do
           xml.td do
-            xml.a(:href=>url_for(:action=>:speaker,:id=>speaker.person_id,:language=>params[:language])) do
+            xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:id=>speaker.person_id,:language=>params[:language])) do
               xml.img(:src=>person_image( speaker.person_id, 32),:height=>32,:width=>32)
             end
           end
           xml.td do
-            xml.a(speaker.name,{:href=>url_for(:action=>:speaker,:language=>params[:language],:id=>speaker.person_id)})
+            xml.a(speaker.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>speaker.person_id)})
           end
         end
       end
@@ -91,7 +91,7 @@ xml.div(:id=>'event',:class=>'section vevent') do
       xml.ul do
         files.each do | file |
           xml.li do
-            xml.a("#{file.title} (#{file.mime_type} - #{human_size(file.filesize)})",{:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>file.event_attachment_id),:rel=>'enclosure'})
+            xml.a("#{file.title} (#{file.mime_type} - #{human_size(file.filesize)})",{:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>file.event_attachment_id,:filename=>file.filename),:rel=>'enclosure'})
           end
         end
       end
@@ -120,7 +120,7 @@ xml.div(:id=>'event',:class=>'section vevent') do
     end
 
     if prev
-      xml.a(:href=>url_for(:action=>:event,:id=>prev.event_id)) do
+      xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>prev.event_id)) do
         xml.span('<<<',{:class=>'previous',:title=>prev.title})
       end
     end
@@ -132,7 +132,7 @@ xml.div(:id=>'event',:class=>'section vevent') do
     end
 
     if fwd
-      xml.a(:href=>url_for(:action=>:event,:id=>fwd.event_id)) do
+      xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>fwd.event_id)) do
         xml.span('>>>',{:class=>'next',:title=>fwd.title})
       end
     end

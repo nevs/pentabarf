@@ -2,18 +2,18 @@ xml.ul do
   @conference.days.times do | day |
     date = @conference.start_date + day
     xml.li do
-      xml.a(:href=>url_for({:action=>:day,:id=>day + 1,:language=>params[:language]})) do
+      xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:day,:id=>day + 1,:language=>params[:language]})) do
         xml.span("#{local(:day)} #{day + 1} (#{date.strftime('%d.%m.%Y')})", :class=>:normal)
       end
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:action=>:speakers,:language=>params[:language]})) do
+    xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:speakers,:language=>params[:language]})) do
       xml.span( local('schedule::speakers'), :class=>:normal)
     end
   end
   xml.li do
-    xml.a(:href=>url_for({:action=>:events,:language=>params[:language]})) do
+    xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:events,:language=>params[:language]})) do
       xml.span( local('schedule::events'), :class=>:normal)
     end
   end

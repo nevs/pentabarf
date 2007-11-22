@@ -13,12 +13,12 @@ xml.div(:id=>'menu', :class=>'noprint') do
       end
     end
     xml.li do
-      xml.a(:href=>url_for({:action=>:speakers,:language=>params[:language]})) do
+      xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:speakers,:language=>params[:language]})) do
         xml.span(local('schedule::speakers'), :class=>:normal)
       end
     end
     xml.li do
-      xml.a(:href=>url_for({:action=>:events,:language=>params[:language]})) do
+      xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:events,:language=>params[:language]})) do
         xml.span(local('schedule::events'), :class=>:normal)
       end
     end

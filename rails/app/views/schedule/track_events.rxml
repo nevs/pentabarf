@@ -23,7 +23,7 @@ xml.div(:id=>'event-index',:class=>'section') do
               xml.a(event.subtitle,{:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>event.event_id,:language=>params[:language])})
             end
             xml.p(:class=>'info') do
-              xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
+              xml.a({:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>event.event_id,:language=>params[:language])}) do
                 xml.strong local( 'schedule::event_type' )
                 xml.text! ': '
                 xml.span(event.event_type,{:class=>'type'})
@@ -43,7 +43,7 @@ xml.div(:id=>'event-index',:class=>'section') do
             xml.ul(:class=>'speakers') do
               @events.select{|e| e.event_id == event.event_id}.each do | speaker |
                 xml.li do
-                  xml.a(speaker.name,{:href=>url_for(:action=>:speaker,:id=>speaker.person_id)})
+                  xml.a(speaker.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>speaker.person_id)})
                 end
               end
             end

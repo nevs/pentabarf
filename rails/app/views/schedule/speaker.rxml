@@ -10,7 +10,7 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
             end
           end
           xml.td do
-            xml.a(event.title,{:href=>url_for(:action=>:event,:id=>event.event_id)})
+            xml.a(event.title,{:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>event.event_id)})
           end
         end
       end
