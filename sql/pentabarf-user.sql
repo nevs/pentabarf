@@ -1,12 +1,12 @@
 
 -- create a first user for logging into pentabarf password pentabarf
 
-INSERT INTO person( person_id, login_name, password) VALUES ( 1, 'pentabarf', 'dc0e832c2240352019ab65831813936c9cea5800bb7e3ccc' );
+INSERT INTO person( nickname ) VALUES ( 'pentabarf' );
+INSERT INTO auth.account( login_name, email, salt, password, person_id ) VALUES ( 'pentabarf', 'pentabarf@localhost', 'dc0e832c22403520','19ab65831813936c9cea5800bb7e3ccc', currval( pg_get_serial_sequence('base.person','person_id')));
 
-SELECT nextval('person_person_id_seq');
 
 -- give this user admin privileges
 
-INSERT INTO person_role VALUES ( 1, 2);
+INSERT INTO auth.account_role VALUES ( currval( pg_get_serial_sequence( 'base.account', 'account_id' ) ), 'admin' );
 
 
