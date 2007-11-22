@@ -11,7 +11,7 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
   xml.body do
     xml.div(:id=>'conference-logo') do
       xml.a(:href=>@conference.homepage) do
-        xml.img(:alt=> @conference.title, :src=> url_for(:controller=>'image',:action=>:conference,:id=>"#{@conference.conference_id}-128x128") )
+        xml.img(:alt=> @conference.title, :src=> conference_image( @conference.conference_id, 128 ) )
       end
     end
     xml << render(:partial => 'sidebar')

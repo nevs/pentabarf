@@ -10,7 +10,7 @@ class HTMLExport
       @conference = conf
       @session = ActionController::Integration::Session.new
       @session.host = 'pentabarf.org'
-      @http_prefix = '/'
+      @http_prefix = conf.export_base_url
       @file_prefix = "tmp/html-export/#{conf.acronym}/"
       get('/')
     end
@@ -59,9 +59,9 @@ class HTMLExport
           end
         when 'image' then
           case url[:action]
-            when :conference then "#{prefix}images/conference-128x128.png"
-            when :event then "#{prefix}images/event-128x128.png"
-            when :person then "#{prefix}images/person-128x128.png"
+            when :conference then "#{prefix}images/conference-#{url[:size]}.#{url[:extension]}"
+            when :event then "#{prefix}images/event-#{url[:id]}-#{url[:size]}.#{url[:extension]}"
+            when :person then "#{prefix}images/person-#{url[:id]}-#{url[:size]}.#{url[:extension]}"
           end
         when 'xcal' then "#{prefix}schedule.#{url[:language]}.xcs"
         when 'ical' then "#{prefix}schedule.#{url[:language]}.ics"
