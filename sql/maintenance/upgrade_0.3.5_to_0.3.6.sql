@@ -990,7 +990,7 @@ CREATE TABLE base.account ( account_id SERIAL, login_name TEXT NOT NULL UNIQUE, 
 CREATE TABLE auth.account (
   FOREIGN KEY( current_language ) REFERENCES language( language ) ON UPDATE CASCADE ON DELETE SET NULL,
   FOREIGN KEY( current_conference_id ) REFERENCES conference( conference_id ) ON UPDATE CASCADE ON DELETE SET NULL,
-  FOREIGN KEY( person_id ) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY( person_id ) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY( account_id )
 ) INHERITS( base.account );
 INSERT INTO auth.account( login_name, email, salt, password, current_language, current_conference_id, preferences, last_login, person_id ) SELECT login_name, email_contact, substring(password, 1, 16), substring(password,17,32), 'en', current_conference_id, preferences, last_login, person_id FROM old_person WHERE login_name IS NOT NULL AND email_contact IS NOT NULL;

@@ -18,7 +18,7 @@ CREATE TABLE base.account (
 CREATE TABLE auth.account (
   FOREIGN KEY( current_language ) REFERENCES language( language ) ON UPDATE CASCADE ON DELETE SET NULL,
   FOREIGN KEY( current_conference_id ) REFERENCES conference( conference_id ) ON UPDATE CASCADE ON DELETE SET NULL,
-  FOREIGN KEY( person_id ) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE SET NULL,
+  FOREIGN KEY( person_id ) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY( account_id )
 ) INHERITS( base.account );
 
