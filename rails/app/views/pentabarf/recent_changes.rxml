@@ -15,7 +15,7 @@ xml.div( :id => 'data' ) do
           xml.tr do
             xml.td do
               xml.a(:href=>url_for(:controller=>'pentabarf',:action=>change.type,:id=>change.id)) do
-                xml.img(:src=>url_for(:controller=>'image',:action=>change.type,:id=>"#{change.id}-32x32"),:height=>32,:width=>32)
+                xml.img(:src=>url_for(:controller=>'image',:action=>change.type,:id=>change.id,:size=>'32x32'),:height=>32,:width=>32)
               end
             end
             xml.td do xml.a(change.title, :href=>url_for(:controller=>'pentabarf',:action=>change.type,:id=>change.id)) end

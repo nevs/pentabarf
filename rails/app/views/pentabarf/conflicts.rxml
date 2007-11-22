@@ -21,22 +21,21 @@ xml.div( :id => 'data' ) do
               case conflict
                 when View_conflict_event_event::Row then 
                   url = url_for({:action=>:event,:id=>conflict.event_id1})
-                  img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id1})
+                  img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id1,:size=>'24x24'})
                   who = conflict.title1
                 when View_conflict_event::Row then 
                   url = url_for({:action=>:event,:id=>conflict.event_id})
-                  img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id})
+                  img_url = url_for({:controller=>'image',:action=>:event,:id=>conflict.event_id,:size=>'24x24'})
                   who = conflict.title
                 when View_conflict_event_person::Row then 
                   url = url_for({:action=>:person,:id=>conflict.person_id})
-                  img_url = url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id})
+                  img_url = url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id,:size=>'24x24'})
                   who = conflict.name
                 when View_conflict_person::Row then 
                   url = url_for({:action=>:person,:id=>conflict.person_id})
-                  img_url = url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id})
+                  img_url = url_for({:controller=>'image',:action=>:person,:id=>conflict.person_id,:size=>'24x24'})
                   who = conflict.name
               end
-              img_url += "-24x24"
               xml.tr do
                 xml.td do xml.a(:href=>url) do xml.img(:src=>img_url,:height=>24,:width=>24) end end
                 xml.td do xml.a(who,:href=>url) end
