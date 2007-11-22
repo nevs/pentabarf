@@ -22,6 +22,8 @@ class ActionController::Base
   end
 end
 
+POPE.instance_eval do @user = ::Acount.new end
+
 conf = Conference.select_single(:acronym=>ARGV[0])
 languages = View_conference_language.select(:conference_id=>conf.conference_id,:translated=>'en')
 languages = languages.map(&:language)
