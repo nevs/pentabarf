@@ -43,7 +43,7 @@ class HTMLExport
       target = case url[:controller]
         when 'file' then
           case url[:action]
-            when :event_attachment then "#{prefix}attachments/#{url[:id]}#{url[:filename] ? '_' + url[:filename] : ''}"
+            when :event_attachment then "#{prefix}attachments/#{url[:id]}#{url[:filename].to_s.length > 0 ? '_' + url[:filename] : ''}"
           end
         when 'schedule' then
           case url[:action]
