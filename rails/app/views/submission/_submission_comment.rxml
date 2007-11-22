@@ -1,5 +1,5 @@
 xml.div(:id=>'content-comment') do
-  xml.img( :src=>url_for(:controller=>'image',:action=>:event,:id=>"#{@event.event_id}-128x128"),:style=>'float: right;')
+  xml.img( :src=>url_for(:controller=>'image',:action=>:event,:id=>@event.event_id,:size=>'128x128'),:style=>'float: right;')
   xml << text_area_fieldset( @event, :submission_notes, {:rows=>5,:cols=>60})
 end
 

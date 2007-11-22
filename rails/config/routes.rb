@@ -33,6 +33,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'submission/:conference/:action/:id', :controller => 'submission'
 
   map.connect 'image/:action/:id.:size.:extension', :controller=> 'image'
+  map.connect 'image/:action/:id.:size', :controller=> 'image'
 
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'

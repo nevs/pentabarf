@@ -16,7 +16,7 @@ class ImageController < ApplicationController
         data = File.open( img ).read
         mimetype = 'image/png'
       end
-      resolution = params[:id].match( /\d+(-(\d+x\d+))?/ )[2]
+      resolution = params[:size]
       response.headers['Content-Type'] = mimetype
       response.headers['Last-Modified'] = @timestamp
       if mimetype == "image/svg+xml"
