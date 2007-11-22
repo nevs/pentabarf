@@ -7,8 +7,6 @@
 \i functions/account/own_events.sql
 \i functions/add_attendee.sql
 \i functions/admin/merge_person.sql
-\i functions/admin/remove_conference.sql
-\i functions/admin/remove_event.sql
 \i functions/conflict/event/abstract_length.sql
 \i functions/conflict/event/accepted_without_timeslot.sql
 \i functions/conflict/event/conference_language.sql
