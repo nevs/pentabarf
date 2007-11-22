@@ -10,9 +10,9 @@ class HTMLExport
       @conference = conf
       @session = ActionController::Integration::Session.new
       @session.host = 'pentabarf.org'
-      @http_prefix = conf.export_base_url
+      @http_prefix = @conference.export_base_url
       @file_prefix = "tmp/html-export/#{conf.acronym}/"
-      get('/')
+      get( "/schedule/#{@conference.acronym}")
     end
 
     def get( url )
