@@ -22,7 +22,7 @@ class HTMLExport
     def get_hash( url )
       get( url_for_rails( url ) )
       if @session.status != 200
-        raise Error, "Error in HTML Export while processing #{url.instruct}"
+        raise StandardError, "Error in HTML Export while processing #{url.inspect}"
         exit 1
       end
     end
@@ -41,6 +41,10 @@ class HTMLExport
       url[:controller] ||= 'schedule'
       url[:language] ||= 'en'
       target = case url[:controller]
+        when 'file' then
+          case url[:action]
+            when :event_attachment then "#{prefix}attachments/#{url[:id]}#{url[:filename] ? '_' + url[:filename] : ''}"
+          end
         when 'schedule' then
           case url[:action]
             when :index then "#{prefix}index.#{url[:language]}.html"
