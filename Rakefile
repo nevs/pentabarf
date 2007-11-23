@@ -19,11 +19,14 @@ task :unused_models do
   models = `grep -r '^class ' rails/app/models | sed -e 's/.*:class \\([A-Z][a-z_]\\+\\) .*/\\1/'`.split
   models.each do | model |
     next if model.match(/^View_(conference|event|person)_image_modification$/)
-    next unless `grep -r '\\<#{model}\\>' rails/app/controllers`.empty?
-    next unless `grep -r '\\<#{model}\\>' rails/app/views`.empty?
-    next unless `grep -r '\\<#{model}\\>' rails/lib`.empty?
-    next unless `grep -r '\\<#{model}\\>' rails/test`.empty?
-    puts "Unused model `#{model}` found."
+    used = false
+    ['app/controllers', 'app/views','lib','test'].each do | dir |
+      if not `grep -r '\\<#{model}\\>' rails/#{dir}`.empty?
+        used = true
+        break
+      end
+    end
+    puts "Unused model `#{model}` found." if not used
   end
 end
 
