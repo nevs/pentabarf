@@ -21,6 +21,7 @@ class IcalController < ApplicationController
     events.each do | event |
       cal.event do
         uid "#{event.event_id}@#{conf.acronym}@pentabarf.org"
+        dtstamp event.start_date.utc.strftime('%Y%m%dT%H%M%S')
         dtstart "TZID=#{tz.abbreviation}:" + event.start_date.strftime('%Y%m%dT%H%M%S')
         dtend "TZID=#{tz.abbreviation}:" + event.end_date.strftime('%Y%m%dT%H%M%S')
         duration sprintf( 'PT%dH%02dM', event.duration.hour, event.duration.min )
