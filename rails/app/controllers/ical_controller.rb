@@ -13,11 +13,12 @@ class IcalController < ApplicationController
 
     cal = Icalendar::Calendar.new
     cal.prodid "-//Pentabarf//Schedule//#{lang.language.upcase}"
-    # FIXME icalendar library does not support timezones
-#    cal.timezone do
-#      tzid tz.abbreviation
-#      tzname tz.timezone
-#    end
+
+    cal.timezone do
+      tzid tz.abbreviation
+      tzname tz.timezone
+    end
+
     events.each do | event |
       cal.event do
         uid "#{event.event_id}@#{conf.acronym}@pentabarf.org"
