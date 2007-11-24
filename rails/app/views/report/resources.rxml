@@ -1,0 +1,48 @@
+xml.div({:id=>:data}) do
+
+  xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:resources})}) do
+    xml.button( 'CSV' )
+  end
+
+  xml.table({:class=>:sortable}) do
+    xml.thead do
+      xml.tr do
+        View_report_resources::Reportfields.each do | field |
+          xml.th( local( field ) )
+        end
+      end
+    end
+
+    xml.tbody do
+      @rows.each do | row |
+        xml.tr do
+          xml.td do
+            xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) do
+              xml.text! row.title
+              xml.br
+              xml.text! row.subtitle
+            end
+          end
+          xml.td do
+            xml.a(row.resources,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)})
+          end
+        end
+      end
+    end
+
+    xml.tfoot do
+      xml.tr do
+        View_report_resources::Reportfields.each do | field |
+          xml.th( local( field ) )
+        end
+      end
+    end
+
+  end
+
+  xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:resources})}) do
+    xml.button( 'CSV' )
+  end
+
+end
+

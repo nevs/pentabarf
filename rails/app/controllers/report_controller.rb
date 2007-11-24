@@ -13,7 +13,11 @@ class ReportController < ApplicationController
   def paper
   end
 
-  [:feedback,:resources].each do | report |
+  def resources
+    @rows = View_report_resources.select({:conference_id=>@current_conference.conference_id})
+  end
+
+  [:feedback].each do | report |
     next if ReportController.instance_methods(false).member?( report.to_s )
     define_method( report ) do
       @report_class = Object.const_get("View_report_#{report}")
