@@ -1,14 +1,12 @@
+fields = View_report_feedback::Reportfields
+
 xml.div({:id=>:data}) do
-
-  xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:resources})}) do
-    xml.button( 'CSV' )
-  end
-
   xml.table({:class=>:sortable}) do
     xml.thead do
       xml.tr do
         xml.th( local( 'table::event::title'), {:colspan=>2} )
-        xml.th( local( 'event::resources') )
+        xml.th( local( 'comments' ) )
+        xml.th( local( 'votes' ) )
       end
     end
 
@@ -28,7 +26,10 @@ xml.div({:id=>:data}) do
             end
           end
           xml.td do
-            xml.a(row.resources,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)})
+            xml.a(row.comments,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)})
+          end
+          xml.td do
+            xml.a(row.votes,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)})
           end
         end
       end
@@ -37,15 +38,11 @@ xml.div({:id=>:data}) do
     xml.tfoot do
       xml.tr do
         xml.th( local( 'table::event::title'), {:colspan=>2} )
-        xml.th( local( 'event::resources') )
+        xml.th( local( 'comments' ) )
+        xml.th( local( 'votes' ) )
       end
     end
 
   end
-
-  xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:resources})}) do
-    xml.button( 'CSV' )
-  end
-
 end
 
