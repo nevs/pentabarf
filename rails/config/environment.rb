@@ -14,6 +14,7 @@ require 'momomoto_auth'
 require 'pope'
 require 'jabberlogger'
 require 'yaml'
+require 'bluecloth'
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here

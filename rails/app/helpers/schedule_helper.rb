@@ -1,5 +1,3 @@
-require 'bluecloth'
-
 module ScheduleHelper
 
   def sanitize_track( track )
@@ -36,3 +34,4 @@ module ScheduleHelper
   end
 
 end
+
