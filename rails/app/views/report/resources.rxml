@@ -7,15 +7,19 @@ xml.div({:id=>:data}) do
   xml.table({:class=>:sortable}) do
     xml.thead do
       xml.tr do
-        View_report_resources::Reportfields.each do | field |
-          xml.th( local( field ) )
-        end
+        xml.th( local( 'event::title'), {:colspan=>2} )
+        xml.th( local( 'event::resources') )
       end
     end
 
     xml.tbody do
       @rows.each do | row |
         xml.tr do
+          xml.td do
+            xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) do
+              xml.img({:src=>url_for(:controller=>'image',:action=>:event,:id=>row.event_id,:size=>'24x24')})
+            end
+          end
           xml.td do
             xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) do
               xml.text! row.title
@@ -32,9 +36,8 @@ xml.div({:id=>:data}) do
 
     xml.tfoot do
       xml.tr do
-        View_report_resources::Reportfields.each do | field |
-          xml.th( local( field ) )
-        end
+        xml.th( local( 'event::title'), {:colspan=>2} )
+        xml.th( local( 'event::resources') )
       end
     end
 

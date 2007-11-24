@@ -31,7 +31,7 @@ xml.div({:id=>:data}) do
 
     xml.tfoot do
       xml.tr do
-        xml.th( local( :event ) )
+        xml.th( local( :event ), {:colspan=>2} )
         xml.th( local( :paper_submitted ) )
         xml.th( local( :pages ) )
       end
