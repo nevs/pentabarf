@@ -1,5 +1,3 @@
-@report = @report_class.select({:conference_id=>@current_conference.conference_id})
-
 xml.div({:id=>:data}) do
   xml.table({:class=>:sortable}) do
     xml.thead do
@@ -13,12 +11,12 @@ xml.div({:id=>:data}) do
 
     sum = Hash.new(0)
     xml.tbody do
-      @report.each do | row |
+      @rows.each do | row |
         sum[row.fee_currency] += row.fee if row.fee
         sum[row.travel_currency] += row.travel_cost if row.travel_cost
         sum[row.accommodation_currency] += row.accommodation_cost if row.accommodation_cost
         xml.tr do
-          xml.td do 
+          xml.td do
             xml.a({:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) do
               xml.img({:src=>url_for({:controller=>'image',:action=>:person,:id=>row.person_id}),:height=>24,:width=>24})
             end

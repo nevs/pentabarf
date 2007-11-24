@@ -1,5 +1,3 @@
-fields = View_report_feedback::Reportfields
-
 xml.div({:id=>:data}) do
   xml.table({:class=>:sortable}) do
     xml.thead do

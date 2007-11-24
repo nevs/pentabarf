@@ -9,7 +9,7 @@ xml.div({:id=>:data}) do
     end
 
     xml.tbody do
-      View_report_paper.select({:conference_id=>@current_conference.conference_id}).each do | row |
+      @rows.each do | row |
         xml.tr do
           xml.td do
             xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) do
