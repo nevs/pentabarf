@@ -92,7 +92,7 @@ function table_add_row( table_name ) {
   var row_id = table_row_counter[table_name];
   if (!row_id) {
     table_find_fields( table_name );
-    row_id = 0;
+    row_id = $(table_name + '_tbody').rows.length;
   }
   table_row_counter[table_name] = row_id + 1;
 

@@ -3,7 +3,8 @@ xml.div(:id=>'content-events') do
   xml.fieldset do
     xml.legend local('events')
 
-    xml.table(:id=>'event_person_table',:style=>'display:none') do
+    event_persons = View_event_person.select({:person_id=>@person.person_id,:conference_id=>@current_conference.conference_id,:translated=>@current_language},{:order=>[:event_state,:title,:subtitle,:event_role]})
+    xml.table(:id=>'event_person_table',:style=>event_persons.length > 0 ? '' : 'display:none;') do
       xml.thead do
         xml.tr do
           [:title,:role,:role_state,:comment,:remove].each do | field | xml.th( local( field ) ) end
@@ -20,12 +21,23 @@ xml.div(:id=>'content-events') do
           xml.td do xml.input({:type=>:text,:id=>'event_person[row_id][remark]',:name=>'event_person[row_id][remark]'}) end
           xml.td do xml.input({:type=>:checkbox,:name=>'event_person[row_id][remove]',:id=>'event_person[row_id][remove]'}) end
         end
-      end
-    end
 
-    xml.script(:type=>'text/javascript') do
-      View_event_person.select( :person_id => @person.person_id, :conference_id => @current_conference.conference_id, :translated => @current_language ).each do | e |
-        xml << js_function( 'add_person_event', e.event_person_id, e.event_id, e.event_role, e.event_role_state, e.remark )
+        event_persons.each_with_index do | ep, index |
+
+          xml.tr(:class=>ep.event_state) do
+            xml.td do
+              xml.input({:type=>:hidden,:id=>"event_person[#{index}][event_person_id]",:name=>"event_person[#{index}][event_person_id]",:value=>ep.event_person_id})
+              xml.a(ep.title,{:href=>url_for(:action=>:event,:id=>ep.event_id)})
+            end
+            xml.td do xml << select_tag( "event_person[#{index}][event_role]", Event_role.select.map{|e| e.event_role},{:master=>:event_role_state,:selected=>ep.event_role}) end
+            xml.td do
+              xml << select_tag( "event_person[#{index}][event_role_state]", Event_role_state.select.map{|e| [e.event_role_state,e.event_role,e.event_role_state]}, {:slave=>true,:with_empty=>true,:selected=>ep.event_role_state,:style=>ep.event_role_state ? '' : 'display:none'})
+            end
+            xml.td do xml.input({:type=>:text,:id=>"event_person[#{index}][remark]",:name=>"event_person[#{index}][remark]",:value=>ep.remark}) end
+            xml.td do xml.input({:type=>:checkbox,:name=>"event_person[#{index}][remove]",:id=>"event_person[#{index}][remove]"}) end
+          end
+        end
+
       end
     end
 
@@ -38,13 +50,13 @@ xml.div(:id=>'content-events') do
   if not other_events.empty?
     xml.fieldset do
       xml.legend local('events in other conferences')
-      fields = [:acronym,:title,:event_state,:event_role,:event_role_state]
+      fields = [:acronym,:title,:event_role,:event_role_state]
 
       xml.table do
         xml.thead do xml.tr do fields.each do | field | xml.th field.to_s end end end
         xml.tbody do
           other_events.each do | event |
-            xml.tr do
+            xml.tr({:class=>event.event_state}) do
               fields.each do | field |
                 xml.td do
                   xml.a( event.send( field ), :href=>url_for(:action=>:event,:id=>event.event_id) )
