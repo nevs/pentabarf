@@ -3,6 +3,7 @@ require 'icalendar'
 class IcalController < ApplicationController
 
   before_filter :init
+  after_filter :set_content_type
 
   def conference
     conf = Conference.select_single({:conference_id=>params[:id]})
@@ -42,6 +43,11 @@ class IcalController < ApplicationController
   def init
     @current_language = 'en'
   end
+
+  def set_content_type
+    response.headers['Content-Type'] = 'text/calendar'
+  end
+
 
 end
 
