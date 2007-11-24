@@ -1,7 +1,7 @@
 
 -- create new account to be activated
 -- the parameter are login_name, email, password, activation_string
-CREATE OR REPLACE FUNCTION auth.create_account( p_login_name VARCHAR(32), p_email VARCHAR(64), p_password TEXT, p_activation_string CHAR(64), p_conference_id INTEGER) RETURNS INTEGER AS $$
+CREATE OR REPLACE FUNCTION auth.create_account( p_login_name TEXT, p_email TEXT, p_password TEXT, p_activation_string CHAR(64), p_conference_id INTEGER) RETURNS INTEGER AS $$
   DECLARE
     new_account_id INTEGER;
     binary_salt BYTEA;
