@@ -1,0 +1,2 @@
+class CsvController < ApplicationController
+end
