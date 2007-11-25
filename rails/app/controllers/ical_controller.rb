@@ -28,7 +28,7 @@ class IcalController < ApplicationController
         dtend event.end_date.strftime('%Y%m%dT%H%M%S'), {'TZID'=>tz.abbreviation}
         duration sprintf( 'PT%dH%02dM', event.duration.hour, event.duration.min )
         summary event.title + ( event.subtitle ? " - #{event.subtitle}" : '')
-        description event.abstract
+        description event.abstract.gsub( "\n", '' ).gsub( "\r", '' )
         add_category "Lecture"
         status "CONFIRMED"
         url "#{conf.export_base_url}events/#{event.event_id}.#{lang.language}.html"
