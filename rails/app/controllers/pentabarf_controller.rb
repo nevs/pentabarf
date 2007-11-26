@@ -2,8 +2,8 @@ class PentabarfController < ApplicationController
 
   before_filter :init
   before_filter :check_transaction, :only=>[:save_event,:save_person,:save_conference]
-  prepend_after_filter :update_last_login, :except=>[:activity]
-  prepend_after_filter :save_preferences, :only=>[:search_person_simple,:search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
+  around_filter :update_last_login, :except=>[:activity]
+  around_filter :save_preferences, :only=>[:search_person_simple,:search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
   append_after_filter :set_content_type
 
   def conflicts
@@ -293,10 +293,12 @@ class PentabarfController < ApplicationController
   end
 
   def save_preferences
+    yield
     POPE.user.preferences = @preferences
   end
 
   def update_last_login
+    yield
     POPE.user.last_login = 'now()'
     POPE.user.write
   end
