@@ -1,7 +1,7 @@
 class ReportController < ApplicationController
   before_filter :init
 
-  REPORTS = [:expenses,:feedback,:paper,:resources]
+  REPORTS = [:expenses,:feedback,:missing,:paper,:resources]
 
   def index
   end

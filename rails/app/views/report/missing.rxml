@@ -1,0 +1,36 @@
+xml.div({:id=>:data}) do
+
+  xml.p "People who haven't arrived yet but have a role in an event starting in the next 3 hours."
+
+  xml.table({:class=>:sortable}) do
+    xml.thead do
+      xml.tr do
+        xml.th( local( 'name'), {:colspan=>2} )
+      end
+    end
+
+    xml.tbody do
+      @rows.each do | row |
+        xml.tr do
+          xml.td do
+            xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>row.person_id)}) do
+              xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>row.person_id,:size=>'24x24')})
+            end
+          end
+          xml.td do
+            xml.a(row.name, {:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>row.person_id)})
+          end
+        end
+      end
+    end
+
+    xml.tfoot do
+      xml.tr do
+        xml.th( local( 'name' ), {:colspan=>2} )
+      end
+    end
+
+  end
+
+end
+
