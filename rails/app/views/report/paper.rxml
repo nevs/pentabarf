@@ -1,4 +1,9 @@
 xml.div({:id=>:data}) do
+
+  xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:paper})}) do
+    xml.button( 'CSV' )
+  end
+
   xml.table({:class=>:sortable}) do
     xml.thead do
       xml.tr do
@@ -38,5 +43,10 @@ xml.div({:id=>:data}) do
     end
 
   end
+
+  xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:paper})}) do
+    xml.button( 'CSV' )
+  end
+
 end
 
