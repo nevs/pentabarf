@@ -12,7 +12,8 @@ CREATE OR REPLACE VIEW view_find_person AS
          view_person.country,
          person_image.mime_type,
          mime_type.file_extension,
-         conference_person.conference_id
+         conference_person.conference_id,
+         conference_person.arrived
     FROM view_person
          LEFT OUTER JOIN conference_person USING (person_id)
          LEFT OUTER JOIN person_image USING (person_id)

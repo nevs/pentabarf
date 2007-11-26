@@ -3,10 +3,9 @@ CREATE OR REPLACE VIEW view_report_arrived AS
   SELECT view_person.person_id,
          view_person.name,
          conference_person.conference_id,
-         conference_person_travel.arrived
+         conference_person.arrived
     FROM view_person
          INNER JOIN conference_person USING (person_id)
-         INNER JOIN conference_person_travel USING (conference_person_id)
    WHERE EXISTS (SELECT 1
                    FROM event_person
                         INNER JOIN event ON (
