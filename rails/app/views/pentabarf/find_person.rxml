@@ -34,10 +34,10 @@ xml.div({:id=>:data}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:country})
         xml << select_tag('search_person[row_id][value]', Country_localized.select({:translated=>@current_language}).map{|c| [c.country, c.name]})
       end
-      # search for confirmed flag
-      xml.li({:class=>:confirmed,:title=>local(:confirmed)}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:reconfirmed})
-        xml << select_tag('search_person[row_id][value]', [['t','Yes'],['n','No']])
+      # search for arrived flag
+      xml.li({:class=>:arrived,:title=>local(:arrived)}) do
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:arrived})
+        xml << select_tag('search_person[row_id][value]', [['t','Yes'],['f','No']])
       end
     end
 
@@ -52,11 +52,8 @@ xml.div({:id=>:data}) do
 
     xml.form(:id=>:advanced_search,:action=>url_for) do
       xml.ul( nil, {:id=>:advanced_search_list,:class=>"advanced_search"} )
-
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
-
     end
-
 
   end
 
