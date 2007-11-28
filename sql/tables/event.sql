@@ -27,7 +27,7 @@ CREATE TABLE base.event (
 );
 
 CREATE TABLE event (
-  FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (conference_id) REFERENCES conference (conference_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (conference_track,conference_id) REFERENCES conference_track (conference_track,conference_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (conference_team,conference_id) REFERENCES conference_team(conference_team,conference_id) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (event_type) REFERENCES event_type(event_type) ON UPDATE CASCADE ON DELETE SET NULL,
