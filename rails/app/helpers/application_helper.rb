@@ -105,7 +105,7 @@ module ApplicationHelper
   end
 
   def markup( text )
-    BlueCloth.new( text.to_s, :filter_html ).to_html
+    BlueCloth.new( text.to_s.gsub('`',"'"), :filter_html ).to_html
    rescue
     "BlueCloth error"
   end
