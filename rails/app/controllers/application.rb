@@ -7,14 +7,13 @@ class ApplicationController < ActionController::Base
   include MomomotoHelper
   session :off
   around_filter :transaction_wrapper
-  before_filter :auth
   before_filter :check_token
 
   protected
 
   def transaction_wrapper
     Momomoto::Database.instance.transaction do
-      yield
+      yield if auth
       POPE.deauth
     end
   end
@@ -48,7 +47,7 @@ class ApplicationController < ActionController::Base
    rescue
     response.headers["Status"] = "Unauthorized"
     response.headers["WWW-Authenticate"] = "Basic realm=Pentabarf"
-    render( :file=>'auth_failed', :status => 401, :use_full_path => true)
+    render( :file=>'auth_failed',:status=>401,:use_full_path=>true,:content_type=>'text/html' )
     return false
   end
 
