@@ -14,7 +14,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.event_state_progress,
           event.language,
           event.conference_room,
-          event.day,
+          event.conference_day,
           event.start_time,
           event.abstract,
           event.description,
@@ -22,7 +22,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           translated.language AS translated,
           language_localized.name AS language_name,
           event_type_localized.name AS event_type_name,
-          (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
+          (event.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
           event.start_time + conference.day_change AS real_starttime,
           array_to_string(
             ARRAY(
@@ -51,7 +51,7 @@ CREATE OR REPLACE VIEW view_schedule AS
               language_localized.translated = translated.language AND
               language_localized.language = event.language )
           LEFT OUTER JOIN event_type_localized USING (event_type,translated)
-    WHERE event.day IS NOT NULL AND
+    WHERE event.conference_day IS NOT NULL AND
           event.start_time IS NOT NULL AND
           event.conference_room IS NOT NULL AND
           event.event_state = 'accepted' AND

@@ -14,7 +14,7 @@ CREATE TABLE base.event (
   event_state_progress TEXT NOT NULL DEFAULT 'new',
   language TEXT,
   conference_room TEXT,
-  day SMALLINT,
+  conference_day DATE,
   start_time INTERVAL,
   abstract TEXT,
   description TEXT,

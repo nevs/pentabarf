@@ -18,7 +18,7 @@ CREATE OR REPLACE VIEW view_report_missing AS
                   WHERE event_person.person_id = view_person.person_id AND
                         event_person.event_role IN ('speaker','moderator') AND
                         event_person.event_role_state = 'confirmed' AND
-                        conference.start_date + event.day + '-1 day'::INTERVAL + event.start_time + conference.day_change BETWEEN now() AND now() + '3 hour'::INTERVAL
+                        event.conference_day + event.start_time + conference.day_change BETWEEN now() AND now() + '3 hour'::INTERVAL
                 )
    ORDER BY lower(name)
 ;

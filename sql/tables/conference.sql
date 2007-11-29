@@ -4,7 +4,7 @@ CREATE TABLE base.conference (
   acronym TEXT NOT NULL UNIQUE,
   title TEXT NOT NULL,
   subtitle TEXT,
-  conference_phase TEXT NOT NULL,
+  conference_phase TEXT NOT NULL DEFAULT 'chaos',
   start_date DATE NOT NULL,
   days SMALLINT NOT NULL DEFAULT 1,
   venue TEXT,

@@ -9,20 +9,20 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_event_time(integer) RETURNS S
   BEGIN
 -- Loop through all events
     FOR cur_event IN
-      SELECT event_id, start_time, duration, day, conference_room
+      SELECT event_id, start_time, duration, conference_day, conference_room
         FROM event
         WHERE event.conference_id = cur_conference_id AND
               event.event_state = 'accepted' AND
               event.event_state_progress <> 'canceled' AND
-              event.day IS NOT NULL AND
+              event.conference_day IS NOT NULL AND
               event.start_time IS NOT NULL
     LOOP
       FOR cur_event2 IN
         SELECT event_id
           FROM event
-          WHERE event.day IS NOT NULL AND
+          WHERE event.conference_day IS NOT NULL AND
                 event.start_time IS NOT NULL AND
-                event.day = cur_event.day AND
+                event.conference_day = cur_event.conference_day AND
                 event.event_state = 'accepted' AND
                 event.event_state_progress <> 'canceled' AND
                 event.event_id <> cur_event.event_id AND

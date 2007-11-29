@@ -1,7 +1,7 @@
 
 -- returns event_persons with conflicting events
 CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_visitor_visitor(integer) RETURNS SETOF conflict.conflict_event_person_event AS $$
-  DECLARE 
+  DECLARE
     cur_conference_id ALIAS FOR $1;
     cur_speaker RECORD;
     cur_event RECORD;
@@ -10,28 +10,28 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_visitor_vis
 
 -- Loop through all event_persons
     FOR cur_speaker IN
-      SELECT person_id, event_id, conference_id, day, start_time, duration 
-        FROM event_person 
+      SELECT person_id, event_id, conference_id, conference_day, start_time, duration
+        FROM event_person
         INNER JOIN event USING (event_id)
         WHERE event_role = 'visitor' AND
               event.conference_id = cur_conference_id AND
               event.event_state = 'accepted' AND
               event.event_state_progress <> 'canceled' AND
-              event.day IS NOT NULL AND
+              event.conference_day IS NOT NULL AND
               event.start_time IS NOT NULL
     LOOP
 
       -- loop through overlapping events
       FOR cur_event IN
-        SELECT event_id 
+        SELECT event_id
           FROM event
           INNER JOIN event_person USING (event_id)
-          WHERE event.day IS NOT NULL AND
+          WHERE event.conference_day IS NOT NULL AND
                 event.start_time IS NOT NULL AND
-                event.day = cur_speaker.day AND 
+                event.conference_day = cur_speaker.conference_day AND
                 event.event_id <> cur_speaker.event_id AND
                 event.conference_id = cur_conference_id AND
-                ( event.start_time::time, event.duration::interval ) OVERLAPS 
+                ( event.start_time::time, event.duration::interval ) OVERLAPS
                 ( cur_speaker.start_time::time, cur_speaker.duration::interval) AND
                 event.event_state = 'accepted' AND
                 event.event_state_progress <> 'canceled' AND

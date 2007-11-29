@@ -8,11 +8,11 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          event.abstract,
          event.description,
          event.conference_track,
-         event.day,
+         event.conference_day,
          event.duration,
          event.start_time,
-         (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
-         (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change + event.duration)::timestamp AS end_datetime,
+         (event.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
+         (event.conference_day + event.start_time + conference.day_change + event.duration)::timestamp AS end_datetime,
          event.start_time + conference.day_change AS real_starttime,
          event.conference_room,
          event_type_localized.event_type,
@@ -35,7 +35,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
              event.event_state = 'accepted' AND
              event.event_state_progress = 'confirmed' AND
              event.public = 't' AND
-             event.day IS NOT NULL AND
+             event.conference_day IS NOT NULL AND
              event.start_time IS NOT NULL AND
              event.conference_room IS NOT NULL )
          INNER JOIN language_localized USING (language)

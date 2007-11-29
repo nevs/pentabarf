@@ -6,13 +6,13 @@ SELECT
   event.subtitle,
   event.abstract,
   event.description,
-  event.day,
+  event.conference_day,
   event.start_time,
   event.duration,
   conference_room.conference_room,
   event.start_time + conference.day_change AS "time",
-  conference.start_date + event."day"::integer + -1 + event.start_time + conference.day_change::interval AS start_date,
-  conference.start_date + event."day"::integer + -1 + event.start_time + conference.day_change::interval + event.duration AS end_date,
+  event.conference_day + event.start_time + conference.day_change::interval AS start_date,
+  event.conference_day + event.start_time + conference.day_change::interval + event.duration AS end_date,
   array_to_string(ARRAY(
     SELECT view_person.name
       FROM event_person
@@ -25,7 +25,7 @@ FROM event
   INNER JOIN conference USING (conference_id)
   INNER JOIN conference_room USING (conference_id,conference_room)
 WHERE
-  event.day IS NOT NULL AND
+  event.conference_day IS NOT NULL AND
   event.start_time IS NOT NULL AND
   event.conference_room IS NOT NULL AND
   event.event_state = 'accepted' AND

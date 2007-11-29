@@ -14,7 +14,7 @@ CREATE OR REPLACE VIEW view_event AS
          event.event_state_progress,
          event.language,
          event.conference_room,
-         event.day,
+         event.conference_day,
          event.start_time,
          event.abstract,
          event.description,
@@ -27,7 +27,7 @@ CREATE OR REPLACE VIEW view_event AS
          event_state_localized.name AS event_state_name,
          event_type_localized.name AS event_type_name,
          conference.acronym,
-         (conference.start_date + event.day + '-1'::integer + event.start_time + conference.day_change)::timestamp AS start_datetime,
+         (event.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
          event.start_time + conference.day_change AS real_starttime,
          event_image.mime_type,
          mime_type.file_extension

@@ -33,7 +33,7 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                         event.event_state = 'accepted' AND
                         event.event_state_progress = 'confirmed' AND
                         event.public = 't' AND
-                        event.day IS NOT NULL AND
+                        event.conference_day IS NOT NULL AND
                         event.start_time IS NOT NULL AND
                         event.conference_room IS NOT NULL )
                     INNER JOIN conference_room ON (

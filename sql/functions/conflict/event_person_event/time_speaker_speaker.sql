@@ -13,7 +13,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_speaker_spe
       SELECT person_id,
              event_id,
              conference_id,
-             day,
+             conference_day,
              start_time,
              duration
         FROM event_person
@@ -23,7 +23,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_speaker_spe
               event.conference_id = cur_conference_id AND
               event.event_state = 'accepted' AND
               event.event_state_progress <> 'canceled' AND
-              event.day IS NOT NULL AND
+              event.conference_day IS NOT NULL AND
               event.start_time IS NOT NULL
     LOOP
 
@@ -32,12 +32,12 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_speaker_spe
         SELECT event_id
           FROM event_person
           INNER JOIN event USING (event_id)
-          WHERE event.day IS NOT NULL AND
+          WHERE event.conference_day IS NOT NULL AND
                 event.start_time IS NOT NULL AND
-                event.day = cur_speaker.day AND
+                event.conference_day = cur_speaker.conference_day AND
                 event.event_id <> cur_speaker.event_id AND
                 event.conference_id = cur_conference_id AND
-                ( event.start_time::time, event.duration::interval ) OVERLAPS 
+                ( event.start_time::time, event.duration::interval ) OVERLAPS
                 ( cur_speaker.start_time::time, cur_speaker.duration::interval) AND
                 event.event_state = 'accepted' AND
                 event.event_state_progress <> 'canceled' AND

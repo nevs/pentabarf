@@ -12,12 +12,12 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_speaker_vis
     FOR cur_speaker IN
       SELECT person_id,
              event_id,
-             conference_id, 
-             day, 
-             start_time, 
+             conference_id,
+             conference_day,
+             start_time,
              duration,
              event_role
-        FROM event_person 
+        FROM event_person
         INNER JOIN event USING (event_id)
         WHERE (( event_person.event_role IN ('speaker', 'moderator') AND
                  event_person.event_role_state = 'confirmed') OR
@@ -25,25 +25,25 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_speaker_vis
               event.conference_id = cur_conference_id AND
               event.event_state = 'accepted' AND
               event.event_state_progress <> 'canceled' AND
-              event.day IS NOT NULL AND
+              event.conference_day IS NOT NULL AND
               event.start_time IS NOT NULL
     LOOP
 
       -- loop through overlapping events
       FOR cur_event IN
-        SELECT event_id 
+        SELECT event_id
           FROM event
           INNER JOIN event_person USING (event_id)
-          WHERE event.day IS NOT NULL AND
+          WHERE event.conference_day IS NOT NULL AND
                 event.start_time IS NOT NULL AND
-                event.day = cur_speaker.day AND 
+                event.conference_day = cur_speaker.conference_day AND
                 event.event_id <> cur_speaker.event_id AND
                 event.conference_id = cur_conference_id AND
-                ( event.start_time::time, event.duration::interval ) OVERLAPS 
+                ( event.start_time::time, event.duration::interval ) OVERLAPS
                 ( cur_speaker.start_time::time, cur_speaker.duration::interval) AND
                 event.event_state = 'accepted' AND
                 event.event_state_progress <> 'canceled' AND
-                (( cur_speaker.event_role = 'visitor' AND 
+                (( cur_speaker.event_role = 'visitor' AND
                    event_person.event_role IN ('speaker', 'moderator') AND
                    event_person.event_role_state = 'confirmed') OR
                  ( cur_speaker.event_role IN ('speaker', 'moderator') AND

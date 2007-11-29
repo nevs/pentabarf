@@ -14,7 +14,7 @@ CREATE OR REPLACE VIEW view_find_event AS
          event.event_type,
          event.language,
          event.conference_room,
-         event.day,
+         event.conference_day,
          (event.start_time + conference.day_change)::interval AS start_time,
          event.public,
          event_state_localized.translated,
