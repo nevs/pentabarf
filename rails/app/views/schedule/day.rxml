@@ -1,7 +1,6 @@
-date = @conference.start_date + @day - 1
 xml.div(:id=>'schedule',:class=>'section') do
-  xml.h1 "#{local('schedule::schedule')} #{local('schedule::day')} #{@day}: #{date.strftime('%d.%m.%Y')}"
-  table = schedule_table( @conference, @events )[@day - 1]
+  xml.h1 "#{local('schedule::schedule')} #{local('schedule::day')} #{@day}"
+  table = schedule_table( @conference, @events )[@day]
   used_rooms = schedule_rooms( table, @rooms )
   xml.table do
     xml.thead do

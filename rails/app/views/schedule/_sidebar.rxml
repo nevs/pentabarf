@@ -7,7 +7,7 @@ xml.div(:id=>'menu', :class=>'noprint') do
     end
     @conference.days.times do | day |
       xml.li do
-        xml.a(:href=>url_for({:action=>:day,:id=>day + 1,:language=>params[:language],:conference=>@conference.acronym})) do
+        xml.a(:href=>url_for({:action=>:day,:id=>(@conference.start_date + day).to_s,:language=>params[:language],:conference=>@conference.acronym})) do
           xml.span("#{local(:day)} #{day + 1}", :class=>:normal)
         end
       end

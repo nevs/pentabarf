@@ -11,16 +11,10 @@ class ScheduleController < ApplicationController
   end
 
   def day
-    @day = params[:id].to_i
+    @day = params[:id]
 #    @content_title = "#{local(:schedule)} #{local(:day)} #{@day}"
     @rooms = Conference_room.select({:conference_id=>@conference.conference_id, :public=>'t'})
-    @events = View_schedule_event.select({:day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
-  end
-
-  def days
-#    @content_title = local(:schedule)
-    @rooms = Conference_room.select({:conference_id=>@conference.conference_id, :public=>'t'})
-    @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
+    @events = View_schedule_event.select({:conference_day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
   end
 
   def event

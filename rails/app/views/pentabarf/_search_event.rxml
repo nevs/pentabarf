@@ -2,7 +2,7 @@
 paginate( xml, @results, params[:id].to_i ) do | results |
 
   xml.table do
-    fields = [:event_state,:event_state_progress,:day,:conference_room]
+    fields = [:event_state,:event_state_progress,:conference_day,:conference_room]
     xml.thead do
       xml.tr do
         xml.th(local(:event))

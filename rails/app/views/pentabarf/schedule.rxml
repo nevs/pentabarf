@@ -1,8 +1,7 @@
 rooms = Conference_room.select({:conference_id=>@current_conference.conference_id},{:order=>:rank})
 conf = Conference.select_single({:conference_id=>@current_conference.conference_id})
-day_tabs = []
-conf.days.times do | i | day_tabs.push("day_#{i+1}") end
 table = schedule_table( conf, @events )
+day_tabs = table.keys.sort
 colors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
 
 xml.div({:id=>:data}) do
@@ -18,8 +17,9 @@ xml.div({:id=>:data}) do
     end
   end
 
-  table.each_with_index do | day_table, index |
-    xml.div({:id=>"content-day_#{index+1}",:class=>"content_tab"}) do
+  day_tabs.each do | conference_day |
+    day_table = table[conference_day]
+    xml.div({:id=>"content-#{conference_day}",:class=>"content_tab"}) do
       xml.table do
 
         xml.thead do
