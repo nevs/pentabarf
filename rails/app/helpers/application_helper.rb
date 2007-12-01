@@ -60,40 +60,40 @@ module ApplicationHelper
   end
 
   def schedule_table( conference, events )
-    table = []
+    table = {}
     timeslot_seconds = conference.timeslot_duration.hour * 3600 + conference.timeslot_duration.min * 60
     slots_per_day = ( 24 * 60 * 60 ) / timeslot_seconds
     start = (conference.day_change.hour * 3600) + (conference.day_change.min * 60) + conference.day_change.sec
     # create an array for each day
-    conference.days.times do | i | table[i] = [] end
+    conference.days.times do | i | table[ (conference.start_date + i).to_s ] = [] end
     # fill array with times
-    table.each_with_index do | day_table, day |
+    table.each do | conference_day, day_table |
       current = 0
       while current < 24 * 60 * 60
-        table[day].push( { 0 => sprintf("%02d:%02d", ((current + start)/3600)%24, ((current + start)%3600)/60 ) } )
+        table[conference_day].push( { 0 => sprintf("%02d:%02d", ((current + start)/3600)%24, ((current + start)%3600)/60 ) } )
         current += timeslot_seconds
       end
     end
     events.each do | event |
       slots = (event.duration.hour * 3600 + event.duration.min * 60)/timeslot_seconds
       start_slot = (event.start_time.hour * 3600 + event.start_time.min * 60) / timeslot_seconds
-      next if table[event.day - 1][start_slot][event.conference_room]
-      table[event.day - 1][start_slot][event.conference_room] = {:event_id => event.event_id, :slots => slots}
+      next if table[event.conference_day.to_s][start_slot][event.conference_room]
+      table[event.conference_day.to_s][start_slot][event.conference_room] = {:event_id => event.event_id, :slots => slots}
       slots.times do | i |
         next if i < 1
         # check whether the event spans multiple days
         if (start_slot + i) >= slots_per_day
           if (start_slot + i)%slots_per_day == 0
-            table[event.day - 1 + (start_slot + i)/slots_per_day][(start_slot + i)%slots_per_day][event.conference_room] = {:event_id => event.event_id, :slots => slots - i}
+            table[(event.conference_day + (start_slot + i)/slots_per_day).to_s][(start_slot + i)%slots_per_day][event.conference_room] = {:event_id => event.event_id, :slots => slots - i}
           else
-            table[event.day - 1 + (start_slot + i)/slots_per_day][(start_slot + i)%slots_per_day][event.conference_room] = 0
+            table[(event.conference_day + (start_slot + i)/slots_per_day).to_s][(start_slot + i)%slots_per_day][event.conference_room] = 0
           end
         else
-          table[event.day - 1][start_slot + i][event.conference_room] = 0
+          table[event.conference_day.to_s][start_slot + i][event.conference_room] = 0
         end
       end
     end
-    table.each do | day_table |
+    table.each do | conference_day, day_table |
       while day_table.first && day_table.first.length == 1
         day_table.delete(day_table.first)
       end
@@ -105,7 +105,7 @@ module ApplicationHelper
   end
 
   def markup( text )
-    BlueCloth.new( text.to_s.gsub('`',"'"), :filter_html ).to_html
+    BlueCloth.new( text.to_s, :filter_html ).to_html
    rescue
     "BlueCloth error"
   end
