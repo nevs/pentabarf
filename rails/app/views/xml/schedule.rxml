@@ -13,12 +13,13 @@ xml.schedule do
     xml.timeslot_duration @conference.timeslot_duration.strftime('%H:%M')
   end
   @conference.days.times do | day |
+    date = @conference.start_date + day
     day += 1
-    xml.day(:index=>day,:date=>(@conference.start_date + (day - 1))) do
+    xml.day(:index=>day,:date=>date) do
       @rooms.each do | room |
         xml.room({:name => room.conference_room}) do
           room_events = {}
-          @events.select{|e| e.day == day and e.conference_room == room.conference_room}.each do | event |
+          @events.select{|e| e.conference_day == date && e.conference_room == room.conference_room}.each do | event |
             next if room_events.values.member?( event.event_id )
             room_events[event.start_time.strftime('%H:%M')] = event.event_id
           end

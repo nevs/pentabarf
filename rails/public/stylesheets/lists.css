@@ -1,4 +1,8 @@
 
+ul.history {
+  line-height: 0.2em;
+}
+
 ul.recipients { margin: 0; padding: 0; display: inline; }
 ul.recipients li { margin: 0; padding: 0; display: inline; }
 ul.recipients li+li:before { content: ", "; }
