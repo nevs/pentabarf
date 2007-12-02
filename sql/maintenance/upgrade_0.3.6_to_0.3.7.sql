@@ -33,6 +33,10 @@ CREATE TABLE conference_day (
 CREATE TABLE log.conference_day (
 ) INHERITS( base.logging, base.conference_day );
 
+INSERT INTO auth.object_domain VALUES ('conference_day','conference');
+
+SELECT log.activate_logging();
+
 INSERT INTO conference_day(conference_id,conference_day,name,public) SELECT conference_id, start_date + generate_series(0,days), 'Day ' || generate_series(0,days) + 1,true  FROM conference ORDER BY 1,2;
 
 ALTER TABLE event ADD CONSTRAINT event_conference_day_fkey FOREIGN KEY (conference_day,conference_id) REFERENCES conference_day(conference_day,conference_id);

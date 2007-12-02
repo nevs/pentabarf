@@ -77,6 +77,7 @@ class PentabarfController < ApplicationController
   def save_conference
     params[:conference][:conference_id] = params[:id] if params[:id].to_i > 0
     conf = write_row( Conference, params[:conference], {:except=>[:conference_id],:always=>[:f_submission_enabled,:f_visitor_enabled,:f_feedback_enabled,:f_reconfirmation_enabled]} )
+    write_rows( Conference_day, params[:conference_day], {:preset=>{:conference_id => conf.conference_id}})
     write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
     write_rows( Conference_team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id}})
     write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id}})

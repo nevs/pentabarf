@@ -1,0 +1,42 @@
+xml.div(:id=>'content-days') do
+
+  xml.fieldset do
+    xml.legend( local('conference days') )
+    xml.table(:id=>'conference_day_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('date') )
+          xml.th( local('name') )
+          xml.th( local('public') )
+          xml.th( local('remove') )
+        end
+      end
+      xml.tbody(:id=>'conference_day_tbody') do
+        xml.tr(:id=>'conference_day_template',:style=>'display:none') do
+          xml.td do
+            xml.input({:type=>:text,:id=>'conference_day[row_id][conference_day]',:name=>'conference_day[row_id][conference_day]',:size=>10})
+          end
+          xml.td do
+            xml.input({:type=>:text,:id=>'conference_day[row_id][name]',:name=>'conference_day[row_id][name]'})
+          end
+          xml.td do
+            xml.input({:type=>:checkbox,:name=>'conference_day[row_id][public]',:id=>'conference_day[row_id][public]'})
+          end
+          xml.td do
+            xml.input({:type=>:checkbox,:name=>'conference_day[row_id][remove]',:id=>'conference_day[row_id][remove]'})
+          end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do
+      Conference_day.select({:conference_id=>@conference.conference_id},{:order=>:conference_day}).each do | c |
+        xml << js_function( 'table_add_row', 'conference_day', c.conference_day, c.name, c.public)
+      end
+    end
+
+    xml.button( local('add conference day'), {:type=>:button,:onclick=>'table_add_row("conference_day")'})
+  end
+
+end
+
