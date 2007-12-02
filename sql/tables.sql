@@ -31,6 +31,7 @@ BEGIN;
 \i tables/conference_phase.sql
 \i tables/conference_phase_localized.sql
 \i tables/conference.sql
+\i tables/conference_day.sql
 \i tables/conference_language.sql
 \i tables/conference_link.sql
 \i tables/conference_image.sql
