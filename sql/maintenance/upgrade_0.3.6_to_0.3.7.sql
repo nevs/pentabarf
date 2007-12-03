@@ -41,6 +41,9 @@ INSERT INTO conference_day(conference_id,conference_day,name,public) SELECT conf
 
 ALTER TABLE event ADD CONSTRAINT event_conference_day_fkey FOREIGN KEY (conference_day,conference_id) REFERENCES conference_day(conference_day,conference_id);
 
+ALTER TABLE base.conference DROP COLUMN start_date CASCADE;
+ALTER TABLE base.conference DROP COLUMN days CASCADE;
+
 
 COMMIT;
 

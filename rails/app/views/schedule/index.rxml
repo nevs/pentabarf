@@ -1,9 +1,8 @@
 xml.ul do
-  @conference.days.times do | day |
-    date = @conference.start_date + day
+  Conference_day.select({:conference_id=>@conference.conference_id,:public=>'t'},{:order=>:conference_day}).each_with_index do | day, index |
     xml.li do
-      xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:day,:id=>date.to_s,:language=>params[:language]})) do
-        xml.span("#{local(:day)} #{day + 1} (#{date.strftime('%d.%m.%Y')})", :class=>:normal)
+      xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:day,:id=>day.conference_day.to_s,:language=>params[:language]})) do
+        xml.span("#{local(:day)} #{index + 1} (#{day.conference_day.strftime('%d.%m.%Y')})", :class=>:normal)
       end
     end
   end

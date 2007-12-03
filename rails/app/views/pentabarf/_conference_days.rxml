@@ -20,7 +20,7 @@ xml.div(:id=>'content-days') do
             xml.input({:type=>:text,:id=>'conference_day[row_id][name]',:name=>'conference_day[row_id][name]'})
           end
           xml.td do
-            xml.input({:type=>:checkbox,:name=>'conference_day[row_id][public]',:id=>'conference_day[row_id][public]'})
+            xml.input({:type=>:checkbox,:name=>'conference_day[row_id][public]',:id=>'conference_day[row_id][public]',:checked=>:checked})
           end
           xml.td do
             xml.input({:type=>:checkbox,:name=>'conference_day[row_id][remove]',:id=>'conference_day[row_id][remove]'})

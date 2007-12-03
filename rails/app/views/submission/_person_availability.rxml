@@ -22,13 +22,13 @@ xml.div(:id=>'content-availability') do
         end
       end
       xml.tbody do
-        @conference.days.times do | day |
+        days.each_with_index do | day, index |
           xml.tr do
-            xml.td sprintf("day %d", day + 1 )
+            xml.td sprintf("day %d", index + 1 )
             24.times do | hour |
               real_hour = ( @conference.day_change.hour + hour ) % 24
-              date = @conference.start_date + day + ( ( @conference.day_change.hour + hour ) / 24 )
-              title = sprintf("day %d %s %d:00 - %d:00", day + 1, date, real_hour, real_hour + 1 )
+              date = day.conference_day + ( ( @conference.day_change.hour + hour ) / 24 )
+              title = sprintf("day %d %s %d:00 - %d:00", index + 1, date, real_hour, real_hour + 1 )
               time = sprintf("%s %02d:00:00", date.strftime('%Y-%m-%d'), real_hour )
               xml.td do
                 checked = {}

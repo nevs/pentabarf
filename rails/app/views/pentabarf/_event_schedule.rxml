@@ -4,9 +4,7 @@ xml.div(:id=>'content-schedule') do
     xml.legend local('view::pentabarf::event::tab::schedule')
 
     xml.table do
-      days = []
-      @conference.days.times do | day | days << (@conference.start_date + day).to_s end
-      xml << select_row( @event, :conference_day, days, {:with_empty=>true,:selected=>@event.conference_day.to_s} )
+      xml << select_row( @event, :conference_day, Conference_day.select({:conference_id=>@conference.conference_id},{:order=>:conference_day}).map(&:conference_day), {:with_empty=>true} )
       start_times = []
       offset = @conference.day_change.hour * 3600 + @conference.day_change.min * 60 + @conference.day_change.sec
       (0...(24*60*60)).step(@conference.timeslot_duration) do | current |

@@ -5,8 +5,6 @@ CREATE TABLE base.conference (
   title TEXT NOT NULL,
   subtitle TEXT,
   conference_phase TEXT NOT NULL DEFAULT 'chaos',
-  start_date DATE NOT NULL,
-  days SMALLINT NOT NULL DEFAULT 1,
   venue TEXT,
   city TEXT,
   country TEXT,

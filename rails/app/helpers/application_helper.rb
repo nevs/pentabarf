@@ -65,7 +65,8 @@ module ApplicationHelper
     slots_per_day = ( 24 * 60 * 60 ) / timeslot_seconds
     start = (conference.day_change.hour * 3600) + (conference.day_change.min * 60) + conference.day_change.sec
     # create an array for each day
-    conference.days.times do | i | table[ (conference.start_date + i).to_s ] = [] end
+    days = Conference_day.select({:conference_id=>conference.conference_id},{:order=>:conference_day}).map(&:conference_day)
+    days.each do | d | table[d.to_s] = [] end
     # fill array with times
     table.each do | conference_day, day_table |
       current = 0

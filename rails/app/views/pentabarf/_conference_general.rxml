@@ -10,8 +10,6 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @conference, :venue )
       xml << text_field_row( @conference, :city )
       xml << select_row( @conference, :country, Country_localized.select({:translated=>@current_language},{:order=>:name}).map{|e| [e.country, e.name]} )
-      xml << date_button_row( @conference, :start_date )
-      xml << select_row( @conference, :days, 1..23 )
       xml << select_row( @conference, :timezone, Timezone.select({},{:order=>:timezone}).map(&:timezone) )
       xml << select_row( @conference, :currency, Currency.select({},{:order=>:currency}).map(&:currency) )
       xml << text_field_row( @conference, :email )
