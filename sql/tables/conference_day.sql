@@ -8,6 +8,7 @@ CREATE TABLE base.conference_day (
 
 CREATE TABLE conference_day (
   FOREIGN KEY( conference_id ) REFERENCES conference( conference_id )
+  PRIMARY KEY( conference_id, conference_day)
 ) INHERITS( base.conference_day );
 
 CREATE TABLE log.conference_day (
