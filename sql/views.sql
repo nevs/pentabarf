@@ -35,6 +35,7 @@
 \i views/schedule/schedule_person.sql
 \i views/schedule/schedule.sql
 \i views/schedule/schedule_simple.sql
+\i views/schedule/schedule_calendar.sql
 \i views/conference_rating.sql
 \i views/event_feedback.sql
 \i views/event_feedback_statistics.sql
