@@ -3,13 +3,13 @@
     xml.method( "PUBLISH" )
     xml.uid( "#{event.event_id}@#{@conference.acronym}@pentabarf.org")
     xml.tag!( "pentabarf:event-id", event.event_id )
-    xml.tag!( "pentabarf:event-tag", event.event_tag )
+    xml.tag!( "pentabarf:event-tag", event.tag )
     xml.tag!( "pentabarf:title", event.title )
     xml.tag!( "pentabarf:subtitle", event.subtitle )
     xml.tag!( "pentabarf:language", event.language_name )
     xml.tag!( "pentabarf:language-code", event.language )
-    xml.dtstart( event.start_datetime.strftime('%Y%m%dT%H%M%S') )
-    xml.dtend( event.end_datetime.strftime('%Y%m%dT%H%M%S') )
+    xml.dtstart( event.start_date.strftime('%Y%m%dT%H%M%S') )
+    xml.dtend( event.end_date.strftime('%Y%m%dT%H%M%S') )
     xml.duration( event.duration.strftime('%HH%MM%SS') )
     xml.summary( event.title + ( event.subtitle ? "- #{event.subtitle}" : "" ) )
     xml.description( event.abstract )
@@ -20,9 +20,9 @@
     if event.event_id
       xml.location( @rooms.select{|r| r.conference_room == event.conference_room}.first.conference_room )
     end
-    @events.select{|e| e.event_id == event.event_id}.each do | speaker |
-      xml.attendee( speaker.name )
-    end
+    event.speakers.split(',').each do | speaker |
+      xml.attendee( speaker )
+    end if event.speakers
   end
 end
 
