@@ -17,9 +17,7 @@
     xml.status( "CONFIRMED" )
     xml.category( "Lecture" )
     xml.url( "#{@conference.export_base_url}events/#{event.event_id}.en.html" )
-    if event.event_id
-      xml.location( @rooms.select{|r| r.conference_room == event.conference_room}.first.conference_room )
-    end
+    xml.location( event.conference_room )
     event.speakers.split(',').each do | speaker |
       xml.attendee( speaker )
     end if event.speakers
