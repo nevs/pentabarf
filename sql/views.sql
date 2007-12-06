@@ -44,5 +44,8 @@
 \i views/view_event_state_statistic.sql
 \i views/view_event_state_progress_statistic.sql
 \i views/view_conference_language.sql
+\i views/view_conference_transaction.sql
+\i views/view_event_transaction.sql
+\i views/view_person_transaction.sql
 
 
