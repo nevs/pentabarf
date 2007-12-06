@@ -47,6 +47,7 @@ CREATE OR REPLACE VIEW view_schedule AS
      FROM event
           CROSS JOIN language AS translated
           INNER JOIN conference USING (conference_id)
+          INNER JOIN conference_day USING (conference_id,conference_day)
           LEFT OUTER JOIN language_localized ON (
               language_localized.translated = translated.language AND
               language_localized.language = event.language )

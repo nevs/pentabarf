@@ -44,6 +44,10 @@ CREATE OR REPLACE VIEW view_schedule_event AS
              event.conference_id = conference_room.conference_id AND
              event.conference_room = conference_room.conference_room AND
              conference_room.public = 't' )
+         INNER JOIN conference_day ON (
+             event.conference_id = conference_day.conference_id AND
+             event.conference_day = conference_day.conference_day AND
+             conference_day.public = 't' )
          INNER JOIN (
              SELECT person_id,
                     name

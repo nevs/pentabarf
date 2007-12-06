@@ -40,6 +40,10 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                         event.conference_id = conference_room.conference_id AND
                         event.conference_room = conference_room.conference_room AND
                         conference_room.public = 't' )
+                    INNER JOIN conference_day ON (
+                        event.conference_id = conference_day.conference_id AND
+                        event.conference_day = conference_day.conference_day AND
+                        conference_day.public = 't' )
               WHERE event_person.event_role IN ('speaker','moderator') AND
                     event_person.event_role_state = 'confirmed'
          ) AS speaker USING (person_id)
