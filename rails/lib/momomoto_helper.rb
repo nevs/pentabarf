@@ -70,6 +70,10 @@ module MomomotoHelper
     if tmpfile and tmpfile != ""
       values[data_column] = tmpfile.read
 
+      if values[:filename] && values[:filename].empty?
+        values[:filename] = tmpfile.original_filename
+      end
+
       # get mimetype
       type = MIME.check_magics( tmpfile ) || MIME.check_globs( tmpfile.original_filename ) || "application/octet-stream"
       begin
