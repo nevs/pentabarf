@@ -1,0 +1,18 @@
+xml.div(:id=>'content-history') do
+
+  xml.fieldset do
+    xml.legend local('history')
+
+    xml.ul({:class=>:history}) do
+      View_conference_transaction.select(:conference_id=>@conference.conference_id).each do | t |
+        xml.li do
+          xml.span( t.changed_when.strftime('%Y-%m-%d %H:%M:%S') )
+          xml.a( t.name, {:href=>url_for(:action=>:person,:id=>t.changed_by)})
+        end
+      end
+
+    end
+
+  end
+
+end
