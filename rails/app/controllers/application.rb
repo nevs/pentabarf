@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def local( tag )
+    Localizer.lookup( tag.to_s, @current_language )
+  end
+
   def transaction_wrapper
     Momomoto::Database.instance.transaction do
       yield if auth
