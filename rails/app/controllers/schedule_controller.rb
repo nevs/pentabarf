@@ -1,5 +1,7 @@
 class ScheduleController < ApplicationController
 
+  include ScheduleHelper
+
   before_filter :init
 
   def index
@@ -11,10 +13,10 @@ class ScheduleController < ApplicationController
   end
 
   def day
-    @day = params[:id]
-#    @content_title = "#{local(:schedule)} #{local(:day)} #{@day}"
+    @day = Conference_day.select_single({:conference_id=>@conference.conference_id,:public=>'t',:conference_day=>params[:id]})
+    @content_title = local('schedule::schedule') + ' ' + format_conference_day( @day )
     @rooms = Conference_room.select({:conference_id=>@conference.conference_id, :public=>'t'})
-    @events = View_schedule_event.select({:conference_day=>{:le=>@day},:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
+    @events = View_schedule_event.select({:conference_day=>{:le=>@day.conference_day},:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
   end
 
   def event
@@ -36,7 +38,7 @@ class ScheduleController < ApplicationController
 
   def speakers
     @speakers = View_schedule_person.select({:conference_id=>@conference.conference_id},{:order=>[:name]})
-#    @content_title = local(:speakers)
+    @content_title = local(:speakers)
   end
 
   def track_event
@@ -56,6 +58,7 @@ class ScheduleController < ApplicationController
 
   def init
     @conference = Conference.select_single(:acronym=>params[:conference])
+    @days = Conference_day.select({:conference_id=>@conference.conference_id,:public=>'t'},{:order=>:conference_day})
     @tracks = Conference_track.select(:conference_id=>@conference.conference_id)
     @current_language = params[:language] || 'en'
   end

@@ -1,8 +1,8 @@
 xml.ul do
-  Conference_day.select({:conference_id=>@conference.conference_id,:public=>'t'},{:order=>:conference_day}).each_with_index do | day, index |
+  @days.each_with_index do | day, index |
     xml.li do
       xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:day,:id=>day.conference_day.to_s,:language=>params[:language]})) do
-        xml.span("#{local(:day)} #{index + 1} (#{day.conference_day.strftime('%d.%m.%Y')})", :class=>:normal)
+        xml.span(format_conference_day(day), :class=>:normal)
       end
     end
   end
