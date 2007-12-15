@@ -1,20 +1,18 @@
 xml.instruct!
-days = Conference_day.select({:conference_id=>@conference.conference_id},{:order=>:conference_day})
 xml.schedule do
   xml.conference do
     xml.title @conference.title
     xml.subtitle @conference.subtitle
     xml.venue @conference.venue
     xml.city @conference.city
-    xml.start days.first.conference_day.strftime('%Y-%m-%d')
-    xml.end( days.last.conference_day.strftime('%Y-%m-%d') )
-    xml.days @conference.days
+    xml.start @days.first.conference_day.strftime('%Y-%m-%d')
+    xml.end( @days.last.conference_day.strftime('%Y-%m-%d') )
+    xml.days @days.length
     xml.release @conference.release
     xml.day_change @conference.day_change.strftime('%H:%M')
     xml.timeslot_duration @conference.timeslot_duration.strftime('%H:%M')
   end
-  days.each_with_index do | day, index |
-  @conference.days.times do | day |
+  @days.each_with_index do | day, index |
     xml.day(:index=>index + 1,:date=>day.conference_day.to_s) do
       @rooms.each do | room |
         xml.room({:name => room.conference_room}) do
