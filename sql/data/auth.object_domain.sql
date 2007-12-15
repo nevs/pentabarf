@@ -30,7 +30,6 @@ INSERT INTO object_domain ("object", "domain") VALUES ('person_im', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('person_language', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('person_phone', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('person_rating', 'review');
-INSERT INTO object_domain ("object", "domain") VALUES ('event_feedback', 'public');
 INSERT INTO object_domain ("object", "domain") VALUES ('ui_message_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_transaction', 'public');
 INSERT INTO object_domain ("object", "domain") VALUES ('person_transaction', 'public');
@@ -40,10 +39,12 @@ INSERT INTO object_domain ("object", "domain") VALUES ('conference_image', 'conf
 INSERT INTO object_domain ("object", "domain") VALUES ('person_image', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('person_availability', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('account', 'account');
-INSERT INTO object_domain ("object", "domain") VALUES ('account_role', 'account');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_travel', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_room', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_team', 'conference');
+INSERT INTO object_domain ("object", "domain") VALUES ('account_role', 'account');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_day', 'conference');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_feedback', 'public');
 
 
 --
