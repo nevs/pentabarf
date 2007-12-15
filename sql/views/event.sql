@@ -15,6 +15,7 @@ CREATE OR REPLACE VIEW view_event AS
          event.language,
          event.conference_room,
          event.conference_day,
+         conference_day.name AS conference_day_name,
          event.start_time,
          event.abstract,
          event.description,
@@ -34,6 +35,7 @@ CREATE OR REPLACE VIEW view_event AS
     FROM event
          INNER JOIN event_state_localized USING (event_state)
          INNER JOIN conference USING (conference_id)
+         INNER JOIN conference_day USING (conference_id, conference_day)
          LEFT OUTER JOIN event_type_localized USING (event_type,translated)
          LEFT OUTER JOIN event_image USING (event_id)
          LEFT OUTER JOIN mime_type USING (mime_type)
