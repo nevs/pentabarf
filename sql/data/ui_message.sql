@@ -45,7 +45,6 @@ INSERT INTO ui_message (ui_message) VALUES ('table::conference_image::image');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference::max_timeslot_duration');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference_person::remark');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference::release');
-INSERT INTO ui_message (ui_message) VALUES ('table::event::conference_track_id');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::event_origin_id');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::event_state_id');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::event_state_progress_id');
@@ -56,8 +55,6 @@ INSERT INTO ui_message (ui_message) VALUES ('table::event_rating::acceptance');
 INSERT INTO ui_message (ui_message) VALUES ('table::event_rating::actuality');
 INSERT INTO ui_message (ui_message) VALUES ('table::event_rating::relevance');
 INSERT INTO ui_message (ui_message) VALUES ('table::event_rating::remark');
-INSERT INTO ui_message (ui_message) VALUES ('table::event::room_id');
-INSERT INTO ui_message (ui_message) VALUES ('table::event::team_id');
 INSERT INTO ui_message (ui_message) VALUES ('table::person::account_owner');
 INSERT INTO ui_message (ui_message) VALUES ('table::person::bank_name');
 INSERT INTO ui_message (ui_message) VALUES ('table::person::bic');
@@ -226,12 +223,10 @@ INSERT INTO ui_message (ui_message) VALUES ('table::event::tag');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::event_origin');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::event_state');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::event_state_progress');
-INSERT INTO ui_message (ui_message) VALUES ('table::event::team');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::public');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::paper');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::slides');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::language');
-INSERT INTO ui_message (ui_message) VALUES ('table::event::track');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::type');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::conference');
 INSERT INTO ui_message (ui_message) VALUES ('table::event_person::person');
@@ -288,7 +283,6 @@ INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::conference::tab::r
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::conference::tab::events');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::conference::tab::export');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::conference::tab::feedback');
-INSERT INTO ui_message (ui_message) VALUES ('table::team::tag');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference_track::tag');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference_track::color');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::person::tab::general');
@@ -335,6 +329,9 @@ INSERT INTO ui_message (ui_message) VALUES ('table::conference::f_visitor_enable
 INSERT INTO ui_message (ui_message) VALUES ('table::person::email');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference_person::email');
 INSERT INTO ui_message (ui_message) VALUES ('table::account::login_name');
+INSERT INTO ui_message (ui_message) VALUES ('table::event::conference_team');
+INSERT INTO ui_message (ui_message) VALUES ('table::event::conference_room');
+INSERT INTO ui_message (ui_message) VALUES ('table::event::conference_track');
 
 
 --

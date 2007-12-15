@@ -73,8 +73,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference::max_timeslots_per_event', 'en', 'Maximum timeslots per event');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference::max_timeslots_per_event', 'de', 'Maximale Anzahl Zeiteinheiten pro Veranstaltung');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::tag', 'de', 'Kennung');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::team', 'en', 'Team');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::team', 'de', 'Team');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::title', 'en', 'Event title');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::find::event::title_subtitle', 'en', 'Event');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::find::event::title_subtitle', 'de', 'Veranstaltung');
@@ -83,8 +81,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::p
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::conference::tab::persons', 'en', 'Persons');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::find::event::time', 'en', 'Time');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::find::event::time', 'de', 'Zeit');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::track', 'en', 'Track');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::track', 'de', 'Track');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::type', 'de', 'Veranstaltungsart');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_person::person', 'en', 'Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_person::person', 'de', 'Person');
@@ -224,8 +220,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::p
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::event::tab::feedback', 'de', 'Feedback');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::remark', 'en', 'Notes');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::remark', 'de', 'Bemerkungen');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::team::tag', 'en', 'Team-tag');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::team::tag', 'de', 'Team-Kürzel');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_track::tag', 'en', 'Tag');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_track::tag', 'de', 'Track-Kürzel');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_track::color', 'en', 'Color');
@@ -503,7 +497,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::p
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::person::tab::availability', 'de', 'Verfügbarkeit');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('link::my_events', 'en', 'My events');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('link::my_events', 'de', 'Meine Events');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_track_id', 'en', 'Track');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::event_origin_id', 'en', 'Event Origin');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::event_state_id', 'en', 'Event state');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::event_state_progress_id', 'en', 'Event state progress');
@@ -554,8 +547,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_rating::remark', 'en', 'Remark');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference::conference_phase_id', 'en', 'Conference Phase');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference::country_id', 'en', 'Country');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::room_id', 'en', 'Room');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::team_id', 'en', 'Team');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::arrival_transport', 'en', 'Transport');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::departure_transport', 'en', 'Transport');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::person::email', 'de', 'E-Mail-Addresse zur Kontaktaufnahme');
@@ -567,6 +558,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::submission_notes', 'en', 'Submission notes');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::submission_notes', 'de', 'Submission notes');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_rating_public::participant_knowledge', 'en', 'Participant knowledge');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_team', 'en', 'Team');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_team', 'de', 'Team');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::accommodation_name', 'en', 'Accommodation name');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::accommodation_city', 'en', 'Accommodation City');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::accommodation_cost', 'en', 'Accommodation cost');
@@ -579,6 +572,9 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::arrival_number', 'en', 'Arrival number');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::arrival_time', 'en', 'Arrival time');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::arrival_to', 'en', 'Arriving to');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_room', 'en', 'Room');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_track', 'en', 'Track');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_track', 'de', 'Track');
 
 
 --
