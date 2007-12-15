@@ -1,5 +1,6 @@
 # collect all active slots
 saved = Person_availability.select({:person_id=>@person.person_id,:conference_id=>@conference.conference_id})
+days = Conference_day.select({:conference_id=>@conference.conference_id},{:order=>:conference_day})
 slots = []
 saved.each do | slot |
   start = slot.start_date.strftime('%Y-%m-%d %H:%M:%S')
