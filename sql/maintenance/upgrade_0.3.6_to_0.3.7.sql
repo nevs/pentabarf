@@ -4,7 +4,7 @@ BEGIN;
 DROP FUNCTION auth.create_account(varchar,varchar,text,char,integer);
 
 ALTER TABLE base.conference_person ADD COLUMN arrived BOOL NOT NULL DEFAULT FALSE;
-UPDATE conference_person SET arrived = ( SELECT arrived  FROM conference_person_travel WHERE conference_person_travel.conference_person_id = conference_person.conference_person_id);
+UPDATE conference_person SET arrived = coalesce( ( SELECT arrived FROM conference_person_travel WHERE conference_person_travel.conference_person_id = conference_person.conference_person_id ), false );
 ALTER TABLE base.conference_person_travel DROP COLUMN arrived CASCADE;
 
 ALTER TABLE event DROP CONSTRAINT event_conference_id_fkey;
@@ -26,7 +26,7 @@ CREATE TABLE base.conference_day (
 );
 
 CREATE TABLE conference_day (
-  FOREIGN KEY( conference_id ) REFERENCES conference( conference_id )
+  FOREIGN KEY( conference_id ) REFERENCES conference( conference_id ),
   PRIMARY KEY( conference_id, conference_day)
 ) INHERITS( base.conference_day );
 
