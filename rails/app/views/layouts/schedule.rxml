@@ -9,7 +9,7 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
     xml.link(:href=>url_for(:action=>:css,:conference=>@conference.acronym),:rel=>'Stylesheet',:media=>'screen,print',:type=>'text/css')
   end
   xml.body do
-    xml.div(:id=>'conference-logo') do
+    xml.div(:id=>'conference-logo',:class=>'noprint') do
       xml.a(:href=>@conference.homepage) do
         xml.img(:alt=> @conference.title, :src=> conference_image( @conference.conference_id, 128 ) )
       end
