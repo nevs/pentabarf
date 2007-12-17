@@ -20,7 +20,7 @@ class ScheduleController < ApplicationController
   end
 
   def event
-    @event = View_event.select_single({:conference_id=>@conference.conference_id,:translated=>@current_language,:event_id=>params[:id]})
+    @event = View_event.select_single({:conference_id=>@conference.conference_id,:translated=>@current_language,:event_id=>params[:id],:event_state=>'accepted',:event_state_progress=>'confirmed'})
     @events = View_schedule_event.select({:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
     @content_title = @event.title
   end
