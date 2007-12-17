@@ -105,10 +105,11 @@ module MomomotoHelper
     # person availability
     all_slots = []
     # create array with all slots
-    conference.days.times do | day |
+    days = Conference_day.select({:conference_id=>conference.conference_id},{:order=>:conference_day})
+    days.each do | day |
       24.times do | hour |
         real_hour =  ( conference.day_change.hour + hour ) % 24
-        date = conference.start_date + day + ( ( conference.day_change.hour + hour ) / 24 )
+        date = day.conference_day + ( ( conference.day_change.hour + hour ) / 24 )
         all_slots.push( "#{date.strftime('%Y-%m-%d')} #{sprintf('%02d',real_hour)}:00:00")
       end
     end
