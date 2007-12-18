@@ -25,7 +25,7 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
             PERFORM set_config('pentabarf.transaction_id',nextval('base.log_transaction_log_transaction_id_seq'),TRUE); 
             INSERT INTO log.log_transaction( log_transaction_id, person_id ) 
               VALUES ( currval('base.log_transaction_log_transaction_id_seq'), 
-                CASE current_setting('pentabarf.person_id') WHEN '' THEN NULL ELSE current_setting('pentabarf.person_id')::INTEGER END
+                CASE current_setting('pentabarf.person_id') WHEN '' THEN NULL WHEN 'unset' THEN NULL ELSE current_setting('pentabarf.person_id')::INTEGER END
             );
           END IF;
           IF ( TG_OP = 'DELETE' ) THEN
