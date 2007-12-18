@@ -21,7 +21,7 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
       procname = tablename || '_log_function';
       fundef = $f$CREATE OR REPLACE FUNCTION log.$f$ || quote_ident( procname ) || $f$() RETURNS TRIGGER AS $i$
         BEGIN
-          IF ( current_setting('pentabarf.transaction_id') = '' ) THEN
+          IF ( current_setting('pentabarf.transaction_id') IN ('','unset') ) THEN
             PERFORM set_config('pentabarf.transaction_id',nextval('base.log_transaction_log_transaction_id_seq'),TRUE); 
             INSERT INTO log.log_transaction( log_transaction_id, person_id ) 
               VALUES ( currval('base.log_transaction_log_transaction_id_seq'), 
