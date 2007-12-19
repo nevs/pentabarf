@@ -112,6 +112,8 @@ function table_add_row( table_name ) {
       if (field.type == "checkbox") {
         field.checked = arguments[i];
       } else {
+        if (arguments[i] == null)
+          arguments[i] = ''
         field.value = arguments[i];
       }
       if ( field.onchange ) {
