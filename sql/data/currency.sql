@@ -185,6 +185,7 @@ INSERT INTO currency (currency, exchange_rate) VALUES ('GBP', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('DEM', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('JPY', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('CHF', NULL);
+INSERT INTO currency (currency, exchange_rate) VALUES ('VEF', NULL);
 
 
 --
