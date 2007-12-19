@@ -49,8 +49,8 @@ xml.div(:id=>'content-general') do
       end
     end
 
-    xml.script(:type=>'text/javascript') do 
-      Conference_language.select( :conference_id => @conference.conference_id ).each do | c |
+    xml.script(:type=>'text/javascript') do
+      View_conference_language.select({:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>:name}).each do | c |
         xml << js_function( 'table_add_row', 'conference_language', c.language )
       end
     end
