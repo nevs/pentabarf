@@ -39,7 +39,7 @@ function find_tabs() {
   var outer;
   for( var i = 0; i < nodes.length; i++){
     outer = nodes[i];
-    if( outer instanceof HTMLSpanElement && $( outer.id.replace('tab-', 'content-') ) ) {
+    if( outer.nodeName.toLowerCase() == "span" && $( outer.id.replace('tab-', 'content-') ) ) {
       tabs.push( outer.id.replace('tab-', '') );
     }
   }
