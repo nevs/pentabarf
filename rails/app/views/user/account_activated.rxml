@@ -1,0 +1,6 @@
+
+xml.h3 "Thank you."
+xml.p "Your account has been activated. Please log in and fill in your personal details."
+
+xml.a( "Proceed",{:href=>url_for(:controller=>'submission',:conference=> params[:id] ),:style=>"color:blue;text-decoration:underline;margin-left: 5em;"})
+
