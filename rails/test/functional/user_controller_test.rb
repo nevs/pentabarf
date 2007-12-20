@@ -29,7 +29,7 @@ class UserControllerTest < Test::Unit::TestCase
       active = Account_activation.select_single(:account_id=>chunky.account_id)
       get :activate_account, :id=>active.activation_string
       assert_response :redirect
-      assert_redirected_to( :controller => 'submission' )
+      assert_redirected_to( :action => :account_activated )
       assert_equal( 1, Account_role.select(:account_id=>chunky.account_id).length )
     ensure
       Account.__delete( chunky ) if chunky
