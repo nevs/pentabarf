@@ -55,7 +55,7 @@ xml.div(:id=>'event',:class=>'section vevent') do
         xml.td(event.language,{:class=>'value'})
       end
     end
-    
+
     if @conference.f_feedback_enabled && @conference.feedback_base_url
       xml.table do
         xml.tr do

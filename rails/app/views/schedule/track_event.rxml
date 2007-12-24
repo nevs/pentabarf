@@ -91,7 +91,7 @@ xml.div(:id=>'event',:class=>'section') do
       xml.ul do
         files.each do | file |
           xml.li do
-            xml.a("#{file.title} (#{file.mime_type} - #{human_size(file.filesize)})",{:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>file.event_attachment_id)})
+            xml.a("#{file.title} (#{file.mime_type} - #{human_size(file.filesize)})",{:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>file.event_attachment_id,:filename=>file.filename),:rel=>'enclosure'})
           end
         end
       end
