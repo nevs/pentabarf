@@ -10,7 +10,7 @@ xml.div do
       xml.ul do
         @conferences.each do | conf |
           xml.li do
-            xml.a(conf.title, {:style=>"text-decoration: underline;color: blue;",:href=>url_for(:id=>conf.acronym)})
+            xml.a(conf.title, {:style=>"text-decoration: underline;color: blue;",:href=>url_for(:controller=>'submission',:conference=>conf.acronym,:action=>:index)})
           end
         end
       end
