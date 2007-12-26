@@ -16,7 +16,7 @@ xml.div do
       end
     end
   end
-  xml.p "Pleas create an account for one note that this system has only been tested with recent versions of Gecko-based browsers like Mozilla Firefox, Seamonkey or Camino. Other browsers might not work."
+  xml.p "Please note that this system has only been tested with recent versions of Gecko-based browsers like Mozilla Firefox, Seamonkey or Camino. Other browsers might not work."
 
 
 end
