@@ -33,7 +33,9 @@ class HTMLExport
 
     def url_for( url )
       target = url_for_http( url )
-      @urls << url if not @urls_done.member?( target )
+      if not @urls_done.member?( target )
+        @urls << url if not ['feedback'].member?(url[:controller])
+      end
       target
     end
 
@@ -63,6 +65,7 @@ class HTMLExport
             when :event then "#{prefix}images/event-#{url[:id]}-#{url[:size]}.#{url[:extension]}"
             when :person then "#{prefix}images/person-#{url[:id]}-#{url[:size]}.#{url[:extension]}"
           end
+        when 'feedback' then "#{@conference.feedback_base_url}feedback/#{url[:conference]}/event/#{url[:id]}.#{url[:language]}.html"
         when 'xcal' then "#{prefix}schedule.#{url[:language]}.xcs"
         when 'ical' then "#{prefix}schedule.#{url[:language]}.ics"
         when 'xml' then "#{prefix}schedule.#{url[:language]}.xml"
@@ -88,6 +91,8 @@ class HTMLExport
       f = File.new( url_for_file( url ), File::CREAT | File::WRONLY | File::TRUNC )
       f.write( HTMLExport.session.response.body )
       f.close
+      rescue
+        raise StandardError, "Error while processing #{url}"
     end
 
     def build_tree
