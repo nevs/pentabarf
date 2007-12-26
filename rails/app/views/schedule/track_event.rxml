@@ -65,7 +65,7 @@ xml.div(:id=>'event',:class=>'section') do
           xml.td(:colspan=>2,:class=>'feedback') do
             xml.text! local( 'schedule::did_you_attend_this_event' )
             xml.br
-            xml.a( local( 'schedule::give_feedback' ),{:href=>url_for(:controller=>'feedback',:action=>:event,:id=>@event.event_id)})
+            xml.a( local( 'schedule::give_feedback' ),{:href=>url_for(:controller=>'feedback',:conference=>@conference.acronym,:action=>:event,:id=>@event.event_id,:language=>params[:language])})
           end
         end
 
