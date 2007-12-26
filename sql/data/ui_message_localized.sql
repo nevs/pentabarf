@@ -557,7 +557,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::person::account_owner', 'en', 'Account owner');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::submission_notes', 'en', 'Submission notes');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::submission_notes', 'de', 'Submission notes');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_rating_public::participant_knowledge', 'en', 'Participant knowledge');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_team', 'en', 'Team');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_team', 'de', 'Team');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::accommodation_name', 'en', 'Accommodation name');
@@ -575,6 +574,11 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_room', 'en', 'Room');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_track', 'en', 'Track');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_track', 'de', 'Track');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_feedback::participant_knowledge', 'en', 'Participant knowledge');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_feedback::topic_importance', 'en', 'Topic importance');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_feedback::content_quality', 'en', 'Content quality');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_feedback::presentation_quality', 'en', 'Presentation quality');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_feedback::audience_involvement', 'en', 'Audience involvement');
 
 
 --

@@ -12,6 +12,7 @@ SET search_path = public, pg_catalog;
 -- Data for Name: ui_message; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO ui_message (ui_message) VALUES ('day');
 INSERT INTO ui_message (ui_message) VALUES ('sidebar::new');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::person::travel::arrival::transport_type');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::person::travel::departure');
@@ -91,11 +92,11 @@ INSERT INTO ui_message (ui_message) VALUES ('table::conference_person_travel::ne
 INSERT INTO ui_message (ui_message) VALUES ('table::conference_person_travel::need_travel_cost');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference_person_travel::travel_cost');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::submission_notes');
-INSERT INTO ui_message (ui_message) VALUES ('table::event_rating_public::participant_knowledge');
-INSERT INTO ui_message (ui_message) VALUES ('table::event_rating_public::topic_importance');
-INSERT INTO ui_message (ui_message) VALUES ('table::event_rating_public::content_quality');
-INSERT INTO ui_message (ui_message) VALUES ('table::event_rating_public::presentation_quality');
-INSERT INTO ui_message (ui_message) VALUES ('table::event_rating_public::audience_involvement');
+INSERT INTO ui_message (ui_message) VALUES ('table::event_feedback::participant_knowledge');
+INSERT INTO ui_message (ui_message) VALUES ('table::event_feedback::topic_importance');
+INSERT INTO ui_message (ui_message) VALUES ('table::event_feedback::content_quality');
+INSERT INTO ui_message (ui_message) VALUES ('table::event_feedback::presentation_quality');
+INSERT INTO ui_message (ui_message) VALUES ('table::event_feedback::audience_involvement');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference::timezone');
 INSERT INTO ui_message (ui_message) VALUES ('table::person::street');
 INSERT INTO ui_message (ui_message) VALUES ('table::person::street_postcode');
@@ -107,6 +108,7 @@ INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::person::address');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::find_person::tab::simple');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::find_person::tab::advanced');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::find_event::tab::simple');
+INSERT INTO ui_message (ui_message) VALUES ('table::person::email');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::find_event::tab::advanced');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::find_conference::tab::simple');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::find_conference::tab::advanced');
@@ -235,7 +237,6 @@ INSERT INTO ui_message (ui_message) VALUES ('table::event_person::event_role_sta
 INSERT INTO ui_message (ui_message) VALUES ('table::event_person::remark');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::abstract');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::description');
-INSERT INTO ui_message (ui_message) VALUES ('day');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::day');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::room');
 INSERT INTO ui_message (ui_message) VALUES ('link::review');
@@ -326,7 +327,6 @@ INSERT INTO ui_message (ui_message) VALUES ('table::conference::f_feedback_enabl
 INSERT INTO ui_message (ui_message) VALUES ('table::conference::f_reconfirmation_enabled');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference::f_submission_enabled');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference::f_visitor_enabled');
-INSERT INTO ui_message (ui_message) VALUES ('table::person::email');
 INSERT INTO ui_message (ui_message) VALUES ('table::conference_person::email');
 INSERT INTO ui_message (ui_message) VALUES ('table::account::login_name');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::conference_team');
