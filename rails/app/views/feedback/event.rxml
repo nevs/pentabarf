@@ -2,7 +2,9 @@ xml.div({:id=>'event-feedback',:class=>:section}) do
   xml.p(local('feedback::welcome_to_the_feedback_system'),{:class=>:welcome})
   xml.h1( @event.title, {:class=>:title})
   xml.p( @event.subtitle, {:class=>:subtitle})
-  xml.div( markup(@event.abstract), {:class=>:abstract})
+  xml.div({:class=>:abstract}) do
+    xml << markup(@event.abstract)
+  end
 
   xml.form({:method=>:post,:action=>url_for({:action=>:save_event,:id=>@event.event_id,:language=>@current_language,:conference=>@conference.acronym})}) do
     xml.fieldset do
