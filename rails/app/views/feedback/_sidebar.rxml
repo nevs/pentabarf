@@ -7,7 +7,7 @@ xml.div({:id=>:menu}) do
     end
     Conference_day.select({:conference_id=>@conference.conference_id,:public=>'t'},{:order=>:conference_day}).each_with_index do | day, index |
       xml.li do
-        xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:day,:id=>day.conference_day.to_s,:language=>params[:language]})) do
+        xml.a({:href=>@conference.export_base_url + "day_#{day.conference_day}.#{@current_language}.html"}) do
           xml.span("#{local(:day)} #{index + 1}", :class=>:normal)
         end
       end
