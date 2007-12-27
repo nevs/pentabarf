@@ -57,7 +57,7 @@ module ApplicationHelper
           tab_name = tab.last
           tab = tab.first
         else
-          tab_name = tab
+          tab_name = tab.to_s
         end
         xml.span( tab_name, {:id=>"tab-#{tab}",:onclick=>"switch_tab('#{tab}')",:class=>'tab inactive',:accesskey=>index+1} )
       end
