@@ -52,10 +52,16 @@ module ApplicationHelper
   def js_tabs( tabs )
     xml = Builder::XmlMarkup.new
     xml.div( :id => 'tabs' ) do
-      tabs.each do | tab |
-        xml.span( tab.to_s, {:id=>"tab-#{tab}",:onclick=>"switch_tab('#{tab}')",:class=>'tab inactive'} )
+      tabs.each_with_index do | tab, index |
+        if tab.instance_of?( Array ) 
+          tab_name = tab.last
+          tab = tab.first
+        else
+          tab_name = tab
+        end
+        xml.span( tab_name, {:id=>"tab-#{tab}",:onclick=>"switch_tab('#{tab}')",:class=>'tab inactive',:accesskey=>index+1} )
       end
-      xml.span( 'Show all', {:id=>"tab-all",:onclick=>"show_all_tabs()",:class=>'tab inactive'} )
+      xml.span( 'Show all', {:id=>"tab-all",:onclick=>"show_all_tabs()",:class=>'tab inactive',:accesskey=>0} )
     end
   end
 
