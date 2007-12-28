@@ -76,6 +76,12 @@ INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_accep
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_person_person_availability', 'en', 'Speaker or moderator not available for an event');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_person_person_availability', 'de', 'Referent oder Moderator für einen Event nicht verfügbar');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_person_language', 'en', 'Speaker or moderator does not speak the language of the event');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_paper_unknown', 'en', 'Event with unknown paper state.');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_paper_unknown', 'de', 'Veranstaltung mit unklarem Paper-Status.');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_person_event_time_attendee', 'en', 'Attendee with two events at the same time.');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_person_event_time_attendee', 'de', 'Besucher mit zwei gleichzeitigen Veranstaltungen.');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_slides_unknown', 'en', 'Event with unknown slides state.');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_slides_unknown', 'de', 'Veranstaltung mit unklarem Folien-Status.');
 
 
 --
