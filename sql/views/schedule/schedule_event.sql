@@ -35,10 +35,9 @@ CREATE OR REPLACE VIEW view_schedule_event AS
              event.event_state = 'accepted' AND
              event.event_state_progress = 'confirmed' AND
              event.public = 't' AND
-             event.conference_day IS NOT NULL AND
-             event.start_time IS NOT NULL AND
-             event.conference_room IS NOT NULL )
-         INNER JOIN language_localized USING (language)
+             event.start_time IS NOT NULL )
+         INNER JOIN event_state_localized USING (event_state)
+         INNER JOIN language_localized USING (language,translated)
          INNER JOIN conference USING (conference_id)
          INNER JOIN conference_room ON (
              event.conference_id = conference_room.conference_id AND

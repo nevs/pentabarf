@@ -26,6 +26,7 @@ SELECT
         event_person.event_role_state = 'confirmed' AND
         event_person.event_id = event.event_id), ','::text) AS speakers
 FROM event
+  INNER JOIN event_state_localized USING (event_state)
   INNER JOIN conference USING (conference_id)
   INNER JOIN conference_room ON (
       event.conference_id = conference_room.conference_id AND
@@ -35,8 +36,9 @@ FROM event
       event.conference_id = conference_day.conference_id AND
       event.conference_day = conference_day.conference_day AND
       conference_day.public = 't' )
-  INNER JOIN language_localized USING (language)
+  LEFT OUTER JOIN language_localized USING (language,translated)
 WHERE
+  event.public IS TRUE AND
   event.start_time IS NOT NULL AND
   event.event_state = 'accepted' AND
   event.event_state_progress = 'confirmed'
