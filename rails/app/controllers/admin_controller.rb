@@ -3,6 +3,7 @@ class AdminController < ApplicationController
   before_filter :init
 
   def index
+    @content_title = 'Admin'
   end
 
   def conflict_setup

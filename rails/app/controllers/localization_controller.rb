@@ -3,9 +3,11 @@ class LocalizationController < ApplicationController
   before_filter :init
 
   def index
+    @content_title = 'Localization'
   end
 
   def ui_message
+    @content_title = 'Localization ui_message'
     constraints = {:translated=>@current_language}
     constraints[:ui_message] = {:ilike=>"#{params[:id]}%"} if params[:id]
     @messages = Ui_message_localized.select(constraints,{:order=>:ui_message})
