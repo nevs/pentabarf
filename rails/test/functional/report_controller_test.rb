@@ -16,7 +16,7 @@ class ReportControllerTest < Test::Unit::TestCase
     POPE.deauth
   end
 
-  [:expenses,:feedback,:resources].each do | action |
+  ReportController::REPORTS.each do | action |
     define_method "test_#{action}" do
       get action
       assert_response :success
