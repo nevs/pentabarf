@@ -11,7 +11,7 @@ SELECT
   event.start_time,
   event.duration,
   event.language,
-  language_localized.translated,
+  event_state_localized.translated,
   language_localized.name AS language_name,
   conference_room.conference_room,
   event.start_time + conference.day_change AS "time",
