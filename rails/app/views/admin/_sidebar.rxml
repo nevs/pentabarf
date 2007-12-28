@@ -17,7 +17,10 @@ xml.div( :id => 'sidebar' ) do
     xml.div( :class=>'menu-item-group' ) do
       xml.a( 'Localization', {:href=> url_for(:controller => 'localization', :action => :index), :class => 'menu-item'} )
       xml.a( 'Pentabarf', {:href=> url_for(:controller => 'pentabarf', :action => :index), :class => 'menu-item'} )
+      xml.a( local('link::preferences'), {:href=> url_for(:controller => 'pentabarf', :action => :person, :id=>POPE.user.person_id), :class => 'menu-item'} )
+      xml.a( 'Logout', {:href=>"#{request.protocol}logout@#{request.host_with_port}/logout", :class => 'menu-item'} ) if POPE.user
     end
 
   end
 end
+
