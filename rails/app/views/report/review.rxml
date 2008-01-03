@@ -11,13 +11,13 @@ xml.div(:id=>:data) do
     xml.tbody do
 
       @events.each do | event |
-        
-        style = "" 
+
+        style = ""
         style += "background-color: moccasin;" if not @ratings.member?( event.event_id )
 
-        xml.tr({:style=>style}) do 
+        xml.tr({:style=>style}) do
           xml.td do
-            xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
+            xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)}) do
               xml.strong event.title
               xml.br
               xml.text! event.subtitle
