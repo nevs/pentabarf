@@ -1,0 +1,45 @@
+xml.div({:id=>:data}) do
+  
+  xml.form({:action=>url_for({:action=>:send_mail}),:id=>:content_form}) do
+    xml.fieldset do
+      xml.legend 'Mail Template'
+
+      xml.table do
+        xml.tr do
+          xml.td "Recipients:"
+          xml.td do
+            xml << select_tag( 'mail[recipients]', @recipients, {:with_empty=>true} )
+          end
+        end
+        xml.tr do
+          xml.td "Subject:"
+          xml.td do
+            xml.input({:type=>:text,:name=>'mail[subject]',:size=>60})
+          end
+        end
+        xml.tr do
+          xml.td({:colspan=>2}) do
+            xml.button("Send Mail", {:type=>:submit})
+          end
+        end
+      end
+    end
+
+    xml.fieldset do
+      xml.legend "Recipients"
+      xml.div({:id=>:recipients}) do
+        xml.script({:type=>'text/javascript'}) do
+          xml << "new Form.Element.EventObserver('mail[recipients]', function(element, value) {if ($F('mail[recipients]').length > 0) { new Ajax.Updater('recipients', '#{url_for(:action=>:recipients)}/' + $F('mail[recipients]'), {asynchronous:true, evalScripts:true, parameters:value}); }})"
+        end
+      end
+    end
+
+    xml.fieldset do
+      xml.legend "Body"
+      xml.textarea('',{:name=>'mail[body]',:cols=>60,:rows=>13}) 
+    end
+
+  end
+
+end
+

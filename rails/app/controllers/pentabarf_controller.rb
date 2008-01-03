@@ -287,13 +287,7 @@ class PentabarfController < ApplicationController
 
   def recipients
     return render_text('') unless params[:id]
-    @recipients = case params[:id]
-      when 'all_speaker' then View_mail_all_speaker.select({},{:order=>Momomoto.lower(:name)})
-      when 'reviewer' then View_mail_all_reviewer.select({},{:order=>Momomoto.lower(:name)})
-      when 'speaker' then View_mail_accepted_speaker.select({:conference_id => @current_conference.conference_id},{:order=>Momomoto.lower(:name)})
-      when 'missing_slides' then View_mail_missing_slides.select({:conference_id => @current_conference.conference_id},{:order=>Momomoto.lower(:name)})
-      else raise 'Unknown recipient tag'
-    end
+    @recipients = recipient_members( params[:id] )
     render(:partial=>'recipients')
   end
 
@@ -302,17 +296,7 @@ class PentabarfController < ApplicationController
     from = @current_conference.email 
     variables = ['email','name','person_id','conference_acronym','conference_title']
     if params[:mail][:recipients]
-      recipients = case params[:mail][:recipients]
-        when 'all_speaker'  then
-          View_mail_all_speaker.select
-        when 'reviewer'  then
-          View_mail_all_reviewer.select
-        when 'speaker'  then
-          View_mail_accepted_speaker.select({:conference_id => @current_conference.conference_id})
-        when 'missing_slides' then
-          View_mail_missing_slides.select({:conference_id => @current_conference.conference_id})
-        else raise 'You have to choose recipients'
-      end
+      recipients = recipient_members( params[:mail][:recipients])
       person_ids = recipients.map(&:person_id).uniq
       person_ids.each do | person_id |
         events = recipients.select{|recipient| recipient.person_id == person_id}
@@ -386,6 +370,16 @@ class PentabarfController < ApplicationController
       end
     end
     conditions
+  end
+
+  def recipient_members( name )
+    case name
+      when 'all_speaker' then View_mail_all_speaker.select({},{:order=>Momomoto.lower(:name)})
+      when 'reviewer' then View_mail_all_reviewer.select({},{:order=>Momomoto.lower(:name)})
+      when 'speaker' then View_mail_accepted_speaker.select({:conference_id => @current_conference.conference_id},{:order=>Momomoto.lower(:name)})
+      when 'missing_slides' then View_mail_missing_slides.select({:conference_id => @current_conference.conference_id},{:order=>Momomoto.lower(:name)})
+      else raise 'Unknown recipient tag'
+    end
   end
 
 end

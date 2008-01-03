@@ -1,0 +1,8 @@
+xml.ul({:class=>:recipients}) do
+  @recipients.each do | r |
+    xml.li do
+      xml.a(r.name,{:href=>url_for({:action=>:person,:id=>r.person_id}),:title=>r.email})
+    end
+  end
+end
+
