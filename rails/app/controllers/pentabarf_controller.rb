@@ -277,6 +277,64 @@ class PentabarfController < ApplicationController
     redirect_to( request.env['HTTP_REFERER'] ? request.env['HTTP_REFERER'] : url_for(:controller=>'pentabarf',:action=>:index) )
   end
 
+  def mail
+    @content_title = 'Mail'
+    @recipients = [['speaker', 'All accepted speakers of this conference'],
+                   ['reviewer', 'All persons with the role reviewer'],
+                   ['missing_slides', 'Missing Slides'],
+                   ['all_speaker', 'All speakers of all conferences']]
+  end
+
+  def recipients
+    return render_text('') unless params[:id]
+    @recipients = case params[:id]
+      when 'all_speaker' then View_mail_all_speaker.select({},{:order=>Momomoto.lower(:name)})
+      when 'reviewer' then View_mail_all_reviewer.select({},{:order=>Momomoto.lower(:name)})
+      when 'speaker' then View_mail_accepted_speaker.select({:conference_id => @current_conference.conference_id},{:order=>Momomoto.lower(:name)})
+      when 'missing_slides' then View_mail_missing_slides.select({:conference_id => @current_conference.conference_id},{:order=>Momomoto.lower(:name)})
+      else raise 'Unknown recipient tag'
+    end
+    render(:partial=>'recipients')
+  end
+
+  def send_mail
+    raise Pope::PermissionError, 'not allowed to send mail.' unless POPE.permission?('admin_login')
+    from = @current_conference.email 
+    variables = ['email','name','person_id','conference_acronym','conference_title']
+    if params[:mail][:recipients]
+      recipients = case params[:mail][:recipients]
+        when 'all_speaker'  then
+          View_mail_all_speaker.select
+        when 'reviewer'  then
+          View_mail_all_reviewer.select
+        when 'speaker'  then
+          View_mail_accepted_speaker.select({:conference_id => @current_conference.conference_id})
+        when 'missing_slides' then
+          View_mail_missing_slides.select({:conference_id => @current_conference.conference_id})
+        else raise 'You have to choose recipients'
+      end
+      person_ids = recipients.map(&:person_id).uniq
+      person_ids.each do | person_id |
+        events = recipients.select{|recipient| recipient.person_id == person_id}
+        r = events[0]
+        titles = []
+        events.each do | event |
+          titles.push( event.event_title )
+        end if r.respond_to?(:event_title)
+        body = params[:mail][:body].dup
+        subject = params[:mail][:subject].dup
+        variables.each do | v |
+          body.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
+          subject.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
+        end
+        body.gsub!(/\{\{event_title\}\}/i, events.join(','))
+        subject.gsub!(/\{\{event_title\}\}/i, events.join(','))
+        Notifier::deliver_general(r.email, subject, body, from)
+      end
+    end
+    redirect_to(:action=>:mail)
+  end
+
   protected
 
   def init

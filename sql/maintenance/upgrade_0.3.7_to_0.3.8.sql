@@ -7,6 +7,8 @@ ALTER TABLE conference_day ADD CONSTRAINT conference_day_conference_id_fkey FORE
 INSERT INTO currency (currency, exchange_rate) VALUES ('VEF', NULL);
 
 UPDATE ui_message SET ui_message = replace( ui_message, ':event_rating_public:', ':event_feedback:');
+UPDATE ui_message SET ui_message = 'table::conference_person::arrived' WHERE ui_message = 'table::conference_person_travel::arrived';
+UPDATE ui_message SET ui_message = 'table::event::conference_day' WHERE ui_message = 'table::event::day';
 
 INSERT INTO conflict.conflict_localized VALUES ('event_paper_unknown','en','Event with unknown paper state.');
 INSERT INTO conflict.conflict_localized VALUES ('event_paper_unknown','de','Veranstaltung mit unklarem Paper-Status.');
