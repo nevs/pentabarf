@@ -22,6 +22,7 @@ xml.div( :id => 'sidebar' ) do
       xml.a( local('link::review'), {:href=> url_for(:controller => 'pentabarf', :action=> 'review'), :class => 'menu-item'} )
       xml.a( local('link::conflicts'), {:href=> url_for(:controller => 'pentabarf', :action => :conflicts), :class => 'menu-item'} )
       xml.a( local('link::schedule'), {:href=> url_for(:controller => 'pentabarf', :action => :schedule), :class => 'menu-item'} )
+      xml.a( 'Mail', {:href=> url_for(:controller => 'pentabarf', :action => :mail), :class => 'menu-item'} ) if POPE.permission?('admin_login')
     end
 
     xml.div( :class=>'menu-item-group' ) do
@@ -51,8 +52,6 @@ xml.div( :id => 'sidebar' ) do
         end
       end
     end
-
-    xml.br
 
     xml.div( :class=>'menu-item-group' ) do
       xml.a( 'Admin', {:href=> url_for(:controller => 'admin', :action => :index), :class => 'menu-item'} ) if POPE.permission?('modify_config')
