@@ -2,7 +2,7 @@ class ReportController < ApplicationController
   before_filter :init
   append_after_filter :set_content_type
 
-  REPORTS = [:expenses,:feedback,:missing,:paper,:resources]
+  REPORTS = [:expenses,:feedback,:missing,:paper,:resources,:review]
 
   def index
   end
@@ -12,6 +12,12 @@ class ReportController < ApplicationController
       @content_title = "#{params[:action].capitalize} Report"
       @rows = "View_report_#{report}".constantize.select({:conference_id=>@current_conference.conference_id})
     end
+  end
+
+  def review
+    @content_title = "Review"
+    @events = View_review.select(:conference_id=>@current_conference.conference_id,:translated=>POPE.user.current_language)
+    @ratings = Event_rating.select({:person_id=>POPE.user.person_id}).select{|r| r.remark || r.relevance || r.acceptance || r.actuality }.map{|r| r.event_id}
   end
 
   protected

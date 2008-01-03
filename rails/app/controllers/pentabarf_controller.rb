@@ -47,12 +47,6 @@ class PentabarfController < ApplicationController
     @content_title = "Own events"
   end
 
-  def review
-    @content_title = "Review"
-    @events = View_review.select(:conference_id=>@current_conference.conference_id,:translated=>POPE.user.current_language)
-    @ratings = Event_rating.select({:person_id=>POPE.user.person_id}).select{|r| r.remark || r.relevance || r.acceptance || r.actuality }.map{|r| r.event_id}
-  end
-
   ["event","person","conference"].each do | action |
     define_method("delete_#{action}") do
       row = action.capitalize.constantize.select_single("#{action}_id"=>params[:id])
