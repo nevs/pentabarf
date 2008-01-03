@@ -4,7 +4,7 @@ xml.div({:id=>:data}) do
     xml.button( 'CSV' )
   end
 
-  xml.table({:class=>:sortable}) do
+  xml.table({:id=>:report_feedback_table,:class=>:sortable}) do
     xml.thead do
       xml.tr do
         xml.th( local( 'table::event::title'), {:colspan=>2} )

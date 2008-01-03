@@ -2,7 +2,7 @@ xml.div({:id=>:data}) do
 
   xml.p "People who haven't arrived yet but have a role in an event starting in the next 3 hours."
 
-  xml.table({:class=>:sortable}) do
+  xml.table({:id=>:report_missing_table,:class=>:sortable}) do
     xml.thead do
       xml.tr do
         xml.th( local( 'name'), {:colspan=>2} )

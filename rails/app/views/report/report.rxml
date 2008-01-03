@@ -1,7 +1,7 @@
 fields = @report_class::Reportfields
 
 xml.div({:id=>:data}) do
-  xml.table({:class=>:sortable}) do
+  xml.table({:id=>:report_table,:class=>:sortable}) do
     xml.thead do
       xml.tr do
         fields.each do | field |
