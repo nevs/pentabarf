@@ -5,6 +5,9 @@ class Pope
   class PermissionError <  StandardError
   end
 
+  class NoUserData < PermissionError
+  end
+
   attr_reader :user, :permissions, :own_events
 
   def initialize
@@ -17,6 +20,7 @@ class Pope
 
   def auth( user, pass )
     deauth
+    raise NoUserData if user.to_s.empty? or pass.to_s.empty?
     @user = Account.select_single(:login_name => user)
 
     salt_bin = ''
