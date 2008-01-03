@@ -27,7 +27,7 @@ xml.div(:id=>:data) do
           end
           [:event_state,:event_state_progress,:conference_track,:rating,:raters].each do | field |
             xml.td do
-              xml.a( event[field], {:href=>url_for(:action=>:event,:id=>event.event_id)})
+              xml.a( event[field], {:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)})
             end
           end
         end
