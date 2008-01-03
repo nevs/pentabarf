@@ -158,7 +158,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::p
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::conference::tab::rooms', 'en', 'Rooms');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::conference::tab::rooms', 'de', 'Räume');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::conference::tab::events', 'en', 'Events');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::day', 'en', 'Day');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::conference::tab::export', 'en', 'Export');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::conference::tab::export', 'de', 'Export');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::conference::tab::feedback', 'en', 'Feedback');
@@ -173,7 +172,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::p
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::find_person::tab::advanced', 'de', 'Detailsuche');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::find_event::tab::advanced', 'en', 'Advanced Search');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('view::pentabarf::find::event::room', 'en', 'Room');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::day', 'de', 'Tag');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::room', 'en', 'Room');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('tabs::show_all', 'en', 'Show all');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('tabs::show_all', 'de', 'Alle anzeigen');
@@ -509,8 +507,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference::feedback_base_url', 'en', 'URL where you feedback system will be accessible');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::slides', 'en', 'Submission of presentation slides');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::slides', 'de', 'Abgabe von Präsentationsfolien');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::arrived', 'en', 'Person arrived at venue');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person_travel::arrived', 'de', 'Person am Veranstaltungsort angekommen');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference::homepage', 'en', 'Conference Homepage');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::language_id', 'en', 'Language');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_rating::acceptance', 'en', 'Acceptance');
@@ -579,6 +575,10 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_feedback::content_quality', 'en', 'Content quality');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_feedback::presentation_quality', 'en', 'Presentation quality');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event_feedback::audience_involvement', 'en', 'Audience involvement');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person::arrived', 'en', 'Person arrived at venue');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::conference_person::arrived', 'de', 'Person am Veranstaltungsort angekommen');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_day', 'en', 'Day');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('table::event::conference_day', 'de', 'Tag');
 
 
 --

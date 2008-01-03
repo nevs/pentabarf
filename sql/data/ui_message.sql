@@ -237,7 +237,6 @@ INSERT INTO ui_message (ui_message) VALUES ('table::event_person::event_role_sta
 INSERT INTO ui_message (ui_message) VALUES ('table::event_person::remark');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::abstract');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::description');
-INSERT INTO ui_message (ui_message) VALUES ('table::event::day');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::room');
 INSERT INTO ui_message (ui_message) VALUES ('link::review');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::duration');
@@ -252,7 +251,6 @@ INSERT INTO ui_message (ui_message) VALUES ('table::conference_person_link::titl
 INSERT INTO ui_message (ui_message) VALUES ('table::conference::default_timeslots');
 INSERT INTO ui_message (ui_message) VALUES ('table::event_link::url');
 INSERT INTO ui_message (ui_message) VALUES ('table::event_link::title');
-INSERT INTO ui_message (ui_message) VALUES ('table::conference_person_travel::arrived');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::event::tab::general');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::event::tab::persons');
 INSERT INTO ui_message (ui_message) VALUES ('view::pentabarf::event::tab::description');
@@ -332,6 +330,8 @@ INSERT INTO ui_message (ui_message) VALUES ('table::account::login_name');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::conference_team');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::conference_room');
 INSERT INTO ui_message (ui_message) VALUES ('table::event::conference_track');
+INSERT INTO ui_message (ui_message) VALUES ('table::conference_person::arrived');
+INSERT INTO ui_message (ui_message) VALUES ('table::event::conference_day');
 
 
 --
