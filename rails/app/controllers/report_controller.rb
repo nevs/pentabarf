@@ -15,7 +15,7 @@ class ReportController < ApplicationController
   end
 
   def review
-    @content_title = "Review"
+    @content_title = "Review Report"
     @events = View_review.select(:conference_id=>@current_conference.conference_id,:translated=>POPE.user.current_language)
     @ratings = Event_rating.select({:person_id=>POPE.user.person_id}).select{|r| r.remark || r.relevance || r.acceptance || r.actuality }.map{|r| r.event_id}
   end
