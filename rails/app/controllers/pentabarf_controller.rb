@@ -281,7 +281,14 @@ class PentabarfController < ApplicationController
 
   def recipients
     return render_text('') unless params[:id]
-    @recipients = recipient_members( params[:id] )
+    person_ids = []
+    @recipients = []
+    recipient_members( params[:id] ).each do | r |
+      if not person_ids.member?( r.person_id )
+        person_ids << r.person_id
+        @recipients << r
+      end
+    end
     render(:partial=>'recipients')
   end
 
