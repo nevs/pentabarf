@@ -9,7 +9,7 @@ class PentabarfControllerTest < Test::Unit::TestCase
     @controller = PentabarfController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    authenticate_user( Account.select_single(:login_name=>'sven') )
+    authenticate_user( Account.select_single(:login_name=>'committee') )
   end
 
   def teardown
@@ -31,7 +31,7 @@ class PentabarfControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
-  [:review,:conflicts,:recent_changes,:schedule,:find_person,:find_event,:find_conference].each do | action |
+  [:conflicts,:recent_changes,:schedule,:find_person,:find_event,:find_conference].each do | action |
     define_method "test_#{action}" do
       get action
       assert_response :success
