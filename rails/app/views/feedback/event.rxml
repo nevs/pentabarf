@@ -9,7 +9,7 @@ xml.div({:id=>'event-feedback',:class=>:section}) do
   xml.form({:method=>:post,:action=>url_for({:action=>:save_event,:id=>@event.event_id,:language=>@current_language,:conference=>@conference.acronym})}) do
     xml.fieldset do
       xml.legend(local('feedback::my_rating'))
-      xml.p(local('feedback::please_answer'))
+      xml.p(local('feedback::feedback::please_answer_these_questions'))
 
       xml.table do
         xml.tr do
