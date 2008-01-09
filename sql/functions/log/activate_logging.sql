@@ -26,7 +26,6 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
       SELECT INTO columns array_to_string(ARRAY(SELECT quote_ident(column_name::text) from information_schema.columns WHERE table_name = tablename AND table_schema = tableschema ORDER BY ordinal_position),',');
       SELECT INTO columns_old array_to_string(ARRAY(SELECT 'OLD.'||quote_ident(column_name::text) from information_schema.columns WHERE table_name = tablename AND table_schema = tableschema ORDER BY ordinal_position),',');
       SELECT INTO columns_new array_to_string(ARRAY(SELECT 'NEW.'||quote_ident(column_name::text) from information_schema.columns WHERE table_name = tablename AND table_schema = tableschema ORDER BY ordinal_position),',');
-        
 
       fundef = $f$CREATE OR REPLACE FUNCTION log.$f$ || quote_ident( procname ) || $f$() RETURNS TRIGGER AS $i$
         BEGIN

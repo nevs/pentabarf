@@ -6,9 +6,29 @@ class LocalizationController < ApplicationController
     @content_title = 'Localization'
   end
 
+  Localization_tables = [:attachment_type,:conference_phase]
+
+  Localization_tables.each do | category |
+    define_method(category) do
+      @content_title = "Localization #{category}"
+      @tags = category.to_s.capitalize.constantize.select({},{:order=>:rank})
+      constraints = {:translated=>@languages.map(&:language)}
+      @messages = "#{category}_localized".capitalize.constantize.select(constraints,{:order=>category})
+    end
+
+    define_method("save_#{category}") do
+      params[category].each do | category_value, value |
+        value.each do | translated, value |
+          write_row( "#{category}_localized".capitalize.constantize, value, {:only=>[:name],:preset=>{category=>category_value,:translated=>translated},:ignore_empty=>:name})
+        end
+      end
+      redirect_to( :action => category )
+    end
+
+  end
+
   def ui_message
     @content_title = 'Localization ui_message'
-    @languages = Language.select({:localized=>'t'},{:order=>:language})
     @tags = Ui_message.select({},{:order=>:ui_message})
     constraints = {:translated=>@languages.map(&:language)}
     constraints[:ui_message] = {:ilike=>"#{params[:id]}%"} if params[:id]
@@ -30,6 +50,7 @@ class LocalizationController < ApplicationController
   def init
     @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
     @current_language = POPE.user.current_language
+    @languages = Language.select({:localized=>'t'},{:order=>:language})
   end
 
 end
