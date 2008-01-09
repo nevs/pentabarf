@@ -1,0 +1,23 @@
+xml.div do
+
+  xml.form(:action=>url_for(:action=>:save_phone_type),:id=>'content_form',:method=>'post') do
+    xml.table do
+      xml.tr do
+        @languages.each do | translated | xml.th( translated.language ) end
+      end
+      @tags.each do | tag |
+        xml.tr do xml.th( tag.phone_type, {:colspan=>@languages.length}) end
+        xml.tr do
+          @languages.each do | translated |
+            msg = @messages.select{|m| m.translated == translated.language && m.phone_type == tag.phone_type}[0]
+            xml.td do xml.input({:name=>"phone_type[#{tag.phone_type}][#{translated.language}][name]",:value=>msg ? msg.name : '',:size=>40}) end
+          end
+        end
+      end
+    end
+
+    xml.input({:type=>:submit})
+
+  end
+end
+
