@@ -13,6 +13,7 @@ xml.div(:id=>'content-account') do
         xml.td( local('repeat password'))
         xml.td do xml.input({:type=>:password,:name=>'account[password2]',:size=>40}) end 
       end
+      xml << select_row( @account, :current_language, Language.select({:localized=>'t'}).map(&:language) )
     end
   end
 

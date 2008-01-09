@@ -55,6 +55,7 @@ class SubmissionController < ApplicationController
 
   def person
     @person = Person.select_single(:person_id=>POPE.user.person_id)
+    @account = Account.select_or_new(:person_id=>@person.person_id)
     @conference_person = Conference_person.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
     @conference_person_travel = Conference_person_travel.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
     @person_image = Person_image.select_or_new({:person_id=>@person.person_id})
@@ -63,10 +64,14 @@ class SubmissionController < ApplicationController
 
   def save_person
     params[:person][:person_id] = POPE.user.person_id
-    person = write_row( Person, params[:person], {:except=>[:person_id,:password,:password2],:always=>[:spam]} ) do | row |
-      if params[:person][:password].to_s != ""
-        raise "Passwords do not match" if params[:person][:password] != params[:person][:password2]
-        row.password = params[:person][:password]
+    person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam]} )
+    if params[:account]
+      params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
+      account = write_row( Account, params[:account], {:except=>[:account_id,:password,:password2],:preset=>{:person_id=>person.person_id},:ignore_empty=>:login_name} ) do | row |
+        if params[:account][:password].to_s != ""
+          raise "Passwords do not match" if params[:account][:password] != params[:account][:password2]
+          row.password = params[:account][:password]
+        end
       end
     end
     conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}})

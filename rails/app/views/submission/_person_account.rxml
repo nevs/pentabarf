@@ -7,12 +7,13 @@ xml.div(:id=>'content-account') do
       xml << text_field_row( POPE.user, :login_name, {:size=>20} )
       xml.tr do
         xml.td( local('password'))
-        xml.td do xml.input({:type=>:text,:name=>'account[password]',:size=>40}) end
+        xml.td do xml.input({:type=>:password,:name=>'account[password]',:size=>40}) end
       end
       xml.tr do
         xml.td( local('repeat password'))
-        xml.td do xml.input({:type=>:text,:name=>'account[password2]',:size=>40}) end
+        xml.td do xml.input({:type=>:password,:name=>'account[password2]',:size=>40}) end
       end
+      xml << select_row( @account, :current_language, Language.select({:localized=>'t'}).map(&:language) )
     end
   end
 
