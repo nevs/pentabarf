@@ -28,7 +28,7 @@ class Pope
       count *= 2
       salt_bin += sprintf( "%c", @user.salt[count..(count+1)].hex )
     end
-    raise "Wrong Password" if Digest::MD5.hexdigest( salt_bin + pass ) != @user.password
+    raise PermissionError, "Wrong Password for User '#{user}'" if Digest::MD5.hexdigest( salt_bin + pass ) != @user.password
 
     refresh
     Set_config.call(:setting=>'pentabarf.person_id',:value=>@user.person_id,:is_local=>'t')
