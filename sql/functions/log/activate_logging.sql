@@ -10,6 +10,9 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
     procname    TEXT;
     tablename   TEXT;
     tableschema TEXT;
+    columns     TEXT;
+    columns_old TEXT;
+    columns_new TEXT;
   BEGIN
     FOR logtable IN
       SELECT table_name FROM information_schema.tables WHERE table_schema = 'log' AND EXISTS( SELECT 1 FROM information_schema.tables AS interior WHERE table_schema IN ('auth','public') AND interior.table_name = tables.table_name )
@@ -19,6 +22,12 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
       RAISE NOTICE 'Creating log function for table %', tablename;
       -- (re)creating trigger function
       procname = tablename || '_log_function';
+
+      SELECT INTO columns array_to_string(ARRAY(SELECT quote_ident(column_name::text) from information_schema.columns WHERE table_name = tablename AND table_schema = tableschema ORDER BY ordinal_position),',');
+      SELECT INTO columns_old array_to_string(ARRAY(SELECT 'OLD.'||quote_ident(column_name::text) from information_schema.columns WHERE table_name = tablename AND table_schema = tableschema ORDER BY ordinal_position),',');
+      SELECT INTO columns_new array_to_string(ARRAY(SELECT 'NEW.'||quote_ident(column_name::text) from information_schema.columns WHERE table_name = tablename AND table_schema = tableschema ORDER BY ordinal_position),',');
+        
+
       fundef = $f$CREATE OR REPLACE FUNCTION log.$f$ || quote_ident( procname ) || $f$() RETURNS TRIGGER AS $i$
         BEGIN
           IF ( current_setting('pentabarf.transaction_id') IN ('','unset') ) THEN
@@ -29,10 +38,10 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
             );
           END IF;
           IF ( TG_OP = 'DELETE' ) THEN
-            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT currval('base.log_transaction_log_transaction_id_seq'), 'D', OLD.*;
+            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$(log_transaction_id,log_operation,$f$ || columns || $f$) SELECT currval('base.log_transaction_log_transaction_id_seq'), 'D', $f$ || columns_old || $f$;
             RETURN OLD;
           ELSE
-            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$ SELECT currval('base.log_transaction_log_transaction_id_seq'), substring( TG_OP, 1, 1 ), NEW.*;
+            INSERT INTO log.$f$ || quote_ident( tablename ) || $f$(log_transaction_id,log_operation,$f$ || columns || $f$) SELECT currval('base.log_transaction_log_transaction_id_seq'), substring( TG_OP, 1, 1 ), $f$ || columns_new || $f$;
             RETURN NEW;
           END IF;
           RETURN NULL;
