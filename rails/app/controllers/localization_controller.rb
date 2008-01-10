@@ -6,12 +6,13 @@ class LocalizationController < ApplicationController
     @content_title = 'Localization'
   end
 
-  Localization_tables = [:attachment_type,:conference_phase,:phone_type,:transport]
+  Localization_tables = [:attachment_type,:conference_phase,:mime_type,:phone_type,:transport]
 
   Localization_tables.each do | category |
     define_method(category) do
       @content_title = "Localization #{category}"
-      @tags = category.to_s.capitalize.constantize.select({},{:order=>:rank})
+      order = category.to_s.capitalize.constantize.columns.key?(:rank) ? :rank : category
+      @tags = category.to_s.capitalize.constantize.select({},{:order=>order})
       constraints = {:translated=>@languages.map(&:language)}
       @messages = "#{category}_localized".capitalize.constantize.select(constraints,{:order=>category})
     end
