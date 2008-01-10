@@ -10,11 +10,13 @@ class LocalizationController < ApplicationController
 
   Localization_tables.each do | category |
     define_method(category) do
+      @table = category
       @content_title = "Localization #{category}"
       order = category.to_s.capitalize.constantize.columns.key?(:rank) ? :rank : category
       @tags = category.to_s.capitalize.constantize.select({},{:order=>order})
       constraints = {:translated=>@languages.map(&:language)}
       @messages = "#{category}_localized".capitalize.constantize.select(constraints,{:order=>category})
+      render(:partial=>'localization_form',:layout=>true)
     end
 
     define_method("save_#{category}") do
