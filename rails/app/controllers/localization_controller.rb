@@ -6,7 +6,7 @@ class LocalizationController < ApplicationController
     @content_title = 'Localization'
   end
 
-  Localization_tables = [:attachment_type,:conference_phase,:event_origin,:event_role,:mime_type,:phone_type,:transport]
+  Localization_tables = [:attachment_type,:conference_phase,:country,:currency,:event_origin,:event_role,:event_state,:event_type,:im_type,:language,:link_type,:mime_type,:phone_type,:transport]
 
   Localization_tables.each do | category |
     define_method(category) do
