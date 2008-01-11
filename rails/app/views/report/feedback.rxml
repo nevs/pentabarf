@@ -8,6 +8,8 @@ xml.div({:id=>:data}) do
     xml.thead do
       xml.tr do
         xml.th( local( 'table::event::title'), {:colspan=>2} )
+        xml.th( local( 'content quality' ) )
+        xml.th( local( 'presentation quality' ) )
         xml.th( local( 'comments' ) )
         xml.th( local( 'votes' ) )
       end
@@ -28,11 +30,10 @@ xml.div({:id=>:data}) do
               xml.text! row.subtitle
             end
           end
-          xml.td do
-            xml.a(row.comments,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)})
-          end
-          xml.td do
-            xml.a(row.votes,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)})
+          [:content_quality,:presentation_quality,:comments,:votes].each do | field |
+            xml.td do
+              xml.a(row[field],{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)})
+            end
           end
         end
       end
@@ -41,6 +42,8 @@ xml.div({:id=>:data}) do
     xml.tfoot do
       xml.tr do
         xml.th( local( 'table::event::title'), {:colspan=>2} )
+        xml.th( local( 'content quality' ) )
+        xml.th( local( 'presentation quality' ) )
         xml.th( local( 'comments' ) )
         xml.th( local( 'votes' ) )
       end
