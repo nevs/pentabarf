@@ -3,7 +3,7 @@ class ReportController < ApplicationController
   around_filter :update_last_login
   append_after_filter :set_content_type
 
-  REPORTS = [:expenses,:feedback,:missing,:paper,:resources,:review]
+  REPORTS = [:expenses,:feedback,:missing,:paper,:slides,:resources,:review]
 
   def index
   end

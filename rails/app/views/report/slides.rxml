@@ -1,0 +1,52 @@
+xml.div({:id=>:data}) do
+
+  xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:slides})}) do
+    xml.button( 'CSV' )
+  end
+
+  xml.table({:id=>:report_slides_table,:class=>:sortable}) do
+    xml.thead do
+      xml.tr do
+        xml.th( local( :event ), {:colspan=>2} )
+        xml.th( local( :slides_submitted ) )
+        xml.th( local( :pages ) )
+      end
+    end
+
+    xml.tbody do
+      @rows.each do | row |
+        xml.tr do
+          xml.td do
+            xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) do
+              xml.img({:src=>url_for(:controller=>'image',:action=>:event,:id=>row.event_id,:size=>'24x24')})
+            end
+          end
+          xml.td do
+            xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) do
+              xml.text! row.title
+              xml.br
+              xml.text! row.subtitle
+            end
+          end
+          xml.td do xml.a(row.slides_submitted > 0 ? 'yes':'no',{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) end
+          xml.td do xml.a(row.pages,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) end
+        end
+      end
+    end
+
+    xml.tfoot do
+      xml.tr do
+        xml.th( local( :event ), {:colspan=>2} )
+        xml.th( local( :slides_submitted ) )
+        xml.th( local( :pages ) )
+      end
+    end
+
+  end
+
+  xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:slides})}) do
+    xml.button( 'CSV' )
+  end
+
+end
+

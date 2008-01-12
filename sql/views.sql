@@ -26,6 +26,7 @@
 \i views/report/report_feedback.sql
 \i views/report/report_missing.sql
 \i views/report/report_paper.sql
+\i views/report/report_slides.sql
 \i views/report/report_pickup.sql
 \i views/report/report_resources.sql
 \i views/report/report_schedule_coordinator.sql
