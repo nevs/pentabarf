@@ -6,15 +6,18 @@ class LocalizationController < ApplicationController
     @content_title = 'Localization'
   end
 
-  Localization_tables = [:attachment_type,:conference_phase,:country,:currency,:event_origin,:event_role,:event_state,:event_type,:im_type,:language,:link_type,:mime_type,:phone_type,:transport]
+  Localization_tables = [:attachment_type,:conference_phase,:country,:currency,:event_origin,:event_role,:event_state,:event_type,:im_type,:language,:link_type,:mime_type,:phone_type,:transport,:ui_message]
 
   Localization_tables.each do | category |
     define_method(category) do
       @table = category
       @content_title = "Localization #{category}"
       order = category.to_s.capitalize.constantize.columns.key?(:rank) ? :rank : category
-      @tags = category.to_s.capitalize.constantize.select({},{:order=>order})
+      constraints = {}
+      constraints[category] = {:ilike=>"#{params[:id]}%"} if params[:id]
+      @tags = category.to_s.capitalize.constantize.select(constraints,{:order=>order})
       constraints = {:translated=>@languages.map(&:language)}
+      constraints[category] = {:ilike=>"#{params[:id]}%"} if params[:id]
       @messages = "#{category}_localized".capitalize.constantize.select(constraints,{:order=>category})
       render(:partial=>'localization_form',:layout=>true)
     end
@@ -25,27 +28,9 @@ class LocalizationController < ApplicationController
           write_row( "#{category}_localized".capitalize.constantize, value, {:only=>[:name],:preset=>{category=>category_value,:translated=>translated},:ignore_empty=>:name})
         end
       end
-      redirect_to( :action => category )
+      redirect_to( :action => category, :id => params[:id] )
     end
 
-  end
-
-  def ui_message
-    @content_title = 'Localization ui_message'
-    @tags = Ui_message.select({},{:order=>:ui_message})
-    constraints = {:translated=>@languages.map(&:language)}
-    constraints[:ui_message] = {:ilike=>"#{params[:id]}%"} if params[:id]
-    @messages = Ui_message_localized.select(constraints,{:order=>:ui_message})
-  end
-
-  def save_ui_message
-    params[:ui_message].each do | ui_message, value |
-      value.each do | translated, value |
-        write_row( Ui_message_localized, value, {:only=>[:name],:preset=>{:ui_message=>ui_message,:translated=>translated},:ignore_empty=>:name})
-      end
-    end
-    Localizer.purge(params[:translated])
-    redirect_to( :action => :ui_message )
   end
 
   protected
