@@ -26,6 +26,26 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.start_time + conference.day_change AS real_starttime,
           array_to_string(
             ARRAY(
+              SELECT view_person.person_id
+                FROM event_person
+                INNER JOIN event_role USING(event_role)
+                JOIN event_role_localized ON (
+                  event_role_localized.translated = translated.language AND
+                  event_role_localized.event_role = event_person.event_role )
+                JOIN view_person USING (person_id)
+                WHERE
+                  event_person.event_id = event.event_id AND
+                  (
+                    ( event_person.event_role = 'coordinator' ) OR
+                    ( event_person.event_role IN ('speaker','moderator') AND
+                      event_person.event_role_state NOT IN ( 'declined','canceled' ) )
+                  )
+                ORDER BY event_role.rank, view_person.name, view_person.person_id
+            ),
+            E'\n'
+          ) AS speaker_ids,
+          array_to_string(
+            ARRAY(
               SELECT view_person.name || ' (' || event_role_localized.name || ')'
                 FROM event_person
                 INNER JOIN event_role USING(event_role)
@@ -40,10 +60,10 @@ CREATE OR REPLACE VIEW view_schedule AS
                     ( event_person.event_role IN ('speaker','moderator') AND
                       event_person.event_role_state NOT IN ( 'declined','canceled' ) )
                   )
-                ORDER BY event_role.rank, view_person.name
+                ORDER BY event_role.rank, view_person.name, view_person.person_id
             ),
-            ', '
-          ) AS persons
+            E'\n'
+          ) AS speakers
      FROM event
           CROSS JOIN language AS translated
           INNER JOIN conference USING (conference_id)

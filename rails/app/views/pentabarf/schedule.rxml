@@ -34,15 +34,7 @@ xml.div({:id=>:data}) do
                 else
                   event = @events.select{|e| e.event_id == row[room.conference_room][:event_id]}.first
                   xml.td({:rowspan=>row[room.conference_room][:slots],:style=>"background-color: #{track_color[event.conference_track]}"}) do
-                    xml.a({:href=>url_for({:action=>:event,:id=>row[room.conference_room][:event_id]})}) do
-                      xml.strong(event.title)
-                      if event.subtitle
-                        xml.br
-                        xml.em(event.subtitle)
-                      end
-                      xml.br
-                      xml.text!(event.persons)
-                    end
+                    xml << format_event( event )
                   end
                 end
               end
