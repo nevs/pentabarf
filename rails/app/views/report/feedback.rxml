@@ -1,5 +1,16 @@
 xml.div({:id=>:data}) do
 
+  colors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
+  track_color = {}
+  xml.div({:id=>:colors}) do
+    Conference_track.select({:conference_id=>@current_conference.conference_id}).each_with_index do | track, index |
+      track_color[track.conference_track] = colors[index % colors.length]
+      xml.span({:style=>"margin: 20px 3px;padding: 5px 15px; background-color: #{track_color[track.conference_track]}"}) do
+        xml.strong(track.conference_track)
+      end
+    end
+  end
+
   xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:feedback})}) do
     xml.button( 'CSV' )
   end
@@ -17,7 +28,7 @@ xml.div({:id=>:data}) do
 
     xml.tbody do
       @rows.each do | row |
-        xml.tr do
+        xml.tr({:style=>"background-color: #{track_color[row.conference_track]}"}) do
           xml.td do
             xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) do
               xml.img({:src=>url_for(:controller=>'image',:action=>:event,:id=>row.event_id,:size=>'24x24')})

@@ -4,6 +4,7 @@ CREATE OR REPLACE VIEW view_report_feedback AS
          conference_id,
          title,
          subtitle,
+         conference_track,
          count(event_id) AS votes,
          count(event_feedback.remark) AS comments,
          coalesce( sum((participant_knowledge - 3) * 50 )/ count(participant_knowledge), 0) AS participant_knowledge,
@@ -13,6 +14,6 @@ CREATE OR REPLACE VIEW view_report_feedback AS
          coalesce( sum((audience_involvement - 3) * 50 )/ count(audience_involvement), 0) AS audience_involvement
     FROM event_feedback
          INNER JOIN event USING (event_id)
-   GROUP BY event_id, conference_id, title, subtitle
+   GROUP BY event_id, conference_id, title, subtitle, conference_track
 ;
 
