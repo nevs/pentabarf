@@ -19,10 +19,19 @@ xml.div(:id=>:data) do
           xml.td do
             xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)}) do
               xml.strong event.title
-              xml.br
-              xml.text! event.subtitle
-              xml.br
-              xml.text! event.speakers
+              if event.subtitle
+                xml.br
+                xml.text! event.subtitle
+              end
+              if event.speaker_ids
+                ids = event.speaker_ids.split("\n")
+                names = event.speakers.split("\n")
+                xml.ul(:class=>'event-persons') do
+                  ids.each_with_index do | id, index |
+                    xml.li do xml.a( names[index], {:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>id)}) end
+                  end
+                end
+              end
             end
           end
           xml.td do

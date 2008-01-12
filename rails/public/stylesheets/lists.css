@@ -3,6 +3,10 @@ ul.history {
   line-height: 0.2em;
 }
 
+ul.event-persons { margin: 0; padding: 0; }
+ul.event-persons li { margin: 0; padding: 0; display: inline; }
+ul.event-persons li+li:before { content: ", "; }
+
 ul.recipients { margin: 0; padding: 0; display: inline; }
 ul.recipients li { margin: 0; padding: 0; display: inline; }
 ul.recipients li+li:before { content: ", "; }
