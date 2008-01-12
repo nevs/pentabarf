@@ -30,7 +30,7 @@
 \i views/report/report_resources.sql
 \i views/report/report_schedule_coordinator.sql
 \i views/report/report_schedule_gender.sql
-\i views/review.sql
+\i views/report/view_report_review.sql
 \i views/schedule/schedule_event.sql
 \i views/schedule/schedule_person.sql
 \i views/schedule/schedule.sql

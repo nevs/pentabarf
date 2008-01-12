@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE VIEW view_review AS
+CREATE OR REPLACE VIEW view_report_review AS
   SELECT
     event.event_id,
     event.conference_id,
