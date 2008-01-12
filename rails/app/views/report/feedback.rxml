@@ -27,17 +27,7 @@ xml.div({:id=>:data}) do
             end
           end
           xml.td do
-            xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) do
-              xml.text! row.title
-              if row.subtitle
-                xml.br
-                xml.text! row.subtitle
-              end
-              if row.speakers
-                xml.br
-                xml.text! row.speakers
-              end
-            end
+            xml << format_event( row )
           end
           [:content_quality,:presentation_quality,:comments,:votes].each do | field |
             xml.td do
