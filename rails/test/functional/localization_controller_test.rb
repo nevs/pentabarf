@@ -17,9 +17,16 @@ class LocalizationControllerTest < Test::Unit::TestCase
     POPE.deauth
   end
 
-  def test_ui_message
-    get :ui_message
+  def test_index
+    get :index
     assert_response :success
+  end
+
+  LocalizationController::Localization_tables.each do | table |
+    define_method( "test_#{table}" ) do
+      get table
+      assert_response :success
+    end
   end
 
 end
