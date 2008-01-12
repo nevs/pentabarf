@@ -16,24 +16,7 @@ xml.div(:id=>:data) do
         style += "background-color: moccasin;" if not @ratings.member?( event.event_id )
 
         xml.tr({:style=>style}) do
-          xml.td do
-            xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)}) do
-              xml.strong event.title
-              if event.subtitle
-                xml.br
-                xml.text! event.subtitle
-              end
-              if event.speaker_ids
-                ids = event.speaker_ids.split("\n")
-                names = event.speakers.split("\n")
-                xml.ul(:class=>'event-persons') do
-                  ids.each_with_index do | id, index |
-                    xml.li do xml.a( names[index], {:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>id)}) end
-                  end
-                end
-              end
-            end
-          end
+          xml.td do xml << format_event( event ) end
           xml.td do
             xml.a( "#{event.event_state} #{event.event_state_progress}", {:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)})
           end

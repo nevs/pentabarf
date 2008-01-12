@@ -159,4 +159,25 @@ module ApplicationHelper
     xml
   end
 
+  def format_event( event )
+    xml = Builder::XmlMarkup.new
+    xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)}) do
+      xml.strong event.title
+      if event.subtitle
+        xml.br
+        xml.text! event.subtitle
+      end
+      if event.respond_to?( :speaker_ids ) && event.speaker_ids
+        ids = event.speaker_ids.split("\n")
+        names = event.speakers.split("\n")
+        xml.ul(:class=>'event-persons') do
+          ids.each_with_index do | id, index |
+            xml.li do xml.a( names[index], {:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>id)}) end
+          end
+        end
+      end
+    end
+    xml
+  end
+
 end
