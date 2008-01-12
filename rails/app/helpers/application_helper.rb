@@ -6,6 +6,8 @@ require 'localizer'
 module ApplicationHelper
   include Builder_helper
 
+  TableRowColors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
+
   def pentabarf_version
     "0.3.9"
   end
@@ -141,6 +143,20 @@ module ApplicationHelper
         xml.button("#{page+1}",{:type=>:button,:class=>"paginate #{page==active_page ? :active : nil}",:onclick=>"new Ajax.Updater('results','#{url_for(:id=>page)}');"})
       end if results.length > results_per_page
     end
+  end
+
+  def conference_track_color_div( tracks, track_color )
+    xml = Builder::XmlMarkup.new
+
+    xml.div({:id=>:colors}) do
+      tracks.each_with_index do | track, index |
+        track_color[track.conference_track] = TableRowColors[index % TableRowColors.length]
+        xml.span({:style=>"margin: 20px 3px;padding: 5px 15px; background-color: #{track_color[track.conference_track]}"}) do
+          xml.strong(track.conference_track)
+        end
+      end
+    end
+    xml
   end
 
 end

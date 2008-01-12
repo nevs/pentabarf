@@ -6,16 +6,8 @@ day_tabs = table.keys.sort
 xml.div({:id=>:data}) do
   xml << js_tabs(day_tabs)
 
-  colors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
-  track_color = {}
-  xml.div({:id=>:colors}) do
-    Conference_track.select({:conference_id=>@current_conference.conference_id}).each_with_index do | track, index |
-      track_color[track.conference_track] = colors[index % colors.length]
-      xml.span({:style=>"margin: 20px 3px;padding: 5px 15px; background-color: #{track_color[track.conference_track]}"}) do
-        xml.strong(track.conference_track)
-      end
-    end
-  end
+  tracks = Conference_track.select({:conference_id=>@current_conference.conference_id})
+  xml << conference_track_color_div( tracks, track_color = {} )
 
   day_tabs.each do | conference_day |
     day_table = table[conference_day]
