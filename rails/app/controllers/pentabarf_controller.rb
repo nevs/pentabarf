@@ -86,6 +86,7 @@ class PentabarfController < ApplicationController
     begin
       @event = Event.select_single( :event_id => params[:id] )
       @content_title = @event.title
+      @content_subtitle = @event.subtitle
     rescue
       raise "Not allowed to create event." if not POPE.permission?( :create_event )
       return redirect_to(:action=>:event,:id=>'new') if params[:id] != 'new'
@@ -94,6 +95,7 @@ class PentabarfController < ApplicationController
     end
     @event_rating = Event_rating.select_or_new({:event_id=>@event.event_id,:person_id=>POPE.user.person_id})
     @conference = Conference.select_single( :conference_id => @event.conference_id )
+    @current_conference = @conference
     @attachments = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language})
     @transaction = Event_transaction.select_single({:event_id=>@event.event_id}) rescue Event_transaction.new
   end
