@@ -16,5 +16,7 @@ INSERT INTO auth.object_domain(object,domain) VALUES ('im_type_localized','local
 INSERT INTO auth.object_domain(object,domain) VALUES ('language_localized','localization');
 INSERT INTO auth.object_domain(object,domain) VALUES ('link_type_localized','localization');
 
+DROP VIEW view_review;
+
 COMMIT;
 
