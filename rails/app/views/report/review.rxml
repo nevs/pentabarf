@@ -4,7 +4,7 @@ xml.div(:id=>:data) do
 
     xml.thead do
       xml.tr do
-        [:title,:event_state,:event_state_progress,:track,:rating,:raters].each do | field | xml.th(field.to_s) end
+        [:title,:event_state,:track,:rating,:raters].each do | field | xml.th(field.to_s) end
       end
     end
 
@@ -25,7 +25,10 @@ xml.div(:id=>:data) do
               xml.text! event.speakers
             end
           end
-          [:event_state,:event_state_progress,:conference_track,:rating,:raters].each do | field |
+          xml.td do
+            xml.a( "#{event.event_state} #{event.event_state_progress}", {:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)})
+          end
+          [:conference_track,:rating,:raters].each do | field |
             xml.td do
               xml.a( event[field], {:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)})
             end
