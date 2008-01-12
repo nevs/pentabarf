@@ -105,5 +105,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def update_last_login
+    yield
+    POPE.user.last_login = 'now()'
+    POPE.user.write
+  end
+
 end
 

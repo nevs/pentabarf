@@ -1,5 +1,6 @@
 class ReportController < ApplicationController
   before_filter :init
+  around_filter :update_last_login
   append_after_filter :set_content_type
 
   REPORTS = [:expenses,:feedback,:missing,:paper,:resources,:review]

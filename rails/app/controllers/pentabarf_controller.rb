@@ -341,12 +341,6 @@ class PentabarfController < ApplicationController
     POPE.user.preferences = @preferences
   end
 
-  def update_last_login
-    yield
-    POPE.user.last_login = 'now()'
-    POPE.user.write
-  end
-
   def set_content_type
     # FIXME: jscalendar does not work with application/xml
     response.headers['Content-Type'] = 'text/html'
