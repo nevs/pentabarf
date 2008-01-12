@@ -9,7 +9,6 @@ xml.div({:id=>:data}) do
       xml.tr do
         xml.th( local( :event ), {:colspan=>2} )
         xml.th( local( :slides_submitted ) )
-        xml.th( local( :pages ) )
       end
     end
 
@@ -29,7 +28,6 @@ xml.div({:id=>:data}) do
             end
           end
           xml.td do xml.a(row.slides_submitted > 0 ? 'yes':'no',{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) end
-          xml.td do xml.a(row.pages,{:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>row.event_id)}) end
         end
       end
     end
@@ -38,7 +36,6 @@ xml.div({:id=>:data}) do
       xml.tr do
         xml.th( local( :event ), {:colspan=>2} )
         xml.th( local( :slides_submitted ) )
-        xml.th( local( :pages ) )
       end
     end
 
