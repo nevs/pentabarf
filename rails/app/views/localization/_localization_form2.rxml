@@ -1,0 +1,23 @@
+xml.div do
+
+  xml.form(:action=>url_for(:action=>"save_#{@table}",:id=>params[:id]),:id=>'content_form',:method=>'post') do
+    xml.table do
+      xml.tr do
+        @languages.each do | translated | xml.th( translated.language ) end
+      end
+      @tags.each do | tag |
+        xml.tr do xml.th( "#{tag[@master]} #{tag[@slave]}", {:colspan=>@languages.length}) end
+        xml.tr do
+          @languages.each do | translated |
+            msg = @messages.select{|m| m.translated == translated.language && m[@master] == tag[@master] && m[@slave] == tag[@slave]}[0]
+            xml.td do xml.input({:name=>"#{@table}[#{tag[@master]}][#{tag[@slave]}][#{translated.language}][name]",:value=>msg ? msg.name : '',:size=>40}) end
+          end
+        end
+      end
+    end
+
+    xml.input({:type=>:submit})
+
+  end
+end
+

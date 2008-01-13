@@ -9,7 +9,6 @@ xml.div( :id => 'sidebar' ) do
   xml.div(:id => 'menu') do
 
     xml.div( :class=>'menu-item-group' ) do
-      xml.a( 'Ui_message', {:href=> url_for(:controller => 'localization', :action => :ui_message), :class => 'menu-item'} )
       LocalizationController::Localization_tables.each do | table |
         xml.a( table.to_s.capitalize, {:href=> url_for(:controller => 'localization', :action => table), :class => 'menu-item'} )
       end
