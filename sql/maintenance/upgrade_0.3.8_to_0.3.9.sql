@@ -23,10 +23,9 @@ DROP VIEW view_find_event;
 DROP VIEW view_find_person;
 DROP VIEW view_report_feedback;
 DROP VIEW view_report_paper;
-DROP VIEW view_report_slides;
 DROP VIEW view_report_resources;
 DROP VIEW view_report_review;
-DROP VIEW view_schedule;;
+DROP VIEW view_schedule;
 DROP VIEW view_own_events_coordinator;
 DROP VIEW view_own_events_participant;
 
