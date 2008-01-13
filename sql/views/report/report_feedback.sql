@@ -71,7 +71,7 @@ CREATE OR REPLACE VIEW view_report_feedback AS
       ( SELECT coalesce( sum((audience_involvement - 3) * 50 )/ count(audience_involvement), 0)
         FROM event_feedback INNER JOIN event AS inner_event USING(event_id)
         WHERE inner_event.conference_id = event.conference_id ) AS f5_total_average,
-      5 AS minimum
+      10 AS minimum
     FROM event_feedback
       INNER JOIN event USING (event_id)
     GROUP BY event_id, conference_id, title, subtitle, conference_track, speaker_ids, speakers
