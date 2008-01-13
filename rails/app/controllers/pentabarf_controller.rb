@@ -192,6 +192,7 @@ class PentabarfController < ApplicationController
   def search_person_simple
     query = params[:id] ? @preferences[:search_person_simple].to_s : params[:search_person_simple].to_s
     conditions = {}
+    conditions[:conference_id] = @current_conference.conference_id
     conditions[:AND] = []
     query.split(/ +/).each do | word |
       cond = {}
@@ -200,7 +201,7 @@ class PentabarfController < ApplicationController
       end
       conditions[:AND] << {:OR=>cond}
     end
-    @results = View_find_person.select( conditions )
+    @results = View_find_person.select( conditions, {:distinct => :person_id} )
     @preferences[:search_person_simple] = query
     render(:partial=>'search_person')
   end
@@ -208,7 +209,7 @@ class PentabarfController < ApplicationController
   def search_person_advanced
     params[:search_person] = @preferences[:search_person_advanced] if params[:id]
     conditions = form_to_condition( params[:search_person], View_find_person )
-    @results = View_find_person.select( conditions )
+    @results = View_find_person.select( conditions, {:distinct=>:person_id})
     @preferences[:search_person_advanced] = params[:search_person]
     render(:partial=>'search_person')
   end
@@ -219,8 +220,8 @@ class PentabarfController < ApplicationController
 
   def search_event_simple
     conditions = {}
-    conditions[:translated] = @current_language
     conditions[:conference_id] = @current_conference.conference_id
+    conditions[:translated] = @current_language
     query = params[:id] ? @preferences[:search_event_simple].to_s : params[:search_event_simple].to_s
     conditions[:AND] = []
     query.split(/ +/).each do | word |
@@ -238,8 +239,8 @@ class PentabarfController < ApplicationController
   def search_event_advanced
     params[:search_event] = @preferences[:search_event_advanced] if params[:id]
     conditions = form_to_condition( params[:search_event], View_find_event )
-    conditions[:translated] = @current_language
     conditions[:conference_id] = @current_conference.conference_id
+    conditions[:translated] = @current_language
     @results = View_find_event.select( conditions )
     @preferences[:search_event_advanced] = params[:search_event]
     render(:partial=>'search_event')

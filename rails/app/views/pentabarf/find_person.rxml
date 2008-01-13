@@ -24,6 +24,16 @@ xml.div({:id=>:data}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:email})
         xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
       end
+      # search for event_role
+      xml.li({:class=>:event_role,:title=>local(:event_role)}) do
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:event_role})
+        xml << select_tag('search_person[row_id][value]', Event_role_localized.select({:translated=>@current_language}).map{|c| [c.event_role, c.name]})
+      end
+      # search for role
+      xml.li({:class=>:role,:title=>local(:role)}) do
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:role})
+        xml << select_tag('search_person[row_id][value]', Role_localized.select({:translated=>@current_language}).map{|c| [c.role, c.name]})
+      end
       # search for conference
       xml.li({:class=>:conference_id,:title=>local(:conference)}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:conference_id})
