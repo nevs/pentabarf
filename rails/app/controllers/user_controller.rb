@@ -54,7 +54,7 @@ class UserController < ApplicationController
       raise "You have been sent a reset link recently."
     end
     activation_string = random_string
-    Notifier::deliver_forgot_password( p.login_name, p.email, url_for({:action=>:reset_password,:id=>activation_string,:only_path=>false}) )
+    Notifier::deliver_forgot_password({:name=>p.login_name,:to=>p.email,:link=>url_for({:action=>:reset_password,:id=>activation_string,:only_path=>false}),:remote_ip=>request.remote_ip})
     Forgot_password.call(:p_account_id=>p.account_id,:p_activation_string=>activation_string)
     redirect_to(:action=>:reset_link_sent)
   end
