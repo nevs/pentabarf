@@ -26,13 +26,13 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div( :class=>'menu-item-group' ) do
       xml.div( :class=>'menu-text' ) do
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :find_person)) do
+        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :find_person), :title=>"Find Person") do
           xml.img( :src => image_path('icon-find-person-32x32.png'))
         end
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :find_event)) do
+        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :find_event), :title=>"Find Event") do
           xml.img( :src => image_path('icon-find-event-32x32.png'))
         end
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :find_conference)) do
+        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :find_conference), :title=>"Find Conference") do
           xml.img( :src => image_path('icon-find-conference-32x32.png'))
         end
       end
@@ -40,13 +40,13 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div( :class=>'menu-item-group' ) do
       xml.div( :class=>'menu-text' ) do
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :person, :id => 'new')) do
+        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :person, :id => 'new'), :title=>"New Person") do
           xml.img( :src => image_path('icon-new-person-32x32.png'))
         end
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :event, :id => 'new')) do
+        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :event, :id => 'new'), :title=>"New Event") do
           xml.img( :src => image_path('icon-new-event-32x32.png'))
         end
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :conference, :id => 'new')) do
+        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :conference, :id => 'new'), :title=>"New Conference") do
           xml.img( :src => image_path('icon-new-conference-32x32.png'))
         end
       end
