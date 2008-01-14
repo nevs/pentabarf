@@ -86,6 +86,7 @@ BEGIN;
 \i tables/auth/account_activation.sql
 \i tables/auth/account_password_reset.sql
 \i tables/log/log_transaction.sql
+\i tables/log/log_transaction_involved_tables.sql
 
 COMMIT;
 
