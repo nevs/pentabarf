@@ -11,7 +11,7 @@ CREATE TABLE log.log_transaction_involved_tables (
 
 CREATE OR REPLACE FUNCTION log.log_transaction_involved_tables_before_insert() RETURNS trigger AS $$
   BEGIN
-    SELECT 1 FROM log.log_transaction_involved_tables WHERE log_transaction_id = NEW.log_transaction_id AND table_name = NEW.table_name;
+    PERFORM 1 FROM log.log_transaction_involved_tables WHERE log_transaction_id = NEW.log_transaction_id AND table_name = NEW.table_name;
     IF FOUND THEN
       RETURN NULL;
     ELSE
