@@ -44,7 +44,14 @@ CREATE OR REPLACE VIEW view_find_event AS
           event_person.event_role_state = 'confirmed' AND
           event_person.event_id = event.event_id
         ORDER BY view_person.name, event_person.person_id
-      ), E'\n'::text) AS speakers
+      ), E'\n'::text) AS speakers,
+    ARRAY( 
+      SELECT person_id 
+      FROM event_person
+      WHERE 
+        event.event_id = event_person.event_id AND 
+        event_person.event_role = 'coordinator'
+    ) AS coordinators
   FROM event
     INNER JOIN conference USING (conference_id)
     INNER JOIN event_state_localized USING (event_state)

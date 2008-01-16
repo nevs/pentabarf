@@ -49,6 +49,11 @@ xml.div({:id=>:data}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_room})
         xml << select_tag('search_event[row_id][value]', Conference_room.select({:conference_id=>@current_conference.conference_id}).map(&:conference_room))
       end
+      # search for coordinator
+      xml.li({:class=>:coordinators,:title=>local(:coordinators)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:coordinators})
+        xml << select_tag('search_event[row_id][value]', View_event_person.select({:event_role=>'coordinator',:conference_id=>@current_conference.conference_id},{:distinct=>:person_id,:order=>:name}).map{|p| [p.person_id,p.name]} )
+      end
     end
 
     xml.ul({:id=>:search_template,:style=>"display:none"}) do
