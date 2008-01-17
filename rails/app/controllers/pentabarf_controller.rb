@@ -241,6 +241,11 @@ class PentabarfController < ApplicationController
     conditions = form_to_condition( params[:search_event], View_find_event )
     conditions[:conference_id] = @current_conference.conference_id
     conditions[:translated] = @current_language
+    conditions[:AND] = []
+    conditions[:AND] << {:OR=>[{:title=>conditions[:title]},{:subtitle=>conditions[:title]}]} if conditions[:title]
+    conditions[:AND] << {:OR=>[{:abstract=>conditions[:description]},{:description=>conditions[:description]}]} if conditions[:description]
+    conditions.delete(:title)
+    conditions.delete(:description)
     @results = View_find_event.select( conditions )
     @preferences[:search_event_advanced] = params[:search_event]
     render(:partial=>'search_event')

@@ -19,6 +19,11 @@ xml.div({:id=>:data}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:title})
         xml.input({:type=>:text,:name=>'search_event[row_id][value]'})
       end
+      # search for description
+      xml.li({:class=>:description,:title=>local(:description)}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:description})
+        xml.input({:type=>:text,:name=>'search_event[row_id][value]'})
+      end
       # search for language
       xml.li({:class=>:language,:title=>local(:language)}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:language})
@@ -50,7 +55,7 @@ xml.div({:id=>:data}) do
         xml << select_tag('search_event[row_id][value]', Conference_room.select({:conference_id=>@current_conference.conference_id}).map(&:conference_room))
       end
       # search for coordinator
-      xml.li({:class=>:coordinators,:title=>local(:coordinators)}) do
+      xml.li({:class=>:coordinators,:title=>local(:coordinator)}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:coordinators})
         xml << select_tag('search_event[row_id][value]', View_event_person.select({:event_role=>'coordinator',:conference_id=>@current_conference.conference_id},{:distinct=>:person_id,:order=>:name}).map{|p| [p.person_id,p.name]} )
       end
