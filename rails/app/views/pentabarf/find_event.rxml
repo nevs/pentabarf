@@ -22,7 +22,7 @@ xml.div({:id=>:data}) do
       # search for language
       xml.li({:class=>:language,:title=>local(:language)}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:language})
-        xml << select_tag('search_event[row_id][value]', Language_localized.select({:translated=>@current_language},{:order=>:name}).map{|l| [l.language, l.name]})
+        xml << select_tag('search_event[row_id][value]', View_conference_language.select({:translated=>@current_language,:conference_id=>@current_conference.conference_id},{:order=>:name}).map{|l| [l.language, l.name]})
       end
       # search for event origin
       xml.li({:class=>:event_origin,:title=>local(:event_origin)}) do
