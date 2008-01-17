@@ -24,6 +24,11 @@ xml.div({:id=>:data}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:email})
         xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
       end
+      # search for gender
+      xml.li({:class=>:gender,:title=>local(:gender)}) do
+        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:gender})
+        xml << select_tag('search_person[row_id][value]', [[nil,'unknown'],['t','male'],['f','female']])
+      end
       # search for event_role
       xml.li({:class=>:event_role,:title=>local(:event_role)}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:event_role})
