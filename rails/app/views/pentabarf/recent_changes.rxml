@@ -17,7 +17,12 @@ xml.div( :id => 'data' ) do
                   log_klass.select(:log_transaction_id=>changeset.log_transaction_id).each do | change |
 
                     xml.li do
-                      if klass.columns.key?(:person_id)
+                      if klass.columns.key?(:conference_person_id)
+                        cperson = Conference_person.select_single({:conference_person_id=>change.conference_person_id})
+                        person = View_person.select_single({:person_id=>cperson.person_id})
+                        link_title = person.name
+                        link = url_for({:action=>:person,:id=>person.person_id})
+                      elsif klass.columns.key?(:person_id)
                         person = View_person.select_single({:person_id=>change.person_id})
                         link_title = person.name
                         link = url_for({:action=>:person,:id=>person.person_id})
@@ -30,7 +35,7 @@ xml.div( :id => 'data' ) do
                         link_title = conf.title
                         link = url_for({:action=>:conference,:id=>conf.conference_id})
                       else
-                        raise StandardError, "Could not determince change class"
+                        raise "Could not determince change class for #{table}"
                       end
 
                       xml.a("#{link_title}:",{:href=>link})
