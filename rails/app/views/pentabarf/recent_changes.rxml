@@ -38,40 +38,39 @@ xml.div( :id => 'data' ) do
                         raise "Could not determince change class for #{table}"
                       end
 
-                      xml.a("#{link_title}:",{:href=>link})
-
+                      values = []
                       columns = klass.columns.keys - klass.primary_keys - [:password]
-                      xml.a({:href=>link}) do
-                        if change.log_operation == "D" || change.log_operation == "I"
-                          xml.b case change.log_operation
-                            when "D" then "Deleted:"
-                            when "I" then "New:"
-                          end
+                      if change.log_operation == "D" || change.log_operation == "I"
+                        columns.each do | column |
+                          next unless change[column]
+                          next if column.to_s.match(/_id$/)
+                          values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{change[column]}"
+                        end
+                      else
+                        conditions = {:log_transaction_id=>{:lt=>change.log_transaction_id}}
+                        klass.primary_keys.each do | pk | conditions[pk] = change[pk] end
+                        old_value = log_klass.select(conditions,{:order=>Momomoto.desc(:log_transaction_id),:limit=>1})[0]
+                        if old_value
                           values = []
                           columns.each do | column |
-                            next unless change[column]
                             next if column.to_s.match(/_id$/)
-                            values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{change[column]}"
-                          end
-                          xml.text! values.join(", ")
-                        else
-                          conditions = {:log_transaction_id=>{:lt=>change.log_transaction_id}}
-                          klass.primary_keys.each do | pk | conditions[pk] = change[pk] end
-                          old_value = log_klass.select(conditions,{:order=>Momomoto.desc(:log_transaction_id),:limit=>1})[0]
-                          if old_value
-                            values = []
-                            columns.each do | column |
-                              next if column.to_s.match(/_id$/)
-                              if change[column] != old_value[column]
-                                values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
-                              end
+                            if change[column] != old_value[column]
+                              values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
                             end
-                            xml.text! values.join(", ")
-
-                          else
-                            xml.text! "Couldn't find previous value."
                           end
+                        else
+                          values << "Couldn't find previous value."
                         end
+                      end
+                      next if values.length == 0
+                      xml.a("#{link_title}:",{:href=>link})
+
+                      xml.a({:href=>link}) do
+                        xml.b case change.log_operation
+                          when "D" then "Deleted:"
+                          when "I" then "New:"
+                        end
+                        xml.text! values.join(", ")
                       end
                     end
                   end
