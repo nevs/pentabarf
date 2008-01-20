@@ -48,8 +48,9 @@ xml.div( :id => 'data' ) do
                         xml.text! "#{link_title}: "
 
                         xml.b case change.log_operation
-                          when "D" then "Deleted:"
-                          when "I" then "New:"
+                          when "D" then "Deleted #{local(table)}:"
+                          when "I" then "New #{local(table)}:"
+                          when "U" then "#{local(table)}"
                         end
                         xml.text! values.join(", ")
                       end
