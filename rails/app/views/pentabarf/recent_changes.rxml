@@ -11,6 +11,7 @@ xml.div( :id => 'data' ) do
           xml.a(changeset.name, :href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>changeset.person_id))
           xml.ul do
             Log_transaction_involved_tables.select({:log_transaction_id=>changeset.log_transaction_id}).map(&:table_name).each do | table |
+              next if table.match(/^account_/)
               klass = table.capitalize.constantize
               log_klass = "Log::#{table.capitalize}".constantize
 
@@ -46,6 +47,7 @@ xml.div( :id => 'data' ) do
                       next if values.length == 0
                       xml.a({:href=>link,:title=>table}) do
                         xml.text! "#{link_title}: "
+                        xml.br
 
                         xml.b case change.log_operation
                           when "D" then "Deleted #{local(table)}:"
