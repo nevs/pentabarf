@@ -87,6 +87,8 @@ BEGIN;
 \i tables/auth/account_password_reset.sql
 \i tables/log/log_transaction.sql
 \i tables/log/log_transaction_involved_tables.sql
+\i tables/custom/custom_fields.sql
+\i tables/custom/custom_conference_person.sql
 
 COMMIT;
 
