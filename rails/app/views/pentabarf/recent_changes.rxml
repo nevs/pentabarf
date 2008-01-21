@@ -20,7 +20,7 @@ xml.div( :id => 'data' ) do
                       link, link_title = change_url( change )
 
                       values = []
-                      columns = klass.columns.keys - klass.primary_keys - [:password]
+                      columns = klass.columns.keys - klass.primary_keys - [:password,:eval_time]
                       if change.log_operation == "D" || change.log_operation == "I"
                         columns.each do | column |
                           next unless change[column]
