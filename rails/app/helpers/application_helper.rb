@@ -9,7 +9,7 @@ module ApplicationHelper
   TableRowColors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
 
   def pentabarf_version
-    "0.3.9"
+    "0.3.10"
   end
 
   # tries to read the current revision of pentabarf from subversion meta data
@@ -55,7 +55,7 @@ module ApplicationHelper
     xml = Builder::XmlMarkup.new
     xml.div( :id => 'tabs' ) do
       tabs.each_with_index do | tab, index |
-        if tab.instance_of?( Array ) 
+        if tab.instance_of?( Array )
           tab_name = tab.last
           tab = tab.first
         else
