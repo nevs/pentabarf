@@ -11,7 +11,8 @@ xml.div( :id => 'data' ) do
           xml.a(changeset.name, :href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>changeset.person_id))
           xml.ul do
             Log_transaction_involved_tables.select({:log_transaction_id=>changeset.log_transaction_id}).map(&:table_name).each do | table |
-              next if table.match(/^account_/)
+              # FIXME ignoring some tables for now
+              next if table.match(/^account_/) || table.match(/_localized$/) || [:custom_fields,:ui_message].member?( table.to_sym)
               klass = table.capitalize.constantize
               log_klass = "Log::#{table.capitalize}".constantize
 
