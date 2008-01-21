@@ -22,6 +22,7 @@ xml.div( :id => 'data' ) do
 
                       values = []
                       columns = klass.columns.keys - klass.primary_keys - [:password,:eval_time]
+                      columns = columns.map(&:to_s).sort.map(&:to_sym)
                       if change.log_operation == "D" || change.log_operation == "I"
                         columns.each do | column |
                           next unless change[column]
@@ -46,7 +47,7 @@ xml.div( :id => 'data' ) do
                       end
                       next if values.length == 0
                       xml.a({:href=>link,:title=>table}) do
-                        xml.text! "#{link_title}: "
+                        xml.text! link_title
                         xml.br
 
                         xml.b case change.log_operation
