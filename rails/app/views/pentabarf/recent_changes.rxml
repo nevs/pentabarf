@@ -12,7 +12,7 @@ xml.div( :id => 'data' ) do
           xml.ul do
             Log_transaction_involved_tables.select({:log_transaction_id=>changeset.log_transaction_id}).map(&:table_name).each do | table |
               # FIXME ignoring some tables for now
-              next if table.match(/^account_/) || table.match(/_localized$/) || [:custom_fields,:ui_message].member?( table.to_sym)
+              next if table.match(/^account_/) || [:custom_fields].member?( table.to_sym)
               klass = table.capitalize.constantize
               log_klass = "Log::#{table.capitalize}".constantize
 

@@ -40,8 +40,12 @@ module PentabarfHelper
       conf = Conference.select_single({:conference_id=>change.conference_id})
       link_title = conf.title
       link = url_for({:action=>:conference,:id=>conf.conference_id})
+    elsif klass.table_name.match(/_localized$/)
+      link_title = "Localization"
+      link = url_for(:controller=>'localization',:action=>klass.table_name.gsub(/_localized$/,''))
     else
-      raise "Could not determine change class for #{klass.table_name}"
+      link_title = klass.table_name.capitalize
+      link = ""
     end
     [link,link_title]
   end
