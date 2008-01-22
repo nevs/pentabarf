@@ -59,3 +59,4 @@
 \i functions/remove_attendee.sql
 \i functions/submit_event.sql
 \i functions/log/activate_logging.sql
+\i functions/custom_field_trigger.sql
