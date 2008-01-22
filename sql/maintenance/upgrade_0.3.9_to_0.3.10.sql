@@ -56,6 +56,25 @@ CREATE TABLE custom.custom_conference_person (
 CREATE TABLE log.custom_conference_person (
 ) INHERITS( base.logging, base.custom_conference_person );
 
+CREATE TRIGGER custom_fields_trigger BEFORE INSERT OR UPDATE OR DELETE ON custom.custom_fields FOR EACH ROW EXECUTE PROCEDURE custom_field_trigger();
+
+INSERT INTO ui_message VALUES ('table::conference_person_travel::accommodation_currency');
+INSERT INTO ui_message_localized VALUES ('table::conference_person_travel::accommodation_currency','en','Currency');
+INSERT INTO ui_message VALUES ('table::conference_person_travel::fee_currency');
+INSERT INTO ui_message_localized VALUES ('table::conference_person_travel::fee_currency','en','Currency');
+INSERT INTO ui_message VALUES ('table::conference_person_travel::travel_currency');
+INSERT INTO ui_message_localized VALUES ('table::conference_person_travel::travel_currency','en','Currency');
+INSERT INTO ui_message VALUES ('table::event_feedback::remark');
+INSERT INTO ui_message_localized VALUES ('table::event_feedback::remark','en','Comment');
+INSERT INTO ui_message VALUES ('table::ui_message::ui_message');
+INSERT INTO ui_message_localized VALUES ('table::ui_message::ui_message','en','UI message');
+INSERT INTO ui_message VALUES ('table::ui_message_localized::ui_message');
+INSERT INTO ui_message_localized VALUES ('table::ui_message_localized::ui_message','en','UI message');
+INSERT INTO ui_message VALUES ('table::ui_message_localized::name');
+INSERT INTO ui_message_localized VALUES ('table::ui_message_localized::name','en','Name');
+INSERT INTO ui_message VALUES ('table::ui_message_localized::translated');
+INSERT INTO ui_message_localized VALUES ('table::ui_message_localized::translated','en','Language');
+
 
 COMMIT;
 
