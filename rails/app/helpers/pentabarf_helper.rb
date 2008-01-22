@@ -41,7 +41,7 @@ module PentabarfHelper
       link_title = conf.title
       link = url_for({:action=>:conference,:id=>conf.conference_id})
     else
-      raise "Could not determince change class for #{klass.table_name}"
+      raise "Could not determine change class for #{klass.table_name}"
     end
     [link,link_title]
   end
