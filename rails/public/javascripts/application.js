@@ -10,7 +10,7 @@ function attribute_replace( element, pattern, substitute, attributes ) {
       element.setAttribute( attributes[k], element.getAttribute( attributes[k] ).replace( pattern, substitute ) );
     }
   }
-  if ( element.nodeName != 'SELECT' ) {
+  if ( element.nodeName.toLowerCase() != 'select' ) {
     var nodes = $(element).immediateDescendants();
     for( var i = 0; i < nodes.length; i++ ) {
       attribute_replace( nodes[i], pattern, substitute, attributes );
@@ -125,7 +125,7 @@ function table_add_row( table_name ) {
     for ( var i = 0; i < field_names.length; i++ ) {
       var col_name = prefix + '[' + field_names[i] + ']';
       var col = $( col_name );
-      if ( col.nodeName == 'SELECT' && col.onchange ) {
+      if ( col.nodeName.toLowerCase() == 'select' && col.onchange ) {
         col.onchange();
       }
     }
@@ -143,8 +143,8 @@ function table_find_fields( table_name ) {
   for (var i = 0; i < cells.length; i++) {
     var children = cells[i].descendants();
     for (var j = 0; j < children.length; j++) {
-      var node = children[j].nodeName;
-      if ( node == "INPUT" || node == "SELECT" ) {
+      var node = children[j].nodeName.toLowerCase();
+      if ( node == "input" || node == "select" ) {
         var name = children[j].name;
         name = name.replace( /^[a-z_]+\[row_id\]\[([a-z_]+)\]$/, "$1" );
         if ( name != "remove" ) {
