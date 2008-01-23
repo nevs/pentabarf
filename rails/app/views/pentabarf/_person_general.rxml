@@ -16,7 +16,7 @@ xml.div(:id=>'content-general') do
     end
   end
 
-  @custom = Custom::Conference_person.select_or_new({:conference_person_id=>@conference_person.conference_person_id})
+  @custom = Custom::Conference_person.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
   xml.fieldset do
     xml.legend local('custom fields')
     xml.table do
