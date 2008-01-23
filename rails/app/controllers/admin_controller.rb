@@ -23,6 +23,16 @@ class AdminController < ApplicationController
     redirect_to( :action => :conflict_setup )
   end
 
+  def custom_fields
+    @content_title = 'Custom fields'
+    @custom_fields = Custom::Fields.select({},{:order=>[:table_name,:field_name]})
+  end
+
+  def save_custom_fields
+    write_rows( Custom::Fields, params[:custom_fields], {:ignore_empty=>:field_name})
+    redirect_to( :action => :custom_fields )
+  end
+
   protected
 
   def init

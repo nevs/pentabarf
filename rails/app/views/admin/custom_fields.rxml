@@ -1,0 +1,39 @@
+xml.div do
+  xml.form({:action=>url_for(:action=>:save_custom_fields),:id=>:content_form}) do
+
+    xml.fieldset do
+      xml.legend local('Custom fields')
+
+      xml.table(:id=>'custom_fields_table',:style=>'display:none') do
+        xml.thead do
+          xml.tr do
+            xml.th( local('table_name') )
+            xml.th( local('field_name') )
+            xml.th( local('field_type') )
+            xml.th( local('not_null') )
+            xml.th( local('remove') )
+          end
+        end
+        xml.tbody(:id=>'custom_fields_tbody') do
+          xml.tr(:id=>'custom_fields_template',:style=>'display:none') do
+            xml.td do xml << select_tag( 'custom_fields[row_id][table_name]', [['conference_person']] ) end
+            xml.td do xml.input({:type=>:text,:id=>'custom_fields[row_id][field_name]',:name=>'custom_fields[row_id][field_name]'}) end
+            xml.td do xml << select_tag( 'custom_fields[row_id][field_type]', ['text','boolean'] ) end
+            xml.td do xml.input({:type=>:checkbox,:name=>'custom_fields[row_id][not_null]',:id=>'custom_fields[row_id][not_null]'}) end
+            xml.td do xml.input({:type=>:checkbox,:name=>'custom_fields[row_id][remove]',:id=>'custom_fields[row_id][remove]'}) end
+          end
+        end
+      end
+
+      xml.script(:type=>'text/javascript') do
+        @custom_fields.each do | f |
+          xml << js_function( 'table_add_row', 'custom_fields', f.table_name, f.field_name, f.field_type, f.not_null )
+        end
+      end
+
+      xml.button( local('add custom field'), {:type=>:button,:onclick=>'table_add_row("custom_fields")'})
+    end
+    xml << render( :partial => 'modification_buttons' )
+  end
+end
+
