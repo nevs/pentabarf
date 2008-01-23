@@ -4,20 +4,24 @@ xml.feed({:xmlns=>"http://www.w3.org/2005/Atom"}) do
   xml.subtitle ""
   xml.generator "Pentabarf #{pentabarf_version} - Revision #{pentabarf_revision}"
   xml.link({:rel => "self", :href=>url_for(:only_path => false, :controller => 'atom', :action => 'recentchanges')})
-  xml.updated @changes[0].changed_when.strftime('%FT%T%:z')
+  xml.updated @changes[0].log_timestamp.strftime('%FT%T%:z')
   xml.id url_for(:only_path => false, :controller => 'pentabarf', :action => 'recentchanges')
 
-  @changes.each do | change |
-    title = "#{change.type.capitalize} '#{change.title}' #{change.f_create ? 'created' : 'changed'} by #{change.name}"
+  @changes.each do | changeset |
+    title = "Changeset #{changeset.log_transaction_id}"
     xml.entry do
       xml.title title
-      xml.link({:href=>url_for(:only_path => false, :controller => 'pentabarf', :action => change.type, :id => change.id)})
-      xml.id url_for(:only_path => false, :controller => 'pentabarf', :action => change.type, :id => change.id) + "#" + change.changed_when.strftime('%FT%T.%N%:z')
+      xml.id url_for(:only_path => false, :controller => 'pentabarf', :action => :index) + "#" + changeset.log_timestamp.strftime('%FT%T.%N%:z')
       xml.author do
-        xml.name change.name
+        xml.name changeset.name || 'unknown'
       end
-      xml.updated change.changed_when.strftime('%FT%T%:z')
+      xml.updated changeset.log_timestamp.strftime('%FT%T%:z')
       xml.summary title
+      xml.content({:type=>:xhtml}) do
+        xml.div({:xmlns=>"http://www.w3.org/1999/xhtml"}) do
+          xml << changeset_changes( changeset )
+        end
+      end
     end
   end
 end

@@ -34,7 +34,7 @@ module ApplicationHelper
   end
 
   def local( tag )
-    Localizer.lookup( tag.to_s, @current_language )
+    Localizer.lookup( tag.to_s, POPE.user.current_language )
   end
 
   def js( text )
@@ -178,6 +178,95 @@ module ApplicationHelper
       end
     end
     xml
+  end
+
+  def change_url( change )
+    klass = change.class.table
+    if klass.columns.key?(:conference_person_id)
+      cperson = Conference_person.select_single({:conference_person_id=>change.conference_person_id})
+      person = View_person.select_single({:person_id=>cperson.person_id.to_i})
+      link_title = person.name
+      link = url_for({:action=>:person,:id=>person.person_id})
+    elsif klass.columns.key?(:event_id)
+      event = Event.select_single({:event_id=>change.event_id})
+      link_title = "#{event.title} #{event.subtitle}"
+      link = url_for({:action=>:event,:id=>event.event_id})
+    elsif klass.columns.key?(:person_id)
+      begin
+        person = View_person.select_single({:person_id=>change.person_id.to_i})
+        link_title = person.name
+      rescue
+        link_title = change.public_name
+      end
+      link = url_for({:action=>:person,:id=>change.person_id})
+    elsif klass.columns.key?(:conference_id)
+      conf = Conference.select_single({:conference_id=>change.conference_id})
+      link_title = conf.title
+      link = url_for({:action=>:conference,:id=>conf.conference_id})
+    elsif klass.table_name.match(/_localized$/)
+      link_title = "Localization"
+      link = url_for(:controller=>'localization',:action=>klass.table_name.gsub(/_localized$/,''))
+    else
+      link_title = klass.table_name.capitalize
+      link = ""
+    end
+    [link,link_title]
+  end
+
+  def changeset_changes( changeset )
+    xml = Builder::XmlMarkup.new
+    xml.ul do
+      Log_transaction_involved_tables.select({:log_transaction_id=>changeset.log_transaction_id}).map(&:table_name).each do | table |
+        # FIXME ignoring some tables for now
+        next if table.match(/^account_/)
+        klass = table.capitalize.constantize
+        log_klass = "Log::#{table.capitalize}".constantize
+
+            log_klass.select(:log_transaction_id=>changeset.log_transaction_id).each do | change |
+
+              xml.li do
+                link, link_title = change_url( change )
+
+                values = []
+                columns = klass.columns.keys - [:password,:eval_time]
+                columns = columns.map(&:to_s).sort.map(&:to_sym)
+                if change.log_operation == "D" || change.log_operation == "I"
+                  columns.each do | column |
+                    next unless change[column]
+                    next if column.to_s.match(/_id$/)
+                    values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{change[column]}"
+                  end
+                else
+                  conditions = {:log_transaction_id=>{:lt=>change.log_transaction_id}}
+                  klass.primary_keys.each do | pk | conditions[pk] = change[pk] end
+                  old_value = log_klass.select(conditions,{:order=>Momomoto.desc(:log_transaction_id),:limit=>1})[0]
+                  if old_value
+                    values = []
+                    columns.each do | column |
+                      if change[column] != old_value[column]
+                        values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
+                      end
+                    end
+                  else
+                    values << "Couldn't find previous value."
+                  end
+                end
+                xml.a({:href=>link,:title=>table}) do
+                  xml.text! link_title
+                  xml.br
+
+                  xml.b case change.log_operation
+                    when "D" then "Deleted #{local(table)}:"
+                    when "I" then "New #{local(table)}:"
+                    when "U" then "#{local(table)}:"
+                  end
+                  xml.text! values.join(", ")
+                end
+              end
+            end
+
+      end
+    end
   end
 
 end
