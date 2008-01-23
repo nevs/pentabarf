@@ -37,7 +37,6 @@ xml.div( :id => 'data' ) do
                         if old_value
                           values = []
                           columns.each do | column |
-                            next if column.to_s.match(/_id$/)
                             if change[column] != old_value[column]
                               values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
                             end
@@ -53,7 +52,7 @@ xml.div( :id => 'data' ) do
                         xml.b case change.log_operation
                           when "D" then "Deleted #{local(table)}:"
                           when "I" then "New #{local(table)}:"
-                          when "U" then "#{local(table)}"
+                          when "U" then "#{local(table)}:"
                         end
                         xml.text! values.join(", ")
                       end

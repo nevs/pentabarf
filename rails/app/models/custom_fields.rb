@@ -1,3 +1,4 @@
-
-Custom_fields = Custom::Fields
+class Custom_fields < Momomoto::Table
+  schema_name "custom"
+end
 

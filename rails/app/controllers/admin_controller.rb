@@ -25,11 +25,11 @@ class AdminController < ApplicationController
 
   def custom_fields
     @content_title = 'Custom fields'
-    @custom_fields = Custom::Fields.select({},{:order=>[:table_name,:field_name]})
+    @custom_fields = Custom_fields.select({},{:order=>[:table_name,:field_name]})
   end
 
   def save_custom_fields
-    write_rows( Custom::Fields, params[:custom_fields], {:ignore_empty=>:field_name,:always=>[:not_null]})
+    write_rows( Custom_fields, params[:custom_fields], {:ignore_empty=>:field_name,:always=>[:not_null]})
     redirect_to( :action => :custom_fields )
   end
 
