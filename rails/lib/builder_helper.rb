@@ -95,7 +95,7 @@ module Builder_helper
 
   def select_row( row, column, collection, options = {} )
     name = "#{row.class.table.table_name}[#{column}]"
-    label = options[:label] || local("table::#{table}::#{column}")
+    label = options[:label] || local("table::#{row.class.table.table_name}::#{column}")
     options[:selected] = row.send(column) unless options[:selected]
     xml = Builder::XmlMarkup.new
     xml.tr do
