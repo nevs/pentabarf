@@ -184,12 +184,14 @@ module ApplicationHelper
     klass = change.class.table
     if klass.columns.key?(:conference_person_id)
       cperson = Conference_person.select_single({:conference_person_id=>change.conference_person_id})
+      conf = Conference.select_single({:conference_id=>cperson.conference_id})
       person = View_person.select_single({:person_id=>cperson.person_id.to_i})
-      link_title = person.name
+      link_title = "#{conf.acronym}: #{person.name}"
       link = url_for({:action=>:person,:id=>person.person_id})
     elsif klass.columns.key?(:event_id)
       event = Event.select_single({:event_id=>change.event_id})
-      link_title = "#{event.title} #{event.subtitle}"
+      conf = Conference.select_single({:conference_id=>event.conference_id})
+      link_title = "#{conf.acronym}: #{event.title}"
       link = url_for({:action=>:event,:id=>event.event_id})
     elsif klass.columns.key?(:person_id)
       begin
@@ -218,7 +220,7 @@ module ApplicationHelper
     xml.ul do
       Log_transaction_involved_tables.select({:log_transaction_id=>changeset.log_transaction_id}).map(&:table_name).each do | table |
         # FIXME ignoring some tables for now
-        next if table.match(/^account_/)
+        next if table.match(/^account_/) || table == "person_availability"
         klass = table.capitalize.constantize
         log_klass = "Log::#{table.capitalize}".constantize
 
