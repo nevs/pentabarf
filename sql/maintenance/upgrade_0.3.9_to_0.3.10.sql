@@ -75,6 +75,11 @@ INSERT INTO ui_message_localized VALUES ('table::ui_message_localized::name','en
 INSERT INTO ui_message VALUES ('table::ui_message_localized::translated');
 INSERT INTO ui_message_localized VALUES ('table::ui_message_localized::translated','en','Language');
 
+INSERT INTO auth.domain VALUES ('custom');
+INSERT INTO auth.permission VALUES ('modify_custom');
+INSERT INTO auth.role_permission VALUES ('admin','modify_custom');
+INSERT INTO auth.role_permission VALUES ('developer','modify_custom');
+INSERT INTO auth.object_domain VALUES ('custom_fields','custom');
 
 COMMIT;
 
