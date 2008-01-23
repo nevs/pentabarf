@@ -15,7 +15,8 @@ module MomomotoHelper
   #   always:  Array of field_names to always set even if they are not in the values
   #   remove:  remove the row if values[:remove] is true
   def write_row( klass, values, options = {}, &block )
-    options[:except] ||= []; options[:always] ||= []
+    options[:except] ||= []
+    options[:always] = [options[:always]] unless options[:always].instance_of?( Array )
     options[:preset] ||= {}; options[:init] ||= {};
     options[:remove] ||= false
     row = klass.select_or_new( options[:preset] ) do | field | values[field] end

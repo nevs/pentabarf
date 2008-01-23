@@ -16,6 +16,23 @@ xml.div(:id=>'content-general') do
     end
   end
 
+  @custom = Custom::Conference_person.select_or_new({:conference_person_id=>@conference_person.conference_person_id})
+  xml.fieldset do
+    xml.legend local('custom fields')
+    xml.table do
+      Custom::Fields.select(:table_name=>:conference_person).each do | f |
+        case f.field_type
+          when "boolean"
+            xml << check_box_row( @custom, f.field_name, {:label=>f.field_name} )
+          when "text"
+            xml << text_field_row( @custom, f.field_name, {:label=>f.field_name})
+        end
+      end
+
+    end
+  end
+
+
   xml.fieldset do
     xml.legend( local('spoken languages') )
     xml.table(:id=>'person_language_table',:style=>'display:none') do
