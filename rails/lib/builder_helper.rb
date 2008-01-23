@@ -10,9 +10,10 @@ module Builder_helper
   def text_field_row( row, column, options = {}, &block )
     options[:size] = 40 unless options[:size]
     table = row.class.table.table_name
+    label = options[:label] || local("table::#{table}::#{column}")
     xml = Builder::XmlMarkup.new
     xml.tr do
-      xml.td do xml.label( local( "table::#{table}::#{column}") ) end
+      xml.td do xml.label( label ) end
       xml.td do
         options[:id] = options[:name] = "#{table}[#{column}]"
         options[:value] = case row[column]
@@ -30,8 +31,9 @@ module Builder_helper
   def check_box_row( row, column, options = {}, &block )
     table = row.class.table.table_name
     xml = Builder::XmlMarkup.new
+    label = options[:label] || local("table::#{table}::#{column}")
     xml.tr do
-      xml.td do xml.label( local( "table::#{table}::#{column}" ) ) end
+      xml.td do xml.label( label ) end
       xml.td do
         options[:id] = options[:name] = "#{table}[#{column}]"
         options[:tabindex] = 0
@@ -46,8 +48,9 @@ module Builder_helper
   def text_area_fieldset( row, column, options = {} )
     table = row.class.table.table_name
     xml = Builder::XmlMarkup.new
+    label = options[:label] || local("table::#{table}::#{column}")
     xml.fieldset do
-      xml.legend( local( "table::#{table}::#{column}") )
+      xml.legend( label )
       options[:id] = options[:name] = "#{table}[#{column}]"
       options[:tabindex] = 0
       xml.textarea( row[column], options )
@@ -92,10 +95,11 @@ module Builder_helper
 
   def select_row( row, column, collection, options = {} )
     name = "#{row.class.table.table_name}[#{column}]"
+    label = options[:label] || local("table::#{table}::#{column}")
     options[:selected] = row.send(column) unless options[:selected]
     xml = Builder::XmlMarkup.new
     xml.tr do
-      xml.td do xml.label( local( "table::#{row.class.table.table_name}::#{column}" ) ) end
+      xml.td do xml.label( label ) end
       xml.td do xml << select_tag( name, collection, options ) end
     end
   end
