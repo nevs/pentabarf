@@ -9,7 +9,7 @@ class AtomControllerTest < Test::Unit::TestCase
     @controller = AtomController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    hijack_controller_auth( @controller )
+    authenticate_user( Account.select_single(:login_name=>'committee') )
   end
 
   def test_recent_changes
