@@ -234,6 +234,7 @@ module ApplicationHelper
                 columns = columns.map(&:to_s).sort.map(&:to_sym)
                 if change.log_operation == "D" || change.log_operation == "I"
                   columns.each do | column |
+                    next if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea )
                     next unless change[column]
                     next if klass.primary_keys.member?( column )
                     values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{change[column]}"
@@ -247,7 +248,11 @@ module ApplicationHelper
                     values = []
                     columns.each do | column |
                       if change[column] != old_value[column]
-                        values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
+                        if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea )
+                          values << "#{local('table::'+table.to_s+'::'+column.to_s)} changed"
+                        else
+                          values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
+                        end
                       end
                     end
                   else

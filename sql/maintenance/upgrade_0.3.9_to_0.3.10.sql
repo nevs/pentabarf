@@ -1,7 +1,6 @@
 
 BEGIN;
 
-
 CREATE TABLE base.log_transaction_involved_tables (
   log_transaction_id INTEGER,
   table_name TEXT
