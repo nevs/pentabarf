@@ -31,7 +31,6 @@ CREATE TABLE base.custom_fields (
   table_name TEXT NOT NULL,
   field_name TEXT NOT NULL,
   field_type TEXT NOT NULL,
-  not_null BOOLEAN NOT NULL DEFAULT 'f',
   CHECK( table_name IN ('conference_person') ),
   CHECK( field_name ~* '^[a-z_0-9]+$' ),
   CHECK( field_type IN ('boolean','text') )
@@ -80,6 +79,7 @@ INSERT INTO auth.permission VALUES ('modify_custom');
 INSERT INTO auth.role_permission VALUES ('admin','modify_custom');
 INSERT INTO auth.role_permission VALUES ('developer','modify_custom');
 INSERT INTO auth.object_domain VALUES ('custom_fields','custom');
+INSERT INTO auth.object_domain VALUES ('custom_conference_person','person');
 
 COMMIT;
 
