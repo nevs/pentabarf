@@ -1,3 +1,3 @@
 class Permission < Momomoto::Table
-  schedule_table "auth"
+  schema_name "auth"
 end
