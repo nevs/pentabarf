@@ -13,6 +13,7 @@ xml.div(:id=>'content-general') do
       xml << file_row( :person_image, :image )
       xml << check_box_row( @person_image, :public )
       xml << check_box_row( @conference_person, :arrived )
+      xml << check_box_row( @conference_person, :reconfirmed )
     end
   end
 

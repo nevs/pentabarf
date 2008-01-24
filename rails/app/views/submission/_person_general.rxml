@@ -13,6 +13,7 @@ xml.div(:id=>'content-general') do
       xml << select_row( @person, :gender, [[true,'male'],[false,'female']], {:with_empty=>true})
       xml << file_row( :person_image, :image )
       xml << check_box_row( @person_image, :public )
+      xml << check_box_row( @conference_person, :reconfirmed ) if @conference.f_reconfirmation_enabled
     end
   end
 

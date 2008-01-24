@@ -72,7 +72,9 @@ class SubmissionController < ApplicationController
         row.password = params[:account][:password]
       end
     end
-    conference_person = write_row( Conference_person, params[:conference_person], {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}})
+    options = {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}}
+    options[ @conference.f_reconfirmation_enabled ? :always : :except ] = [:reconfirmed]
+    conference_person = write_row( Conference_person, params[:conference_person], options )
     POPE.refresh
     write_row( Conference_person_travel, params[:conference_person_travel], {:preset=>{:conference_person_id => conference_person.conference_person_id}})
     write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
