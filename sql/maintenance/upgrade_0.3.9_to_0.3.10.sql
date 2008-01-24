@@ -81,7 +81,7 @@ INSERT INTO auth.object_domain VALUES ('custom_conference_person','person');
 
 CREATE TRIGGER custom_fields_trigger BEFORE INSERT OR UPDATE OR DELETE ON custom.custom_fields FOR EACH ROW EXECUTE PROCEDURE custom_field_trigger();
 
-ALTER TABLE base.conference_person ADD COLUMN confirmed BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE base.conference_person ADD COLUMN reconfirmed BOOLEAN NOT NULL DEFAULT FALSE;
 
 COMMIT;
 
