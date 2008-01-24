@@ -8,6 +8,7 @@ CREATE TABLE base.conference_person (
   remark TEXT,
   email TEXT,
   arrived BOOL NOT NULL DEFAULT FALSE
+  confirmed BOOL NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE conference_person (

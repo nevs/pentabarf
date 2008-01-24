@@ -55,8 +55,6 @@ CREATE TABLE custom.custom_conference_person (
 CREATE TABLE log.custom_conference_person (
 ) INHERITS( base.logging, base.custom_conference_person );
 
-CREATE TRIGGER custom_fields_trigger BEFORE INSERT OR UPDATE OR DELETE ON custom.custom_fields FOR EACH ROW EXECUTE PROCEDURE custom_field_trigger();
-
 INSERT INTO ui_message VALUES ('table::conference_person_travel::accommodation_currency');
 INSERT INTO ui_message_localized VALUES ('table::conference_person_travel::accommodation_currency','en','Currency');
 INSERT INTO ui_message VALUES ('table::conference_person_travel::fee_currency');
@@ -80,6 +78,10 @@ INSERT INTO auth.role_permission VALUES ('admin','modify_custom');
 INSERT INTO auth.role_permission VALUES ('developer','modify_custom');
 INSERT INTO auth.object_domain VALUES ('custom_fields','custom');
 INSERT INTO auth.object_domain VALUES ('custom_conference_person','person');
+
+CREATE TRIGGER custom_fields_trigger BEFORE INSERT OR UPDATE OR DELETE ON custom.custom_fields FOR EACH ROW EXECUTE PROCEDURE custom_field_trigger();
+
+ALTER TABLE base.conference_person ADD COLUMN confirmed BOOLEAN NOT NULL DEFAULT FALSE;
 
 COMMIT;
 
