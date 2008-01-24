@@ -224,54 +224,55 @@ module ApplicationHelper
         klass = table.capitalize.constantize
         log_klass = "Log::#{table.capitalize}".constantize
 
-            log_klass.select(:log_transaction_id=>changeset.log_transaction_id).each do | change |
+        log_klass.select(:log_transaction_id=>changeset.log_transaction_id).each do | change |
 
-              xml.li do
-                link, link_title = change_url( change )
-
-                values = []
-                columns = klass.columns.keys - [:password,:eval_time]
-                columns = columns.map(&:to_s).sort.map(&:to_sym)
-                if change.log_operation == "D" || change.log_operation == "I"
-                  columns.each do | column |
-                    next if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea )
-                    next unless change[column]
-                    next if klass.primary_keys.member?( column )
-                    values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{change[column]}"
-                  end
-                  next if values.length == 0 && change.log_operation == "I"
-                else
-                  conditions = {:log_transaction_id=>{:lt=>change.log_transaction_id}}
-                  klass.primary_keys.each do | pk | conditions[pk] = change[pk] end
-                  old_value = log_klass.select(conditions,{:order=>Momomoto.desc(:log_transaction_id),:limit=>1})[0]
-                  if old_value
-                    values = []
-                    columns.each do | column |
-                      if change[column] != old_value[column]
-                        if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea )
-                          values << "#{local('table::'+table.to_s+'::'+column.to_s)} changed"
-                        else
-                          values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
-                        end
-                      end
-                    end
+          values = []
+          columns = klass.columns.keys - [:password,:eval_time]
+          columns = columns.map(&:to_s).sort.map(&:to_sym)
+          if change.log_operation == "D" || change.log_operation == "I"
+            columns.each do | column |
+              next if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea )
+              next unless change[column]
+              next if klass.primary_keys.member?( column )
+              values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{change[column]}"
+            end
+            next if values.length == 0 && change.log_operation == "I"
+          else
+            conditions = {:log_transaction_id=>{:lt=>change.log_transaction_id}}
+            klass.primary_keys.each do | pk | conditions[pk] = change[pk] end
+            old_value = log_klass.select(conditions,{:order=>Momomoto.desc(:log_transaction_id),:limit=>1})[0]
+            if old_value
+              values = []
+              columns.each do | column |
+                if change[column] != old_value[column]
+                  if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea )
+                    values << "#{local('table::'+table.to_s+'::'+column.to_s)} changed"
                   else
-                    values << "Couldn't find previous value."
+                    values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
                   end
-                end
-                xml.a({:href=>link,:title=>table}) do
-                  xml.text! link_title
-                  xml.br
-
-                  xml.b case change.log_operation
-                    when "D" then "Deleted #{local(table)}:"
-                    when "I" then "New #{local(table)}:"
-                    when "U" then "#{local(table)}:"
-                  end
-                  xml.text! values.join(", ")
                 end
               end
+            else
+              values << "Couldn't find previous value."
             end
+          end
+
+          xml.li do
+            link, link_title = change_url( change )
+
+            xml.a({:href=>link,:title=>table}) do
+              xml.text! link_title
+              xml.br
+
+              xml.b case change.log_operation
+                when "D" then "Deleted #{local(table)}:"
+                when "I" then "New #{local(table)}:"
+                when "U" then "#{local(table)}:"
+              end
+              xml.text! values.join(", ")
+            end
+          end
+        end
 
       end
     end
