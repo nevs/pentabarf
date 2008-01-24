@@ -235,9 +235,10 @@ module ApplicationHelper
                 if change.log_operation == "D" || change.log_operation == "I"
                   columns.each do | column |
                     next unless change[column]
-                    next if column.to_s.match(/_id$/)
+                    next if klass.primary_keys.member?( column )
                     values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{change[column]}"
                   end
+                  next if values.length == 0 && change.log_operation == "I"
                 else
                   conditions = {:log_transaction_id=>{:lt=>change.log_transaction_id}}
                   klass.primary_keys.each do | pk | conditions[pk] = change[pk] end
