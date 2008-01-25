@@ -22,14 +22,12 @@ module FormTestHelper
     
     # If you submit the form with JavaScript
     def submit_without_clicking_button
-      $stderr.puts "WARNING: A bug in Rails may make your form submit to the wrong location.  See http://dev.rubyonrails.org/ticket/4867 and urge David to apply the patch that was uploaded on 24-Apr-2006." if self.action.blank? # FIXME: Remove when 4867 is fixed
       path = self.action.blank? ? self.uri : self.action # If no action attribute on form, it submits to the same URI where the form was displayed
       params = {}
       fields.each {|field| params[field.name] = field.value unless field.value.nil? || field.value == [] || params[field.name] } # don't submit the nils, empty arrays, and fields already named
       
       # Convert arrays and hashes in param keys, since test processing doesn't do this automatically
-      params = CGIMethods::FormEncodedPairParser.new(params).result
-      
+      params = ActionController::UrlEncodedPairParser.new(params).result
       @testcase.make_request(request_method, path, params, self.uri, xhr)
     end
     
@@ -76,7 +74,7 @@ module FormTestHelper
     end
     
     def fields_hash
-      @fields_hash ||= FieldsHash.new(CGIMethods::FormEncodedPairParser.new(fields.collect {|field| [field.name, field] }).result)
+      @fields_hash ||= FieldsHash.new(ActionController::UrlEncodedPairParser.new(fields.collect {|field| [field.name, field] }).result)
     end
     
     # Accepts a block that can work with a single object (group of fields corresponding to a 
@@ -405,59 +403,7 @@ module FormTestHelper
       @value = value
     end
   end
-  
-  def select_link(text=nil)
-    @html_document = nil # So it always grabs the latest response
-    if css_select(%Q{a[href="#{text}"]}).any?
-      links = assert_select("a[href=?]", text)
-    elsif text.nil?
-      links = assert_select('a', 1)
-    else
-      links = assert_select('a', text)
-    end
-    decorate_link(links.first)
-  end
-  
-  def decorate_link(link)
-    link.extend FormTestHelper::Link
-    link.testcase = self
-    link
-  end
-  
-  def select_form(text=nil, use_xhr=false)
-    @html_document = nil # So it always grabs the latest response
-    forms = case
-    when text.nil?
-      assert_select("form", 1)
-    when css_select(%Q{form[action="#{text}"]}).any?
-      assert_select("form[action=?]", text)
-    else
-      assert_select('form#?', text)
-    end
-    
-    returning Form.new(forms.first, self) do |form|
-      if block_given?
-        yield form
-        form.submit :xhr => use_xhr
-      end
-    end
-  end
-  
-  # Alias for select_form when called with a block. 
-  # Shortcut for select_form(name).submit(args) without block.
-  def submit_form(*args, &block)
-    if block_given?
-      if args[0].is_a?(Hash)
-        select_form(nil, args[0].delete(:xhr), &block)
-      else
-        select_form(*args, &block)
-      end
-    else
-      selector = args[0].is_a?(Hash) ? nil : args.shift
-      select_form(selector).submit(*args)
-    end
-  end
-  
+      
   module Link
     def follow
       path = self.href
@@ -483,20 +429,4 @@ module FormTestHelper
     end
   end
   
-  def make_request(method, path, params={}, referring_uri=nil, use_xhr=false)
-    if self.kind_of?(ActionController::IntegrationTest)
-      self.send(method, path, params.stringify_keys, {:referer => referring_uri})
-    else
-      params.merge!(ActionController::Routing::Routes.recognize_path(path, :method => method))
-      if params[:controller] && params[:controller] != current_controller = self.instance_eval("@controller").controller_path
-        raise "Can't follow links outside of current controller (from #{current_controller} to #{params[:controller]})"
-      end
-      self.instance_eval("@request").env["HTTP_REFERER"] ||= referring_uri # facilitate testing of redirect_to :back
-      if use_xhr
-        self.xhr(method, params.delete(:action), params.stringify_keys)
-      else
-        self.send(method, params.delete(:action), params.stringify_keys)
-      end
-    end
-  end
 end

@@ -30,13 +30,12 @@ class IntegrationTest < ActionController::IntegrationTest
     assert_action_name :index
   end
 
-  # FIXME: I think this is broken in EdgeRails.  A simple delete '/test/delete' raises "undefined method 'recycle!."  It has nothing to do with this plugin and hopefully will be fixed soon (Ticket #6353).
-  # def test_click_link_with_different_method
-  #   link = select_link "/test/destroy"
-  #   link.follow
-  #   assert_response :success
-  #   assert_action_name :destroy
-  # end
+ def test_click_link_with_different_method
+   link = select_link "/test/destroy"
+   link.follow
+   assert_response :success
+   assert_action_name :destroy
+ end
   
   def test_redirect_back_after_form_submit
     get "/test/rhtml", :content => <<-EOD

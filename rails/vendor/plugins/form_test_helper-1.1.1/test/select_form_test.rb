@@ -73,7 +73,7 @@ class SelectFormTest < Test::Unit::TestCase
         <%= submit_tag %>
       </form>
     EOD
-    assert_raise(RuntimeError) { select_form.submit }
+    select_form.submit
   end
   
   def test_form_has_fields_hash
@@ -211,7 +211,7 @@ class SelectFormTest < Test::Unit::TestCase
   end
   
   def test_submit_to_namespaced_controller
-	@controller = Admin::NamespacedController.new
+	  @controller = Admin::NamespacedController.new
     value = "jason"
     render_rhtml <<-EOD
       <%= form_tag(:action => 'create') %>
