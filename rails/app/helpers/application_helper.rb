@@ -34,7 +34,7 @@ module ApplicationHelper
   end
 
   def local( tag )
-    Localizer.lookup( tag.to_s, POPE.user.current_language )
+    Localizer.lookup( tag.to_s, @current_language )
   end
 
   def js( text )
