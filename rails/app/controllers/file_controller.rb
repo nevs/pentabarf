@@ -11,9 +11,9 @@ class FileController < ApplicationController
     response.headers['Content-Type'] = data.mime_type
     response.headers['Content-Length'] = data.filesize
 #    response.headers['Last-Modified'] = file.last_modified
-    render_text(file.data)
+    render(:text=>file.data)
    rescue
-    render_text("File not found", 404)
+    render(:text=>"File not found",:status=>404)
   end
 
 end
