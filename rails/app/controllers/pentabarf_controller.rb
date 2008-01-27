@@ -148,7 +148,7 @@ class PentabarfController < ApplicationController
         end
       end
     end
-    conference_person = write_row( Conference_person, params[:conference_person], {:always=>[:reconfirmed],:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
+    conference_person = write_row( Conference_person, params[:conference_person], {:always=>[:arrived,:reconfirmed],:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
     custom_bools = Custom_fields.select({:table_name=>:conference_person,:field_type=>:boolean})
     write_row( Custom_conference_person, params[:custom_conference_person], {:preset=>{:conference_person_id=>conference_person.conference_person_id}})
     write_row( Conference_person_travel, params[:conference_person_travel], {:preset=>{:conference_person_id => conference_person.conference_person_id}})
