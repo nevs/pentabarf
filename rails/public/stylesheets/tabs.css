@@ -4,11 +4,11 @@
 #tabs {
   position: fixed;
 
-  top: 80px;
-  right: 10px;
-  left: 160px;
+  top: 7em;
+  right: 1em;
+  left: 13em;
 
-  height: 20px;
+  height: 2em;
   clear: both;
 
   z-index: 4;

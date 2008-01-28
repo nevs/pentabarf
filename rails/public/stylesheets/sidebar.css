@@ -13,10 +13,10 @@
 #sidebar {
   position: fixed;
   overflow: auto;
-  width: 128px;
-  min-width: 128px;
+  width: 10em;
+  min-width: 100px;
   height: 100%;
-  padding: 0px 10px 0px 10px;
+  padding: 0em 1em;
   margin: 0;
   border-right: 1px solid black;
   z-index: 4;
@@ -26,8 +26,9 @@
 
 #logo {
   height: 128px;
-  width: 128px;
-  margin: 5px 0 0 0;
+  width: 10em;
+  text-align: center;
+  margin: 0.5em 0 0 0;
   border: none;
 }
 

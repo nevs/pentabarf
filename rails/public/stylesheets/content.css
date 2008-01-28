@@ -2,14 +2,15 @@
 
 #context {
   position: fixed;
-  top: 0px;
-  left: 148px;
+  top: 0em;
+  left: 12em;
   width: 100%;
-  height: 80px;
-  padding-left: 100px;
+  height: 7em;
+  min-height: 80px;
+  padding-left: 8em;
   text-align: left;
   background-color: #b0cce8;
-  z-index: 3;
+  z-index: 4;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
 }
@@ -17,7 +18,7 @@
 div#object-image {
   position: fixed;
   top: 6px;
-  left: 155px;
+  left: 13em;
   width: 64px;
   height: 64px;
 
@@ -55,9 +56,9 @@ div.object_navigation {
 
 #content {
   position: absolute;
-  top: 120px;
-  left: 160px;
-  right: 10px;
+  top: 10em;
+  left: 12em;
+  right: 1em;
 }
 
 #data :link:hover, #data :visited:hover {
