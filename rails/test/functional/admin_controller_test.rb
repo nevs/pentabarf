@@ -22,4 +22,9 @@ class AdminControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  def test_custom_fields
+    get :custom_fields
+    assert_response :success
+  end
+
 end
