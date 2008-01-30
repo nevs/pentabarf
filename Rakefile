@@ -44,12 +44,12 @@ task :unincluded_files do
 end
 
 task :update_css do
-  `(cd rails/public/stylesheets && make)`
+  `(cd rails/public/stylesheets && sh -c 'sed -e "s!@import url(\\"\\([a-z_]\\+.css\\).*!\\1!" main.template | xargs cat > main.css')`
 end
 
 
 task :check => [:unincluded_files,:unused_views,:unused_models]
 
-task :default => [:check]
+task :default => [:update_css]
 
 
