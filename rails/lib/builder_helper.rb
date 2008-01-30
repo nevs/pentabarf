@@ -135,7 +135,8 @@ module Builder_helper
     xml = Builder::XmlMarkup.new
     name = "#{row.class.table.table_name}[#{column}]"
     button_id = "#{row.class.table.table_name}_#{column}"
-    xml << text_field_row( row, column, {:size => 12 } ) do | x |
+    options[:size] ||= 12
+    xml << text_field_row( row, column, options ) do | x |
       x.button( '...', {:type=>:button,:id=>button_id})
       x.script( "Calendar.setup({inputField:'#{name}', ifFormat:'%Y-%m-%d', button:'#{button_id}', showOthers:true, singleClick:false});", {:type=>'text/javascript'})
     end
