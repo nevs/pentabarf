@@ -14,6 +14,6 @@ end
 xml.script(:type=>'text/javascript') do
   xml.text! <<-JS
     new Form.Observer('simple_search', 1, function(element, value) { new Ajax.Updater('results', '#{url_for(:action=>:search_conference_simple)}', { asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}, parameters:value });});
-    new Ajax.Updater('results', '#{url_for(:action=>:search_conference_simple)}' + $('search_conference_simple').value , {asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')}});
+    new Ajax.Updater('results', '#{url_for(:action=>:search_conference_simple)}', { asynchronous:true, evalScripts:false, onComplete:function(request){Element.hide('search-indicator');sortables_init()}, onLoading:function(request){Element.show('search-indicator')},parameters:$('simple_search').serialize()});
 JS
 end
