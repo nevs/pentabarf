@@ -32,6 +32,7 @@ xml.div(:id=>'content-events') do
             xml.td do xml << select_tag( "event_person[#{index}][event_role]", Event_role.select.map{|e| e.event_role},{:master=>:event_role_state,:selected=>ep.event_role}) end
             xml.td do
               xml << select_tag( "event_person[#{index}][event_role_state]", Event_role_state.select.map{|e| [e.event_role_state,e.event_role,e.event_role_state]}, {:slave=>true,:with_empty=>true,:selected=>ep.event_role_state,:style=>ep.event_role_state ? '' : 'display:none'})
+              xml.script("$('event_person[#{index}][event_role]').onchange()",{:type=>"text/javascript"})
             end
             xml.td do xml.input({:type=>:text,:id=>"event_person[#{index}][remark]",:name=>"event_person[#{index}][remark]",:value=>ep.remark}) end
             xml.td do xml.input({:type=>:checkbox,:name=>"event_person[#{index}][remove]",:id=>"event_person[#{index}][remove]"}) end
