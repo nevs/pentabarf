@@ -10,7 +10,6 @@ xml.div do
             xml.th( local('table_name') )
             xml.th( local('field_name') )
             xml.th( local('field_type') )
-            xml.th( local('not_null') )
             xml.th( local('remove') )
           end
         end
