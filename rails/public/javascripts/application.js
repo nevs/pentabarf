@@ -160,28 +160,33 @@ function table_find_fields( table_name ) {
 function master_change( select, slave_column ) {
   var master_column = select.id.replace( /^.*\[([a-z_]+)\]$/, "$1" );
   var slave_id = select.id.replace( master_column, slave_column );
+  var all_opts = $( slave_init( slave_id ) ).options;
   var slave = $( slave_id );
-  var new_value = select.value;
-  var options = slave.options;
-  var enabled_counter = 0;
-  var first_valid;
-  for (var i = 0; i < options.length; i++ ) {
-    if ( options[i].className == new_value ) {
-      options[i].style.display = 'block';
-      enabled_counter++;
-      if (!first_valid) first_valid = options[i].value;
-      if ( options[i].value == slave.value ) first_valid = slave.value;
-    } else {
-      options[i].style.display = 'none';
+  var slave_value = slave.value;
+  slave.options.length = 0;
+  for ( var i = 0; i < all_opts.length; i ++ ) {
+    if ( all_opts[i].className == select.value ) {
+      slave.options[slave.options.length] = all_opts[i].cloneNode(true);  
     }
   }
-  if ( enabled_counter == 0 ) {
-    slave.style.display = 'none';
-    slave.value = '';
-  } else {
-    slave.style.display = 'block';
-    slave.value = first_valid;
+  slave.value = slave_value;
+  if ( slave.options.length == 0 )
+    slave.hide();
+  else
+    slave.show();
+}
+
+function slave_init( slave_id ) {
+  var all_opts_id = slave_id.replace(/\[\d+\]/,'[row_id]') + '[all_opts]';
+  if ( !$( all_opts_id ) ) {
+    var all_opts = $(slave_id).cloneNode(true);
+    all_opts.hide();
+    all_opts.disabled = true;
+    all_opts.name = "";
+    all_opts.id = all_opts_id;
+    $(slave_id).parentNode.appendChild( all_opts );
   }
+  return all_opts_id;   
 }
 
 function init_search_list( list ) {
