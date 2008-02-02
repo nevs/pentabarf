@@ -165,28 +165,21 @@ function master_change( select, slave_column ) {
   var options = slave.options;
   var enabled_counter = 0;
   var first_valid;
-  var old_value = $F( slave );
   for (var i = 0; i < options.length; i++ ) {
     if ( options[i].className == new_value ) {
+      options[i].style.display = 'block';
       enabled_counter++;
-//      options[i].style.display = 'block';
-      options[i].show();
-      if (!first_valid) {
-        first_valid = options[i].value;
-      }
-//      if ( options[i].value == slave.value ) first_valid = slave.value;
+      if (!first_valid) first_valid = options[i].value;
+      if ( options[i].value == slave.value ) first_valid = slave.value;
     } else {
-      options[i].style.display = 'hidden';
-//      options[i].hide();
+      options[i].style.display = 'none';
     }
   }
-  return;
   if ( enabled_counter == 0 ) {
     slave.style.display = 'none';
     slave.value = '';
   } else {
-//    slave.show();
-//    slave.style.display = 'block';
+    slave.style.display = 'block';
     slave.value = first_valid;
   }
 }
