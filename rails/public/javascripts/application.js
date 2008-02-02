@@ -165,21 +165,28 @@ function master_change( select, slave_column ) {
   var options = slave.options;
   var enabled_counter = 0;
   var first_valid;
+  var old_value = $F( slave );
   for (var i = 0; i < options.length; i++ ) {
     if ( options[i].className == new_value ) {
-      options[i].style.display = 'block';
       enabled_counter++;
-      if (!first_valid) first_valid = options[i].value;
-      if ( options[i].value == slave.value ) first_valid = slave.value;
+//      options[i].style.display = 'block';
+      options[i].show();
+      if (!first_valid) {
+        first_valid = options[i].value;
+      }
+//      if ( options[i].value == slave.value ) first_valid = slave.value;
     } else {
-      options[i].style.display = 'none';
+      options[i].style.display = 'hidden';
+//      options[i].hide();
     }
   }
+  return;
   if ( enabled_counter == 0 ) {
     slave.style.display = 'none';
     slave.value = '';
   } else {
-    slave.style.display = 'block';
+//    slave.show();
+//    slave.style.display = 'block';
     slave.value = first_valid;
   }
 }
@@ -312,6 +319,14 @@ function add_person_event( event_person_id, event_id, event_role, event_role_sta
   link.appendChild( document.createTextNode( select.options[select.selectedIndex].text ) );
   select.parentNode.appendChild( link );
   replace_select_with_hidden_field( select );
+}
+
+function logout() {
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.open('GET',window.location,true,"logout","logout");
+  xmlhttp.send('');
+  xmlhttp.abort();
+  window.location = '/logout';
 }
 
 

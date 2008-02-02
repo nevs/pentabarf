@@ -56,7 +56,7 @@ xml.div( :id => 'sidebar' ) do
       xml.a( 'Admin', {:href=> url_for(:controller => 'admin', :action => :index), :class => 'menu-item'} ) if POPE.permission?('modify_config')
       xml.a( 'Localization', {:href=> url_for(:controller => 'localization', :action => :index), :class => 'menu-item'} ) if POPE.permission?('modify_localization')
       xml.a( local('link::preferences'), {:href=> url_for(:controller => 'pentabarf', :action => :person, :id=>POPE.user.person_id), :class => 'menu-item'} )
-      xml.a( 'Logout', {:href=>"#{request.protocol}logout@#{request.host_with_port}/logout", :class => 'menu-item'} ) if POPE.user
+      xml.a( 'Logout', {:href=>"#{request.protocol}logout@#{request.host_with_port}/logout", :onclick=>"logout()", :class => 'menu-item'} ) if POPE.user
     end
 
   end
