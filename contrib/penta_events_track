@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# Copyright (C) 2005 Luciano Bello
+# Copyright (C) 2006 Joerg Jaspert
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; version 2 dated June,
+# 1991.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+#
+# Graph Propousals
+
+# DB, User and password to comas db
+source /etc/munin/database.conf
+
+if [ "$1" = "config" ]; then
+	echo graph_title Proposals by track
+	echo 'graph_args --base 1000 -l 0'
+	echo 'graph_vlabel proposals'
+	echo 'graph_category Pentabarf'
+	echo 'graph_info Shows proposals by track.'
+
+	echo "total.label total"
+	echo "total.info Total proposals."
+	echo 'total.draw AREA'
+
+	echo "debcamp.label debcamp"
+	echo "debcamp.info DebCamp Track."
+	echo 'debcamp.draw LINE2'
+
+	echo "debconf.label debconf"
+	echo "debconf.info DebConf Track."
+	echo 'debconf.draw LINE2'
+
+	exit 0
+fi
+
+conf_id=2
+
+debcamp=`psql -Atc "SELECT COUNT(event_id) FROM event WHERE conference_track='DebCamp' AND conference_id=$conf_id" $PGDB`
+debconf=`psql -Atc "SELECT COUNT(event_id) FROM event WHERE conference_track='DebConf' AND conference_id=$conf_id" $PGDB`
+
+total=$((debcamp + debconf))
+
+echo "debcamp.value $debcamp" 
+echo "debconf.value $debconf" 
+echo "total.value $total" 
+

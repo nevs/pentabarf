@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# Copyright (C) 2005 Luciano Bello
+# Copyright (C) 2006 Joerg Jaspert
+# Copyright (C) 2008 Mark Hymers
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; version 2 dated June,
+# 1991.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+#
+# Graph reconfirmation
+
+# DB, User and password to comas db
+source /etc/munin/database.conf
+
+if [ "$1" = "config" ]; then
+	echo graph_title Number of actual attendees
+	echo 'graph_args --base 1000 -l 0'
+	echo 'graph_vlabel Historical Attendance'
+	echo 'graph_category Pentabarf'
+	echo 'graph_info Shows number of people who arrived at each of the Debconf conferences'
+
+	echo "dc7number.label debconf7"
+	echo "dc7number.info Number of people who arrived at DC7"
+	echo 'dc7number.draw LINE'
+
+	echo "dc8number.label debconf8"
+	echo "dc8number.info Number of people who arrived at DC8"
+	echo 'dc8number.draw LINE'
+
+	exit 0
+fi
+
+dc7number=`psql -Atc 'SELECT COUNT(person_id) FROM conference_person WHERE conference_id = 1 AND arrived IS TRUE;' $PGDB`
+dc8number=`psql -Atc 'SELECT COUNT(person_id) FROM conference_person WHERE conference_id = 2 AND arrived IS TRUE;' $PGDB`
+
+echo "dc7number.value $dc7number" 
+echo "dc8number.value $dc8number"

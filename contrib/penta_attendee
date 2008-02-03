@@ -1,0 +1,56 @@
+#!/bin/sh
+#
+# Copyright (C) 2005 Luciano Bello
+# Copyright (C) 2006 Joerg Jaspert
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; version 2 dated June,
+# 1991.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+#
+# Graph reconfirmation
+
+# DB, User and password to comas db
+source /etc/munin/database.conf
+
+if [ "$1" = "config" ]; then
+	echo graph_title Number of people who have registered, confirmed and arrived
+	echo 'graph_args --base 1000 -l 0'
+	echo 'graph_vlabel Attending'
+	echo 'graph_category Pentabarf'
+	echo 'graph_info Shows number of people who have marked themself as attending DC8'
+
+	echo "number.label attending"
+	echo "number.info Number of people who have indicated they will attend."
+	echo 'number.draw AREA'
+
+	echo "reconfirmed.label reconfirmed"
+	echo "reconfirmed.info Number of people who have reconfirmed attendance."
+	echo 'reconfirmed.draw LINE'
+
+	echo "arrived.label arrived"
+	echo "arrived.info Number of people who have arrived at the venue."
+	echo 'arrived.draw AREA'
+
+	exit 0
+fi
+
+conf_id=2
+
+number=`psql -Atc "SELECT COUNT(person_id) FROM debconf.dc_conference_person WHERE conference_id = $conf_id AND attend IS TRUE;" $PGDB`
+reconfirmed=`psql -Atc "SELECT COUNT(person_id) FROM conference_person WHERE conference_id = $conf_id AND reconfirmed IS TRUE;" $PGDB`
+arrived=`psql -Atc "SELECT COUNT(person_id) FROM conference_person WHERE conference_id = $conf_id AND arrived IS TRUE;" $PGDB`
+
+echo "number.value $number" 
+echo "reconfirmed.value $reconfirmed" 
+echo "arrived.value $arrived" 

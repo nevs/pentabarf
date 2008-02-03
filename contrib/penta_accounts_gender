@@ -1,0 +1,57 @@
+#!/bin/sh
+#
+# Copyright (C) 2005 Luciano Bello
+# Copyright (C) 2006 Joerg Jaspert
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; version 2 dated June,
+# 1991.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#
+#
+# Graph Participants
+#
+# DB, User and password to comas db
+source /etc/munin/database.conf
+
+if [ "$1" = "config" ]; then
+	echo graph_title Participants by gender
+	echo 'graph_args --base 1000 -l 0'
+	echo 'graph_vlabel participants'
+	echo 'graph_category Pentabarf'
+	echo 'graph_info Shows participants by gender.'
+
+	echo "total.label total"
+	echo "total.info Number of participants."
+	echo 'total.draw AREA'
+
+	echo "male.label Male"
+	echo "male.info Male."
+	echo 'male.draw LINE2'
+
+	echo "female.label Female"
+	echo "female.info Female."
+	echo 'female.draw LINE2'
+
+	exit 0
+fi
+
+conf_id=2
+
+total=`psql -Atc "SELECT COUNT(person_id) FROM debconf.dc_conference_person WHERE conference_id = $conf_id AND attend IS TRUE;" $PGDB`
+male=`psql -Atc "SELECT COUNT(person_id) from person join debconf.dc_conference_person USING (person_id) WHERE gender=true AND attend IS TRUE AND conference_id = $conf_id;" $PGDB`
+female=`psql -Atc "SELECT COUNT(person_id) from person join debconf.dc_conference_person USING (person_id) WHERE gender=false AND attend IS TRUE AND conference_id = $conf_id;" $PGDB`
+
+echo "male.value $male" 
+echo "female.value $female" 
+echo "total.value $total" 
+
