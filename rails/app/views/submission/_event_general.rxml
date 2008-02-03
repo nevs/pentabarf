@@ -23,5 +23,25 @@ xml.div(:id=>'content-general') do
     end
   end
 
-
+  xml.fieldset do
+    xml.legend local('view::pentabarf::event::tab::schedule')
+    xml.table do 
+      xml.tr do  
+        xml.td do xml.b( local('table::event::conference_day')) end
+        xml.td( @event.conference_day )
+      end        
+      xml.tr do  
+        xml.td do xml.b( local('table::event::start_time')) end
+        xml.td( @event.start_time )
+      end        
+      xml.tr do  
+        xml.td do xml.b( local('table::event::duration')) end
+        xml.td( @event.duration )
+      end        
+      xml.tr do  
+        xml.td do xml.b( local('table::event::conference_room')) end
+        xml.td( @event.conference_room )
+      end        
+    end          
+  end
 end
