@@ -7,11 +7,11 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @event, :title )
       xml << text_field_row( @event, :subtitle )
       xml.tr do
-        xml.td do xml.b( local('table::event::event_origin')) end
+        xml.td do xml.b( local('table::event::event_state')) end
         xml.td( @event.event_state )
       end
       xml.tr do
-        xml.td do xml.b( local('table::event::event_state')) end
+        xml.td do xml.b( local('table::event::event_state_progress')) end
         xml.td( @event.event_state_progress )
       end
       xml << select_row( @event, :paper, [[nil,'unknown'],[true,'yes'],[false,'no']] )
