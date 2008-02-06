@@ -70,4 +70,8 @@ class LocalizationController < ApplicationController
     @languages = Language.select({:localized=>'t'},{:order=>:language})
   end
 
+  def check_permission
+    return POPE.permission?('modify_localization')
+  end
+
 end
