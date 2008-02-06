@@ -29,7 +29,7 @@ class AdminController < ApplicationController
   end
 
   def save_custom_fields
-    write_rows( Custom_fields, params[:custom_fields], {:ignore_empty=>:field_name,:always=>[:not_null]})
+    write_rows( Custom_fields, params[:custom_fields], {:ignore_empty=>:field_name})
     redirect_to( :action => :custom_fields )
   end
 

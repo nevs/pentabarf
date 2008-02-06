@@ -30,29 +30,43 @@ CREATE TABLE base.custom_fields (
   table_name TEXT NOT NULL,
   field_name TEXT NOT NULL,
   field_type TEXT NOT NULL,
-  CHECK( table_name IN ('conference_person') ),
+  CHECK( table_name IN ('conference_person','person','event','conference') ),
   CHECK( field_name ~* '^[a-z_0-9]+$' ),
   CHECK( field_type IN ('boolean','text') )
 );
+CREATE TABLE custom.custom_fields ( PRIMARY KEY( table_name, field_name )) INHERITS( base.custom_fields );
+CREATE TABLE log.custom_fields () INHERITS( base.logging, base.custom_fields );
 
-CREATE TABLE custom.custom_fields (
-  PRIMARY KEY( table_name, field_name )
-) INHERITS( base.custom_fields );
+CREATE TABLE base.custom_conference (conference_id INTEGER NOT NULL);
+CREATE TABLE custom.custom_conference (
+  PRIMARY KEY( conference_id ),
+  FOREIGN KEY( conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE
+) INHERITS( base.custom_conference );
+CREATE TABLE log.custom_conference () INHERITS( base.logging, base.custom_conference );
 
-CREATE TABLE log.custom_fields (
-) INHERITS( base.logging, base.custom_fields );
+CREATE TABLE base.custom_event (event_id INTEGER NOT NULL);
+CREATE TABLE custom.custom_event (
+  PRIMARY KEY( event_id ),
+  FOREIGN KEY( event_id) REFERENCES event(event_id) ON UPDATE CASCADE ON DELETE CASCADE
+) INHERITS( base.custom_event );
+CREATE TABLE log.custom_event () INHERITS( base.logging, base.custom_event );
 
-CREATE TABLE base.custom_conference_person (
-  conference_person_id INTEGER NOT NULL
-);
+CREATE TABLE base.custom_person (person_id INTEGER NOT NULL);
+CREATE TABLE custom.custom_person (
+  PRIMARY KEY( person_id ),
+  FOREIGN KEY( person_id) REFERENCES person(person_id) ON UPDATE CASCADE ON DELETE CASCADE
+) INHERITS( base.custom_person );
+CREATE TABLE log.custom_person () INHERITS( base.logging, base.custom_person );
 
+CREATE TABLE base.custom_conference_person (conference_person_id INTEGER NOT NULL);
 CREATE TABLE custom.custom_conference_person (
   PRIMARY KEY( conference_person_id ),
   FOREIGN KEY( conference_person_id) REFERENCES conference_person(conference_person_id) ON UPDATE CASCADE ON DELETE CASCADE
 ) INHERITS( base.custom_conference_person );
+CREATE TABLE log.custom_conference_person () INHERITS( base.logging, base.custom_conference_person );
 
-CREATE TABLE log.custom_conference_person (
-) INHERITS( base.logging, base.custom_conference_person );
+
+
 
 INSERT INTO ui_message VALUES ('table::conference_person_travel::accommodation_currency');
 INSERT INTO ui_message_localized VALUES ('table::conference_person_travel::accommodation_currency','en','Currency');
