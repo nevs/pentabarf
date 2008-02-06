@@ -45,6 +45,25 @@ INSERT INTO object_domain ("object", "domain") VALUES ('conference_team', 'confe
 INSERT INTO object_domain ("object", "domain") VALUES ('account_role', 'account');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_day', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_feedback', 'public');
+INSERT INTO object_domain ("object", "domain") VALUES ('attachment_type_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('transport_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('phone_type_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('mime_type_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_phase_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_origin_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_role_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('country_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('currency_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_state_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_type_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('im_type_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('language_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('link_type_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_role_state_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_state_progress_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('custom_fields', 'custom');
+INSERT INTO object_domain ("object", "domain") VALUES ('custom_conference_person', 'person');
+INSERT INTO object_domain ("object", "domain") VALUES ('ui_message', 'localization');
 
 
 --
