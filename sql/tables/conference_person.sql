@@ -7,7 +7,7 @@ CREATE TABLE base.conference_person (
   description TEXT,
   remark TEXT,
   email TEXT,
-  arrived BOOL NOT NULL DEFAULT FALSE
+  arrived BOOL NOT NULL DEFAULT FALSE,
   reconfirmed BOOL NOT NULL DEFAULT FALSE
 );
 
