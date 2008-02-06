@@ -9,6 +9,7 @@ CREATE OR REPLACE FUNCTION custom_field_trigger() RETURNS trigger AS $$
       IF FOUND THEN
         EXECUTE 'ALTER TABLE base.' || quote_ident( 'custom_' || OLD.table_name ) || ' DROP COLUMN ' || quote_ident( OLD.field_name );
       END IF;
+      RETURN OLD;
     ELSIF TG_OP = 'INSERT' THEN
       PERFORM 1 FROM information_schema.columns WHERE table_name = 'custom_' || NEW.table_name AND table_schema = 'base' AND column_name = NEW.field_name;
       IF FOUND THEN
