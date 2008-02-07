@@ -163,13 +163,16 @@ function master_change( select, slave_column ) {
   var all_opts = $( slave_init( slave_id ) ).options;
   var slave = $( slave_id );
   var slave_value = slave.value;
+  var real_value = null;
   slave.options.length = 0;
-  for ( var i = 0; i < all_opts.length; i ++ ) {
+  for ( var i = 0; i < all_opts.length; i++ ) {
     if ( all_opts[i].className == select.value ) {
+      if (slave_value == all_opts[i].value || !real_value)
+        real_value = all_opts[i].value;
       slave.options[slave.options.length] = all_opts[i].cloneNode(true);  
     }
   }
-  slave.value = slave_value;
+  slave.value = real_value;
   if ( slave.options.length == 0 )
     slave.hide();
   else
