@@ -90,7 +90,10 @@ INSERT INTO auth.permission VALUES ('modify_custom');
 INSERT INTO auth.role_permission VALUES ('admin','modify_custom');
 INSERT INTO auth.role_permission VALUES ('developer','modify_custom');
 INSERT INTO auth.object_domain VALUES ('custom_fields','custom');
+INSERT INTO auth.object_domain VALUES ('custom_conference','conference');
+INSERT INTO auth.object_domain VALUES ('custom_event','event');
 INSERT INTO auth.object_domain VALUES ('custom_conference_person','person');
+INSERT INTO auth.object_domain VALUES ('custom_person','person');
 INSERT INTO auth.object_domain VALUES ('ui_message','localization');
 
 CREATE TRIGGER custom_fields_trigger BEFORE INSERT OR UPDATE OR DELETE ON custom.custom_fields FOR EACH ROW EXECUTE PROCEDURE custom_field_trigger();
