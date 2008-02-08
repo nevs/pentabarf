@@ -64,6 +64,9 @@ INSERT INTO object_domain ("object", "domain") VALUES ('event_state_progress_loc
 INSERT INTO object_domain ("object", "domain") VALUES ('custom_fields', 'custom');
 INSERT INTO object_domain ("object", "domain") VALUES ('custom_conference_person', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('ui_message', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('custom_conference', 'conference');
+INSERT INTO object_domain ("object", "domain") VALUES ('custom_event', 'event');
+INSERT INTO object_domain ("object", "domain") VALUES ('custom_person', 'person');
 
 
 --
