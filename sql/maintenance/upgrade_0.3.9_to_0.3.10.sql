@@ -66,8 +66,6 @@ CREATE TABLE custom.custom_conference_person (
 CREATE TABLE log.custom_conference_person () INHERITS( base.logging, base.custom_conference_person );
 
 
-
-
 INSERT INTO ui_message VALUES ('table::conference_person_travel::accommodation_currency');
 INSERT INTO ui_message_localized VALUES ('table::conference_person_travel::accommodation_currency','en','Currency');
 INSERT INTO ui_message VALUES ('table::conference_person_travel::fee_currency');

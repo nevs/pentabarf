@@ -24,7 +24,7 @@ CREATE OR REPLACE FUNCTION custom_field_trigger() RETURNS trigger AS $$
       END IF;
       EXECUTE 'ALTER TABLE base.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD COLUMN ' || quote_ident( NEW.field_name ) || ' ' || NEW.field_type;
     ELSIF TG_OP = 'UPDATE' THEN
-      -- RAISE EXCEPTION 'Not yet implemented';
+      RAISE EXCEPTION 'Not yet implemented';
     END IF;
 
     PERFORM log.activate_logging();
