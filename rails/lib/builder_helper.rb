@@ -152,5 +152,14 @@ module Builder_helper
     end
   end
 
+  def custom_field_row( field, custom )
+    case field.field_type
+      when "boolean"
+        check_box_row( custom, field.field_name )
+      when "text"
+        text_field_row( custom, field.field_name )
+    end
+  end
+
 end
 

@@ -17,21 +17,17 @@ xml.div(:id=>'content-general') do
     end
   end
 
-  @custom = Custom_conference_person.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
+  custom = Custom_conference_person.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
+  custom_fields = Custom_fields.select(:table_name=>:conference_person)
   xml.fieldset do
     xml.legend local('custom fields')
     xml.table do
-      Custom_fields.select(:table_name=>:conference_person).each do | f |
-        case f.field_type
-          when "boolean"
-            xml << check_box_row( @custom, f.field_name, {:label=>f.field_name} )
-          when "text"
-            xml << text_field_row( @custom, f.field_name, {:label=>f.field_name})
-        end
+      custom_fields.each do | field |
+        next unless custom.respond_to?(field.field_name)
+        xml << custom_field_row( field, custom )
       end
-
     end
-  end
+  end unless custom_fields.empty?
 
 
   xml.fieldset do
