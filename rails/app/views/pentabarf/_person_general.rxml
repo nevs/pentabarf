@@ -29,7 +29,6 @@ xml.div(:id=>'content-general') do
     end
   end unless custom_fields.empty?
 
-
   xml.fieldset do
     xml.legend( local('spoken languages') )
     xml.table(:id=>'person_language_table',:style=>'display:none') do
