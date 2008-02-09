@@ -24,7 +24,9 @@ CREATE OR REPLACE FUNCTION custom_field_trigger() RETURNS trigger AS $$
       END IF;
       EXECUTE 'ALTER TABLE base.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD COLUMN ' || quote_ident( NEW.field_name ) || ' ' || NEW.field_type;
     ELSIF TG_OP = 'UPDATE' THEN
-      RAISE EXCEPTION 'Not yet implemented';
+      IF OLD.table_name <> NEW.table_name THEN RAISE EXCEPTION 'Changing table is not allowed.'; END IF;
+      IF OLD.field_name <> NEW.field_name THEN RAISE EXCEPTION 'Changing field name is not allowed.'; END IF;
+      IF OLD.field_type <> NEW.field_type THEN RAISE EXCEPTION 'Changing field type is not allowed.'; END IF;
     END IF;
 
     PERFORM log.activate_logging();
