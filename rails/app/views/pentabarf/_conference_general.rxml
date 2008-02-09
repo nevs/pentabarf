@@ -31,7 +31,7 @@ xml.div(:id=>'content-general') do
   custom = Custom_conference.select_or_new({:conference_id=>@conference.conference_id.to_i})
   custom_fields = Custom_fields.select(:table_name=>:conference)
   xml.fieldset do
-    xml.legend local('custom fields')
+    xml.legend local('custom_fields')
     xml.table do
       xml << custom_field_rows( custom_fields, custom )
     end
