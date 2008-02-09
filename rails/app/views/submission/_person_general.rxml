@@ -17,6 +17,24 @@ xml.div(:id=>'content-general') do
     end
   end
 
+  custom_fields_conference_person = Custom_fields.select(:table_name=>:conference_person,:submission_visible=>true)
+  custom_fields_person = Custom_fields.select(:table_name=>:person,:submission_visible=>true)
+  xml.fieldset do
+    xml.legend local('custom fields')
+    xml.table do
+      if custom_fields_person.length > 0
+        xml.tr do xml.th(local(:person),{:colspan=>2}) end
+        custom = Custom_person.select_or_new({:person_id=>@person.person_id.to_i})
+        xml << custom_field_rows( custom_fields_person, custom )
+      end
+      if custom_fields_conference_person.length > 0
+        xml.tr do xml.th(local(:conference_person),{:colspan=>2}) end
+        custom = Custom_conference_person.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
+        xml << custom_field_rows( custom_fields_conference_person, custom )
+      end
+    end
+  end if custom_fields_conference_person.length > 0 || custom_fields_person.length > 0
+
   xml.fieldset do
     xml.legend( local('spoken languages') )
     xml.table(:id=>'person_language_table',:style=>'display:none') do
