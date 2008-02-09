@@ -1,4 +1,4 @@
-tabs = [:general,:days,:teams,:tracks,:rooms,:export,:feedback]
+tabs = [:general,:days,:teams,:tracks,:rooms,:room_roles,:export,:feedback]
 
 xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/calendar.js')})
 xml.script('',{:type=>'text/javascript',:src=>javascript_path('/javascripts/jscalendar/lang/calendar-en.js')})

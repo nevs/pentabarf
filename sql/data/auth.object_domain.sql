@@ -41,6 +41,7 @@ INSERT INTO object_domain ("object", "domain") VALUES ('person_availability', 'p
 INSERT INTO object_domain ("object", "domain") VALUES ('account', 'account');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_travel', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_room', 'conference');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_room_role', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_team', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('account_role', 'account');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_day', 'conference');

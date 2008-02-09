@@ -1,0 +1,36 @@
+xml.div(:id=>'content-room_roles') do
+
+  xml.fieldset do
+    xml.legend( local('room-role') )
+    xml.table(:id=>'conference_room_role_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('conference_room') )
+          xml.th( local('event_role') )
+          xml.th( local('amount') )
+          xml.th( local('remove') )
+        end
+      end
+      xml.tbody(:id=>'conference_room_role_tbody') do
+        xml.tr(:id=>'conference_room_role_template',:style=>'display:none') do
+          xml.td do
+						xml << select_tag( 'conference_room_role[row_id][conference_room]',  Conference_room.select({:conference_id=>@conference.conference_id},{:order=>[:rank,:conference_room]}).map(&:conference_room))
+          end
+          xml.td do xml << select_tag( 'conference_room_role[row_id][event_role]', Event_role.select.map{|e| e.event_role}) end
+          xml.td do xml.input({:type=>:text,:id=>'conference_room_role[row_id][amount]',:name=>'conference_room_role[row_id][amount]',:size=>5}) end
+          xml.td do xml.input({:type=>:checkbox,:name=>'conference_room_role[row_id][remove]',:id=>'conference_room_role[row_id][remove]'}) end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do
+      Conference_room_role.select({:conference_id => @conference.conference_id}, {:order=>[:conference_room]} ).each do | c |
+        xml << js_function( 'table_add_row', 'conference_room_role', c.conference_room, c.event_role, c.amount )
+      end
+    end
+
+    xml.button( local('add conference room role'), {:type=>:button,:onclick=>'table_add_row("conference_room_role")'})
+  end
+
+end
+

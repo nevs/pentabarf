@@ -27,6 +27,7 @@
 \i functions/conflict/event/no_slides.sql
 \i functions/conflict/event/no_speaker.sql
 \i functions/conflict/event/no_track.sql
+\i functions/conflict/event/no_room_roles.sql
 \i functions/conflict/event/paper_unknown.sql
 \i functions/conflict/event_person/conflict_event_person.sql
 \i functions/conflict/event_person/event_after_departure.sql
