@@ -152,19 +152,19 @@ module Builder_helper
     end
   end
 
-  def custom_field_rows( fields, custom )
+  def custom_field_rows( fields, custom, options={} ) 
     fields.map{ | field |
       next unless custom.respond_to?(field.field_name)
-      custom_field_row( field, custom )
+      custom_field_row( field, custom, options )
     }.join("")
   end
 
-  def custom_field_row( field, custom )
+  def custom_field_row( field, custom, options={} )
     case field.field_type
       when "boolean"
-        check_box_row( custom, field.field_name )
+        check_box_row( custom, field.field_name, options )
       when "text"
-        text_field_row( custom, field.field_name )
+        text_field_row( custom, field.field_name, options )
     end
   end
 
