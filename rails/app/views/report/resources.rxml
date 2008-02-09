@@ -7,8 +7,8 @@ xml.div({:id=>:data}) do
   xml.table({:id=>:report_resources_table,:class=>:sortable}) do
     xml.thead do
       xml.tr do
-        xml.th( local( 'table::event::title'), {:colspan=>2} )
-        xml.th( local( 'table::event::resources') )
+        xml.th( local( 'event::title'), {:colspan=>2} )
+        xml.th( local( 'event::resources') )
       end
     end
 
@@ -30,8 +30,8 @@ xml.div({:id=>:data}) do
 
     xml.tfoot do
       xml.tr do
-        xml.th( local( 'table::event::title'), {:colspan=>2} )
-        xml.th( local( 'table::event::resources') )
+        xml.th( local( 'event::title'), {:colspan=>2} )
+        xml.th( local( 'event::resources') )
       end
     end
 

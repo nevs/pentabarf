@@ -3,8 +3,8 @@ xml.p( local( 'submission::events::introduction' ) )
 xml.table do
   xml.thead do
     xml.tr do
-      xml.th(local('table::event::title'),{:colspan=>2})
-      xml.th(local('table::event::event_state'))
+      xml.th(local('event::title'),{:colspan=>2})
+      xml.th(local('event::event_state'))
     end
   end
   xml.tbody do

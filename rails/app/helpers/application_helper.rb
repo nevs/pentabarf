@@ -234,7 +234,7 @@ module ApplicationHelper
               next if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea )
               next unless change[column]
               next if klass.primary_keys.member?( column )
-              values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{change[column]}"
+              values << "#{local(table.to_s+'::'+column.to_s)}: #{change[column]}"
             end
             next if values.length == 0 && change.log_operation == "I"
           else
@@ -246,9 +246,9 @@ module ApplicationHelper
               columns.each do | column |
                 if change[column] != old_value[column]
                   if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea )
-                    values << "#{local('table::'+table.to_s+'::'+column.to_s)} changed"
+                    values << "#{local(table.to_s+'::'+column.to_s)} changed"
                   else
-                    values << "#{local('table::'+table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
+                    values << "#{local(table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
                   end
                 end
               end

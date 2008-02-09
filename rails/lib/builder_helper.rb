@@ -10,7 +10,7 @@ module Builder_helper
   def text_field_row( row, column, options = {}, &block )
     options[:size] = 40 unless options[:size]
     table = row.class.table.table_name
-    label = options[:label] || local("table::#{table}::#{column}")
+    label = options[:label] || local("#{table}::#{column}")
     xml = Builder::XmlMarkup.new
     xml.tr do
       xml.td do xml.label( label ) end
@@ -31,7 +31,7 @@ module Builder_helper
   def check_box_row( row, column, options = {}, &block )
     table = row.class.table.table_name
     xml = Builder::XmlMarkup.new
-    label = options[:label] || local("table::#{table}::#{column}")
+    label = options[:label] || local("#{table}::#{column}")
     xml.tr do
       xml.td do xml.label( label ) end
       xml.td do
@@ -48,7 +48,7 @@ module Builder_helper
   def text_area_fieldset( row, column, options = {} )
     table = row.class.table.table_name
     xml = Builder::XmlMarkup.new
-    label = options[:label] || local("table::#{table}::#{column}")
+    label = options[:label] || local("#{table}::#{column}")
     xml.fieldset do
       xml.legend( label )
       options[:id] = options[:name] = "#{table}[#{column}]"
@@ -95,7 +95,7 @@ module Builder_helper
 
   def select_row( row, column, collection, options = {} )
     name = "#{row.class.table.table_name}[#{column}]"
-    label = options[:label] || local("table::#{row.class.table.table_name}::#{column}")
+    label = options[:label] || local("#{row.class.table.table_name}::#{column}")
     options[:selected] = row.send(column) unless options[:selected]
     xml = Builder::XmlMarkup.new
     xml.tr do
@@ -109,7 +109,7 @@ module Builder_helper
     options[:checked] ||= row.send(column)
     xml = Builder::XmlMarkup.new
     xml.tr do
-      xml.td do xml.label( local( "table::#{row.class.table.table_name}::#{column}" ) ) end
+      xml.td do xml.label( local( "#{row.class.table.table_name}::#{column}" ) ) end
       collection.each do | element |
         if element.instance_of?( Array )
           key = element.first
@@ -145,7 +145,7 @@ module Builder_helper
   def file_row( table, column )
     xml = Builder::XmlMarkup.new
     xml.tr do
-      xml.td do xml.label local( "table::#{table}::#{column}" ) end
+      xml.td do xml.label local( "#{table}::#{column}" ) end
       xml.td do
         xml << file_field_tag( "#{table}[#{column}]", {:tabindex => 0, :onchange => "enable_save_button()"})
       end

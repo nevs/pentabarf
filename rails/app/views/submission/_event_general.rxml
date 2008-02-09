@@ -7,11 +7,11 @@ xml.div(:id=>'content-general') do
       xml << text_field_row( @event, :title )
       xml << text_field_row( @event, :subtitle )
       xml.tr do
-        xml.td do xml.b( local('table::event::event_state')) end
+        xml.td do xml.b( local('event::event_state')) end
         xml.td( @event.event_state )
       end
       xml.tr do
-        xml.td do xml.b( local('table::event::event_state_progress')) end
+        xml.td do xml.b( local('event::event_state_progress')) end
         xml.td( @event.event_state_progress )
       end
       xml << select_row( @event, :paper, [[nil,'unknown'],[true,'yes'],[false,'no']] )
@@ -27,19 +27,19 @@ xml.div(:id=>'content-general') do
     xml.legend local('view::pentabarf::event::tab::schedule')
     xml.table do 
       xml.tr do  
-        xml.td do xml.b( local('table::event::conference_day')) end
+        xml.td do xml.b( local('event::conference_day')) end
         xml.td( @event.conference_day )
       end        
       xml.tr do  
-        xml.td do xml.b( local('table::event::start_time')) end
+        xml.td do xml.b( local('event::start_time')) end
         xml.td( @event.start_time )
       end        
       xml.tr do  
-        xml.td do xml.b( local('table::event::duration')) end
+        xml.td do xml.b( local('event::duration')) end
         xml.td( @event.duration )
       end        
       xml.tr do  
-        xml.td do xml.b( local('table::event::conference_room')) end
+        xml.td do xml.b( local('event::conference_room')) end
         xml.td( @event.conference_room )
       end        
     end          
