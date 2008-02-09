@@ -3385,7 +3385,7 @@ var Form = {
 
     var data = elements.inject({ }, function(result, element) {
       if (!element.disabled && element.name) {
-        key = element.name; value = $(element).getValue();
+        key = element.name; value = $F(element);
         if (value != null && (element.type != 'submit' || (!submitted &&
             submit !== false && (!submit || key == submit) && (submitted = true)))) {
           if (key in result) {
@@ -4219,3 +4219,4 @@ Object.extend(Element.ClassNames.prototype, Enumerable);
 /*--------------------------------------------------------------------------*/
 
 Element.addMethods();
+
