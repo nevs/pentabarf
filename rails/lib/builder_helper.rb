@@ -152,6 +152,13 @@ module Builder_helper
     end
   end
 
+  def custom_field_rows( fields, custom )
+    fields.map{ | field |
+      next unless custom.respond_to?(field.field_name)
+      custom_field_row( field, custom )
+    }.join("")
+  end
+
   def custom_field_row( field, custom )
     case field.field_type
       when "boolean"
