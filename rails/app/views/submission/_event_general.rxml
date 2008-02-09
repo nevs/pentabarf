@@ -23,6 +23,15 @@ xml.div(:id=>'content-general') do
     end
   end
 
+  custom = Custom_event.select_or_new({:event_id=>@event.event_id.to_i})
+  custom_fields = Custom_fields.select(:table_name=>:event,:submission_visible=>true)
+  xml.fieldset do
+    xml.legend local('custom_fields')
+    xml.table do
+      xml << custom_field_rows( custom_fields, custom )
+    end
+  end unless custom_fields.empty?
+
   xml.fieldset do
     xml.legend local('view::pentabarf::event::tab::schedule')
     xml.table do 
