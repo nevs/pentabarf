@@ -7,11 +7,11 @@ xml.div do
       xml.table(:id=>'custom_fields_table',:style=>'display:none') do
         xml.thead do
           xml.tr do
-            xml.th( local('table_name') )
-            xml.th( local('field_name') )
-            xml.th( local('field_type') )
-            xml.th( local('submission_visible') )
-            xml.th( local('submission_settable') )
+            xml.th( local('custom_fields::table_name') )
+            xml.th( local('custom_fields::field_name') )
+            xml.th( local('custom_fields::field_type') )
+            xml.th( local('custom_fields::submission_visible') )
+            xml.th( local('custom_fields::submission_settable') )
             xml.th( local('remove') )
           end
         end
