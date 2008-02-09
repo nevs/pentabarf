@@ -20,6 +20,8 @@ module MomomotoHelper
     options[:always] << options[:always] unless options[:always].instance_of?( Array )
     options[:preset] ||= {}; options[:init] ||= {};
     options[:remove] ||= false
+    options[:only].map!(&:to_sym) if options[:only]
+    options[:always].map!(&:to_sym)
     row = klass.select_or_new( options[:preset] ) do | field | values[field] end
     if options[:remove] && values['remove']
       row.delete if not row.new_record?
