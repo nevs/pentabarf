@@ -5,6 +5,11 @@ module Builder
 
   class XmlMarkup
 
+    def input( options, &block )
+      options[:id] ||= options[:name]
+      method_missing(:input, options, &block)
+    end
+
     def textarea( value, options, &block )
       options[:id] ||= options[:name]
       method_missing(:textarea, value, options, &block)
