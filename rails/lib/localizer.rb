@@ -17,7 +17,10 @@ class Localizer
         rescue Momomoto::Nothing_found
           if POPE.permission?( :modify_localization )
             ui_msg = Ui_message.select_or_new( :ui_message => tag )
-            ui_msg.write if ui_msg.new_record?
+            if ui_msg.new_record?
+              warn( "creating ui_message `#{tag}`" )
+              ui_msg.write 
+            end
           end
           # warn( "unlocalized tag: `#{tag}` for language #{language}" )
           local = tag.gsub('_',' ').capitalize
