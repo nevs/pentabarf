@@ -100,5 +100,7 @@ ALTER TABLE base.conference_person ADD COLUMN reconfirmed BOOLEAN NOT NULL DEFAU
 
 ALTER TABLE base.event ALTER public SET DEFAULT TRUE;
 
+UPDATE ui_message SET ui_message = regexp_replace(ui_message,'^table::','') WHERE ui_message like 'table::%';
+
 COMMIT;
 
