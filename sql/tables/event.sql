@@ -19,7 +19,7 @@ CREATE TABLE base.event (
   abstract TEXT,
   description TEXT,
   resources TEXT,
-  public BOOL NOT NULL DEFAULT FALSE,
+  public BOOL NOT NULL DEFAULT TRUE,
   paper BOOL,
   slides BOOL,
   remark TEXT,

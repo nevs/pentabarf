@@ -98,5 +98,7 @@ CREATE TRIGGER custom_fields_trigger BEFORE INSERT OR UPDATE OR DELETE ON custom
 
 ALTER TABLE base.conference_person ADD COLUMN reconfirmed BOOLEAN NOT NULL DEFAULT FALSE;
 
+ALTER TABLE base.event ALTER public SET DEFAULT TRUE;
+
 COMMIT;
 
