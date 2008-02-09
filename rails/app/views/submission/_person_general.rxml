@@ -22,15 +22,17 @@ xml.div(:id=>'content-general') do
   xml.fieldset do
     xml.legend local('custom_fields')
     xml.table do
-      if custom_fields_person.length > 0
-        xml.tr do xml.th(local(:person),{:colspan=>2}) end
-        custom = Custom_person.select_or_new({:person_id=>@person.person_id.to_i})
-        xml << custom_field_rows( custom_fields_person, custom )
+      custom = Custom_person.select_or_new({:person_id=>@person.person_id.to_i})
+      custom_fields_person.each do | field |
+        opts = {}
+        opts[:disabled] = :disabled if field.submission_settable == false
+        xml << custom_field_row( field, custom, opts )
       end
-      if custom_fields_conference_person.length > 0
-        xml.tr do xml.th(local(:conference_person),{:colspan=>2}) end
-        custom = Custom_conference_person.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
-        xml << custom_field_rows( custom_fields_conference_person, custom )
+      custom = Custom_conference_person.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
+      custom_fields_conference_person.each do | field |
+        opts = {}
+        opts[:disabled] = :disabled if field.submission_settable == false
+        xml << custom_field_row( field, custom, opts )
       end
     end
   end if custom_fields_conference_person.length > 0 || custom_fields_person.length > 0
