@@ -14,7 +14,6 @@ SET search_path = public, pg_catalog;
 
 INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('application/msword', 'de', 'Word-Dokument');
 INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('application/msword', 'en', 'Word document');
-INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('application/octet-stream', 'de', 'Binärdaten');
 INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('application/octet-stream', 'en', 'binary data');
 INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('application/pdf', 'de', 'PDF-Datei');
 INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('application/pdf', 'en', 'PDF file');
@@ -52,6 +51,13 @@ INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('text/plai
 INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('text/rtf', 'de', 'Rich Text Format');
 INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('text/rtf', 'en', 'rich text format');
 INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('application/x-bzip2', 'en', 'bzip2-compressed file');
+INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('image/pjpeg', 'de', 'JPEG-Bild');
+INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('image/pjpeg', 'en', 'JPEG image');
+INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('application/x-shockwave-flash', 'de', 'Flash');
+INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('application/x-shockwave-flash', 'en', 'Flash');
+INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('image/svg+xml', 'de', 'SVG-Bild');
+INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('image/svg+xml', 'en', 'SVG image');
+INSERT INTO mime_type_localized (mime_type, translated, name) VALUES ('application/octet-stream', 'de', 'Binärdaten');
 
 
 --
