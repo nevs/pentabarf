@@ -26,6 +26,7 @@ INSERT INTO event_role_localized (event_role, translated, name) VALUES ('reviewe
 INSERT INTO event_role_localized (event_role, translated, name) VALUES ('reviewer', 'de', 'Reviewer');
 INSERT INTO event_role_localized (event_role, translated, name) VALUES ('submitter', 'en', 'Submitter');
 INSERT INTO event_role_localized (event_role, translated, name) VALUES ('submitter', 'de', 'Einreichender');
+INSERT INTO event_role_localized (event_role, translated, name) VALUES ('attendee', 'en', 'Attendee');
 
 
 --
