@@ -269,6 +269,7 @@ INSERT INTO country_localized (country, translated, name) VALUES ('sr', 'en', 'S
 INSERT INTO country_localized (country, translated, name) VALUES ('sj', 'en', 'Svalbard and jan mayen');
 INSERT INTO country_localized (country, translated, name) VALUES ('sz', 'en', 'Swaziland');
 INSERT INTO country_localized (country, translated, name) VALUES ('sy', 'en', 'Syrian arab republic');
+INSERT INTO country_localized (country, translated, name) VALUES ('tw', 'en', 'Taiwan, province of china');
 INSERT INTO country_localized (country, translated, name) VALUES ('tj', 'en', 'Tajikistan');
 INSERT INTO country_localized (country, translated, name) VALUES ('tz', 'en', 'Tanzania, united republic of');
 INSERT INTO country_localized (country, translated, name) VALUES ('th', 'en', 'Thailand');
@@ -508,6 +509,7 @@ INSERT INTO country_localized (country, translated, name) VALUES ('sj', 'fr', 'S
 INSERT INTO country_localized (country, translated, name) VALUES ('sz', 'fr', 'Swaziland');
 INSERT INTO country_localized (country, translated, name) VALUES ('sy', 'fr', 'Syrienne, rÃpublique arabe');
 INSERT INTO country_localized (country, translated, name) VALUES ('tj', 'fr', 'Tadjikistan');
+INSERT INTO country_localized (country, translated, name) VALUES ('tw', 'fr', 'TaÃwan, province de chine');
 INSERT INTO country_localized (country, translated, name) VALUES ('tz', 'fr', 'Tanzanie, rÃpublique-unie de');
 INSERT INTO country_localized (country, translated, name) VALUES ('td', 'fr', 'Tchad');
 INSERT INTO country_localized (country, translated, name) VALUES ('cz', 'fr', 'TchÃque, rÃpublique');
@@ -539,9 +541,35 @@ INSERT INTO country_localized (country, translated, name) VALUES ('rs', 'en', 'S
 INSERT INTO country_localized (country, translated, name) VALUES ('rs', 'de', 'Serbien');
 INSERT INTO country_localized (country, translated, name) VALUES ('me', 'en', 'Montenegro');
 INSERT INTO country_localized (country, translated, name) VALUES ('me', 'de', 'Montenegro');
-INSERT INTO country_localized (country, translated, name) VALUES ('tw', 'en', 'Taiwan');
-INSERT INTO country_localized (country, translated, name) VALUES ('tw', 'fr', 'Taiwan');
-INSERT INTO country_localized (country, translated, name) VALUES ('tw', 'de', 'Taiwan');
+INSERT INTO country_localized (country, translated, name) VALUES ('et', 'de', 'Äthiopien');
+INSERT INTO country_localized (country, translated, name) VALUES ('ad', 'de', 'Andorra');
+INSERT INTO country_localized (country, translated, name) VALUES ('ae', 'de', 'Vereinigte Arabische Emirate');
+INSERT INTO country_localized (country, translated, name) VALUES ('af', 'de', 'Afghanistan');
+INSERT INTO country_localized (country, translated, name) VALUES ('ht', 'de', 'Haiti');
+INSERT INTO country_localized (country, translated, name) VALUES ('ma', 'de', 'Marokko');
+INSERT INTO country_localized (country, translated, name) VALUES ('mc', 'de', 'Monaco');
+INSERT INTO country_localized (country, translated, name) VALUES ('do', 'de', 'Dominikanische Republic');
+INSERT INTO country_localized (country, translated, name) VALUES ('jm', 'de', 'Jamaica');
+INSERT INTO country_localized (country, translated, name) VALUES ('dz', 'de', 'Algerien');
+INSERT INTO country_localized (country, translated, name) VALUES ('ci', 'de', 'Elfenbeinküste');
+INSERT INTO country_localized (country, translated, name) VALUES ('cl', 'de', 'Chile');
+INSERT INTO country_localized (country, translated, name) VALUES ('cm', 'de', 'Kamerun');
+INSERT INTO country_localized (country, translated, name) VALUES ('co', 'de', 'Kolumbien');
+INSERT INTO country_localized (country, translated, name) VALUES ('cr', 'de', 'Costa Rica');
+INSERT INTO country_localized (country, translated, name) VALUES ('li', 'de', 'Liechtenstein');
+INSERT INTO country_localized (country, translated, name) VALUES ('cu', 'de', 'Kuba');
+INSERT INTO country_localized (country, translated, name) VALUES ('lk', 'de', 'Sri Lanka');
+INSERT INTO country_localized (country, translated, name) VALUES ('iq', 'de', 'Irak');
+INSERT INTO country_localized (country, translated, name) VALUES ('ir', 'de', 'Iran');
+INSERT INTO country_localized (country, translated, name) VALUES ('ec', 'de', 'Ecuador');
+INSERT INTO country_localized (country, translated, name) VALUES ('eg', 'de', 'Ägypten');
+INSERT INTO country_localized (country, translated, name) VALUES ('ke', 'de', 'Kenia');
+INSERT INTO country_localized (country, translated, name) VALUES ('bs', 'de', 'Bahamas');
+INSERT INTO country_localized (country, translated, name) VALUES ('er', 'de', 'Eritrea');
+INSERT INTO country_localized (country, translated, name) VALUES ('bw', 'de', 'Botswana');
+INSERT INTO country_localized (country, translated, name) VALUES ('bz', 'de', 'Belize');
+INSERT INTO country_localized (country, translated, name) VALUES ('fj', 'de', 'Fiji');
+INSERT INTO country_localized (country, translated, name) VALUES ('bo', 'de', 'Bolivien');
 
 
 --
