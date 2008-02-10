@@ -46,6 +46,7 @@ INSERT INTO permission (permission, rank) VALUES ('modify_review', NULL);
 INSERT INTO permission (permission, rank) VALUES ('modify_account', 20);
 INSERT INTO permission (permission, rank) VALUES ('create_account', 19);
 INSERT INTO permission (permission, rank) VALUES ('delete_account', 21);
+INSERT INTO permission (permission, rank) VALUES ('modify_custom', NULL);
 
 
 --
