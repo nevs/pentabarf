@@ -27,7 +27,7 @@ xml.div({:id=>'event-feedback',:class=>:section}) do
     xml.fieldset do
       xml.legend(local('feedback::my_opinion'))
       xml.p(local('feedback::criticism'))
-      xml.textarea({:name=>'event_feedback[remark]',:cols=>80,:rows=>7})
+      xml.textarea('',{:name=>'event_feedback[remark]',:cols=>80,:rows=>7})
     end
     xml.fieldset do
       xml.input({:type=>:submit,:value=>local(:submit)})
