@@ -20,6 +20,7 @@ INSERT INTO "domain" ("domain") VALUES ('config');
 INSERT INTO "domain" ("domain") VALUES ('review');
 INSERT INTO "domain" ("domain") VALUES ('localization');
 INSERT INTO "domain" ("domain") VALUES ('account');
+INSERT INTO "domain" ("domain") VALUES ('custom');
 
 
 --
