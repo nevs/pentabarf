@@ -165,6 +165,9 @@ module Builder_helper
         check_box_row( custom, field.field_name, options )
       when "text"
         text_field_row( custom, field.field_name, options )
+      when "valuelist"
+        klass = "Custom::#{field.table_name.capitalize}_#{field.field_name}_values".constantize
+        select_row( custom, field.field_name, klass.select.map{|e| e[field.field_name]}, {:with_empty=>true} )
     end
   end
 
