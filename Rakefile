@@ -52,4 +52,7 @@ task :check => [:unincluded_files,:unused_views,:unused_models]
 
 task :default => [:update_css]
 
+task :test do
+  sh "(cd rails && rake test)"
+end
 
