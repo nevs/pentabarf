@@ -157,7 +157,7 @@ class PentabarfController < ApplicationController
     custom_bools = Custom_fields.select({:table_name=>:person,:field_type=>:boolean}).map(&:field_name)
     write_row( Custom_person, params[:custom_person], {:preset=>{:person_id=>person.person_id},:always=>custom_bools})
     custom_bools = Custom_fields.select({:table_name=>:conference_person,:field_type=>:boolean}).map(&:field_name)
-    write_row( Custom_conference_person, params[:custom_conference_person], {:preset=>{:conference_person_id=>conference_person.conference_person_id},:always=>custom_bools})
+    write_row( Custom_conference_person, params[:custom_conference_person], {:preset=>{:person_id=>person.person_id,:conference_id=>conference_person.conference_id},:always=>custom_bools})
     write_row( Conference_person_travel, params[:conference_person_travel], {:preset=>{:conference_person_id => conference_person.conference_person_id}})
     write_row( Person_rating, params[:person_rating], {:preset=>{:person_id => person.person_id,:evaluator_id=>POPE.user.person_id}})
     write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})

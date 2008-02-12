@@ -15,31 +15,31 @@ CREATE OR REPLACE FUNCTION custom_field_trigger() RETURNS trigger AS $$
         END IF;
       END IF;
 
---      PERFORM log.activate_logging();
+      PERFORM log.activate_logging();
       RETURN OLD;
 
     ELSIF TG_OP = 'INSERT' THEN
 
       IF NEW.field_name !~* '^[a-z_0-9]+$' OR NEW.field_name IN ('conference_id','event_id','person_id','conference_person_id') THEN
-        RAISE EXCEPTION 'Invalid field_name: %', NEW.field_name; 
+        RAISE EXCEPTION 'Invalid field_name: %', NEW.field_name;
       END IF;
 
       PERFORM 1 FROM information_schema.columns WHERE table_name = 'custom_' || NEW.table_name AND table_schema = 'base' AND column_name = NEW.field_name;
       -- the fields seems to exist already
       IF FOUND THEN RETURN NEW; END IF;
 
-      IF NEW.field_type IN ('text','boolean') THEN 
+      IF NEW.field_type IN ('text','boolean') THEN
         EXECUTE 'ALTER TABLE base.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD COLUMN ' || quote_ident( NEW.field_name ) || ' ' || NEW.field_type;
       ELSIF NEW.field_type = 'valuelist' THEN
-        EXECUTE 'CREATE TABLE custom.' || quote_ident('custom_' || NEW.table_name || '_' || NEW.field_name || '_values') || 
+        EXECUTE 'CREATE TABLE custom.' || quote_ident('custom_' || NEW.table_name || '_' || NEW.field_name || '_values') ||
                 '('||quote_ident(NEW.field_name)||' TEXT PRIMARY KEY)';
         EXECUTE 'ALTER TABLE base.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD COLUMN ' || quote_ident( NEW.field_name ) || ' TEXT';
-        EXECUTE 'ALTER TABLE custom.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD CONSTRAINT '|| quote_ident(NEW.table_name||'_'||NEW.field_name||'_fk') ||' FOREIGN KEY(' || quote_ident( NEW.field_name ) || ') REFERENCES custom.' || quote_ident('custom_' || NEW.table_name || '_' || NEW.field_name || '_values') || '('||quote_ident(NEW.field_name)||')';
+        EXECUTE 'ALTER TABLE custom.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD CONSTRAINT '|| quote_ident(NEW.table_name||'_'||NEW.field_name||'_fk') ||' FOREIGN KEY(' || quote_ident( NEW.field_name ) || ') REFERENCES custom.' || quote_ident('custom_' || NEW.table_name || '_' || NEW.field_name || '_values') || '('||quote_ident(NEW.field_name)||') ON UPDATE CASCADE ON DELETE SET NULL';
       ELSE
         RAISE EXCEPTION 'Invalid field_type: %', NEW.field_type;
       END IF;
 
---      PERFORM log.activate_logging();
+      PERFORM log.activate_logging();
       RETURN NEW;
 
     ELSIF TG_OP = 'UPDATE' THEN

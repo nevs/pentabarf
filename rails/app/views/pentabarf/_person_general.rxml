@@ -29,7 +29,7 @@ xml.div(:id=>'content-general') do
       end
       if custom_fields_conference_person.length > 0
         xml.tr do xml.th(local(:conference_person),{:colspan=>2}) end
-        custom = Custom_conference_person.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
+        custom = Custom_conference_person.select_or_new({:person_id=>@person.person_id,:conference_id=>@current_conference.conference_id})
         xml << custom_field_rows( custom_fields_conference_person, custom )
       end
     end
