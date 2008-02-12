@@ -29,12 +29,22 @@ CREATE OR REPLACE FUNCTION custom_field_trigger() RETURNS trigger AS $$
       IF FOUND THEN RETURN NEW; END IF;
 
       IF NEW.field_type IN ('text','boolean') THEN
+        -- simple datatype
         EXECUTE 'ALTER TABLE base.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD COLUMN ' || quote_ident( NEW.field_name ) || ' ' || NEW.field_type;
       ELSIF NEW.field_type = 'valuelist' THEN
+        -- global valuelist
         EXECUTE 'CREATE TABLE custom.' || quote_ident('custom_' || NEW.table_name || '_' || NEW.field_name || '_values') ||
                 '('||quote_ident(NEW.field_name)||' TEXT PRIMARY KEY)';
         EXECUTE 'ALTER TABLE base.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD COLUMN ' || quote_ident( NEW.field_name ) || ' TEXT';
         EXECUTE 'ALTER TABLE custom.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD CONSTRAINT '|| quote_ident(NEW.table_name||'_'||NEW.field_name||'_fk') ||' FOREIGN KEY(' || quote_ident( NEW.field_name ) || ') REFERENCES custom.' || quote_ident('custom_' || NEW.table_name || '_' || NEW.field_name || '_values') || '('||quote_ident(NEW.field_name)||') ON UPDATE CASCADE ON DELETE SET NULL';
+      ELSIF NEW.field_type = 'conference-valuelist' THEN
+        -- per conference valuelist
+        EXECUTE 'CREATE TABLE custom.' || quote_ident('custom_' || NEW.table_name || '_' || NEW.field_name || '_values') ||
+                '(conference_id INTEGER NOT NULL REFERENCES conference(conference_id),'||
+                 quote_ident(NEW.field_name)||' TEXT NOT NULL,' ||
+                 'PRIMARY KEY(conference_id,'||quote_ident(NEW.field_name)||'))';
+        EXECUTE 'ALTER TABLE base.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD COLUMN ' || quote_ident( NEW.field_name ) || ' TEXT';
+        EXECUTE 'ALTER TABLE custom.' || quote_ident( 'custom_' || NEW.table_name ) || ' ADD CONSTRAINT '|| quote_ident(NEW.table_name||'_'||NEW.field_name||'_fk') ||' FOREIGN KEY(conference_id,' || quote_ident( NEW.field_name ) || ') REFERENCES custom.' || quote_ident('custom_' || NEW.table_name || '_' || NEW.field_name || '_values') || '(conference_id,'||quote_ident(NEW.field_name)||') ON UPDATE CASCADE ON DELETE SET NULL';
       ELSE
         RAISE EXCEPTION 'Invalid field_type: %', NEW.field_type;
       END IF;

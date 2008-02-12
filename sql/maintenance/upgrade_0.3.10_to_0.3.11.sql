@@ -2,7 +2,7 @@
 BEGIN;
 
 ALTER TABLE base.custom_fields DROP CONSTRAINT custom_fields_field_type_check;
-ALTER TABLE base.custom_fields ADD CONSTRAINT custom_fields_field_type_check CHECK(field_type IN('boolean','text','valuelist'));
+ALTER TABLE base.custom_fields ADD CONSTRAINT custom_fields_field_type_check CHECK(field_type IN('boolean','text','valuelist','conference-valuelist'));
 
 DROP TABLE base.custom_conference_person CASCADE;
 

@@ -7,7 +7,7 @@ CREATE TABLE base.custom_fields (
   submission_settable BOOL NOT NULL DEFAULT FALSE,
   CHECK( table_name IN ('conference_person','person','event','conference') ),
   CHECK( field_name ~* '^[a-z_0-9]+$' ),
-  CHECK( field_type IN ('boolean','text','valuelist') )
+  CHECK( field_type IN ('boolean','text','valuelist','conference-valuelist') )
 );
 
 CREATE TABLE custom.custom_fields (
