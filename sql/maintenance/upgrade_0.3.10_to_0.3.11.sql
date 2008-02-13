@@ -41,6 +41,7 @@ ALTER TABLE base.account DROP COLUMN current_conference_id;
 ALTER TABLE base.account DROP COLUMN preferences;
 ALTER TABLE base.account DROP COLUMN last_login CASCADE;
 
+INSERT INTO auth.object_domain VALUES('account_settings','account');
 
 COMMIT;
 
