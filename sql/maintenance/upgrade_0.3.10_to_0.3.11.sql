@@ -19,6 +19,27 @@ CREATE TABLE custom.custom_conference_person (
 CREATE TABLE log.custom_conference_person (
 ) INHERITS( base.logging, base.custom_conference_person );
 
+CREATE TABLE log.account() INHERITS( base.logging, base.account );
+
+CREATE TABLE base.account_settings (
+  account_id INTEGER NOT NULL,
+  current_language TEXT NOT NULL DEFAULT 'en',
+  current_conference_id INTEGER,
+  preferences TEXT,
+  last_login TIMESTAMP
+);
+
+CREATE TABLE auth.account_settings (
+  FOREIGN KEY( account_id ) REFERENCES auth.account( account_id ) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY( account_id )
+) INHERITS( base.account_settings );
+
+INSERT INTO auth.account_settings(account_id,current_language,current_conference_id,preferences,last_login) SELECT account_id,current_language,current_conference_id,preferences,last_login FROM auth.account;
+
+ALTER TABLE base.account DROP COLUMN current_language;
+ALTER TABLE base.account DROP COLUMN current_conference_id;
+ALTER TABLE base.account DROP COLUMN preferences;
+ALTER TABLE base.account DROP COLUMN last_login CASCADE;
 
 
 COMMIT;

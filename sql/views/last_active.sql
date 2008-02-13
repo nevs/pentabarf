@@ -8,6 +8,7 @@ CREATE OR REPLACE VIEW view_last_active AS
          last_login,
          date_trunc( 'second', now() - last_login) AS login_diff
     FROM auth.account
+      INNER JOIN auth.account_settings USING(account_id)
       INNER JOIN view_person USING(person_id)
     WHERE last_login > now() + '-1 hour'::interval
     ORDER BY last_login DESC;
