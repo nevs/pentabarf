@@ -2,7 +2,7 @@ xml.div({:id=>:data}) do
   xml << js_tabs([:simple,:advanced])
 
   xml.fieldset(:id=>'content-simple') do
-    xml.label(local('find person'))
+    xml.label(local('find_person'))
     xml.form(:id=>:simple_search,:action=>url_for) do
       xml.input({:type=>:text,:name=>:search_person_simple,:id=>:search_person_simple,:value=>@preferences[:search_person_simple]})
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
@@ -15,22 +15,22 @@ xml.div({:id=>:data}) do
     # template used for constructing advanced search rows
     xml.ul({:id=>:search_content,:style=>"display:none"}) do
       # search for name
-      xml.li({:class=>:name,:title=>local(:name)}) do
+      xml.li({:class=>:name,:title=>local('person::name')}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:name})
         xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
       end
       # search for email
-      xml.li({:class=>:email,:title=>local(:email)}) do
+      xml.li({:class=>:email,:title=>local('person::email')}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:email})
         xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
       end
       # search for gender
-      xml.li({:class=>:gender,:title=>local(:gender)}) do
+      xml.li({:class=>:gender,:title=>local('person::gender')}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:gender})
         xml << select_tag('search_person[row_id][value]', [[nil,'unknown'],['t','male'],['f','female']])
       end
       # search for event_role
-      xml.li({:class=>:event_role,:title=>local(:event_role)}) do
+      xml.li({:class=>:event_role,:title=>local('event_role')}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:event_role})
         xml << select_tag('search_person[row_id][value]', Event_role_localized.select({:translated=>@current_language}).map{|c| [c.event_role, c.name]})
       end
@@ -45,12 +45,12 @@ xml.div({:id=>:data}) do
         xml << select_tag('search_person[row_id][value]', Conference.select.map{|c| [c.conference_id, c.acronym]})
       end
       # search for country
-      xml.li({:class=>:country,:title=>local(:country)}) do
+      xml.li({:class=>:country,:title=>local('person::country')}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:country})
         xml << select_tag('search_person[row_id][value]', Country_localized.select({:translated=>@current_language},{:order=>:name}).map{|c| [c.country, c.name]})
       end
       # search for arrived flag
-      xml.li({:class=>:arrived,:title=>local(:arrived)}) do
+      xml.li({:class=>:arrived,:title=>local('conference_person::arrived')}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:arrived})
         xml << select_tag('search_person[row_id][value]', [['t','Yes'],['f','No']])
       end

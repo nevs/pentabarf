@@ -2,7 +2,7 @@ xml.div({:id=>:data}) do
   xml << js_tabs([:simple,:advanced])
 
   xml.fieldset({:id=>'content-simple'}) do
-    xml.label(local('find event'))
+    xml.label(local('find_event'))
     xml.form(:id=>:simple_search,:action=>url_for) do
       xml.input({:type=>:text,:name=>:search_event_simple,:id=>:search_event_simple,:value=>@preferences[:search_event_simple]})
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
@@ -10,42 +10,42 @@ xml.div({:id=>:data}) do
   end
 
   xml.fieldset({:id=>'content-advanced'}) do
-    xml.label(local('find event'))
+    xml.label(local('find_event'))
 
     # template used for constructing advanced search rows
     xml.ul({:id=>:search_content,:style=>"display:none"}) do
       # search for title
-      xml.li({:class=>:title,:title=>local(:title)}) do
+      xml.li({:class=>:title,:title=>local('event::title')}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:title})
         xml.input({:type=>:text,:name=>'search_event[row_id][value]'})
       end
       # search for description
-      xml.li({:class=>:description,:title=>local(:description)}) do
+      xml.li({:class=>:description,:title=>local('event::description')}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:description})
         xml.input({:type=>:text,:name=>'search_event[row_id][value]'})
       end
       # search for public
-      xml.li({:class=>:public,:title=>local(:public)}) do
+      xml.li({:class=>:public,:title=>local('event::public')}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:public})
         xml << select_tag('search_event[row_id][value]', [['t','yes'],['f','no']])
       end
       # search for language
-      xml.li({:class=>:language,:title=>local(:language)}) do
+      xml.li({:class=>:language,:title=>local('event::language')}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:language})
         xml << select_tag('search_event[row_id][value]', View_conference_language.select({:translated=>@current_language,:conference_id=>@current_conference.conference_id},{:order=>:name}).map{|l| [l.language, l.name]})
       end
       # search for event origin
-      xml.li({:class=>:event_origin,:title=>local(:event_origin)}) do
+      xml.li({:class=>:event_origin,:title=>local('event::event_origin')}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_origin})
         xml << select_tag('search_event[row_id][value]', Event_origin_localized.select({:translated=>@current_language}).map{|o| [o.event_origin, o.name]})
       end
       # search for event state
-      xml.li({:class=>:event_state,:title=>local(:event_state)}) do
+      xml.li({:class=>:event_state,:title=>local('event::event_state')}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_state})
         xml << select_tag('search_event[row_id][value]', Event_state_localized.select({:translated=>@current_language}).map{|o| [o.event_state, o.name]})
       end
       # search for event type
-      xml.li({:class=>:event_type,:title=>local(:event_type)}) do
+      xml.li({:class=>:event_type,:title=>local('event::event_type')}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_type})
         xml << select_tag('search_event[row_id][value]', Event_type_localized.select({:translated=>@current_language}).map{|o| [o.event_type, o.name]})
       end
