@@ -31,7 +31,7 @@ class Test::Unit::TestCase
 
   def authenticate_user( user )
     hijack_controller_auth( @controller )
-    POPE.send( :instance_variable_set, :@user, user )
+    POPE.send( :instance_variable_set, :@user, Pope::User.new( user ))
     POPE.refresh
   end
 
