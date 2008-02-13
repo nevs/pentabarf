@@ -289,7 +289,8 @@ class PentabarfController < ApplicationController
     url = case request.env['HTTP_REFERER']
       when /\/conference\// then url_for(:action=>:conference,:id=>POPE.user.current_conference_id)
       when /\/event\// then url_for(:action=>:conference,:id=>POPE.user.current_conference_id)
-      else url_for(:action=>:index)
+      when nil then url_for(:action=>:index)
+      else request.env['HTTP_REFERER']
     end
     redirect_to( url )
   end
