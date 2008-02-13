@@ -47,7 +47,7 @@ xml.div({:id=>:data}) do
       # search for country
       xml.li({:class=>:country,:title=>local(:country)}) do
         xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:country})
-        xml << select_tag('search_person[row_id][value]', Country_localized.select({:translated=>@current_language}).map{|c| [c.country, c.name]})
+        xml << select_tag('search_person[row_id][value]', Country_localized.select({:translated=>@current_language},{:order=>:name}).map{|c| [c.country, c.name]})
       end
       # search for arrived flag
       xml.li({:class=>:arrived,:title=>local(:arrived)}) do
