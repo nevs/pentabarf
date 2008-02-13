@@ -220,14 +220,14 @@ module ApplicationHelper
     xml.ul do
       Log_transaction_involved_tables.select({:log_transaction_id=>changeset.log_transaction_id}).map(&:table_name).each do | table |
         # FIXME ignoring some tables for now
-        next if table.match(/^account_/) || table == "person_availability"
+        next if table == "person_availability"
         klass = table.capitalize.constantize
         log_klass = "Log::#{table.capitalize}".constantize
 
         log_klass.select(:log_transaction_id=>changeset.log_transaction_id).each do | change |
 
           values = []
-          columns = klass.columns.keys - [:password,:eval_time]
+          columns = klass.columns.keys - [:password,:salt,:eval_time,:activation_string]
           columns = columns.map(&:to_s).sort.map(&:to_sym)
           if change.log_operation == "D" || change.log_operation == "I"
             columns.each do | column |
