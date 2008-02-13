@@ -75,6 +75,7 @@ class SubmissionController < ApplicationController
         row.password = params[:account][:password]
       end
     end
+    write_row( Account_settings, params[:account_settings], {:preset=>{:account_id=>account.account_id}})
     options = {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}}
     options[ @conference.f_reconfirmation_enabled ? :always : :except ] = [:reconfirmed]
     conference_person = write_row( Conference_person, params[:conference_person], options )

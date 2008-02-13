@@ -138,6 +138,7 @@ class PentabarfController < ApplicationController
     @person_rating = Person_rating.select_or_new({:person_id=>@person.person_id,:evaluator_id=>POPE.user.person_id})
     @person_image = Person_image.select_or_new({:person_id=>@person.person_id})
     @account = Account.select_or_new(:person_id=>@person.person_id)
+    @settings = Account_settings.select_or_new(:account_id=>@account.account_id)
     @account_roles = @account.new_record? ? [] : Account_role.select(:account_id=>@account.account_id)
     @transaction = Person_transaction.select_single({:person_id=>@person.person_id}) rescue Person_transaction.new
   end
@@ -145,14 +146,15 @@ class PentabarfController < ApplicationController
   def save_person
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam]} )
-    if params[:account] || POPE.permission?( :modify_account )
+    if params[:account]
       params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
-      account = write_row( Account, params[:account], {:except=>[:account_id,:password,:password2],:preset=>{:person_id=>person.person_id},:ignore_empty=>:login_name} ) do | row |
+      account = write_row( Account, params[:account], {:except=>[:account_id,:salt,:edit_token,:password,:password2],:preset=>{:person_id=>person.person_id},:ignore_empty=>:login_name} ) do | row |
         if params[:account][:password].to_s != "" && ( row.account_id == POPE.user.account_id || POPE.permission?( :modify_account ) )
           raise "Passwords do not match" if params[:account][:password] != params[:account][:password2]
           row.password = params[:account][:password]
         end
       end
+      write_row( Account_settings, params[:account_settings], {:preset=>{:account_id=>account.account_id}})
     end
     conference_person = write_row( Conference_person, params[:conference_person], {:always=>[:arrived,:reconfirmed],:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
     custom_bools = Custom_fields.select({:table_name=>:person,:field_type=>:boolean}).map(&:field_name)

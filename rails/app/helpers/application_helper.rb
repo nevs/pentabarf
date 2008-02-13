@@ -201,6 +201,16 @@ module ApplicationHelper
         link_title = change.public_name
       end
       link = url_for({:action=>:person,:id=>change.person_id})
+    elsif klass.columns.key?(:account_id)
+      begin
+        account = Account.select_single(:account_id=>change.account_id)
+        person = View_person.select_single({:person_id=>account.person_id.to_i})
+        link_title = person.name
+        link = url_for({:action=>:person,:id=>change.person_id})
+      rescue
+        link_title = ''
+        link = ''
+      end
     elsif klass.columns.key?(:conference_id)
       conf = Conference.select_single({:conference_id=>change.conference_id})
       link_title = conf.title
@@ -265,9 +275,9 @@ module ApplicationHelper
               xml.br
 
               xml.b case change.log_operation
-                when "D" then "Deleted #{local(table)}:"
-                when "I" then "New #{local(table)}:"
-                when "U" then "#{local(table)}:"
+                when "D" then "Deleted #{local(table)}: "
+                when "I" then "New #{local(table)}: "
+                when "U" then "#{local(table)}: "
               end
               xml.text! values.join(", ")
             end
