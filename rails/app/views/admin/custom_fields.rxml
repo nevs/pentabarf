@@ -19,7 +19,7 @@ xml.div do
           xml.tr(:id=>'custom_fields_template',:style=>'display:none') do
             xml.td do xml << select_tag( 'custom_fields[row_id][table_name]', ['conference','event','person','conference_person'] ) end
             xml.td do xml.input({:type=>:text,:id=>'custom_fields[row_id][field_name]',:name=>'custom_fields[row_id][field_name]'}) end
-            xml.td do xml << select_tag( 'custom_fields[row_id][field_type]', ['text','boolean','valuelist'] ) end
+            xml.td do xml << select_tag( 'custom_fields[row_id][field_type]', ['text','boolean','valuelist','conference-valuelist'] ) end
             xml.td do xml.input({:type=>:checkbox,:name=>'custom_fields[row_id][submission_visible]'}) end
             xml.td do xml.input({:type=>:checkbox,:name=>'custom_fields[row_id][submission_settable]'}) end
             xml.td do xml.input({:type=>:checkbox,:name=>'custom_fields[row_id][remove]'}) end

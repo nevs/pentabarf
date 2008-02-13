@@ -168,6 +168,9 @@ module Builder_helper
       when "valuelist"
         klass = "Custom::#{field.table_name.capitalize}_#{field.field_name}_values".constantize
         select_row( custom, field.field_name, klass.select.map{|e| e[field.field_name]}, {:with_empty=>true} )
+      when "conference-valuelist"
+        klass = "Custom::#{field.table_name.capitalize}_#{field.field_name}_values".constantize
+        select_row( custom, field.field_name, klass.select(:conference_id=>@current_conference.conference_id).map{|e| e[field.field_name]}, {:with_empty=>true} )
     end
   end
 
