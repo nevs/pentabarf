@@ -2,6 +2,37 @@
 # this class handles all authententication and authorization decissions
 class Pope
 
+  class User
+    def initialize( account )
+      @account = account
+      @settings = Account_settings.select_or_new({:account_id=>account.account_id})
+    end
+
+    [:account_id,:login_name,:salt,:password,:edit_token,:person_id].each do | field |
+      define_method( field ) do
+        @account.send( field )
+      end
+    end
+  
+    [:current_conference_id,:current_language,:preferences,:last_login].each do | field |
+      define_method( field ) do
+        @settings.send( field )
+      end
+
+      setter_name = "#{field}="
+      define_method( setter_name ) do | value |
+        @settings.send( setter_name, value )
+      end
+    end
+
+    attr_reader :account, :settings
+
+    def write
+      @settings.write
+    end
+
+  end
+
   class PermissionError <  StandardError
   end
 
@@ -18,20 +49,20 @@ class Pope
     end
   end
 
-  def auth( user, pass )
+  def auth( username, pass )
     deauth
-    raise NoUserData if user.to_s.empty? or pass.to_s.empty?
-    @user = Account.select_single(:login_name => user)
+    raise NoUserData if username.to_s.empty? or pass.to_s.empty?
+    @user = Pope::User.new( Account.select_single(:login_name => username) )
 
     salt_bin = ''
     8.times do | count |
       count *= 2
-      salt_bin += sprintf( "%c", @user.salt[count..(count+1)].hex )
+      salt_bin += sprintf( "%c", user.salt[count..(count+1)].hex )
     end
-    raise PermissionError, "Wrong Password for User '#{user}'" if Digest::MD5.hexdigest( salt_bin + pass ) != @user.password
+    raise PermissionError, "Wrong Password for User '#{user}'" if Digest::MD5.hexdigest( salt_bin + pass ) != user.password
 
     refresh
-    Set_config.call(:setting=>'pentabarf.person_id',:value=>@user.person_id,:is_local=>'t')
+    Set_config.call(:setting=>'pentabarf.person_id',:value=>user.person_id,:is_local=>'t')
    rescue => e
     flush
     raise e
@@ -42,12 +73,12 @@ class Pope
   end
 
   def refresh
-    @permissions = User_permissions.call(:account_id=>@user.account_id).map do | row | row.user_permissions.to_sym end
-    if @user.person_id && permission?( :modify_own_event )
-      @own_events = Own_events.call(:person_id=>@user.person_id).map do | row | row.own_events end
+    @permissions = User_permissions.call(:account_id=>user.account_id).map do | row | row.user_permissions.to_sym end
+    if user.person_id && permission?( :modify_own_event )
+      @own_events = Own_events.call(:person_id=>user.person_id).map do | row | row.own_events end
     end
-    if @user.person_id && permission?( :modify_own_person )
-      @own_conference_persons = Own_conference_persons.call(:person_id=>@user.person_id).map do | row | row.own_conference_persons end
+    if user.person_id && permission?( :modify_own_person )
+      @own_conference_persons = Own_conference_persons.call(:person_id=>user.person_id).map do | row | row.own_conference_persons end
     end
   end
 
@@ -78,7 +109,7 @@ class Pope
 
   def domain_account( action, row )
     if action == :modify && permission?( :modify_own_person )
-      return if row.respond_to?( :account_id ) && row.account_id == @user.account_id
+      return if row.respond_to?( :account_id ) && row.account_id == user.account_id
     end
     raise Pope::PermissionError
   end
@@ -92,7 +123,7 @@ class Pope
 
   def domain_person( action, row )
     if action == :modify && permission?( :modify_own_person )
-      return if row.respond_to?( :person_id ) && row.person_id == @user.person_id
+      return if row.respond_to?( :person_id ) && row.person_id == user.person_id
       return if row.respond_to?( :conference_person_id ) && @own_conference_persons.member?( row.conference_person_id )
     end
     raise Pope::PermissionError
