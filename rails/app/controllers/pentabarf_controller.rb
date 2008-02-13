@@ -59,6 +59,7 @@ class PentabarfController < ApplicationController
     begin
       @conference = Conference.select_single( :conference_id => params[:id] )
       @content_title = @conference.title
+      @current_conference = @conference
     rescue
       raise "Not allowed to create conference." if not POPE.permission?( :create_conference )
       @content_title = "New Conference"
