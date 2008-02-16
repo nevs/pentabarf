@@ -56,3 +56,10 @@ task :test do
   sh "(cd rails && rake test)"
 end
 
+task :unlocalized do
+  template_dir = "rails/app/views/"
+  template_dir += ENV['CONTROLLER'] if ENV['CONTROLLER']
+  puts template_dir
+  sh "grep -r \"xml.\\w\\+[\\! (]\\+'[^']\\+'\" #{template_dir}"
+  sh "grep -r 'xml.\\w\\+[\\! (]\\+\"[^\"]\\+\"' #{template_dir}"
+end
