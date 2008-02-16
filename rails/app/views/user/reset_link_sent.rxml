@@ -1,4 +1,4 @@
 xml.div(:id=>:data) do
-  xml.p "An email with a link to reset your password has been sent to your email address."
+  xml.p local('user::reset_link_has_been_sent')
 end
 

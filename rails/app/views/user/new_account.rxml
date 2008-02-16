@@ -1,21 +1,21 @@
 xml.div(:id=>:data) do
-  xml.p "Enter your data to create an account. All fields are mandatory. The email address will be used for activating your account."
+  xml.p local('user::new_account_heading')
   xml.form(:action=>url_for(:action=>:save_account,:id=>params[:id])) do
     xml.table do
       xml.tr do
-        xml.td( "Login name" )
+        xml.td( local('account::login_name') )
         xml.td do xml.input({:type=>:text,:name=>'account[login_name]'}) end
       end
       xml.tr do
-        xml.td( "Email address" )
+        xml.td( local('account::email') )
         xml.td do xml.input({:type=>:text,:name=>'account[email]'}) end
       end
       xml.tr do
-        xml.td( 'Password' )
+        xml.td( local('account::password') )
         xml.td do xml.input({:type=>:password,:name=>'account[password]'}) end
       end
       xml.tr do
-        xml.td( 'Repeat Password' )
+        xml.td( local('user::repeat_password') )
         xml.td do xml.input({:type=>:password,:name=>'password'}) end
       end
     end
