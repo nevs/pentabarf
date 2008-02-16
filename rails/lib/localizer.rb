@@ -18,11 +18,11 @@ class Localizer
           if POPE.permission?( :modify_localization )
             ui_msg = Ui_message.select_or_new( :ui_message => tag )
             if ui_msg.new_record?
-              warn( "creating ui_message `#{tag}`" )
+              logger.warn( "creating ui_message `#{tag}`" )
               ui_msg.write 
             end
           end
-          # warn( "unlocalized tag: `#{tag}` for language #{language}" )
+          logger.debug( "unlocalized tag: `#{tag}` for language #{language}" )
           local = tag.gsub('_',' ').capitalize
         end
       end

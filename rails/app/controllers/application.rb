@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
     POPE.auth( user, pass )
     return check_permission
    rescue => e
-    warn( e.to_s ) unless e.class == Pope::NoUserData
+    logger.warn( e.to_s ) unless e.class == Pope::NoUserData
     response.headers["Status"] = "Unauthorized"
     response.headers["WWW-Authenticate"] = "Basic realm=Pentabarf"
     render( :file=>'auth_failed',:status=>401,:use_full_path=>true,:content_type=>'text/html' )
@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
     if params[:action].match(/^(save|delete)_/)
       token = Token.generate( url_for(:only_path=>true) )
       if token != params[:token]
-        warn( "Wrong token for #{url_for()} from #{request.remote_ip}")
+        logger.warn( "Wrong token for #{url_for()} from #{request.remote_ip}")
         return false
       end
     end
