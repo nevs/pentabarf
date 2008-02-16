@@ -57,11 +57,5 @@ ActionController::Base.filter_parameter_logging( :password )
 
 require 'builder_enhancements'
 
-class NilClass
-  def to_xs
-    ''
-  end
-end
-
 ::POPE = Pope.new
 
