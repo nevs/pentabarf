@@ -1,5 +1,7 @@
 class UserController < ApplicationController
 
+  before_filter :init
+
   def index
     @conferences = Conference.select({:f_submission_enabled=>'t'})
   end
@@ -76,6 +78,10 @@ class UserController < ApplicationController
 
   def auth
     true
+  end
+
+  def init
+    @current_language = POPE.user ? POPE.user.current_language : 'en'
   end
 
   def random_string
