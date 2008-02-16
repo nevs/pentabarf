@@ -138,7 +138,7 @@ class PentabarfController < ApplicationController
     @person_rating = Person_rating.select_or_new({:person_id=>@person.person_id,:evaluator_id=>POPE.user.person_id})
     @person_image = Person_image.select_or_new({:person_id=>@person.person_id})
     @account = Account.select_or_new(:person_id=>@person.person_id)
-    @settings = Account_settings.select_or_new(:account_id=>@account.account_id)
+    @settings = Account_settings.select_or_new(:account_id=>@account.account_id.to_i)
     @account_roles = @account.new_record? ? [] : Account_role.select(:account_id=>@account.account_id)
     @transaction = Person_transaction.select_single({:person_id=>@person.person_id}) rescue Person_transaction.new
   end
