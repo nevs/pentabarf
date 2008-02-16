@@ -6,6 +6,10 @@ class Localizer
 
   class << self
 
+    def logger
+      RAILS_DEFAULT_LOGGER
+    end
+
     # lookup localization for tag and cache it
     def lookup( tag, language )
       tag = tag.to_s
@@ -23,7 +27,7 @@ class Localizer
             end
           end
           logger.debug( "unlocalized tag: `#{tag}` for language #{language}" )
-          local = tag.gsub('_',' ').capitalize
+          local = tag
         end
       end
       local
