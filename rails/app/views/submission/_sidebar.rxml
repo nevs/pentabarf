@@ -1,7 +1,7 @@
 xml.div( :id => 'sidebar' ) do
 
   xml.div( :id => 'logo' ) do
-    if @conference && POPE.user
+    if @conference
       xml.img( :src=>url_for(:controller=>'image',:action=>'conference',:id=>@conference.conference_id,:size=>'128x128'), :height=>128,:width=>128)
     else
       xml.img( :src=>"/images/erisdiscordia-128x128.png",:height=>128,:width=>128)
@@ -11,16 +11,16 @@ xml.div( :id => 'sidebar' ) do
   xml.div(:id => 'menu') do
 
     xml.div( :class=>'menu-item-group' ) do
-      xml.a( 'Login', {:href=>url_for(:action=>:login), :class => 'menu-item'} )
-      xml.a( 'Create Account', {:href=>url_for(:controller=>'user',:action=>:new_account,:id=>params[:conference]), :class => 'menu-item'} )
+      xml.a( local('submission::login'), {:href=>url_for(:action=>:login), :class => 'menu-item'} )
+      xml.a( local('user::new_account'), {:href=>url_for(:controller=>'user',:action=>:new_account,:id=>params[:conference]), :class => 'menu-item'} )
     end if not POPE.user
 
     xml.div( :class=>'menu-item-group' ) do
-      xml.a( 'Person', {:href=> url_for(:action => :person), :class => 'menu-item'} )
-      xml.a( 'New Event', {:href=> url_for(:action => :event, :id=>:new), :class => 'menu-item'} )
-      xml.a( 'Events', {:href=> url_for(:action=>:events), :class => 'menu-item'} )
+      xml.a( local('submission::person'), {:href=> url_for(:action => :person), :class => 'menu-item'} )
+      xml.a( local('submission::new_event'), {:href=> url_for(:action => :event, :id=>:new), :class => 'menu-item'} )
+      xml.a( local('submission::events'), {:href=> url_for(:action=>:events), :class => 'menu-item'} )
 
-      xml.a( 'Logout', {:href=>"#{request.protocol}logout@#{request.host_with_port}/logout", :class => 'menu-item'} ) if POPE.user
+      xml.a( local('submission::logout'), {:href=>"#{request.protocol}logout@#{request.host_with_port}/logout", :onclick=>"logout()", :class => 'menu-item'} ) if POPE.user
 
     end if @conference
 

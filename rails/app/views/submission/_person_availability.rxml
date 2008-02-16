@@ -18,7 +18,7 @@ xml.div(:id=>'content-availability') do
           xml.th
           24.times do | hour |
             real_hour = ( @conference.day_change.hour + hour ) % 24
-            xml.th "#{real_hour}", {:title=>sprintf("%d:00 - %d:00", real_hour, real_hour + 1 )}
+            xml.th real_hour.to_s, {:title=>sprintf("%d:00 - %d:00", real_hour, real_hour + 1 )}
           end
         end
       end

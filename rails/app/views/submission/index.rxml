@@ -1,9 +1,11 @@
 xml.div do
-  xml.h2 "Welcome to the paper submission system"
+  xml.h2 local('submission::welcome_to_submission_system')
+
+  xml.h2(Rift.new,{}) 
 
   if not @conference
     xml.div do
-      xml.p "You can submit papers to one of the following conferences:"
+      xml.p local('submission::submit_for_these_conferences')
       xml.ul do
         @conferences.each do | conf |
           xml.li do
@@ -13,57 +15,57 @@ xml.div do
       end
     end
   end
-  xml.p "Please note that this system has only been tested with recent versions of Gecko-based browsers like Mozilla Firefox, Seamonkey or Camino. Other browsers might not work."
 
   if @conference
-    xml.p "To submit your entry follow these steps:"
+    xml.p local('submission::follow_these_steps')
 
     xml.table do
       xml.tr do
-        xml.td do xml.b "#1:" end
+        xml.td do xml.b local('submission::step1')  end
         xml.td do
-          xml << link_to( 'Create account', {:controller => 'user', :action => :new_account, :id => @conference.acronym}, { :class => 'menu-item' } )
+          xml << link_to( local('user::new_account'), {:controller => 'user', :action => :new_account, :id => @conference.acronym}, { :class => 'menu-item' } )
           xml.br
-          xml.text! 'Click on "Create account" and fill out the form. An account will be created and an e-mail is sent to you for confirmation.'
+          xml.text! local('submission::step_new_account')
         end
       end
       xml.tr do
-        xml.td do xml.b "#2:" end
+        xml.td do xml.b local('submission::step2')  end
         xml.td do
-          xml.text! 'Activate your account'
+          xml.text! local('submission::activate_your_account')
           xml.br
-          xml.text! 'Click on the link sent to you with the confirmation mail to activate your account. You will be redirected to the submission interface of this conference.'
+          xml.text! local('submission::step_activate_account')
         end
       end
       xml.tr do
-        xml.td do xml.b "#3:" end
+        xml.td do xml.b local('submission::step3')  end
         xml.td do
-          xml.text! 'Login'
+          xml.text! local('submission::login')
           xml.br
-          xml.text! 'You might login right after activation of your account or at any time using the "Login" link on the left.'
+          xml.text! local('submission::step_login')
         end
       end
       xml.tr do
-        xml.td do xml.b "#4:" end
+        xml.td do xml.b local('submission::step4')  end
         xml.td do
-          xml.text! 'Enter personal details'
+          xml.text! local('submission::enter_personal_details')
           xml.br
-          xml.text! 'Click on "Person" on the left and enter your personal details. Please fill out at least everything on the "General" tab.'
+          xml.text! local('submission::step_enter_personal_details')
         end
       end
       xml.tr do
-        xml.td do xml.b "#5:" end
+        xml.td do xml.b local('submission::step5')  end
         xml.td do
-          xml.text! 'Create an event'
+          xml.text! local('submission::new_event')
           xml.br
-          xml.text! 'Click on "New Event" on the left to create the new event you want to propose. Fill in the details of your submission. Don\'t forget to fill in text boxes on the "Description" tab.'
+          xml.text! local('submission::step_new_event')
         end
       end
       xml.tr do
-        xml.td
+        xml.td do xml.b local('submission::step6')  end
         xml.td do
-          xml.b 'You are done!'
-          xml.text! 'Thanks for participating.'
+          xml.b local('submission::you_are_done')
+          xml.br
+          xml.text! local('submission::step_done')
         end
       end
     end
