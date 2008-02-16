@@ -59,7 +59,9 @@ end
 task :unlocalized do
   template_dir = "rails/app/views/"
   template_dir += ENV['CONTROLLER'] if ENV['CONTROLLER']
-  puts template_dir
-  sh "grep -r \"xml.\\w\\+[\\! (]\\+'[^']\\+'\" #{template_dir}"
-  sh "grep -r 'xml.\\w\\+[\\! (]\\+\"[^\"]\\+\"' #{template_dir}"
+  sh( "grep -rn \"xml.\\w\\+[\\! (]\\+'[^']\\+'\" #{template_dir}", {:verbose=>false} ) {}
+#  sh( "grep -r 'xml.\\w\\+[\\! (]\\+\"[^\"]\\+\"' #{template_dir}" ) {}
+  sh( "grep -rn 'xml.script' #{template_dir} | grep 'alert\([^\)]\\+)'", {:verbose=>false} ) {}
+  sh( "grep -rnv 'xml.script' #{template_dir} | grep 'xml.\\w\\+[\\! (]\\+\"[^\"]\\+\"'", {:verbose=>false} ) {}
 end
+
