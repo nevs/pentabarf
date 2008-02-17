@@ -2,7 +2,7 @@ xml.div({:id=>:data}) do
   xml.ul do
     ReportController::REPORTS.each do | report |
       xml.li do
-        xml.a( local(report),{:href=>url_for({:action=>report})})
+        xml.a( local("report::#{report}"),{:href=>url_for({:action=>report})})
       end
     end
   end
