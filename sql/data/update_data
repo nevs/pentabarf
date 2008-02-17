@@ -19,11 +19,16 @@ import.puts("BEGIN TRANSACTION;")
 tables.each do | table |
   if !ARGV[0] || ARGV[0] == table
     puts "dumping table #{table}"
-    system("pg_dump -i -a -D -O -x -t #{table} -f #{table}.sql")
 
-    # remove lines not understood by PostgreSQL < 8.2
-    system("sed -i -e :a -e '/^SET standard_conforming_strings = off;$/N; s/.*\\\n//; ta' #{table}.sql")
-    system("sed -i -e :a -e '/^SET escape_string_warning = off;$/N; s/.*\\\n//; ta' #{table}.sql")
+    schema = table.split('.').length == 2 ? table.split('.')[0] : 'public'
+    dump_file = File.new( "#{table}.sql", 'w' )
+    dump_file.puts("")
+    dump_file.puts("SET client_encoding = 'UTF8';")
+    dump_file.puts("SET search_path = #{schema}, pg_catalog;")
+    dump_file.puts("")
+    dump_file.close
+    system("pg_dump -i -a -D -O -x -t #{table} | grep '^INSERT' | sort >> #{table}.sql")
+
   end
 
   import.puts("\\i #{table}.sql")
