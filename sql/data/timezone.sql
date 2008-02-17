@@ -1,16 +1,6 @@
---
--- PostgreSQL database dump
---
 
 SET client_encoding = 'UTF8';
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
 SET search_path = public, pg_catalog;
-
---
--- Data for Name: timezone; Type: TABLE DATA; Schema: public; Owner: -
---
 
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Africa/Abidjan', 'GMT', '00:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Africa/Accra', 'GMT', '00:00:00');
@@ -109,8 +99,8 @@ INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Costa
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Cuiaba', 'AMT', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Curacao', 'AST', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Danmarkshavn', 'GMT', '00:00:00');
-INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Dawson', 'PDT', '-07:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Dawson_Creek', 'MST', '-07:00:00');
+INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Dawson', 'PDT', '-07:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Denver', 'MDT', '-06:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Detroit', 'EDT', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Dominica', 'AST', '-04:00:00');
@@ -284,10 +274,10 @@ INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Pyongyan
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Qatar', 'AST', '03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Qyzylorda', 'QYZT', '06:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Rangoon', 'MMT', '06:30:00');
-INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Riyadh', 'AST', '03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Riyadh87', 'zzz', '03:07:04');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Riyadh88', 'zzz', '03:07:04');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Riyadh89', 'zzz', '03:07:04');
+INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Riyadh', 'AST', '03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Saigon', 'ICT', '07:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Sakhalin', 'SAKT', '10:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Samarkand', 'UZT', '05:00:00');
@@ -392,9 +382,3 @@ INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Europe/Warsaw
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Europe/Zagreb', 'CET', '01:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Europe/Zaporozhye', 'EET', '02:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Europe/Zurich', 'CET', '01:00:00');
-
-
---
--- PostgreSQL database dump complete
---
-

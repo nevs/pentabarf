@@ -1,16 +1,6 @@
---
--- PostgreSQL database dump
---
 
 SET client_encoding = 'UTF8';
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
 SET search_path = public, pg_catalog;
-
---
--- Data for Name: currency; Type: TABLE DATA; Schema: public; Owner: -
---
 
 INSERT INTO currency (currency, exchange_rate) VALUES ('AED', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('AFA', NULL);
@@ -39,6 +29,7 @@ INSERT INTO currency (currency, exchange_rate) VALUES ('BYR', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('BZD', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('CAD', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('CDF', NULL);
+INSERT INTO currency (currency, exchange_rate) VALUES ('CHF', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('CLP', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('CNY', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('COP', NULL);
@@ -48,15 +39,19 @@ INSERT INTO currency (currency, exchange_rate) VALUES ('CUP', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('CVE', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('CYP', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('CZK', NULL);
+INSERT INTO currency (currency, exchange_rate) VALUES ('DEM', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('DJF', NULL);
+INSERT INTO currency (currency, exchange_rate) VALUES ('DKK', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('DOP', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('DZD', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('EEK', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('EGP', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('ERN', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('ETB', NULL);
+INSERT INTO currency (currency, exchange_rate) VALUES ('EUR', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('FJD', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('FKP', NULL);
+INSERT INTO currency (currency, exchange_rate) VALUES ('GBP', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('GEL', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('GGP', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('GHC', NULL);
@@ -80,6 +75,7 @@ INSERT INTO currency (currency, exchange_rate) VALUES ('ISK', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('JEP', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('JMD', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('JOD', NULL);
+INSERT INTO currency (currency, exchange_rate) VALUES ('JPY', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('KES', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('KGS', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('KHR', NULL);
@@ -134,6 +130,7 @@ INSERT INTO currency (currency, exchange_rate) VALUES ('SAR', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('SBD', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('SCR', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('SDD', NULL);
+INSERT INTO currency (currency, exchange_rate) VALUES ('SEK', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('SGD', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('SHP', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('SIT', NULL);
@@ -158,9 +155,11 @@ INSERT INTO currency (currency, exchange_rate) VALUES ('TWD', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('TZS', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('UAH', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('UGX', NULL);
+INSERT INTO currency (currency, exchange_rate) VALUES ('USD', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('UYU', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('UZS', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('VEB', NULL);
+INSERT INTO currency (currency, exchange_rate) VALUES ('VEF', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('VND', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('VUV', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('WST', NULL);
@@ -177,18 +176,3 @@ INSERT INTO currency (currency, exchange_rate) VALUES ('YER', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('ZAR', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('ZMK', NULL);
 INSERT INTO currency (currency, exchange_rate) VALUES ('ZWD', NULL);
-INSERT INTO currency (currency, exchange_rate) VALUES ('USD', NULL);
-INSERT INTO currency (currency, exchange_rate) VALUES ('SEK', NULL);
-INSERT INTO currency (currency, exchange_rate) VALUES ('DKK', NULL);
-INSERT INTO currency (currency, exchange_rate) VALUES ('EUR', NULL);
-INSERT INTO currency (currency, exchange_rate) VALUES ('GBP', NULL);
-INSERT INTO currency (currency, exchange_rate) VALUES ('DEM', NULL);
-INSERT INTO currency (currency, exchange_rate) VALUES ('JPY', NULL);
-INSERT INTO currency (currency, exchange_rate) VALUES ('CHF', NULL);
-INSERT INTO currency (currency, exchange_rate) VALUES ('VEF', NULL);
-
-
---
--- PostgreSQL database dump complete
---
-

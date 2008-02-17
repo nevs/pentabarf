@@ -1,16 +1,6 @@
---
--- PostgreSQL database dump
---
 
 SET client_encoding = 'UTF8';
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
 SET search_path = public, pg_catalog;
-
---
--- Data for Name: language; Type: TABLE DATA; Schema: public; Owner: -
---
 
 INSERT INTO "language" ("language", localized) VALUES ('aa', false);
 INSERT INTO "language" ("language", localized) VALUES ('ab', false);
@@ -156,6 +146,7 @@ INSERT INTO "language" ("language", localized) VALUES ('sc', false);
 INSERT INTO "language" ("language", localized) VALUES ('sd', false);
 INSERT INTO "language" ("language", localized) VALUES ('se', false);
 INSERT INTO "language" ("language", localized) VALUES ('sg', false);
+INSERT INTO "language" ("language", localized) VALUES ('sh', false);
 INSERT INTO "language" ("language", localized) VALUES ('si', false);
 INSERT INTO "language" ("language", localized) VALUES ('sk', false);
 INSERT INTO "language" ("language", localized) VALUES ('sl', false);
@@ -174,7 +165,6 @@ INSERT INTO "language" ("language", localized) VALUES ('te', false);
 INSERT INTO "language" ("language", localized) VALUES ('tg', false);
 INSERT INTO "language" ("language", localized) VALUES ('th', false);
 INSERT INTO "language" ("language", localized) VALUES ('ti', false);
-INSERT INTO "language" ("language", localized) VALUES ('sh', false);
 INSERT INTO "language" ("language", localized) VALUES ('tk', false);
 INSERT INTO "language" ("language", localized) VALUES ('tl', false);
 INSERT INTO "language" ("language", localized) VALUES ('tn', false);
@@ -199,9 +189,3 @@ INSERT INTO "language" ("language", localized) VALUES ('yo', false);
 INSERT INTO "language" ("language", localized) VALUES ('za', false);
 INSERT INTO "language" ("language", localized) VALUES ('zh', false);
 INSERT INTO "language" ("language", localized) VALUES ('zu', false);
-
-
---
--- PostgreSQL database dump complete
---
-
