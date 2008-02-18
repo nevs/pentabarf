@@ -37,12 +37,12 @@ BEGIN;
 \i tables/conference_image.sql
 \i tables/conference_track.sql
 \i tables/conference_room.sql
-\i tables/conference_room_role.sql
 \i tables/person.sql
 \i tables/conference_person.sql
 \i tables/conference_person_link.sql
 \i tables/conference_person_link_internal.sql
 \i tables/auth/account.sql
+\i tables/auth/account_settings.sql
 \i tables/auth/account_role.sql
 \i tables/person_phone.sql
 \i tables/person_rating.sql
@@ -70,6 +70,7 @@ BEGIN;
 \i tables/event_role_localized.sql
 \i tables/event_role_state.sql
 \i tables/event_role_state_localized.sql
+\i tables/conference_room_role.sql
 \i tables/event_person.sql
 \i tables/conference_transaction.sql
 \i tables/event_transaction.sql
