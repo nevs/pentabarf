@@ -14,7 +14,7 @@ xml.div(:id=>'content-events') do
         xml.tr(:id=>'event_person_template',:style=>'display:none') do
           xml.td do
             xml.input({:type=>:hidden,:id=>'event_person[row_id][event_person_id]',:name=>'event_person[row_id][event_person_id]'})
-            xml << select_tag( 'event_person[row_id][event_id]', Event.select.map{|e| [e.event_id, e.title]} )
+            xml << select_tag( 'event_person[row_id][event_id]', Event.select({:conference_id=>@current_conference.conference_id},{:order=>:title}).map{|e| [e.event_id, e.title]} )
           end
           xml.td do xml << select_tag( 'event_person[row_id][event_role]', Event_role.select.map{|e| e.event_role},{:master=>:event_role_state}) end
           xml.td do xml << select_tag( 'event_person[row_id][event_role_state]', Event_role_state.select.map{|e| [e.event_role_state,e.event_role,e.event_role_state]}, {:slave=>true,:with_empty=>true}) end
