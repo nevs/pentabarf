@@ -154,7 +154,7 @@ class PentabarfController < ApplicationController
           row.password = params[:account][:password]
         end
       end
-      write_row( Account_settings, params[:account_settings], {:preset=>{:account_id=>account.account_id}})
+      write_row( Account_settings, params[:account_settings], {:preset=>{:account_id=>account.account_id}}) unless account.new_record?
     end
     conference_person = write_row( Conference_person, params[:conference_person], {:always=>[:arrived,:reconfirmed],:preset=>{:person_id => person.person_id,:conference_id=>@current_conference.conference_id}})
     custom_bools = Custom_fields.select({:table_name=>:person,:field_type=>:boolean}).map(&:field_name)
