@@ -338,8 +338,8 @@ class PentabarfController < ApplicationController
           body.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
           subject.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
         end
-        body.gsub!(/\{\{event_title\}\}/i, events.join(','))
-        subject.gsub!(/\{\{event_title\}\}/i, events.join(','))
+        body.gsub!(/\{\{event_title\}\}/i, titles.join(','))
+        subject.gsub!(/\{\{event_title\}\}/i, titles.join(','))
         Notifier::deliver_general(r.email, subject, body, from)
       end
     end
