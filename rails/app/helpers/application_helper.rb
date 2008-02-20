@@ -212,9 +212,14 @@ module ApplicationHelper
       end
       link = url_for({:action=>:person,:id=>change.person_id})
     elsif klass.columns.key?(:conference_id)
-      conf = Conference.select_single({:conference_id=>change.conference_id})
-      link_title = conf.title
-      link = url_for({:action=>:conference,:id=>conf.conference_id})
+      begin
+        conf = Conference.select_single({:conference_id=>change.conference_id})
+        link_title = conf.title
+        link = url_for({:action=>:conference,:id=>conf.conference_id})
+      rescue
+        link_title = change.respond_to?(:title) ? change.title : ""
+        link = ""
+      end
     elsif klass.table_name.match(/_localized$/)
       link_title = "Localization"
       link = url_for(:controller=>'localization',:action=>klass.table_name.gsub(/_localized$/,''))
