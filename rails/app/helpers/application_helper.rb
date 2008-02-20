@@ -193,14 +193,6 @@ module ApplicationHelper
       conf = Conference.select_single({:conference_id=>event.conference_id})
       link_title = "#{conf.acronym}: #{event.title}"
       link = url_for({:action=>:event,:id=>event.event_id})
-    elsif klass.columns.key?(:person_id)
-      begin
-        person = View_person.select_single({:person_id=>change.person_id.to_i})
-        link_title = person.name
-      rescue
-        link_title = change.public_name
-      end
-      link = url_for({:action=>:person,:id=>change.person_id})
     elsif klass.columns.key?(:account_id)
       begin
         account = Account.select_single(:account_id=>change.account_id)
@@ -211,6 +203,14 @@ module ApplicationHelper
         link_title = ''
         link = ''
       end
+    elsif klass.columns.key?(:person_id)
+      begin
+        person = View_person.select_single({:person_id=>change.person_id.to_i})
+        link_title = person.name
+      rescue
+        link_title = change.public_name
+      end
+      link = url_for({:action=>:person,:id=>change.person_id})
     elsif klass.columns.key?(:conference_id)
       conf = Conference.select_single({:conference_id=>change.conference_id})
       link_title = conf.title
