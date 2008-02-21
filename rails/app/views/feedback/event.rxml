@@ -20,7 +20,7 @@ xml.div({:id=>'event-feedback',:class=>:section}) do
         end
 
         [:participant_knowledge,:topic_importance,:content_quality,:presentation_quality,:audience_involvement].each do | field |
-          xml << radio_row( @event_feedback, field, [1,2,3,4,5,nil], {:checked=>nil} )
+          xml << radio_row( @event_feedback, field, [1,2,3,4,5,nil], {:checked=>nil,:label=>local("feedback::question_#{field}")} )
         end
       end
     end
