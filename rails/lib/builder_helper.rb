@@ -109,7 +109,7 @@ module Builder_helper
     options[:checked] ||= row.send(column)
     xml = Builder::XmlMarkup.new
     xml.tr do
-      xml.td do xml.label( local( "#{row.class.table.table_name}::#{column}" ) ) end
+      xml.td do xml.label( options[:label] || local( "#{row.class.table.table_name}::#{column}" ) ) end
       collection.each do | element |
         if element.instance_of?( Array )
           key = element.first
