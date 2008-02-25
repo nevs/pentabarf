@@ -1,0 +1,20 @@
+xml.div({:id=>:data}) do
+
+  xml.fieldset do
+    xml.div({:id=>:results})
+  end
+end
+
+parameters ="search_event[0][key]=event_state&search_event[0][value]=" + CGI.escape( params[:event_state] )
+if params[:event_state_progress]
+  parameters += "&search_event[1][key]=event_state_progress&search_event[1][value]=" + CGI.escape( params[:event_state_progress] )
+end
+
+xml.script(:type=>'text/javascript') do
+  xml << <<-JS
+    new Ajax.Updater('results', '#{url_for(:action=>:search_event_advanced)}', { asynchronous:true, evalScripts:false, onComplete:function(request){sortables_init()}, parameters:"#{parameters}"});
+
+JS
+end
+
+

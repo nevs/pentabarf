@@ -35,6 +35,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'image/:action/:id.:size.:extension', :controller=> 'image'
   map.connect 'image/:action/:id.:size', :controller=> 'image'
 
+  map.connect 'pentabarf/events_by_state/:event_state', :controller => 'pentabarf', :action => 'events_by_state'
+  map.connect 'pentabarf/events_by_state/:event_state/:event_state_progress', :controller => 'pentabarf', :action => 'events_by_state'
+
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'

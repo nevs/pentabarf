@@ -346,6 +346,10 @@ class PentabarfController < ApplicationController
     redirect_to(:action=>:mail)
   end
 
+  def events_by_state
+    @content_title = "Events by state"
+  end
+
   protected
 
   def init
