@@ -12,8 +12,10 @@ xml.div({:id=>'data'}) do
             xml.ul do
               View_event_state_progress_statistic.select({:conference_id=>@current_conference.conference_id,:event_state=>state.event_state}).each do | state_progress |
                 xml.li do
-                  xml.text! "#{state_progress.count} #{local(:events)} #{state_progress.event_state_progress}"
-                  xml.em state_progress.duration.strftime('(%Hh%Mm)')
+                  xml.a({:href=>url_for(:action=>:find_event)}) do
+                    xml.text! "#{state_progress.count} #{local(:events)} #{state_progress.event_state_progress}"
+                    xml.em state_progress.duration.strftime('(%Hh%Mm)')
+                  end
                 end
               end
             end
