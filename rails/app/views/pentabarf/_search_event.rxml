@@ -7,7 +7,7 @@ paginate( xml, @results, params[:id].to_i ) do | results |
       xml.tr do
         xml.th(local(:event),:colspan=>2)
         fields.each do | field |
-          xml.th( local(field) )
+          xml.th( local("event::#{field}") )
         end
       end
     end
