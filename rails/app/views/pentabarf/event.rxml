@@ -22,10 +22,7 @@ xml.div( :id => 'data' ) do
     xml << render( :partial => 'event_comment' )
 
     xml.div(:id=>:conflicts) do
-      xml.script(:type=>'text/javascript') do
-        xml.text! "new Ajax.Updater('conflicts','#{url_for(:action=>:conflict_event,:id=>@event.event_id)}');"
-      end
-    end if not @event.new_record?
+    end
 
     tabs.each do | tab |
       xml << render( :partial => "event_#{tab}")
@@ -33,9 +30,12 @@ xml.div( :id => 'data' ) do
 
   end
 
-  xml.script( "function send_content(){ $('content_form').submit();  }", { :type => 'text/javascript' } )
-  xml.script( "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );", { :type => 'text/javascript' } )
-  xml.script( "switch_tab();", { :type => 'text/javascript' } )
+  xml.script({:type=>'text/javascript'}) do
+    xml << "function send_content(){ $('content_form').submit(); };"
+    xml << "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );"
+    xml << "switch_tab();"
+    xml << "new Ajax.Updater('conflicts','#{url_for(:action=>:conflict_event,:id=>@event.event_id)}');" if not @event.new_record?
+  end
 
 end
 
