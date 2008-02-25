@@ -1,15 +1,15 @@
 feedback = View_conference_rating.select_or_new(:conference_id=>@conference.conference_id)
 xml.div({:id=>'content-feedback'}) do
 
-  xml.fieldset do 
-    xml.legend( 'Feedback' )
+  xml.fieldset do
+    xml.legend( local('event_feedback') )
 
     xml.table do
       xml.thead do
         xml.tr do
-          xml.th "Category"
-          xml.th "Rating", {:colspan=>2}
-          xml.th "Total votes"
+          xml.th local('feedback::rating_category')
+          xml.th local('feedback::rating'), {:colspan=>2}
+          xml.th local('feedback::total_votes')
         end
 
       end

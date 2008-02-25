@@ -2,14 +2,14 @@ feedback = View_event_feedback_statistics.select_or_new(:event_id=>@event.event_
 xml.div({:id=>'content-feedback'}) do
 
   xml.fieldset do
-    xml.legend( 'Feedback' )
+    xml.legend( local('event_feedback') )
 
     xml.table do
       xml.thead do
         xml.tr do
-          xml.th "Category"
-          xml.th "Rating", {:colspan=>2}
-          xml.th "Total votes"
+          xml.th local('feedback::rating_category')
+          xml.th local('feedback::rating'), {:colspan=>2}
+          xml.th local('feedback::total_votes')
         end
 
       end
@@ -42,7 +42,7 @@ xml.div({:id=>'content-feedback'}) do
     remarks = Event_feedback.select(:event_id=>@event.event_id,:remark=>:NOT_NULL)
     xml.table do
       xml.thead do
-        xml.tr do xml.th 'Remarks' end
+        xml.tr do xml.th local('event_feedback::remark') end
       end
 
       remarks.each do | remark |

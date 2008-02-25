@@ -85,7 +85,7 @@ xml.script(:type=>'text/javascript') do
       xml << js_function('search_row_add', nil, row[:key], row[:value])
     end
   else
-    xml.text! "search_row_add();"
+    xml << "search_row_add();"
   end
   xml.text! <<-JS
     switch_tab();

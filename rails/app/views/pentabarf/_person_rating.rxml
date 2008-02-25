@@ -24,10 +24,10 @@ xml.div(:id=>'content-rating') do
 
     xml.table do
       xml.tr do
-        xml.th('Rater',:colspan=>2)
+        xml.th( local('person_rating::evaluator_id'),:colspan=>2)
         xml.th('Rating',:colspan=>2)
-        xml.th 'Remark'
-        xml.th 'Time'
+        xml.th local('person_rating::remark')
+        xml.th local('person_rating::eval_time')
       end
       ratings.each do | rating |
         xml.tr do

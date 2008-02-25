@@ -1,7 +1,7 @@
 xml.div({:id=>'data'}) do
 
   xml.fieldset do
-    xml.legend local(:events_by_state)
+    xml.legend local('pentabarf::events_by_state')
 
     xml.table do
       xml.tr do
@@ -29,7 +29,7 @@ xml.div({:id=>'data'}) do
   end
 
   xml.fieldset do
-    xml.legend local(:conflicts)
+    xml.legend local('pentabarf::conflicts')
     xml.ul do
       Conflict_statistics.call({:conference_id=>@current_conference.conference_id}).reverse_each do | level |
         xml.li do
