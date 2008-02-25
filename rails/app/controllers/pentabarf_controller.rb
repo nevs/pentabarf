@@ -347,7 +347,13 @@ class PentabarfController < ApplicationController
   end
 
   def events_by_state
-    @content_title = "Events by state"
+    @content_title = "Events by state: "
+    state = Event_state_localized.select_single(:event_state=>params[:event_state],:translated=>POPE.user.current_language)
+    @content_title += state.name
+    if params[:event_state_progress]
+      progress = Event_state_progress_localized.select_single(:event_state=>params[:event_state],:event_state_progress=>params[:event_state_progress],:translated=>POPE.user.current_language)
+      @content_title += ' ' + progress.name
+    end
   end
 
   protected
