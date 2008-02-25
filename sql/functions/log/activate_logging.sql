@@ -26,8 +26,17 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
       SELECT INTO columns_new array_to_string(ARRAY(SELECT 'NEW.'||quote_ident(column_name::text) from information_schema.columns WHERE table_name = tablename AND table_schema = tableschema ORDER BY ordinal_position),',');
 
       fundef = $f$CREATE OR REPLACE FUNCTION log.$f$ || quote_ident( procname ) || $f$() RETURNS TRIGGER AS $i$
+        DECLARE
+          new_transaction BOOLEAN;
         BEGIN
-          IF ( current_setting('pentabarf.transaction_id') IN ('','unset') ) THEN
+          BEGIN
+            -- postgresql 8.1 and 8.2
+            new_transaction := current_setting('pentabarf.transaction_id') IN ('unset','');
+          EXCEPTION WHEN undefined_object THEN
+            -- postgresql 8.3
+            new_transaction := TRUE;
+          END;
+          IF new_transaction THEN
             PERFORM set_config('pentabarf.transaction_id',nextval('base.log_transaction_log_transaction_id_seq'),TRUE);
             INSERT INTO log.log_transaction( log_transaction_id, person_id )
               VALUES ( currval('base.log_transaction_log_transaction_id_seq'),
