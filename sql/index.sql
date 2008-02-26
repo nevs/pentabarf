@@ -11,3 +11,5 @@ CREATE INDEX event_person_person_id_index ON event_person(person_id);
 CREATE INDEX event_person_event_role_index ON event_person(event_role);
 CREATE INDEX event_person_event_role_state_index ON event_person(event_role,event_role_state);
 
+CREATE INDEX account_person_id_index ON auth.account(person_id);
+

@@ -21,3 +21,4 @@ CREATE TABLE event_person (
 CREATE TABLE log.event_person (
 ) INHERITS( base.logging, base.event_person );
 
+
