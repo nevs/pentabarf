@@ -230,7 +230,9 @@ function search_row_add( list, key, value ) {
 }
 
 function search_row_remove( list ) {
-  $(list).up().remove();
+  if ( $(list).up().up().childElements().length > 1 ) {
+    $(list).up().remove();
+  }
 }
 
 function search_row_change( list ) {
