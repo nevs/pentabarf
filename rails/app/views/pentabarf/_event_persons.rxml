@@ -9,8 +9,8 @@ xml.div(:id=>'content-persons') do
       xml.thead do
         xml.tr do
           [:person_id,:event_role,:event_role_state,:remark].each do | field | xml.th( local( "event_person::#{field}") ) end
+          xml.th local( "form::remove" )
         end
-        xml.th local( "form::remove" )
       end
       xml.tbody(:id=>'event_person_tbody') do
         xml.tr(:id=>'event_person_template',:style=>'display:none') do

@@ -1,5 +1,5 @@
 xml.fieldset(:class=>:conflicts) do
-  xml.legend local(:conflicts)
+  xml.legend local('pentabarf::conflicts')
   xml.ul do
     @conflicts.each do | conflict |
       xml.li do
