@@ -326,21 +326,21 @@ class PentabarfController < ApplicationController
       recipients = recipient_members( params[:mail][:recipients])
       person_ids = recipients.map(&:person_id).uniq
       person_ids.each do | person_id |
-        events = recipients.select{|recipient| recipient.person_id == person_id}
-        r = events[0]
-        titles = []
-        events.each do | event |
-          titles.push( event.event_title )
-        end if r.respond_to?(:event_title)
-        body = params[:mail][:body].dup
-        subject = params[:mail][:subject].dup
-        variables.each do | v |
-          body.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
-          subject.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
-        end
-        body.gsub!(/\{\{event_title\}\}/i, titles.join(','))
-        subject.gsub!(/\{\{event_title\}\}/i, titles.join(','))
         begin
+          events = recipients.select{|recipient| recipient.person_id == person_id}
+          r = events[0]
+          titles = []
+          events.each do | event |
+            titles.push( event.event_title )
+          end if r.respond_to?(:event_title)
+          body = params[:mail][:body].dup
+          subject = params[:mail][:subject].dup
+          variables.each do | v |
+            body.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
+            subject.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
+          end
+          body.gsub!(/\{\{event_title\}\}/i, titles.join(','))
+          subject.gsub!(/\{\{event_title\}\}/i, titles.join(','))
           Notifier::deliver_general(r.email, subject, body, from)
         rescue => e
           raise StandardError, "Error while sending mail to #{r.name}<#{r.email}>.: #{e}"
