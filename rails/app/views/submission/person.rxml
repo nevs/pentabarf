@@ -26,9 +26,15 @@ xml.div( :id => 'data' ) do
 
   end
 
-  xml.script( "function send_content(){ $('content_form').submit();  }", { :type => 'text/javascript' } )
-  xml.script( "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );", { :type => 'text/javascript' } )
-  xml.script( "switch_tab();", { :type => 'text/javascript' } )
+  xml.script({:type=>'text/javascript'}) do 
+    if @current_conference.f_submission_writable
+      xml << "function send_content(){ $('content_form').submit();  };"
+      xml << "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );"
+    else
+      xml << "new Form.EventObserver('content_form', function(element, value ) { alert('#{js(local('submission::submission_readonly'))}') } );"
+    end
+    xml << "switch_tab();"
+  end
 
 end
 
