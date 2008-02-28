@@ -7,5 +7,9 @@ DELETE FROM log.log_transaction_involved_tables where table_name = 'ui_message';
 
 CREATE INDEX account_person_id_index ON auth.account(person_id);
 
+ALTER TABLE base.conference ADD COLUMN f_submission_writable BOOL NOT NULL DEFAULT FALSE;
+
+SELECT log.activate_logging();
+
 COMMIT;
 
