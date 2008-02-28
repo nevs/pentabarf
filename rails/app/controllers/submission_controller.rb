@@ -5,7 +5,7 @@ class SubmissionController < ApplicationController
   after_filter :set_content_type
 
   def index
-    @conferences = Conference.select({:f_submission_enabled=>'t'})
+    @conferences = Conference.select({:f_submission_enabled=>true,:f_submission_writable=>true})
   end
 
   def login
@@ -105,7 +105,9 @@ class SubmissionController < ApplicationController
   def init
     @current_language = POPE.user ? POPE.user.current_language : 'en'
     begin
-      @conference = Conference.select_single(:acronym=>params[:conference],:f_submission_enabled=>'t')
+      constraints = {:acronym=>params[:conference],:f_submission_enabled=>true}
+      constraints[:f_submission_writable] = true if params[:action].match(/^(save|delete)_/)
+      @conference = Conference.select_single( constraints )
     rescue Momomoto::Error
       if params[:action] != 'index' || params[:conference]
         redirect_to(:controller=>'submission', :action => :index, :conference => nil )
