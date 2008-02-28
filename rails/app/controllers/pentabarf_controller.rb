@@ -340,7 +340,11 @@ class PentabarfController < ApplicationController
         end
         body.gsub!(/\{\{event_title\}\}/i, titles.join(','))
         subject.gsub!(/\{\{event_title\}\}/i, titles.join(','))
-        Notifier::deliver_general(r.email, subject, body, from)
+        begin
+          Notifier::deliver_general(r.email, subject, body, from)
+        rescue => e
+          raise StandardError, "Error while sending mail to #{r.name}<#{r.email}>.: #{e}"
+        end
       end
     end
     redirect_to(:action=>:mail)
