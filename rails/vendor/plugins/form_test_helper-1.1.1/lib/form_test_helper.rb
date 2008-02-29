@@ -33,7 +33,7 @@ module FormTestHelper
     
     # Submits the form.  Raises an exception if no submit button is present.
     def submit(opts={})
-      raise MissingSubmitError, "Submit button not found in form" unless tag.select('input[type="submit"], input[type="image"], button[type="submit"]').any?
+      raise MissingSubmitError, "Submit button not found in form" unless tag.select('input[type="submit"], input[type="image"], button[type="submit"], button[id="submit-button"]').any?
       @xhr = opts.delete(:xhr)
       fields_hash.update(opts)
       submit_without_clicking_button
