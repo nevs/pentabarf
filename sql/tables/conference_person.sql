@@ -9,7 +9,7 @@ CREATE TABLE base.conference_person (
   email TEXT,
   arrived BOOL NOT NULL DEFAULT FALSE,
   reconfirmed BOOL NOT NULL DEFAULT FALSE,
-  CONSTRAINT person_email_check CHECK (email ~ E'^[\\w_.+-]+@([\\w.+_-]+\.)+\\w{2,}$')
+  CONSTRAINT conference_person_email_check CHECK (email ~ E'^[\\w=_.+-]+@([\\w.+_-]+\.)+\\w{2,}$')
 );
 
 CREATE TABLE conference_person (

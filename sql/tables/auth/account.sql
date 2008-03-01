@@ -9,7 +9,7 @@ CREATE TABLE base.account (
   person_id INTEGER,
   CHECK (login_name <> 'logout'),
   CHECK ( strpos( login_name, ':' ) = 0 ),
-  CONSTRAINT person_email_check CHECK (email ~ E'^[\\w_.+-]+@([\\w.+_-]+\.)+\\w{2,}$')
+  CONSTRAINT account_email_check CHECK (email ~ E'^[\\w=_.+-]+@([\\w.+_-]+\.)+\\w{2,}$')
 );
 
 CREATE TABLE auth.account (
