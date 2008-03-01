@@ -8,7 +8,8 @@ CREATE TABLE base.conference_person (
   remark TEXT,
   email TEXT,
   arrived BOOL NOT NULL DEFAULT FALSE,
-  reconfirmed BOOL NOT NULL DEFAULT FALSE
+  reconfirmed BOOL NOT NULL DEFAULT FALSE,
+  CONSTRAINT person_email_check CHECK (email ~ E'^[\\w_.+-]+@([\\w.+_-]+\.)+\\w{2,}$')
 );
 
 CREATE TABLE conference_person (

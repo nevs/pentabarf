@@ -8,7 +8,8 @@ CREATE TABLE base.account (
   edit_token TEXT,
   person_id INTEGER,
   CHECK (login_name <> 'logout'),
-  CHECK ( strpos( login_name, ':' ) = 0 )
+  CHECK ( strpos( login_name, ':' ) = 0 ),
+  CONSTRAINT person_email_check CHECK (email ~ E'^[\\w_.+-]+@([\\w.+_-]+\.)+\\w{2,}$')
 );
 
 CREATE TABLE auth.account (

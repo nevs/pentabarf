@@ -19,11 +19,12 @@ CREATE TABLE base.person (
   iban TEXT,
   bic TEXT,
   bank_name TEXT,
-  account_owner TEXT
+  account_owner TEXT,
+  CHECK (first_name IS NOT NULL OR last_name IS NOT NULL OR public_name IS NOT NULL OR nickname IS NOT NULL),
+  CONSTRAINT person_email_check CHECK (email ~ E'^[\\w_.+-]+@([\\w.+_-]+\.)+\\w{2,}$')
 );
 
 CREATE TABLE public.person(
-  CHECK (first_name IS NOT NULL OR last_name IS NOT NULL OR public_name IS NOT NULL OR nickname IS NOT NULL),
   FOREIGN KEY (country) REFERENCES country (country) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY (person_id)
 ) INHERITS( base.person );
