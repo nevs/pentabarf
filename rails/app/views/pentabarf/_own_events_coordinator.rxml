@@ -4,7 +4,7 @@ xml.div(:id=>'content-coordinator') do
 
     xml.table do
       xml.tr do
-        [:event,:event_state,:event_state_progress,:role,:role_state].each do | col |
+        ['event','event::event_state','event::event_state_progress','event_person::event_role','event_person::event_role_state'].each do | col |
           xml.th local( col )
         end
       end

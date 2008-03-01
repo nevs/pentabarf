@@ -155,6 +155,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::description::introduction', 'en', 'Use the full description to explain everything that is worth knowing about the content of the event in great detail. Use outlines occasionally if you think it is necessary but try to summarize the content in full sentences whenever possible.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::duration', 'de', 'Dauer');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::duration', 'en', 'Duration');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event', 'en', 'Event');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::event_origin', 'de', 'Herkunft der Veranstaltung');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::event_origin', 'en', 'Event Origin');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::event_state', 'de', 'Veranstaltungsstatus');
@@ -333,6 +334,16 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('link::s
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('link::startpage', 'en', 'Overview');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('localization::index', 'de', 'Lokalisierung');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('localization::index', 'en', 'Localization');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::body', 'de', 'Body');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::body', 'en', 'Body');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail', 'de', 'Mail');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail', 'en', 'Mail');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::recipients', 'de', 'Empfänger');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::recipients', 'en', 'Recipients');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::send_mail', 'de', 'Mail senden');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::send_mail', 'en', 'Send mail');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::subject', 'de', 'Betreff');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::subject', 'en', 'Subject');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('own_events', 'en', 'Own Events');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('own_events::tab::coordinator', 'en', 'Coordinator');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('own_events::tab::participant', 'en', 'Participant');

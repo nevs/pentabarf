@@ -17,7 +17,7 @@ xml.div({:id=>'content-feedback'}) do
         [:participant_knowledge,:topic_importance,:content_quality,:presentation_quality,:audience_involvement].each do | category |
           value = feedback.send( category ) || 0
           xml.tr do
-            xml.td( local( category ) )
+            xml.td( local( "event_feedback::#{category}" ) )
             xml.td({:class=>"rating-bar"}) do
               if value < 0
                 xml.span( value, {:class=>"negative p#{(value*-1).to_i}"} )
