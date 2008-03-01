@@ -29,6 +29,11 @@ class ImageController < ApplicationController
 
   protected
 
+   def auth
+     return true if params[:action] == "conference" && Conference.select(:conference_id=>params[:id].to_i,:f_submission_enabled=>'t').length == 1
+     super
+   end
+
   def check_permission
     if POPE.permission?('pentabarf_login')
       return true
@@ -38,8 +43,6 @@ class ImageController < ApplicationController
           return true if POPE.own_events.member?(params[:id].to_i)
         when 'person'
           return true if POPE.user.person_id == params[:id].to_i
-        when 'conference'
-          return true if Conference.select(:conference_id=>params[:id].to_i,:f_submission_enabled=>'t').length == 1
       end
     end
     false
