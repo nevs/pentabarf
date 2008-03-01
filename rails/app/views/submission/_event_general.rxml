@@ -1,7 +1,7 @@
 xml.div(:id=>'content-general') do
 
   xml.fieldset do
-    xml.legend local('view::pentabarf::event::tab::general')
+    xml.legend local('event::tab::general')
 
     xml.table do
       xml << text_field_row( @event, :title )
@@ -37,7 +37,7 @@ xml.div(:id=>'content-general') do
   end unless custom_fields.empty?
 
   xml.fieldset do
-    xml.legend local('view::pentabarf::event::tab::schedule')
+    xml.legend local('event::tab::schedule')
     xml.table do 
       xml.tr do  
         xml.td do xml.b( local('event::conference_day')) end

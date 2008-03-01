@@ -1,7 +1,7 @@
 xml.div(:id=>'content-general') do
 
   xml.fieldset do
-    xml.legend local('view::pentabarf::conference::tab::general')
+    xml.legend local('conference::tab::general')
     xml.table do
       xml << text_field_row( @conference, :acronym )
       xml << text_field_row( @conference, :title )
