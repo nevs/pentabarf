@@ -22,7 +22,7 @@ xml.div(:id=>'content-general') do
       if @event.event_id
         created = Event_transaction.select({:event_id=>@event.event_id},{:order=>:changed_when,:limit=>1})[0]
         xml.tr do
-          xml.td do xml.label( local(:created) ) end
+          xml.td do xml.label( local('event::creation_time') ) end
           xml.td created.changed_when.strftime('%Y-%m-%d %H:%M:%S')
         end if created
       end
