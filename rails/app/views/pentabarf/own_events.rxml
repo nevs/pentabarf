@@ -5,7 +5,12 @@ xml << js_tabs( tabs )
 xml.div({:id=>'data'}) do
 
   tabs.each do | tab |
-    xml << render( :partial => "own_events_#{tab}")
+    xml.div(:id=>"content-#{tab}") do
+      xml.fieldset do
+        xml.legend local("own_events::tab::#{tab}")
+        xml << event_table( @events[tab],{:id=>"event_table_#{tab}"})
+      end
+    end
   end
 
   xml.script( "switch_tab();", { :type => 'text/javascript' } )

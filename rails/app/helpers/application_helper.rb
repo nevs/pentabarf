@@ -180,9 +180,10 @@ module ApplicationHelper
     xml
   end
 
-  def event_table( events )
+  def event_table( events, options = {} )
     xml = Builder::XmlMarkup.new
-    xml.table(:id=>'events_table',:class=>'sortable') do
+    options[:id] ||= 'event_table'
+    xml.table(:id=>options[:id],:class=>'sortable') do
       fields = [:event_state,:event_state_progress,:conference_day,:conference_room]
       xml.thead do
         xml.tr do

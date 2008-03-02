@@ -3,6 +3,8 @@ CREATE OR REPLACE VIEW view_own_events_coordinator AS
 SELECT
   event.event_id,
   event.conference_id,
+  event.conference_day,
+  event.conference_room,
   event.event_state,
   event.event_state_progress,
   event_state_localized.translated,
