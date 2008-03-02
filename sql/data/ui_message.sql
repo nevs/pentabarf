@@ -2,11 +2,7 @@
 SET client_encoding = 'UTF8';
 SET search_path = public, pg_catalog;
 
-INSERT INTO ui_message (ui_message) VALUES ('Accommodation Cost');
 INSERT INTO ui_message (ui_message) VALUES ('Description');
-INSERT INTO ui_message (ui_message) VALUES ('Fee');
-INSERT INTO ui_message (ui_message) VALUES ('Name');
-INSERT INTO ui_message (ui_message) VALUES ('Travel Cost');
 INSERT INTO ui_message (ui_message) VALUES ('abstract');
 INSERT INTO ui_message (ui_message) VALUES ('accommodation');
 INSERT INTO ui_message (ui_message) VALUES ('account');
@@ -160,6 +156,13 @@ INSERT INTO ui_message (ui_message) VALUES ('country_localized::country');
 INSERT INTO ui_message (ui_message) VALUES ('country_localized::name');
 INSERT INTO ui_message (ui_message) VALUES ('country_localized::translated');
 INSERT INTO ui_message (ui_message) VALUES ('created');
+INSERT INTO ui_message (ui_message) VALUES ('custom_fields');
+INSERT INTO ui_message (ui_message) VALUES ('custom_fields::add_custom_field');
+INSERT INTO ui_message (ui_message) VALUES ('custom_fields::field_name');
+INSERT INTO ui_message (ui_message) VALUES ('custom_fields::field_type');
+INSERT INTO ui_message (ui_message) VALUES ('custom_fields::submission_settable');
+INSERT INTO ui_message (ui_message) VALUES ('custom_fields::submission_visible');
+INSERT INTO ui_message (ui_message) VALUES ('custom_fields::table_name');
 INSERT INTO ui_message (ui_message) VALUES ('date');
 INSERT INTO ui_message (ui_message) VALUES ('day');
 INSERT INTO ui_message (ui_message) VALUES ('departure');

@@ -142,6 +142,16 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track::color', 'en', 'Color');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track::tag', 'de', 'Track-Kürzel');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track::tag', 'en', 'Tag');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::field_name', 'de', 'Feldname');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::field_name', 'en', 'field name');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::field_type', 'de', 'Feldtyp');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::field_type', 'en', 'field type');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::submission_settable', 'de', 'änderbar');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::submission_settable', 'en', 'settable');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::submission_visible', 'de', 'sichtbar');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::submission_visible', 'en', 'visible');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::table_name', 'de', 'Tabelllenname');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::table_name', 'en', 'table name');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('day', 'de', 'Tag');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('day', 'en', 'Day');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event', 'de', 'Veranstaltung');

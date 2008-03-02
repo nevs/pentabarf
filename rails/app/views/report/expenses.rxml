@@ -7,10 +7,10 @@ xml.div({:id=>:data}) do
   xml.table({:id=>:report_expenses_table,:class=>:sortable}) do
     xml.thead do
       xml.tr do
-        xml.th( local( "Name" ), {:colspan=>2} )
-        xml.th( local( "Fee" ), {:colspan=>2} )
-        xml.th( local( "Travel Cost" ), {:colspan=>2} )
-        xml.th( local( "Accommodation Cost" ), {:colspan=>2} )
+        xml.th( local( "person::name" ), {:colspan=>2} )
+        xml.th( local( "conference_person_travel::fee" ), {:colspan=>2} )
+        xml.th( local( "conference_person_travel::travel_cost" ), {:colspan=>2} )
+        xml.th( local( "conference_person_travel::accommodation_cost" ), {:colspan=>2} )
       end
     end
 

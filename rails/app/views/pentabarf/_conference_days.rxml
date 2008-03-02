@@ -1,7 +1,7 @@
 xml.div(:id=>'content-days') do
 
   xml.fieldset do
-    xml.legend( local('conference days') )
+    xml.legend( local('conference::tab::days') )
     xml.table(:id=>'conference_day_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
