@@ -1,6 +1,6 @@
 
 
-# finds unused views
+desc "finds unused views"
 task :unused_views do
   views = `grep -r 'CREATE OR REPLACE VIEW' sql | sed -e 's/.*:CREATE OR REPLACE VIEW \\([a-z_]\\+\\) AS.*/\\1/'`.split
   views.each do | view |
@@ -14,7 +14,7 @@ task :unused_views do
   end
 end
 
-# finds unused models
+desc "finds unused models"
 task :unused_models do
   models = `grep -r '^class ' rails/app/models | sed -e 's/.*:class \\([A-Z][a-z_]\\+\\) .*/\\1/'`.split
   models.each do | model |
@@ -30,7 +30,7 @@ task :unused_models do
   end
 end
 
-# finds files which are not included during install
+desc "finds sql files which are not included during install"
 task :unincluded_files do
   ['tables','views','functions'].each do | type |
     files = `(cd sql && find #{type} -type f)`.split
@@ -43,6 +43,7 @@ task :unincluded_files do
   end
 end
 
+desc "regenerate CSS file"
 task :update_css do
   `(cd rails/public/stylesheets && sh -c 'sed -e "s!@import url(\\"\\([a-z_]\\+.css\\).*!\\1!" main.template | xargs cat > main.css')`
 end
@@ -52,10 +53,17 @@ task :check => [:unincluded_files,:unused_views,:unused_models]
 
 task :default => [:update_css]
 
+desc "run rails tests"
 task :test do
   sh "(cd rails && rake test)"
 end
 
+desc "update initial data"
+task :update_data do
+  sh "(cd sql/data && ruby update_data)"
+end
+
+desc "find unlocalized strings in the templates"
 task :unlocalized do
   template_dir = "rails/app/views/"
   template_dir += ENV['CONTROLLER'] if ENV['CONTROLLER']
