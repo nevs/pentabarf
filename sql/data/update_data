@@ -28,9 +28,9 @@ tables.each do | table |
     dump_file.puts("")
     dump_file.close
     if ["ui_message","ui_message_localized"].member?( table )
-      system("pg_dump -i -a -D -O -x -t #{table} | grep '^INSERT' | grep -v \"INSERT INTO \\w\\+ ([^)]\\+) VALUES ('custom_\" | sort >> #{table}.sql")
+      system("pg_dump -i -a -D -O -x -t #{table} | grep '^INSERT' | grep -v \"INSERT INTO \\w\\+ ([^)]\\+) VALUES ('custom_\" | LANG=C sort >> #{table}.sql")
     else
-      system("pg_dump -i -a -D -O -x -t #{table} | grep '^INSERT' | sort >> #{table}.sql")
+      system("pg_dump -i -a -D -O -x -t #{table} | grep '^INSERT' | LANG=C sort >> #{table}.sql")
     end
 
   end

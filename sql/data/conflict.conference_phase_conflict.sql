@@ -2,6 +2,8 @@
 SET client_encoding = 'UTF8';
 SET search_path = conflict, pg_catalog;
 
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (1, 'discord', 'event_no_paper', 'note');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (10, 'aftermath', 'person_no_email', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (100, 'confusion', 'event_slides_unknown', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (101, 'bureaucracy', 'event_no_abstract', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (102, 'bureaucracy', 'person_no_abstract', 'error');
@@ -12,7 +14,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (107, 'confusion', 'person_no_description', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (108, 'bureaucracy', 'event_paper_unknown', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (109, 'confusion', 'event_no_abstract', 'error');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (10, 'aftermath', 'person_no_email', 'error');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (11, 'aftermath', 'event_no_coordinator', 'silent');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (110, 'confusion', 'person_no_abstract', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (111, 'chaos', 'event_person_event_before_arrival', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (112, 'chaos', 'event_person_event_after_departure', 'note');
@@ -23,7 +25,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (117, 'bureaucracy', 'event_person_event_before_arrival', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (118, 'bureaucracy', 'event_person_event_after_departure', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (119, 'aftermath', 'event_person_event_before_arrival', 'silent');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (11, 'aftermath', 'event_no_coordinator', 'silent');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (12, 'chaos', 'event_incomplete', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (120, 'aftermath', 'event_person_event_after_departure', 'silent');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (121, 'aftermath', 'event_no_paper', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (122, 'chaos', 'event_no_slides', 'note');
@@ -34,7 +36,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (127, 'chaos', 'event_abstract_length', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (128, 'chaos', 'event_description_length', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (129, 'chaos', 'person_abstract_length', 'note');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (12, 'chaos', 'event_incomplete', 'note');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (13, 'chaos', 'event_inconsistent_public_link', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (130, 'chaos', 'person_description_length', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (131, 'discord', 'event_person_event_time_attendee', 'silent');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (132, 'discord', 'event_abstract_length', 'warning');
@@ -45,7 +47,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (137, 'confusion', 'event_abstract_length', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (138, 'confusion', 'event_description_length', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (139, 'confusion', 'person_abstract_length', 'error');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (13, 'chaos', 'event_inconsistent_public_link', 'error');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (14, 'chaos', 'event_event_duplicate_tag', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (140, 'confusion', 'person_description_length', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (141, 'bureaucracy', 'event_person_event_time_attendee', 'silent');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (142, 'bureaucracy', 'event_abstract_length', 'error');
@@ -56,7 +58,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (147, 'aftermath', 'event_abstract_length', 'silent');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (148, 'aftermath', 'event_description_length', 'silent');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (149, 'aftermath', 'person_abstract_length', 'silent');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (14, 'chaos', 'event_event_duplicate_tag', 'note');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (15, 'discord', 'event_event_duplicate_tag', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (150, 'aftermath', 'person_description_length', 'silent');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (151, 'chaos', 'event_no_abstract', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (152, 'discord', 'event_no_abstract', 'warning');
@@ -67,7 +69,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (157, 'chaos', 'event_unconfirmed_with_timeslot', 'silent');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (158, 'bureaucracy', 'event_no_paper', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (159, 'bureaucracy', 'event_slides_unknown', 'fatal');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (15, 'discord', 'event_event_duplicate_tag', 'warning');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (16, 'confusion', 'event_event_duplicate_tag', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (160, 'confusion', 'event_accepted_without_timeslot', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (161, 'confusion', 'event_unconfirmed_with_timeslot', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (162, 'bureaucracy', 'event_accepted_without_timeslot', 'fatal');
@@ -78,17 +80,16 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (167, 'discord', 'event_unconfirmed_with_timeslot', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (168, 'aftermath', 'event_paper_unknown', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (169, 'aftermath', 'event_slides_unknown', 'fatal');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (16, 'confusion', 'event_event_duplicate_tag', 'error');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (17, 'bureaucracy', 'event_event_duplicate_tag', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (170, 'chaos', 'event_person_person_availability', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (171, 'discord', 'event_person_person_availability', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (172, 'confusion', 'event_person_person_availability', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (173, 'bureaucracy', 'event_person_person_availability', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (174, 'aftermath', 'event_person_person_availability', 'silent');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (175, 'chaos', 'event_slides_unknown', 'warning');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (17, 'bureaucracy', 'event_event_duplicate_tag', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (18, 'aftermath', 'event_event_duplicate_tag', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (19, 'chaos', 'event_inconsistent_tag', 'note');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (1, 'discord', 'event_no_paper', 'note');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (2, 'discord', 'person_no_email', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (20, 'discord', 'event_inconsistent_tag', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (21, 'chaos', 'event_event_time', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (22, 'confusion', 'event_inconsistent_tag', 'error');
@@ -99,7 +100,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (27, 'discord', 'event_incomplete', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (28, 'aftermath', 'event_event_time', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (29, 'chaos', 'event_person_event_time_speaker_speaker', 'fatal');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (2, 'discord', 'person_no_email', 'error');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (3, 'discord', 'event_missing_tag', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (30, 'confusion', 'event_incomplete', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (31, 'discord', 'event_inconsistent_public_link', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (32, 'confusion', 'event_inconsistent_public_link', 'error');
@@ -110,7 +111,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (37, 'discord', 'event_paper_unknown', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (38, 'bureaucracy', 'event_inconsistent_public_link', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (39, 'aftermath', 'event_inconsistent_public_link', 'error');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (3, 'discord', 'event_missing_tag', 'note');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (4, 'confusion', 'event_missing_tag', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (40, 'chaos', 'person_inconsistent_public_link', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (41, 'discord', 'person_inconsistent_public_link', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (42, 'chaos', 'event_no_coordinator', 'fatal');
@@ -121,7 +122,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (47, 'discord', 'event_no_speaker', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (48, 'discord', 'event_no_coordinator', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (49, 'aftermath', 'person_inconsistent_public_link', 'error');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (4, 'confusion', 'event_missing_tag', 'warning');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (5, 'bureaucracy', 'event_missing_tag', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (50, 'chaos', 'event_no_language', 'silent');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (51, 'discord', 'event_no_language', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (52, 'confusion', 'event_person_language', 'fatal');
@@ -132,7 +133,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (57, 'bureaucracy', 'event_person_language', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (58, 'bureaucracy', 'event_person_event_time_speaker_speaker', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (59, 'bureaucracy', 'event_no_coordinator', 'fatal');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (5, 'bureaucracy', 'event_missing_tag', 'fatal');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (6, 'aftermath', 'event_missing_tag', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (60, 'aftermath', 'event_incomplete', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (61, 'bureaucracy', 'event_no_language', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (62, 'aftermath', 'event_no_language', 'error');
@@ -143,7 +144,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (67, 'confusion', 'event_person_event_time_speaker_speaker', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (68, 'bureaucracy', 'event_no_speaker', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (69, 'chaos', 'event_no_track', 'silent');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (6, 'aftermath', 'event_missing_tag', 'fatal');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (7, 'chaos', 'event_missing_tag', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (70, 'bureaucracy', 'event_incomplete', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (71, 'chaos', 'person_no_email', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (72, 'discord', 'event_no_track', 'note');
@@ -154,7 +155,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (77, 'discord', 'event_person_event_time_speaker_visitor', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (78, 'confusion', 'event_person_event_time_speaker_visitor', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (79, 'bureaucracy', 'event_person_event_time_speaker_visitor', 'warning');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (7, 'chaos', 'event_missing_tag', 'note');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (8, 'confusion', 'person_no_email', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (80, 'aftermath', 'event_person_event_time_speaker_visitor', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (81, 'chaos', 'event_conference_language', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (82, 'discord', 'event_conference_language', 'fatal');
@@ -165,7 +166,7 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (87, 'discord', 'event_person_event_time_visitor_visitor', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (88, 'confusion', 'event_person_event_time_visitor_visitor', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (89, 'bureaucracy', 'event_person_event_time_visitor_visitor', 'warning');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (8, 'confusion', 'person_no_email', 'error');
+INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (9, 'bureaucracy', 'person_no_email', 'error');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (90, 'aftermath', 'event_person_event_time_visitor_visitor', 'warning');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (91, 'chaos', 'person_no_description', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (92, 'chaos', 'event_no_description', 'note');
@@ -176,4 +177,3 @@ INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (97, 'confusion', 'event_paper_unknown', 'fatal');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (98, 'discord', 'person_no_abstract', 'note');
 INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (99, 'bureaucracy', 'person_no_description', 'error');
-INSERT INTO conference_phase_conflict (conference_phase_conflict_id, conference_phase, conflict, conflict_level) VALUES (9, 'bureaucracy', 'person_no_email', 'error');

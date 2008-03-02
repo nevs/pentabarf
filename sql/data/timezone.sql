@@ -99,8 +99,8 @@ INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Costa
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Cuiaba', 'AMT', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Curacao', 'AST', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Danmarkshavn', 'GMT', '00:00:00');
-INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Dawson_Creek', 'MST', '-07:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Dawson', 'PDT', '-07:00:00');
+INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Dawson_Creek', 'MST', '-07:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Denver', 'MDT', '-06:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Detroit', 'EDT', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Dominica', 'AST', '-04:00:00');
@@ -108,8 +108,8 @@ INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Edmon
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Eirunepe', 'ACT', '-05:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/El_Salvador', 'CST', '-06:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Ensenada', 'PST', '-08:00:00');
-INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Fortaleza', 'BRT', '-03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Fort_Wayne', 'EDT', '-04:00:00');
+INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Fortaleza', 'BRT', '-03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Glace_Bay', 'ADT', '-03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Godthab', 'WGT', '-03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Goose_Bay', 'ADT', '-03:00:00');
@@ -126,11 +126,11 @@ INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/India
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Indiana/Knox', 'CDT', '-05:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Indiana/Marengo', 'EDT', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Indiana/Petersburg', 'CDT', '-05:00:00');
-INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Indianapolis', 'EDT', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Indiana/Tell_City', 'CDT', '-05:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Indiana/Vevay', 'EDT', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Indiana/Vincennes', 'CDT', '-05:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Indiana/Winamac', 'EDT', '-04:00:00');
+INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Indianapolis', 'EDT', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Inuvik', 'MDT', '-06:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Iqaluit', 'EDT', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Jamaica', 'EST', '-05:00:00');
@@ -170,8 +170,8 @@ INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Pangn
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Paramaribo', 'SRT', '-03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Phoenix', 'MST', '-07:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Port-au-Prince', 'EST', '-05:00:00');
-INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Porto_Acre', 'ACT', '-05:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Port_of_Spain', 'AST', '-04:00:00');
+INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Porto_Acre', 'ACT', '-05:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Porto_Velho', 'AMT', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Puerto_Rico', 'AST', '-04:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('America/Rainy_River', 'CDT', '-05:00:00');
@@ -274,10 +274,10 @@ INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Pyongyan
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Qatar', 'AST', '03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Qyzylorda', 'QYZT', '06:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Rangoon', 'MMT', '06:30:00');
+INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Riyadh', 'AST', '03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Riyadh87', 'zzz', '03:07:04');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Riyadh88', 'zzz', '03:07:04');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Riyadh89', 'zzz', '03:07:04');
-INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Riyadh', 'AST', '03:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Saigon', 'ICT', '07:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Sakhalin', 'SAKT', '10:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Asia/Samarkand', 'UZT', '05:00:00');
@@ -314,8 +314,8 @@ INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Australia/LHI
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Australia/Lindeman', 'EST', '10:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Australia/Lord_Howe', 'LHST', '11:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Australia/Melbourne', 'EST', '11:00:00');
-INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Australia/North', 'CST', '09:30:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Australia/NSW', 'EST', '11:00:00');
+INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Australia/North', 'CST', '09:30:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Australia/Perth', 'WST', '09:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Australia/Queensland', 'EST', '10:00:00');
 INSERT INTO timezone (timezone, abbreviation, utc_offset) VALUES ('Australia/South', 'CST', '10:30:00');
