@@ -354,10 +354,9 @@ class PentabarfController < ApplicationController
     @content_title = "Events by state: "
     state = Event_state_localized.select_single(:event_state=>params[:event_state],:translated=>POPE.user.current_language)
     @content_title += state.name
-    if params[:event_state_progress]
-      progress = Event_state_progress_localized.select_single(:event_state=>params[:event_state],:event_state_progress=>params[:event_state_progress],:translated=>POPE.user.current_language)
-      @content_title += ' ' + progress.name
-    end
+    conditions = {:conference_id=>@current_conference.conference_id,:event_state=>params[:event_state]}
+    conditions[:event_state_progress] = params[:event_state_progress] if params[:event_state_progress]
+    @results = View_find_event.select( conditions )
   end
 
   protected
