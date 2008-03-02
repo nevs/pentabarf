@@ -35,7 +35,7 @@ xml.div(:id=>'content-days') do
       end
     end
 
-    xml.button( local('add conference day'), {:type=>:button,:onclick=>'table_add_row("conference_day")'})
+    xml.button( local('conference::add_conference_day'), {:type=>:button,:onclick=>'table_add_row("conference_day")'})
   end
 
 end

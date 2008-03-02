@@ -33,7 +33,7 @@ xml.div(:id=>'content-links') do
       end
     end if @conference_person.conference_person_id
 
-    xml.button( local('add link'), {:type=>:button,:onclick=>'table_add_row("conference_person_link")'})
+    xml.button( local('person::add_link'), {:type=>:button,:onclick=>'table_add_row("conference_person_link")'})
   end
 
 end

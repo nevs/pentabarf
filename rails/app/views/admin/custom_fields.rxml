@@ -33,7 +33,7 @@ xml.div do
         end
       end
 
-      xml.button( local('add custom field'), {:type=>:button,:onclick=>'table_add_row("custom_fields")'})
+      xml.button( local('custom_fields::add_custom_field'), {:type=>:button,:onclick=>'table_add_row("custom_fields")'})
     end
     xml << render( :partial => 'modification_buttons' )
   end

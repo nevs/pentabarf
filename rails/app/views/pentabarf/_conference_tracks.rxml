@@ -27,7 +27,7 @@ xml.div(:id=>'content-tracks') do
       end
     end
 
-    xml.button( local('add conference track'), {:type=>:button,:onclick=>'table_add_row("conference_track")'})
+    xml.button( local('conference::add_conference_track'), {:type=>:button,:onclick=>'table_add_row("conference_track")'})
   end
 
 end

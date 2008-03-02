@@ -59,7 +59,7 @@ xml.div(:id=>'content-description') do
       end
     end
 
-    xml.button( local('add attachment'), {:type=>:button,:onclick=>'table_add_row("attachment_upload")'})
+    xml.button( local('event::add_attachment'), {:type=>:button,:onclick=>'table_add_row("attachment_upload")'})
 
   end
 

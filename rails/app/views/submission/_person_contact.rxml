@@ -39,7 +39,7 @@ xml.div(:id=>'content-contact') do
       end
     end
 
-    xml.button( local('add im address'), {:type=>:button,:onclick=>'table_add_row("person_im")'})
+    xml.button( local('person::add_im_address'), {:type=>:button,:onclick=>'table_add_row("person_im")'})
   end
 
   xml.fieldset do
@@ -71,7 +71,7 @@ xml.div(:id=>'content-contact') do
       end
     end
 
-    xml.button( local('add phone address'), {:type=>:button,:onclick=>'table_add_row("person_phone")'})
+    xml.button( local('person::add_person_phone'), {:type=>:button,:onclick=>'table_add_row("person_phone")'})
   end
 
   xml.fieldset do

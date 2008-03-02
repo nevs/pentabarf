@@ -36,7 +36,7 @@ xml.div(:id=>'content-persons') do
       end
     end
 
-    xml.button( local('add person'), {:type=>:button,:onclick=>'table_add_row("event_person")'})
+    xml.button( local('event::add_person'), {:type=>:button,:onclick=>'table_add_row("event_person")'})
 
   end
 

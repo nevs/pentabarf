@@ -33,7 +33,7 @@ xml.div(:id=>'content-links') do
       end
     end if @event.event_id
 
-    xml.button( local('add link'), {:type=>:button,:onclick=>'table_add_row("event_link")'})
+    xml.button( local('event::add_link'), {:type=>:button,:onclick=>'table_add_row("event_link")'})
   end
 
   link_types = Link_type.select
@@ -76,7 +76,7 @@ xml.div(:id=>'content-links') do
         end
       end if @event.event_id
 
-      xml.button( local('add internal link'), {:type=>:button,:onclick=>'table_add_row("event_link_internal")'})
+      xml.button( local('event::add_internal_link'), {:type=>:button,:onclick=>'table_add_row("event_link_internal")'})
     end
   end
 

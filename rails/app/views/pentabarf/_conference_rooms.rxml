@@ -31,7 +31,7 @@ xml.div(:id=>'content-rooms') do
       end
     end
 
-    xml.button( local('add conference room'), {:type=>:button,:onclick=>'table_add_row("conference_room")'})
+    xml.button( local('conference::add_conference_room'), {:type=>:button,:onclick=>'table_add_row("conference_room")'})
   end
 
 end

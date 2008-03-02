@@ -27,7 +27,7 @@ xml.div(:id=>'content-teams') do
       end
     end
 
-    xml.button( local('add conference team'), {:type=>:button,:onclick=>'table_add_row("conference_team")'})
+    xml.button( local('conference::add_conference_team'), {:type=>:button,:onclick=>'table_add_row("conference_team")'})
   end
 
 end
