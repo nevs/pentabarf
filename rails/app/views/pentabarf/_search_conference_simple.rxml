@@ -1,5 +1,5 @@
 paginate( xml, @results, params[:id].to_i ) do | results |
-  xml.table do
+  xml.table({:id=>'conference_results_table',:class=>'sortable'}) do
     fields = [:acronym, :title, :subtitle, :start_date, :venue, :city]
     xml.thead do
       xml.tr do

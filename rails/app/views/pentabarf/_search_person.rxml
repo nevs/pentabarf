@@ -1,11 +1,11 @@
 paginate( xml, @results, params[:id].to_i ) do | results |
-  xml.table do
+  xml.table({:id=>'person_results_table',:class=>'sortable'}) do
     fields = [:name, :first_name, :last_name, :nickname]
     xml.thead do
       xml.tr do
         xml.th(local(:name),{:colspan=>2})
         fields[1..fields.length].each do | field |
-          xml.th( local(field) )
+          xml.th( local("person::#{field}") )
         end
       end
     end
