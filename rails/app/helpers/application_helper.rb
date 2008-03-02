@@ -180,6 +180,38 @@ module ApplicationHelper
     xml
   end
 
+  def event_table( events )
+    xml = Builder::XmlMarkup.new
+    xml.table(:id=>'events_table',:class=>'sortable') do
+      fields = [:event_state,:event_state_progress,:conference_day,:conference_room]
+      xml.thead do
+        xml.tr do
+          xml.th(local(:event),:colspan=>2)
+          fields.each do | field |
+            xml.th( local("event::#{field}") )
+          end
+        end
+      end
+      xml.tbody do
+        events.each do | event |
+          xml.tr(:class=>event.event_state) do
+            xml.td do
+              xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
+                xml.img({:src=>url_for(:controller=>'image',:action=>:event,:id=>event.event_id,:size=>"24x24"),:height=>24,:witdh=>24})
+              end
+            end
+            xml.td do
+              xml << format_event( event )
+            end
+            fields.each do | field |
+              xml.td do xml.a( event.send(field), {:href=>url_for(:action=>:event,:id=>event.event_id)}) end
+            end
+          end
+        end
+      end
+    end
+  end
+
   def change_url( change )
     klass = change.class.table
     if klass.columns.key?(:conference_person_id)
