@@ -14,6 +14,9 @@ ALTER TABLE base.person ADD CONSTRAINT person_email_check CHECK(email ~ E'^[\\w=
 ALTER TABLE base.conference_person ADD CONSTRAINT conference_person_email_check CHECK(email ~ E'^[\\w=_.+-]+@([\\w.+_-]+\.)+\\w{2,}$');
 ALTER TABLE base.account ADD CONSTRAINT account_email_check CHECK(email ~ E'^[\\w=_.+-]+@([\\w.+_-]+\.)+\\w{2,}$');
 
+DROP VIEW view_own_events_coordinator;
+DROP VIEW view_own_events_participant;
+
 SELECT log.activate_logging();
 
 COMMIT;
