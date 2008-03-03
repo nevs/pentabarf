@@ -1,12 +1,12 @@
 xml.div(:id=>'content-rating') do
 
   xml.fieldset do
-    xml.legend local('rating')
+    xml.legend local('person::tab::rating')
 
     xml.table do
       xml.tr do
         xml.th
-        xml.th(local(:rating), {:colspan=>5})
+        xml.th(local(:person_rating), {:colspan=>5})
         xml.th
       end
       [:speaker_quality,:competence].each do | field |
@@ -20,7 +20,7 @@ xml.div(:id=>'content-rating') do
 
   ratings = View_person_rating.select({:person_id=>@person.person_id},{:order=>:eval_time})
   xml.fieldset do
-    xml.legend local('other ratings')
+    xml.legend local(:person_rating)
 
     xml.table do
       xml.tr do

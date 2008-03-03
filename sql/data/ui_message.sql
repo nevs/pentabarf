@@ -390,6 +390,7 @@ INSERT INTO ui_message (ui_message) VALUES ('person_phone');
 INSERT INTO ui_message (ui_message) VALUES ('person_phone::person_id');
 INSERT INTO ui_message (ui_message) VALUES ('person_phone::phone_number');
 INSERT INTO ui_message (ui_message) VALUES ('person_phone::phone_type');
+INSERT INTO ui_message (ui_message) VALUES ('person_rating');
 INSERT INTO ui_message (ui_message) VALUES ('person_rating::competence');
 INSERT INTO ui_message (ui_message) VALUES ('person_rating::remark');
 INSERT INTO ui_message (ui_message) VALUES ('person_rating::speaker_quality');
