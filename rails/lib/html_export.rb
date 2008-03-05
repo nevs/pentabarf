@@ -91,8 +91,8 @@ class HTMLExport
       f = File.new( url_for_file( url ), File::CREAT | File::WRONLY | File::TRUNC )
       f.write( HTMLExport.session.response.body )
       f.close
-      rescue
-        raise StandardError, "Error while processing #{url}"
+      rescue => e
+        raise StandardError, "Error while processing #{url.inspect}: #{e}"
     end
 
     def build_tree
