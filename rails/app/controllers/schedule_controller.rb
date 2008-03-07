@@ -5,6 +5,7 @@ class ScheduleController < ApplicationController
   before_filter :init
 
   def index
+    @content_title = @conference.title
   end
 
   def css
