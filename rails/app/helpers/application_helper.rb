@@ -222,10 +222,15 @@ module ApplicationHelper
       link_title = "#{conf.acronym}: #{person.name}"
       link = url_for({:action=>:person,:id=>person.person_id})
     elsif klass.columns.key?(:event_id)
-      event = Event.select_single({:event_id=>change.event_id})
-      conf = Conference.select_single({:conference_id=>event.conference_id})
-      link_title = "#{conf.acronym}: #{event.title}"
-      link = url_for({:action=>:event,:id=>event.event_id})
+      begin
+        event = Event.select_single({:event_id=>change.event_id})
+        conf = Conference.select_single({:conference_id=>event.conference_id})
+        link_title = "#{conf.acronym}: #{event.title}"
+        link = url_for({:action=>:event,:id=>event.event_id})
+      rescue
+        link_title = change.respond_to?(:title) ? change.title : ''
+        link = ''
+      end
     elsif klass.columns.key?(:account_id)
       begin
         account = Account.select_single(:account_id=>change.account_id)

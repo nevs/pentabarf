@@ -293,13 +293,13 @@ function cookie_read( name ) {
   return null;
 }
 
-function replace_select_with_hidden_field( select ) {
+function replace_element_with_hidden_field( element ) {
   var hidden = document.createElement('input');
   hidden.type = 'hidden';
-  hidden.name = select.name;
-  hidden.value = select.value;
-  select.parentNode.appendChild( hidden );
-  Element.remove( select );
+  hidden.name = element.name;
+  hidden.value = $F( element );
+  element.parentNode.appendChild( hidden );
+  Element.remove( element );
 }
 
 function add_event_person( event_person_id, person_id, event_role, event_role_state, remark ) {
@@ -310,7 +310,7 @@ function add_event_person( event_person_id, person_id, event_role, event_role_st
   link.href = document.URL.replace( /event\/\d+(#.*)?/, 'person/' + select.value );
   link.appendChild( document.createTextNode( select.options[select.selectedIndex].text ) );
   select.parentNode.appendChild( link );
-  replace_select_with_hidden_field( select );
+  replace_element_with_hidden_field( select );
 }
 
 function add_person_event( event_person_id, event_id, event_role, event_role_state, remark ) {
@@ -321,8 +321,19 @@ function add_person_event( event_person_id, event_id, event_role, event_role_sta
   link.href = document.URL.replace( /person\/\d+(#.*)?/, 'event/' + select.value );
   link.appendChild( document.createTextNode( select.options[select.selectedIndex].text ) );
   select.parentNode.appendChild( link );
-  replace_select_with_hidden_field( select );
+  replace_element_with_hidden_field( select );
 }
+
+function add_conference_track( conference_track ) {
+  table_add_row( 'conference_track', conference_track );
+  var index = table_row_counter['conference_track'] - 1;
+  var input = $('conference_track[' + index + '][conference_track]');
+  var text = document.createTextNode( $F( input ) );
+  input.parentNode.appendChild( text );
+  replace_element_with_hidden_field( input );
+}
+
+
 
 function logout() {
   xmlhttp = new XMLHttpRequest();

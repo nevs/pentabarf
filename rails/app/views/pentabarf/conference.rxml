@@ -29,6 +29,8 @@ xml.div({:id=>'data'}) do
     xml << render( :partial => 'modification_buttons' )
   end
 
+  xml.form({:id=>'rename_conference_track',:action=>url_for(:controller=>'pentabarf',:action=>:rename_conference_track)}) do end
+
   xml.script( "function send_content(){ $('content_form').submit();  }", { :type => 'text/javascript' } )
   xml.script( "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );", { :type => 'text/javascript' } )
   xml.script( "switch_tab();", { :type => 'text/javascript' } )
