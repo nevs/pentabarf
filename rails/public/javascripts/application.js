@@ -333,6 +333,15 @@ function add_conference_track( conference_track ) {
   replace_element_with_hidden_field( input );
 }
 
+function add_conference_room( conference_room, rank, size, public ) {
+  table_add_row( 'conference_room', conference_room, rank, size, public );
+  var index = table_row_counter['conference_room'] - 1;
+  var input = $('conference_room[' + index + '][conference_room]');
+  var text = document.createTextNode( $F( input ) );
+  input.parentNode.appendChild( text );
+  replace_element_with_hidden_field( input );
+}
+
 
 
 function logout() {

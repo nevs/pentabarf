@@ -1,15 +1,15 @@
 xml.div(:id=>'content-rooms') do
 
   xml.fieldset do
-    xml.legend( local('rooms') )
+    xml.legend( local('conference::tab::rooms') )
     xml.table(:id=>'conference_room_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local('name') )
-          xml.th( local('rank') )
-          xml.th( local('size') )
-          xml.th( local('public') )
-          xml.th( local('remove') )
+          xml.th( local('conference_room::conference_room') )
+          xml.th( local('conference_room::rank') )
+          xml.th( local('conference_room::size') )
+          xml.th( local('conference_room::public') )
+          xml.th( local('form::remove') )
         end
       end
       xml.tbody(:id=>'conference_room_tbody') do
@@ -27,7 +27,7 @@ xml.div(:id=>'content-rooms') do
 
     xml.script(:type=>'text/javascript') do
       Conference_room.select({:conference_id => @conference.conference_id}, {:order=>[:rank,:conference_room]} ).each do | c |
-        xml << js_function( 'table_add_row', 'conference_room', c.conference_room, c.rank, c.size, c.public )
+        xml << js_function( 'add_conference_room', c.conference_room, c.rank, c.size, c.public )
       end
     end
 
