@@ -32,6 +32,10 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::city', 'en', 'City');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::conference_phase', 'de', 'Konferenzphase');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::conference_phase', 'en', 'Conference phase');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::conference_room_rename', 'de', 'Raum umbenennen');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::conference_room_rename', 'en', 'Rename room');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::conference_track_rename', 'de', 'Track umbenennen');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::conference_track_rename', 'en', 'Rename track');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::country', 'de', 'Land');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::country', 'en', 'Country');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::css', 'de', 'CSS');
@@ -91,6 +95,10 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::title', 'en', 'Title');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::venue', 'de', 'Veranstaltungsort');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::venue', 'en', 'Venue');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_day', 'de', 'Tag');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_day', 'en', 'Day');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_day::conference_day', 'de', 'Tag');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_day::conference_day', 'en', 'Day');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_image::image', 'de', 'Konferenz-Logo');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_image::image', 'en', 'Conference Logo');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person::arrived', 'de', 'Person am Veranstaltungsort angekommen');
@@ -136,6 +144,10 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel::travel_currency', 'en', 'Currency');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_room', 'de', 'Raum');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_room', 'en', 'Room');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_room::conference_room', 'en', 'Room name');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_room::public', 'en', 'Public');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_room::rank', 'en', 'Order');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_room::size', 'en', 'Size');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track', 'de', 'Track');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track', 'en', 'Track');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track::color', 'de', 'Farbe');
