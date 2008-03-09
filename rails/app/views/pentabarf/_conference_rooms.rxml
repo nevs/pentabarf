@@ -1,4 +1,5 @@
 xml.div(:id=>'content-rooms') do
+  rooms = Conference_room.select({:conference_id => @conference.conference_id}, {:order=>[:rank,:conference_room]} )
 
   xml.fieldset do
     xml.legend( local('conference::tab::rooms') )
@@ -26,12 +27,20 @@ xml.div(:id=>'content-rooms') do
     end
 
     xml.script(:type=>'text/javascript') do
-      Conference_room.select({:conference_id => @conference.conference_id}, {:order=>[:rank,:conference_room]} ).each do | c |
+      rooms.each do | c |
         xml << js_function( 'add_conference_room', c.conference_room, c.rank, c.size, c.public )
       end
     end
 
     xml.button( local('conference::add_conference_room'), {:type=>:button,:onclick=>'table_add_row("conference_room")'})
+  end
+
+  xml.fieldset do
+    xml.legend( local( 'conference::conference_room_rename' ) )
+    xml << select_tag('conference_room_rename[old_name]', rooms.map(&:conference_room) )
+    xml.input({:type=>:text,:name=>'conference_room_rename[new_name]'})
+    xml.br
+    xml.button( local('conference::conference_room_rename'), {:type=>:button,:onclick=>"rename_conference_room()"} )
   end
 
 end

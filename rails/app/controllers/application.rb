@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
 
   # protect save and delete functions with token
   def check_token
-    if params[:action].match(/^(save|delete)_/)
+    if params[:action].match(/^(save|delete|rename)_/)
       token = Token.generate( url_for(:only_path=>true) )
       if token != params[:token]
         logger.warn( "Wrong token for #{url_for()} from #{request.remote_ip}")
