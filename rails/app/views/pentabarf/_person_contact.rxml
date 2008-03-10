@@ -16,9 +16,9 @@ xml.div(:id=>'content-contact') do
     xml.table(:id=>'person_im_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local('im type') )
-          xml.th( local('im address') )
-          xml.th( local('remove') )
+          xml.th( local('person_im::im_type') )
+          xml.th( local('person_im::im_address') )
+          xml.th( local('form::remove') )
         end
       end
       xml.tbody(:id=>'person_im_tbody') do
@@ -43,14 +43,14 @@ xml.div(:id=>'content-contact') do
   end
 
   xml.fieldset do
-    xml.legend local('phone number')
+    xml.legend local('person_phone')
 
     xml.table(:id=>'person_phone_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local('phone type') )
-          xml.th( local('phone number') )
-          xml.th( local('remove') )
+          xml.th( local('person_phone::phone_type') )
+          xml.th( local('person_phone::phone_number') )
+          xml.th( local('form::remove') )
         end
       end
       xml.tbody(:id=>'person_phone_tbody') do
