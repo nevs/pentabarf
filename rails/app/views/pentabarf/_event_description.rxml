@@ -10,7 +10,7 @@ xml.div(:id=>'content-description') do
       xml.thead do
         xml.tr do
           xml.th
-          [:type,:public,:filename,:title,:pages,:mime_type,:remove].each do | field |
+          ['event_attachment::attachment_type','event_attachment::public','event_attachment::filename','event_attachment::title','event_attachment::pages','event_attachment::mime_type','form::remove'].each do | field |
             xml.th( local(field) )
           end
         end
@@ -42,7 +42,7 @@ xml.div(:id=>'content-description') do
     xml.table(:id=>'attachment_upload_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          [:type,:public,:filename,:title,:file].each do | field |
+          ['event_attachment::attachment_type','event_attachment::public','event_attachment::filename','event_attachment::title','event_attachment::file'].each do | field |
             xml.th( local(field) )
           end
         end

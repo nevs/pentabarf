@@ -1,6 +1,6 @@
 xml.div({:id=>:data}) do
   xml.fieldset do
-    xml.label(local('find conference'))
+    xml.label(local('pentabarf::find_conference'))
     xml.form(:id=>:simple_search,:action=>url_for) do
       xml.input({:type=>:text,:name=>:search_conference_simple,:id=>:search_conference_simple,:value=>@preferences[:search_conference_simple]})
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})

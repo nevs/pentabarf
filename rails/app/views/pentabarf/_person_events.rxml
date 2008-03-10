@@ -7,7 +7,7 @@ xml.div(:id=>'content-events') do
     xml.table(:id=>'event_person_table',:style=>event_persons.length > 0 ? '' : 'display:none;') do
       xml.thead do
         xml.tr do
-          [:title,:role,:role_state,:comment,:remove].each do | field | xml.th( local( field ) ) end
+          ['event::title','event_person::event_role','event_person::event_role_state','event_person::remark','form::remove'].each do | field | xml.th local( field ) end
         end
       end
       xml.tbody(:id=>'event_person_tbody') do
@@ -51,13 +51,20 @@ xml.div(:id=>'content-events') do
   if not other_events.empty?
     xml.fieldset do
       xml.legend local('events in other conferences')
-      fields = [:acronym,:title,:event_role,:event_role_state]
+
 
       xml.table do
-        xml.thead do xml.tr do fields.each do | field | xml.th field.to_s end end end
+        xml.thead do 
+          xml.tr do 
+            ['conference::acronym','event_person::event_id','event_person::event_role','event_person::event_role_state'].each do | field |
+              xml.th local( field )
+            end
+          end
+        end
         xml.tbody do
           other_events.each do | event |
             xml.tr({:class=>event.event_state}) do
+              fields = [:acronym,:title,:event_role,:event_role_state]
               fields.each do | field |
                 xml.td do
                   xml.a( event.send( field ), :href=>url_for(:action=>:event,:id=>event.event_id) )

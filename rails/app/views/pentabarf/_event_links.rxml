@@ -7,7 +7,7 @@ xml.div(:id=>'content-links') do
       xml.thead do
         xml.tr do
           xml.th
-          [:url,:title, :remove].each do | field | xml.th( local( field ) ) end
+          ['event_link::url','event_link::description','form::remove'].each do | field | xml.th local( field ) end
         end
       end
       xml.tbody(:id=>'event_link_tbody') do
@@ -39,16 +39,13 @@ xml.div(:id=>'content-links') do
   link_types = Link_type.select
   if not link_types.empty?
     xml.fieldset do
-      xml.legend local('internal links')
+      xml.legend local('event_link_internal')
 
       xml.table(:id=>'event_link_internal_table',:style=>'display:none') do
         xml.thead do
           xml.tr do
             xml.th
-            xml.th( local('url type') )
-            xml.th( local('url') )
-            xml.th( local('title') )
-            xml.th( local('remove') )
+            ['event_link_internal::link_type','event_link_internal::url','event_link_internal::description','form::remove'].each do | field | xml.th local( field ) end
           end
         end
         xml.tbody(:id=>'event_link_internal_tbody') do

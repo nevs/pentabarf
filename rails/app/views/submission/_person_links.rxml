@@ -7,7 +7,7 @@ xml.div(:id=>'content-links') do
       xml.thead do
         xml.tr do
           xml.th
-          [:url,:title, :remove].each do | field | xml.th( local( field ) ) end
+          ['conference_person_link::url','conference_person_link::description','form::remove'].each do | field | xml.th( local( field ) ) end
         end
       end
       xml.tbody(:id=>'conference_person_link_tbody') do

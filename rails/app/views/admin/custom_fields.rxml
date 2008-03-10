@@ -12,7 +12,7 @@ xml.div do
             xml.th( local('custom_fields::field_type') )
             xml.th( local('custom_fields::submission_visible') )
             xml.th( local('custom_fields::submission_settable') )
-            xml.th( local('remove') )
+            xml.th( local('form::remove') )
           end
         end
         xml.tbody(:id=>'custom_fields_tbody') do

@@ -5,10 +5,10 @@ xml.div(:id=>'content-days') do
     xml.table(:id=>'conference_day_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local('date') )
-          xml.th( local('name') )
-          xml.th( local('public') )
-          xml.th( local('remove') )
+          xml.th( local('conference_day::conference_day') )
+          xml.th( local('conference_day::name') )
+          xml.th( local('conference_day::public') )
+          xml.th( local('form::remove') )
         end
       end
       xml.tbody(:id=>'conference_day_tbody') do

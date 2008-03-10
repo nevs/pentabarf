@@ -43,7 +43,7 @@ xml.div(:id=>'content-general') do
       xml.thead do
         xml.tr do
           xml.th( local('language') )
-          xml.th( local('remove') )
+          xml.th( local('form::remove') )
         end
       end
       xml.tbody(:id=>'person_language_tbody') do

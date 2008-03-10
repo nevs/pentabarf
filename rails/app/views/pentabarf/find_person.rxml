@@ -10,7 +10,7 @@ xml.div({:id=>:data}) do
   end
 
   xml.fieldset(:id=>'content-advanced') do
-    xml.label(local('find person'))
+    xml.label(local('pentabarf::find_person'))
 
     # template used for constructing advanced search rows
     xml.ul({:id=>:search_content,:style=>"display:none"}) do

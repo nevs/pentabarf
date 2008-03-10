@@ -5,10 +5,10 @@ xml.div(:id=>'content-room_roles') do
     xml.table(:id=>'conference_room_role_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local('conference_room') )
-          xml.th( local('event_role') )
-          xml.th( local('amount') )
-          xml.th( local('remove') )
+          xml.th( local('conference_room_role::conference_room') )
+          xml.th( local('conference_room_role::event_role') )
+          xml.th( local('conference_room_role::amount') )
+          xml.th( local('form::remove') )
         end
       end
       xml.tbody(:id=>'conference_room_role_tbody') do

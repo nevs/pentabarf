@@ -42,8 +42,8 @@ xml.div(:id=>'content-general') do
     xml.table(:id=>'conference_language_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local('language') )
-          xml.th( local('remove') )
+          xml.th( local('conference_language::language') )
+          xml.th( local('form::remove') )
         end
       end
       xml.tbody(:id=>'conference_language_tbody') do

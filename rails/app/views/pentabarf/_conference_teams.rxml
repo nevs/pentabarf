@@ -1,12 +1,12 @@
 xml.div(:id=>'content-teams') do
 
   xml.fieldset do
-    xml.legend( local('teams') )
+    xml.legend( local('conference_team') )
     xml.table(:id=>'conference_team_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
-          xml.th( local('team') )
-          xml.th( local('remove') )
+          xml.th( local('conference_team::conference_team') )
+          xml.th( local('form::remove') )
         end
       end
       xml.tbody(:id=>'conference_team_tbody') do

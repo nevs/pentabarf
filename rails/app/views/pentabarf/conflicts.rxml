@@ -13,7 +13,7 @@ xml.div( :id => 'data' ) do
         xml.table do
           xml.thead do
             xml.th( "", {:colspan=>2} )
-            xml.th( local( 'Description') )
+            xml.th( local( 'conflict::conflict') )
           end
           xml.tbody do
             @conflicts[level].each do | conflict |

@@ -4,7 +4,7 @@ xml.div(:id=>:data) do
 
     xml.thead do
       xml.tr do
-        [:title,:event_state,:track,:rating,:raters].each do | field | xml.th(field.to_s) end
+        ['event::title','event::event_state','event::conference_track','event_rating','raters'].each do | field | xml.th local( field ) end
       end
     end
 
