@@ -343,38 +343,35 @@ function add_conference_room( conference_room, rank, size, public ) {
   replace_element_with_hidden_field( input );
 }
 
+function rename_valuelist_local( valuelist ) {
+  var row_id = $( valuelist + '_rename[old_name]').selectedIndex;
+  var new_value = $F( valuelist + '_rename[new_name]');
+  $( valuelist + '[' + row_id + '][' + valuelist + ']').value = new_value;
+  var td = $( valuelist + '[' + row_id + '][' + valuelist + ']').parentNode;
+  var nodes = td.childNodes;
+  for ( i = 0; i < nodes.length; i++ ) {
+    if ( nodes[i].nodeType == Node.TEXT_NODE ) td.removeChild( nodes[i] );
+  }
+  td.appendChild( document.createTextNode( new_value ) );
+  $( valuelist + '_rename[old_name]').options[row_id].value = new_value;
+  $( valuelist + '_rename[old_name]').options[row_id].textContent = new_value;
+  $( valuelist + '_rename[new_name]').value = '';
+}
+
 function rename_conference_track() {
   var form = $('rename_conference_track');
   var params = { token: form.firstDescendant().value, conference_id:$F('conference[conference_id]'), old_name: $F('conference_track_rename[old_name]'), new_name: $F('conference_track_rename[new_name]')}
   if ( $F('conference_track_rename[new_name]') ) {
-    new Ajax.Request( form.action, {asynchronous:false,onSuccess:rename_conference_track_local,parameters:params} );
+    new Ajax.Request( form.action, {asynchronous:false,onSuccess:function(){ rename_valuelist_local('conference_track'); },parameters:params} );
   }
-}
-
-function rename_conference_track_local() {
-  var row_id = $('conference_track_rename[old_name]').selectedIndex;
-  var new_value = $F('conference_track_rename[new_name]');
-  $('conference_track[' + row_id + '][conference_track]').value = new_value;
-  $('conference_track[' + row_id + '][conference_track]').parentNode.textContent = new_value;
-  $('conference_track_rename[old_name]').options[row_id].value = new_value;
-  $('conference_track_rename[old_name]').options[row_id].textContent = new_value;
 }
 
 function rename_conference_room() {
   var form = $('rename_conference_room');
   var params = { token: form.firstDescendant().value, conference_id:$F('conference[conference_id]'), old_name: $F('conference_room_rename[old_name]'), new_name: $F('conference_room_rename[new_name]')}
   if ( $F('conference_room_rename[new_name]') ) {
-    new Ajax.Request( form.action, {asynchronous:false,onSuccess:rename_conference_room_local,parameters:params} );
+    new Ajax.Request( form.action, {asynchronous:false,onSuccess:function(){ rename_valuelist_local('conference_room'); },parameters:params} );
   }
-}
-
-function rename_conference_room_local() {
-  var row_id = $('conference_room_rename[old_name]').selectedIndex;
-  var new_value = $F('conference_room_rename[new_name]');
-  $('conference_room[' + row_id + '][conference_room]').value = new_value;
-  $('conference_room[' + row_id + '][conference_room]').parentNode.textContent = new_value;
-  $('conference_room_rename[old_name]').options[row_id].value = new_value;
-  $('conference_room_rename[old_name]').options[row_id].textContent = new_value;
 }
 
 function logout() {
