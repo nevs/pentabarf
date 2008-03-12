@@ -103,6 +103,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_image::image', 'en', 'Conference Logo');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person', 'de', 'Konferenz-Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person', 'en', 'Conference person');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person::abstract', 'de', 'Kurzbeschreibung');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person::abstract', 'en', 'Abstract');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person::arrived', 'de', 'Person am Veranstaltungsort angekommen');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person::arrived', 'en', 'Person arrived at venue');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person::conference_id', 'de', 'Konferenz-ID');
@@ -325,6 +327,12 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_r
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::actuality', 'en', 'Actuality');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::relevance', 'en', 'Relevance');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::remark', 'en', 'Remark');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_role', 'de', 'Rolle');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_role', 'en', 'Event role');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_role_localized::event_role', 'de', 'Rolle');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_role_localized::event_role', 'en', 'Event role');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_role_localized::translated', 'de', 'Sprache');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_role_localized::translated', 'en', 'Language');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::category', 'de', 'Kategorie');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::category', 'en', 'Category');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::criticism', 'de', 'Wenn sie noch etwas bestimmtes über diese Veranstaltung sagen wollen dann können sie das hier tun. Kritik und Verbesserungsorschläge sind ebenfalls sehr willkommen.');
@@ -437,6 +445,12 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::s
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::send_mail', 'en', 'Send mail');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::subject', 'de', 'Betreff');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mail::subject', 'en', 'Subject');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mime_type', 'de', 'MIME-Typ');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mime_type', 'en', 'MIME type');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mime_type_localized::mime_type', 'de', 'MIME-Typ');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mime_type_localized::mime_type', 'en', 'MIME type');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mime_type_localized::translated', 'de', 'Sprache');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('mime_type_localized::translated', 'en', 'Language');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('own_events', 'en', 'Own Events');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('own_events::tab::coordinator', 'en', 'Coordinator');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('own_events::tab::participant', 'en', 'Participant');
