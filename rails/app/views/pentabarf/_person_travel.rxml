@@ -1,7 +1,7 @@
 xml.div(:id=>'content-travel') do
 
   xml.fieldset do
-    xml.legend local('travel')
+    xml.legend local('conference_person_travel')
 
     xml.table do
       xml.tr do
@@ -41,7 +41,7 @@ xml.div(:id=>'content-travel') do
   end
 
   xml.fieldset do
-    xml.legend local('accommodation')
+    xml.legend local('conference_person_travel::accommodation')
     xml.table do
       xml << text_field_row( @conference_person_travel, :accommodation_name )
       xml << text_field_row( @conference_person_travel, :accommodation_phone )
@@ -56,7 +56,7 @@ xml.div(:id=>'content-travel') do
   end
 
   xml.fieldset do
-    xml.legend local('bank')
+    xml.legend local('person::bank')
     xml.table do
       xml << text_field_row( @person, :iban )
       xml << text_field_row( @person, :bic )

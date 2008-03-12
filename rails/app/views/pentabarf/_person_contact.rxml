@@ -75,7 +75,7 @@ xml.div(:id=>'content-contact') do
   end
 
   xml.fieldset do
-    xml.legend local('address')
+    xml.legend local('person::address')
 
     xml.table do
       xml << text_field_row( @person, :address )

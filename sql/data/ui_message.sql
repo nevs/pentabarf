@@ -474,7 +474,6 @@ INSERT INTO ui_message (ui_message) VALUES ('submission::step_login');
 INSERT INTO ui_message (ui_message) VALUES ('submission::step_new_account');
 INSERT INTO ui_message (ui_message) VALUES ('submission::step_new_event');
 INSERT INTO ui_message (ui_message) VALUES ('submission::submission_readonly');
-INSERT INTO ui_message (ui_message) VALUES ('submission::submit_for_conferences');
 INSERT INTO ui_message (ui_message) VALUES ('submission::submit_for_these_conferences');
 INSERT INTO ui_message (ui_message) VALUES ('submission::welcome_to_submission_system');
 INSERT INTO ui_message (ui_message) VALUES ('submission::you_are_done');

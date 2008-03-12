@@ -1,14 +1,7 @@
 xml.div(:id=>'content-description') do
 
-  xml.fieldset do
-    xml.legend( local('abstract') )
-    xml.textarea( @conference_person.abstract, {:name=>'conference_person[abstract]',:rows=>5} )
-  end
-
-  xml.fieldset do
-    xml.legend( local('description') )
-    xml.textarea( @conference_person.description, {:name=>'conference_person[description]',:rows=>12} )
-  end
+  xml << text_area_fieldset( @conference_person, :abstract, {:rows=>5} )
+  xml << text_area_fieldset( @conference_person, :description, {:rows=>12} )
 
 end
 
