@@ -279,11 +279,14 @@ module ApplicationHelper
 
         log_klass.select(:log_transaction_id=>changeset.log_transaction_id).each do | change |
 
+          # columns with hidden content
+          hide_content = [:password,:salt,:activation_string,:css]
+
           values = []
           columns = klass.columns.keys - [:eval_time,:reset_time,:account_creation]
           columns = columns.map(&:to_s).sort.map(&:to_sym)
           if change.log_operation == "D" || change.log_operation == "I"
-            columns = columns - [:password,:salt,:activation_string]
+            columns = columns - hide_content
             columns.each do | column |
               next if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea )
               next unless change[column]
@@ -299,7 +302,7 @@ module ApplicationHelper
               values = []
               columns.each do | column |
                 if change[column] != old_value[column]
-                  if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea ) || [:password,:salt,:activation_string].member?(column)
+                  if klass.columns[column].instance_of?( Momomoto::Datatype::Bytea ) || hide_content.member?(column)
                     values << "#{local(table.to_s+'::'+column.to_s)} changed"
                   else
                     values << "#{local(table.to_s+'::'+column.to_s)}: #{old_value[column]} => #{change[column]}"
