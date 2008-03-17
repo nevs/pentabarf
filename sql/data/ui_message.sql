@@ -2,7 +2,6 @@
 SET client_encoding = 'UTF8';
 SET search_path = public, pg_catalog;
 
-INSERT INTO ui_message (ui_message) VALUES ('accommodation');
 INSERT INTO ui_message (ui_message) VALUES ('account');
 INSERT INTO ui_message (ui_message) VALUES ('account::current_language');
 INSERT INTO ui_message (ui_message) VALUES ('account::email');
@@ -23,7 +22,6 @@ INSERT INTO ui_message (ui_message) VALUES ('amount');
 INSERT INTO ui_message (ui_message) VALUES ('arrival');
 INSERT INTO ui_message (ui_message) VALUES ('attachments');
 INSERT INTO ui_message (ui_message) VALUES ('availability');
-INSERT INTO ui_message (ui_message) VALUES ('bank');
 INSERT INTO ui_message (ui_message) VALUES ('comments');
 INSERT INTO ui_message (ui_message) VALUES ('conference languages');
 INSERT INTO ui_message (ui_message) VALUES ('conference');
