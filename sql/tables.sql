@@ -90,7 +90,10 @@ BEGIN;
 \i tables/log/log_transaction.sql
 \i tables/log/log_transaction_involved_tables.sql
 \i tables/custom/custom_fields.sql
+\i tables/custom/custom_conference.sql
+\i tables/custom/custom_person.sql
 \i tables/custom/custom_conference_person.sql
+\i tables/custom/custom_event.sql
 
 COMMIT;
 
