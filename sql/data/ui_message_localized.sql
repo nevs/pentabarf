@@ -2,10 +2,12 @@
 SET client_encoding = 'UTF8';
 SET search_path = public, pg_catalog;
 
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account', 'en', 'Account');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::current_language', 'en', 'current language');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::email', 'en', 'Email');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::login_name', 'en', 'Login Name');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::password', 'en', 'Password');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_role', 'en', 'Account role');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_role::role', 'en', 'Role');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_settings::current_language', 'en', 'current language');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('admin::index', 'de', 'Administration');
@@ -179,6 +181,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track::color', 'en', 'Color');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track::tag', 'de', 'Track-Kürzel');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track::tag', 'en', 'Tag');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('country', 'en', 'Country');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::field_name', 'de', 'Feldname');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::field_name', 'en', 'field name');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::field_type', 'de', 'Feldtyp');
@@ -396,6 +399,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::u
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::unknown', 'en', 'Unknown');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::yes', 'de', 'Ja');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::yes', 'en', 'Yes');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('language', 'en', 'Language');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('link::admin', 'de', 'Administration');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('link::admin', 'en', 'Administration');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('link::conflict_setup', 'de', 'Konflikt Konfiguration');
