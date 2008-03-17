@@ -49,7 +49,7 @@ class UserController < ApplicationController
     begin
       p = Account.select_single( :login_name => params[:login_name], :email => params[:email] )
     rescue
-      raise "There is no user with this login name and email address."
+      raise "There is no user with this login name(#{params[:login_name]}) and email address(#{params[:email]})."
     end
     reset = Account_password_reset.select(:account_id=>p.account_id)
     if reset.length == 1 && reset[0].password_reset > DateTime.now - 1
