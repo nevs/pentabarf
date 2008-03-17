@@ -57,7 +57,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::export_base_url', 'en', 'Base URL where your HTML export will be located');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::f_feedback_enabled', 'en', 'Enable Feedback System');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::f_reconfirmation_enabled', 'en', 'Enable Reconfirmation');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::f_submission_enabled', 'en', 'Enable Submission');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::f_submission_enabled', 'en', 'Enable Submission System');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::f_submission_new_events', 'en', 'Allow submission of new events');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::f_submission_writable', 'en', 'Submission writable');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::f_visitor_enabled', 'en', 'Enable Visitor System');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::feedback_base_url', 'en', 'URL where you feedback system will be accessible');
