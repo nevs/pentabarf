@@ -26,6 +26,7 @@ CREATE TABLE base.conference (
   email TEXT,
   f_feedback_enabled BOOL NOT NULL DEFAULT FALSE,
   f_submission_enabled BOOL NOT NULL DEFAULT FALSE,
+  f_submission_new_events BOOL NOT NULL DEFAULT FALSE,
   f_submission_writable BOOL NOT NULL DEFAULT FALSE,
   f_visitor_enabled BOOL NOT NULL DEFAULT FALSE,
   f_reconfirmation_enabled BOOL NOT NULL DEFAULT FALSE

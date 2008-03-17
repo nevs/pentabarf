@@ -8,7 +8,12 @@ DELETE FROM log.log_transaction_involved_tables where table_name = 'ui_message';
 CREATE INDEX account_person_id_index ON auth.account(person_id);
 
 ALTER TABLE base.conference ADD COLUMN f_submission_writable BOOL NOT NULL DEFAULT FALSE;
+ALTER TABLE base.conference ADD COLUMN f_submission_new_events BOOL NOT NULL DEFAULT FALSE;
+
+SELECT log.activate_logging();
+
 UPDATE conference SET f_submission_writable = TRUE WHERE f_submission_enabled = TRUE;
+UPDATE conference SET f_submission_new_events = TRUE WHERE f_submission_enabled = TRUE;
 
 ALTER TABLE base.person ADD CONSTRAINT person_email_check CHECK(email ~ E'^[\\w=_.+-]+@([\\w.+_-]+\.)+\\w{2,}$');
 ALTER TABLE base.conference_person ADD CONSTRAINT conference_person_email_check CHECK(email ~ E'^[\\w=_.+-]+@([\\w.+_-]+\.)+\\w{2,}$');
@@ -16,8 +21,6 @@ ALTER TABLE base.account ADD CONSTRAINT account_email_check CHECK(email ~ E'^[\\
 
 DROP VIEW view_own_events_coordinator;
 DROP VIEW view_own_events_participant;
-
-SELECT log.activate_logging();
 
 CREATE OR REPLACE FUNCTION momomoto.fetch_procedure_columns( procedure_name TEXT ) RETURNS SETOF momomoto.procedure_column AS $$
 DECLARE
