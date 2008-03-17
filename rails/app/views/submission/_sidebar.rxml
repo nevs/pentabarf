@@ -17,7 +17,7 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div( :class=>'menu-item-group' ) do
       xml.a( local('submission::person'), {:href=> url_for(:action => :person), :class => 'menu-item'} )
-      xml.a( local('submission::new_event'), {:href=> url_for(:action => :event, :id=>:new), :class => 'menu-item'} ) if @current_conference.f_submission_writable
+      xml.a( local('submission::new_event'), {:href=> url_for(:action => :event, :id=>:new), :class => 'menu-item'} ) if @current_conference.f_submission_new_events && @current_conference.f_submission_writable
       xml.a( local('submission::events'), {:href=> url_for(:action=>:events), :class => 'menu-item'} )
 
       xml.a( local('submission::logout'), {:href=>"#{request.protocol}logout@#{request.host_with_port}/logout", :onclick=>"logout()", :class => 'menu-item'} ) if POPE.user

@@ -5,7 +5,7 @@ class SubmissionController < ApplicationController
   after_filter :set_content_type
 
   def index
-    @conferences = Conference.select({:f_submission_enabled=>true,:f_submission_writable=>true})
+    @conferences = Conference.select({:f_submission_enabled=>true,:f_submission_writable=>true,:f_submission_new_events=>true})
   end
 
   def login
@@ -18,6 +18,7 @@ class SubmissionController < ApplicationController
       raise "You are not allowed to edit this event." if own.length != 1
       @event = Event.select_single({:event_id=>params[:id]})
     else
+      raise "Submission of events has been disabled for this conference." if !@current_conference.f_submission_new_events
       @event = Event.new({:conference_id=>@conference.conference_id,:event_id=>0})
     end
     @attachments = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language})
@@ -37,6 +38,7 @@ class SubmissionController < ApplicationController
   def save_event
     raise "Event title is mandatory" if params[:event][:title].empty?
     if params[:id].to_i == 0
+      raise "Submission of events has been disabled for this conference." if !@current_conference.f_submission_new_events
       event = Submit_event.call(:e_person_id=>POPE.user.person_id,:e_conference_id=>@conference.conference_id,:e_title=>params[:event][:title])
       params[:id] = event[0].submit_event
       POPE.refresh
