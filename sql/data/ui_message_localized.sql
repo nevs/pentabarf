@@ -7,6 +7,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::email', 'en', 'Email');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::login_name', 'en', 'Login Name');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::password', 'en', 'Password');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::repeat_password', 'en', 'Repeat password');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_role', 'en', 'Account role');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_role::role', 'en', 'Role');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_settings::current_language', 'en', 'current language');
@@ -337,6 +338,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_r
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_role_localized::event_role', 'en', 'Event role');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_role_localized::translated', 'de', 'Sprache');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_role_localized::translated', 'en', 'Language');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_state', 'en', 'Event state');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_type', 'en', 'Event type');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::category', 'de', 'Kategorie');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::category', 'en', 'Category');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::criticism', 'de', 'Wenn sie noch etwas bestimmtes über diese Veranstaltung sagen wollen dann können sie das hier tun. Kritik und Verbesserungsorschläge sind ebenfalls sehr willkommen.');
@@ -395,6 +398,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::r
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::remove', 'en', 'Remove?');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::save', 'de', 'Sichern');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::save', 'en', 'Save');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::show_all_tabs', 'en', 'Show all');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::unknown', 'de', 'Unbekannt');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::unknown', 'en', 'Unknown');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('form::yes', 'de', 'Ja');
@@ -675,7 +679,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::n
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::new_account', 'en', 'Create account');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::new_account_heading', 'en', 'Enter your data to create an account. All fields are mandatory. The email address will be used for activating your account.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::proceed_to_submission', 'en', 'Proceed');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::repeat_password', 'en', 'Repeat password');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::reset_link_has_been_sent', 'en', 'An email with a link to reset your password has been sent to your email address.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::thank_you', 'en', 'Thank you.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::thanks_for_registering', 'en', 'Thank you for registering an account. The activation link has just been sent to your email address. To activate your account click on the activation link you just got by mail.');
