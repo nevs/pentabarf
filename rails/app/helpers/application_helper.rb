@@ -63,7 +63,7 @@ module ApplicationHelper
         end
         xml.span( tab_name, {:id=>"tab-#{tab}",:onclick=>"switch_tab('#{tab}')",:class=>'tab inactive',:accesskey=>index+1} )
       end
-      xml.span( 'Show all', {:id=>"tab-all",:onclick=>"show_all_tabs()",:class=>'tab inactive',:accesskey=>0} )
+      xml.span( local('form::show_all_tabs'), {:id=>"tab-all",:onclick=>"show_all_tabs()",:class=>'tab inactive',:accesskey=>0} )
     end
   end
 
