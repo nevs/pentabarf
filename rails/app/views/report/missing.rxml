@@ -5,7 +5,7 @@ xml.div({:id=>:data}) do
   xml.table({:id=>:report_missing_table,:class=>:sortable}) do
     xml.thead do
       xml.tr do
-        xml.th( local( 'name'), {:colspan=>2} )
+        xml.th( local( 'person::name'), {:colspan=>2} )
       end
     end
 
@@ -26,7 +26,7 @@ xml.div({:id=>:data}) do
 
     xml.tfoot do
       xml.tr do
-        xml.th( local( 'name' ), {:colspan=>2} )
+        xml.th( local( 'person::name' ), {:colspan=>2} )
       end
     end
 

@@ -38,7 +38,7 @@ xml.div(:id=>'content-general') do
   end if custom_fields_conference_person.length > 0 || custom_fields_person.length > 0
 
   xml.fieldset do
-    xml.legend( local('spoken languages') )
+    xml.legend( local('person::spoken_languages') )
     xml.table(:id=>'person_language_table',:style=>'display:none') do
       xml.thead do
         xml.tr do
