@@ -8,8 +8,9 @@ CREATE OR REPLACE VIEW view_mail_all_reviewer AS
     FROM view_person
          INNER JOIN auth.account USING (person_id)
          INNER JOIN auth.account_role ON (
-             account.person_id = view_person.person_id AND
-             account_role.role = 'reviewer' )
+           account_role.account_id = account.account_id AND
+           account_role.role = 'reviewer'
+         )
    WHERE
          view_person.email IS NOT NULL AND
          view_person.spam = true
