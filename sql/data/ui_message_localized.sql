@@ -141,6 +141,10 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_link_internal::link_type', 'en', 'Link type');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_link_internal::url', 'de', 'URL');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_link_internal::url', 'en', 'URL');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel', 'de', 'Anreise');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel', 'en', 'Travel');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel::accommodation', 'de', 'Unterkunft');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel::accommodation', 'en', 'Accommodation');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel::accommodation_city', 'en', 'Accommodation City');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel::accommodation_cost', 'en', 'Accommodation cost');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel::accommodation_currency', 'en', 'Currency');
@@ -182,6 +186,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track::color', 'en', 'Color');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track::tag', 'de', 'Track-Kürzel');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_track::tag', 'en', 'Tag');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conflict::conflict', 'de', 'Konflikt');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conflict::conflict', 'en', 'Conflict');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('country', 'en', 'Country');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::field_name', 'de', 'Feldname');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('custom_fields::field_name', 'en', 'field name');
@@ -496,6 +502,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person:
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::add_person_phone', 'en', 'Add phone number');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::address', 'de', 'Adressergänzung oder zusätzliche Information (c/o)');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::address', 'en', 'Address extension or additional information (c/o)');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::bank', 'de', 'Bank');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::bank', 'en', 'Bank');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::bank_name', 'en', 'Name of bank');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::bic', 'en', 'BIC');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::city', 'de', 'Wohnort');
@@ -570,6 +578,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_phone::phone_number', 'en', 'Phone number');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_phone::phone_type', 'de', 'Typ');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_phone::phone_type', 'en', 'Type');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_rating', 'de', 'Bewertung');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_rating', 'en', 'Rating');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_rating::competence', 'en', 'Competence');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_rating::remark', 'en', 'Remark');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_rating::speaker_quality', 'en', 'Speaker quality');
