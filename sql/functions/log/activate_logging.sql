@@ -28,6 +28,7 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
       fundef = $f$CREATE OR REPLACE FUNCTION log.$f$ || quote_ident( procname ) || $f$() RETURNS TRIGGER AS $i$
         DECLARE
           new_transaction BOOLEAN;
+	  current_person_id INTEGER;
         BEGIN
           BEGIN
             -- postgresql 8.1 and 8.2
@@ -37,11 +38,16 @@ CREATE OR REPLACE FUNCTION log.activate_logging() RETURNS VOID AS $$
             new_transaction := TRUE;
           END;
           IF new_transaction THEN
-            PERFORM set_config('pentabarf.transaction_id',nextval('base.log_transaction_log_transaction_id_seq'),TRUE);
+            PERFORM set_config('pentabarf.transaction_id',nextval('base.log_transaction_log_transaction_id_seq')::TEXT,TRUE);
+            BEGIN
+              -- postgresql 8.1 and 8.2
+              current_person_id := CASE current_setting('pentabarf.person_id') WHEN '' THEN NULL WHEN 'unset' THEN NULL ELSE current_setting('pentabarf.person_id')::INTEGER END;
+            EXCEPTION WHEN undefined_object THEN
+              -- postgresql 8.3
+              current_person_id := NULL;
+            END;
             INSERT INTO log.log_transaction( log_transaction_id, person_id )
-              VALUES ( currval('base.log_transaction_log_transaction_id_seq'),
-                CASE current_setting('pentabarf.person_id') WHEN '' THEN NULL WHEN 'unset' THEN NULL ELSE current_setting('pentabarf.person_id')::INTEGER END
-            );
+              VALUES ( currval('base.log_transaction_log_transaction_id_seq'), current_person_id );
           END IF;
           INSERT INTO log.log_transaction_involved_tables( log_transaction_id, table_name )
               VALUES ( currval('base.log_transaction_log_transaction_id_seq'), $f$ || quote_literal(tablename) || $f$);
