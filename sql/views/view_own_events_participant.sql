@@ -41,12 +41,14 @@ SELECT
   event_person.person_id
 FROM
   event
-  INNER JOIN event_person ON (
-    event_person.event_id = event.event_id AND
-    event_person.event_role IN ('speaker','moderator') )
+  INNER JOIN event_person USING (event_id)
   INNER JOIN conference USING (conference_id)
   INNER JOIN event_state_localized USING (event_state)
   INNER JOIN event_state_progress_localized USING (event_state,event_state_progress,translated)
   INNER JOIN event_role_localized USING (event_role,translated)
   INNER JOIN event_role_state_localized USING (event_role,event_role_state,translated)
+  INNER JOIN event_role ON (
+    event_role.event_role = event_person.event_role AND
+    event_role.participant = TRUE )
 ;
+
