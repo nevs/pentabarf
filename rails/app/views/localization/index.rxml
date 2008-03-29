@@ -11,9 +11,9 @@ xml.div do
         xml.thead do
           xml.tr do
             xml.th local('localization::table')
-            xml.th local('localization::table_count')
-            xml.th local('localization::table_localized')
-            xml.th local('localization::table_percent_localized')
+            xml.th local('localization::table_entries')
+            xml.th local('localization::table_entries_localized')
+            xml.th local('localization::table_entries_percent_localized')
           end
         end
 
