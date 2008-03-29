@@ -50,7 +50,7 @@ xml.div(:id=>'content-events') do
 
   if not other_events.empty?
     xml.fieldset do
-      xml.legend local('events in other conferences')
+#      xml.legend local('events in other conferences')
 
 
       xml.table do
