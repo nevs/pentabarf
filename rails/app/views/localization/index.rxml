@@ -1,1 +1,40 @@
-xml.div
+xml.div do
+
+  @languages.each do | language |
+    localized = Language_localized.select({:language=>language.language,:translated=>@current_language})
+    name = localized[0] ? localized[0].name : language.language
+    xml.fieldset do
+      xml.legend name
+
+      xml.table do
+
+        xml.thead do
+          xml.tr do
+            xml.th local('localization::table')
+            xml.th local('localization::table_count')
+            xml.th local('localization::table_localized')
+            xml.th local('localization::table_percent_localized')
+          end
+        end
+
+        LocalizationController::Localization_tables.each do | table |
+          base_table = table.to_s.capitalize.constantize
+          local_table = "#{table.to_s.capitalize}_localized".constantize
+          table_count = base_table.select.length
+          table_localized = local_table.select({:translated=>language.language}).length
+          xml.tr do
+            xml.td local(table)
+            xml.td( table_count, {:style=>'text-align:right'})
+            xml.td( table_localized, {:style=>'text-align:right'})
+            xml.td( sprintf( "%3.2f %%", 100.0 * table_localized/table_count ), {:style=>'text-align:right'})
+
+          end
+        end
+
+      end
+
+    end
+  end
+
+end
+
