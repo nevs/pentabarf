@@ -17,11 +17,14 @@ xml << js_tabs( tabs )
           end
         end
 
+        total_count, total_localized = 0, 0
         LocalizationController::Localization_tables.each do | table |
           base_table = table.to_s.capitalize.constantize
           local_table = "#{table.to_s.capitalize}_localized".constantize
           table_count = base_table.select.length
+          total_count += table_count
           table_localized = local_table.select({:translated=>language.language}).length
+          total_localized += table_localized
           xml.tr do
             xml.td local(table)
             xml.td( table_count, {:style=>'text-align:right'})
@@ -29,6 +32,16 @@ xml << js_tabs( tabs )
             xml.td( sprintf( "%3.2f %%", 100.0 * table_localized/table_count ), {:style=>'text-align:right'})
           end
         end
+
+        xml.tfoot do
+          xml.tr do
+            xml.th
+            xml.th( total_count, {:style=>'text-align:right'})
+            xml.th( total_localized, {:style=>'text-align:right'})
+            xml.th( sprintf( "%3.2f %%", 100.0 * total_localized/total_count ), {:style=>'text-align:right'})
+          end
+        end
+
       end
     end
   end
