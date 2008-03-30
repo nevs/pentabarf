@@ -74,7 +74,6 @@ INSERT INTO country (country) VALUES ('fk');
 INSERT INTO country (country) VALUES ('fm');
 INSERT INTO country (country) VALUES ('fo');
 INSERT INTO country (country) VALUES ('fr');
-INSERT INTO country (country) VALUES ('fx');
 INSERT INTO country (country) VALUES ('ga');
 INSERT INTO country (country) VALUES ('gb');
 INSERT INTO country (country) VALUES ('gd');
