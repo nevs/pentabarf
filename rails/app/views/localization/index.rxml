@@ -1,19 +1,19 @@
-xml.div do
+tabs = @languages.map do | l | [l.language,Language_localized.select_or_new(:language=>l.language,:translated=>@current_language).name || l.language] end
+xml << js_tabs( tabs )
 
-  @languages.each do | language |
-    localized = Language_localized.select({:language=>language.language,:translated=>@current_language})
-    name = localized[0] ? localized[0].name : language.language
+@languages.each_with_index do | language, index |
+
+  xml.div(:id=>"content-#{language.language}") do
     xml.fieldset do
-      xml.legend name
+      xml.legend tabs[index][1]
 
       xml.table do
 
         xml.thead do
           xml.tr do
-            xml.th local('localization::table')
-            xml.th local('localization::table_entries')
-            xml.th local('localization::table_entries_localized')
-            xml.th local('localization::table_entries_percent_localized')
+            ['table','table_entries','table_entries_localized','table_entries_percent_localized'].each do | column |
+              xml.th( local("localization::#{column}"))
+            end
           end
         end
 
@@ -27,14 +27,13 @@ xml.div do
             xml.td( table_count, {:style=>'text-align:right'})
             xml.td( table_localized, {:style=>'text-align:right'})
             xml.td( sprintf( "%3.2f %%", 100.0 * table_localized/table_count ), {:style=>'text-align:right'})
-
           end
         end
-
       end
-
     end
   end
 
 end
+
+xml.script('switch_tab();',{:type=>'text/javascript'})
 
