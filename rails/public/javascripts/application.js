@@ -284,11 +284,13 @@ function cookie_write( name, value ) {
 //reads data stored in the cookie
 function cookie_read( name ) {
   name = name + "=";
-  var cookies = document.cookie.split( ';' );
-  for( var i=0; i < cookies.length; i++ ) {
-    var c = cookies[i];
-    while ( c.charAt(0) == ' ') c = c.substring( 1, c.length);
-    if ( c.indexOf( name ) == 0) return c.substring( name.length, c.length );
+  if ( document.cookie ) {
+    var cookies = document.cookie.split( ';' );
+    for( var i=0; i < cookies.length; i++ ) {
+      var c = cookies[i];
+      while ( c.charAt(0) == ' ') c = c.substring( 1, c.length);
+      if ( c.indexOf( name ) == 0) return c.substring( name.length, c.length );
+    }
   }
   return null;
 }
