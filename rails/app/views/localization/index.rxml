@@ -26,7 +26,7 @@ xml << js_tabs( tabs )
           table_localized = local_table.select({:translated=>language.language}).length
           total_localized += table_localized
           xml.tr do
-            xml.td local(table)
+            xml.td do xml.a( local(table), {:href=>url_for(:action=>table)}) end
             xml.td( table_count, {:style=>'text-align:right'})
             xml.td( table_localized, {:style=>'text-align:right'})
             xml.td( sprintf( "%3.2f %%", 100.0 * table_localized/table_count ), {:style=>'text-align:right'})
