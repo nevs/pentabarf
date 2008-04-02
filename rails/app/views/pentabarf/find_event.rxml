@@ -44,6 +44,11 @@ xml.div({:id=>:data}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_state})
         xml << select_tag('search_event[row_id][value]', Event_state_localized.select({:translated=>@current_language}).map{|o| [o.event_state, o.name]})
       end
+      # search for event state progress
+      xml.li({:class=>:event_state_progress,:title=>local('event::event_state_progress')}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_state_and_progress})
+        xml << select_tag('search_event[row_id][value]', Event_state_progress.select({},{:order=>[:event_state,:event_state_progress]}).map{|o| "#{o.event_state} #{o.event_state_progress}"})
+      end
       # search for event type
       xml.li({:class=>:event_type,:title=>local('event::event_type')}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_type})

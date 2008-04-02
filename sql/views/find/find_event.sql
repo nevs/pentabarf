@@ -1,6 +1,6 @@
 
 CREATE OR REPLACE VIEW view_find_event AS
-  SELECT 
+  SELECT
     event.event_id,
     event.conference_id,
     event.title,
@@ -12,6 +12,7 @@ CREATE OR REPLACE VIEW view_find_event AS
     event.conference_track,
     event.event_state,
     event.event_state_progress,
+    event.event_state || ' ' || event.event_state_progress AS event_state_and_progress,
     event.event_type,
     event.language,
     event.conference_room,
