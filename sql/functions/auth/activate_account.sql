@@ -16,7 +16,12 @@ CREATE OR REPLACE FUNCTION auth.activate_account( activation_string char(64)) RE
       INSERT INTO person_transaction( person_id, changed_when, changed_by, f_create ) VALUES (cur_person_id, now(), cur_person_id, 't');
       DELETE FROM auth.account_activation WHERE account_activation.activation_string = activation_string OR account_creation < now() + activation_interval;
     ELSE
-      RAISE EXCEPTION 'invalid activation string.';
+      PERFORM 1 FROM log.account_activation WHERE account_activation.activation_string = activation_string AND account_activation.log_operation = 'D';
+      IF FOUND THEN
+        RAISE EXCEPTION 'Your account has already been activated.';
+      ELSE
+        RAISE EXCEPTION 'Invalid activation string.';
+      END IF;
     END IF;
     RETURN cur_activation.conference_id;
   END;
