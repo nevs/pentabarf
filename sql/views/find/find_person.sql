@@ -7,6 +7,7 @@ CREATE OR REPLACE VIEW view_find_person AS
     view_person.last_name,
     view_person.nickname,
     view_person.public_name,
+    coalesce( view_person.first_name, '' ) || ' ' || coalesce( view_person.last_name, '' ) || ' ' || coalesce( view_person.nickname, '' ) || ' ' || coalesce( view_person.public_name, '' ) AS all_names,
     view_person.email,
     view_person.spam,
     view_person.gender,
