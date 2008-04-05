@@ -4,6 +4,7 @@ CREATE OR REPLACE VIEW view_mail_missing_slides AS
   SELECT view_person.person_id,
          view_person.name,
          view_person.email,
+         view_person.spam,
          event.event_id,
          event.title AS event_title,
          event.subtitle AS event_subtitle,

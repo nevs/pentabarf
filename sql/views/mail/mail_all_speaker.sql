@@ -4,7 +4,8 @@ CREATE OR REPLACE VIEW view_mail_all_speaker AS
   SELECT DISTINCT ON ( person.person_id )
          person.person_id,
          view_person.name,
-         view_person.email
+         view_person.email,
+         view_person.spam
     FROM event_person
          INNER JOIN person ON (
              person.person_id = event_person.person_id AND
