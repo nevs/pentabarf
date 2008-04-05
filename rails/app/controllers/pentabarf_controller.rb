@@ -312,7 +312,7 @@ class PentabarfController < ApplicationController
     return render_text('') unless params[:id]
     person_ids = []
     @recipients = []
-    recipient_members( params[:id] ).each do | r |
+    recipient_members( params[:id], params[:ignore_spam_flag] == 'on' ).each do | r |
       if not person_ids.member?( r.person_id )
         person_ids << r.person_id
         @recipients << r
@@ -326,7 +326,7 @@ class PentabarfController < ApplicationController
     from = @current_conference.email 
     variables = ['email','name','person_id','conference_acronym','conference_title']
     if params[:mail][:recipients]
-      recipients = recipient_members( params[:mail][:recipients])
+      recipients = recipient_members( params[:mail][:recipients], params[:ignore_spam_flag] == 'on' )
       person_ids = recipients.map(&:person_id).uniq
       person_ids.each do | person_id |
         begin
@@ -412,12 +412,14 @@ class PentabarfController < ApplicationController
     conditions
   end
 
-  def recipient_members( name )
+  def recipient_members( name, ignore_spam_flag = false )
+    constraints = {}
+    constraints[:spam] = true if not ignore_spam_flag
     case name
-      when 'all_speaker' then View_mail_all_speaker.select({},{:order=>Momomoto.lower(:name)})
-      when 'reviewer' then View_mail_all_reviewer.select({},{:order=>Momomoto.lower(:name)})
-      when 'speaker' then View_mail_accepted_speaker.select({:conference_id => @current_conference.conference_id},{:order=>Momomoto.lower(:name)})
-      when 'missing_slides' then View_mail_missing_slides.select({:conference_id => @current_conference.conference_id},{:order=>Momomoto.lower(:name)})
+      when 'all_speaker' then View_mail_all_speaker.select(constraints,{:order=>Momomoto.lower(:name)})
+      when 'reviewer' then View_mail_all_reviewer.select(constraints,{:order=>Momomoto.lower(:name)})
+      when 'speaker' then View_mail_accepted_speaker.select(constraints.merge({:conference_id => @current_conference.conference_id}),{:order=>Momomoto.lower(:name)})
+      when 'missing_slides' then View_mail_missing_slides.select(constraints.merge({:conference_id => @current_conference.conference_id}),{:order=>Momomoto.lower(:name)})
       else raise 'Unknown recipient tag'
     end
   end

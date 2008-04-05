@@ -13,7 +13,6 @@ CREATE OR REPLACE VIEW view_mail_all_reviewer AS
            account_role.role = 'reviewer'
          )
    WHERE
-         view_person.email IS NOT NULL AND
-         view_person.spam = true
+         view_person.email IS NOT NULL
 ;
 

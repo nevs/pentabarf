@@ -9,8 +9,7 @@ CREATE OR REPLACE VIEW view_mail_all_speaker AS
     FROM event_person
          INNER JOIN person ON (
              person.person_id = event_person.person_id AND
-             person.email IS NOT NULL AND
-             person.spam = true )
+             person.email IS NOT NULL)
          INNER JOIN view_person ON (
              view_person.person_id = event_person.person_id )
    WHERE event_role IN ('speaker','moderator')
