@@ -8,6 +8,7 @@ CREATE OR REPLACE VIEW view_find_person AS
     view_person.nickname,
     view_person.public_name,
     view_person.email,
+    view_person.spam,
     view_person.gender,
     view_person.country,
     person_image.mime_type,
