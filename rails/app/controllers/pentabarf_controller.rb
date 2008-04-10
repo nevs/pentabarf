@@ -303,6 +303,7 @@ class PentabarfController < ApplicationController
   def mail
     @content_title = 'Mail'
     @recipients = [['speaker', 'All accepted speakers of this conference'],
+                   ['find_person_advanced', 'Resultset from advanced person search'],
                    ['reviewer', 'All persons with the role reviewer'],
                    ['missing_slides', 'Missing Slides'],
                    ['all_speaker', 'All speakers of all conferences']]
@@ -417,6 +418,7 @@ class PentabarfController < ApplicationController
     constraints[:spam] = true if not ignore_spam_flag
     case name
       when 'all_speaker' then View_mail_all_speaker.select(constraints,{:order=>Momomoto.lower(:name)})
+      when 'find_person_advanced' then View_find_person.select( form_to_condition( POPE.user.preferences[:search_person_advanced], View_find_person), {:distinct=>[:name,:person_id]})
       when 'reviewer' then View_mail_all_reviewer.select(constraints,{:order=>Momomoto.lower(:name)})
       when 'speaker' then View_mail_accepted_speaker.select(constraints.merge({:conference_id => @current_conference.conference_id}),{:order=>Momomoto.lower(:name)})
       when 'missing_slides' then View_mail_missing_slides.select(constraints.merge({:conference_id => @current_conference.conference_id}),{:order=>Momomoto.lower(:name)})
