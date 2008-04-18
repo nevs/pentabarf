@@ -3,7 +3,7 @@ class FeedbackController < ApplicationController
   before_filter :init
 
   def css
-    response.headers['Content-Type'] = 'text/css'
+    response.headers['Content-Type'] = Mime::CSS
     render(:text=>@conference.css.to_s)
   end
 

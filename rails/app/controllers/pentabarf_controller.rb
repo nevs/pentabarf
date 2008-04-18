@@ -4,7 +4,6 @@ class PentabarfController < ApplicationController
   before_filter :check_transaction, :only=>[:save_event,:save_person,:save_conference]
   around_filter :update_last_login, :except=>[:activity]
   around_filter :save_preferences, :only=>[:search_person_simple,:search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
-  append_after_filter :set_content_type
 
   def conflicts
     @content_title = "Conflicts"
@@ -382,11 +381,6 @@ class PentabarfController < ApplicationController
   def save_preferences
     yield
     POPE.user.preferences = @preferences
-  end
-
-  def set_content_type
-    # FIXME: jscalendar does not work with application/xml
-    response.headers['Content-Type'] = 'text/html'
   end
 
   # converts values submitted by advanced search to a hash understood by momomoto

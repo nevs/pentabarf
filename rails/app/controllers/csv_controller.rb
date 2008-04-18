@@ -44,7 +44,7 @@ class CsvController < ApplicationController
         csv << yield( d )
       end
     end
-    response.headers['Content-Type'] = 'text/csv'
+    response.headers['Content-Type'] = Mime::CSV
     response.headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
     render( :text => out, :layout => false )
   end

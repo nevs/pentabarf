@@ -2,7 +2,6 @@ class SubmissionController < ApplicationController
 
   before_filter :init
   before_filter :check_transaction, :only=>[:save_event]
-  after_filter :set_content_type
 
   def index
     @conferences = Conference.select({:f_submission_enabled=>true,:f_submission_writable=>true,:f_submission_new_events=>true})
@@ -126,11 +125,6 @@ class SubmissionController < ApplicationController
 
   def check_permission
     POPE.permission?('submission_login') || render(:text=>'You are lacking permissions to login to the submission system. The most likely cause for this is your account has not yet been activated.')
-  end
-
-  def set_content_type
-    # FIXME: jscalendar does not work with application/xml
-    response.headers['Content-Type'] = 'text/html'
   end
 
 end

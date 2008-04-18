@@ -45,7 +45,7 @@ class IcalController < ApplicationController
   end
 
   def set_content_type
-    response.headers['Content-Type'] = 'text/calendar'
+    response.headers['Content-Type'] = Mime::ICS
   end
 
 
