@@ -167,17 +167,17 @@ module ApplicationHelper
         xml.br
         xml.text! event.subtitle
       end
-      if event.respond_to?( :speaker_ids ) && event.speaker_ids
-        ids = event.speaker_ids.split("\n")
-        names = event.speakers.split("\n")
-        xml.ul(:class=>'event-persons') do
-          ids.each_with_index do | id, index |
-            xml.li do xml.a( names[index], {:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>id)}) end
-          end
+    end
+    if event.respond_to?( :speaker_ids ) && event.speaker_ids
+      ids = event.speaker_ids.split("\n")
+      names = event.speakers.split("\n")
+      xml.ul(:class=>'event-persons') do
+        ids.each_with_index do | id, index |
+          xml.li do xml.a( names[index], {:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>id)}) end
         end
       end
     end
-    xml
+    xml.to_s
   end
 
   def event_table( events, options = {} )
