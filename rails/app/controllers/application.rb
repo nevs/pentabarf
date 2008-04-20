@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def transaction_wrapper
+    response.content_type ||= Mime::HTML
     Momomoto::Database.instance.transaction do
       yield if auth
       POPE.deauth

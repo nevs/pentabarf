@@ -59,6 +59,3 @@ require 'builder_enhancements'
 
 ::POPE = Pope.new
 
-# overwrite content type for xml output
-Mime::XML.instance_eval{ @string="text/xml" }
-

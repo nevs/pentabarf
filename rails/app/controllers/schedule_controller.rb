@@ -9,7 +9,7 @@ class ScheduleController < ApplicationController
   end
 
   def css
-    response.headers['Content-Type'] = 'text/css'
+    response.content_type = Mime::CSS
     render( :text => @conference.css.to_s )
   end
 

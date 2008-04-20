@@ -13,6 +13,7 @@ class XmlController < ApplicationController
 
   def init
     @current_language = 'en'
+    response.content_type = Mime::XML
   end
 
 end
