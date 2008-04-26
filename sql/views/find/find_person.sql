@@ -7,7 +7,7 @@ CREATE OR REPLACE VIEW view_find_person AS
     view_person.last_name,
     view_person.nickname,
     view_person.public_name,
-    coalesce( view_person.first_name, '' ) || ' ' || coalesce( view_person.last_name, '' ) || ' ' || coalesce( view_person.nickname, '' ) || ' ' || coalesce( view_person.public_name, '' ) AS all_names,
+    coalesce( view_person.first_name, '' ) || ' ' || coalesce( view_person.last_name, '' ) || ' ' || coalesce( view_person.nickname, '' ) || ' ' || coalesce( view_person.public_name, '' ) || ' ' || coalesce( account.login_name, '' ) AS all_names,
     view_person.email,
     view_person.spam,
     view_person.gender,
@@ -32,6 +32,7 @@ CREATE OR REPLACE VIEW view_find_person AS
   FROM view_person
     CROSS JOIN conference
     LEFT OUTER JOIN conference_person USING (person_id,conference_id)
+    LEFT OUTER JOIN auth.account USING (person_id)
     LEFT OUTER JOIN person_image USING (person_id)
     LEFT OUTER JOIN mime_type USING (mime_type)
   WHERE
