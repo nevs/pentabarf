@@ -48,5 +48,5 @@
 \i views/view_conference_transaction.sql
 \i views/view_event_transaction.sql
 \i views/view_person_transaction.sql
-
+\i views/view_event_duration.sql
 

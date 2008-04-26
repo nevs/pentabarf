@@ -29,6 +29,11 @@ xml.div({:id=>:data}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:public})
         xml << select_tag('search_event[row_id][value]', [['t','yes'],['f','no']])
       end
+      # search for duration
+      xml.li({:class=>:duration,:title=>local('event::duration')}) do
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:duration})
+        xml << select_tag('search_event[row_id][value]', View_event_duration.select.map(&:duration) )
+      end
       # search for language
       xml.li({:class=>:language,:title=>local('event::language')}) do
         xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:language})
