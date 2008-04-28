@@ -13,6 +13,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_settings::current_language', 'en', 'current language');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('admin::index', 'de', 'Administration');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('admin::index', 'en', 'Administration');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('attachment_type', 'en', 'Attachment type');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference', 'de', 'Konferenz');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference', 'en', 'Conference');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::abstract_length', 'de', 'Maximale Anzahl Zeichen der Kurzbeschreibung');
@@ -391,7 +392,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_ev
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_event::tab::advanced', 'en', 'Advanced Search');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_event::tab::simple', 'de', 'Einfache Suche');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_event::tab::simple', 'en', 'Simple Search');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_person', 'en', 'Find Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_person::tab::advanced', 'de', 'Detailsuche');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_person::tab::advanced', 'en', 'Advanced Search');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_person::tab::simple', 'de', 'Einfache Suche');
@@ -489,6 +489,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentaba
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::conflicts', 'en', 'Conflicts');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::events_by_state', 'de', 'Veranstaltungen nach Status');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::events_by_state', 'en', 'Events by state');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::find_person', 'en', 'Find Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::index', 'de', 'Übersicht');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::index', 'en', 'Overview');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::mail', 'de', 'Mail');
@@ -536,6 +537,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person:
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::iban', 'en', 'IBAN');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::last_name', 'de', 'Nachname');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::last_name', 'en', 'Last Name');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::name', 'de', 'Name');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::name', 'en', 'Name');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::nickname', 'de', 'Nick');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::nickname', 'en', 'Nickname');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person::po_box', 'de', 'Postfach');
@@ -704,6 +707,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::i
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::new_account', 'de', 'Account erstellen');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::new_account', 'en', 'Create account');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::new_account_heading', 'en', 'Enter your data to create an account. All fields are mandatory. The email address will be used for activating your account.');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::no_colons_in_login_name', 'en', 'Login name must not contain colons.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::proceed_to_submission', 'en', 'Proceed');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::repeat_password', 'en', 'Repeat password');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::reset_link_has_been_sent', 'en', 'An email with a link to reset your password has been sent to your email address.');

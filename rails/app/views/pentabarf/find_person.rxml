@@ -2,7 +2,7 @@ xml.div({:id=>:data}) do
   xml << js_tabs([:simple,:advanced])
 
   xml.fieldset(:id=>'content-simple') do
-    xml.label(local('find_person'))
+    xml.label(local('pentabarf::find_person'))
     xml.form(:id=>:simple_search,:action=>url_for) do
       xml.input({:type=>:text,:name=>:search_person_simple,:id=>:search_person_simple,:value=>@preferences[:search_person_simple]})
       xml.label("Searching ...", {:id=>"search-indicator",:style=>"display:none"})
