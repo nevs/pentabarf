@@ -15,3 +15,7 @@ ul.advanced_search { list-style: none none inside; margin: 0px; }
 ul.advanced_search li { margin: 0px; vertical-align: middle; }
 ul.advanced_search li select { margin: 3px 0px; padding: 1px 0px; }
 
+ul.recent_changes_fields { list-style: none; margin: 0; }
+ul.recent_changes_fields li { display: inline; }
+ul.recent_changes_fields li+li:before { content: ","; margin-right: 0.3em; }
+
