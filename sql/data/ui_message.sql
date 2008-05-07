@@ -297,6 +297,7 @@ INSERT INTO ui_message (ui_message) VALUES ('feedback::welcome_to_the_feedback_s
 INSERT INTO ui_message (ui_message) VALUES ('find_event');
 INSERT INTO ui_message (ui_message) VALUES ('find_event::tab::advanced');
 INSERT INTO ui_message (ui_message) VALUES ('find_event::tab::simple');
+INSERT INTO ui_message (ui_message) VALUES ('find_person');
 INSERT INTO ui_message (ui_message) VALUES ('find_person::tab::advanced');
 INSERT INTO ui_message (ui_message) VALUES ('find_person::tab::simple');
 INSERT INTO ui_message (ui_message) VALUES ('form::button::add_attachment');
