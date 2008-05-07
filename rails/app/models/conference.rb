@@ -2,7 +2,7 @@ class Conference < Momomoto::Table
   default_order( Momomoto.lower(:acronym) )
 
   def self.log_content_columns
-    columns - [:conference_id]
+    columns.keys - [:conference_id]
   end
 
   def self.log_hidden_columns

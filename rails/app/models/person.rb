@@ -20,6 +20,7 @@ class Person < Momomoto::Table
   end
 
   def self.log_change_title( change )
+    change.name
   end
 
 end
