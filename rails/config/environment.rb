@@ -8,6 +8,7 @@ ENV['RAILS_ENV'] ||= 'production'
 require File.join(File.dirname(__FILE__), 'boot')
 require 'momomoto/momomoto'
 require 'momomoto_auth'
+require 'momomoto_logging'
 require 'pope'
 require 'jabberlogger'
 require 'yaml'
