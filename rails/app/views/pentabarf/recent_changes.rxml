@@ -5,13 +5,11 @@ end
 xml.div( :id => 'data' ) do
   xml.fieldset do
     xml.ul do
+
       @changes.each do | changeset |
-        xml.li do
-          xml.text!( changeset.log_timestamp.strftime("%Y-%m-%d %H:%M:%S"))
-          xml.a(changeset.name, :href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>changeset.person_id))
-          xml << changeset_changes( changeset )
-        end
+        LogEntry.new( changeset, controller ).append( xml )
       end
+
     end
   end
 end

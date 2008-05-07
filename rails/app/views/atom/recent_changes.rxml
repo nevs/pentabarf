@@ -19,7 +19,7 @@ xml.feed({:xmlns=>"http://www.w3.org/2005/Atom"}) do
       xml.summary title
       xml.content({:type=>:xhtml}) do
         xml.div({:xmlns=>"http://www.w3.org/1999/xhtml"}) do
-          xml << changeset_changes( changeset )
+          xml.ul do LogEntry.new( changeset, controller ).append( xml ) end
         end
       end
     end

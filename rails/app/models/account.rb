@@ -20,5 +20,14 @@ class Account < Momomoto::Table
     end
 
   end
+
+  def self.log_content_columns
+    columns.keys - [:account_id,:salt]
+  end
+
+  def self.log_hidden_columns
+    [:password]
+  end
+
 end
 
