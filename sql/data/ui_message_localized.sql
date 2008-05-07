@@ -406,6 +406,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_ev
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_event::tab::advanced', 'en', 'Advanced Search');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_event::tab::simple', 'de', 'Einfache Suche');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_event::tab::simple', 'en', 'Simple Search');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_person', 'en', 'Find Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_person::tab::advanced', 'de', 'Detailsuche');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_person::tab::advanced', 'en', 'Advanced Search');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('find_person::tab::simple', 'de', 'Einfache Suche');
@@ -503,6 +504,9 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentaba
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::conflicts', 'en', 'Conflicts');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::events_by_state', 'de', 'Veranstaltungen nach Status');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::events_by_state', 'en', 'Events by state');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::find_conference', 'de', 'Konferenz finden');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::find_conference', 'en', 'Find Conference');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::find_person', 'de', 'Person finden');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::find_person', 'en', 'Find Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::index', 'de', 'Übersicht');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('pentabarf::index', 'en', 'Overview');
