@@ -44,7 +44,6 @@ class UserControllerTest < Test::Unit::TestCase
       assert_response :success
       submit_form do | form |
         form.login_name = 'test_password_reset'
-        form.email = 'sven@pentabarf.org'
       end
       assert_response :redirect
       get :reset_link_sent
