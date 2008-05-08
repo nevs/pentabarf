@@ -104,7 +104,9 @@ class LogEntry
               xml.text! " changed"
             else
               xml.em "#{local("#{table_name}::#{column}")}:"
-              xml.text! "#{column_value(old_value, column)} => #{column_value(change, column)}"
+              xml.span( column_value(old_value, column), {:class=>:old_value})
+              xml << '&rArr;'
+              xml.span( column_value(change, column), {:class=>:new_value})
             end
           end
         end

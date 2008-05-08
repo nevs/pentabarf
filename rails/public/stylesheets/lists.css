@@ -19,3 +19,8 @@ ul.recent_changes_fields { list-style: none; margin: 0; }
 ul.recent_changes_fields li { display: inline; }
 ul.recent_changes_fields li+li:before { content: ","; margin-right: 0.3em; }
 
+ul.recent_changes_fields span { padding: 0 0.2em; }
+
+ul.recent_changes_fields span.old_value { background-color: mistyrose; }
+ul.recent_changes_fields span.new_value { background-color: palegreen; }
+
