@@ -91,7 +91,7 @@ class LogEntry
   def render_default_update( xml, table_name, change )
     conditions = {:log_transaction_id=>{:lt=>change.log_transaction_id}}
     life_class(table_name).primary_keys.each do | pk | conditions[pk] = change[pk] end
-    old_value = log_class( table_name ).select(conditions,{:order=>Momomoto.desc(:log_transaction_id),:limit=>1})[0] || {}
+    old_value = log_class( table_name ).select_or_new(conditions,{:order=>Momomoto.desc(:log_transaction_id),:limit=>1})
     xml.li do
       xml.a({:href=>change_url(table_name, change)}) do 
         xml.b "#{local(table_name)} updated: #{change_title(table_name, change)}"
@@ -159,7 +159,12 @@ class LogEntry
       when :account_id then
         Account.select_single({:account_id=>row[column_name]}).login_name
       else
-        row[column_name].to_s
+        case row.class.columns[column_name]
+          when Momomoto::Datatype::Time_with_time_zone, Momomoto::Datatype::Timeout_with_time_zone then
+            row[column_name].sprintf("%H:%M:%S")
+        else
+          row[column_name].to_s
+        end
     end
    rescue => e
     row[column_name].to_s
