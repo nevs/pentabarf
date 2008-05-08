@@ -1,6 +1,7 @@
 
 CREATE TABLE base.event_role (
   event_role TEXT NOT NULL,
+  participant BOOL NOT NULL DEFAULT FALSE,
   rank INTEGER
 );
 
