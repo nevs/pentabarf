@@ -44,7 +44,7 @@ class LogEntry
   end
 
   def render_password_reset( xml )
-    if check_table_changes( :account, :U ) && check_table_changes( :account_password_reset, :D ) 
+    if check_table_changes( :account, :U ) && check_table_changes( :account_password_reset, :D )
       xml.li "The password for user '#{changes[:account][0].login_name}' has been reset."
     else
       render_default( xml )
@@ -104,7 +104,7 @@ class LogEntry
               xml.text! " changed"
             else
               xml.em "#{local("#{table_name}::#{column}")}:"
-              xml.span( column_value(old_value, column), {:class=>:old_value})
+              xml.span( column_value(old_value, column), {:class=>:old_value}) if not column_value( old_value, column ).empty?
               xml << '&rArr;'
               xml.span( column_value(change, column), {:class=>:new_value})
             end
