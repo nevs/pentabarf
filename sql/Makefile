@@ -1,6 +1,16 @@
 
 PSQL=psql
 
+LOG_TARGETS = install all import user
+LOG_FILE = install.log
+
+ifneq ($(LOGGING_ENABLED),y)
+$(LOG_TARGETS):
+	@$(MAKE) LOGGING_ENABLED=y $@ 2>&1 | tee "$(LOG_FILE)"
+else
+
+all: install import
+
 install:
 		-createlang plpgsql
 		${PSQL} -f schema.sql
@@ -13,11 +23,10 @@ install:
 		${PSQL} -f functions.sql
 		${PSQL} -c 'SELECT log.activate_logging();'
 
-all: install import
-
 import:
 		cd data && ${PSQL} -f import.sql
 
 user:
 		${PSQL} -f pentabarf-user.sql
 
+endif
