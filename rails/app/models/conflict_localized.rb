@@ -1,4 +1,4 @@
 class Conflict_localized < Momomoto::Table
-  schema_name "conflict"
+  schema_name 'conflict'
 end
 
