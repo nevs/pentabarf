@@ -161,7 +161,7 @@ class LogEntry
       else
         case row.class.columns[column_name]
           when Momomoto::Datatype::Time_with_time_zone, Momomoto::Datatype::Timeout_with_time_zone then
-            row[column_name].sprintf("%H:%M:%S")
+            row[column_name].strftime("%H:%M:%S")
         else
           row[column_name].to_s
         end
