@@ -14,6 +14,3 @@ CREATE TABLE person_availability (
   UNIQUE (person_id, conference_id, start_date)
 ) INHERITS( base.person_availability );
 
-CREATE TABLE log.person_availability (
-) INHERITS( base.logging, base.person_availability );
-
