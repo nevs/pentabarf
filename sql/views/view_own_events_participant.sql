@@ -12,6 +12,7 @@ SELECT
   event_state_progress_localized.name AS event_state_progress_name,
   event.title,
   event.subtitle,
+  event.duration,
   array_to_string(ARRAY(
     SELECT view_person.person_id
       FROM
