@@ -5,13 +5,16 @@ class Event_person < Momomoto::Table
   end
 
   def self.log_change_title( change )
-    conf = Conference.select_single(:conference_id=>change.conference_id).acronym rescue nil
-    title = Event.select_single({:event_id=>change.event_id}).title rescue ""
-    if conf
-      "#{conf}: #{title}"
-    else
-      "#{title}"
+    event = Event.select_single({:event_id=>change.event_id}).title rescue nil
+    if event
+      conf = Conference.select_single(:conference_id=>event.conference_id).acronym rescue nil
+      if conf
+        return "#{conf}: #{event.title}"
+      else
+        return event.title
+      end
     end
+    return ""
   end
 
   def self.log_change_url( change )
