@@ -241,21 +241,25 @@ class LogEntry
   protected
 
   def columns( table_name )
-    life_class( table_name ).log_content_columns - hidden_columns( table_name )
+    ( life_class( table_name ).log_content_columns - hidden_columns( table_name ) ).map(&:to_s).sort.map(&:to_sym)
   end
 
   def hidden_columns( table_name )
-    life_class( table_name ).log_hidden_columns
+    life_class( table_name ).log_hidden_columns.map(&:to_s).sort.map(&:to_sym)
   end
 
   def change_url( table_name, change )
     url_for( life_class( table_name ).log_change_url( change ) )
+   rescue => e
+    @controller.log_error( e )
+    ""
   end
 
   def change_title( table_name, change )
     life_class( table_name ).log_change_title( change )
-   rescue
-     ""
+   rescue => e
+    @controller.log_error( e )
+    ""
   end
 
   def url_for( *args )
