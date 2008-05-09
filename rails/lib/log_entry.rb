@@ -61,7 +61,7 @@ class LogEntry
 
   def append( xml )
     xml.li do
-      xml.span( log_timestamp.strftime("%Y-%m-%d %H:%M:%S"),{:onclick=>"$('changeset-#{log_transaction_id}').toggle()"})
+      xml.span( log_timestamp.strftime("%Y-%m-%d %H:%M:%S"),{:onclick=>"$('changeset-#{log_transaction_id}').toggle()",:title=>"Changeset #{log_transaction_id}"})
       if log_name
         xml.a( log_name, :href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>log_person_id))
       end
@@ -93,8 +93,9 @@ class LogEntry
     life_class(table_name).primary_keys.each do | pk | conditions[pk] = change[pk] end
     old_value = log_class( table_name ).select(conditions,{:order=>Momomoto.desc(:log_transaction_id),:limit=>1})[0] || log_class( table_name ).new
     xml.li do
-      xml.a({:href=>change_url(table_name, change)}) do 
-        xml.b "#{local(table_name)} updated: #{change_title(table_name, change)}"
+      xml.a({:href=>change_url(table_name, change)}) do
+        xml.text! "#{local(table_name)} updated: "
+        xml.b change_title(table_name, change)
       end
       xml.ul({:class=>:recent_changes_fields}) do
         changed_columns( change, old_value ).each do | column |
@@ -117,7 +118,8 @@ class LogEntry
   def render_default_insert( xml, table_name, change )
     xml.li do
       xml.a({:href=>change_url(table_name, change)}) do 
-        xml.b "New #{local(table_name)}: #{change_title(table_name, change)}"
+        xml.text! "New #{local(table_name)}: "
+        xml.b change_title(table_name, change)
       end
       xml.ul({:class=>:recent_changes_fields}) do
         columns( table_name ).each do | column |
@@ -134,7 +136,8 @@ class LogEntry
   def render_default_delete( xml, table_name, change )
     xml.li do
       xml.a({:href=>change_url(table_name, change)}) do 
-        xml.b "#{local(table_name)} deleted: #{change_title(table_name, change)}"
+        xml.text! "#{local(table_name)} deleted: "
+        xml.b change_title(table_name, change)
       end
       xml.ul({:class=>:recent_changes_fields}) do
         columns( table_name ).each do | column |
