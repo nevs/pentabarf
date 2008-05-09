@@ -160,8 +160,10 @@ class LogEntry
         Account.select_single({:account_id=>row[column_name]}).login_name
       else
         case row.class.columns[column_name]
-          when Momomoto::Datatype::Time_with_time_zone, Momomoto::Datatype::Timeout_with_time_zone then
+          when Momomoto::Datatype::Time_with_time_zone, Momomoto::Datatype::Time_without_time_zone then
             row[column_name].strftime("%H:%M:%S")
+          when Momomoto::Datatype::Timestamp_with_time_zone, Momomoto::Datatype::Timestamp_without_time_zone then
+            row[column_name].strftime("%Y-%m-%d %H:%M:%S")
         else
           row[column_name].to_s
         end

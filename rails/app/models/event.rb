@@ -10,8 +10,10 @@ class Event < Momomoto::Table
   end
 
   def self.log_change_title( change )
-    conf = Conference.select_single(:conference_id=>change.conference_id).acronym rescue ""
-    "#{conf}: #{change.title}"
+    conf = Conference.select_single(:conference_id=>change.conference_id)
+    "#{conf.acronym}: #{change.title}"
+   rescue
+    change.title
   end
 
 end
