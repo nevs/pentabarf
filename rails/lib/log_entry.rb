@@ -104,7 +104,7 @@ class LogEntry
               xml.text! " changed"
             else
               xml.em "#{local("#{table_name}::#{column}")}:"
-              xml.span( column_value(old_value, column), {:class=>:old_value}) if not column_value( old_value, column ).empty?
+              xml.span( column_value(old_value, column), {:class=>:old_value})
               xml << '&rArr;'
               xml.span( column_value(change, column), {:class=>:new_value})
             end
@@ -124,7 +124,7 @@ class LogEntry
           next unless change[column]
           xml.li do
             xml.em "#{local("#{table_name}::#{column}")}:"
-            xml.text! column_value( change, column )
+            xml.span( column_value(change, column), {:class=>:new_value})
           end
         end
       end
@@ -141,7 +141,7 @@ class LogEntry
           next unless change[column]
           xml.li do
             xml.em "#{local("#{table_name}::#{column}")}:"
-            xml.text! column_value( change, column )
+            xml.span( column_value(change, column), {:class=>:old_value})
           end
         end
       end
