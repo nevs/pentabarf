@@ -91,7 +91,8 @@ class LogEntry
   def render_default_update( xml, table_name, change )
     conditions = {:log_transaction_id=>{:lt=>change.log_transaction_id}}
     life_class(table_name).primary_keys.each do | pk | conditions[pk] = change[pk] end
-    old_value = log_class( table_name ).select(conditions,{:order=>Momomoto.desc(:log_transaction_id),:limit=>1})[0] || log_class( table_name ).new
+    old_value = log_class( table_name ).select(conditions,{:order=>Momomoto.desc(:log_transaction_id),:limit=>1})[0]
+    old_value ||= log_class( table_name ).new( all_columns( table_name ).inject({}){|h,k| h.merge({k=>nil})} )
     xml.li do
       xml.a({:href=>change_url(table_name, change)}) do
         xml.text! "#{local(table_name)} updated: "
@@ -242,6 +243,10 @@ class LogEntry
   end
 
   protected
+
+  def all_columns( table_name )
+    columns( table_name ) + hidden_columns( table_name )
+  end
 
   def columns( table_name )
     ( life_class( table_name ).log_content_columns - hidden_columns( table_name ) ).map(&:to_s).sort.map(&:to_sym)
