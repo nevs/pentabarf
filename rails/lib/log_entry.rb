@@ -252,6 +252,8 @@ class LogEntry
 
   def change_title( table_name, change )
     life_class( table_name ).log_change_title( change )
+   rescue
+     ""
   end
 
   def url_for( *args )
