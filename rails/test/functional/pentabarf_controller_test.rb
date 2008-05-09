@@ -31,7 +31,7 @@ class PentabarfControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
-  [:conflicts,:recent_changes,:schedule,:find_person,:find_event,:find_conference].each do | action |
+  [:conflicts,:own_events,:recent_changes,:schedule,:find_person,:find_event,:find_conference].each do | action |
     define_method "test_#{action}" do
       get action
       assert_response :success
