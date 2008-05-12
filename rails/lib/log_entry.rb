@@ -259,14 +259,16 @@ class LogEntry
   def change_url( table_name, change )
     url_for( life_class( table_name ).log_change_url( change ) )
    rescue => e
-    @controller.log_error( e )
+    @controller.instance_eval do
+      log_error( e )
+    end
     ""
   end
 
   def change_title( table_name, change )
     life_class( table_name ).log_change_title( change )
    rescue => e
-    @controller.log_error( e )
+    @controller.instance_eval do log_error( e ) end
     ""
   end
 
