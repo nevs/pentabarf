@@ -13,7 +13,7 @@ class Conference < Momomoto::Table
     {:controller=>'pentabarf',:action=>:conference,:id=>change.conference_id}
   end
 
-  def self.log_change_title
+  def self.log_change_title( change )
     change.title
   end
 
