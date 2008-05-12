@@ -9,4 +9,12 @@ class Conference < Momomoto::Table
     [:css]
   end
 
+  def self.log_change_url( change )
+    {:controller=>'pentabarf',:action=>:conference,:id=>change.conference_id}
+  end
+
+  def self.log_change_title
+    change.title
+  end
+
 end
