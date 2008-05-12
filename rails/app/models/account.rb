@@ -29,5 +29,16 @@ class Account < Momomoto::Table
     [:password]
   end
 
+  def self.log_change_url( change )
+    {:controller=>'pentabarf',:action=>:person,:id=>change.person_id}
+  end
+
+  def self.log_change_title( change )
+    person = Person.select_single({:person_id=>change.person_id})
+    person.name
+   rescue
+    change.login_name
+  end
+
 end
 
