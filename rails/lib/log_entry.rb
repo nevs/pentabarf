@@ -36,7 +36,7 @@ class LogEntry
 
   def render_password_reset_requested( xml )
     if check_table_changes( :account_password_reset, :I )
-      account = Account.select_single({:account_id=>changes[:account][0].account_id}).login_name rescue ""
+      account = Account.select_single({:account_id=>changes[:account_password_reset][0].account_id}).login_name rescue ""
       xml.li "User '#{account}' requested a password reset."
     else
       render_default( xml )
