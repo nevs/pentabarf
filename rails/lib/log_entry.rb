@@ -44,7 +44,7 @@ class LogEntry
   end
 
   def render_password_reset( xml )
-    if check_table_changes( :account, :U ) && changes[:account_password_reset].map(&:log_operation).uniq == [ :D ]
+    if check_table_changes( :account, :U ) && changes[:account_password_reset].map(&:log_operation).map(&:to_sym).uniq == [ :D ]
       xml.li "The password for user '#{changes[:account][0].login_name}' has been reset."
     else
       render_default( xml )
