@@ -11,7 +11,7 @@ class Localizer
     end
 
     # lookup localization for tag and cache it
-    def lookup( tag, language )
+    def lookup( tag, language, arguments = {} )
       tag = tag.to_s
       local = @cache[language][tag]
       if not local
@@ -28,7 +28,9 @@ class Localizer
           local = tag
         end
       end
-      local
+      local.gsub(/#\{[a-z0-9]+\}/) do | match |
+        arguments[ match[2..-2].to_sym ]
+      end
     end
 
     def purge( language )

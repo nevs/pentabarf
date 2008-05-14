@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def local( tag )
-    Localizer.lookup( tag.to_s, @current_language )
+  def local( tag, arguments = {} )
+    Localizer.lookup( tag.to_s, @current_language, arguments )
   end
 
   def transaction_wrapper

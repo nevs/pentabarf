@@ -33,8 +33,8 @@ module ApplicationHelper
     @@revision.to_s
   end
 
-  def local( tag )
-    Localizer.lookup( tag.to_s, @current_language )
+  def local( tag, arguments = {} )
+    Localizer.lookup( tag.to_s, @current_language, arguments )
   end
 
   def js( text )
