@@ -26,8 +26,9 @@ class LogEntry
   def render_account_activated( xml )
     if check_table_changes( :account, :U ) && check_table_changes( :account_activation, :D ) &&
        check_table_changes( :account_role, :I ) && check_table_changes( :person, :I )
+      account = changes[:account][0]
       xml.li do
-        xml.a( "User '#{changes[:account][0].login_name}' has activated the account.", {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>changes[:account][0].person_id})} )
+        xml.a( "#{Account.log_change_title( account )} has activated the account.", {:href=>url_for( Account.log_change_url( account ) )})
       end
     else
       render_default( xml )
@@ -36,8 +37,17 @@ class LogEntry
 
   def render_password_reset_requested( xml )
     if check_table_changes( :account_password_reset, :I )
-      account = Account.select_single({:account_id=>changes[:account_password_reset][0].account_id}).login_name rescue ""
-      xml.li "User '#{account}' requested a password reset."
+      account_password_reset = changes[:account_password_reset][0]
+      begin
+        account = Account.select_single({:account_id=>account_password_reset.account_id})
+        name = Account.log_change_title( account )
+        url = Account.log_change_url( account )
+      rescue
+        name, url = account_password_reset.account_id, {}
+      end
+      xml.li do
+        xml.a( "#{name} requested a password reset.", {:href=>url_for( url )})
+      end
     else
       render_default( xml )
     end
@@ -45,7 +55,10 @@ class LogEntry
 
   def render_password_reset( xml )
     if check_table_changes( :account, :U ) && changes[:account_password_reset].map(&:log_operation).map(&:to_sym).uniq == [ :D ]
-      xml.li "The password for user '#{changes[:account][0].login_name}' has been reset."
+      account = changes[:account][0]
+      xml.li do
+        xml.a( "The password for #{Account.log_change_title( account )} has been reset.", {:href=>url_for( Account.log_change_url( account ) )})
+      end
     else
       render_default( xml )
     end
@@ -53,7 +66,10 @@ class LogEntry
 
   def render_new_account( xml )
     if check_table_changes( :account, :I ) && check_table_changes( :account_activation, :I )
-      xml.li "User '#{changes[:account][0].login_name}' created an account."
+      account = Account.select_single({:account_id=>changes[:account][0].account_id}) rescue changes[:account][0]
+      xml.li do
+        xml.a( "#{Account.log_change_title( account )} has created an account.", {:href=>url_for( Account.log_change_url( account ) )})
+      end
     else
       render_default( xml )
     end
