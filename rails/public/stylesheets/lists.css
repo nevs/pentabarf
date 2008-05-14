@@ -24,3 +24,5 @@ ul.recent_changes_fields span { padding: 0 0.2em; }
 ul.recent_changes_fields span.old_value { background-color: #FFE7E7; }
 ul.recent_changes_fields span.new_value { background-color: #E7FFE7; }
 
+ul.recent_changes li span.log-entry { background-color: lightblue; }
+
