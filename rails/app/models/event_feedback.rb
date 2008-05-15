@@ -1,7 +1,7 @@
 class Event_feedback < Momomoto::Table
 
   def self.log_content_columns
-    columns.keys - [:event_id]
+    columns.keys - [:eval_time,:event_id,:event_feedback_id]
   end
 
   def self.log_change_url( change )
