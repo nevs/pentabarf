@@ -13,13 +13,7 @@ class Account_role < Momomoto::Table
   end
 
   def self.log_change_title( change )
-    account = Account.select_single({:account_id=>change.account_id})
-    begin
-      person = Person.select_single({:person_id=>account.person_id})
-      person.name
-    rescue
-      account.login_name
-    end
+    Account.log_change_title( Account.select_single({:account_id=>change.account_id}))
    rescue
     change.account_id
   end

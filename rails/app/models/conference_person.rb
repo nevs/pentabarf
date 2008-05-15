@@ -14,8 +14,10 @@ class Conference_person < Momomoto::Table
       conf = Conference.select_single({:conference_id=>change.conference_id})
       "#{conf.acronym}: #{person.name}"
     rescue
-      person.name
+      Person.log_change_title( person )
     end
+   rescue
+    ""
   end
 
 end

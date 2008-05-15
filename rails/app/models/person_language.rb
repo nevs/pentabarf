@@ -5,8 +5,7 @@ class Person_language < Momomoto::Table
   end
 
   def self.log_change_title( change )
-    person = Person.select_single({:person_id=>change.person_id})
-    person.name
+    Person.log_change_title( Person.select_single({:person_id=>change.person_id}))
    rescue
     ""
   end

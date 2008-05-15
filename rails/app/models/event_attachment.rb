@@ -13,7 +13,9 @@ class Event_attachment < Momomoto::Table
   end
 
   def self.log_change_title( change )
-    Event.select_single({:event_id=>change.event_id}).title rescue ""
+    Event.log_change_title( Event.select_single({:event_id=>change.event_id}))
+   rescue
+    ""
   end
 
 end

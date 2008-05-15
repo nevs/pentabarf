@@ -12,9 +12,7 @@ class Conference_person_link < Momomoto::Table
   end
 
   def self.log_change_title( change )
-    cp = Conference_person.select_single({:conference_person_id=>change.conference_person_id})
-    person = Person.select_single({:person_id=>cp.person_id})
-    person.name
+    Conference_person.log_change_title( Conference_person.select_single({:conference_person_id=>change.conference_person_id}) )
    rescue
     ""
   end
