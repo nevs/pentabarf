@@ -138,7 +138,7 @@ module Builder_helper
     options[:size] ||= 12
     xml << text_field_row( row, column, options ) do | x |
       x.button( '...', {:type=>:button,:id=>button_id})
-      x.script( "Calendar.setup({inputField:'#{name}', ifFormat:'%Y-%m-%d', button:'#{button_id}', showOthers:true, singleClick:false});", {:type=>'text/javascript'})
+      x.script( "Calendar.setup({inputField:'#{name}',ifFormat:'%Y-%m-%d',button:'#{button_id}',showOthers:true,singleClick:false,onUpdate:enable_save_button});", {:type=>'text/javascript'})
     end
   end
 
