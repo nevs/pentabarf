@@ -5,7 +5,7 @@ paginate( xml, @results, params[:id].to_i ) do | results |
       xml.tr do
         xml.th(local("conference::#{fields[0]}"),{:colspan=>2})
         fields[1..fields.length].each do | field |
-          xml.th( local("conference::#{fields[0]}") )
+          xml.th( local("conference::#{field}") )
         end
       end
     end
