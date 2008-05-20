@@ -120,7 +120,7 @@ xml.div(:id=>'event',:class=>'section') do
     end
 
     if prev
-      xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>prev.event_id)) do
+      xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>prev.event_id,:language=>@current_language)) do
         xml.span('<<<',{:class=>'previous',:title=>prev.title})
       end
     end
@@ -132,7 +132,7 @@ xml.div(:id=>'event',:class=>'section') do
     end
 
     if fwd
-      xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>fwd.event_id)) do
+      xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>fwd.event_id,:language=>@current_language)) do
         xml.span('>>>',{:class=>'next',:title=>fwd.title})
       end
     end
