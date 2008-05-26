@@ -215,7 +215,7 @@ module ApplicationHelper
 
   def markup_syntax_help
     xml = Builder::XmlMarkup.new
-    xml.a "Markup syntax for abstract and description.", {:href=>"http://daringfireball.net/projects/markdown/syntax",:style=>"color:blue",:target=>"_blank"}
+    xml.a "» Markdown reference", {:href=>"http://daringfireball.net/projects/markdown/syntax",:style=>"font-size:0.65em;",:target=>"_blank"}
     xml.to_s
   end
 

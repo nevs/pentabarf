@@ -54,6 +54,7 @@ module Builder_helper
       options[:id] = options[:name] = "#{table}[#{column}]"
       options[:tabindex] = 0
       xml.textarea( row[column], options )
+      yield( xml ) if block_given?
     end
   end
 
