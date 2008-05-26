@@ -15,9 +15,9 @@ class UserController < ApplicationController
     elsif params[:account][:password] != params[:password]
       raise "Passwords do not match"
     elsif not params[:account][:email].match(/[\w_.+-]+@([\w.+_-]+\.)+\w{2,}$/)
-      raise "Invalid email address"
+      raise "Invalid email address('#{params[:account][:email]}')"
     elsif Account.select({:login_name=>params[:account][:login_name]}).length != 0
-      raise "This login name is already in use."
+      raise "This login name('#{params[:account][:login_name]}') is already in use."
     else
       @conference = Conference.select_single( :acronym => params[:id] ) if params[:id]
       activation_string = random_string
@@ -49,7 +49,7 @@ class UserController < ApplicationController
     begin
       p = Account.select_single( :login_name => params[:login_name] )
     rescue
-      raise "There is no user with this login name(#{params[:login_name]})."
+      raise "There is no user with this login name('#{params[:login_name]}')."
     end
     reset = Account_password_reset.select(:account_id=>p.account_id)
     if reset.length == 1 && reset[0].password_reset > DateTime.now - 1
