@@ -2,6 +2,9 @@ xml.div(:id=>'content-description') do
 
   xml << text_area_fieldset( @conference_person, :abstract, {:rows=>5} )
   xml << text_area_fieldset( @conference_person, :description, {:rows=>12} )
+  xml.p do
+    xml << markup_syntax_help
+  end
 
 end
 
