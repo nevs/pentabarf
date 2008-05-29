@@ -16,7 +16,13 @@ class IcalController < ApplicationController
 
     cal.timezone do
       tzid tz.timezone
-      tzname tz.abbreviation
+      standard do
+        dtstart '19671029T020000'
+        rrule 'FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10'
+        tzoffsetfrom tz.utc_offset.strftime('%H%M')
+        tzoffsetto tz.utc_offset.strftime('%H%M')
+        tzname tz.abbreviation
+      end
     end
 
     events.each do | event |
