@@ -14,15 +14,22 @@ class IcalController < ApplicationController
     cal = Icalendar::Calendar.new
     cal.prodid "-//Pentabarf//Schedule//#{lang.language.upcase}"
 
-    cal.timezone do
+    cal.timezone do | t |
       tzid tz.timezone
-      standard do
-        dtstart '19671029T020000'
-        rrule 'FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10'
-        tzoffsetfrom tz.utc_offset.strftime('%H%M')
-        tzoffsetto tz.utc_offset.strftime('%H%M')
-        tzname tz.abbreviation
-      end
+      standard = Icalendar::Standard.new
+      standard.dtstart '19671029T020000'
+      standard.add_recurrence_rule 'FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10'
+      standard.tzoffsetfrom( (tz.utc_offset + 3600).strftime('%H%M') )
+      standard.tzoffsetto tz.utc_offset.strftime('%H%M')
+      standard.tzname tz.abbreviation
+      daylight = Icalendar::Daylight.new
+      standard.dtstart '19870405T020000'
+      standard.add_recurrence_rule 'FREQ=YEARLY;BYDAY=1SU;BYMONTH=4'
+      standard.tzoffsetfrom tz.utc_offset.strftime('%H%M')
+      standard.tzoffsetto( (tz.utc_offset + 3600).strftime('%H%M') )
+      standard.tzname tz.abbreviation
+      add_component( standard )
+      add_component( daylight )
     end
 
     events.each do | event |
