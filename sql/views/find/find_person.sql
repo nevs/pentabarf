@@ -16,6 +16,7 @@ CREATE OR REPLACE VIEW view_find_person AS
     mime_type.file_extension,
     conference.conference_id,
     conference_person.arrived,
+    conference_person.reconfirmed,
     ARRAY(
       SELECT event_person.event_role
       FROM event_person INNER JOIN event USING( event_id )
