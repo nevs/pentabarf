@@ -14,6 +14,7 @@ class IcalController < ApplicationController
     cal = Icalendar::Calendar.new
     cal.prodid "-//Pentabarf//Schedule//#{lang.language.upcase}"
 
+    # XXX remove hardcoded daylight saving time difference
     cal.timezone do | t |
       tzid tz.timezone
       standard = Icalendar::Standard.new
@@ -27,7 +28,6 @@ class IcalController < ApplicationController
       standard.add_recurrence_rule 'FREQ=YEARLY;BYDAY=1SU;BYMONTH=4'
       standard.tzoffsetfrom tz.utc_offset.strftime('%H%M')
       standard.tzoffsetto( (tz.utc_offset + 3600).strftime('%H%M') )
-      standard.tzname tz.abbreviation
       add_component( standard )
       add_component( daylight )
     end
