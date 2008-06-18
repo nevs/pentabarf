@@ -1,7 +1,7 @@
 
 CREATE TABLE base.account (
   account_id SERIAL,
-  login_name TEXT NOT NULL UNIQUE,
+  login_name TEXT NOT NULL,
   email TEXT,
   salt TEXT,
   password TEXT,
@@ -13,6 +13,7 @@ CREATE TABLE base.account (
 );
 
 CREATE TABLE auth.account (
+  UNIQUE( login_name ),
   FOREIGN KEY( person_id ) REFERENCES person( person_id ) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY( account_id )
 ) INHERITS( base.account );

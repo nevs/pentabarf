@@ -53,15 +53,18 @@ xml.div(:id=>'schedule',:class=>'section') do
                 end
                 xml.p(:class=>'info') do
                   xml.a({:href=>url_for(:action=>:event,:id=>event_id,:conference=>@conference.acronym,:language=>params[:language])} ) do
-                    xml.text! local('event::language')
-                    xml.span(event.language,{:class=>'language'})
-                    xml.br
-                    xml.text! local('event::event_type')
-                    xml.span(event.event_type,{:class=>'type'})
-                    xml.br
-                    xml.text! local('event::conference_track')
-                    xml.span(event.conference_track,{:class=>'track'})
-                    xml.br
+                    xml.div({:class=>'language-info'}) do
+                      xml.text! local('event::language')
+                      xml.span(event.language,{:class=>'language'})
+                    end
+                    xml.div({:class=>'type-info'}) do
+                      xml.text! local('event::event_type')
+                      xml.span(event.event_type,{:class=>'type'})
+                    end
+                    xml.div({:class=>'track-info'}) do
+                      xml.text! local('event::conference_track')
+                      xml.span(event.conference_track,{:class=>'track'})
+                    end
                   end
                 end
               end
