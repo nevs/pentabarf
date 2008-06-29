@@ -1,0 +1,73 @@
+xml.div(:id=>'infobox') do
+  xml.table do
+    xml.tr do
+      xml.th( local( 'schedule::speakers' ),{:colspan=>'2'})
+    end
+    @events.select{|e| e.event_id == @event.event_id}.each do | speaker |
+      xml.tr do
+        xml.td do
+          xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:id=>speaker.person_id,:language=>params[:language])) do
+            xml.img(:src=>person_image( speaker.person_id, 32),:height=>32,:width=>32)
+          end
+        end
+        xml.td do
+          xml.a(speaker.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>speaker.person_id)})
+        end
+      end
+    end
+  end
+
+  xml.table do
+    xml.tr do xml.th( local('schedule::schedule'),{:colspan=>2}) end
+    xml.tr do
+      xml.td( local( 'schedule::day' ),{:class=>'keyword'})
+      xml.td( format_conference_day(@event.conference_day,@event.conference_day_name),{:class=>'value'})
+    end
+    xml.tr do
+      xml.td( local( 'schedule::room' ),{:class=>'keyword'})
+      xml.td(@event.conference_room,{:class=>'value location'})
+    end
+    xml.tr do
+      xml.td( local( 'schedule::start_time' ),{:class=>'keyword'})
+      xml.td(@event.real_starttime.strftime('%H:%M'),{:class=>'value dtstart',:title=>@event.real_starttime.xmlschema})
+    end
+    xml.tr do
+      xml.td( local( 'event::duration' ),{:class=>'keyword'})
+      xml.td(@event.duration.strftime('%H:%M'),{:class=>'value duration',:title=>@event.duration.strftime('P%HH%MM%SS')})
+    end
+    xml.tr do xml.th('Info',{:colspan=>2}) end
+    xml.tr do
+      xml.td('ID',{:class=>'keyword'})
+      xml.td(@event.event_id,{:class=>'value',:title=>"#{@event.event_id}@#{@conference.acronym}@pentabarf.org"})
+    end
+    xml.tr do
+      xml.td( local( 'event::event_type' ),{:class=>'keyword'})
+      xml.td(@event.event_type,{:class=>'value'})
+    end
+    xml.tr do
+      xml.td( local( 'event::conference_track' ),{:class=>'keyword'})
+      xml.td(@event.conference_track,{:class=>'value'})
+    end
+    xml.tr do
+      xml.td( local( 'event::language' ),{:class=>'keyword'})
+      xml.td(@event.language,{:class=>'value'})
+    end
+  end
+
+  if @conference.f_feedback_enabled && @conference.feedback_base_url
+    xml.table do
+      xml.tr do
+        xml.th('Feedback',{:colspan=>2})
+      end
+      xml.tr do
+        xml.td(:colspan=>2,:class=>'feedback') do
+          xml.text! local( 'schedule::did_you_attend_this_event' )
+          xml.br
+          xml.a( local( 'schedule::give_feedback' ),{:href=>url_for(:controller=>'feedback',:conference=>@conference.acronym,:action=>:event,:id=>@event.event_id,:language=>params[:language])})
+        end
+      end
+
+    end
+  end
+
+end
