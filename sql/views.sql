@@ -21,6 +21,7 @@
 \i views/person_rating.sql
 \i views/recent_changes.sql
 \i views/report/report_arrived.sql
+\i views/report/report_not_arrived.sql
 \i views/report/report_events.sql
 \i views/report/report_expenses.sql
 \i views/report/report_feedback.sql
