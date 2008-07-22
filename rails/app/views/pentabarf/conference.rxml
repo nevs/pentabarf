@@ -18,7 +18,7 @@ end if POPE.permission?(:delete_conference) && !@conference.new_record?
 
 xml.div({:id=>'data'}) do
 
-  xml.form(:action=>url_for(:action=>:save_conference,:id=>params[:id]),:id=>'content_form',:method=>'post',:enctype=>'multipart/form-data') do
+  xml.form(:action=>url_for(:action=>:save_conference,:id=>params[:id]),:id=>'content_form',:onsubmit=>'return send_content()',:method=>'post',:enctype=>'multipart/form-data') do
 
     xml.input({:type=>:hidden,:name=>:transaction,:value=>@transaction.conference_transaction_id})
     xml.input({:type=>:hidden,:name=>'conference[conference_id]',:value=>@conference.conference_id})
@@ -33,9 +33,19 @@ xml.div({:id=>'data'}) do
   xml.form({:id=>'rename_conference_track',:action=>url_for(:controller=>'conference',:action=>:rename_conference_track)}) do end
   xml.form({:id=>'rename_conference_room',:action=>url_for(:controller=>'conference',:action=>:rename_conference_room)}) do end
 
-  xml.script( "function send_content(){ $('content_form').submit();  }", { :type => 'text/javascript' } )
-  xml.script( "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );", { :type => 'text/javascript' } )
-  xml.script( "switch_tab();", { :type => 'text/javascript' } )
+  xml.script({:type=>'text/javascript'}) do
+    xml << "
+      function send_content(){ 
+        if ( !$F('conference[acronym]') ) {
+          alert('You must fill in an acronym.');
+          return false;
+        }
+        return true;
+      };
+      new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );
+      switch_tab();
+    "
+  end
 
 end
 
