@@ -1,0 +1,38 @@
+xml.div({:id=>:data}) do
+
+  xml.table({:id=>:report_pickup_table,:class=>:sortable}) do
+    xml.thead do
+      xml.tr do
+        xml.th "Date"
+        xml.th "Time"
+        xml.th( local( "person::name" ), {:colspan=>2} )
+        xml.th "Arrival/Departure"
+        xml.th "From"
+        xml.th "To"
+        xml.th "Transport"
+        xml.th "Number"
+      end
+    end
+
+    xml.tbody do
+      @rows.each do | row |
+        xml.tr do
+          xml.td do xml.a( row.date, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.time, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do
+            xml.a({:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) do
+              xml.img({:src=>url_for({:controller=>'image',:action=>:person,:id=>row.person_id}),:height=>24,:width=>24})
+            end
+          end
+          xml.td do xml.a( row.name, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          [:type,:from,:to,:transport,:number].each do | field |
+            xml.td do xml.a( row[field], {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          end
+        end
+      end
+    end
+
+  end
+
+end
+

@@ -2,7 +2,7 @@ class ReportController < ApplicationController
   before_filter :init
   around_filter :update_last_login
 
-  REPORTS = [:arrived,:not_arrived,:expenses,:feedback,:missing,:paper,:slides,:resources,:review]
+  REPORTS = [:arrived,:not_arrived,:pickup,:expenses,:feedback,:missing,:paper,:slides,:resources,:review]
 
   def index
   end
@@ -12,6 +12,11 @@ class ReportController < ApplicationController
       @content_title = "#{params[:action].capitalize} Report"
       @rows = "View_report_#{report}".constantize.select({:conference_id=>@current_conference.conference_id})
     end
+  end
+
+  def pickup
+    @content_title = "Pickup Report"
+    @rows = View_report_pickup.select(:conference_id=>@current_conference.conference_id,:translated=>POPE.user.current_language)
   end
 
   def review

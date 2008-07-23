@@ -37,5 +37,6 @@ UNION
          LEFT OUTER JOIN transport_localized ON (
              conference_person_travel.departure_transport = transport_localized.transport )
    WHERE departure_pickup = 't')
+ ORDER BY date,time
 ;
 
