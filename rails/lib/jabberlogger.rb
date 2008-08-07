@@ -8,15 +8,12 @@ class JabberLogger
 
     def init
       require 'xmpp4r'
-      @@config = {}
-      begin
-        @@config = YAML.load_file( File.join( RAILS_ROOT, 'config', 'jabber.yml' ) )
-      rescue
-      end
+      @@config = YAML.load_file( File.join( RAILS_ROOT, 'config', 'jabber.yml' ) )
 
-      return true if @@config['recipients'] && @@config['daemon']['socket_path']
+      raise 'Jabber not configured' if !( @@config['recipients'] && @@config['daemon']['socket_path'] )
 
-     rescue
+      return true
+     rescue Exception
       # create dummy log method if xmpp4r is missing
       define_method( :log ) do | text | end
       return false
