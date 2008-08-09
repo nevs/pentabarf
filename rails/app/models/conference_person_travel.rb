@@ -7,6 +7,8 @@ class Conference_person_travel < Momomoto::Table
   def self.log_change_url( change )
     cp = Conference_person.select_single({:conference_person_id=>change.conference_person_id})
     {:controller=>'pentabarf',:action=>:person,:id=>cp.person_id}
+   rescue
+    {}
   end
 
   def self.log_change_title( change )
