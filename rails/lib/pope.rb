@@ -100,6 +100,7 @@ class Pope
   def table_delete( table, row )
     action = :delete
     d = domain( table.table_name )
+    return if d == :public
     action = :modify if table.table_name.to_sym != d
     return if permission?( "#{action}_#{d}" )
     send( "domain_#{d}", action, row )
