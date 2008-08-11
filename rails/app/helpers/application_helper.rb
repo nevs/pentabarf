@@ -156,7 +156,7 @@ module ApplicationHelper
         end
       end
     end
-    xml
+    xml.to_s
   end
 
   def format_event( event )
