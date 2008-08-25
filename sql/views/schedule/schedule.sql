@@ -6,7 +6,8 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.tag,
           event.title,
           event.subtitle,
-          event.conference_track,
+          event.conference_track_id,
+          conference_track.conference_track,
           event.conference_team,
           event.event_type,
           event.duration,
@@ -68,6 +69,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           CROSS JOIN language AS translated
           INNER JOIN conference USING (conference_id)
           INNER JOIN conference_day USING (conference_id,conference_day)
+          LEFT OUTER JOIN conference_track USING (conference_track_id)
           LEFT OUTER JOIN language_localized ON (
               language_localized.translated = translated.language AND
               language_localized.language = event.language )

@@ -6,7 +6,8 @@ CREATE OR REPLACE VIEW view_event AS
          event.tag,
          event.title,
          event.subtitle,
-         event.conference_track,
+         event.conference_track_id,
+         conference_track.conference_track,
          event.conference_team,
          event.event_type,
          event.duration,
@@ -36,6 +37,7 @@ CREATE OR REPLACE VIEW view_event AS
          INNER JOIN event_state_localized USING (event_state)
          INNER JOIN conference USING (conference_id)
          LEFT OUTER JOIN conference_day USING (conference_id, conference_day)
+         LEFT OUTER JOIN conference_track USING (conference_track_id)
          LEFT OUTER JOIN event_type_localized USING (event_type,translated)
          LEFT OUTER JOIN event_image USING (event_id)
          LEFT OUTER JOIN mime_type USING (mime_type)

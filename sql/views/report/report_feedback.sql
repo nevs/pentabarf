@@ -1,15 +1,16 @@
 
 CREATE OR REPLACE VIEW view_report_feedback AS
   SELECT
-    event_id,
-    conference_id,
-    title,
-    subtitle,
-    conference_track,
-    speaker_ids,
-    speakers,
-    votes,
-    comments,
+    t1.event_id,
+    t1.conference_id,
+    t1.title,
+    t1.subtitle,
+    t1.conference_track_id,
+    conference_track.conference_track,
+    t1.speaker_ids,
+    t1.speakers,
+    t1.votes,
+    t1.comments,
     (f1_average*f1_votes/(f1_votes+minimum) + f1_total_average*minimum/(f1_votes+minimum)) AS participant_knowledge,
     (f2_average*f2_votes/(f2_votes+minimum) + f2_total_average*minimum/(f2_votes+minimum)) AS topic_importance,
     (f3_average*f3_votes/(f3_votes+minimum) + f3_total_average*minimum/(f3_votes+minimum)) AS content_quality,
@@ -21,7 +22,7 @@ CREATE OR REPLACE VIEW view_report_feedback AS
       conference_id,
       title,
       subtitle,
-      conference_track,
+      conference_track_id,
       array_to_string(ARRAY(
         SELECT view_person.person_id
           FROM
@@ -74,7 +75,8 @@ CREATE OR REPLACE VIEW view_report_feedback AS
       10 AS minimum
     FROM event_feedback
       INNER JOIN event USING (event_id)
-    GROUP BY event_id, conference_id, title, subtitle, conference_track, speaker_ids, speakers
+    GROUP BY event_id, conference_id, title, subtitle, conference_track_id, speaker_ids, speakers
   ) AS t1
+  LEFT OUTER JOIN conference_track USING(conference_track_id)
 ;
 

@@ -9,7 +9,8 @@ CREATE OR REPLACE VIEW view_report_review AS
     event_state_localized.name AS event_state_name,
     event_state_localized.translated,
     event.event_state_progress,
-    event.conference_track,
+    event.conference_track_id,
+    conference_track.conference_track,
     array_to_string(ARRAY(
       SELECT view_person.person_id
         FROM
@@ -54,6 +55,7 @@ CREATE OR REPLACE VIEW view_report_review AS
              FROM event_rating
             GROUP BY event_id
          ) AS rating USING (event_id)
+         LEFT OUTER JOIN conference_track USING (conference_track_id)
    ORDER BY acceptance DESC, relevance DESC, actuality DESC
 ;
 

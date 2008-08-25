@@ -7,7 +7,8 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          event.subtitle,
          event.abstract,
          event.description,
-         event.conference_track,
+         event.conference_track_id,
+         conference_track.conference_track,
          event.conference_day,
          event.duration,
          event.start_time,
@@ -53,6 +54,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          ) AS speaker USING (person_id)
          LEFT OUTER JOIN language_localized USING (language,translated)
          LEFT OUTER JOIN event_type_localized USING (event_type,translated)
+         LEFT OUTER JOIN conference_track USING (conference_track_id)
     WHERE
       event_person.event_role IN ('speaker','moderator') AND
       event_person.event_role_state = 'confirmed'

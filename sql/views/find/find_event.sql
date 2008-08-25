@@ -9,7 +9,7 @@ CREATE OR REPLACE VIEW view_find_event AS
     event.description,
     event.duration,
     event.event_origin,
-    event.conference_track,
+    event.conference_track_id,
     event.event_state,
     event.event_state_progress,
     event.event_state || ' ' || event.event_state_progress AS event_state_and_progress,
@@ -19,6 +19,7 @@ CREATE OR REPLACE VIEW view_find_event AS
     event.conference_day,
     (event.start_time + conference.day_change)::interval AS start_time,
     event.public,
+    conference_track.conference_track,
     event_state_localized.translated,
     event_state_localized.name AS event_state_name,
     event_state_progress_localized.name AS event_state_progress_name,
@@ -57,6 +58,7 @@ CREATE OR REPLACE VIEW view_find_event AS
     INNER JOIN conference USING (conference_id)
     INNER JOIN event_state_localized USING (event_state)
     INNER JOIN event_state_progress_localized USING (translated,event_state,event_state_progress)
+    LEFT OUTER JOIN conference_track USING (conference_track_id)
     LEFT OUTER JOIN event_image USING (event_id)
     LEFT OUTER JOIN mime_type USING (mime_type);
 
