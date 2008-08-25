@@ -13,6 +13,7 @@ xml.div(:id=>'content-tracks') do
       xml.tbody(:id=>'conference_track_tbody') do
         xml.tr(:id=>'conference_track_template',:style=>'display:none') do
           xml.td do
+            xml.input({:type=>:hidden,:id=>'conference_track[row_id][conference_track_id]',:name=>'conference_track[row_id][conference_track_id]'})
             xml.input({:type=>:text,:id=>'conference_track[row_id][conference_track]',:name=>'conference_track[row_id][conference_track]'})
           end
           xml.td do
@@ -24,19 +25,11 @@ xml.div(:id=>'content-tracks') do
 
     xml.script(:type=>'text/javascript') do 
       tracks.each do | c |
-        xml << js_function( 'add_conference_track', c.conference_track )
+        xml << js_function( 'table_add_row', 'conference_track', c.conference_track_id, c.conference_track )
       end
     end
 
     xml.button( local('conference::add_conference_track'), {:type=>:button,:onclick=>'table_add_row("conference_track")'})
-  end
-
-  xml.fieldset do
-    xml.legend( local( 'conference::conference_track_rename' ) )
-    xml << select_tag('conference_track_rename[old_name]', tracks.map(&:conference_track) )
-    xml.input({:type=>:text,:name=>'conference_track_rename[new_name]'})
-    xml.br
-    xml.button( local('conference::conference_track_rename'), {:type=>:button,:onclick=>"rename_conference_track()"} )
   end
 
 end
