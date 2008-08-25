@@ -40,6 +40,8 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_attendee(in
                 event.conference_id = cur_conference_id AND
                 ( event.start_time::time, event.duration::interval ) OVERLAPS
                 ( cur_speaker.start_time::time, cur_speaker.duration::interval) AND
+                event.start_time::time + event.duration::interval <> cur_speaker.start_time::time AND
+                cur_speaker.start_time::time + cur_speaker.duration::interval <> event.start_time::time AND
                 event.event_state = 'accepted' AND
                 event.event_state_progress = 'confirmed' AND
                 event_role = 'attendee' AND
