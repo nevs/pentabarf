@@ -5,7 +5,7 @@ CREATE TABLE base.event (
   tag TEXT,
   title TEXT NOT NULL,
   subtitle TEXT,
-  conference_trackid INTEGER,
+  conference_track_id INTEGER,
   conference_team TEXT,
   event_type TEXT,
   duration INTERVAL NOT NULL DEFAULT '1:00:00',
@@ -13,7 +13,7 @@ CREATE TABLE base.event (
   event_state TEXT NOT NULL DEFAULT 'undecided',
   event_state_progress TEXT NOT NULL DEFAULT 'new',
   language TEXT,
-  conference_room TEXT,
+  conference_room_id INTEGER,
   conference_day DATE,
   start_time INTERVAL,
   abstract TEXT,
@@ -35,7 +35,7 @@ CREATE TABLE event (
   FOREIGN KEY (event_origin) REFERENCES event_origin (event_origin) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (event_state,event_state_progress) REFERENCES event_state_progress (event_state,event_state_progress) ON UPDATE CASCADE ON DELETE RESTRICT,
   FOREIGN KEY (language) REFERENCES language (language) ON UPDATE CASCADE ON DELETE SET NULL,
-  FOREIGN KEY (conference_room,conference_id) REFERENCES conference_room (conference_room,conference_id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (conference_room_id) REFERENCES conference_room (conference_room_id) ON UPDATE CASCADE ON DELETE SET NULL,
   PRIMARY KEY (event_id)
 ) INHERITS( base.event );
 
