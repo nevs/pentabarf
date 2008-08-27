@@ -4,7 +4,8 @@ SELECT
   event.event_id,
   event.conference_id,
   event.conference_day,
-  event.conference_room,
+  event.conference_room_id,
+  conference_room.conference_room,
   event.event_state,
   event.event_state_progress,
   event_state_localized.translated,
@@ -51,5 +52,6 @@ FROM
   INNER JOIN event_role ON (
     event_role.event_role = event_person.event_role AND
     event_role.participant = TRUE )
+  LEFT OUTER JOIN conference_room USING (conference_room_id)
 ;
 

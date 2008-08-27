@@ -4,7 +4,8 @@ SELECT
   event.event_id,
   event.conference_id,
   event.conference_day,
-  event.conference_room,
+  event.conference_room_id,
+  conference_room.conference_room,
   event.event_state,
   event.event_state_progress,
   event_state_localized.translated,
@@ -49,5 +50,6 @@ FROM
   INNER JOIN event_state_localized USING (event_state)
   INNER JOIN event_state_progress_localized USING (event_state,event_state_progress,translated)
   INNER JOIN event_role_localized USING (event_role,translated)
+  LEFT OUTER JOIN conference_room USING (conference_room_id)
 ;
 

@@ -15,7 +15,8 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          (event.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
          (event.conference_day + event.start_time + conference.day_change + event.duration)::timestamp AS end_datetime,
          event.start_time + conference.day_change AS real_starttime,
-         event.conference_room,
+         event.conference_room_id,
+         conference_room.conference_room,
          event_type_localized.event_type,
          event_type_localized.name AS event_type_name,
          language_localized.language,
@@ -40,8 +41,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          INNER JOIN event_state_localized USING (event_state)
          INNER JOIN conference USING (conference_id)
          INNER JOIN conference_room ON (
-             event.conference_id = conference_room.conference_id AND
-             event.conference_room = conference_room.conference_room AND
+             event.conference_room_id = conference_room.conference_room_id AND
              conference_room.public = 't' )
          INNER JOIN conference_day ON (
              event.conference_id = conference_day.conference_id AND

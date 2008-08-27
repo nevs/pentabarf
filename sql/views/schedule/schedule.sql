@@ -14,7 +14,8 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.event_state,
           event.event_state_progress,
           event.language,
-          event.conference_room,
+          event.conference_room_id,
+          conference_room.conference_room,
           event.conference_day,
           event.start_time,
           event.abstract,
@@ -69,6 +70,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           CROSS JOIN language AS translated
           INNER JOIN conference USING (conference_id)
           INNER JOIN conference_day USING (conference_id,conference_day)
+          INNER JOIN conference_room USING (conference_room_id)
           LEFT OUTER JOIN conference_track USING (conference_track_id)
           LEFT OUTER JOIN language_localized ON (
               language_localized.translated = translated.language AND
@@ -76,7 +78,6 @@ CREATE OR REPLACE VIEW view_schedule AS
           LEFT OUTER JOIN event_type_localized USING (event_type,translated)
     WHERE event.conference_day IS NOT NULL AND
           event.start_time IS NOT NULL AND
-          event.conference_room IS NOT NULL AND
           event.event_state = 'accepted' AND
           event.event_state_progress != 'canceled'
 ;

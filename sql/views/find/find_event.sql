@@ -15,7 +15,8 @@ CREATE OR REPLACE VIEW view_find_event AS
     event.event_state || ' ' || event.event_state_progress AS event_state_and_progress,
     event.event_type,
     event.language,
-    event.conference_room,
+    event.conference_room_id,
+    conference_room.conference_room,
     event.conference_day,
     (event.start_time + conference.day_change)::interval AS start_time,
     event.public,
@@ -59,6 +60,7 @@ CREATE OR REPLACE VIEW view_find_event AS
     INNER JOIN event_state_localized USING (event_state)
     INNER JOIN event_state_progress_localized USING (translated,event_state,event_state_progress)
     LEFT OUTER JOIN conference_track USING (conference_track_id)
+    LEFT OUTER JOIN conference_room USING (conference_room_id)
     LEFT OUTER JOIN event_image USING (event_id)
     LEFT OUTER JOIN mime_type USING (mime_type);
 

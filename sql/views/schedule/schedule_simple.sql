@@ -24,8 +24,7 @@ SELECT
 FROM event
   INNER JOIN conference USING (conference_id)
   INNER JOIN conference_room ON (
-      event.conference_id = conference_room.conference_id AND
-      event.conference_room = conference_room.conference_room AND
+      event.conference_room_id = conference_room.conference_room_id AND
       conference_room.public = 't' )
   INNER JOIN conference_day ON (
       event.conference_id = conference_day.conference_id AND
@@ -35,7 +34,6 @@ WHERE
   event.public = TRUE AND
   event.conference_day IS NOT NULL AND
   event.start_time IS NOT NULL AND
-  event.conference_room IS NOT NULL AND
   event.event_state = 'accepted' AND
   event.event_state_progress = 'confirmed'
 ;
