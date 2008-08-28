@@ -178,6 +178,7 @@ module ApplicationHelper
       end
     end
     if event.respond_to?( :conference_track ) && event.conference_track
+      xml.br
       xml.span("#{local(:conference_track)}: #{event.conference_track}", {:class=>"conference_track"}) 
     end
     xml.to_s
