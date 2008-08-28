@@ -1,5 +1,7 @@
 xml.div(:id=>'content-room_roles') do
 
+  rooms = Conference_room.select({:conference_id=>@conference.conference_id},{:order=>   [:rank,:conference_room]})
+
   xml.fieldset do
     xml.legend( local('room-role') )
     xml.table(:id=>'conference_room_role_table',:style=>'display:none') do
@@ -14,7 +16,7 @@ xml.div(:id=>'content-room_roles') do
       xml.tbody(:id=>'conference_room_role_tbody') do
         xml.tr(:id=>'conference_room_role_template',:style=>'display:none') do
           xml.td do
-						xml << select_tag( 'conference_room_role[row_id][conference_room]',  Conference_room.select({:conference_id=>@conference.conference_id},{:order=>[:rank,:conference_room]}).map(&:conference_room))
+						xml << select_tag( 'conference_room_role[row_id][conference_room_id]', rooms.map{|r| [r.conference_room_id,r.conference_room]})
           end
           xml.td do xml << select_tag( 'conference_room_role[row_id][event_role]', Event_role.select.map{|e| e.event_role}) end
           xml.td do xml.input({:type=>:text,:id=>'conference_room_role[row_id][amount]',:name=>'conference_room_role[row_id][amount]',:size=>5}) end
@@ -24,8 +26,8 @@ xml.div(:id=>'content-room_roles') do
     end
 
     xml.script(:type=>'text/javascript') do
-      Conference_room_role.select({:conference_id => @conference.conference_id}, {:order=>[:conference_room]} ).each do | c |
-        xml << js_function( 'table_add_row', 'conference_room_role', c.conference_room, c.event_role, c.amount )
+      Conference_room_role.select({:conference_room_id => rooms.map(&:conference_room_id) }, {:order=>[:conference_room_id]} ).each do | c |
+        xml << js_function( 'table_add_row', 'conference_room_role', c.conference_room_id, c.event_role, c.amount )
       end
     end
 

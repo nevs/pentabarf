@@ -30,8 +30,6 @@ xml.div({:id=>'data'}) do
     xml << render( :partial => 'modification_buttons' )
   end
 
-  xml.form({:id=>'rename_conference_room',:action=>url_for(:controller=>'conference',:action=>:rename_conference_room)}) do end
-
   xml.script({:type=>'text/javascript'}) do
     xml << "
       function send_content(){ 

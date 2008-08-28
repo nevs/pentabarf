@@ -81,7 +81,7 @@ class PentabarfController < ApplicationController
     write_rows( Conference_team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:conference_team})
     write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:conference_track})
     write_rows( Conference_room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:public],:ignore_empty=>:conference_room})
-    write_rows( Conference_room_role, params[:conference_room_role], {:preset=>{:conference_id => conf.conference_id}})
+    write_rows( Conference_room_role, params[:conference_room_role] )
     write_file_row( Conference_image, params[:conference_image], {:preset=>{:conference_id => conf.conference_id},:image=>true})
     Conference_transaction.new({:conference_id=>conf.conference_id,:changed_by=>POPE.user.person_id}).write
 
