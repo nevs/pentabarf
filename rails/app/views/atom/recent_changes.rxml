@@ -8,7 +8,8 @@ xml.feed({:xmlns=>"http://www.w3.org/2005/Atom"}) do
   xml.id url_for(:only_path => false, :controller => 'pentabarf', :action => 'recentchanges')
 
   @changes.each do | changeset |
-    title = "Changeset #{changeset.log_transaction_id}"
+    logentry = LogEntry.new( changeset, controller )
+    title = "Changeset #{changeset.log_transaction_id} #{logentry.title}"
     xml.entry do
       xml.title title
       xml.id url_for(:only_path => false, :controller => 'pentabarf', :action => :index) + "#" + changeset.log_timestamp.strftime('%FT%T.%N%z')
@@ -19,7 +20,9 @@ xml.feed({:xmlns=>"http://www.w3.org/2005/Atom"}) do
       xml.summary title
       xml.content({:type=>:xhtml}) do
         xml.div({:xmlns=>"http://www.w3.org/1999/xhtml"}) do
-          xml.ul do LogEntry.new( changeset, controller ).append( xml ) end
+          xml.ul do  
+            xml << logentry.to_xml
+          end
         end
       end
     end

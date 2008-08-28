@@ -7,7 +7,7 @@ xml.div( :id => 'data' ) do
     xml.ul({:id=>:recent_changes_list,:class=>:recent_changes}) do
 
       @changes.each do | changeset |
-        LogEntry.new( changeset, controller ).append( xml )
+        xml << LogEntry.new( changeset, controller ).to_xml
       end
 
     end

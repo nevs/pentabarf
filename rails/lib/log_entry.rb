@@ -8,7 +8,7 @@ class LogEntry
   RenderMatrix[ ['account','account_password_reset'].sort ] = :render_password_reset
   RenderMatrix[ ['account_password_reset'].sort ] = :render_password_reset_requested
 
-  attr_reader :changes, :log_transaction_id, :log_timestamp, :log_person_id, :log_name, :involved_tables
+  attr_reader :changes, :log_transaction_id, :log_timestamp, :log_person_id, :log_name, :involved_tables, :titles
 
   def initialize( changeset, controller )
     @log_transaction_id = changeset.log_transaction_id
@@ -21,6 +21,13 @@ class LogEntry
     involved_tables.each do | table_name |
       @changes[ table_name.to_sym ] = log_class(table_name).select(:log_transaction_id=>log_transaction_id)
     end
+    @titles = []
+    @rendered_changes = Builder::XmlMarkup.new
+    render_changes
+  end
+
+  def title
+    @titles.join( ", " )
   end
 
   def render_account_activated( xml )
@@ -28,6 +35,7 @@ class LogEntry
        check_table_changes( :account_role, :I ) && check_table_changes( :person, :I )
       account = changes[:account][0]
       xml.li do
+        titles << "#{Account.log_change_title( account )} has activated the account."
         xml.a( "#{Account.log_change_title( account )} has activated the account.", {:href=>url_for( Account.log_change_url( account ) )})
       end
     else
@@ -46,6 +54,7 @@ class LogEntry
         name, url = account_password_reset.account_id, {}
       end
       xml.li do
+        titles << "#{name} requested a password reset."
         xml.a( "#{name} requested a password reset.", {:href=>url_for( url )})
       end
     else
@@ -57,6 +66,7 @@ class LogEntry
     if check_table_changes( :account, :U ) && changes[:account_password_reset].map(&:log_operation).map(&:to_sym).uniq == [ :D ]
       account = changes[:account][0]
       xml.li do
+        titles << "The password for #{Account.log_change_title( account )} has been reset."
         xml.a( "The password for #{Account.log_change_title( account )} has been reset.", {:href=>url_for( Account.log_change_url( account ) )})
       end
     else
@@ -68,6 +78,7 @@ class LogEntry
     if check_table_changes( :account, :I ) && check_table_changes( :account_activation, :I )
       account = Account.select_single({:account_id=>changes[:account][0].account_id}) rescue changes[:account][0]
       xml.li do
+        titles << "#{Account.log_change_title( account )} has created an account."
         xml.a( "#{Account.log_change_title( account )} has created an account.", {:href=>url_for( Account.log_change_url( account ) )})
       end
     else
@@ -75,18 +86,25 @@ class LogEntry
     end
   end
 
-  def append( xml )
+  def render_changes
+    xml = @rendered_changes
+    xml.div(:id=>"changeset-#{log_transaction_id}") do
+      xml.ul do
+        send( RenderMatrix[ involved_tables.sort ], xml )
+      end
+    end
+  end
+
+  def to_xml
+    xml = Builder::XmlMarkup.new
     xml.li do
       xml.span( log_timestamp.strftime("%Y-%m-%d %H:%M:%S"),{:onclick=>"$('changeset-#{log_transaction_id}').toggle()",:title=>"Changeset #{log_transaction_id}",:class=>'log-entry'})
       if log_name
         xml.a( log_name, :href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>log_person_id))
       end
-      xml.div(:id=>"changeset-#{log_transaction_id}") do
-        xml.ul do
-          send( RenderMatrix[ involved_tables.sort ], xml )
-        end
-      end
+      xml << @rendered_changes.to_s
     end
+    xml.to_s
   end
 
   def render_default( xml )
@@ -111,6 +129,7 @@ class LogEntry
     old_value ||= log_class( table_name ).new( all_columns( table_name ).inject({}){|h,k| h.merge({k=>nil})} )
     xml.li do
       xml.a({:href=>change_url(table_name, change)}) do
+        titles << "#{local(table_name)} updated: #{change_title(table_name, change)}"
         xml.text! "#{local(table_name)} updated: "
         xml.b change_title(table_name, change)
       end
@@ -135,6 +154,7 @@ class LogEntry
   def render_default_insert( xml, table_name, change )
     xml.li do
       xml.a({:href=>change_url(table_name, change)}) do 
+        titles << "New #{local(table_name)}: #{change_title(table_name, change)}"
         xml.text! "New #{local(table_name)}: "
         xml.b change_title(table_name, change)
       end
@@ -153,6 +173,7 @@ class LogEntry
   def render_default_delete( xml, table_name, change )
     xml.li do
       xml.a({:href=>change_url(table_name, change)}) do 
+        titles << "#{local(table_name)} deleted: #{change_title(table_name, change)}"
         xml.text! "#{local(table_name)} deleted: "
         xml.b change_title(table_name, change)
       end
