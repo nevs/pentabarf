@@ -61,13 +61,13 @@ xml.div({:id=>:data}) do
       end
       # search for conference track
       xml.li({:class=>:conference_track,:title=>local(:conference_track)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_track})
-        xml << select_tag('search_event[row_id][value]', Conference_track.select({:conference_id=>@current_conference.conference_id}).map(&:conference_track))
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_track_id})
+        xml << select_tag('search_event[row_id][value]', Conference_track.select({:conference_id=>@current_conference.conference_id}).map{|t| [t.conference_track_id,t.conference_track]})
       end
       # search for room
       xml.li({:class=>:conference_room,:title=>local(:conference_room)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_room})
-        xml << select_tag('search_event[row_id][value]', Conference_room.select({:conference_id=>@current_conference.conference_id}).map(&:conference_room))
+        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_room_id})
+        xml << select_tag('search_event[row_id][value]', Conference_room.select({:conference_id=>@current_conference.conference_id}).map{|r| [r.conference_room_id, r.conference_room]})
       end
       # search for coordinator
       xml.li({:class=>:coordinators,:title=>local(:coordinator)}) do
