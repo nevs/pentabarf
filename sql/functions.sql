@@ -61,6 +61,4 @@
 \i functions/submit_event.sql
 \i functions/log/activate_logging.sql
 \i functions/custom_field_trigger.sql
-\i functions/conference_track_rename.sql
-\i functions/conference_room_rename.sql
 
