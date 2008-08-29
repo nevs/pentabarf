@@ -62,6 +62,7 @@ BEGIN;
 \i tables/conference_team.sql
 \i tables/event.sql
 \i tables/event_image.sql
+\i tables/event_rating_category.sql
 \i tables/event_rating.sql
 \i tables/event_feedback.sql
 \i tables/event_link.sql
