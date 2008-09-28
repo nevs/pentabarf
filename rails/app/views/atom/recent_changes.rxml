@@ -12,7 +12,7 @@ xml.feed({:xmlns=>"http://www.w3.org/2005/Atom"}) do
     title = "[#{changeset.log_transaction_id}] #{logentry.title}"
     xml.entry do
       xml.title title
-      xml.id url_for(:only_path => false, :controller => 'pentabarf', :action => :index) + "#" + changeset.log_transaction_id
+      xml.id url_for(:only_path => false, :controller => 'pentabarf', :action => :index) + "#" + changeset.log_transaction_id.to_s
       xml.author do
         xml.name changeset.name || 'unknown'
       end
