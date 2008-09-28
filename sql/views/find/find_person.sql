@@ -15,6 +15,8 @@ CREATE OR REPLACE VIEW view_find_person AS
     person_image.mime_type,
     mime_type.file_extension,
     conference.conference_id,
+    conference.acronym AS conference_acronym,
+    conference.title AS conference_title,
     conference_person.arrived,
     conference_person.reconfirmed,
     ARRAY(
