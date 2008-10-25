@@ -10,8 +10,8 @@ require 'lib/html_export'
 
 require 'application'
 class ApplicationController < ActionController::Base
-  def auth
-    true
+  def transaction_wrapper
+    yield
   end
 end
 
