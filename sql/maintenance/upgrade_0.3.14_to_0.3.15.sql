@@ -46,6 +46,71 @@ ALTER TABLE base.event DROP COLUMN conference_room CASCADE;
 ALTER TABLE base.conference_room_role DROP COLUMN conference_id;
 ALTER TABLE base.conference_room_role DROP COLUMN conference_room;
 
+-- add per conference event rating categories
+
+CREATE TABLE base.event_rating_remark (
+  person_id INTEGER NOT NULL,
+  event_id INTEGER NOT NULL,
+  remark TEXT NOT NULL,
+  eval_time TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+CREATE TABLE event_rating_remark (
+  FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (person_id, event_id)
+) INHERITS( base.event_rating_remark );
+
+CREATE TABLE log.event_rating_remark () INHERITS( base.logging, base.event_rating_remark );
+
+INSERT INTO event_rating_remark(person_id,event_id,remark) SELECT person_id,event_id,remark FROM event_rating WHERE remark IS NOT NULL;
+
+ALTER TABLE base.event_rating RENAME TO old_event_rating;
+ALTER TABLE public.event_rating RENAME TO old_event_rating;
+ALTER TABLE log.event_rating RENAME TO old_event_rating;
+
+CREATE TABLE base.event_rating_category (
+  event_rating_category_id SERIAL NOT NULL,
+  conference_id INTEGER NOT NULL,
+  event_rating_category TEXT NOT NULL,
+  rank INTEGER
+);
+
+CREATE TABLE event_rating_category (
+  FOREIGN KEY (conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (event_rating_category_id),
+  UNIQUE (conference_id,event_rating_category)
+) INHERITS( base.event_rating_category );
+
+CREATE TABLE log.event_rating_category () INHERITS( base.logging, base.event_rating_category );
+
+CREATE TABLE base.event_rating (
+  person_id INTEGER NOT NULL,
+  event_id INTEGER NOT NULL,
+  event_rating_category_id INTEGER NOT NULL,
+  rating SMALLINT CHECK( rating > 0 AND rating < 6 ) NOT NULL,
+  eval_time TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+CREATE TABLE event_rating (
+  FOREIGN KEY (person_id) REFERENCES person (person_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (event_id) REFERENCES event (event_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (event_rating_category_id) REFERENCES event_rating_category(event_rating_category_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (person_id, event_id, event_rating_category_id)
+) INHERITS( base.event_rating );
+
+CREATE TABLE log.event_rating (
+) INHERITS( base.logging, base.event_rating );
+
+INSERT INTO event_rating_category(conference_id,event_rating_category) SELECT conference_id,'relevance' FROM conference;
+INSERT INTO event_rating_category(conference_id,event_rating_category) SELECT conference_id,'actuality' FROM conference;
+INSERT INTO event_rating_category(conference_id,event_rating_category) SELECT conference_id,'acceptance' FROM conference;
+
+INSERT INTO event_rating(person_id,event_id,event_rating_category_id,rating,eval_time) SELECT person_id,event_id,event_rating_category_id,relevance,eval_time FROM old_event_rating INNER JOIN event USING(event_id) INNER JOIN event_rating_category ON (event_rating_category='relevance' AND event_rating_category.conference_id=event.conference_id) WHERE relevance IS NOT NULL;
+INSERT INTO event_rating(person_id,event_id,event_rating_category_id,rating,eval_time) SELECT person_id,event_id,event_rating_category_id,actuality,eval_time FROM old_event_rating INNER JOIN event USING(event_id) INNER JOIN event_rating_category ON (event_rating_category='actuality' AND event_rating_category.conference_id=event.conference_id) WHERE actuality IS NOT NULL;
+INSERT INTO event_rating(person_id,event_id,event_rating_category_id,rating,eval_time) SELECT person_id,event_id,event_rating_category_id,acceptance,eval_time FROM old_event_rating INNER JOIN event USING(event_id) INNER JOIN event_rating_category ON (event_rating_category='acceptance' AND event_rating_category.conference_id=event.conference_id) WHERE acceptance IS NOT NULL;
+
+DROP TABLE base.old_event_rating CASCADE;
 
 SELECT log.activate_logging();
 
