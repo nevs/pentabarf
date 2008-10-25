@@ -48,6 +48,8 @@ task :update_css do
   `(cd rails/public/stylesheets && sh -c 'sed -e "s!@import url(\\"\\([a-z_]\\+.css\\).*!\\1!" main.template | xargs cat > main.css')`
 end
 
+# alias for update_css
+task :css => [:update_css]
 
 task :check => [:unincluded_files,:unused_views,:unused_models]
 
