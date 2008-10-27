@@ -63,7 +63,7 @@ CREATE TABLE event_rating_remark (
 
 CREATE TABLE log.event_rating_remark () INHERITS( base.logging, base.event_rating_remark );
 
-INSERT INTO event_rating_remark(person_id,event_id,remark) SELECT person_id,event_id,remark FROM event_rating WHERE remark IS NOT NULL;
+INSERT INTO event_rating_remark(person_id,event_id,remark,eval_time) SELECT person_id,event_id,remark,eval_time FROM event_rating WHERE remark IS NOT NULL;
 
 ALTER TABLE base.event_rating RENAME TO old_event_rating;
 ALTER TABLE public.event_rating RENAME TO old_event_rating;
@@ -99,8 +99,7 @@ CREATE TABLE event_rating (
   PRIMARY KEY (person_id, event_id, event_rating_category_id)
 ) INHERITS( base.event_rating );
 
-CREATE TABLE log.event_rating (
-) INHERITS( base.logging, base.event_rating );
+CREATE TABLE log.event_rating () INHERITS( base.logging, base.event_rating );
 
 INSERT INTO event_rating_category(conference_id,event_rating_category) SELECT conference_id,'relevance' FROM conference;
 INSERT INTO event_rating_category(conference_id,event_rating_category) SELECT conference_id,'actuality' FROM conference;
