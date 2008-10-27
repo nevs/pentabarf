@@ -68,7 +68,7 @@ class PentabarfController < ApplicationController
       return redirect_to(:action=>:conference,:id=>'new') if params[:id] != 'new'
       @conference = Conference.new(:conference_id=>0)
     end
-    @transaction = Conference_transaction.select_single({:conference_id=>@conference.conference_id}) rescue Conference_transaction.new
+    @transaction = Conference_transaction.select_or_new({:conference_id=>@conference.conference_id},{:limit=>1})
   end
 
   def save_conference
@@ -103,7 +103,7 @@ class PentabarfController < ApplicationController
     @conference = Conference.select_single( :conference_id => @event.conference_id )
     @current_conference = @conference
     @attachments = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language})
-    @transaction = Event_transaction.select_single({:event_id=>@event.event_id}) rescue Event_transaction.new
+    @transaction = Event_transaction.select_or_new({:event_id=>@event.event_id},{:limit=>1})
   end
 
   def save_event
@@ -142,7 +142,7 @@ class PentabarfController < ApplicationController
     @account = Account.select_or_new(:person_id=>@person.person_id)
     @settings = Account_settings.select_or_new(:account_id=>@account.account_id.to_i)
     @account_roles = @account.new_record? ? [] : Account_role.select(:account_id=>@account.account_id)
-    @transaction = Person_transaction.select_single({:person_id=>@person.person_id}) rescue Person_transaction.new
+    @transaction = Person_transaction.select_or_new({:person_id=>@person.person_id},{:limit=>1})
   end
 
   def save_person
