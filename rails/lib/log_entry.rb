@@ -98,7 +98,9 @@ class LogEntry
   def to_xml
     xml = Builder::XmlMarkup.new
     xml.li do
-      xml.span( log_timestamp.strftime("%Y-%m-%d %H:%M:%S"),{:onclick=>"$('changeset-#{log_transaction_id}').toggle()",:title=>"Changeset #{log_transaction_id}",:class=>'log-entry'})
+      xml.a({:name=>log_transaction_id}) do
+        xml.span( log_timestamp.strftime("%Y-%m-%d %H:%M:%S"),{:onclick=>"$('changeset-#{log_transaction_id}').toggle()",:title=>"Changeset #{log_transaction_id}",:class=>'log-entry'})
+      end
       if log_name
         xml.a( log_name, :href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>log_person_id))
       end
