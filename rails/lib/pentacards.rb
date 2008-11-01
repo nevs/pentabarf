@@ -72,7 +72,7 @@ class Pentacards
                                  :font_size => 12 } )
     end
 
-    output_row = [ event.day,
+    output_row = [ event.conference_day,
                    event.conference_room,
                    event.start_time ? event.start_time.strftime('%H:%M') : '',
                    event.duration.strftime('%H:%M') ]
