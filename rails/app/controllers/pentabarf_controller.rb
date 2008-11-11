@@ -99,7 +99,7 @@ class PentabarfController < ApplicationController
       @content_title = "New Event"
       @event = Event.new(:event_id=>0,:conference_id=>@current_conference.conference_id)
     end
-    @event_rating = Event_rating.select_or_new({:event_id=>@event.event_id,:person_id=>POPE.user.person_id})
+    @event_rating_remark = Event_rating_remark.select_or_new({:event_id=>@event.event_id,:person_id=>POPE.user.person_id})
     @conference = Conference.select_single( :conference_id => @event.conference_id )
     @current_conference = @conference
     @attachments = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language})

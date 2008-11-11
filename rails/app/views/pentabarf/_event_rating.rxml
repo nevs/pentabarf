@@ -11,16 +11,19 @@ xml.div(:id=>'content-rating') do
         end
       end
 
-      [:relevance,:actuality,:acceptance].each do | field |
-        xml << radio_row( @event_rating, field, [1,2,3,4,5,nil] )
+      Event_rating_category.select({:conference_id=>@event.conference_id}).each do | category |
+        rating = Event_rating.select_or_new({:event_id=>@event.event_id,:person_id=>POPE.user.person_id,:event_rating_category_id=>category.event_rating_category_id})
+        xml << radio_row( rating, :rating, [1,2,3,4,5,nil], {:label=>category.event_rating_category,:name=>"event_rating[#{category.event_rating_category_id}][rating]"} )
+
       end
+
     end
 
   end
 
-  xml << text_area_fieldset( @event_rating, :remark, {:rows=>5,:cols=>60})
+  xml << text_area_fieldset( @event_rating_remark, :remark, {:rows=>5,:cols=>60})
 
-  ratings = View_event_rating.select({:event_id=>@event.event_id},{:order=>:eval_time})
+  ratings = View_event_rating.select({:event_id=>@event.event_id})
   xml.fieldset do
     xml.legend local('other ratings')
 
@@ -39,7 +42,7 @@ xml.div(:id=>'content-rating') do
             end
           end
           xml.td do xml.a( rating.name, {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) end
-          xml << rating_bar_small( rating, [:relevance,:actuality,:acceptance] )
+#          xml << rating_bar_small( rating, [:relevance,:actuality,:acceptance] )
           xml.td rating.remark
           xml.td rating.eval_time.strftime('%Y-%m-%d %H:%M')
         end
