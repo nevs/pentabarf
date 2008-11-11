@@ -131,7 +131,7 @@ module ApplicationHelper
         xml.text! "..." if page == show_first && active_page >= ( show_first + show_around )
         xml.text! "..." if page == ( pages - show_last ) && active_page < ( pages - ( show_last + show_around ) )
         next if page >= show_first && page < ( pages - show_last ) && ( page <= ( active_page - show_around) || page >= ( active_page + show_around ) )
-        xml.button("#{page+1}",{:type=>:button,:class=>"paginate #{page==active_page ? :active : nil}",:onclick=>"new Ajax.Updater('results','#{url_for(:id=>page)}');"})
+        xml.button("#{page+1}",{:type=>:button,:class=>"paginate #{page==active_page ? :active : nil}",:onclick=>"new Ajax.Updater('results','#{url_for(:id=>page)}', {onComplete:sortables_init});"})
       end if results.length > results_per_page
     end
     yield( results[(active_page * results_per_page)..((active_page+1) * results_per_page - 1 )] || [] )
@@ -140,7 +140,7 @@ module ApplicationHelper
         xml.text! "..." if page == show_first && active_page >= ( show_first + show_around )
         xml.text! "..." if page == ( pages - show_last ) && active_page < ( pages - ( show_last + show_around ) )
         next if page >= show_first && page < ( pages - show_last ) && ( page <= ( active_page - show_around) || page >= ( active_page + show_around ) )
-        xml.button("#{page+1}",{:type=>:button,:class=>"paginate #{page==active_page ? :active : nil}",:onclick=>"new Ajax.Updater('results','#{url_for(:id=>page)}');"})
+        xml.button("#{page+1}",{:type=>:button,:class=>"paginate #{page==active_page ? :active : nil}",:onclick=>"new Ajax.Updater('results','#{url_for(:id=>page)}', {onComplete:sortables_init});"})
       end if results.length > results_per_page
     end
   end
