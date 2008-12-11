@@ -1,34 +1,30 @@
 xml.ul do
+
+  links = []
+
   @days.each_with_index do | day, index |
+    links << [
+      url_for({:conference=>@conference.acronym,:action=>:day,:id=>day.conference_day.to_s,:language=>params[:language]}),
+      format_conference_day( day )
+    ]
+  end
+  links << [url_for({:conference=>@conference.acronym,:action=>:speakers,:language=>params[:language]}), local('schedule::speakers')]
+  links << [url_for({:conference=>@conference.acronym,:action=>:events,:language=>params[:language]}), local('schedule::events')]
+
+  Conference_link.select({:conference_id=>@conference.conference_id}).each do | link |
+    links << [link.url,link.title || link.url]
+  end
+
+  links << [url_for({:controller=>'ical',:conference=>@conference.acronym,:action=>:conference,:language=>params[:language]}), "iCal"]
+  links << [url_for({:controller=>'xcal',:conference=>@conference.acronym,:action=>:conference,:language=>params[:language]}), "xCal"]
+  links << [url_for({:controller=>'xml',:conference=>@conference.acronym,:action=>:conference,:language=>params[:language]}), "XML"]
+
+  links.each do | link |
     xml.li do
-      xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:day,:id=>day.conference_day.to_s,:language=>params[:language]})) do
-        xml.span(format_conference_day(day), :class=>:normal)
+      xml.a(:href=>link.first) do
+        xml.span(link.last, :class=>:normal)
       end
     end
   end
-  xml.li do
-    xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:speakers,:language=>params[:language]})) do
-      xml.span( local('schedule::speakers'), :class=>:normal)
-    end
-  end
-  xml.li do
-    xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:events,:language=>params[:language]})) do
-      xml.span( local('schedule::events'), :class=>:normal)
-    end
-  end
-  xml.li do
-    xml.a(:href=>url_for({:controller=>'ical',:action=>:conference,:id=>@conference.conference_id,:language=>params[:language]})) do
-      xml.span('iCal', :class=>:normal)
-    end
-  end
-  xml.li do
-    xml.a(:href=>url_for({:controller=>'xcal',:action=>:conference,:id=>@conference.conference_id,:language=>params[:language]})) do
-      xml.span('xCal', :class=>:normal)
-    end
-  end
-  xml.li do
-    xml.a(:href=>url_for({:controller=>'xml',:action=>:schedule,:id=>@conference.conference_id,:language=>params[:language]})) do
-      xml.span("#{local('schedule::schedule')} (XML)", :class=>:normal)
-    end
-  end
+
 end

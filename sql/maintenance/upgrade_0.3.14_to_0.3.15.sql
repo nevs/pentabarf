@@ -113,5 +113,7 @@ DROP TABLE base.old_event_rating CASCADE;
 
 SELECT log.activate_logging();
 
+INSERT INTO auth.object_domain VALUES ('conference_link','conference');
+
 COMMIT;
 
