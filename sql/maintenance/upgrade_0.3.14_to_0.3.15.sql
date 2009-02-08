@@ -19,6 +19,8 @@ ALTER TABLE public.event ADD CONSTRAINT event_conference_track_id_fkey FOREIGN K
 
 ALTER TABLE base.event DROP COLUMN conference_track CASCADE;
 
+SELECT log.activate_logging();
+
 -- add conference_room_id back to table conference_room
 
 ALTER TABLE base.conference_room ADD COLUMN conference_room_id SERIAL NOT NULL;
@@ -45,6 +47,8 @@ ALTER TABLE public.conference_room_role ADD CONSTRAINT conference_room_role_conf
 ALTER TABLE base.event DROP COLUMN conference_room CASCADE;
 ALTER TABLE base.conference_room_role DROP COLUMN conference_id;
 ALTER TABLE base.conference_room_role DROP COLUMN conference_room;
+
+SELECT log.activate_logging();
 
 -- add per conference event rating categories
 
