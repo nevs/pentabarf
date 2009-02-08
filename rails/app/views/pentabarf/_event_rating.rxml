@@ -11,7 +11,7 @@ xml.div(:id=>'content-rating') do
         end
       end
 
-      Event_rating_category.select({:conference_id=>@event.conference_id}).each do | category |
+      Event_rating_category.select({:conference_id=>@event.conference_id},{:order=>[:rank,:event_rating_category]}).each do | category |
         rating = Event_rating.select_or_new({:event_id=>@event.event_id,:person_id=>POPE.user.person_id,:event_rating_category_id=>category.event_rating_category_id})
         xml << radio_row( rating, :rating, [1,2,3,4,5,nil], {:label=>category.event_rating_category,:name=>"event_rating[#{category.event_rating_category_id}][rating]"} )
 
