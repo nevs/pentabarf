@@ -26,8 +26,8 @@ class IcalController < ApplicationController
       daylight = Icalendar::Daylight.new
       standard.dtstart '19870405T020000'
       standard.add_recurrence_rule 'FREQ=YEARLY;BYDAY=1SU;BYMONTH=4'
-      standard.tzoffsetfrom tz.utc_offset.strftime('%H%M')
-      standard.tzoffsetto( (tz.utc_offset + 3600).strftime('%H%M') )
+      standard.tzoffsetfrom tz.utc_offset.strftime('+%H%M')
+      standard.tzoffsetto( (tz.utc_offset + 3600).strftime('+%H%M') )
       add_component( standard )
       add_component( daylight )
     end
