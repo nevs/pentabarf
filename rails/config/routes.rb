@@ -35,6 +35,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'image/:action/:id.:size.:extension', :controller=> 'image'
   map.connect 'image/:action/:id.:size', :controller=> 'image'
 
+  map.connect 'ical/:action/:conference', :controller=> 'ical'
+
   map.connect 'pentabarf/events_by_state/:event_state', :controller => 'pentabarf', :action => 'events_by_state'
   map.connect 'pentabarf/events_by_state/:event_state/:event_state_progress', :controller => 'pentabarf', :action => 'events_by_state'
 

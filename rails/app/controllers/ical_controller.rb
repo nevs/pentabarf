@@ -5,7 +5,7 @@ class IcalController < ApplicationController
   before_filter :init
 
   def conference
-    conf = Conference.select_single({:conference_id=>params[:id]})
+    conf = Conference.select_single({:acronym=>params[:conference]})
     tz = Timezone.select_single({:timezone => conf.timezone})
     lang = Language.select_single({:language=>@current_language})
     rooms = Conference_room.select({:conference_id=>conf.conference_id})

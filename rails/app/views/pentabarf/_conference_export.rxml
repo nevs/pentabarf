@@ -6,7 +6,7 @@ xml.div(:id=>'content-export') do
     xml.a({:href=>url_for({:controller=>'schedule',:conference=>@conference.acronym,:action=>:index,:language=>:en})}) do
       xml.button( local( :schedule_export ) )
     end
-    xml.a({:href=>url_for({:controller=>'ical',:action=>:conference,:id=>@conference.conference_id})}) do
+    xml.a({:href=>url_for({:controller=>'ical',:action=>:conference,:conference=>@conference.acronym})}) do
       xml.button( local( :ical ) )
     end
 
