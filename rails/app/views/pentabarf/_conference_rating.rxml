@@ -1,0 +1,35 @@
+xml.div(:id=>'content-rating') do
+  categories = Event_rating_category.select({:conference_id => @conference.conference_id}, {:order=>[:rank,:event_rating_category]} )
+
+  xml.fieldset do
+    xml.legend( local('event_rating_category') )
+    xml.table(:id=>'event_rating_category_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('event_rating_category::event_rating_category') )
+          xml.th( local('event_rating_category::rank') )
+          xml.th( local('form::remove') )
+        end
+      end
+      xml.tbody(:id=>'event_rating_category_tbody') do
+        xml.tr(:id=>'event_rating_category_template',:style=>'display:none') do
+          xml.td do
+            xml.input({:type=>:hidden,:id=>'event_rating_category[row_id][event_rating_category_id]',:name=>'event_rating_category[row_id][event_rating_category_id]'})
+            xml.input({:type=>:text,:id=>'event_rating_category[row_id][event_rating_category]',:name=>'event_rating_category[row_id][event_rating_category]'})
+          end
+          xml.td do xml.input({:type=>:text,:id=>'event_rating_category[row_id][rank]',:name=>'event_rating_category[row_id][rank]',:size=>3}) end
+          xml.td do xml.input({:type=>:checkbox,:name=>'event_rating_category[row_id][remove]',:id=>'event_rating_category[row_id][remove]'}) end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do
+      categories.each do | c |
+        xml << js_function( 'table_add_row', 'event_rating_category', c.event_rating_category_id, c.event_rating_category, c.rank )
+      end
+    end
+
+    xml.button( local('conference::add_event_rating_category'), {:type=>:button,:onclick=>'table_add_row("event_rating_category")'})
+  end
+
+end
