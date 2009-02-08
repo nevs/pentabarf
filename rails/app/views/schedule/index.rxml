@@ -17,7 +17,7 @@ xml.ul do
 
   links << [url_for({:controller=>'ical',:conference=>@conference.acronym,:action=>:conference,:language=>params[:language]}), "iCal"]
   links << [url_for({:controller=>'xcal',:conference=>@conference.acronym,:action=>:conference,:language=>params[:language]}), "xCal"]
-  links << [url_for({:controller=>'xml',:conference=>@conference.acronym,:action=>:conference,:language=>params[:language]}), "XML"]
+  links << [url_for({:controller=>'xml',:conference=>@conference.acronym,:action=>:schedule,:language=>params[:language]}), "XML"]
 
   links.each do | link |
     xml.li do
