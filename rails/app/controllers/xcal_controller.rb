@@ -4,7 +4,7 @@ class XcalController < ApplicationController
   after_filter :content_type
 
   def conference
-    @conference = Conference.select_single({:conference_id=>params[:id]})
+    @conference = Conference.select_single({:acronym=>params[:conference]})
     @events = View_schedule_calendar.select({:conference_id => @conference.conference_id, :translated => @current_language})
     @filename = "#{@conference.acronym}.xcs"
   end
