@@ -30,7 +30,7 @@ xml.div(:id=>'content-rating') do
     xml.table do
       xml.tr do
         xml.th( local('event_rating::person_id'),:colspan=>2)
-#        xml.th('Rating',:colspan=>2)
+        xml.th('Rating',:colspan=>2)
         xml.th local('event_rating::remark')
         xml.th local('event_rating::eval_time')
       end
@@ -42,7 +42,7 @@ xml.div(:id=>'content-rating') do
             end
           end
           xml.td do xml.a( rating.name, {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) end
-#          xml << rating_bar_small( rating, [:relevance,:actuality,:acceptance] )
+          xml << event_rating_bar( rating )
           xml.td rating.remark
           xml.td rating.eval_time.strftime('%Y-%m-%d %H:%M')
         end
