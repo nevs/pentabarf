@@ -7,6 +7,7 @@
 \i views/event_link_internal.sql
 \i views/event_person.sql
 \i views/event_rating.sql
+\i views/view_event_category_rating.sql
 \i views/event_related.sql
 \i views/event.sql
 \i views/find/find_conference.sql
