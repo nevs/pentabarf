@@ -37,6 +37,10 @@ xml.div({:id=>'data'}) do
           alert('You must fill in an acronym.');
           return false;
         }
+        if ( !$F('conference[title]') ) {
+          alert('You must fill in a title.');
+          return false;
+        }
         return true;
       };
       new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );
