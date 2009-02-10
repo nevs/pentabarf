@@ -10,6 +10,7 @@ INSERT INTO object_domain ("object", "domain") VALUES ('conference', 'conference
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_day', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_image', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_language', 'conference');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_link', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_person', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_link', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_link_internal', 'person');
@@ -37,6 +38,7 @@ INSERT INTO object_domain ("object", "domain") VALUES ('event_link_internal', 'e
 INSERT INTO object_domain ("object", "domain") VALUES ('event_origin_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_person', 'event');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_rating', 'review');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_rating_category', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_role_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_role_state_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_state_localized', 'localization');
