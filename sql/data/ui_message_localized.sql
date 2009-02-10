@@ -411,6 +411,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_r
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_category::event_rating_category', 'en', 'Event rating category');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_category::event_rating_category_id', 'de', 'Veranstaltungsbewertunskategorie');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_category::event_rating_category_id', 'en', 'Event rating category');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_category::no_category_defined_for_this_conference', 'de', 'Keine Bewertungskategorie für diese Konferenz vorhanden.');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_category::no_category_defined_for_this_conference', 'en', 'No rating category for this conference defined yet.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_category::rank', 'de', 'Reihenfolge');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_category::rank', 'en', 'Order');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark::remark', 'de', 'Kommentar');

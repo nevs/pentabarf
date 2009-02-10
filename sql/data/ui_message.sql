@@ -301,6 +301,7 @@ INSERT INTO ui_message (ui_message) VALUES ('event_rating_category');
 INSERT INTO ui_message (ui_message) VALUES ('event_rating_category::conference_id');
 INSERT INTO ui_message (ui_message) VALUES ('event_rating_category::event_rating_category');
 INSERT INTO ui_message (ui_message) VALUES ('event_rating_category::event_rating_category_id');
+INSERT INTO ui_message (ui_message) VALUES ('event_rating_category::no_category_defined_for_this_conference');
 INSERT INTO ui_message (ui_message) VALUES ('event_rating_category::rank');
 INSERT INTO ui_message (ui_message) VALUES ('event_rating_remark::remark');
 INSERT INTO ui_message (ui_message) VALUES ('event_role');
