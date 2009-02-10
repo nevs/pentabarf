@@ -387,7 +387,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedbac
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::question_content_quality', 'en', 'What is your impression of the quality of the content?');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::question_participant_knowledge', 'de', 'Wie würden sie ihr eigenes Wissen über dieses Thema einschätzen?');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::question_participant_knowledge', 'en', 'How would you rate your personal knowledge about this topic?');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::question_presentation_quality', 'de', 'Was ist ihr Eindruck von der Presentation?');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::question_presentation_quality', 'de', 'Was ist ihr Eindruck von der Präsentation?');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::question_presentation_quality', 'en', 'What is your impression of the presentation?');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::question_topic_importance', 'de', 'Wie wichtig ist dieses Thema für diese Konferenz?');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('feedback::question_topic_importance', 'en', 'How important is this topic for this conference?');
