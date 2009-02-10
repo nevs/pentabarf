@@ -17,7 +17,7 @@ class XcalControllerTest < Test::Unit::TestCase
   end
 
   def test_conference
-    get :conference, {:id => 1}
+    get :conference, {:conference => 'TEST'}
     assert_response :success
   end
 
