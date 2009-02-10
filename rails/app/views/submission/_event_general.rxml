@@ -38,25 +38,25 @@ xml.div(:id=>'content-general') do
 
   xml.fieldset do
     xml.legend local('event::tab::schedule')
-    xml.table do 
-      xml.tr do  
+    xml.table do
+      xml.tr do
         xml.td do xml.b( local('event::conference_day')) end
         xml.td( @event.conference_day )
-      end        
-      xml.tr do  
+      end
+      xml.tr do
         xml.td do xml.b( local('event::start_time')) end
         xml.td( @event.start_time )
-      end        
-      xml.tr do  
+      end
+      xml.tr do
         xml.td do xml.b( local('event::duration')) end
         xml.td( @event.duration )
-      end        
-      xml.tr do  
+      end
+      xml.tr do
         xml.td do xml.b( local('event::conference_room')) end
         xml.td do
           xml.text! Conference_room.select_single({:conference_room_id=>@event.conference_room_id}).conference_room if @event.conference_room_id
         end
-      end        
-    end          
+      end
+    end
   end
 end
