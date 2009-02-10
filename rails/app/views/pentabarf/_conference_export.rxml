@@ -10,7 +10,7 @@ xml.div(:id=>'content-export') do
       xml.button( local( :ical ) )
     end
 
-    xml.a({:href=>url_for({:controller=>'xcal',:action=>:conference,:id=>@conference.conference_id})}) do
+    xml.a({:href=>url_for({:controller=>'xcal',:action=>:conference,:conference=>@conference.acronym})}) do
       xml.button( local( :xcal ) )
     end
 
