@@ -1,7 +1,7 @@
 class Person_im < Momomoto::Table
 
   def self.log_content_columns
-    columns.keys - [:person_id,:im_person_id]
+    columns.keys - [:person_id,:person_im_id]
   end
 
   def self.log_change_title( change )
