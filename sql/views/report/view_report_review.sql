@@ -33,29 +33,11 @@ CREATE OR REPLACE VIEW view_report_review AS
           event_person.event_id = event.event_id
         ORDER BY view_person.name, event_person.person_id
       ), E'\n'::text) AS speakers,
-    coalesce( rating.relevance, 0 ) AS relevance,
-    coalesce( rating.relevance_count, 0 ) AS relevance_count,
-    coalesce( rating.actuality, 0 ) AS actuality,
-    coalesce( rating.actuality_count, 0 ) AS actuality_count,
-    coalesce( rating.acceptance, 0 ) AS acceptance,
-    coalesce( rating.acceptance_count, 0 ) AS acceptance_count,
-    coalesce( rating.raters, 0 ) AS raters,
-    (2 * coalesce( rating.acceptance, 0 ) + coalesce( rating.relevance, 0 ) + coalesce( rating.actuality, 0 ))/4 AS rating
-  FROM event
-         LEFT OUTER JOIN event_state_localized USING (event_state)
-         LEFT OUTER JOIN (
-           SELECT event_id,
-                  coalesce( sum((relevance - 3) * 50 )/ count(relevance), 0) AS relevance,
-                  count(relevance) AS relevance_count,
-                  coalesce( sum((actuality - 3) * 50 )/ count(actuality), 0) AS actuality,
-                  count(actuality) AS actuality_count,
-                  coalesce( sum((acceptance - 3) * 50 ) / count(acceptance), 0) AS acceptance,
-                  count(acceptance) AS acceptance_count,
-                  count( coalesce( relevance::text, actuality::text, acceptance::text, remark ) ) AS raters
-             FROM event_rating
-            GROUP BY event_id
-         ) AS rating USING (event_id)
-         LEFT OUTER JOIN conference_track USING (conference_track_id)
-   ORDER BY acceptance DESC, relevance DESC, actuality DESC
+    coalesce( ( SELECT COUNT(person_id) FROM (SELECT person_id FROM event_rating WHERE event_id = event.event_id GROUP BY person_id) AS unique_rater ), 0 ) AS raters,
+    ( SELECT coalesce( SUM( (rating - 3) * 50 ) / COUNT( rating ), 0 ) FROM event_rating WHERE event_id = event.event_id ) AS rating
+  FROM 
+    event
+    LEFT OUTER JOIN event_state_localized USING (event_state)
+    LEFT OUTER JOIN conference_track USING (conference_track_id)
 ;
 
