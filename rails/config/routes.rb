@@ -37,6 +37,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'ical/:action/:conference', :controller=> 'ical'
   map.connect 'xcal/:action/:conference', :controller=> 'xcal'
+  map.connect 'xml/:action/:conference', :controller=> 'xml'
 
   map.connect 'pentabarf/events_by_state/:event_state', :controller => 'pentabarf', :action => 'events_by_state'
   map.connect 'pentabarf/events_by_state/:event_state/:event_state_progress', :controller => 'pentabarf', :action => 'events_by_state'
