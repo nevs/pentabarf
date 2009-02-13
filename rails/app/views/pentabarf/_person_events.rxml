@@ -53,7 +53,7 @@ xml.div(:id=>'content-events') do
 #      xml.legend local('events in other conferences')
 
 
-      xml.table do
+      xml.table({:id=>'other_events_table',:class=>'sortable'}) do
         xml.thead do 
           xml.tr do 
             ['conference::acronym','event_person::event_id','event_person::event_role','event_person::event_role_state'].each do | field |
