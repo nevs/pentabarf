@@ -144,9 +144,9 @@ class LogEntry
               xml.text! " changed"
             else
               xml.em "#{local("#{table_name}::#{column}")}:"
-              xml.span( column_value(old_value, column), {:class=>:old_value})
+              xml.span({:class=>:old_value}) do |x| x << column_value( old_value, column ) end
               xml << '&#8658;'
-              xml.span( column_value(change, column), {:class=>:new_value})
+              xml.span({:class=>:new_value}) do |x| x << column_value( change, column ) end
             end
           end
         end
@@ -166,7 +166,7 @@ class LogEntry
           next unless change[column]
           xml.li do
             xml.em "#{local("#{table_name}::#{column}")}:"
-            xml.span( column_value(change, column), {:class=>:new_value})
+            xml.span({:class=>:new_value}) do |x| x << column_value( change, column ) end
           end
         end
       end
@@ -185,7 +185,7 @@ class LogEntry
           next unless change[column]
           xml.li do
             xml.em "#{local("#{table_name}::#{column}")}:"
-            xml.span( column_value(change, column), {:class=>:old_value})
+            xml.span({:class=>:old_value}) do |x| x << column_value( change, column ) end
           end
         end
       end
@@ -219,8 +219,6 @@ class LogEntry
   def changeset_changes_old( changeset )
     xml.ul do
       Log_transaction_involved_tables.select({:log_transaction_id=>changeset.log_transaction_id}).map(&:table_name).each do | table |
-        # FIXME ignoring some tables for now
-        next if table == "person_availability"
         klass = table.capitalize.constantize
         log_klass = "Log::#{table.capitalize}".constantize
 
