@@ -2,6 +2,7 @@
 BEGIN;
 
 \i tables/base/logging.sql
+\i tables/base/release.sql
 \i tables/auth/domain.sql
 \i tables/auth/object_domain.sql
 \i tables/language.sql
@@ -91,6 +92,8 @@ BEGIN;
 \i tables/auth/account_password_reset.sql
 \i tables/log/log_transaction.sql
 \i tables/log/log_transaction_involved_tables.sql
+\i tables/conference_release.sql
+\i tables/release/conference.sql
 \i tables/custom/custom_fields.sql
 \i tables/custom/custom_conference.sql
 \i tables/custom/custom_person.sql
