@@ -94,7 +94,14 @@ BEGIN;
 \i tables/log/log_transaction_involved_tables.sql
 \i tables/conference_release.sql
 \i tables/release/conference.sql
+\i tables/release/conference_day.sql
+\i tables/release/conference_track.sql
+\i tables/release/conference_room.sql
+\i tables/release/conference_link.sql
+\i tables/release/conference_image.sql
 \i tables/release/event.sql
+\i tables/release/person.sql
+\i tables/release/conference_person.sql
 \i tables/custom/custom_fields.sql
 \i tables/custom/custom_conference.sql
 \i tables/custom/custom_person.sql
