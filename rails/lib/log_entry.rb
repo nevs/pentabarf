@@ -102,6 +102,7 @@ class LogEntry
         xml.span( log_timestamp.strftime("%Y-%m-%d %H:%M:%S"),{:onclick=>"$('changeset-#{log_transaction_id}').toggle()",:title=>"Changeset #{log_transaction_id}",:class=>'log-entry'})
       end
       if log_name
+        xml << "&nbsp;"
         xml.a( log_name, :href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>log_person_id))
       end
       xml << @rendered_changes.to_s
