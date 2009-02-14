@@ -144,9 +144,9 @@ class LogEntry
               xml.text! " changed"
             else
               xml.em "#{local("#{table_name}::#{column}")}:"
-              xml.span({:class=>:old_value}) do |x| x << column_value( old_value, column ) end
+              xml.span({:class=>:old_value}) do |x| column_value( x, old_value, column ) end
               xml << '&#8658;'
-              xml.span({:class=>:new_value}) do |x| x << column_value( change, column ) end
+              xml.span({:class=>:new_value}) do |x| column_value( x, change, column ) end
             end
           end
         end
@@ -166,7 +166,7 @@ class LogEntry
           next unless change[column]
           xml.li do
             xml.em "#{local("#{table_name}::#{column}")}:"
-            xml.span({:class=>:new_value}) do |x| x << column_value( change, column ) end
+            xml.span({:class=>:new_value}) do |x| column_value( x, change, column ) end
           end
         end
       end
@@ -185,35 +185,44 @@ class LogEntry
           next unless change[column]
           xml.li do
             xml.em "#{local("#{table_name}::#{column}")}:"
-            xml.span({:class=>:old_value}) do |x| x << column_value( change, column ) end
+            xml.span({:class=>:old_value}) do |x| column_value( x, change, column ) end
           end
         end
       end
     end
   end
 
-  def column_value( row, column_name )
+  def column_value( xml, row, column_name )
     return case column_name
       when :conference_id then
-        Conference.select_single({:conference_id=>row[column_name]}).acronym
+        xml.text! Conference.select_single({:conference_id=>row[column_name]}).acronym
       when :person_id then
-        Person.select_single({:person_id=>row[column_name]}).name
+        xml.text! Person.select_single({:person_id=>row[column_name]}).name
       when :event_id then
-        Event.select_single({:event_id=>row[column_name]}).title
+        xml.text! Event.select_single({:event_id=>row[column_name]}).title
       when :account_id then
-        Account.select_single({:account_id=>row[column_name]}).login_name
+        xml.text! Account.select_single({:account_id=>row[column_name]}).login_name
+      when :url then
+        if row.class.table.columns[:link_type] then
+          # lookup link_type
+          link_type = Link_type.select_single({:link_type=>row[:link_type]})
+          link = link_type.template.to_s + row[:url].to_s
+        else
+          link = row[:url].to_s
+        end
+        xml.a( link, {:href=>link,:target=>'_blank'} )
       else
         case row.class.columns[column_name]
           when Momomoto::Datatype::Time_with_time_zone, Momomoto::Datatype::Time_without_time_zone then
-            row[column_name].strftime("%H:%M:%S")
+            xml.text! row[column_name].strftime("%H:%M:%S")
           when Momomoto::Datatype::Timestamp_with_time_zone, Momomoto::Datatype::Timestamp_without_time_zone then
-            row[column_name].strftime("%Y-%m-%d %H:%M:%S")
+            xml.text! row[column_name].strftime("%Y-%m-%d %H:%M:%S")
         else
-          row[column_name].to_s
+          xml.text! row[column_name].to_s
         end
     end
    rescue => e
-    row[column_name].to_s
+    xml.text! row[column_name].to_s
   end
 
   def changeset_changes_old( changeset )
