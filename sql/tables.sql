@@ -100,6 +100,10 @@ BEGIN;
 \i tables/release/conference_link.sql
 \i tables/release/conference_image.sql
 \i tables/release/event.sql
+\i tables/release/event_person.sql
+\i tables/release/event_link.sql
+\i tables/release/event_attachment.sql
+\i tables/release/event_image.sql
 \i tables/release/person.sql
 \i tables/release/conference_person.sql
 \i tables/custom/custom_fields.sql
