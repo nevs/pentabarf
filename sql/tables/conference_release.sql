@@ -7,7 +7,7 @@ CREATE TABLE base.conference_release (
 
 CREATE TABLE conference_release (
   FOREIGN KEY( conference_id ) REFERENCES conference( conference_id ) ON UPDATE CASCADE ON DELETE CASCADE,
-  PRIMARY KEY( conference_release_id )
+  PRIMARY KEY( conference_release_id ),
   UNIQUE( conference_id, conference_release )
 ) INHERITS( base.conference_release );
 
