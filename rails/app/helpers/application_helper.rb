@@ -223,4 +223,22 @@ module ApplicationHelper
     xml.to_s
   end
 
+  def js_character_counter( row, column, maximal )
+    if not maximal
+      return ""
+    else
+      xml = Builder::XmlMarkup.new
+      element = "#{row.class.table.table_name}[#{column}]"
+      xml.div({:id=>element+"-counter-div"}) do
+        xml.span( row[column].to_s.length, {:id=>element+"-counter"})
+        xml.text!(" / #{maximal} Characters" )
+      end
+      xml.script({:type=>'text/javascript'}) do
+        xml << "Event.observe( $('#{js(element)}'),'keypress',function( e ){ $('#{js(element)}-counter').innerHTML=Event.element(e).value.length ;});"
+      end
+
+      return xml.to_s
+    end
+  end
+
 end
