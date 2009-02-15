@@ -81,17 +81,26 @@ CREATE TABLE release.event_image (
   PRIMARY KEY (conference_release_id,event_id)
 ) INHERITS( base.release, base.event_image );
 
-
-
 CREATE TABLE release.person (
   FOREIGN KEY (conference_release_id) REFERENCES conference_release ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (conference_release_id,person_id)
 ) INHERITS( base.release, base.person );
 
+CREATE TABLE release.person_image (
+  FOREIGN KEY (conference_release_id) REFERENCES conference_release ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conference_release_id,person_id)
+) INHERITS( base.release, base.person_image );
+
 CREATE TABLE release.conference_person (
   FOREIGN KEY (conference_release_id) REFERENCES conference_release ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY (conference_release_id,conference_person_id)
 ) INHERITS( base.release, base.conference_person );
+
+CREATE TABLE release.conference_person_link (
+  FOREIGN KEY (conference_release_id) REFERENCES conference_release ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (conference_release_id,conference_person_link_id)
+) INHERITS( base.release, base.conference_person_link );
+
 
 COMMIT;
 
