@@ -1,7 +1,13 @@
 xml.div(:id=>'content-description') do
 
-  xml << text_area_fieldset( @conference_person, :abstract, {:rows=>5} )
-  xml << text_area_fieldset( @conference_person, :description, {:rows=>12} )
+  xml << text_area_fieldset( @conference_person, :abstract, {:rows=>5} ) do |x|
+    x << js_character_counter( @conference_person, :abstract, @conference.abstract_length )
+    x << markup_syntax_help
+  end
+  xml << text_area_fieldset( @conference_person, :description, {:rows=>12} ) do |x|
+    x << js_character_counter( @conference_person, :description, @conference.description_length )
+    x << markup_syntax_help
+  end
 
 end
 

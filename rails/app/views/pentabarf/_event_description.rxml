@@ -1,7 +1,13 @@
 xml.div(:id=>'content-description') do
 
-  xml << text_area_fieldset( @event, :abstract, {:rows=>5} ) {|x| x << markup_syntax_help }
-  xml << text_area_fieldset( @event, :description, {:rows=>12} ) {|x| x << markup_syntax_help }
+  xml << text_area_fieldset( @event, :abstract, {:rows=>5} ) do |x|
+    x << js_character_counter( @event, :abstract, @conference.abstract_length )
+    x << markup_syntax_help
+  end
+  xml << text_area_fieldset( @event, :description, {:rows=>12} ) do |x|
+    x << js_character_counter( @event, :description, @conference.description_length )
+    x << markup_syntax_help
+  end
 
   xml.fieldset do
     xml.legend( local(:attachments))

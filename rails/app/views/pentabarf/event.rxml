@@ -32,7 +32,7 @@ xml.div( :id => 'data' ) do
 
   xml.script({:type=>'text/javascript'}) do
     xml << "
-      function send_content(){ 
+      function send_content(){
         if ( !$F('event[title]') ) {
           alert('You must fill in a title.');
           return false;

@@ -1,13 +1,12 @@
 xml.div(:id=>'content-description') do
 
-  xml.fieldset do
-    xml.legend( local('event::abstract') )
-    xml.textarea( @event.abstract, {:name=>'event[abstract]',:rows=>5} )
+  xml << text_area_fieldset( @event, :abstract, {:rows=>5} ) do |x|
+    x << js_character_counter( @event, :abstract, @conference.abstract_length )
+    x << markup_syntax_help
   end
-
-  xml.fieldset do
-    xml.legend( local('event::description') )
-    xml.textarea( @event.description, {:name=>'event[description]',:rows=>12} )
+  xml << text_area_fieldset( @event, :description, {:rows=>12} ) do |x|
+    x << js_character_counter( @event, :description, @conference.description_length )
+    x << markup_syntax_help
   end
 
   xml.fieldset do
