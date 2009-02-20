@@ -3,7 +3,7 @@
 CREATE OR REPLACE VIEW view_schedule AS
    SELECT event.event_id,
           event.conference_id,
-          event.tag,
+          event.slug,
           event.title,
           event.subtitle,
           event.conference_track_id,

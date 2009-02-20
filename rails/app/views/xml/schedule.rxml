@@ -29,7 +29,7 @@ xml.schedule do
               xml.start event.real_starttime.strftime('%H:%M')
               xml.duration event.duration.strftime('%H:%M')
               xml.room event.conference_room
-              xml.tag event.event_tag
+              xml.slug event.event_slug
               xml.title event.title
               xml.subtitle event.subtitle
               xml.track event.conference_track

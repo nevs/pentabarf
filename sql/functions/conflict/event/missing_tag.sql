@@ -5,6 +5,6 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_missing_tag(INTEGER) RETURNS 
         FROM event
         WHERE conference_id = $1 AND
               event_state = 'accepted' AND
-              event.tag IS NULL
+              event.slug IS NULL
 $$ LANGUAGE SQL;
 

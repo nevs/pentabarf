@@ -129,5 +129,9 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER conference_release_after_insert AFTER INSERT ON conference_release FOR EACH ROW EXECUTE PROCEDURE conference_release_trigger_insert();
 
+ALTER TABLE base.event RENAME COLUMN tag TO slug;
+
+SELECT log.activate_logging();
+
 COMMIT;
 

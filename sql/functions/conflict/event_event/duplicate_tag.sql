@@ -10,11 +10,11 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_event_duplicate_tag( INTEGER 
 -- Loop through all events
     FOR cur_event IN
       SELECT event.event_id,
-             event.tag
+             event.slug
         FROM event
        WHERE event.conference_id = cur_conference_id AND
              event.event_state = 'accepted' AND
-             event.tag IS NOT NULL
+             event.slug IS NOT NULL
     LOOP
       FOR cur_event2 IN
         SELECT event_id 
@@ -22,7 +22,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_event_duplicate_tag( INTEGER 
          WHERE event.conference_id = cur_conference_id AND 
                event.event_id <> cur_event.event_id AND
                event.event_state = 'accepted' AND
-               event.tag = cur_event.tag
+               event.slug = cur_event.slug
       LOOP
         conflicting_event.event_id1 := cur_event.event_id;
         conflicting_event.event_id2 := cur_event2.event_id;

@@ -4,7 +4,7 @@ SELECT
   event.conference_id,
   event.title,
   event.subtitle,
-  event.tag,
+  event.slug,
   event.abstract,
   event.description,
   event.conference_day,

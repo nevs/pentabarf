@@ -2,7 +2,7 @@
 CREATE TABLE base.event (
   event_id SERIAL NOT NULL,
   conference_id INTEGER NOT NULL,
-  tag TEXT,
+  slug TEXT,
   title TEXT NOT NULL,
   subtitle TEXT,
   conference_track_id INTEGER,
