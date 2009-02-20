@@ -306,6 +306,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::resources::introduction', 'en', 'Please note all resources that might be necessary to let this event happen. This includes necessary presentation technology, material, assistants or other organizational prerequisites.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::slides', 'de', 'Abgabe von Präsentationsfolien');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::slides', 'en', 'Submission of presentation slides');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::slug', 'de', 'Slug');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::slug', 'en', 'Slug');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::start_time', 'de', 'Zeit');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::start_time', 'en', 'Start time');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::submission_notes', 'de', 'Submission notes');
@@ -330,8 +332,6 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::tab::resources', 'en', 'Resources');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::tab::schedule', 'de', 'Fahrplan');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::tab::schedule', 'en', 'Schedule');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::tag', 'de', 'Kennung');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::tag', 'en', 'Tag');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::title', 'de', 'Titel der Veranstaltung');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::title', 'en', 'Event title');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::title::hint', 'de', 'Wähle einen prägnanten und präzisen Titel für die Veranstaltung. Bedenke dass der Titel in knappen Zusammenfassungen und Übersichten auch ohne den Untertitel wiedergegeben werden kann. Stelle daher sicher, dass der Titel den Inhalt angemessen wiedergibt auch ohne Verwendung des Untertitels.');
