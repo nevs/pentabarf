@@ -194,6 +194,8 @@ class LogEntry
 
   def column_value( xml, row, column_name )
     return case column_name
+      when :conference_track_id then
+        xml.text! Conference_track.select_single({:conference_track_id=>row[column_name]}).conference_track
       when :conference_id then
         xml.text! Conference.select_single({:conference_id=>row[column_name]}).acronym
       when :person_id then
