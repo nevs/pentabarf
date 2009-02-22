@@ -40,7 +40,7 @@ function ts_makeSortable(table) {
 function ts_getInnerText(el) {
   if (typeof el == "string") return el;
   if (typeof el == "undefined") { return el };
-  if (el.innerText) return el.innerText;  //Not needed but it is faster
+  if (el.innerText) return el.innerText.strip();  //Not needed but it is faster
   var str = "";
 
   var cs = el.childNodes;
@@ -76,7 +76,7 @@ function ts_resortTable(lnk,clid) {
   // Work out a type for the column
   if (table.rows.length <= 1) return;
   var itm = ts_getInnerText(table.rows[1].cells[column]);
-  sortfn = ts_sort_caseinsensitive;
+  var sortfn = ts_sort_caseinsensitive;
   if (itm.match(/^\d\d[\/-]\d\d[\/-]\d\d\d\d$/)) sortfn = ts_sort_date;
   if (itm.match(/^\d\d[\/-]\d\d[\/-]\d\d$/)) sortfn = ts_sort_date;
   if (itm.match(/^[£$]/)) sortfn = ts_sort_currency;
