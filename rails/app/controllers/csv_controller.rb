@@ -43,6 +43,14 @@ class CsvController < ApplicationController
     end
   end
 
+  def persons
+    ids = params[:id].to_s.split(/[ +]+/)
+    rows = View_find_person.select({:conference_id=>POPE.user.current_conference_id}.merge( ids.empty? ? {} : {:person_id=>ids} ))
+    generate_csv( rows, 'persons.csv' ) do | d |
+      [ d.person_id, d.name, d.first_name, d.last_name, d.nickname, d.public_name ]
+    end
+  end
+
   protected
 
   def generate_csv( data, filename )

@@ -25,3 +25,7 @@ paginate( xml, @results, params[:id].to_i ) do | results |
     end
   end if results.length > 0
 end
+
+xml.a({:href=>url_for({:controller=>'csv',:action=>:persons,:id=>@results.map(&:person_id).join(' ')})}) do
+  xml.button("CSV",{:type=>:button})
+end
