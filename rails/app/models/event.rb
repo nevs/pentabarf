@@ -1,6 +1,14 @@
 class Event < Momomoto::Table
   SubmissionFields = [:title,:subtitle,:paper,:slides,:language,:conference_track,:event_type,:abstract,:description,:resources,:duration,:submission_notes]
 
+  module Methods
+
+    def persons( conditions = {} )
+      Event_person.select( conditions.merge( {:event_id=>event_id} ) )
+    end
+
+  end
+
   def self.log_content_columns
     columns.keys - [:event_id]
   end
