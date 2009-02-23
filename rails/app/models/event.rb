@@ -3,8 +3,8 @@ class Event < Momomoto::Table
 
   module Methods
 
-    def persons( conditions = {} )
-      Event_person.select( conditions.merge( {:event_id=>event_id} ) )
+    def persons( conditions = {}, options = {} )
+      Event_person.select( conditions.merge( {:event_id=>event_id} ), options )
     end
 
   end
