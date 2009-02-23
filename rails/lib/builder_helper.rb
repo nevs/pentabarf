@@ -8,21 +8,26 @@ module Builder_helper
   end
 
   def text_field_row( row, column, options = {}, &block )
-    options[:size] = 40 unless options[:size]
+    tag_options = options.clone
+    # clean options passed to tag creation
+    [:label,:counter,:markup_help].each do | name | tag_options.delete( name ) end
+
+    tag_options[:size] = 40 unless options[:size]
     table = row.class.table.table_name
     label = options[:label] || local("#{table}::#{column}")
     xml = Builder::XmlMarkup.new
     xml.tr do
       xml.td do xml.label( label ) end
       xml.td do
-        options[:id] = options[:name] = "#{table}[#{column}]"
-        options[:value] = case row[column]
+        tag_options[:id] = tag_options[:name] = "#{table}[#{column}]"
+        tag_options[:value] = case row[column]
           when Time then row[column].strftime('%H:%M:%S')
           else row[column]
         end
 
-        options[:tabindex] = 0
-        xml.input( options )
+        tag_options[:tabindex] = 0
+        xml.input( tag_options )
+        xml << js_character_counter( row, column, options[:counter] ) if options.key?(:counter)
         yield( xml ) if block_given?
       end
     end
@@ -192,12 +197,12 @@ module Builder_helper
     xml = Builder::XmlMarkup.new
     element = "#{row.class.table.table_name}[#{column}]"
     xml.div({:id=>element+"-counter-div"}) do
-      xml.span( row[column].to_s.length, {:id=>element+"-counter"})
+      xml.span( row[column].to_s.mb_chars.length, {:id=>element+"-counter"})
       xml.text!(" / #{maximal}") if maximal.to_i > 0
       xml.text!(" Characters" )
     end
     xml.script({:type=>'text/javascript'}) do
-      xml << "Event.observe( $('#{js(element)}'),'keypress',function( e ){ $('#{js(element)}-counter').innerHTML=Event.element(e).value.length ;});"
+      xml << "Event.observe( $('#{js(element)}'),'keyup',function( e ){ $('#{js(element)}-counter').innerHTML=Event.element(e).value.length ;});"
     end
 
     return xml.to_s
