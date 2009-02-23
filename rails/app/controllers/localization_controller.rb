@@ -7,7 +7,7 @@ class LocalizationController < ApplicationController
     @languages = Language.select({:localized=>true},{:order=>Momomoto.lower(:language)})
   end
 
-  Localization_tables = [:attachment_type,:conference_phase,:country,:currency,:event_origin,:event_role,:event_role_state,:event_state,:event_state_progress,:event_type,:im_type,:language,:link_type,:mime_type,:phone_type,:transport,:ui_message]
+  Localization_tables = [:attachment_type,:conflict,:conference_phase,:country,:currency,:event_origin,:event_role,:event_role_state,:event_state,:event_state_progress,:event_type,:im_type,:language,:link_type,:mime_type,:phone_type,:transport,:ui_message]
 
   Localization_tables.each do | category |
     define_method(category) do
