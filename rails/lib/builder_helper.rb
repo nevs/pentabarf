@@ -59,7 +59,7 @@ module Builder_helper
       tag_options[:tabindex] = 0
       xml.textarea( row[column], tag_options )
       xml << markup_syntax_help if options[:markup_help]
-      xml << js_character_counter( row, column, options[:counter] ) if options[:counter]
+      xml << js_character_counter( row, column, options[:counter] ) if options.key?(:counter)
       yield( xml ) if block_given?
     end
   end
