@@ -46,14 +46,20 @@ module Builder_helper
   end
 
   def text_area_fieldset( row, column, options = {} )
+    tag_options = options.clone
+    # clean options passed to tag creation
+    [:label,:counter,:markup_help].each do | name | tag_options.delete( name ) end
+
     table = row.class.table.table_name
     xml = Builder::XmlMarkup.new
     label = options[:label] || local("#{table}::#{column}")
     xml.fieldset do
       xml.legend( label )
-      options[:id] = options[:name] = "#{table}[#{column}]"
-      options[:tabindex] = 0
-      xml.textarea( row[column], options )
+      tag_options[:id] = tag_options[:name] = "#{table}[#{column}]"
+      tag_options[:tabindex] = 0
+      xml.textarea( row[column], tag_options )
+      xml << markup_syntax_help if options[:markup_help]
+      xml << js_character_counter( row, column, options[:counter] ) if options[:counter]
       yield( xml ) if block_given?
     end
   end
@@ -187,7 +193,7 @@ module Builder_helper
     element = "#{row.class.table.table_name}[#{column}]"
     xml.div({:id=>element+"-counter-div"}) do
       xml.span( row[column].to_s.length, {:id=>element+"-counter"})
-      xml.text!(" / #{maximal}") if maximal
+      xml.text!(" / #{maximal}") if maximal.to_i > 0
       xml.text!(" Characters" )
     end
     xml.script({:type=>'text/javascript'}) do
