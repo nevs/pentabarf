@@ -1,4 +1,5 @@
 class Conference_day < Momomoto::Table
+  default_order( :conference_day )
 
   def self.log_change_url( change )
     {:controller=>'pentabarf',:action=>:conference,:id=>change.conference_id}
