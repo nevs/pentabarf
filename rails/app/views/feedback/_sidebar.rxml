@@ -5,7 +5,7 @@ xml.div({:id=>:menu}) do
         xml.span( local(:index), {:class=>:normal})
       end
     end
-    Conference_day.select({:conference_id=>@conference.conference_id,:public=>'t'},{:order=>:conference_day}).each_with_index do | day, index |
+    @conference.days({:public=>'t'}).each_with_index do | day, index |
       xml.li do
         xml.a({:href=>@conference.export_base_url + "day_#{day.conference_day}.#{@current_language}.html"}) do
           xml.span("#{local('schedule::day')} #{index + 1}", :class=>:normal)

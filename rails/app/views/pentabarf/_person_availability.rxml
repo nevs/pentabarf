@@ -1,6 +1,5 @@
 # collect all active slots
 saved = Person_availability.select({:person_id=>@person.person_id,:conference_id=>@conference.conference_id})
-days = Conference_day.select({:conference_id=>@conference.conference_id},{:order=>:conference_day})
 slots = []
 saved.each do | slot |
   start = slot.start_date.strftime('%Y-%m-%d %H:%M:%S')
@@ -23,7 +22,7 @@ xml.div(:id=>'content-availability') do
         end
       end
       xml.tbody do
-        days.each_with_index do | day, index |
+        @conference.days.each_with_index do | day, index |
           xml.tr do
             xml.td sprintf("day %d", index + 1 )
             24.times do | hour |

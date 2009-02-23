@@ -1,5 +1,4 @@
 xml.div(:id=>'content-tracks') do
-  tracks = Conference_track.select({:conference_id=>@conference.conference_id},{:order=>Momomoto::lower(:conference_track)})
 
   xml.fieldset do
     xml.legend( local('conference::tab::tracks') )
@@ -24,7 +23,7 @@ xml.div(:id=>'content-tracks') do
     end
 
     xml.script(:type=>'text/javascript') do 
-      tracks.each do | c |
+      @conference.tracks.each do | c |
         xml << js_function( 'table_add_row', 'conference_track', c.conference_track_id, c.conference_track )
       end
     end

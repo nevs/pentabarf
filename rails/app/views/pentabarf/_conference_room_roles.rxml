@@ -1,6 +1,6 @@
 xml.div(:id=>'content-room_roles') do
 
-  rooms = Conference_room.select({:conference_id=>@conference.conference_id},{:order=>   [:rank,:conference_room]})
+  rooms = @conference.rooms
 
   xml.fieldset do
     xml.legend( local('room-role') )

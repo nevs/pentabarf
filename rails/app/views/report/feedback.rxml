@@ -1,7 +1,6 @@
 xml.div({:id=>:data}) do
 
-  tracks = Conference_track.select({:conference_id=>@current_conference.conference_id})
-  xml << conference_track_color_div( tracks, track_color = {} )
+  xml << conference_track_color_div( @current_conference.tracks, track_color = {} )
 
   xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:feedback})}) do
     xml.button( 'CSV' )
