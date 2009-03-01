@@ -3,7 +3,7 @@
     xml.method( "PUBLISH" )
     xml.uid( "#{event.event_id}@#{@conference.acronym}@pentabarf.org")
     xml.tag!( "pentabarf:event-id", event.event_id )
-    xml.tag!( "pentabarf:event-tag", event.tag )
+    xml.tag!( "pentabarf:event-slug", event.slug )
     xml.tag!( "pentabarf:title", event.title )
     xml.tag!( "pentabarf:subtitle", event.subtitle )
     xml.tag!( "pentabarf:language", event.language_name )
