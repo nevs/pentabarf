@@ -32,17 +32,6 @@ img.object-image {
   height: 64px;
 }
 
-div#object-id {
-  position: fixed;
-  top: 10px;
-  right: 20px;
-
-  background-color: black;
-  color: white;
-
-  z-index: 4;
-}
-
 /* OBJECT NAVIGATION */
 
 div.object_navigation {
