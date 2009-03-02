@@ -14,6 +14,7 @@ CREATE OR REPLACE VIEW view_event AS
          event.event_state,
          event.event_state_progress,
          event.language,
+         language_localized.name AS language_name,
          event.conference_room_id,
          conference_room.conference_room,
          event.conference_day,
@@ -43,5 +44,6 @@ CREATE OR REPLACE VIEW view_event AS
          LEFT OUTER JOIN event_type_localized USING (event_type,translated)
          LEFT OUTER JOIN event_image USING (event_id)
          LEFT OUTER JOIN mime_type USING (mime_type)
+         LEFT OUTER JOIN language_localized USING (language, translated)
 ;
 
