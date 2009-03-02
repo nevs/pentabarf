@@ -50,7 +50,7 @@ xml.div(:id=>'infobox') do
     end
     xml.tr do
       xml.td( local( 'event::language' ),{:class=>'keyword'})
-      xml.td(@event.language,{:class=>'value'})
+      xml.td(@event.language_name,{:class=>'value'})
     end
   end
 
