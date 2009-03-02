@@ -32,15 +32,6 @@ img.object-image {
   height: 64px;
 }
 
-/* OBJECT NAVIGATION */
-
-div.object_navigation {
-  position: fixed;
-  font-size: larger;
-  top: 50px;
-  left: 230px;
-}
-
 /* MAIN CONTENT AREA */
 
 #content {
