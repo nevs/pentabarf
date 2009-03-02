@@ -34,7 +34,7 @@ xml.div(:id=>'event-index',:class=>'section') do
                 xml.br
                 xml.strong local( 'event::language' )
                 xml.text! ': '
-                xml.span(event.language,{:class=>'type'})
+                xml.span(event.language_name,{:class=>'type'})
                 xml.br
               end
             end
