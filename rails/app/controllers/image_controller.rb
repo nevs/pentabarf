@@ -59,7 +59,7 @@ class ImageController < ApplicationController
       @timestamp = File.mtime( file ).to_s
     end
     if request.env['HTTP_IF_MODIFIED_SINCE'] && request.env['HTTP_IF_MODIFIED_SINCE'] == @timestamp
-      render({:text => "Not changed",:status => 304})
+      render({:nothing => true,:status => 304})
       return false
     end
     true
