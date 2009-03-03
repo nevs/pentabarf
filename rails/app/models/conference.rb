@@ -15,6 +15,10 @@ class Conference < Momomoto::Table
       Conference_track.select( conditions.merge( {:conference_id=>conference_id} ), options )
     end
 
+    def latest_release
+      Conference_release.select_single({:conference_id=>conference_id},{:limit=>1,:order=>Momomoto.desc(:conference_release_id)})
+    end
+
   end
 
   def self.log_content_columns
