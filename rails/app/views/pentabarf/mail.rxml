@@ -35,8 +35,8 @@ xml.div({:id=>:data}) do
       xml.legend local('mail::recipients')
       xml.div({:id=>:recipients}) do
         xml.script({:type=>'text/javascript'}) do
-          xml << "new Form.Element.EventObserver('mail[recipients]', function(element, value) {if ($F('mail[recipients]').length > 0) { new Ajax.Updater('recipients', '#{url_for(:action=>:recipients)}/' + $F('mail[recipients]') + '?ignore_spam_flag=' + $F('mail[ignore_spam_flag]'), {asynchronous:true, evalScripts:true, parameters:value}); }});"
-          xml << "new Form.Element.EventObserver('mail[ignore_spam_flag]', function(element, value) {if ($F('mail[recipients]').length > 0) { new Ajax.Updater('recipients', '#{url_for(:action=>:recipients)}/' + $F('mail[recipients]') + '?ignore_spam_flag=' + $F('mail[ignore_spam_flag]'), {asynchronous:true, evalScripts:true, parameters:value}); }});"
+          xml << "new Form.Element.EventObserver('mail[recipients]', function(element, value) {if ($F('mail[recipients]').length > 0) { new Ajax.Updater('recipients', '#{url_for(:action=>:recipients)}/' + $F('mail[recipients]') + '?mail[ignore_spam_flag]=' + $F('mail[ignore_spam_flag]'), {asynchronous:true, evalScripts:true, parameters:value}); }});"
+          xml << "new Form.Element.EventObserver('mail[ignore_spam_flag]', function(element, value) {if ($F('mail[recipients]').length > 0) { new Ajax.Updater('recipients', '#{url_for(:action=>:recipients)}/' + $F('mail[recipients]') + '?mail[ignore_spam_flag]=' + $F('mail[ignore_spam_flag]'), {asynchronous:true, evalScripts:true, parameters:value}); }});"
         end
       end
     end

@@ -317,7 +317,7 @@ class PentabarfController < ApplicationController
     return render_text('') unless params[:id]
     person_ids = []
     @recipients = []
-    recipient_members( params[:id], params[:ignore_spam_flag] == 'on' ).each do | r |
+    recipient_members( params[:id], params[:mail][:ignore_spam_flag] == 'on' ).each do | r |
       if not person_ids.member?( r.person_id )
         person_ids << r.person_id
         @recipients << r
@@ -331,7 +331,7 @@ class PentabarfController < ApplicationController
     from = @current_conference.email 
     variables = ['email','name','person_id','conference_acronym','conference_title']
     if params[:mail][:recipients]
-      recipients = recipient_members( params[:mail][:recipients], params[:ignore_spam_flag] == 'on' )
+      recipients = recipient_members( params[:mail][:recipients], params[:mail][:ignore_spam_flag] == 'on' )
       person_ids = recipients.map(&:person_id).uniq
       person_ids.each do | person_id |
         begin
