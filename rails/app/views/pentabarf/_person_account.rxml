@@ -5,6 +5,7 @@ xml.div(:id=>'content-account') do
 
     xml.table do
       xml << text_field_row( @account, :login_name, {:size=>20} )
+      xml << text_field_row( @account, :email, {:size=>20} )
       xml.tr do
         xml.td( local('account::password'))
         xml.td do xml.input({:type=>:password,:name=>'account[password]',:size=>40}) end
