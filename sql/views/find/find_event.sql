@@ -5,6 +5,7 @@ CREATE OR REPLACE VIEW view_find_event AS
     event.conference_id,
     event.title,
     event.subtitle,
+    event.slug,
     event.abstract,
     event.description,
     event.duration,
