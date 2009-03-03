@@ -1,0 +1,27 @@
+xml.ul do
+  @persons.each do | person |
+    xml.li({:class=>:person}) do
+      xml.a({:href=>url_for(:action=>:person,:id=>person.person_id)}) do
+        xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>person.person_id,:size=>"24x24"),:height=>24,:witdh=>24})
+        xml.span( person.name, {:class=>:name} )
+      end
+    end
+  end
+  @events.each do | event |
+    xml.li({:class=>:event}) do
+      xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
+        xml.img({:src=>url_for(:controller=>'image',:action=>:event,:id=>event.event_id,:size=>"24x24"),:height=>24,:witdh=>24})
+        xml.span( event.title, {:class=>:title} )
+      end
+    end
+  end
+  @conferences.each do | conference |
+    xml.li({:class=>:conference}) do
+      xml.a({:href=>url_for(:action=>:conference,:id=>conference.conference_id)}) do
+        xml.img({:src=>url_for(:controller=>'image',:action=>:conference,:id=>conference.conference_id,:size=>"24x24"),:height=>24,:witdh=>24})
+        xml.span( conference.title, {:class=>:title} )
+      end
+    end
+  end
+end
+

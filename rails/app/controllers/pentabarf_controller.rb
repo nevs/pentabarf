@@ -233,6 +233,27 @@ class PentabarfController < ApplicationController
     render(:partial=>'search_person')
   end
 
+  def sidebar_search
+    conditions = {:person=>{:AND=>[]},:event=>{:AND=>[]},:conference=>{:AND=>[]}}
+    conditions[:event].merge({:conference_id=>@current_conference.conference_id,:translated=>@current_language})
+    fields = {
+      :event=>[:title,:subtitle,:slug],
+      :person=>[:first_name,:last_name,:nickname,:public_name,:email],
+      :conference=>[:title,:subtitle,:acronym]
+    }
+    params[:sidebar_search].split(/ +/).each do | word |
+      [:event,:person,:conference].each do | table |
+        find = {}
+        fields[table].each do | field | find[field] = {:ilike=>"%#{word}%"} end
+        conditions[table][:AND] << {:OR=>find}
+      end
+    end
+    @persons = View_find_person.select( conditions[:person], {:distinct=>[:name,:person_id],:limit=>5})
+    @events = View_find_event.select( conditions[:event], {:distinct=>[:title,:subtitle,:event_id],:limit=>5})
+    @conferences = View_find_conference.select( conditions[:conference], {:limit=>3} )
+    render(:partial=>'sidebar_search')
+  end
+
   def find_event
     @content_title = "Find Event"
   end
