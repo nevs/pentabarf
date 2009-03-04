@@ -42,7 +42,7 @@ xml.div(:id=>'infobox') do
     end
     xml.tr do
       xml.td( local( 'event::event_type' ),{:class=>'keyword'})
-      xml.td(@event.event_type,{:class=>'value'})
+      xml.td(@event.event_type_name,{:class=>'value'})
     end
     xml.tr do
       xml.td( local( 'event::conference_track' ),{:class=>'keyword'})

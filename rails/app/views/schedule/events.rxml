@@ -26,7 +26,7 @@ xml.div(:id=>'event-index',:class=>'section') do
               xml.a({:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>event.event_id)}) do
                 xml.strong local( 'event::event_type' )
                 xml.text! ': '
-                xml.span(event.event_type,{:class=>'type'})
+                xml.span(event.event_type_name,{:class=>'type'})
                 xml.br
                 xml.strong local( 'event::conference_track' )
                 xml.text! ': '
