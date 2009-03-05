@@ -76,7 +76,7 @@ INSERT INTO "language" ("language", localized) VALUES ('io', false);
 INSERT INTO "language" ("language", localized) VALUES ('is', false);
 INSERT INTO "language" ("language", localized) VALUES ('it', false);
 INSERT INTO "language" ("language", localized) VALUES ('iu', false);
-INSERT INTO "language" ("language", localized) VALUES ('ja', true);
+INSERT INTO "language" ("language", localized) VALUES ('ja', false);
 INSERT INTO "language" ("language", localized) VALUES ('jv', false);
 INSERT INTO "language" ("language", localized) VALUES ('ka', false);
 INSERT INTO "language" ("language", localized) VALUES ('kg', false);
