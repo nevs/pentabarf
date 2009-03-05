@@ -133,7 +133,7 @@ ALTER TABLE base.event RENAME COLUMN tag TO slug;
 
 SELECT log.activate_logging();
 
-INSERT INTO auth.object_domain VALUES ('conflict_localized','localization');)
+INSERT INTO auth.object_domain VALUES ('conflict_localized','localization');
 
 COMMIT;
 
