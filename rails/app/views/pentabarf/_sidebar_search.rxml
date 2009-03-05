@@ -1,42 +1,35 @@
 
+shown = {:person=>5,:event=>5,:conference=>5}
+
+shown[:person] += 5 if @events.length == 0 && @conferences.length == 0
+shown[:event] += 5 if @persons.length == 0 && @conferences.length == 0
+shown[:conference] += 5 if @persons.length == 0 && @events.length == 0
+
 xml.ul do
-  @persons.each_with_index do | person, index |
-    if index >= 5
-      xml.span( "#{@persons.length-index} more persons", :class=>"more-results" )
-      break
-    end
-    xml.li({:class=>:person}) do
-      xml.a({:href=>url_for(:action=>:person,:id=>person.person_id)}) do
-        xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>person.person_id,:size=>"24x24"),:height=>24,:witdh=>24})
-        xml.span( person.name, {:class=>:name} )
+  [[:person,@persons],[:event,@events],[:conference,@conferences]].each do | table, list |
+    list.each_with_index do | item, index |
+      item_id = "#{table}_id".to_sym
+      if index >= shown[:person]
+        xml.span( "#{list.length-index} more #{table}s", :class=>"more-results" )
+        break
       end
+      xml.li({:class=>table}) do
+        xml.a({:href=>url_for(:action=>table,:id=>item[item_id])}) do
+          xml.img({:src=>url_for(:controller=>'image',:action=>table,:id=>item[item_id],:size=>"24x24"),:height=>24,:witdh=>24})
+          case table
+            when :person then
+              xml.span( item.name, {:class=>:name} )
+            when :event then
+              xml.span( item.title, {:class=>:title} )
+            when :conference then
+              xml.span( item.title, {:class=>:title} )
+          end
+        end
+      end
+  
     end
+  
   end
 
-  @events.each_with_index do | event, index |
-    if index >= 5
-      xml.span( "#{@events.length-index} more events", :class=>"more-results" )
-      break
-    end
-    xml.li({:class=>:event}) do
-      xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
-        xml.img({:src=>url_for(:controller=>'image',:action=>:event,:id=>event.event_id,:size=>"24x24"),:height=>24,:witdh=>24})
-        xml.span( event.title, {:class=>:title} )
-      end
-    end
-  end
-
-  @conferences.each_with_index do | conference, index |
-    if index >= 5
-      xml.span( "#{@conferences.length-index} more conferences", :class=>"more-results" )
-      break
-    end
-    xml.li({:class=>:conference}) do
-      xml.a({:href=>url_for(:action=>:conference,:id=>conference.conference_id)}) do
-        xml.img({:src=>url_for(:controller=>'image',:action=>:conference,:id=>conference.conference_id,:size=>"24x24"),:height=>24,:witdh=>24})
-        xml.span( conference.title, {:class=>:title} )
-      end
-    end
-  end
 end
 
