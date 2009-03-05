@@ -85,3 +85,27 @@
   margin-top: 6px;
 }
 
+div#sidebar_search_results {
+  min-width:450px;
+  background-color:white;
+  border:1px solid #888;
+  margin:0;
+  padding:0;
+}
+
+div#sidebar_search_results ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+div#sidebar_search_results ul li.selected { background-color: #ffb;}
+
+div#sidebar_search_results ul li {
+  display:block;
+  margin:0;
+  padding:2px;
+  height:32px;
+  cursor:pointer;
+}
+
