@@ -248,9 +248,9 @@ class PentabarfController < ApplicationController
         conditions[table][:AND] << {:OR=>find}
       end
     end
-    @persons = View_find_person.select( conditions[:person], {:distinct=>[:name,:person_id],:limit=>5})
-    @events = View_find_event.select( conditions[:event], {:distinct=>[:title,:subtitle,:event_id],:limit=>5})
-    @conferences = View_find_conference.select( conditions[:conference], {:limit=>3} )
+    @persons = View_find_person.select( conditions[:person], {:distinct=>[:name,:person_id]})
+    @events = View_find_event.select( conditions[:event], {:distinct=>[:title,:subtitle,:event_id]})
+    @conferences = View_find_conference.select( conditions[:conference] )
     render(:partial=>'sidebar_search')
   end
 

@@ -109,3 +109,7 @@ div#sidebar_search_results ul li {
   cursor:pointer;
 }
 
+div#sidebar_search_results span.more-results {
+  padding: 0 50px;
+}
+
