@@ -21,8 +21,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'schedule/:conference/events.:language.html', :controller => 'schedule', :action => 'events'
   map.connect 'schedule/:conference/event/:id.:language.html', :controller => 'schedule', :action => 'event'
   map.connect 'schedule/:conference/day/:id.:language.html', :controller => 'schedule', :action => 'day'
-  map.connect 'schedule/:conference/track/:track/index.:language.html', :controller => 'schedule', :action => 'track_events'
-  map.connect 'schedule/:conference/track/:track/:id.:language.html', :controller => 'schedule', :action => 'track_event'
+  map.connect 'schedule/:conference/track/:track/index.:language.html', :controller => 'schedule', :action => 'track_events', :track=> /[^\/]+/
+  map.connect 'schedule/:conference/track/:track/:id.:language.html', :controller => 'schedule', :action => 'track_event', :track=> /[^\/]+/
   map.connect 'schedule/:conference/style.css', :controller => 'schedule', :action => 'css'
   map.connect 'schedule/:conference/:action.:language.html',:controller => 'schedule'
   map.connect 'schedule/:conference/:action/:id.:language.html',:controller => 'schedule'
