@@ -3,6 +3,7 @@ CREATE OR REPLACE VIEW view_own_events_participant AS
 SELECT
   event.event_id,
   event.conference_id,
+  (event.start_time + conference.day_change)::interval AS start_time,
   event.conference_day,
   event.conference_room_id,
   conference_room.conference_room,
