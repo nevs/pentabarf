@@ -188,7 +188,7 @@ module ApplicationHelper
     xml = Builder::XmlMarkup.new
     options[:id] ||= 'event_table'
     xml.table(:id=>options[:id],:class=>'sortable') do
-      fields = [:event_state,:event_state_progress,:conference_day,:conference_room,:duration]
+      fields = [:event_state,:event_state_progress,:conference_day,:start_time,:conference_room,:duration]
       xml.thead do
         xml.tr do
           xml.th(local(:event),:colspan=>2)
