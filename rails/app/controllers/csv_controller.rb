@@ -3,6 +3,12 @@ require 'csv'
 
 class CsvController < ApplicationController
 
+  before_filter :init
+
+  def init
+    @current_language = POPE.user.current_language || 'en'
+  end
+
   def expenses
     @current_conference = Conference.select_single(:acronym=>params[:id])
     rows = View_report_expenses.select({:conference_id => @current_conference.conference_id})
@@ -38,7 +44,7 @@ class CsvController < ApplicationController
   def events
     ids = params[:id].to_s.split(/[ +]+/)
     rows = View_find_event.select({:translated=>POPE.user.current_language,:conference_id=>POPE.user.current_conference_id}.merge( ids.empty? ? {} : {:event_id=>ids} ))
-    header = ["ID","Title","Speakers","Event state","Day","Time","Room","Duration"]
+    header = ["ID",local('event::title'),local('schedule::speakers'),local('event::event_state'),local('event::conference_day'),local('event::start_time'),local('event::conference_room'),local('event::duration')]
     generate_csv( rows, 'events.csv', header ) do | d |
       [ d.event_id, [d.title,d.subtitle].join(' '), d.speakers.to_s.split("\n").join(", "), "#{d.event_state} #{d.event_state_progress}", d.conference_day, d.start_time, d.conference_room, d.duration ]
     end
