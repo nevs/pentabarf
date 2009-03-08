@@ -38,8 +38,9 @@ class CsvController < ApplicationController
   def events
     ids = params[:id].to_s.split(/[ +]+/)
     rows = View_find_event.select({:translated=>POPE.user.current_language,:conference_id=>POPE.user.current_conference_id}.merge( ids.empty? ? {} : {:event_id=>ids} ))
-    generate_csv( rows, 'events.csv' ) do | d |
-      [ d.event_id, [d.title,d.subtitle].join(' '), d.speakers.to_s.split("\n").join(", "), "#{d.event_state} #{d.event_state_progress}", d.conference_day, d.conference_room, d.duration ]
+    header = ["ID","Title","Speakers","Event state","Day","Time","Room","Duration"]
+    generate_csv( rows, 'events.csv', header ) do | d |
+      [ d.event_id, [d.title,d.subtitle].join(' '), d.speakers.to_s.split("\n").join(", "), "#{d.event_state} #{d.event_state_progress}", d.conference_day, d.start_time, d.conference_room, d.duration ]
     end
   end
 
@@ -53,9 +54,10 @@ class CsvController < ApplicationController
 
   protected
 
-  def generate_csv( data, filename )
+  def generate_csv( data, filename, header = nil )
     out = ""
     CSV::Writer.generate( out ) do | csv |
+      csv << header if header
       data.each do | d |
         csv << yield( d )
       end
