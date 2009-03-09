@@ -12,26 +12,25 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_person_availability( I
         FROM event_person
         INNER JOIN event ON (
           event.event_id = event_person.event_id AND
-          event.conference_day IS NOT NULL AND
           event.start_time IS NOT NULL
         )
         INNER JOIN person_availability AS slot USING (person_id, conference_id)
         INNER JOIN conference ON (
             conference.conference_id = event.conference_id AND
-            conference.conference_id = cur_conference_id
-        )
+            conference.conference_id = cur_conference_id)
+        INNER JOIN conference_day USING(conference_day_id)
       WHERE
         event_person.event_role IN ('speaker','moderator') AND
         event_person.event_role_state = 'confirmed' AND
         event.event_state = 'accepted' AND
-        ( ( slot.start_date <= (event.conference_day + event.start_time + conference.day_change) AND
-            ( slot.start_date + slot.duration ) > (event.conference_day + event.start_time + conference.day_change)
+        ( ( slot.start_date <= (conference_day.conference_day + event.start_time + conference.day_change) AND
+            ( slot.start_date + slot.duration ) > (conference_day.conference_day + event.start_time + conference.day_change)
           ) OR (
-            slot.start_date >= (event.conference_day + event.start_time + conference.day_change) AND
-            ( slot.start_date + slot.duration ) <= ( event.conference_day + event.start_time + conference.day_change + event.duration )
+            slot.start_date >= (conference_day.conference_day + event.start_time + conference.day_change) AND
+            ( slot.start_date + slot.duration ) <= ( conference_day.conference_day + event.start_time + conference.day_change + event.duration )
           ) OR (
-            slot.start_date < ( event.conference_day + event.start_time + conference.day_change + event.duration ) AND
-            ( slot.start_date + slot.duration ) >= ( event.conference_day + event.start_time + conference.day_change + event.duration )
+            slot.start_date < ( conference_day.conference_day + event.start_time + conference.day_change + event.duration ) AND
+            ( slot.start_date + slot.duration ) >= ( conference_day.conference_day + event.start_time + conference.day_change + event.duration )
           )
         )
     LOOP
