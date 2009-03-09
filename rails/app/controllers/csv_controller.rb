@@ -12,7 +12,8 @@ class CsvController < ApplicationController
   def expenses
     @current_conference = Conference.select_single(:acronym=>params[:id])
     rows = View_report_expenses.select({:conference_id => @current_conference.conference_id})
-    generate_csv( rows, 'expenses.csv' ) do | d |
+    header = ['person::name','conference_person_travel::fee','conference_person_travel::fee_currency','conference_person_travel::travel_cost','conference_person_travel::travel_currency','conference_person_travel::accommodation_cost','conference_person_travel::accommodation_currency'].map{|n| local(n)}
+    generate_csv( rows, 'expenses.csv', header ) do | d |
       [ d.name, d.fee, d.fee_currency, d.travel_cost, d.travel_currency, d.accommodation_cost, d.accommodation_currency ]
     end
   end
