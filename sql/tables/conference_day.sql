@@ -1,5 +1,6 @@
 
 CREATE TABLE base.conference_day (
+  conference_day_id INTEGER NOT NULL,
   conference_id INTEGER NOT NULL,
   conference_day DATE NOT NULL,
   name TEXT,
@@ -8,7 +9,7 @@ CREATE TABLE base.conference_day (
 
 CREATE TABLE conference_day (
   FOREIGN KEY( conference_id ) REFERENCES conference( conference_id ) ON UPDATE CASCADE ON DELETE CASCADE,
-  PRIMARY KEY( conference_id, conference_day)
+  PRIMARY KEY( conference_day_id )
 ) INHERITS( base.conference_day );
 
 CREATE TABLE log.conference_day (
