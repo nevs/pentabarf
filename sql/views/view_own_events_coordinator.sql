@@ -4,7 +4,9 @@ SELECT
   event.event_id,
   event.conference_id,
   (event.start_time + conference.day_change)::interval AS start_time,
-  event.conference_day,
+  event.conference_day_id,
+  conference_day.conference_day,
+  conference_day.name AS conference_day_name,
   event.conference_room_id,
   conference_room.conference_room,
   event.event_state,
@@ -51,6 +53,7 @@ FROM
   INNER JOIN event_state_localized USING (event_state)
   INNER JOIN event_state_progress_localized USING (event_state,event_state_progress,translated)
   INNER JOIN event_role_localized USING (event_role,translated)
+  LEFT OUTER JOIN conference_day USING (conference_day_id)
   LEFT OUTER JOIN conference_room USING (conference_room_id)
 ;
 

@@ -17,7 +17,8 @@ CREATE OR REPLACE VIEW view_event AS
          language_localized.name AS language_name,
          event.conference_room_id,
          conference_room.conference_room,
-         event.conference_day,
+         event.conference_day_id,
+         conference_day.conference_day,
          conference_day.name AS conference_day_name,
          event.start_time,
          event.abstract,
@@ -31,14 +32,14 @@ CREATE OR REPLACE VIEW view_event AS
          event_state_localized.name AS event_state_name,
          event_type_localized.name AS event_type_name,
          conference.acronym,
-         (event.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
+         (conference_day.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
          event.start_time + conference.day_change AS real_starttime,
          event_image.mime_type,
          mime_type.file_extension
     FROM event
          INNER JOIN event_state_localized USING (event_state)
          INNER JOIN conference USING (conference_id)
-         LEFT OUTER JOIN conference_day USING (conference_id, conference_day)
+         LEFT OUTER JOIN conference_day USING (conference_day_id)
          LEFT OUTER JOIN conference_track USING (conference_track_id)
          LEFT OUTER JOIN conference_room USING (conference_room_id)
          LEFT OUTER JOIN event_type_localized USING (event_type,translated)

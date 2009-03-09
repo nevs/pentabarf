@@ -33,14 +33,12 @@ CREATE OR REPLACE VIEW view_schedule_person AS
                         event.event_state = 'accepted' AND
                         event.event_state_progress = 'confirmed' AND
                         event.public = 't' AND
-                        event.conference_day IS NOT NULL AND
                         event.start_time IS NOT NULL )
                     INNER JOIN conference_room ON (
                         event.conference_room_id = conference_room.conference_room_id AND
                         conference_room.public = 't' )
                     INNER JOIN conference_day ON (
-                        event.conference_id = conference_day.conference_id AND
-                        event.conference_day = conference_day.conference_day AND
+                        event.conference_day_id = conference_day.conference_day_id AND
                         conference_day.public = 't' )
               WHERE event_person.event_role IN ('speaker','moderator') AND
                     event_person.event_role_state = 'confirmed'

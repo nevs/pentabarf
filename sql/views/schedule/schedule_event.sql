@@ -9,11 +9,13 @@ CREATE OR REPLACE VIEW view_schedule_event AS
          event.description,
          event.conference_track_id,
          conference_track.conference_track,
-         event.conference_day,
+         event.conference_day_id,
+         conference_day.conference_day,
+         conference_day.name AS conference_day_name,
          event.duration,
          event.start_time,
-         (event.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
-         (event.conference_day + event.start_time + conference.day_change + event.duration)::timestamp AS end_datetime,
+         (conference_day.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
+         (conference_day.conference_day + event.start_time + conference.day_change + event.duration)::timestamp AS end_datetime,
          event.start_time + conference.day_change AS real_starttime,
          event.conference_room_id,
          conference_room.conference_room,
@@ -44,8 +46,7 @@ CREATE OR REPLACE VIEW view_schedule_event AS
              event.conference_room_id = conference_room.conference_room_id AND
              conference_room.public = 't' )
          INNER JOIN conference_day ON (
-             event.conference_id = conference_day.conference_id AND
-             event.conference_day = conference_day.conference_day AND
+             event.conference_day_id = conference_day.conference_day_id AND
              conference_day.public = 't' )
          INNER JOIN (
              SELECT person_id,

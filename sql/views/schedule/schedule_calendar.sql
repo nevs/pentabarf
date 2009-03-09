@@ -7,7 +7,9 @@ SELECT
   event.slug,
   event.abstract,
   event.description,
-  event.conference_day,
+  event.conference_day_id,
+  conference_day.conference_day,
+  conference_day.name AS conference_day_name,
   event.start_time,
   event.duration,
   event.language,
@@ -15,8 +17,8 @@ SELECT
   language_localized.name AS language_name,
   conference_room.conference_room,
   event.start_time + conference.day_change AS "time",
-  event.conference_day + event.start_time + conference.day_change::interval AS start_date,
-  event.conference_day + event.start_time + conference.day_change::interval + event.duration AS end_date,
+  conference_day.conference_day + event.start_time + conference.day_change::interval AS start_date,
+  conference_day.conference_day + event.start_time + conference.day_change::interval + event.duration AS end_date,
   array_to_string(ARRAY(
     SELECT view_person.name
       FROM event_person
@@ -32,8 +34,7 @@ FROM event
       event.conference_room_id = conference_room.conference_room_id AND
       conference_room.public = 't' )
   INNER JOIN conference_day ON (
-      event.conference_id = conference_day.conference_id AND
-      event.conference_day = conference_day.conference_day AND
+      event.conference_day_id = conference_day.conference_day_id AND
       conference_day.public = 't' )
   LEFT OUTER JOIN language_localized USING (language,translated)
 WHERE

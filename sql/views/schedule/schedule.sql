@@ -16,7 +16,9 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.language,
           event.conference_room_id,
           conference_room.conference_room,
-          event.conference_day,
+          event.conference_day_id,
+          conference_day.conference_day,
+          conference_day.name AS conference_day_name,
           event.start_time,
           event.abstract,
           event.description,
@@ -24,7 +26,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           translated.language AS translated,
           language_localized.name AS language_name,
           event_type_localized.name AS event_type_name,
-          (event.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
+          (conference_day.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
           event.start_time + conference.day_change AS real_starttime,
           array_to_string(
             ARRAY(
@@ -69,16 +71,16 @@ CREATE OR REPLACE VIEW view_schedule AS
      FROM event
           CROSS JOIN language AS translated
           INNER JOIN conference USING (conference_id)
-          INNER JOIN conference_day USING (conference_id,conference_day)
+          INNER JOIN conference_day USING (conference_day_id)
           INNER JOIN conference_room USING (conference_room_id)
           LEFT OUTER JOIN conference_track USING (conference_track_id)
           LEFT OUTER JOIN language_localized ON (
               language_localized.translated = translated.language AND
               language_localized.language = event.language )
           LEFT OUTER JOIN event_type_localized USING (event_type,translated)
-    WHERE event.conference_day IS NOT NULL AND
-          event.start_time IS NOT NULL AND
-          event.event_state = 'accepted' AND
-          event.event_state_progress != 'canceled'
+    WHERE
+      event.start_time IS NOT NULL AND
+      event.event_state = 'accepted' AND
+      event.event_state_progress != 'canceled'
 ;
 
