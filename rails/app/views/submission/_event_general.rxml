@@ -41,7 +41,12 @@ xml.div(:id=>'content-general') do
     xml.table do
       xml.tr do
         xml.td do xml.b( local('event::conference_day')) end
-        xml.td( @event.conference_day )
+        xml.td do
+          if @event.conference_day_id
+            day = @event.conference_day
+            xml.text! "#{day.name} #{day.conference_day}"
+          end
+        end
       end
       xml.tr do
         xml.td do xml.b( local('event::start_time')) end
