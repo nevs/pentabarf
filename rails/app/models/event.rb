@@ -7,6 +7,10 @@ class Event < Momomoto::Table
       Event_person.select( conditions.merge( {:event_id=>event_id} ), options )
     end
 
+    def conference_day
+      Conference_day.select_single({:conference_id=>conference_id,:conference_day_id=>conference_day_id})
+    end
+
   end
 
   def self.log_content_columns
