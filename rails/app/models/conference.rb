@@ -3,20 +3,20 @@ class Conference < Momomoto::Table
 
   module Methods
 
-    def days( conditions = {}, options = {} )
-      Conference_day.select( conditions.merge( {:conference_id=>conference_id} ), options )
+    def days( *args )
+      conference_day( *args )
     end
 
-    def rooms( conditions = {}, options = {} )
-      Conference_room.select( conditions.merge( {:conference_id=>conference_id} ), options )
+    def rooms( *args )
+      conference_room( *args )
     end
 
-    def tracks( conditions = {}, options = {} )
-      Conference_track.select( conditions.merge( {:conference_id=>conference_id} ), options )
+    def tracks( *args )
+      conference_track( *args )
     end
 
-    def latest_release
-      Conference_release.select_single({:conference_id=>conference_id},{:limit=>1,:order=>Momomoto.desc(:conference_release_id)})
+    def latest_release( *args )
+      conference_release({}, {:limit=>1,:order=>Momomoto.desc(:conference_release_id)})
     end
 
   end
