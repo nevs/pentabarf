@@ -20,7 +20,7 @@ class Conference < Momomoto::Table
     end
 
     def latest_release
-      conference_release({}, {:limit=>1,:order=>Momomoto.desc(:conference_release_id)})
+      conference_release({}, {:limit=>1,:order=>Momomoto.desc(:conference_release_id)})[0]
     end
 
   end

@@ -1,7 +1,7 @@
 xml.div(:id=>'content-export') do
 
   xml.fieldset do
-    xml.legend( 'Export' )
+    xml.legend( local('conference::tab::export') )
 
     xml.a({:href=>url_for({:controller=>'schedule',:conference=>@conference.acronym,:action=>:index,:language=>:en})}) do
       xml.button( local( :schedule_export ) )
@@ -24,6 +24,38 @@ xml.div(:id=>'content-export') do
       xml << check_box_row( @conference, :f_submission_writable )
       xml << check_box_row( @conference, :f_feedback_enabled )
     end
+  end
+
+  xml.fieldset do
+    xml.legend( 'releases' )
+
+    xml.table(:id=>'conference_release_table',:style=>'display:none') do
+      xml.thead do
+        xml.tr do
+          xml.th( local('conference_release') )
+          xml.th( local('form::remove') )
+        end
+      end
+      xml.tbody(:id=>'conference_release_tbody') do
+        xml.tr(:id=>'conference_release_template',:style=>'display:none') do
+          xml.td do
+            xml.input({:type=>:hidden,:id=>'conference_release[row_id][conference_release_id]',:name=>'conference_release[row_id][conference_release_id]'})
+            xml.input({:type=>:text,:id=>'conference_release[row_id][conference_release]',:name=>'conference_release[row_id][conference_release]'})
+          end
+          xml.td do
+            xml.input({:type=>:checkbox,:name=>'conference_release[row_id][remove]',:id=>'conference_release[row_id][remove]'})
+          end
+        end
+      end
+    end
+
+    xml.script(:type=>'text/javascript') do 
+      @conference.releases.each do | c |
+        xml << js_function( 'table_add_row', 'conference_release', c.conference_release_id, c.conference_release )
+      end
+    end
+
+    xml.button( local('conference::add_conference_release'), {:type=>:button,:onclick=>'table_add_row("conference_release")'})
   end
 
   xml << text_area_fieldset( @conference, :css, {:rows=>40,:cols=>60})

@@ -81,6 +81,7 @@ class PentabarfController < ApplicationController
     write_rows( Conference_language, params[:conference_language], {:preset=>{:conference_id => conf.conference_id}})
     write_rows( Conference_team, params[:conference_team], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:conference_team})
     write_rows( Conference_track, params[:conference_track], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:conference_track})
+    write_rows( Conference_release, params[:conference_release], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:conference_release})
     write_rows( Conference_room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:public],:ignore_empty=>:conference_room})
     write_rows( Event_rating_category, params[:event_rating_category], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:event_rating_category})
     write_rows( Conference_room_role, params[:conference_room_role] )
