@@ -15,7 +15,11 @@ class Conference < Momomoto::Table
       conference_track( *args )
     end
 
-    def latest_release( *args )
+    def releases( *args )
+      conference_release( *args )
+    end
+
+    def latest_release
       conference_release({}, {:limit=>1,:order=>Momomoto.desc(:conference_release_id)})
     end
 
