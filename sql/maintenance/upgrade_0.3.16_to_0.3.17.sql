@@ -30,6 +30,9 @@ ALTER TABLE event ADD CONSTRAINT event_conference_day_id_fkey FOREIGN KEY (confe
 
 INSERT INTO auth.object_domain VALUES ('conference_release','conference');
 
+INSERT INTO event_state_progress(event_state,event_state_progress,rank) VALUES ('accepted','reconfirmed',3);
+UPDATE event_state_progress SET rank = 4 WHERE event_state = 'accepted' AND event_state_progress = 'canceled';
+
 
 COMMIT;
 
