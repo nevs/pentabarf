@@ -5,10 +5,10 @@ xml.div(:id=>'menu', :class=>'noprint') do
         xml.span('Index', :class=>:normal)
       end
     end
-    @days.each_with_index do | day, index |
+    @conference.days.each do | day |
       xml.li do
         xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:day,:id=>day.conference_day.to_s,:language=>params[:language]})) do
-          xml.span(format_conference_day(day), :class=>:normal)
+          xml.span( "#{day.name} - #{day.conference_day}", :class=>:normal)
         end
       end
     end

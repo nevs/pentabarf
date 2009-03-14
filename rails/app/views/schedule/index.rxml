@@ -2,10 +2,10 @@ xml.ul do
 
   links = []
 
-  @days.each_with_index do | day, index |
+  @conference.days.each do | day |
     links << [
       url_for({:conference=>@conference.acronym,:action=>:day,:id=>day.conference_day.to_s,:language=>params[:language]}),
-      format_conference_day( day )
+      "#{day.name} - #{day.conference_day}"
     ]
   end
   links << [url_for({:conference=>@conference.acronym,:action=>:speakers,:language=>params[:language]}), local('schedule::speakers')]

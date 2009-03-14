@@ -21,7 +21,7 @@ xml.div(:id=>'infobox') do
     xml.tr do xml.th( local('schedule::schedule'),{:colspan=>2}) end
     xml.tr do
       xml.td( local( 'schedule::day' ),{:class=>'keyword'})
-      xml.td( format_conference_day(@event.conference_day,@event.conference_day_name),{:class=>'value'})
+      xml.td( "#{@event.conference_day_name} - #{@event.conference_day}",{:class=>'value'})
     end
     xml.tr do
       xml.td( local( 'schedule::room' ),{:class=>'keyword'})

@@ -15,7 +15,7 @@ class ScheduleController < ApplicationController
 
   def day
     @day = Conference_day.select_single({:conference_id=>@conference.conference_id,:public=>'t',:conference_day=>params[:id]})
-    @content_title = local('schedule::schedule') + ' ' + format_conference_day( @day )
+    @content_title = "#{local('schedule::schedule')} #{@day.name}"
     @rooms = Conference_room.select({:conference_id=>@conference.conference_id, :public=>'t'})
     @events = View_schedule_event.select({:conference_day=>{:le=>@day.conference_day},:conference_id=>@conference.conference_id,:translated=>@current_language},{:order=>[:title,:subtitle]})
   end
@@ -59,7 +59,6 @@ class ScheduleController < ApplicationController
 
   def init
     @conference = Conference.select_single(:acronym=>params[:conference])
-    @days = Conference_day.select({:conference_id=>@conference.conference_id,:public=>'t'},{:order=>:conference_day})
     @tracks = Conference_track.select(:conference_id=>@conference.conference_id)
     @current_language = params[:language] || 'en'
   end
