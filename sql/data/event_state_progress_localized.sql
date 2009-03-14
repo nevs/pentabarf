@@ -6,6 +6,8 @@ INSERT INTO event_state_progress_localized (event_state, event_state_progress, t
 INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'canceled', 'en', 'Canceled');
 INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'confirmed', 'de', 'Bestätigt');
 INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'confirmed', 'en', 'Confirmed');
+INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'reconfirmed', 'de', 'Wiederbestätigt');
+INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'reconfirmed', 'en', 'Reconfirmed');
 INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'unconfirmed', 'de', 'Unbestätigt');
 INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'unconfirmed', 'en', 'Unconfirmed');
 INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('rejected', 'confirmed', 'de', 'Bestätigt');
