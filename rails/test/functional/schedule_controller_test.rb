@@ -13,8 +13,26 @@ class ScheduleControllerTest < Test::Unit::TestCase
   end
 
   def test_index
-    get :index, {:conference=>'Octi'}
+    get :index, {:conference=>'TEST'}
     assert_response :success
+  end
+
+  def test_speakers
+    get :speakers, {:conference=>'TEST'}
+    assert_response :success
+  end
+
+  def test_events
+    get :events, {:conference=>'TEST'}
+    assert_response :success
+  end
+
+  def test_days
+    c = Conference.select_single({:acronym=>:TEST})
+    c.days.each do | day |
+      get :day, {:id=>day.conference_day.to_s,:conference=>'TEST'}
+      assert_response :success
+    end
   end
 
 end
