@@ -5,8 +5,8 @@ module Release
     table_name = table.to_s.downcase
     raise "Invalid class name" unless table_name.match(/^[a-z_]+$/)
     begin
-      raise LoadError
       require "release/#{table_name}"
+      raise LoadError if not local_constants.member?( table.to_s )
       Release.const_get(table)
     rescue LoadError
       klass = Class.new( Momomoto::Table )
