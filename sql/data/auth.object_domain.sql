@@ -17,6 +17,7 @@ INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_link_i
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_travel', 'person');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_phase_conflict', 'config');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_phase_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_release', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_room', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_room_role', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_team', 'conference');
