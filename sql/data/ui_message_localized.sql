@@ -28,6 +28,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::add_conference_day', 'en', 'Add day');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::add_conference_language', 'de', 'Sprache hinzufügen');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::add_conference_language', 'en', 'Add language');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::add_conference_release', 'de', 'Release erstellen');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::add_conference_release', 'en', 'Create release');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::add_conference_room', 'de', 'Raum hinzufügen');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::add_conference_room', 'en', 'Add room');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::add_conference_room_role', 'de', 'Raumrolle hinzufügen');
