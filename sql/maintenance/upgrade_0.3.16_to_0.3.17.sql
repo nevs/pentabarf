@@ -33,6 +33,9 @@ INSERT INTO auth.object_domain VALUES ('conference_release','conference');
 INSERT INTO event_state_progress(event_state,event_state_progress,rank) VALUES ('accepted','reconfirmed',3);
 UPDATE event_state_progress SET rank = 4 WHERE event_state = 'accepted' AND event_state_progress = 'canceled';
 
+INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'reconfirmed', 'de', 'Wiederbestätigt');
+INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'reconfirmed', 'en', 'Reconfirmed');
+
 
 COMMIT;
 
