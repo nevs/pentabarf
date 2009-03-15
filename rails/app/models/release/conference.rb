@@ -2,20 +2,10 @@ class Release::Conference < Momomoto::Table
 
   schema_name 'release'
 
-  module Methods
+  fk_helper_single :release, Conference_release, [:conference_id,:conference_release_id]
 
-    def days
-      Release::Conference_day.select({:conference_id=>conference_id,:conference_release_id=>conference_release_id},:order=>:conference_day)
-    end
-
-    def rooms
-      Release::Conference_room.select({:conference_id=>conference_id,:conference_release_id=>conference_release_id},:order=>[:rank,:conference_room])
-    end
-
-    def tracks
-      Release::Conference_track.select({:conference_id=>conference_id,:conference_release_id=>conference_release_id},:order=>[:rank,:conference_track])
-    end
-
-  end
+  fk_helper_multiple :days, Release::Conference_day, [:conference_id,:conference_release_id]
+  fk_helper_multiple :rooms, Release::Conference_room, [:conference_id,:conference_release_id]
+  fk_helper_multiple :tracks, Release::Conference_track, [:conference_id,:conference_release_id]
 
 end

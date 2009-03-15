@@ -14,11 +14,6 @@ module Release
 #      klass.schema_name = "release"
 #      klass.table_name = table_name
 #
-#      # copy custom methods from base class to release class if available
-#      # if "::#{table}".constantize.const_defined?('Methods')
-#      #   klass.const_set(:Methods, "::#{table}::Methods".constantize)
-#      # end
-#
 #      Release.const_set(table, klass)
 #    end
 #  end
