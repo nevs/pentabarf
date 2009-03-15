@@ -36,6 +36,10 @@ UPDATE event_state_progress SET rank = 4 WHERE event_state = 'accepted' AND even
 INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'reconfirmed', 'de', 'Wiederbestätigt');
 INSERT INTO event_state_progress_localized (event_state, event_state_progress, translated, name) VALUES ('accepted', 'reconfirmed', 'en', 'Reconfirmed');
 
+-- remove release column
+ALTER TABLE base.conference DROP COLUMN release;
+SELECT log.activate_logging();
+
 
 COMMIT;
 

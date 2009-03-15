@@ -15,7 +15,6 @@ xml.div(:id=>'content-export') do
     end
 
     xml.table do
-      xml << text_field_row( @conference, :release )
       xml << text_field_row( @conference, :homepage )
       xml << text_field_row( @conference, :export_base_url )
       xml << text_field_row( @conference, :feedback_base_url )

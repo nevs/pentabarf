@@ -15,7 +15,6 @@ CREATE TABLE base.conference (
   max_timeslot_duration INTEGER NOT NULL DEFAULT 10,
   day_change TIME WITHOUT TIME ZONE NOT NULL DEFAULT '0:00:00',
   remark TEXT,
-  release TEXT,
   homepage TEXT,
   abstract_length INTEGER,
   description_length INTEGER,
