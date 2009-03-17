@@ -10,8 +10,8 @@ module ScheduleHelper
     used_rooms = []
     rooms.each do | room |
       table.each do | row |
-        if row[room.conference_room]
-          used_rooms.push( room.conference_room)
+        if row[room.conference_room_id]
+          used_rooms.push( room )
           break
         end
       end

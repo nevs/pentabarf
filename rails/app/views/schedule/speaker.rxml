@@ -2,7 +2,7 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
   xml.div(:id=>'infobox') do
     xml.table do
       xml.tr do xml.th( local( 'schedule::events' ),{:colspan=>2}) end
-      @speakers.select{|e| e.person_id == @person.person_id}.each do | event |
+      @speaker.events(:translated=>@current_language).each do | event |
         xml.tr do
           xml.td do
             xml.a(:href=>url_for(:action=>:event,:id=>event.event_id,:conference=>@conference.acronym,:language=>params[:language])) do
@@ -17,8 +17,8 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
     end
   end
 
-  xml.h1( @person.name, {:class=>'fn'})
-  xml.img(:class=>'speaker-image photo',:src=>person_image(@person.person_id, 128))
+  xml.h1( @speaker.name, {:class=>'fn'})
+  xml.img(:class=>'speaker-image photo',:src=>person_image(@speaker.person_id, 128))
   xml.div(:class=>'abstract note') do xml << markup(@speaker.abstract) end
   xml.div(:class=>:description) do xml << markup(@speaker.description) end
 
@@ -44,27 +44,28 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
   end
 
   xml.div(:id=>'navigation') do
-    prev = nil
-    @speakers.each do | s |
-      break if s.person_id == @person.person_id
-      prev = s
-    end
-
-    if prev
-      xml.a(:href=>url_for(:conference=>@conference.acronym,:language=>params[:language],:action=>:speaker,:id=>prev.person_id)) do
-        xml.span('<<<',{:class=>'previous',:title=>prev.name})
+    # find position in navigation
+    navigation_index = nil
+    @speakers.each_with_index do | speaker, index |
+      if speaker.person_id == @speaker.person_id
+        navigation_index = index
+        break
       end
     end
 
-    fwd = nil
-    @speakers.reverse_each do | s |
-      break if s.person_id == @person.person_id
-      fwd = s
-    end
+    if navigation_index
+      prev = @speakers[navigation_index - 1]
+      if prev
+        xml.a(:href=>url_for(:conference=>@conference.acronym,:language=>params[:language],:action=>:speaker,:id=>prev.person_id)) do
+          xml.span('<<<',{:class=>'previous',:title=>prev.name})
+        end
+      end
 
-    if fwd
-      xml.a(:href=>url_for(:conference=>@conference.acronym,:language=>params[:language],:action=>:speaker,:id=>fwd.person_id)) do
-        xml.span('>>>',{:class=>'next',:title=>fwd.name})
+      fwd = @speakers[navigation_index + 1]
+      if fwd
+        xml.a(:href=>url_for(:conference=>@conference.acronym,:language=>params[:language],:action=>:speaker,:id=>fwd.person_id)) do
+          xml.span('>>>',{:class=>'next',:title=>fwd.name})
+        end
       end
     end
   end

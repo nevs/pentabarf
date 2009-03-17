@@ -1,6 +1,6 @@
 xml.div(:id=>'speaker-index',:class=>'section') do
   xml.table(:class=>'speaker-index') do
-  
+
     xml.thead do
       xml.tr do
         xml.th( local('schedule::speaker'),{:class=>'speaker'})
@@ -9,10 +9,7 @@ xml.div(:id=>'speaker-index',:class=>'section') do
     end
 
     xml.tbody do
-      prev = nil
       @speakers.each do | person |
-        next if prev && person.person_id == prev.person_id
-        prev = person
         xml.tr do
           xml.td(:class=>'speaker') do
             xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)) do
@@ -22,7 +19,7 @@ xml.div(:id=>'speaker-index',:class=>'section') do
           end
           xml.td(:class=>'events') do
             xml.ul(:class=>'events') do 
-              @speakers.select{|e| e.person_id == person.person_id}.each do | event |
+              person.events({:translated=>@current_language}).each do | event |
                 xml.li do
                   xml.a(event.title, {:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>event.event_id)})
                 end

@@ -16,7 +16,7 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
     end
     xml << render(:partial => 'sidebar')
     xml.div(:id=>'content') do
-      xml.p("#{@conference.acronym} - #{@conference.release}", {:class=>'release'})
+      xml.p("#{@conference.acronym} - #{@conference.release.conference_release}", {:class=>'release'})
       xml.p(:class=>'intro') do
         xml.strong @conference.title
         xml.br

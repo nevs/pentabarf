@@ -41,9 +41,9 @@ xml.div(:id=>'event-index',:class=>'section') do
           end
           xml.td(:class=>"speakers #{sanitize_track(event.conference_track)}") do
             xml.ul(:class=>'speakers') do
-              @events.select{|e| e.event_id == event.event_id}.each do | speaker |
+              event.persons.each do | person |
                 xml.li do
-                  xml.a(speaker.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>speaker.person_id)})
+                  xml.a(person.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:person,:language=>params[:language],:id=>person.person_id)})
                 end
               end
             end

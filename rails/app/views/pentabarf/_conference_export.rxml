@@ -48,7 +48,7 @@ xml.div(:id=>'content-export') do
       end
     end
 
-    xml.script(:type=>'text/javascript') do 
+    xml.script(:type=>'text/javascript') do
       @conference.releases.each do | c |
         xml << js_function( 'table_add_row', 'conference_release', c.conference_release_id, c.conference_release )
       end

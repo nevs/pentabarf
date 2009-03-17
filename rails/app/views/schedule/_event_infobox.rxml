@@ -3,15 +3,15 @@ xml.div(:id=>'infobox') do
     xml.tr do
       xml.th( local( 'schedule::speakers' ),{:colspan=>'2'})
     end
-    @events.select{|e| e.event_id == @event.event_id}.each do | speaker |
+    @event.persons.each do | person |
       xml.tr do
         xml.td do
-          xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:id=>speaker.person_id,:language=>params[:language])) do
-            xml.img(:src=>person_image( speaker.person_id, 32),:height=>32,:width=>32)
+          xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:person,:id=>person.person_id,:language=>params[:language])) do
+            xml.img(:src=>person_image( person.person_id, 32),:height=>32,:width=>32)
           end
         end
         xml.td do
-          xml.a(speaker.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>speaker.person_id)})
+          xml.a(person.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:person,:language=>params[:language],:id=>person.person_id)})
         end
       end
     end
@@ -29,7 +29,7 @@ xml.div(:id=>'infobox') do
     end
     xml.tr do
       xml.td( local( 'schedule::start_time' ),{:class=>'keyword'})
-      xml.td(@event.real_starttime.strftime('%H:%M'),{:class=>'value dtstart',:title=>@event.real_starttime.xmlschema})
+      xml.td(@event.start_time.strftime('%H:%M'),{:class=>'value dtstart',:title=>@event.start_time.xmlschema})
     end
     xml.tr do
       xml.td( local( 'event::duration' ),{:class=>'keyword'})

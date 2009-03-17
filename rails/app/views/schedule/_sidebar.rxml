@@ -22,10 +22,10 @@ xml.div(:id=>'menu', :class=>'noprint') do
         xml.span(local('schedule::events'), :class=>:normal)
       end
     end
-    if @tracks.length > 0
+    if @conference.tracks.length > 0
       xml.li do
         xml.ul(:class=>'track') do
-          @tracks.each do | track |
+          @conference.tracks.each do | track |
             xml.li(:class=>sanitize_track(track.conference_track)) do
               xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:track_events,:track=>track.conference_track,:language=>params[:language]})) do
                 xml.span( track.conference_track, :class=>:normal)

@@ -1,4 +1,3 @@
-event = @events.select{|e| e.event_id == @event.event_id}.first
 xml.div(:id=>'event',:class=>'section vevent') do
 
   xml << render(:partial=>'event_infobox')
@@ -42,24 +41,22 @@ xml.div(:id=>'event',:class=>'section vevent') do
   end
 
   xml.div(:id=>'navigation') do
-    prev = nil
-    @events.each do | e | 
-      break if e.event_id == event.event_id
-      prev = e
+    navigation_index = nil
+    @events.each_with_index do | event, index |
+      if event.event_id == @event.event_id
+        navigation_index = index
+        break
+      end
     end
 
+    prev = @events[navigation_index - 1]
     if prev
       xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>prev.event_id)) do
         xml.span('<<<',{:class=>'previous',:title=>prev.title})
       end
     end
 
-    fwd = nil
-    @events.reverse_each do | e | 
-      break if e.event_id == event.event_id
-      fwd = e
-    end
-
+    fwd = @events[navigation_index + 1]
     if fwd
       xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>fwd.event_id)) do
         xml.span('>>>',{:class=>'next',:title=>fwd.title})
