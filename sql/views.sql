@@ -51,6 +51,8 @@
 \i views/view_event_transaction.sql
 \i views/view_person_transaction.sql
 \i views/view_event_duration.sql
+\i views/release/view_schedule_day.sql
 \i views/release/view_schedule_room.sql
 \i views/release/view_schedule_event.sql
+\i views/release/view_schedule_event_person.sql
 \i views/release/view_schedule_track.sql
