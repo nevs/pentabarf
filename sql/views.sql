@@ -54,5 +54,6 @@
 \i views/release/view_schedule_day.sql
 \i views/release/view_schedule_room.sql
 \i views/release/view_schedule_event.sql
+\i views/release/view_schedule_person.sql
 \i views/release/view_schedule_event_person.sql
 \i views/release/view_schedule_track.sql
