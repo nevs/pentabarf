@@ -73,7 +73,7 @@ module ApplicationHelper
     slots_per_day = ( 24 * 60 * 60 ) / timeslot_seconds
     start = (conference.day_change.hour * 3600) + (conference.day_change.min * 60) + conference.day_change.sec
     # create an array for each day
-    days = Conference_day.select({:conference_id=>conference.conference_id},{:order=>:conference_day}).map(&:conference_day)
+    days = conference.days({},{:order=>:conference_day}).map(&:conference_day)
     days.each do | d | table[d.to_s] = [] end
     # fill array with times
     table.each do | conference_day, day_table |
@@ -86,22 +86,23 @@ module ApplicationHelper
     events.each do | event |
       slots = (event.duration.hour * 3600 + event.duration.min * 60)/timeslot_seconds
       start_slot = (event.start_time.hour * 3600 + event.start_time.min * 60) / timeslot_seconds
-      next if table[event.conference_day.to_s][start_slot][event.conference_room]
-      table[event.conference_day.to_s][start_slot][event.conference_room] = {:event_id => event.event_id, :slots => slots}
+      next if table[event.conference_day.to_s][start_slot][event.conference_room_id]
+      table[event.conference_day.to_s][start_slot][event.conference_room_id] = {:event_id => event.event_id, :slots => slots}
       slots.times do | i |
         next if i < 1
         # check whether the event spans multiple days
         if (start_slot + i) >= slots_per_day
           if (start_slot + i)%slots_per_day == 0
-            table[(event.conference_day + (start_slot + i)/slots_per_day).to_s][(start_slot + i)%slots_per_day][event.conference_room] = {:event_id => event.event_id, :slots => slots - i}
+            table[(event.conference_day + (start_slot + i)/slots_per_day).to_s][(start_slot + i)%slots_per_day][event.conference_room_id] = {:event_id => event.event_id, :slots => slots - i}
           else
-            table[(event.conference_day + (start_slot + i)/slots_per_day).to_s][(start_slot + i)%slots_per_day][event.conference_room] = 0
+            table[(event.conference_day + (start_slot + i)/slots_per_day).to_s][(start_slot + i)%slots_per_day][event.conference_room_id] = 0
           end
         else
-          table[event.conference_day.to_s][start_slot + i][event.conference_room] = 0
+          table[event.conference_day.to_s][start_slot + i][event.conference_room_id] = 0
         end
       end
     end
+    # remove unused rows at the beginning and the end
     table.each do | conference_day, day_table |
       while day_table.first && day_table.first.length == 1
         day_table.delete(day_table.first)
