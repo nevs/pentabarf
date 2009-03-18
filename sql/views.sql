@@ -34,11 +34,15 @@
 \i views/report/report_schedule_coordinator.sql
 \i views/report/report_schedule_gender.sql
 \i views/report/view_report_review.sql
-\i views/schedule/schedule_event.sql
-\i views/schedule/schedule_person.sql
 \i views/schedule/schedule.sql
 \i views/schedule/schedule_simple.sql
 \i views/schedule/schedule_calendar.sql
+\i views/schedule/view_schedule_day.sql
+\i views/schedule/view_schedule_room.sql
+\i views/schedule/view_schedule_event.sql
+\i views/schedule/view_schedule_person.sql
+\i views/schedule/view_schedule_event_person.sql
+\i views/schedule/view_schedule_track.sql
 \i views/conference_rating.sql
 \i views/event_feedback.sql
 \i views/event_feedback_statistics.sql

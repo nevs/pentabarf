@@ -2,8 +2,9 @@
 
 desc "finds unused views"
 task :unused_views do
-  views = `grep -r 'CREATE OR REPLACE VIEW' sql | sed -e 's/.*:CREATE OR REPLACE VIEW \\([a-z_]\\+\\) AS.*/\\1/'`.split
+  views = `grep -r 'CREATE OR REPLACE VIEW' sql | sed -e 's/.*:CREATE OR REPLACE VIEW \\([a-z_.]\\+\\) AS.*/\\1/'`.split
   views.each do | view |
+    view = view.split('.').last
     sql = `grep -r '\\<#{view}\\>' sql | grep -v 'CREATE OR REPLACE VIEW'`
     if sql.empty?
       rails = `grep -ir '\\<#{view}\\>' rails/app/models`
