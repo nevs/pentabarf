@@ -18,6 +18,7 @@ xml.div(:id=>'content-general') do
       xml << select_row( @event, :conference_track_id, @conference.tracks.map{|t| [t.conference_track_id,t.conference_track]},{:with_empty=>true})
       xml << select_row( @event, :event_type, Event_type_localized.select({:translated=>@current_language},{:order=>:name}).map{|e| [e.event_type,e.name]}, {:with_empty=>true} )
       xml << file_row( :event_image, :image )
+      xml << check_box_row( :event_image, :remove )
 
       if @event.event_id
         created = Event_transaction.select({:event_id=>@event.event_id},{:order=>:changed_when,:limit=>1})[0]

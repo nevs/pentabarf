@@ -14,6 +14,7 @@ xml.div(:id=>'content-general') do
       xml << select_row( @conference, :currency, Currency.select({},{:order=>:currency}).map(&:currency) )
       xml << text_field_row( @conference, :email )
       xml << file_row( :conference_image, :image )
+      xml << check_box_row( :conference_image, :remove )
     end
   end
 
