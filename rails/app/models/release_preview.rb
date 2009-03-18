@@ -7,6 +7,7 @@ module Release_preview
     fk_helper_multiple :days, View_schedule_day, [:conference_id]
     fk_helper_multiple :rooms, View_schedule_room, [:conference_id]
     fk_helper_multiple :tracks, View_schedule_track, [:conference_id]
+    fk_helper_multiple :links, Conference_link, [:conference_id]
 
     module Methods
 
