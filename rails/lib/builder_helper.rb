@@ -34,7 +34,12 @@ module Builder_helper
   end
 
   def check_box_row( row, column, options = {}, &block )
-    table = row.class.table.table_name
+    if row.instance_of?( Symbol )
+      table = row
+    else
+      table = row.class.table.table_name
+      options[:checked] = :checked if row[column]
+    end
     xml = Builder::XmlMarkup.new
     label = options[:label] || local("#{table}::#{column}")
     xml.tr do
@@ -44,7 +49,6 @@ module Builder_helper
         options[:tabindex] = 0
         options[:type] = :checkbox
         options[:value] ||= 't'
-        options[:checked] = :checked if row[column]
         xml.input( options )
       end
     end
