@@ -11,7 +11,7 @@ xml.ul do
   links << [url_for({:conference=>@conference.acronym,:action=>:speakers,:language=>params[:language]}), local('schedule::speakers')]
   links << [url_for({:conference=>@conference.acronym,:action=>:events,:language=>params[:language]}), local('schedule::events')]
 
-  Conference_link.select({:conference_id=>@conference.conference_id}).each do | link |
+  @conference.links.each do | link |
     links << [link.url,link.title || link.url]
   end
 

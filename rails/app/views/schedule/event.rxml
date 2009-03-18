@@ -12,12 +12,11 @@ xml.div(:id=>'event',:class=>'section vevent') do
     xml << markup(@event.description)
   end
 
-  files = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language,:public=>'t'})
-  if files.length > 0
+  if @event.attachments.length > 0
     xml.div(:class=>'attachments') do
       xml.h2( local( 'schedule::attachments' ) )
       xml.ul do
-        files.each do | file |
+        @event.attachments.each do | file |
           xml.li do
             xml.a("#{file.title} (#{file.mime_type} - #{number_to_human_size(file.filesize)})",{:href=>url_for(:controller=>'file',:action=>:event_attachment,:id=>file.event_attachment_id,:filename=>file.filename),:rel=>'enclosure'})
           end
@@ -26,12 +25,11 @@ xml.div(:id=>'event',:class=>'section vevent') do
     end
   end
 
-  links = Event_link.select({:event_id=>@event.event_id})
-  if links.length > 0
+  if @event.links.length > 0
     xml.div(:class=>'links') do
       xml.h2('Links')
       xml.ul do
-        links.each do | link |
+        @event.links.each do | link |
           xml.li do
             xml.a( link.title ? link.title : link.url, {:href=>link.url,:rel=>'bookmark'})
           end

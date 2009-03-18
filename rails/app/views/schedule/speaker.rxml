@@ -28,12 +28,11 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
   end
 
   if @speaker.conference_person_id
-    links = Conference_person_link.select({:conference_person_id=>@speaker.conference_person_id})
-    if links.length > 0
+    if @speaker.links.length > 0
       xml.div(:class=>'links') do
         xml.h2 local( 'schedule::links' )
         xml.ul do
-          links.each do | link |
+          @speaker.links.each do | link |
             xml.li do
               xml.a( link.title ? link.title : link.url, {:href=>link.url,:class=>:url,:rel=>:bookmark})
             end
