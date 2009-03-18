@@ -14,22 +14,22 @@ xml.schedule do
   end
   @conference.days.each_with_index do | day, index |
     xml.day(:index=>index + 1,:date=>day.conference_day.to_s) do
-      @rooms.each do | room |
+      @conference.rooms.each do | room |
         xml.room({:name => room.conference_room}) do
           room_events = {}
-          @events.select{|e| e.conference_day == day.conference_day && e.conference_room == room.conference_room}.each do | event |
+          @conference.events.select{|e| e.conference_day == day.conference_day && e.conference_room == room.conference_room}.each do | event |
             next if room_events.values.member?( event.event_id )
             room_events[event.start_time.strftime('%H:%M')] = event.event_id
           end
 
           room_events.keys.sort.each do | start_time |
             event_id = room_events[start_time]
-            event = @events.select{|e| e.event_id == event_id}.first
+            event = @conference.events.select{|e| e.event_id == event_id}.first
             xml.event(:id=>event_id) do
-              xml.start event.real_starttime.strftime('%H:%M')
+              xml.start event.start_time.strftime('%H:%M')
               xml.duration event.duration.strftime('%H:%M')
               xml.room event.conference_room
-              xml.slug event.event_slug
+              xml.slug event.slug
               xml.title event.title
               xml.subtitle event.subtitle
               xml.track event.conference_track
@@ -38,7 +38,7 @@ xml.schedule do
               xml.abstract event.abstract
               xml.description event.description
               xml.persons do
-                @events.select{|e| e.event_id == event_id}.each do | speaker |
+                event.persons.each do | speaker |
                   xml.person( speaker.name, {:id=>speaker.person_id} )
                 end
               end
