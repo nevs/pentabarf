@@ -126,6 +126,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_image::image', 'en', 'Conference Logo');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_image::mime_type', 'de', 'MIME-Typ');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_image::mime_type', 'en', 'MIME-Type');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_image::remove', 'de', 'Bild löschen');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_image::remove', 'en', 'Delete image');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_link::description', 'de', 'Beschreibung');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_link::description', 'en', 'Description');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_link::title', 'de', 'Titel');
@@ -370,7 +372,12 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_f
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_feedback::presentation_quality', 'en', 'Presentation quality');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_feedback::remark', 'en', 'Comment');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_feedback::topic_importance', 'en', 'Topic importance');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_image::image', 'de', 'Veranstaltungsbild');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_image::image', 'en', 'Event image');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_image::mime_type', 'de', 'MIME-Typ');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_image::mime_type', 'en', 'MIME-Type');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_image::remove', 'de', 'Bild löschen');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_image::remove', 'en', 'Delete image');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_link::event_id', 'de', 'Veranstaltung');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_link::event_id', 'en', 'Event');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_link::title', 'de', 'Link-Titel');
@@ -673,6 +680,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_image::mime_type', 'en', 'MIME-Type');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_image::public', 'de', 'Foto öffentlich?');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_image::public', 'en', 'Image public?');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_image::remove', 'de', 'Bild löschen');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_image::remove', 'en', 'Delete image');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_language::language', 'de', 'Sprache');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_language::language', 'en', 'Language');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('person_phone::person_id', 'de', 'Person');
