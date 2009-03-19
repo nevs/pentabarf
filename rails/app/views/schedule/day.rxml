@@ -49,7 +49,7 @@ xml.div(:id=>'schedule',:class=>'section') do
                     end
                   end
                 end
-                xml.p(:class=>'info') do
+                xml.div(:class=>'info') do
                   xml.a({:href=>url_for(:action=>:event,:id=>event_id,:conference=>@conference.acronym,:language=>params[:language])} ) do
                     xml.div({:class=>'language-info'}) do
                       xml.text! local('event::language')
