@@ -40,4 +40,9 @@ class AdminController < ApplicationController
     @current_language = POPE.user.current_language
   end
 
+  def check_permission
+    raise StandardError if not POPE.permission?('admin_login')
+    true
+  end
+
 end
