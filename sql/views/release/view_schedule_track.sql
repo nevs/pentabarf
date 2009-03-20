@@ -16,6 +16,6 @@ CREATE OR REPLACE VIEW release.view_schedule_track AS
         view_schedule_event.conference_release_id = conference_track.conference_release_id AND
         view_schedule_event.conference_track_id = conference_track.conference_track_id 
     )
-  ORDER BY conference_track.rank
+  ORDER BY rank, conference_track
 ;
 

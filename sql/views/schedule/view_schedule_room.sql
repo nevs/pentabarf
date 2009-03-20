@@ -11,6 +11,6 @@ CREATE OR REPLACE VIEW view_schedule_room AS
     conference_room
   WHERE
     conference_room.public = TRUE
-  ORDER BY conference_room.rank
+  ORDER BY rank, conference_room
 ;
 

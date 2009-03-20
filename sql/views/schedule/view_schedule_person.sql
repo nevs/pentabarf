@@ -21,4 +21,5 @@ CREATE OR REPLACE VIEW view_schedule_person AS
         event_person.event_role IN ('speaker','moderator') AND
         event_person.event_role_state = 'confirmed'
     )
+  ORDER BY coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname)
 ;

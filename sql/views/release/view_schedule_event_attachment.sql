@@ -20,5 +20,6 @@ CREATE OR REPLACE VIEW release.view_schedule_event_attachment AS
     INNER JOIN mime_type_localized USING (mime_type, translated)
   WHERE
     event_attachment.public = TRUE
+  ORDER BY title,filename
 ;
 
