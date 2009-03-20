@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
     logger.warn( e.to_s ) unless e.class == Pope::NoUserData
     response.headers["Status"] = "Unauthorized"
     response.headers["WWW-Authenticate"] = "Basic realm=Pentabarf"
-    render( :file=>'auth_failed',:status=>401,:use_full_path=>true,:content_type=>'text/html' )
+    render( :file=>'auth_failed.rxml',:status=>401,:content_type=>'text/html' )
     return false
   end
 
