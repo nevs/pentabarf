@@ -176,6 +176,7 @@ INSERT INTO ui_message (ui_message) VALUES ('conference_track::color');
 INSERT INTO ui_message (ui_message) VALUES ('conference_track::conference_id');
 INSERT INTO ui_message (ui_message) VALUES ('conference_track::conference_track');
 INSERT INTO ui_message (ui_message) VALUES ('conference_track::conference_track_id');
+INSERT INTO ui_message (ui_message) VALUES ('conference_track::rank');
 INSERT INTO ui_message (ui_message) VALUES ('conference_track::tag');
 INSERT INTO ui_message (ui_message) VALUES ('conflict');
 INSERT INTO ui_message (ui_message) VALUES ('conflict::conflict');
