@@ -1,111 +1,78 @@
 
-CREATE OR REPLACE FUNCTION copy_event(integer, integer, integer) RETURNS INTEGER AS '
+CREATE OR REPLACE FUNCTION copy_event( source_event_id INTEGER, target_conference_id INTEGER, coordinator_id INTEGER ) RETURNS INTEGER AS $$
   DECLARE
-    cur_event_id ALIAS FOR $1;
-    cur_conference_id ALIAS FOR $2;
-    cur_person_id ALIAS FOR $3;
-    new_event_id INTEGER;
+    target_event_id INTEGER;
+    source_conference_id INTEGER;
 
   BEGIN
-    SELECT INTO new_event_id nextval(''event_event_id_seq'');
-    INSERT INTO event( event_id,
-                       conference_id,
-                       conference_track_id,
-                       title,
-                       subtitle,
-                       slug,
-                       duration,
-                       event_type_id,
-                       event_origin,
-                       event_state,
-                       event_state_progress,
-                       language_id,
-                       abstract,
-                       description,
-                       resources,
-                       f_public,
-                       f_paper,
-                       f_slides,
-                       f_unmoderated,
-                       last_modified_by )
-                SELECT new_event_id,
-                       cur_conference_id,
-                       (CASE cur_conference_id WHEN conference_id THEN conference_track_id ELSE NULL END),
-                       title,
-                       subtitle,
-                       slug,
-                       duration,
-                       event_type_id,
-                       ''idea'',
-                       ''undecided'',
-                       ''new'',
-                       language_id,
-                       abstract,
-                       description,
-                       resources,
-                       f_public,
-                       f_paper,
-                       f_slides,
-                       f_unmoderated,
-                       cur_person_id
-                  FROM event WHERE event_id = cur_event_id;
+    SELECT INTO target_event_id nextval('event_event_id_seq');
+    SELECT INTO source_conference_id conference_id FROM event WHERE event_id = source_event_id;
 
-    INSERT INTO event_image( event_id,
-                             mime_type,
-                             image,
-                             last_modified_by )
-                      SELECT new_event_id,
-                             mime_type,
-                             image,
-                             cur_person_id
-                        FROM event_image
-                       WHERE event_id = cur_event_id;
+    INSERT INTO 
+      event(
+        event_id,
+        conference_id,
+        slug,
+        title,
+        subtitle,
+        conference_track_id,
+        event_type,
+        duration,
+        event_origin,
+        event_state,
+        event_state_progress,
+        language,
+        abstract,
+        description,
+        resources,
+        public,
+        paper,
+        slides,
+        remark,
+        submission_notes
+      )
+    SELECT
+      target_event_id,
+      target_conference_id,
+      slug,
+      title,
+      subtitle,
+      (CASE target_conference_id WHEN source_event.conference_id THEN conference_track_id ELSE NULL END),
+      event_type,
+      duration,
+      'idea',
+      'undecided',
+      'new',
+      language,
+      abstract,
+      description,
+      resources,
+      public,
+      paper,
+      slides,
+      remark,
+      submission_notes
+    FROM event WHERE event_id = cur_event_id;
 
-    INSERT INTO event_person( event_id,
-                              person_id,
-                              event_role,
-                              event_role_state,
-                              rank,
-                              last_modified_by )
-                       SELECT new_event_id,
-                              person_id,
-                              event_role,
-                              event_role_state,
-                              event_person.rank,
-                              cur_person_id
-                         FROM event_person
-                        WHERE
-                          event_person.event_role IN (''speaker'',''moderator'') AND
-                          event_person.event_role_state = ''unclear'' AND
-                          event_person.event_id = cur_event_id;
+    INSERT INTO event_image( event_id, mime_type, image ) 
+      SELECT target_event_id, mime_type, image FROM event_image 
+        WHERE event_id = source_event_id;
 
-    INSERT INTO event_link( event_id,
-                            url,
-                            rank,
-                            title,
-                            last_modified_by )
-                     SELECT new_event_id,
-                            url,
-                            rank,
-                            title,
-                            cur_person_id
-                       FROM event_link
-                      WHERE event_id = cur_event_id;
+    INSERT INTO event_person( event_id, person_id, event_role, event_role_state, remark )
+      SELECT target_event_id, person_id, event_role, 'idea', remark FROM event_person
+        WHERE
+          event_person.event_role IN ('speaker','moderator') AND
+          event_person.event_id = source_event_id;
 
-    INSERT INTO event_related( event_id1, event_id2 ) VALUES( cur_event_id, new_event_id );
+    INSERT INTO event_person( event_id, person_id, event_role )
+      SELECT target_event_id, coordinator_id, 'coordinator' FROM event_person;
 
-    INSERT INTO event_person( event_id,
-                              person_id,
-                              event_role,
-                              last_modified_by )
-                     VALUES ( new_event_id,
-                              cur_person_id,
-                              ''coordinator'',
-                              cur_person_id );
+    INSERT INTO event_link( event_id, url, title, rank )
+      SELECT target_event_id, url, title, rank FROM event_link 
+        WHERE event_id = source_event_id;
 
-
-    RETURN new_event_id;
-
+    RETURN target_event_id;
   END;
-' LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+$$ LANGUAGE plpgsql;
+
 
