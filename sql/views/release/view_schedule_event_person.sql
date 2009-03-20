@@ -3,6 +3,7 @@ CREATE OR REPLACE VIEW release.view_schedule_event_person AS
     event_person.event_person_id,
     event_person.conference_release_id,
     event_person.event_id,
+    view_schedule_event.conference_id,
     view_schedule_event.title,
     view_schedule_event.subtitle,
     event_person.person_id,
