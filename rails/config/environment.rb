@@ -4,6 +4,8 @@
 # you don't control web/app server and can't set it the proper way
 ENV['RAILS_ENV'] ||= 'production'
 
+# RAILS_GEM_VERSION = '2.2.2'
+
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 require 'momomoto/momomoto'
@@ -33,6 +35,7 @@ Rails::Initializer.run do |config|
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')
   # config.action_controller.session_store = :file
+  config.action_controller.session_store = nil
 
   # See Rails::Configuration for more options
 
