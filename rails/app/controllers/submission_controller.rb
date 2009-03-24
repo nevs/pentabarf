@@ -87,7 +87,7 @@ class SubmissionController < ApplicationController
     custom_bools = Custom_fields.select({:table_name=>:conference_person,:field_type=>:boolean,:submission_visible=>true,:submission_settable=>true}).map(&:field_name)
     custom_allowed = Custom_fields.select({:table_name=>:conference_person,:submission_visible=>true,:submission_settable=>true}).map(&:field_name)
     write_row( Custom_conference_person, params[:custom_conference_person], {:preset=>{:person_id=>person.person_id,:conference_id=>conference_person.conference_id},:always=>custom_bools,:only=>custom_allowed})
-    write_row( Conference_person_travel, params[:conference_person_travel], {:preset=>{:conference_person_id => conference_person.conference_person_id}})
+    write_row( Conference_person_travel, params[:conference_person_travel], {:preset=>{:conference_person_id => conference_person.conference_person_id},:always=>[:need_travel_cost,:need_accommodation,:need_accommodation_cost,:arrival_pickup,:departure_pickup]})
     write_rows( Person_language, params[:person_language], {:preset=>{:person_id => person.person_id}})
     write_rows( Conference_person_link, params[:conference_person_link], {:preset=>{:conference_person_id => conference_person.conference_person_id},:ignore_empty=>:url})
     write_rows( Person_im, params[:person_im], {:preset=>{:person_id => person.person_id},:ignore_empty=>:im_address})
