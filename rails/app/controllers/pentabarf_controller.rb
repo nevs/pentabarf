@@ -424,7 +424,11 @@ class PentabarfController < ApplicationController
     params.each do | key, value |
       field = value[:key].to_sym
       if klass.columns[field].kind_of?( Momomoto::Datatype::Text )
-        conditions[field][:ilike] << "%#{value[:value]}%"
+        if value[:value] == ""
+          conditions[field][:eq] = :NULL
+        else
+          conditions[field][:ilike] << "%#{value[:value]}%"
+        end
       elsif klass.columns[field].kind_of?( Momomoto::Datatype::Boolean )
         value[:value] = :NULL if value[:value] == ""
         conditions[field][:eq] << value[:value]
