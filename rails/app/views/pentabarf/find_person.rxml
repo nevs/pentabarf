@@ -9,56 +9,39 @@ xml.div({:id=>:data}) do
     end
   end
 
+  categories = [
+    [:all_names,local('person::name'),:text],
+    [:email,local('person::email'),:text],
+    [:gender,local('person::gender'),:list, [[nil,'unknown'],['t','male'],['f','female']] ],
+    [:event_role,local('event_role'),:list, Event_role_localized.select({:translated=>@current_language}).map{|c| [c.event_role, c.name]} ],
+    [:role,local('role'),:list, Role_localized.select({:translated=>@current_language}).map{|c| [c.role, c.name]} ],
+    [:conference_id,local('conference'),:list, Conference.select.map{|c| [c.conference_id, c.acronym]} ],
+    [:country,local('person::country'),:list, Country_localized.select({:translated=>@current_language},{:order=>:name}).map{|c| [c.country, c.name]} ],
+    [:arrived,local('conference_person::arrived'),:list, [['t','Yes'],['f','No']] ],
+    [:reconfirmed,local('conference_person::reconfirmed'),:list, [['t','Yes'],['f','No']] ]
+  ]
+
   xml.fieldset(:id=>'content-advanced') do
     xml.label(local('pentabarf::find_person'))
 
     # template used for constructing advanced search rows
     xml.ul({:id=>:search_content,:style=>"display:none"}) do
-      # search for name
-      xml.li({:class=>:name,:title=>local('person::name')}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:all_names})
-        xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
+
+      categories.each do | category |
+        xml.li({:class=>category[0],:title=>category[1]}) do
+          xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>category[0]})
+          xml.input({:type=>:hidden,:name=>'search_person[row_id][type]',:value=>category[2]})
+          case category[2]
+            when :text 
+              xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
+            when :list
+              xml << select_tag('search_person[row_id][value]', category[3], category[4] || {} )
+            else
+              raise "Unknown search type"
+          end
+        end
       end
-      # search for email
-      xml.li({:class=>:email,:title=>local('person::email')}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:email})
-        xml.input({:type=>:text,:name=>'search_person[row_id][value]'})
-      end
-      # search for gender
-      xml.li({:class=>:gender,:title=>local('person::gender')}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:gender})
-        xml << select_tag('search_person[row_id][value]', [[nil,'unknown'],['t','male'],['f','female']])
-      end
-      # search for event_role
-      xml.li({:class=>:event_role,:title=>local('event_role')}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:event_role})
-        xml << select_tag('search_person[row_id][value]', Event_role_localized.select({:translated=>@current_language}).map{|c| [c.event_role, c.name]})
-      end
-      # search for role
-      xml.li({:class=>:role,:title=>local(:role)}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:role})
-        xml << select_tag('search_person[row_id][value]', Role_localized.select({:translated=>@current_language}).map{|c| [c.role, c.name]})
-      end
-      # search for conference
-      xml.li({:class=>:conference_id,:title=>local(:conference)}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:conference_id})
-        xml << select_tag('search_person[row_id][value]', Conference.select.map{|c| [c.conference_id, c.acronym]})
-      end
-      # search for country
-      xml.li({:class=>:country,:title=>local('person::country')}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:country})
-        xml << select_tag('search_person[row_id][value]', Country_localized.select({:translated=>@current_language},{:order=>:name}).map{|c| [c.country, c.name]})
-      end
-      # search for arrived flag
-      xml.li({:class=>:arrived,:title=>local('conference_person::arrived')}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:arrived})
-        xml << select_tag('search_person[row_id][value]', [['t','Yes'],['f','No']])
-      end
-      # search for reconfirmed flag
-      xml.li({:class=>:reconfirmed,:title=>local('conference_person::reconfirmed')}) do
-        xml.input({:type=>:hidden,:name=>'search_person[row_id][key]',:value=>:reconfirmed})
-        xml << select_tag('search_person[row_id][value]', [['t','Yes'],['f','No']])
-      end
+
     end
 
     xml.ul({:id=>:search_template,:style=>"display:none"}) do

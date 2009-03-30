@@ -9,7 +9,7 @@ xml.div({:id=>:data}) do
     end
   end
 
-  @categories = [
+  categories = [
     [:title,local('event::title'),:text],
     [:description,local('event::description'),:text],
     [:public,local('event::public'),:list,[['t','yes'],['f','no']]],
@@ -23,7 +23,6 @@ xml.div({:id=>:data}) do
     [:conference_room_id ,local('conference_room'),:list, @current_conference.rooms.map{|r| [r.conference_room_id, r.conference_room]}, {:with_empty=>true} ],
     [:coordinators,local('coordinators'),:list, View_event_person.select({:event_role=>'coordinator',:conference_id=>@current_conference.conference_id},{:distinct=>[:name,:person_id]}).map{|p| [p.person_id,p.name]} ],
     [:speakers,local('speakers'),:list, View_event_person.select({:event_role=>['speaker','moderator'],:conference_id=>@current_conference.conference_id},{:distinct=>[:name,:person_id]}).map{|p| [p.person_id,p.name]} ]
-  
   ]
 
   xml.fieldset({:id=>'content-advanced'}) do
@@ -32,7 +31,7 @@ xml.div({:id=>:data}) do
     # template used for constructing advanced search rows
     xml.ul({:id=>:search_content,:style=>"display:none"}) do
 
-      @categories.each do | category |
+      categories.each do | category |
         xml.li({:class=>category[0],:title=>category[1]}) do
           xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>category[0]})
           xml.input({:type=>:hidden,:name=>'search_event[row_id][type]',:value=>category[2]})
@@ -45,8 +44,8 @@ xml.div({:id=>:data}) do
               raise "Unknown search type"
           end
         end
-
       end
+
     end
 
     xml.ul({:id=>:search_template,:style=>"display:none"}) do
