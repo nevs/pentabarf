@@ -9,75 +9,43 @@ xml.div({:id=>:data}) do
     end
   end
 
+  @categories = [
+    [:title,local('event::title'),:text],
+    [:description,local('event::description'),:text],
+    [:public,local('event::public'),:list,[['t','yes'],['f','no']]],
+    [:duration,local('event::duration'),:list,View_event_duration.select.map(&:duration)],
+    [:language,local('event::language'),:list, View_conference_language.select({:translated=>@current_language,:conference_id=>@current_conference.conference_id},{:order=>:name}).map{|l| [l.language, l.name]}, {:with_empty=>true} ],
+    [:event_origin,local('event::event_origin'),:list, Event_origin_localized.select({:translated=>@current_language}).map{|o| [o.event_origin, o.name]}],
+    [:event_state,local('event::event_state'),:list, Event_state_localized.select({:translated=>@current_language}).map{|o| [o.event_state, o.name]} ],
+    [:event_state_progress,local('event::event_state_progress'),:list, Event_state_progress.select({},{:order=>[:event_state,:event_state_progress]}).map{|o| "#{o.event_state} #{o.event_state_progress}"} ],
+    [:event_type,local('event::event_type'),:list, Event_type_localized.select({:translated=>@current_language}).map{|o| [o.event_type, o.name]}, {:with_empty=>true} ],
+    [:conference_track_id,local('conference_track'),:list, @current_conference.tracks.map{|t| [t.conference_track_id,t.conference_track]}, {:with_empty=>true} ],
+    [:conference_room_id ,local('conference_room'),:list, @current_conference.rooms.map{|r| [r.conference_room_id, r.conference_room]}, {:with_empty=>true} ],
+    [:coordinators,local('coordinators'),:list, View_event_person.select({:event_role=>'coordinator',:conference_id=>@current_conference.conference_id},{:distinct=>[:name,:person_id]}).map{|p| [p.person_id,p.name]} ],
+    [:speakers,local('speakers'),:list, View_event_person.select({:event_role=>['speaker','moderator'],:conference_id=>@current_conference.conference_id},{:distinct=>[:name,:person_id]}).map{|p| [p.person_id,p.name]} ]
+  
+  ]
+
   xml.fieldset({:id=>'content-advanced'}) do
     xml.label(local('find_event'))
 
     # template used for constructing advanced search rows
     xml.ul({:id=>:search_content,:style=>"display:none"}) do
-      # search for title
-      xml.li({:class=>:title,:title=>local('event::title')}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:title})
-        xml.input({:type=>:text,:name=>'search_event[row_id][value]'})
-      end
-      # search for description
-      xml.li({:class=>:description,:title=>local('event::description')}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:description})
-        xml.input({:type=>:text,:name=>'search_event[row_id][value]'})
-      end
-      # search for public
-      xml.li({:class=>:public,:title=>local('event::public')}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:public})
-        xml << select_tag('search_event[row_id][value]', [['t','yes'],['f','no']])
-      end
-      # search for duration
-      xml.li({:class=>:duration,:title=>local('event::duration')}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:duration})
-        xml << select_tag('search_event[row_id][value]', View_event_duration.select.map(&:duration) )
-      end
-      # search for language
-      xml.li({:class=>:language,:title=>local('event::language')}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:language})
-        xml << select_tag('search_event[row_id][value]', View_conference_language.select({:translated=>@current_language,:conference_id=>@current_conference.conference_id},{:order=>:name}).map{|l| [l.language, l.name]})
-      end
-      # search for event origin
-      xml.li({:class=>:event_origin,:title=>local('event::event_origin')}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_origin})
-        xml << select_tag('search_event[row_id][value]', Event_origin_localized.select({:translated=>@current_language}).map{|o| [o.event_origin, o.name]})
-      end
-      # search for event state
-      xml.li({:class=>:event_state,:title=>local('event::event_state')}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_state})
-        xml << select_tag('search_event[row_id][value]', Event_state_localized.select({:translated=>@current_language}).map{|o| [o.event_state, o.name]})
-      end
-      # search for event state progress
-      xml.li({:class=>:event_state_progress,:title=>local('event::event_state_progress')}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_state_and_progress})
-        xml << select_tag('search_event[row_id][value]', Event_state_progress.select({},{:order=>[:event_state,:event_state_progress]}).map{|o| "#{o.event_state} #{o.event_state_progress}"})
-      end
-      # search for event type
-      xml.li({:class=>:event_type,:title=>local('event::event_type')}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:event_type})
-        xml << select_tag('search_event[row_id][value]', Event_type_localized.select({:translated=>@current_language}).map{|o| [o.event_type, o.name]},{:with_empty=>true})
-      end
-      # search for conference track
-      xml.li({:class=>:conference_track,:title=>local(:conference_track)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_track_id})
-        xml << select_tag('search_event[row_id][value]', @current_conference.tracks.map{|t| [t.conference_track_id,t.conference_track]})
-      end
-      # search for room
-      xml.li({:class=>:conference_room,:title=>local(:conference_room)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:conference_room_id})
-        xml << select_tag('search_event[row_id][value]', @current_conference.rooms.map{|r| [r.conference_room_id, r.conference_room]})
-      end
-      # search for coordinator
-      xml.li({:class=>:coordinators,:title=>local(:coordinator)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:coordinators})
-        xml << select_tag('search_event[row_id][value]', View_event_person.select({:event_role=>'coordinator',:conference_id=>@current_conference.conference_id},{:distinct=>[:name,:person_id]}).map{|p| [p.person_id,p.name]} )
-      end
-      # search for speakers 
-      xml.li({:class=>:speakers,:title=>local(:speakers)}) do
-        xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>:speaker_ids})
-        xml << select_tag('search_event[row_id][value]', View_event_person.select({:event_role=>['speaker','moderator'],:conference_id=>@current_conference.conference_id},{:distinct=>[:name,:person_id]}).map{|p| [p.person_id,p.name]} )
+
+      @categories.each do | category |
+        xml.li({:class=>category[0],:title=>category[1]}) do
+          xml.input({:type=>:hidden,:name=>'search_event[row_id][key]',:value=>category[0]})
+          xml.input({:type=>:hidden,:name=>'search_event[row_id][type]',:value=>category[2]})
+          case category[2]
+            when :text 
+              xml.input({:type=>:text,:name=>'search_event[row_id][value]'})
+            when :list
+              xml << select_tag('search_event[row_id][value]', category[3], category[4] || {} )
+            else
+              raise "Unknown search type"
+          end
+        end
+
       end
     end
 

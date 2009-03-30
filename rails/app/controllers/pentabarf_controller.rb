@@ -421,22 +421,19 @@ class PentabarfController < ApplicationController
 
   # converts values submitted by advanced search to a hash understood by momomoto
   def form_to_condition( params, klass )
-    conditions = Hash.new{|h,k|
-      if klass.columns[k].kind_of?( Momomoto::Datatype::Text )
-        key = :ilike
-      else
-        key = :eq
-      end
-      h[k]={key=>[]}
-    }
+    conditions = {}
     params.each do | key, value |
       field = value[:key].to_sym
-      if value[:value] == ""
+      conditions[field] ||= {}
+      value[:type] ||= klass.columns[field].to_s.split('::').last.downcase
+      if value[:value] == "" && value[:type] != 'text'
         conditions[field][:eq] ||= []
         conditions[field][:eq] << :NULL
-      elsif klass.columns[field].kind_of?( Momomoto::Datatype::Text )
+      elsif value[:type] == 'text'
+        conditions[field][:ilike] ||= []
         conditions[field][:ilike] << "%#{value[:value]}%"
       else
+        conditions[field][:eq] ||= []
         conditions[field][:eq] << value[:value]
       end
     end
