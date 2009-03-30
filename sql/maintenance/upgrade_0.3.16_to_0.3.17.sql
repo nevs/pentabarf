@@ -40,6 +40,8 @@ INSERT INTO event_state_progress_localized (event_state, event_state_progress, t
 ALTER TABLE base.conference DROP COLUMN release;
 SELECT log.activate_logging();
 
+INSERT INTO auth.object_domain VALUES ('event_rating_remark','review');
+
 
 COMMIT;
 

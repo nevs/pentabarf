@@ -116,9 +116,17 @@ class PentabarfController < ApplicationController
     custom_bools = Custom_fields.select({:table_name=>:event,:field_type=>:boolean}).map(&:field_name)
     write_row( Custom_event, params[:custom_event], {:preset=>{:event_id=>event.event_id},:always=>custom_bools})
     if params[:event_rating] then
-      params[:event_rating].each do | k,v | params[:event_rating][k][:event_rating_category_id]=k end
+      params[:event_rating].each do | k,v | 
+        v[:event_rating_category_id]=k 
+        if v[:rating] == "remove"
+          v[:rating] == "0"
+          v[:remove] = true
+        end
+      end
       write_rows( Event_rating, params[:event_rating], {:preset=>{:event_id => event.event_id,:person_id=>POPE.user.person_id}})
     end
+    params[:event_rating_remark][:remove] = true if params[:event_rating_remark][:remark].to_s.strip == ""
+    write_row( Event_rating_remark, params[:event_rating_remark], {:only=>[:remark],:remove=>true,:preset=>{:event_id => event.event_id,:person_id=>POPE.user.person_id}})
     write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id}})
     write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id},:ignore_empty=>:url})
     write_rows( Event_link_internal, params[:event_link_internal], {:preset=>{:event_id => event.event_id},:ignore_empty=>:url})
@@ -423,15 +431,11 @@ class PentabarfController < ApplicationController
     }
     params.each do | key, value |
       field = value[:key].to_sym
-      if klass.columns[field].kind_of?( Momomoto::Datatype::Text )
-        if value[:value] == ""
-          conditions[field][:eq] = :NULL
-        else
-          conditions[field][:ilike] << "%#{value[:value]}%"
-        end
-      elsif klass.columns[field].kind_of?( Momomoto::Datatype::Boolean )
-        value[:value] = :NULL if value[:value] == ""
-        conditions[field][:eq] << value[:value]
+      if value[:value] == ""
+        conditions[field][:eq] ||= []
+        conditions[field][:eq] << :NULL
+      elsif klass.columns[field].kind_of?( Momomoto::Datatype::Text )
+        conditions[field][:ilike] << "%#{value[:value]}%"
       else
         conditions[field][:eq] << value[:value]
       end
