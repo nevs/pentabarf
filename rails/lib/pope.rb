@@ -86,6 +86,10 @@ class Pope
     @permissions.member?( perm.to_sym )
   end
 
+  def own_conference_person?( conference_person_id )
+    @own_conference_persons.member?( conference_person_id )
+  end
+
   def table_write( table, row )
     d = domain( table.table_name )
     return if d == :public
@@ -125,7 +129,7 @@ class Pope
   def domain_person( action, row )
     if action == :modify && permission?( :modify_own_person )
       return if row.respond_to?( :person_id ) && row.person_id == user.person_id
-      return if row.respond_to?( :conference_person_id ) && @own_conference_persons.member?( row.conference_person_id )
+      return if row.respond_to?( :conference_person_id ) && own_conference_person?( row.conference_person_id )
     end
     raise Pope::PermissionError
   end
