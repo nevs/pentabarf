@@ -41,6 +41,7 @@ INSERT INTO object_domain ("object", "domain") VALUES ('event_origin_localized',
 INSERT INTO object_domain ("object", "domain") VALUES ('event_person', 'event');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_rating', 'review');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_rating_category', 'conference');
+INSERT INTO object_domain ("object", "domain") VALUES ('event_rating_remark', 'review');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_role_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_role_state_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('event_state_localized', 'localization');
