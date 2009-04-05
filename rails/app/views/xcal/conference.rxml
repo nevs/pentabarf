@@ -8,8 +8,8 @@
     xml.tag!( "pentabarf:subtitle", event.subtitle )
     xml.tag!( "pentabarf:language", event.language_name )
     xml.tag!( "pentabarf:language-code", event.language )
-    xml.dtstart( event.start_date.strftime('%Y%m%dT%H%M%S') )
-    xml.dtend( event.end_date.strftime('%Y%m%dT%H%M%S') )
+    xml.dtstart( event.start_datetime.strftime('%Y%m%dT%H%M%S') )
+    xml.dtend( event.end_datetime.strftime('%Y%m%dT%H%M%S') )
     xml.duration( event.duration.strftime('%HH%MM%SS') )
     xml.summary( event.title + ( event.subtitle ? "- #{event.subtitle}" : "" ) )
     xml.description( event.abstract )
@@ -18,9 +18,9 @@
     xml.category( "Lecture" )
     xml.url( "#{@conference.export_base_url}events/#{event.event_id}.en.html" )
     xml.location( event.conference_room )
-    event.speakers.split(',').each do | speaker |
-      xml.attendee( speaker )
-    end if event.speakers
+    event.persons.each do | speaker |
+      xml.attendee( speaker.name )
+    end
   end
 end
 
