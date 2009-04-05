@@ -17,10 +17,10 @@ install:
 		${PSQL} -f tables.sql
 		${PSQL} -f index.sql
 		${PSQL} -f views.sql
-		${PSQL} -f trigger.sql
-		${PSQL} -f activate_trigger.sql
 		${PSQL} -f types.sql
 		${PSQL} -f functions.sql
+		${PSQL} -f trigger.sql
+		${PSQL} -f activate_trigger.sql
 		${PSQL} -c 'SELECT log.activate_logging();'
 
 import:
