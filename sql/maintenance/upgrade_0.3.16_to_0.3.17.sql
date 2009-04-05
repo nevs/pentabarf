@@ -19,7 +19,7 @@ ALTER TABLE base.conference_day ALTER COLUMN conference_day_id SET NOT NULL;
 ALTER TABLE base.event ADD COLUMN conference_day_id INTEGER;
 UPDATE event SET conference_day_id = (SELECT conference_day_id FROM conference_day WHERE conference_day.conference_day = event.conference_day AND conference_day.conference_id = event.conference_id) WHERE conference_day IS NOT NULL;
 UPDATE log.event SET conference_day_id = (SELECT conference_day_id FROM log.conference_day WHERE conference_day.conference_day = event.conference_day AND conference_day.conference_id = event.conference_id LIMIT 1) WHERE conference_day IS NOT NULL;
-ALTER TABLE base.event DROP COLUMN event.conference_day CASCADE;
+ALTER TABLE base.event DROP COLUMN conference_day CASCADE;
 
 
 ALTER TABLE conference_day DROP CONSTRAINT conference_day_pkey;
