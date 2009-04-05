@@ -57,7 +57,8 @@ xml.div(:id=>'content-export') do
     xml.button( local('conference::add_conference_release'), {:type=>:button,:onclick=>'table_add_row("conference_release")'})
   end
 
-  xml << text_area_fieldset( @conference, :css, {:rows=>40,:cols=>60})
+  xml << text_area_fieldset( @conference, :css, {:rows=>23,:cols=>60})
+  xml << text_area_fieldset( @conference, :schedule_html_include, {:rows=>12,:cols=>60})
 
 end
 
