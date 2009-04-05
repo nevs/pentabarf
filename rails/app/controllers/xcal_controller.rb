@@ -4,8 +4,11 @@ class XcalController < ApplicationController
   after_filter :content_type
 
   def conference
-    @conference = Conference.select_single({:acronym=>params[:conference]})
-    @events = View_schedule_calendar.select({:conference_id => @conference.conference_id, :translated => @current_language})
+    begin
+      @conference = Release::Conference.select_single({:acronym=>params[:conference]},{:limit=>1,:order=>Momomoto.desc(:conference_release_id)})
+    rescue Momomoto::Nothing_found
+      @conference = Release_preview::Conference.select_single({:acronym=>params[:conference]})
+    end
     @filename = "#{@conference.acronym}.xcs"
   end
 

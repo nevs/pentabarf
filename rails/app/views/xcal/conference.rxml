@@ -1,4 +1,4 @@
-@events.each do | event |
+@conference.events.each do | event |
   xml.vevent do
     xml.method( "PUBLISH" )
     xml.uid( "#{event.event_id}@#{@conference.acronym}@pentabarf.org")
