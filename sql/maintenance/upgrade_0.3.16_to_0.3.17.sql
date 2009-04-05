@@ -38,7 +38,13 @@ INSERT INTO event_state_progress_localized (event_state, event_state_progress, t
 
 -- remove release column
 ALTER TABLE base.conference DROP COLUMN release;
+
+-- remove export_css_file column
 ALTER TABLE base.conference DROP COLUMN export_css_file;
+
+-- add column schedule_html_include
+ALTER TABLE base.conference ADD COLUMN schedule_html_include TEXT;
+
 SELECT log.activate_logging();
 
 INSERT INTO auth.object_domain VALUES ('event_rating_remark','review');
