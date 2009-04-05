@@ -2,6 +2,7 @@ rooms = @current_conference.rooms
 table = schedule_table( @current_conference, @events )
 day_tabs = table.keys.sort
 
+
 xml.div({:id=>:data}) do
   xml << js_tabs(day_tabs.map{|d|[d,d]})
 
@@ -26,12 +27,12 @@ xml.div({:id=>:data}) do
             xml.tr do
               xml.td(row[0])
               rooms.each do | room |
-                next if row[room.conference_room] == 0
-                if row[room.conference_room].nil?
+                next if row[room.conference_room_id] == 0
+                if row[room.conference_room_id].nil?
                   xml.td
                 else
-                  event = @events.select{|e| e.event_id == row[room.conference_room][:event_id]}.first
-                  xml.td({:rowspan=>row[room.conference_room][:slots],:style=>"background-color: #{track_color[event.conference_track]}"}) do
+                  event = @events.select{|e| e.event_id == row[room.conference_room_id][:event_id]}.first
+                  xml.td({:rowspan=>row[room.conference_room_id][:slots],:style=>"background-color: #{track_color[event.conference_track]}"}) do
                     xml << format_event( event )
                   end
                 end
