@@ -19,7 +19,6 @@ CREATE TABLE base.conference (
   abstract_length INTEGER,
   description_length INTEGER,
   export_base_url TEXT,
-  export_css_file TEXT,
   feedback_base_url TEXT,
   css TEXT,
   email TEXT,
