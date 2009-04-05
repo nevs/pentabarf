@@ -639,6 +639,14 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_r
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_category::no_category_defined_for_this_conference', 'en', 'No rating category for this conference defined yet.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_category::rank', 'de', 'Reihenfolge');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_category::rank', 'en', 'Order');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark', 'de', 'Veranstaltungsbewertung');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark', 'en', 'Event rating');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark::eval_time', 'de', 'Zeit');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark::eval_time', 'en', 'Time');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark::event_id', 'de', 'Veranstaltung');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark::event_id', 'en', 'Event');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark::person_id', 'de', 'Person');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark::person_id', 'en', 'Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark::remark', 'de', 'Kommentar');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating_remark::remark', 'en', 'Remark');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_role', 'de', 'Rolle');
