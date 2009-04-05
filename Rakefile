@@ -46,7 +46,7 @@ end
 
 desc "regenerate CSS file"
 task :update_css do
-  `(cd rails/public/stylesheets && sh -c 'sed -e "s!@import url(\\"\\([a-z_]\\+.css\\).*!\\1!" main.template | xargs cat > main.css')`
+  `cat rails/public/stylesheets/main.template | sed -e 's!.*"\\(.*\\)".*!rails/public/stylesheets/\\1!' | xargs cat > rails/public/stylesheets/main.css`
 end
 
 # alias for update_css
