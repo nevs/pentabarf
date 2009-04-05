@@ -59,7 +59,6 @@ INSERT INTO ui_message (ui_message) VALUES ('conference::description_length');
 INSERT INTO ui_message (ui_message) VALUES ('conference::duration');
 INSERT INTO ui_message (ui_message) VALUES ('conference::email');
 INSERT INTO ui_message (ui_message) VALUES ('conference::export_base_url');
-INSERT INTO ui_message (ui_message) VALUES ('conference::export_css_file');
 INSERT INTO ui_message (ui_message) VALUES ('conference::f_feedback_enabled');
 INSERT INTO ui_message (ui_message) VALUES ('conference::f_reconfirmation_enabled');
 INSERT INTO ui_message (ui_message) VALUES ('conference::f_submission_enabled');
@@ -72,7 +71,7 @@ INSERT INTO ui_message (ui_message) VALUES ('conference::max_timeslot_duration')
 INSERT INTO ui_message (ui_message) VALUES ('conference::max_timeslots_per_event');
 INSERT INTO ui_message (ui_message) VALUES ('conference::release');
 INSERT INTO ui_message (ui_message) VALUES ('conference::remark');
-INSERT INTO ui_message (ui_message) VALUES ('conference::start_date');
+INSERT INTO ui_message (ui_message) VALUES ('conference::schedule_html_include');
 INSERT INTO ui_message (ui_message) VALUES ('conference::subtitle');
 INSERT INTO ui_message (ui_message) VALUES ('conference::tab::days');
 INSERT INTO ui_message (ui_message) VALUES ('conference::tab::export');
@@ -327,6 +326,10 @@ INSERT INTO ui_message (ui_message) VALUES ('event_rating_category::event_rating
 INSERT INTO ui_message (ui_message) VALUES ('event_rating_category::event_rating_category_id');
 INSERT INTO ui_message (ui_message) VALUES ('event_rating_category::no_category_defined_for_this_conference');
 INSERT INTO ui_message (ui_message) VALUES ('event_rating_category::rank');
+INSERT INTO ui_message (ui_message) VALUES ('event_rating_remark');
+INSERT INTO ui_message (ui_message) VALUES ('event_rating_remark::eval_time');
+INSERT INTO ui_message (ui_message) VALUES ('event_rating_remark::event_id');
+INSERT INTO ui_message (ui_message) VALUES ('event_rating_remark::person_id');
 INSERT INTO ui_message (ui_message) VALUES ('event_rating_remark::remark');
 INSERT INTO ui_message (ui_message) VALUES ('event_role');
 INSERT INTO ui_message (ui_message) VALUES ('event_role_localized');

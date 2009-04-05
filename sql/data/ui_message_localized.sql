@@ -132,6 +132,7 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::remark', 'de', 'Allgemeine Notizen zur Konferenz');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::remark', 'en', 'General notes on the conference');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::remark', 'pt', 'Geral notas em o conferência');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::schedule_html_include', 'en', 'HTML include');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::subtitle', 'de', 'Untertitel');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::subtitle', 'en', 'Subtitle');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference::subtitle', 'pt', 'Subtítulo');
