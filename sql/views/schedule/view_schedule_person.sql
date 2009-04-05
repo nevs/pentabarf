@@ -15,7 +15,9 @@ CREATE OR REPLACE VIEW view_schedule_person AS
       SELECT 1
       FROM
         event_person
-        INNER JOIN view_schedule_event USING(event_id)
+        INNER JOIN event ON( event.public = TRUE AND event.event_state = 'accepted' AND event.event_state_progress = 'reconfirmed' )
+        INNER JOIN view_schedule_day USING(conference_day_id)
+        INNER JOIN view_schedule_room USING(conference_room_id)
       WHERE
         event_person.person_id = person.person_id AND
         event_person.event_role IN ('speaker','moderator') AND
