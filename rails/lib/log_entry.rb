@@ -198,6 +198,8 @@ class LogEntry
         xml.text! Conference_track.select_single({:conference_track_id=>row[column_name]}).conference_track
       when :conference_id then
         xml.text! Conference.select_single({:conference_id=>row[column_name]}).acronym
+      when :event_rating_category_id
+        xml.text! Event_rating_category.select_single({:event_rating_category_id=>row[column_name]}).event_rating_category
       when :person_id then
         xml.text! Person.select_single({:person_id=>row[column_name]}).name
       when :event_id then
