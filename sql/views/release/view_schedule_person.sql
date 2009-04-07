@@ -4,7 +4,7 @@ CREATE OR REPLACE VIEW release.view_schedule_person AS
     person.person_id,
     coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname) AS name,
     person.email,
-    conference_person.conference_id,
+    conference.conference_id,
     conference_person.conference_person_id,
     conference_person.abstract,
     conference_person.description
