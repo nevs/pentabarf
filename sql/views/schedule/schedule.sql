@@ -19,7 +19,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.conference_day_id,
           conference_day.conference_day,
           conference_day.name AS conference_day_name,
-          event.start_time,
+          event.start_time + conference.day_change AS start_time,
           event.abstract,
           event.description,
           event.public,
@@ -27,7 +27,6 @@ CREATE OR REPLACE VIEW view_schedule AS
           language_localized.name AS language_name,
           event_type_localized.name AS event_type_name,
           (conference_day.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
-          event.start_time + conference.day_change AS real_starttime,
           array_to_string(
             ARRAY(
               SELECT view_person.person_id

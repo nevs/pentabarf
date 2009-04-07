@@ -71,7 +71,6 @@ module ApplicationHelper
     table = {}
     timeslot_seconds = conference.timeslot_duration.hour * 3600 + conference.timeslot_duration.min * 60
     slots_per_day = ( 24 * 60 * 60 ) / timeslot_seconds
-    start = (conference.day_change.hour * 3600) + (conference.day_change.min * 60) + conference.day_change.sec
     # create an array for each day
     days = conference.days({},{:order=>:conference_day}).map(&:conference_day)
     days.each do | d | table[d.to_s] = [] end
@@ -79,7 +78,7 @@ module ApplicationHelper
     table.each do | conference_day, day_table |
       current = 0
       while current < 24 * 60 * 60
-        table[conference_day].push( { 0 => sprintf("%02d:%02d", ((current + start)/3600)%24, ((current + start)%3600)/60 ) } )
+        table[conference_day].push( { 0 => sprintf("%02d:%02d", (current/3600)%24, (current%3600)/60 ) } )
         current += timeslot_seconds
       end
     end
