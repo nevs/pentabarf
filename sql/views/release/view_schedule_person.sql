@@ -16,12 +16,17 @@ CREATE OR REPLACE VIEW release.view_schedule_person AS
       SELECT 1
       FROM
         release.event_person
-        INNER JOIN release.view_schedule_event USING(conference_release_id,event_id)
+        INNER JOIN release.event USING(conference_release_id,event_id)
+        INNER JOIN release.view_schedule_day USING(conference_release_id,conference_day_id)
+        INNER JOIN release.view_schedule_room USING(conference_release_id,conference_room_id)
       WHERE
         event_person.conference_release_id = person.conference_release_id AND
         event_person.person_id = person.person_id AND
         event_person.event_role IN ('speaker','moderator') AND
-        event_person.event_role_state = 'confirmed'
+        event_person.event_role_state = 'confirmed' AND
+        event.public = TRUE AND
+        event.event_state = 'accepted' AND 
+        event.event_state_progress = 'reconfirmed'
     )
   ORDER BY coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname)
 ;
