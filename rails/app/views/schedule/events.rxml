@@ -28,18 +28,24 @@ xml.div(:id=>'event-index',:class=>'section') do
             end
             xml.p(:class=>'info') do
               xml.a({:href=>url_for(event_url)}) do
-                xml.strong local( 'event::event_type' )
-                xml.text! ': '
-                xml.span(event.event_type_name,{:class=>'type'})
-                xml.br
-                xml.strong local( 'event::conference_track' )
-                xml.text! ': '
-                xml.span(event.conference_track,{:class=>'type'})
-                xml.br
-                xml.strong local( 'event::language' )
-                xml.text! ': '
-                xml.span(event.language_name,{:class=>'type'})
-                xml.br
+                if event.event_type
+                  xml.strong local( 'event::event_type' )
+                  xml.text! ': '
+                  xml.span(event.event_type_name,{:class=>'type'})
+                  xml.br
+                end
+                if event.conference_track_id
+                  xml.strong local( 'event::conference_track' )
+                  xml.text! ': '
+                  xml.span(event.conference_track,{:class=>'type'})
+                  xml.br
+                end
+                if event.language
+                  xml.strong local( 'event::language' )
+                  xml.text! ': '
+                  xml.span(event.language_name,{:class=>'type'})
+                  xml.br
+                end
               end
             end
           end
