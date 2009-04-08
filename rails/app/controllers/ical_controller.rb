@@ -5,11 +5,14 @@ class IcalController < ApplicationController
   before_filter :init
 
   def conference
-    conf = Conference.select_single({:acronym=>params[:conference]})
+    begin
+      conf = Release::Conference.select_single({:acronym=>params[:conference]},{:limit=>1,:order=>Momomoto.desc(:conference_release_id)})
+    rescue Momomoto::Nothing_found
+      conf = Release_preview::Conference.select_single({:acronym=>params[:conference]})
+    end
     tz = Timezone.select_single({:timezone => conf.timezone})
     lang = Language.select_single({:language=>@current_language})
-    rooms = Conference_room.select({:conference_id=>conf.conference_id})
-    events = View_schedule_simple.select({:conference_id=>conf.conference_id})
+    rooms = conf.rooms
 
     cal = Icalendar::Calendar.new
     cal.prodid "-//Pentabarf//Schedule//#{lang.language.upcase}"
@@ -32,13 +35,13 @@ class IcalController < ApplicationController
       add_component( daylight )
     end
 
-    events.each do | event |
+    conf.events(:translated=>@current_language).each do | event |
       cal.event do
         uid "#{event.event_id}@#{conf.acronym}@pentabarf.org"
-#        dtstamp (event.start_date - tz.utc_offset.to_i ).strftime('%Y%m%dT%H%M%S')
+#        dtstamp (event.start_datetime - tz.utc_offset.to_i ).strftime('%Y%m%dT%H%M%S')
         dtstamp Time.now.strftime('%Y%m%dT%H%M%S')
-        dtstart event.start_date.strftime('%Y%m%dT%H%M%S'), {'TZID'=>tz.timezone}
-        dtend event.end_date.strftime('%Y%m%dT%H%M%S'), {'TZID'=>tz.timezone}
+        dtstart event.start_datetime.strftime('%Y%m%dT%H%M%S'), {'TZID'=>tz.timezone}
+        dtend event.end_datetime.strftime('%Y%m%dT%H%M%S'), {'TZID'=>tz.timezone}
         duration sprintf( 'PT%dH%02dM', event.duration.hour, event.duration.min )
         summary event.title + ( event.subtitle ? " - #{event.subtitle}" : '')
         description event.abstract.to_s.gsub( "\n", '' ).gsub( "\r", '' )
