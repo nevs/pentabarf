@@ -28,8 +28,25 @@ class ScheduleController < ApplicationController
     @content_title = @event.title
   end
 
+  def track_event
+    @track = @conference.tracks({:conference_track=>params[:track]})[0]
+    raise StandardError unless @track
+    @event = @conference.events({:conference_track=>params[:track],:translated=>@current_language,:event_id=>params[:id]})[0]
+    raise StandardError unless @event
+    @events = @conference.events({:conference_track=>params[:track],:translated=>@current_language})
+    @content_title = @event.title
+    render(:action=>:event)
+  end
+
   def events
     @events = @conference.events({:translated=>@current_language},{:order=>[:title,:subtitle]})
+  end
+
+  def track_events
+    @track = @conference.tracks({:conference_track=>params[:track]})[0]
+    raise StandardError unless @track
+    @events = @conference.events({:conference_track=>params[:track],:translated=>@current_language})
+    render(:action=>:events)
   end
 
   def speaker
@@ -42,23 +59,6 @@ class ScheduleController < ApplicationController
   def speakers
     @speakers = @conference.persons({},{:order=>[:name]})
     @content_title = local(:speakers)
-  end
-
-  def track_event
-    @track = @conference.tracks({:conference_track=>params[:track]})[0]
-    raise StandardError unless @track
-    @event = @conference.events({:conference_track=>params[:track],:translated=>@current_language,:event_id=>params[:id]})[0]
-    raise StandardError unless @event
-    @events = @conference.events({:conference_track=>params[:track],:translated=>@current_language})
-    @content_title = @event.title
-    render(:action=>:event)
-  end
-
-  def track_events
-#    @content_title = "Lectures and workshops"
-    @track = @conference.tracks({:conference_track=>params[:track]})[0]
-    raise StandardError unless @track
-    @events = @conference.events({:conference_track=>params[:track],:translated=>@current_language})
   end
 
   protected
