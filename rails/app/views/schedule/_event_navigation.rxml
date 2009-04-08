@@ -1,0 +1,30 @@
+xml.div(:id=>'navigation') do
+  target = {:conference=>@conference.acronym,:action=>:event,:language=>params[:language]}
+  if @track
+    target[:action] = :track_event
+    target[:track] = @track.conference_track
+  end
+
+  navigation_index = nil
+  @events.each_with_index do | event, index |
+    if event.event_id == @event.event_id
+      navigation_index = index
+      break
+    end
+  end
+
+  prev = @events[navigation_index - 1]
+  if prev && navigation_index > 0
+    xml.a(:href=>url_for(target.merge({:id=>prev.event_id}))) do
+      xml.span('<<<',{:class=>'previous',:title=>prev.title})
+    end
+  end
+
+  fwd = @events[navigation_index + 1]
+  if fwd
+    xml.a(:href=>url_for(target.merge({:id=>fwd.event_id}))) do
+      xml.span('>>>',{:class=>'next',:title=>fwd.title})
+    end
+  end
+end
+

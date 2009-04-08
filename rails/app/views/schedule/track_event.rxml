@@ -39,30 +39,6 @@ xml.div(:id=>'event',:class=>'section') do
     end
   end
 
-  xml.div(:id=>'navigation') do
-    prev = nil
-    @events.each do | e |
-      break if e.event_id == event.event_id
-      prev = e
-    end
-
-    if prev
-      xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>prev.event_id,:language=>@current_language)) do
-        xml.span('<<<',{:class=>'previous',:title=>prev.title})
-      end
-    end
-
-    fwd = nil
-    @events.reverse_each do | e |
-      break if e.event_id == event.event_id
-      fwd = e
-    end
-
-    if fwd
-      xml.a(:href=>url_for(:action=>:track_event,:conference=>@conference.acronym,:track=>@track.conference_track,:id=>fwd.event_id,:language=>@current_language)) do
-        xml.span('>>>',{:class=>'next',:title=>fwd.title})
-      end
-    end
-  end
+  xml << render(:partial=>'event_navigation')
 
 end

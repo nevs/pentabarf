@@ -38,28 +38,6 @@ xml.div(:id=>'event',:class=>'section vevent') do
     end
   end
 
-  xml.div(:id=>'navigation') do
-    navigation_index = nil
-    @events.each_with_index do | event, index |
-      if event.event_id == @event.event_id
-        navigation_index = index
-        break
-      end
-    end
-
-    prev = @events[navigation_index - 1]
-    if prev
-      xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>prev.event_id)) do
-        xml.span('<<<',{:class=>'previous',:title=>prev.title})
-      end
-    end
-
-    fwd = @events[navigation_index + 1]
-    if fwd
-      xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>fwd.event_id)) do
-        xml.span('>>>',{:class=>'next',:title=>fwd.title})
-      end
-    end
-  end
+  xml << render(:partial=>'event_navigation')
 
 end
