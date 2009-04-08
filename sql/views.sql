@@ -35,7 +35,6 @@
 \i views/report/report_schedule_gender.sql
 \i views/report/view_report_review.sql
 \i views/schedule/schedule.sql
-\i views/schedule/schedule_calendar.sql
 \i views/schedule/view_schedule_day.sql
 \i views/schedule/view_schedule_room.sql
 \i views/schedule/view_schedule_event.sql
