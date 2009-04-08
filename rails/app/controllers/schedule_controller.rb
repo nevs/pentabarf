@@ -51,6 +51,7 @@ class ScheduleController < ApplicationController
     raise StandardError unless @event
     @events = @conference.events({:conference_track=>params[:track],:translated=>@current_language})
     @content_title = @event.title
+    render(:action=>:event)
   end
 
   def track_events
