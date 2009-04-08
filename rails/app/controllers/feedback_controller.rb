@@ -8,18 +8,21 @@ class FeedbackController < ApplicationController
   end
 
   def event
-    @event = View_schedule_simple.select_single({:event_id => params[:id], :conference_id => @conference.conference_id})
+    @event = @conference.events({:event_id=>params[:id],:translated=>@current_language})[0]
+    raise StandardError unless @event
     @event_feedback = Event_feedback.new
   end
 
   def save_event
-    @event = View_schedule_simple.select_single({:event_id => params[:id], :conference_id => @conference.conference_id})
+    @event = @conference.events({:event_id=>params[:id],:translated=>@current_language})[0]
+    raise StandardError unless @event
     write_row( Event_feedback, params[:event_feedback], {:preset=>{:event_id=>@event.event_id}} )
     redirect_to( :action=>:thankyou, :id => @event.event_id, :conference=>@conference.acronym, :language=>@current_language )
   end
 
   def thankyou
-    @event = View_schedule_simple.select_single({:event_id => params[:id], :conference_id => @conference.conference_id})
+    @event = @conference.events({:event_id=>params[:id],:translated=>@current_language})
+    raise StandardError unless @event
   end
 
   protected
@@ -29,10 +32,16 @@ class FeedbackController < ApplicationController
   end
 
   def auth
-    @conference = Conference.select_single({:acronym=>params[:conference],:f_feedback_enabled=>'t'})
-   rescue
-    render(:text=>"There is currently no feedback enabled for a conference with this name.",:status=>404)
-    false
+    begin
+      @conference = Release::Conference.select_single({:acronym=>params[:conference]},{:limit=>1,:order=>Momomoto.desc(:conference_release_id)})
+    rescue Momomoto::Nothing_found
+      @conference = Release_preview::Conference.select_single({:acronym=>params[:conference]})
+    end
+    if not @conference.f_feedback_enabled
+      render(:text=>"There is currently no feedback enabled for a conference with this name.",:status=>404)
+      return false
+    end
+    true
   end
 
 end
