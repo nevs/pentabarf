@@ -15,7 +15,7 @@ xml.div(:id=>'infobox') do
         end
       end
     end
-  end
+  end if @event.persons.length > 0
 
   xml.table do
     xml.tr do xml.th( local('schedule::schedule'),{:colspan=>2}) end
@@ -43,15 +43,15 @@ xml.div(:id=>'infobox') do
     xml.tr do
       xml.td( local( 'event::event_type' ),{:class=>'keyword'})
       xml.td(@event.event_type_name,{:class=>'value'})
-    end
+    end if @event.event_type
     xml.tr do
       xml.td( local( 'event::conference_track' ),{:class=>'keyword'})
       xml.td(@event.conference_track,{:class=>'value'})
-    end
+    end if @event.conference_track_id
     xml.tr do
       xml.td( local( 'event::language' ),{:class=>'keyword'})
       xml.td(@event.language_name,{:class=>'value'})
-    end
+    end if @event.language
   end
 
   if @conference.f_feedback_enabled && @conference.feedback_base_url
