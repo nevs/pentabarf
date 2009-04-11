@@ -18,7 +18,7 @@ xml.div( :id => 'data' ) do
 
     xml.input({:type=>:hidden,:name=>:transaction,:value=>@transaction.event_transaction_id})
 
-    xml << render( :partial => 'modification_buttons' )
+    xml << render( :partial => 'shared/modification_buttons' )
     xml << render( :partial => 'event_comment' )
 
     xml.div(:id=>:conflicts) do
@@ -50,6 +50,7 @@ xml.div( :id => 'data' ) do
 
     xml.form(:action=>url_for(:controller=>'event',:action=>:copy),:id=>'copy_event',:method=>'post',:enctype=>'multipart/form-data') do
       xml.input({:type=>:hidden,:name=>:event_id,:value=>@event.event_id})
+      xml.text! "Target Conference: "
       xml << select_tag( 'conference_id', Conference.select.map{|c| [c.conference_id,c.acronym]} )
       xml.button('Copy',:type=>:submit)
     end

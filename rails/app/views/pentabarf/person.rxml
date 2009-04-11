@@ -26,7 +26,7 @@ xml.div( :id => 'data' ) do
 
     xml << hidden_field( @conference_person, :conference_person_id )
     xml.input({:type=>:hidden,:name=>:transaction,:value=>@transaction.person_transaction_id})
-    xml << render( :partial => 'modification_buttons' )
+    xml << render( :partial => 'shared/modification_buttons' )
     xml << render( :partial => 'person_comment' )
 
     xml.div(:id=>:conflicts) do
