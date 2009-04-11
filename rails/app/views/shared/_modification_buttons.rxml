@@ -1,0 +1,4 @@
+xml.div( :id => 'buttons', :style => 'display: none;' ) do
+  xml.button( local('form::cancel'), {:type=>'button',:id=>'cancel-button',:accesskey=>'c',:onclick=>'clear_tainting();window.location.reload( true );'} )
+  xml.button( local('form::save'), {:type=>'submit',:id=>'submit-button',:accesskey=>'s',:onclick=>'clear_tainting();'} )
+end
