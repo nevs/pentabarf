@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION copy_event( source_event_id INTEGER, target_conferenc
     source_conference_id INTEGER;
 
   BEGIN
-    SELECT INTO target_event_id nextval('event_event_id_seq');
+    SELECT INTO target_event_id nextval('base.event_event_id_seq');
     SELECT INTO source_conference_id conference_id FROM event WHERE event_id = source_event_id;
 
     INSERT INTO 
@@ -37,7 +37,7 @@ CREATE OR REPLACE FUNCTION copy_event( source_event_id INTEGER, target_conferenc
       slug,
       title,
       subtitle,
-      (CASE target_conference_id WHEN source_event.conference_id THEN conference_track_id ELSE NULL END),
+      (CASE target_conference_id WHEN source_conference_id THEN conference_track_id ELSE NULL END),
       event_type,
       duration,
       'idea',
@@ -52,7 +52,7 @@ CREATE OR REPLACE FUNCTION copy_event( source_event_id INTEGER, target_conferenc
       slides,
       remark,
       submission_notes
-    FROM event WHERE event_id = cur_event_id;
+    FROM event WHERE event_id = source_event_id;
 
     INSERT INTO event_image( event_id, mime_type, image ) 
       SELECT target_event_id, mime_type, image FROM event_image 
@@ -65,7 +65,7 @@ CREATE OR REPLACE FUNCTION copy_event( source_event_id INTEGER, target_conferenc
           event_person.event_id = source_event_id;
 
     INSERT INTO event_person( event_id, person_id, event_role )
-      SELECT target_event_id, coordinator_id, 'coordinator' FROM event_person;
+      VALUES (target_event_id, coordinator_id, 'coordinator');
 
     INSERT INTO event_link( event_id, url, title, rank )
       SELECT target_event_id, url, title, rank FROM event_link 
