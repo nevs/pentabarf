@@ -45,5 +45,14 @@ xml.div( :id => 'data' ) do
     xml << "new Ajax.Updater('conflicts','#{url_for(:action=>:conflict_event,:id=>@event.event_id)}');" if not @event.new_record?
   end
 
+  xml.fieldset do
+    xml.legend "Copy Event"
+
+    xml.form(:action=>url_for(:controller=>'event',:action=>:copy),:id=>'copy_event',:method=>'post',:enctype=>'multipart/form-data') do
+      xml.input({:type=>:hidden,:name=>:event_id,:value=>@event.event_id})
+      xml << select_tag( 'conference_id', Conference.select.map{|c| [c.conference_id,c.acronym]} )
+      xml.button('Copy',:type=>:submit)
+    end
+  end
 end
 
