@@ -1,4 +1,7 @@
 
+require 'uri'
+
+# render schedule pages to static files
 class HTMLExport
   @urls = []
   @urls_done = []
@@ -10,7 +13,8 @@ class HTMLExport
       @conference = conf
       @session = ActionController::Integration::Session.new
       @session.host = 'pentabarf.org'
-      @http_prefix = @conference.export_base_url
+      export_url = URI.parse( conference.export_base_url )
+      @http_prefix = export_url.path || "/"
       @file_prefix = "tmp/html-export/#{conf.acronym}/"
       get( "/schedule/#{@conference.acronym}")
     end
@@ -39,6 +43,7 @@ class HTMLExport
       target
     end
 
+    # map actions to urls 
     def make_url( url, prefix )
       url[:controller] ||= 'schedule'
       url[:language] ||= 'en'
