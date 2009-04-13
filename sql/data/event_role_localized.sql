@@ -2,6 +2,7 @@
 SET client_encoding = 'UTF8';
 SET search_path = public, pg_catalog;
 
+INSERT INTO event_role_localized (event_role, translated, name) VALUES ('attendee', 'de', 'Teilnehmer');
 INSERT INTO event_role_localized (event_role, translated, name) VALUES ('attendee', 'en', 'Attendee');
 INSERT INTO event_role_localized (event_role, translated, name) VALUES ('attendee', 'pt', 'Attendee');
 INSERT INTO event_role_localized (event_role, translated, name) VALUES ('coordinator', 'de', 'Koordinator');
