@@ -637,9 +637,11 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_r
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::actuality', 'pt', 'Actualidade');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::eval_time', 'de', 'Zeit');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::eval_time', 'en', 'Time');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::event_rating_category_id', 'en', 'Event rating category');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::person_id', 'de', 'Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::person_id', 'en', 'Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::person_id', 'pt', 'Pessoa');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::rating', 'en', 'Rating');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::relevance', 'en', 'Relevance');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::relevance', 'pt', 'Pertinência');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_rating::remark', 'en', 'Remark');
