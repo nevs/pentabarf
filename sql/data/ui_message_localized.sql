@@ -2,8 +2,10 @@
 SET client_encoding = 'UTF8';
 SET search_path = public, pg_catalog;
 
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account', 'de', 'Benutzer');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account', 'en', 'Account');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account', 'pt', 'Conta');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::current_language', 'de', 'Verwendete Sprache');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::current_language', 'en', 'current language');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::current_language', 'pt', 'linguagem atual');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::email', 'en', 'Email');
@@ -15,13 +17,16 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::person_id', 'de', 'Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::person_id', 'en', 'Person');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::person_id', 'pt', 'Pessoa');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::repeat_password', 'de', 'Passwort wiederholen');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::repeat_password', 'en', 'Repeat password');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account::repeat_password', 'pt', 'Repetir senha');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_activation::conference_id', 'de', 'Konferenz');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_activation::conference_id', 'en', 'Conference');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_activation::conference_id', 'pt', 'Conferência');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_role', 'de', 'Benutzer-Rolle');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_role', 'en', 'Account role');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_role', 'pt', 'Permissão da Conta');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_role::role', 'de', 'Rolle');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_role::role', 'en', 'Role');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_role::role', 'pt', 'Permissão');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account_settings::current_language', 'en', 'current language');
@@ -29,8 +34,14 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('account
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('admin::index', 'de', 'Administration');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('admin::index', 'en', 'Administration');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('admin::index', 'pt', 'Administração');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('amount', 'de', 'Menge');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('arrival', 'de', 'Ankunft');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('attachment_type', 'de', 'Anhangs-Typ');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('attachment_type', 'en', 'Attachment type');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('attachment_type', 'pt', 'Tipo de arquivo adicionado');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('attachments', 'de', 'Anhänge');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('availability', 'de', 'Verfügbarkeit');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('comments', 'de', 'Kommentare');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference', 'de', 'Konferenz');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference', 'en', 'Conference');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference', 'pt', 'Conferência');
@@ -321,6 +332,12 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('confere
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel::travel_cost', 'pt', 'Viajar custo');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel::travel_currency', 'en', 'Currency');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_person_travel::travel_currency', 'pt', 'Moeda');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_release::conference_id', 'de', 'Konferenz');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_release::conference_id', 'en', 'Conference');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_release::conference_release', 'de', 'Release');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_release::conference_release', 'en', 'Release');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_release::conference_release_id', 'de', 'Release-ID');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_release::conference_release_id', 'en', 'Release ID');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_room', 'de', 'Raum');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_room', 'en', 'Room');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('conference_room', 'pt', 'Sala');

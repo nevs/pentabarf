@@ -72,6 +72,7 @@ INSERT INTO ui_message (ui_message) VALUES ('conference::max_timeslots_per_event
 INSERT INTO ui_message (ui_message) VALUES ('conference::release');
 INSERT INTO ui_message (ui_message) VALUES ('conference::remark');
 INSERT INTO ui_message (ui_message) VALUES ('conference::schedule_html_include');
+INSERT INTO ui_message (ui_message) VALUES ('conference::start_date');
 INSERT INTO ui_message (ui_message) VALUES ('conference::subtitle');
 INSERT INTO ui_message (ui_message) VALUES ('conference::tab::days');
 INSERT INTO ui_message (ui_message) VALUES ('conference::tab::export');
