@@ -619,7 +619,7 @@ INSERT INTO country_localized (country, translated, name) VALUES ('nu', 'en', 'N
 INSERT INTO country_localized (country, translated, name) VALUES ('nu', 'fr', 'NiuÃ');
 INSERT INTO country_localized (country, translated, name) VALUES ('nu', 'ja', 'ニウエ');
 INSERT INTO country_localized (country, translated, name) VALUES ('nz', 'de', 'Neuseeland');
-INSERT INTO country_localized (country, translated, name) VALUES ('nz', 'en', 'New zealand');
+INSERT INTO country_localized (country, translated, name) VALUES ('nz', 'en', 'New Zealand');
 INSERT INTO country_localized (country, translated, name) VALUES ('nz', 'fr', 'Nouvelle-zÃlande');
 INSERT INTO country_localized (country, translated, name) VALUES ('nz', 'ja', 'ニュージーランド');
 INSERT INTO country_localized (country, translated, name) VALUES ('om', 'de', 'Oman');
