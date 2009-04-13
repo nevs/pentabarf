@@ -21,7 +21,8 @@ xml.div do
       end
     end
 
-    xml.input({:type=>:submit})
+    xml << render( :partial => 'shared/modification_buttons' )
+    xml.script( "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );", { :type => 'text/javascript' } )
 
   end
 end
