@@ -30,7 +30,7 @@ xml.div({:id=>'event-feedback',:class=>:section}) do
       xml.textarea('',{:name=>'event_feedback[remark]',:cols=>80,:rows=>7})
     end
     xml.fieldset do
-      xml.input({:type=>:submit,:value=>local(:submit)})
+      xml.input({:type=>:submit,:value=>local('form::save')})
     end
   end
 
