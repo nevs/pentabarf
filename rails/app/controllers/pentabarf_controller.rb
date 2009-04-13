@@ -21,15 +21,6 @@ class PentabarfController < ApplicationController
     end
   end
 
-  def conflict_event
-    @conflicts = []
-    @conflicts += View_conflict_event.call({:conference_id => @current_conference.conference_id},{:event_id=>params[:id],:translated=>@current_language})
-    @conflicts += View_conflict_event_event.call({:conference_id => @current_conference.conference_id},{:event_id1=>params[:id],:translated=>@current_language})
-    @conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{:event_id=>params[:id],:translated=>@current_language})
-    @conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{:event_id1=>params[:id],:translated=>@current_language})
-    @conflicts.length > 0 ? render( :partial => 'conflict_event' ) : render( :text => '' )
-  end
-
   def conflict_person
     @conflicts = []
     @conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})

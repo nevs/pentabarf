@@ -42,7 +42,7 @@ xml.div( :id => 'data' ) do
       new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );
       switch_tab();
     "
-    xml << "new Ajax.Updater('conflicts','#{url_for(:action=>:conflict_event,:id=>@event.event_id)}');" if not @event.new_record?
+    xml << "new Ajax.Updater('conflicts','#{url_for(:controller=>'event',:action=>:conflicts,:id=>@event.event_id)}');" if not @event.new_record?
   end
 
   xml.fieldset do
