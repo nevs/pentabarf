@@ -38,6 +38,8 @@ Rails::Initializer.run do |config|
   config.action_controller.session_store = nil
 
   # See Rails::Configuration for more options
+  
+  config.gem 'momomoto', :version => '>= 0.2.1'
 
   Momomoto::Database.config( YAML.load_file( config.database_configuration_file )[ENV['RAILS_ENV']] )
   Momomoto::Database.connect
