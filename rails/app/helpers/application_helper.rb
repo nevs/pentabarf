@@ -9,7 +9,7 @@ module ApplicationHelper
   TableRowColors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
 
   def pentabarf_version
-    "0.3.17"
+    "0.3.18"
   end
 
   # tries to read the current revision of pentabarf from subversion meta data
