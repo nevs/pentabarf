@@ -1,6 +1,6 @@
 
 CREATE TABLE base.conference_day (
-  conference_day_id INTEGER NOT NULL,
+  conference_day_id SERIAL NOT NULL,
   conference_id INTEGER NOT NULL,
   conference_day DATE NOT NULL,
   name TEXT,
