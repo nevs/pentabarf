@@ -22,3 +22,6 @@ CREATE TABLE event_attachment (
 CREATE TABLE log.event_attachment (
 ) INHERITS( base.logging, base.event_attachment );
 
+CREATE INDEX log.event_attachment_event_attachment_id_idx ON log.event_attachment( event_attachment_id );
+CREATE INDEX log.event_attachment_log_transaction_id_idx ON log.event_attachment( log_transaction_id );
+

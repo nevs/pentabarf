@@ -16,3 +16,6 @@ CREATE TABLE conference_room_role (
 CREATE TABLE log.conference_room_role (
 ) INHERITS( base.logging, base.conference_room_role );
 
+CREATE INDEX log.conference_room_role_conference_room_id_idx ON log.conference_room_role( conference_room_id );
+CREATE INDEX log.conference_room_role_log_transaction_id_idx ON log.conference_room_role( log_transaction_id );
+

@@ -22,3 +22,5 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER log_transaction_involved_tables_insert_trigger BEFORE INSERT ON log.log_transaction_involved_tables FOR EACH ROW EXECUTE PROCEDURE log.log_transaction_involved_tables_before_insert();
 
+CREATE INDEX log.log_transaction_involved_tables_log_transaction_id_idx ON log.log_transaction_involved_tables( log_transaction_id );
+

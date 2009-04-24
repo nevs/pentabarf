@@ -17,3 +17,6 @@ CREATE TABLE event_rating (
 CREATE TABLE log.event_rating (
 ) INHERITS( base.logging, base.event_rating );
 
+CREATE INDEX log.event_rating_event_id_idx ON log.event_rating( event_id );
+CREATE INDEX log.event_rating_log_transaction_id_idx ON log.event_rating( log_transaction_id );
+

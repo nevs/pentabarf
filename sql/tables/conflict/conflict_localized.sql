@@ -14,3 +14,6 @@ CREATE TABLE conflict.conflict_localized (
 CREATE TABLE log.conflict_localized (
 ) INHERITS( base.logging, base.conflict_localized );
 
+CREATE INDEX log.conflict_localized_conflict_idx ON log.conflict_localized( conflict );
+CREATE INDEX log.conflict_localized_log_transaction_id_idx ON log.conflict_localized( log_transaction_id );
+

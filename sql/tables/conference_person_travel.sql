@@ -46,3 +46,6 @@ CREATE TABLE conference_person_travel (
 CREATE TABLE log.conference_person_travel (
 ) INHERITS( base.logging, base.conference_person_travel );
 
+CREATE INDEX log.conference_person_travel_conference_person_id_idx ON log.conference_person_travel( conference_person_id );
+CREATE INDEX log.conference_person_travel_log_transaction_id_idx ON log.conference_person_travel( log_transaction_id );
+

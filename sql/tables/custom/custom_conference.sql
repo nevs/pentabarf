@@ -11,3 +11,6 @@ CREATE TABLE custom.custom_conference (
 CREATE TABLE log.custom_conference (
 ) INHERITS( base.logging, base.custom_conference );
 
+CREATE INDEX log.custom_conference_conference_id_idx ON log.custom_conference( conference_id );
+CREATE INDEX log.custom_conference_log_transaction_id_idx ON log.custom_conference( log_transaction_id );
+

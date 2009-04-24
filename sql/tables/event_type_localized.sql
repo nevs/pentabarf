@@ -14,3 +14,6 @@ CREATE TABLE event_type_localized (
 CREATE TABLE log.event_type_localized (
 ) INHERITS( base.logging, base.event_type_localized );
 
+CREATE INDEX log.event_type_localized_event_type_idx ON log.event_type_localized( event_type );
+CREATE INDEX log.event_type_localized_log_transaction_id_idx ON log.event_type_localized( log_transaction_id );
+

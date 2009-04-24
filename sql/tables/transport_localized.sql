@@ -14,3 +14,6 @@ CREATE TABLE transport_localized (
 CREATE TABLE log.transport_localized (
 ) INHERITS( base.logging, base.transport_localized );
 
+CREATE INDEX log.transport_localized_transport_idx ON log.transport_localized( transport );
+CREATE INDEX log.transport_localized_log_transaction_id_idx ON log.transport_localized( log_transaction_id );
+

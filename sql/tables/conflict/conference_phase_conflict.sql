@@ -17,3 +17,6 @@ CREATE TABLE conflict.conference_phase_conflict(
 CREATE TABLE log.conference_phase_conflict(
 ) INHERITS( base.logging, base.conference_phase_conflict );
 
+CREATE INDEX log.conference_phase_conflict_conference_phase_conflict_id_idx ON log.conference_phase_conflict( conference_phase_conflict_id );
+CREATE INDEX log.conference_phase_conflict_log_transaction_id_idx ON log.conference_phase_conflict( log_transaction_id );
+

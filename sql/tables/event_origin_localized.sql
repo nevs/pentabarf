@@ -14,3 +14,6 @@ CREATE TABLE event_origin_localized (
 CREATE TABLE log.event_origin_localized (
 ) INHERITS( base.logging, base.event_origin_localized );
 
+CREATE INDEX log.event_origin_localized_event_origin_idx ON log.event_origin_localized( event_origin );
+CREATE INDEX log.event_origin_localized_log_transaction_id_idx ON log.event_origin_localized( log_transaction_id );
+

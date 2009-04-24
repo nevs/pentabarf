@@ -14,3 +14,6 @@ CREATE TABLE auth.role_localized (
 CREATE TABLE log.role_localized (
 ) INHERITS( base.logging, base.role_localized );
 
+CREATE INDEX log.role_localized_role_idx ON log.role_localized( role );
+CREATE INDEX log.role_localized_log_transaction_id_idx ON log.role_localized( log_transaction_id );
+

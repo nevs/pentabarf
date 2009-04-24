@@ -15,3 +15,6 @@ CREATE TABLE conference_day (
 CREATE TABLE log.conference_day (
 ) INHERITS( base.logging, base.conference_day );
 
+CREATE INDEX log.conference_day_conference_day_id_idx ON log.conference_day( conference_day_id );
+CREATE INDEX log.conference_day_log_transaction_id_idx ON log.conference_day( log_transaction_id );
+

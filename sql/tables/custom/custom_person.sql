@@ -11,3 +11,6 @@ CREATE TABLE custom.custom_person (
 CREATE TABLE log.custom_person (
 ) INHERITS( base.logging, base.custom_person );
 
+CREATE INDEX log.custom_person_person_id_idx ON log.custom_person( person_id );
+CREATE INDEX log.custom_person_log_transaction_id_idx ON log.custom_person( log_transaction_id );
+

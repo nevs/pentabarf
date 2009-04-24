@@ -18,3 +18,6 @@ CREATE TABLE conference_room(
 CREATE TABLE log.conference_room(
 ) INHERITS( base.logging, base.conference_room );
 
+CREATE INDEX log.conference_room_conference_room_id_idx ON log.conference_room( conference_room_id );
+CREATE INDEX log.conference_room_log_transaction_id_idx ON log.conference_room( log_transaction_id );
+

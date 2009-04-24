@@ -17,3 +17,7 @@ CREATE TABLE conference_person_link_internal (
 CREATE TABLE log.conference_person_link_internal (
 ) INHERITS( base.logging, base.conference_person_link_internal );
 
+CREATE INDEX log.conference_person_link_internal_conference_person_link_internal_id_idx ON log.conference_person_link_internal( conference_person_link_internal_id );
+CREATE INDEX log.conference_person_link_internal_conference_person_id_idx ON log.conference_person_link_internal( conference_person_id );
+CREATE INDEX log.conference_person_link_internal_log_transaction_id_idx ON log.conference_person_link_internal( log_transaction_id );
+

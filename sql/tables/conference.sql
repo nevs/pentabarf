@@ -41,3 +41,6 @@ CREATE TABLE conference (
 
 CREATE TABLE log.conference() INHERITS( base.logging, base.conference );
 
+CREATE INDEX log.conference_conference_id_idx ON log.conference( conference_id );
+CREATE INDEX log.conference_log_transaction_id_idx ON log.conference( log_transaction_id );
+

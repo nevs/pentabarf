@@ -14,3 +14,6 @@ CREATE TABLE currency_localized (
 CREATE TABLE log.currency_localized (
 ) INHERITS( base.logging, base.currency_localized );
 
+CREATE INDEX log.currency_localized_currency_idx ON log.currency_localized( currency );
+CREATE INDEX log.currency_localized_log_transaction_id_idx ON log.currency_localized( log_transaction_id );
+

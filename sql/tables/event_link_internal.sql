@@ -17,3 +17,6 @@ CREATE TABLE event_link_internal (
 CREATE TABLE log.event_link_internal (
 ) INHERITS( base.logging, base.event_link_internal );
 
+CREATE INDEX log.event_link_internal_event_link_internal_id_idx ON log.event_link_internal( event_link_internal_id );
+CREATE INDEX log.event_link_internal_log_transaction_id_idx ON log.event_link_internal( log_transaction_id );
+

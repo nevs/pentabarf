@@ -14,3 +14,6 @@ CREATE TABLE language_localized (
 CREATE TABLE log.language_localized (
 ) INHERITS( base.logging, base.language_localized );
 
+CREATE INDEX log.language_localized_language_idx ON log.language_localized( language );
+CREATE INDEX log.language_localized_log_transaction_id_idx ON log.language_localized( log_transaction_id );
+

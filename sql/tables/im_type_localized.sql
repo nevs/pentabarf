@@ -14,3 +14,6 @@ CREATE TABLE im_type_localized (
 CREATE TABLE log.im_type_localized (
 ) INHERITS( base.logging, base.im_type_localized );
 
+CREATE INDEX log.im_type_localized_im_type_idx ON log.im_type_localized( im_type );
+CREATE INDEX log.im_type_localized_log_transaction_id_idx ON log.im_type_localized( log_transaction_id );
+

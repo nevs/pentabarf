@@ -14,3 +14,6 @@ CREATE TABLE link_type_localized (
 CREATE TABLE log.link_type_localized (
 ) INHERITS( base.logging, base.link_type_localized );
 
+CREATE INDEX log.link_type_localized_link_type_idx ON log.link_type_localized( link_type );
+CREATE INDEX log.link_type_localized_log_transaction_id_idx ON log.link_type_localized( log_transaction_id );
+

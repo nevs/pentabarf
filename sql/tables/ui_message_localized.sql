@@ -14,3 +14,6 @@ CREATE TABLE ui_message_localized (
 CREATE TABLE log.ui_message_localized (
 ) INHERITS( base.logging, base.ui_message_localized );
 
+CREATE INDEX log.ui_message_localized_ui_message_idx ON log.ui_message_localized( ui_message );
+CREATE INDEX log.ui_message_localized_log_transaction_id_idx ON log.ui_message_localized( log_transaction_id );
+
