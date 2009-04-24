@@ -13,6 +13,6 @@ CREATE TABLE conflict.conflict (
 CREATE TABLE log.conflict (
 ) INHERITS( base.logging, base.conflict );
 
-CREATE INDEX log.conflict_conflict_idx ON log.conflict( conflict );
-CREATE INDEX log.conflict_log_transaction_id_idx ON log.conflict( log_transaction_id );
+CREATE INDEX log_conflict_conflict_idx ON log.conflict( conflict );
+CREATE INDEX log_conflict_log_transaction_id_idx ON log.conflict( log_transaction_id );
 

@@ -14,6 +14,6 @@ CREATE TABLE person_language (
 CREATE TABLE log.person_language (
 ) INHERITS( base.logging, base.person_language );
 
-CREATE INDEX log.person_language_person_id_idx ON log.person_language( person_id );
-CREATE INDEX log.person_language_log_transaction_id_idx ON log.person_language( log_transaction_id );
+CREATE INDEX log_person_language_person_id_idx ON log.person_language( person_id );
+CREATE INDEX log_person_language_log_transaction_id_idx ON log.person_language( log_transaction_id );
 

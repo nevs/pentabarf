@@ -10,6 +10,6 @@ CREATE TABLE country (
 CREATE TABLE log.country (
 ) INHERITS( base.logging, base.country );
 
-CREATE INDEX log.country_country_idx ON log.country( country );
-CREATE INDEX log.country_log_transaction_id_idx ON log.country( log_transaction_id );
+CREATE INDEX log_country_country_idx ON log.country( country );
+CREATE INDEX log_country_log_transaction_id_idx ON log.country( log_transaction_id );
 

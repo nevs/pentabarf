@@ -14,6 +14,6 @@ CREATE TABLE event_role_localized (
 CREATE TABLE log.event_role_localized (
 ) INHERITS( base.logging, base.event_role_localized );
 
-CREATE INDEX log.event_role_localized_event_role_idx ON log.event_role_localized( event_role );
-CREATE INDEX log.event_role_localized_log_transaction_id_idx ON log.event_role_localized( log_transaction_id );
+CREATE INDEX log_event_role_localized_event_role_idx ON log.event_role_localized( event_role );
+CREATE INDEX log_event_role_localized_log_transaction_id_idx ON log.event_role_localized( log_transaction_id );
 

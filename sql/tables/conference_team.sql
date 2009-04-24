@@ -13,6 +13,6 @@ CREATE TABLE conference_team (
 CREATE TABLE log.conference_team (
 ) INHERITS( base.logging, base.conference_team );
 
-CREATE INDEX log.conference_team_conference_team_idx ON log.conference_team( conference_team );
-CREATE INDEX log.conference_team_log_transaction_id_idx ON log.conference_team( log_transaction_id );
+CREATE INDEX log_conference_team_conference_team_idx ON log.conference_team( conference_team );
+CREATE INDEX log_conference_team_log_transaction_id_idx ON log.conference_team( log_transaction_id );
 

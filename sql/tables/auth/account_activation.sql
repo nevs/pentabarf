@@ -15,7 +15,7 @@ CREATE TABLE auth.account_activation (
 CREATE TABLE log.account_activation (
 ) INHERITS( base.logging, base.account_activation );
 
-CREATE INDEX log.account_activation_account_id_idx ON log.account_activation( account_id );
-CREATE INDEX log.account_activation_log_transaction_id_idx ON log.account_activation( log_transaction_id );
+CREATE INDEX log_account_activation_account_id_idx ON log.account_activation( account_id );
+CREATE INDEX log_account_activation_log_transaction_id_idx ON log.account_activation( log_transaction_id );
 
 

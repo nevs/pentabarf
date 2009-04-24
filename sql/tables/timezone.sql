@@ -12,6 +12,6 @@ CREATE TABLE timezone (
 CREATE TABLE log.timezone (
 ) INHERITS( base.logging, base.timezone );
 
-CREATE INDEX log.timezone_timezone_idx ON log.timezone( timezone );
-CREATE INDEX log.timezone_log_transaction_id_idx ON log.timezone( log_transaction_id );
+CREATE INDEX log_timezone_timezone_idx ON log.timezone( timezone );
+CREATE INDEX log_timezone_log_transaction_id_idx ON log.timezone( log_transaction_id );
 

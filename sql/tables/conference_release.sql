@@ -14,6 +14,6 @@ CREATE TABLE conference_release (
 CREATE TABLE log.conference_release (
 ) INHERITS( base.logging, base.conference_release );
 
-CREATE INDEX log.conference_release_conference_release_id_idx ON log.conference_release( conference_release_id );
-CREATE INDEX log.conference_release_log_transaction_id_idx ON log.conference_release( log_transaction_id );
+CREATE INDEX log_conference_release_conference_release_id_idx ON log.conference_release( conference_release_id );
+CREATE INDEX log_conference_release_log_transaction_id_idx ON log.conference_release( log_transaction_id );
 

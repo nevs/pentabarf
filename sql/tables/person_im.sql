@@ -16,6 +16,6 @@ CREATE TABLE person_im (
 CREATE TABLE log.person_im (
 ) INHERITS( base.logging, base.person_im );
 
-CREATE INDEX log.person_im_person_im_id_idx ON log.person_im( person_im_id );
-CREATE INDEX log.person_im_log_transaction_id_idx ON log.person_im( log_transaction_id );
+CREATE INDEX log_person_im_person_im_id_idx ON log.person_im( person_im_id );
+CREATE INDEX log_person_im_log_transaction_id_idx ON log.person_im( log_transaction_id );
 

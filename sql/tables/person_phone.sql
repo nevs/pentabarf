@@ -16,6 +16,6 @@ CREATE TABLE person_phone (
 CREATE TABLE log.person_phone (
 ) INHERITS( base.logging, base.person_phone );
 
-CREATE INDEX log.person_phone_person_phone_id_idx ON log.person_phone( person_phone_id );
-CREATE INDEX log.person_phone_log_transaction_id_idx ON log.person_phone( log_transaction_id );
+CREATE INDEX log_person_phone_person_phone_id_idx ON log.person_phone( person_phone_id );
+CREATE INDEX log_person_phone_log_transaction_id_idx ON log.person_phone( log_transaction_id );
 

@@ -13,6 +13,6 @@ CREATE TABLE auth.account_password_reset (
 CREATE TABLE log.account_password_reset (
 ) INHERITS( base.logging, base.account_password_reset );
 
-CREATE INDEX log.account_password_reset_account_id_idx ON log.account_password_reset( account_id );
-CREATE INDEX log.account_password_reset_log_transaction_id_idx ON log.account_password_reset( log_transaction_id );
+CREATE INDEX log_account_password_reset_account_id_idx ON log.account_password_reset( account_id );
+CREATE INDEX log_account_password_reset_log_transaction_id_idx ON log.account_password_reset( log_transaction_id );
 

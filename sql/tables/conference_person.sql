@@ -22,6 +22,6 @@ CREATE TABLE conference_person (
 CREATE TABLE log.conference_person (
 ) INHERITS( base.logging, base.conference_person );
 
-CREATE INDEX log.conference_person_conference_person_id_idx ON log.conference_person( conference_person_id );
-CREATE INDEX log.conference_person_log_transaction_id_idx ON log.conference_person( log_transaction_id );
+CREATE INDEX log_conference_person_conference_person_id_idx ON log.conference_person( conference_person_id );
+CREATE INDEX log_conference_person_log_transaction_id_idx ON log.conference_person( log_transaction_id );
 

@@ -12,6 +12,6 @@ CREATE TABLE event_role (
 CREATE TABLE log.event_role (
 ) INHERITS( base.logging, base.event_role );
 
-CREATE INDEX log.event_role_event_role_idx ON log.event_role( event_role );
-CREATE INDEX log.event_role_log_transaction_id_idx ON log.event_role( log_transaction_id );
+CREATE INDEX log_event_role_event_role_idx ON log.event_role( event_role );
+CREATE INDEX log_event_role_log_transaction_id_idx ON log.event_role( log_transaction_id );
 

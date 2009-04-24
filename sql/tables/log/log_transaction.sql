@@ -10,5 +10,5 @@ CREATE TABLE log.log_transaction (
   PRIMARY KEY( log_transaction_id )
 ) INHERITS( base.log_transaction );
 
-CREATE INDEX log.log_transaction_log_transaction_id_idx ON log.log_transaction( log_transaction_id );
+CREATE INDEX log_log_transaction_log_transaction_id_idx ON log.log_transaction( log_transaction_id );
 

@@ -12,6 +12,6 @@ CREATE TABLE mime_type (
 CREATE TABLE log.mime_type (
 ) INHERITS( base.logging, base.mime_type );
 
-CREATE INDEX log.mime_type_mime_type_idx ON log.mime_type( mime_type );
-CREATE INDEX log.mime_type_log_transaction_id_idx ON log.mime_type( log_transaction_id );
+CREATE INDEX log_mime_type_mime_type_idx ON log.mime_type( mime_type );
+CREATE INDEX log_mime_type_log_transaction_id_idx ON log.mime_type( log_transaction_id );
 

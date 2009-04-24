@@ -13,6 +13,6 @@ CREATE TABLE auth.role_permission (
 CREATE TABLE log.role_permission (
 ) INHERITS( base.logging, base.role_permission );
 
-CREATE INDEX log.role_permission_role_idx ON log.role_permission( role );
-CREATE INDEX log.role_permission_log_transaction_id_idx ON log.role_permission( log_transaction_id );
+CREATE INDEX log_role_permission_role_idx ON log.role_permission( role );
+CREATE INDEX log_role_permission_log_transaction_id_idx ON log.role_permission( log_transaction_id );
 

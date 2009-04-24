@@ -14,6 +14,6 @@ CREATE TABLE conference_image (
 CREATE TABLE log.conference_image (
 ) INHERITS( base.logging, base.conference_image );
 
-CREATE INDEX log.conference_image_conference_id_idx ON log.conference_image( conference_id );
-CREATE INDEX log.conference_image_log_transaction_id_idx ON log.conference_image( log_transaction_id );
+CREATE INDEX log_conference_image_conference_id_idx ON log.conference_image( conference_id );
+CREATE INDEX log_conference_image_log_transaction_id_idx ON log.conference_image( log_transaction_id );
 

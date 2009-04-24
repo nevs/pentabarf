@@ -31,6 +31,6 @@ CREATE TABLE public.person(
 
 CREATE TABLE log.person() INHERITS( base.logging, base.person );
 
-CREATE INDEX log.person_person_id_idx ON log.person( person_id );
-CREATE INDEX log.person_log_transaction_id_idx ON log.person( log_transaction_id );
+CREATE INDEX log_person_person_id_idx ON log.person( person_id );
+CREATE INDEX log_person_log_transaction_id_idx ON log.person( log_transaction_id );
 

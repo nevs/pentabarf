@@ -21,6 +21,6 @@ CREATE TABLE event_person (
 CREATE TABLE log.event_person (
 ) INHERITS( base.logging, base.event_person );
 
-CREATE INDEX log.event_person_event_person_id_idx ON log.event_person( event_person_id );
-CREATE INDEX log.event_person_log_transaction_id_idx ON log.event_person( log_transaction_id );
+CREATE INDEX log_event_person_event_person_id_idx ON log.event_person( event_person_id );
+CREATE INDEX log_event_person_log_transaction_id_idx ON log.event_person( log_transaction_id );
 

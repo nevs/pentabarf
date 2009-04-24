@@ -14,6 +14,6 @@ CREATE TABLE event_state_localized (
 CREATE TABLE log.event_state_localized (
 ) INHERITS( base.logging, base.event_state_localized );
 
-CREATE INDEX log.event_state_localized_event_state_idx ON log.event_state_localized( event_state );
-CREATE INDEX log.event_state_localized_log_transaction_id_idx ON log.event_state_localized( log_transaction_id );
+CREATE INDEX log_event_state_localized_event_state_idx ON log.event_state_localized( event_state );
+CREATE INDEX log_event_state_localized_log_transaction_id_idx ON log.event_state_localized( log_transaction_id );
 

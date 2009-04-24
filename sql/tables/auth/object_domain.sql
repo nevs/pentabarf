@@ -12,6 +12,6 @@ CREATE TABLE auth.object_domain(
 CREATE TABLE log.object_domain(
 ) INHERITS( base.logging, base.object_domain );
 
-CREATE INDEX log.object_domain_object_idx ON log.object_domain( object );
-CREATE INDEX log.object_domain_log_transaction_id_idx ON log.object_domain( log_transaction_id );
+CREATE INDEX log_object_domain_object_idx ON log.object_domain( object );
+CREATE INDEX log_object_domain_log_transaction_id_idx ON log.object_domain( log_transaction_id );
 

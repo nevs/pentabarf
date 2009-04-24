@@ -19,6 +19,6 @@ CREATE TABLE event_feedback (
 CREATE TABLE log.event_feedback (
 ) INHERITS( base.logging, base.event_feedback );
 
-CREATE INDEX log.event_feedback_event_feedback_id_idx ON log.event_feedback( event_feedback_id );
-CREATE INDEX log.event_feedback_log_transaction_id_idx ON log.event_feedback( log_transaction_id );
+CREATE INDEX log_event_feedback_event_feedback_id_idx ON log.event_feedback( event_feedback_id );
+CREATE INDEX log_event_feedback_log_transaction_id_idx ON log.event_feedback( log_transaction_id );
 

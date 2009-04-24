@@ -14,6 +14,6 @@ CREATE TABLE conference_phase_localized (
 CREATE TABLE log.conference_phase_localized (
 ) INHERITS( base.logging, base.conference_phase_localized );
 
-CREATE INDEX log.conference_phase_localized_conference_phase_idx ON log.conference_phase_localized( conference_phase );
-CREATE INDEX log.conference_phase_localized_log_transaction_id_idx ON log.conference_phase_localized( log_transaction_id );
+CREATE INDEX log_conference_phase_localized_conference_phase_idx ON log.conference_phase_localized( conference_phase );
+CREATE INDEX log_conference_phase_localized_log_transaction_id_idx ON log.conference_phase_localized( log_transaction_id );
 

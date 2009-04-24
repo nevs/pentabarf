@@ -11,6 +11,6 @@ CREATE TABLE transport (
 CREATE TABLE log.transport (
 ) INHERITS( base.logging, base.transport );
 
-CREATE INDEX log.transport_transport_idx ON log.transport( transport );
-CREATE INDEX log.transport_log_transaction_id_idx ON log.transport( log_transaction_id );
+CREATE INDEX log_transport_transport_idx ON log.transport( transport );
+CREATE INDEX log_transport_log_transaction_id_idx ON log.transport( log_transaction_id );
 

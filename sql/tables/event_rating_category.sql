@@ -15,6 +15,6 @@ CREATE TABLE event_rating_category (
 CREATE TABLE log.event_rating_category (
 ) INHERITS( base.logging, base.event_rating_category );
 
-CREATE INDEX log.event_rating_category_event_rating_category_id_idx ON log.event_rating_category( event_rating_category_id );
-CREATE INDEX log.event_rating_category_log_transaction_id_idx ON log.event_rating_category( log_transaction_id );
+CREATE INDEX log_event_rating_category_event_rating_category_id_idx ON log.event_rating_category( event_rating_category_id );
+CREATE INDEX log_event_rating_category_log_transaction_id_idx ON log.event_rating_category( log_transaction_id );
 

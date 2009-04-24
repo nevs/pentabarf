@@ -15,6 +15,6 @@ CREATE TABLE event_link (
 CREATE TABLE log.event_link (
 ) INHERITS( base.logging, base.event_link );
 
-CREATE INDEX log.event_link_event_link_id_idx ON log.event_link( event_link_id );
-CREATE INDEX log.event_link_log_transaction_id_idx ON log.event_link( log_transaction_id );
+CREATE INDEX log_event_link_event_link_id_idx ON log.event_link( event_link_id );
+CREATE INDEX log_event_link_log_transaction_id_idx ON log.event_link( log_transaction_id );
 

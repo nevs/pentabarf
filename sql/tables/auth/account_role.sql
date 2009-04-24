@@ -12,6 +12,6 @@ CREATE TABLE auth.account_role (
 
 CREATE TABLE log.account_role() INHERITS( base.logging, base.account_role );
 
-CREATE INDEX log.account_role_account_id_idx ON log.account_role( account_id );
-CREATE INDEX log.account_role_log_transaction_id_idx ON log.account_role( log_transaction_id );
+CREATE INDEX log_account_role_account_id_idx ON log.account_role( account_id );
+CREATE INDEX log_account_role_log_transaction_id_idx ON log.account_role( log_transaction_id );
 

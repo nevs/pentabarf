@@ -14,6 +14,6 @@ CREATE TABLE country_localized (
 CREATE TABLE log.country_localized (
 ) INHERITS( base.logging, base.country_localized );
 
-CREATE INDEX log.country_localized_country_idx ON log.country_localized( country );
-CREATE INDEX log.country_localized_log_transaction_id_idx ON log.country_localized( log_transaction_id );
+CREATE INDEX log_country_localized_country_idx ON log.country_localized( country );
+CREATE INDEX log_country_localized_log_transaction_id_idx ON log.country_localized( log_transaction_id );
 

@@ -14,6 +14,6 @@ CREATE TABLE conference_language (
 CREATE TABLE log.conference_language (
 ) INHERITS( base.logging, base.conference_language );
 
-CREATE INDEX log.conference_language_conference_id_idx ON log.conference_language( conference_id );
-CREATE INDEX log.conference_language_log_transaction_id_idx ON log.conference_language( log_transaction_id );
+CREATE INDEX log_conference_language_conference_id_idx ON log.conference_language( conference_id );
+CREATE INDEX log_conference_language_log_transaction_id_idx ON log.conference_language( log_transaction_id );
 

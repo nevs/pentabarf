@@ -15,6 +15,6 @@ CREATE TABLE event_rating_remark (
 CREATE TABLE log.event_rating_remark (
 ) INHERITS( base.logging, base.event_rating_remark );
 
-CREATE INDEX log.event_rating_remark_event_id_idx ON log.event_rating_remark( event_id );
-CREATE INDEX log.event_rating_remark_log_transaction_id_idx ON log.event_rating_remark( log_transaction_id );
+CREATE INDEX log_event_rating_remark_event_id_idx ON log.event_rating_remark( event_id );
+CREATE INDEX log_event_rating_remark_log_transaction_id_idx ON log.event_rating_remark( log_transaction_id );
 

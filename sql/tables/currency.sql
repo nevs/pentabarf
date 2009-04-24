@@ -11,6 +11,6 @@ CREATE TABLE currency (
 CREATE TABLE log.currency (
 ) INHERITS( base.logging, base.currency );
 
-CREATE INDEX log.currency_currency_idx ON log.currency( currency );
-CREATE INDEX log.currency_log_transaction_id_idx ON log.currency( log_transaction_id );
+CREATE INDEX log_currency_currency_idx ON log.currency( currency );
+CREATE INDEX log_currency_log_transaction_id_idx ON log.currency( log_transaction_id );
 

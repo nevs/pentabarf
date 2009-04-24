@@ -20,6 +20,6 @@ CREATE TABLE auth.account (
 
 CREATE TABLE log.account() INHERITS( base.logging, base.account );
 
-CREATE INDEX log.account_account_id_idx ON log.account( account_id );
-CREATE INDEX log.account_log_transaction_id_idx ON log.account( log_transaction_id );
+CREATE INDEX log_account_account_id_idx ON log.account( account_id );
+CREATE INDEX log_account_log_transaction_id_idx ON log.account( log_transaction_id );
 

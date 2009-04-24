@@ -14,6 +14,6 @@ CREATE TABLE auth.permission_localized (
 CREATE TABLE log.permission_localized (
 ) INHERITS( base.logging, base.permission_localized );
 
-CREATE INDEX log.permission_localized_permission_idx ON log.permission_localized( permission );
-CREATE INDEX log.permission_localized_log_transaction_id_idx ON log.permission_localized( log_transaction_id );
+CREATE INDEX log_permission_localized_permission_idx ON log.permission_localized( permission );
+CREATE INDEX log_permission_localized_log_transaction_id_idx ON log.permission_localized( log_transaction_id );
 

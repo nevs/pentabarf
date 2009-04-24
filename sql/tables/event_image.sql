@@ -14,6 +14,6 @@ CREATE TABLE event_image (
 CREATE TABLE log.event_image (
 ) INHERITS( base.logging, base.event_image );
 
-CREATE INDEX log.event_image_event_id_idx ON log.event_image( event_id );
-CREATE INDEX log.event_image_log_transaction_id_idx ON log.event_image( log_transaction_id );
+CREATE INDEX log_event_image_event_id_idx ON log.event_image( event_id );
+CREATE INDEX log_event_image_log_transaction_id_idx ON log.event_image( log_transaction_id );
 

@@ -17,6 +17,6 @@ CREATE TABLE custom.custom_fields (
 CREATE TABLE log.custom_fields (
 ) INHERITS( base.logging, base.custom_fields );
 
-CREATE INDEX log.custom_fields_table_name_field_name_idx ON log.custom_fields( table_name, field_name );
-CREATE INDEX log.custom_fields_log_transaction_id_idx ON log.custom_fields( log_transaction_id );
+CREATE INDEX log_custom_fields_table_name_field_name_idx ON log.custom_fields( table_name, field_name );
+CREATE INDEX log_custom_fields_log_transaction_id_idx ON log.custom_fields( log_transaction_id );
 

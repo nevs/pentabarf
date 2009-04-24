@@ -14,7 +14,7 @@ CREATE TABLE event_related (
 CREATE TABLE log.event_related (
 ) INHERITS( base.logging, base.event_related );
 
-CREATE INDEX log.event_related_event_id1_idx ON log.event_related( event_id1 );
-CREATE INDEX log.event_related_event_id2_idx ON log.event_related( event_id2 );
-CREATE INDEX log.event_related_log_transaction_id_idx ON log.event_related( log_transaction_id );
+CREATE INDEX log_event_related_event_id1_idx ON log.event_related( event_id1 );
+CREATE INDEX log_event_related_event_id2_idx ON log.event_related( event_id2 );
+CREATE INDEX log_event_related_log_transaction_id_idx ON log.event_related( log_transaction_id );
 
