@@ -15,6 +15,6 @@ CREATE TABLE event_state_progress_localized (
 CREATE TABLE log.event_state_progress_localized (
 ) INHERITS( base.logging, base.event_state_progress_localized );
 
-CREATE INDEX log_event_state_progress_localized_event_state_event_state_progress_idx ON log.event_state_progress_localized( event_state, event_state_progress );
+CREATE INDEX log_event_state_progress_localized_idx ON log.event_state_progress_localized( event_state, event_state_progress );
 CREATE INDEX log_event_state_progress_localized_log_transaction_id_idx ON log.event_state_progress_localized( log_transaction_id );
 
