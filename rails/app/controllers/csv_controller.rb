@@ -38,7 +38,7 @@ class CsvController < ApplicationController
     @current_conference = Conference.select_single(:acronym=>params[:id])
     rows = View_report_resources.select({:conference_id => @current_conference.conference_id})
     header = [local('event::title'),local('event::resources')]
-    generate_csv( rows, 'resources.csv' ) do | d |
+    generate_csv( rows, 'resources.csv', header ) do | d |
       [ [d.title,d.subtitle].join(' '), d.resources ]
     end
   end
