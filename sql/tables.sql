@@ -10,6 +10,7 @@ BEGIN;
 \i tables/auth/permission.sql
 \i tables/auth/permission_localized.sql
 \i tables/auth/role.sql
+\i tables/auth/conference_role.sql
 \i tables/auth/role_localized.sql
 \i tables/auth/role_permission.sql
 \i tables/country.sql
