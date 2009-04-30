@@ -29,7 +29,6 @@ INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_rating
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_review');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_roles');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'modify_valuelist');
-INSERT INTO role_permission ("role", permission) VALUES ('admin', 'move_event');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'pentabarf_login');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'submission_login');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'view_ratings');
@@ -77,7 +76,6 @@ INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_ra
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_review');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_roles');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'modify_valuelist');
-INSERT INTO role_permission ("role", permission) VALUES ('developer', 'move_event');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'pentabarf_login');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'show_debug');
 INSERT INTO role_permission ("role", permission) VALUES ('developer', 'submission_login');
