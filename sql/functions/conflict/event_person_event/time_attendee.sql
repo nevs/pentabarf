@@ -22,7 +22,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_attendee(in
         WHERE event_role = 'attendee' AND
               event.conference_id = cur_conference_id AND
               event.event_state = 'accepted' AND
-              event.event_state_progress = 'confirmed' AND
+              event.event_state_progress = 'reconfirmed' AND
               event.conference_day_id IS NOT NULL AND
               event.start_time IS NOT NULL
     LOOP
@@ -43,7 +43,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_attendee(in
                 event.start_time::time + event.duration::interval <> cur_speaker.start_time::time AND
                 cur_speaker.start_time::time + cur_speaker.duration::interval <> event.start_time::time AND
                 event.event_state = 'accepted' AND
-                event.event_state_progress = 'confirmed' AND
+                event.event_state_progress = 'reconfirmed' AND
                 event_role = 'attendee' AND
                 event_person.person_id = cur_speaker.person_id
 
