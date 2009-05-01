@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_no_paper(INTEGER) RETURNS SET
     FROM event
    WHERE conference_id = $1 AND
          event.event_state = 'accepted' AND
-         event.event_state_progress = 'confirmed' AND
+         event.event_state_progress = 'reconfirmed' AND
          paper = 't' AND
          NOT EXISTS (SELECT 1 FROM event_attachment
                              WHERE event_attachment.event_id = event.event_id AND
