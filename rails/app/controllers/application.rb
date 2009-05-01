@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_permission
-    return POPE.permission?('pentabarf_login')
+    return POPE.permission?('pentabarf::login')
   end
 
   # protect save and delete functions with token

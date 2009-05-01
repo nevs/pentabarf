@@ -10,10 +10,10 @@ class PopeTest < Test::Unit::TestCase
     chunky = Person.new
     chunky.public_name = 'Chunky Bacon'
     assert_raise( Pope::PermissionError ) { chunky.write }
-    POPE.instance_eval{ @permissions = [:create_person] }
+    POPE.instance_eval{ @permissions = [:'person::create'] }
     assert_nothing_raised{ chunky.write }
     assert_raise( Pope::PermissionError ) { chunky.delete }
-    POPE.instance_eval{ @permissions = [:delete_person] }
+    POPE.instance_eval{ @permissions = [:'person::delete'] }
     assert_nothing_raised{ chunky.delete }
   end
 

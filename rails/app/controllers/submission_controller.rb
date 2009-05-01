@@ -124,7 +124,7 @@ class SubmissionController < ApplicationController
   end
 
   def check_permission
-    POPE.permission?('submission_login') || render(:text=>'You are lacking permissions to login to the submission system. The most likely cause for this is your account has not yet been activated.')
+    POPE.permission?('submission::login') || render(:text=>'You are lacking permissions to login to the submission system. The most likely cause for this is your account has not yet been activated.')
   end
 
 end

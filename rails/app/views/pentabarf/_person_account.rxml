@@ -35,6 +35,6 @@ xml.div(:id=>'content-account') do
       end
     end
 
-  end if POPE.permission?( :modify_account )
+  end if POPE.permission?( 'account::modify' )
 
 end

@@ -72,7 +72,7 @@ class LocalizationController < ApplicationController
   end
 
   def check_permission
-    return POPE.permission?('modify_localization')
+    return POPE.permission?('localization::modify')
   end
 
 end

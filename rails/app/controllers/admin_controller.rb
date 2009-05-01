@@ -41,7 +41,7 @@ class AdminController < ApplicationController
   end
 
   def check_permission
-    raise StandardError if not POPE.permission?('admin_login')
+    raise StandardError if not POPE.permission?('admin::login')
     true
   end
 

@@ -35,9 +35,9 @@ class ImageController < ApplicationController
    end
 
   def check_permission
-    if POPE.permission?('pentabarf_login')
+    if POPE.permission?('pentabarf::login')
       return true
-    elsif POPE.permission?('submission_login')
+    elsif POPE.permission?('submission::login')
       case params[:action]
         when 'event'
           return true if POPE.own_events.member?(params[:id].to_i)

@@ -1,4 +1,6 @@
 
+-- table linking permissions to global roles
+
 CREATE TABLE base.role_permission (
   role TEXT NOT NULL,
   permission TEXT NOT NULL

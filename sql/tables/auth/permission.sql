@@ -1,4 +1,6 @@
 
+-- table containing possible permissions
+
 CREATE TABLE base.permission (
   permission TEXT NOT NULL,
   conference_permission BOOL NOT NULL DEFAULT FALSE,

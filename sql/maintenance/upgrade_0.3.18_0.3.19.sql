@@ -3,7 +3,7 @@ BEGIN;
 
 DELETE FROM auth.permission WHERE permission = 'move_event';
 
-ALTER TABLE base.permission add column conference_permission BOOL NOT NULL DEFAULT FALSE;
+ALTER TABLE base.permission ADD COLUMN conference_permission BOOL NOT NULL DEFAULT FALSE;
 
 
 CREATE TABLE base.conference_role ( conference_role TEXT NOT NULL, rank INTEGER);

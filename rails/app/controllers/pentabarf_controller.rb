@@ -54,7 +54,7 @@ class PentabarfController < ApplicationController
       @content_title = @conference.title
       @current_conference = @conference
     rescue
-      raise "Not allowed to create conference." if not POPE.permission?( :create_conference )
+      raise "Not allowed to create conference." if not POPE.permission?( 'conference::create' )
       @content_title = "New Conference"
       return redirect_to(:action=>:conference,:id=>'new') if params[:id] != 'new'
       @conference = Conference.new(:conference_id=>0)
@@ -89,7 +89,7 @@ class PentabarfController < ApplicationController
       @content_title = @event.title
       @content_subtitle = @event.subtitle
     rescue
-      raise "Not allowed to create event." if not POPE.permission?( :create_event )
+      raise "Not allowed to create event." if not POPE.permission?( 'event::create' )
       return redirect_to(:action=>:event,:id=>'new') if params[:id] != 'new'
       @content_title = "New Event"
       @event = Event.new(:event_id=>0,:conference_id=>@current_conference.conference_id)
@@ -135,7 +135,7 @@ class PentabarfController < ApplicationController
       @person = Person.select_single( :person_id => params[:id] )
       @content_title = @person.name
     rescue
-      raise "Not allowed to create person." if not POPE.permission?( :create_person )
+      raise "Not allowed to create person." if not POPE.permission?( 'person::create' )
       return redirect_to(:action=>:person,:id=>'new') if params[:id] != 'new'
       @content_title = "New Person"
       @person = Person.new(:person_id=>0)
@@ -157,7 +157,7 @@ class PentabarfController < ApplicationController
     if params[:account]
       params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
       account = write_row( Account, params[:account], {:except=>[:account_id,:salt,:edit_token,:password,:password2],:preset=>{:person_id=>person.person_id},:ignore_empty=>:login_name} ) do | row |
-        if params[:account][:password].to_s != "" && ( row.account_id == POPE.user.account_id || POPE.permission?( :modify_account ) )
+        if params[:account][:password].to_s != "" && ( row.account_id == POPE.user.account_id || POPE.permission?( 'account::update' ) )
           raise "Passwords do not match" if params[:account][:password] != params[:account][:password2]
           row.password = params[:account][:password]
         end
@@ -182,7 +182,7 @@ class PentabarfController < ApplicationController
     write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:public],:image=>true})
     write_person_availability( @current_conference, person, params[:person_availability])
 
-    if POPE.permission?(:modify_account)
+    if POPE.permission?( 'account::update' )
       params[:account_role].each do | k,v | v[:remove] = true if not v[:set] end
       write_rows( Account_role, params[:account_role], {:preset=>{:account_id=>account.account_id},:except=>[:set]})
     end
@@ -350,7 +350,7 @@ class PentabarfController < ApplicationController
   end
 
   def send_mail
-    raise Pope::PermissionError, 'not allowed to send mail.' unless POPE.permission?('admin_login')
+    raise Pope::PermissionError, 'not allowed to send mail.' unless POPE.permission?( 'admin::login' )
     from = @current_conference.email 
     variables = ['email','name','person_id','conference_acronym','conference_title']
     if params[:mail][:recipients]
@@ -399,7 +399,7 @@ class PentabarfController < ApplicationController
   end
 
   def check_permission
-    if POPE.permission?('pentabarf_login')
+    if POPE.permission?('pentabarf::login')
       return true
     end
     redirect_to(:controller=>'submission')

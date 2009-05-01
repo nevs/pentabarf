@@ -44,6 +44,6 @@ xml.div(:id=>'content-rating') do
       end
     end
 
-  end if POPE.permission?(:view_ratings) && ratings.length > 0
+  end if POPE.permission?('rating::show') && ratings.length > 0
 end
 
