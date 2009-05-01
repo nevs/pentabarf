@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_no_slides(INTEGER) RETURNS SE
     FROM event
    WHERE conference_id = $1 AND
          event_state = 'accepted' AND
-         event_state_progress = 'confirmed' AND
+         event_state_progress = 'reconfirmed' AND
          slides = 't' AND
          NOT EXISTS (SELECT 1 FROM event_attachment
                              WHERE event_id = event.event_id AND
