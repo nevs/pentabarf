@@ -13,6 +13,7 @@ BEGIN;
 \i tables/auth/conference_role.sql
 \i tables/auth/role_localized.sql
 \i tables/auth/role_permission.sql
+\i tables/auth/conference_role_permission.sql
 \i tables/country.sql
 \i tables/country_localized.sql
 \i tables/currency.sql
