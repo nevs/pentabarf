@@ -3,7 +3,8 @@ SET client_encoding = 'UTF8';
 SET search_path = auth, pg_catalog;
 
 INSERT INTO object_domain ("object", "domain") VALUES ('account', 'account');
-INSERT INTO object_domain ("object", "domain") VALUES ('account_role', 'account');
+INSERT INTO object_domain ("object", "domain") VALUES ('account_conference_role', 'account_conference_role');
+INSERT INTO object_domain ("object", "domain") VALUES ('account_role', 'account_role');
 INSERT INTO object_domain ("object", "domain") VALUES ('account_settings', 'account');
 INSERT INTO object_domain ("object", "domain") VALUES ('attachment_type_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference', 'conference');
@@ -18,6 +19,8 @@ INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_travel
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_phase_conflict', 'config');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_phase_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_release', 'conference');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_role', 'conference_role');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_role_permission', 'conference_role');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_room', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_room_role', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_team', 'conference');
@@ -61,6 +64,8 @@ INSERT INTO object_domain ("object", "domain") VALUES ('person_phone', 'person')
 INSERT INTO object_domain ("object", "domain") VALUES ('person_rating', 'review');
 INSERT INTO object_domain ("object", "domain") VALUES ('person_transaction', 'public');
 INSERT INTO object_domain ("object", "domain") VALUES ('phone_type_localized', 'localization');
+INSERT INTO object_domain ("object", "domain") VALUES ('role', 'role');
+INSERT INTO object_domain ("object", "domain") VALUES ('role_permission', 'role');
 INSERT INTO object_domain ("object", "domain") VALUES ('transport_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('ui_message', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('ui_message_localized', 'localization');
