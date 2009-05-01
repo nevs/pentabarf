@@ -47,6 +47,7 @@ BEGIN;
 \i tables/auth/account.sql
 \i tables/auth/account_settings.sql
 \i tables/auth/account_role.sql
+\i tables/auth/account_conference_role.sql
 \i tables/person_phone.sql
 \i tables/person_rating.sql
 \i tables/conference_person_travel.sql
