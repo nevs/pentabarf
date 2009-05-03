@@ -46,10 +46,7 @@ class Pope
   attr_reader :user, :own_events
 
   def initialize
-    @permissions = []
-    @conference_permissions = {}
-    @event_conference = {} 
-    @domains = {}
+    flush
     Object_domain.select.each do | row |
       @domains[row.object.to_sym] = row.domain.to_sym
     end
@@ -95,6 +92,7 @@ class Pope
   end
 
   def conference_permission?( perm, conf )
+    @conference_permissions[conf] ||= Account_conference_permissions.call({:account_id=>user.account_id,:conference_id=>conf}).map do | row | row.account_conference_permissions.to_sym end
     @conference_permissions[conf] && @conference_permissions[conf].member?( perm.to_sym )
   end
 
@@ -185,6 +183,7 @@ class Pope
   def flush
     @user = nil
     @permissions = []
+    @conference_permissions = {}
     @own_events = []
     @own_conference_persons = []
     @event_conference = {}
