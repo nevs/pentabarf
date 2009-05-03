@@ -1,4 +1,5 @@
 require 'digest/md5'
+
 class Account < Momomoto::Table
   schema_name "auth"
   module Methods
@@ -8,15 +9,23 @@ class Account < Momomoto::Table
       salt = []
       8.times do salt << rand(256) end
 
-      salt_bin, salt_hex = '', ''
-      for number in salt
-        salt_bin += sprintf('%c', number)
-        salt_hex += sprintf('%02x', number)
-      end
+      salt_bin = salt.pack("C8")
+      salt_hex = salt.unpack("H16")[0]
 
       hash = Digest::MD5.hexdigest( salt_bin + value.to_s )
       set_column( :salt, salt_hex )
       set_column( :password, hash )
+    end
+
+    def check_password( pass )
+      salt = get_column( :salt )
+      salt_bin = [salt.to_i( 16 )].pack("Q").reverse
+
+      if Digest::MD5.hexdigest( salt_bin + pass ) == get_column( :password )
+        return true
+      else
+        return false
+      end
     end
 
   end
