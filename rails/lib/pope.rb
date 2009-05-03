@@ -104,7 +104,6 @@ class Pope
     return if row.respond_to?( :conference_id ) && conference_permission?( "#{d}::#{action}", row.conference_id )
     send( "domain_#{d}", action, row )
    rescue PermissionError
-    puts "Not allowed to write #{table.table_name}"
     raise PermissionError, "Not allowed to write #{table.table_name}"
   end
 
