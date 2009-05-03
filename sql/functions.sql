@@ -1,4 +1,5 @@
-\i functions/auth/user_permissions.sql
+\i functions/auth/account_permissions.sql
+\i functions/auth/account_conference_permissions.sql
 \i functions/auth/activate_account.sql
 \i functions/auth/create_account.sql
 \i functions/auth/forgot_password.sql
