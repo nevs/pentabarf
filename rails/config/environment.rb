@@ -9,9 +9,7 @@ RAILS_GEM_VERSION = '2.2.2'
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 require 'momomoto/momomoto'
-require 'momomoto_auth'
 require 'momomoto_logging'
-require 'pope'
 require 'jabberlogger'
 require 'yaml'
 require 'bluecloth'
@@ -63,5 +61,8 @@ ActionController::Base.filter_parameter_logging( :password )
 
 require 'builder_enhancements'
 
+require 'pope'
 ::POPE = Pope.new
+require 'momomoto_auth'
+
 

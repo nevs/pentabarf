@@ -5,6 +5,14 @@ module Momomoto
 
     class << self
 
+      alias_method( :__select, :select )
+
+      def select( *args )
+        results = __select( *args )
+        return POPE.table_select( self, results )
+      end
+
+
       alias_method( :__write, :write )
 
       def write( *args )
