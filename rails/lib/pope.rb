@@ -88,17 +88,34 @@ class Pope
     @permissions.member?( perm.to_sym )
   end
 
+  # returns a list of all conferences the account has a certain permission
+  def conferences_with_permission( perm )
+    conferences = []
+    @conference_permissions.each do | conference_id, permissions |
+      conferences << conference_id if permissions.member?( perm )
+    end
+    conferences
+  end
+
   def conference_permission?( perm, conf )
-    @conference_permissions[conf] ||= Account_conference_permissions.call({:account_id=>user.account_id,:conference_id=>conf}).map do | row | row.account_conference_permissions.to_sym end
+    if !@conference_permissions
+      if user 
+        Account_conference_permissions.call({:account_id=>user.account_id}).each do | row |
+          @conference_permissions[row.conference_id] ||= []
+          @conference_permissions[row.conference_id] << row.permission
+        end
+      else
+        @conference_permissions = {}
+      end
+    end
     @conference_permissions[conf] && @conference_permissions[conf].member?( perm.to_sym )
   end
 
   # function hooked into momomoto when table rows are written
   def table_select( table, rows )
+    # cache conference_ids of events for later usage
     if table.table_name == 'event'
-      rows.each do | row |
-        @event_conference[row.event_id] ||= row.conference_id
-      end
+      rows.each do | row | @event_conference[row.event_id] ||= row.conference_id end
     end
     rows
   end
@@ -197,7 +214,7 @@ class Pope
   def flush
     @user = nil
     @permissions = []
-    @conference_permissions = {}
+    @conference_permissions = nil
     @own_events = nil
     @own_conference_persons = nil
     @event_conference = {}
