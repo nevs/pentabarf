@@ -88,27 +88,48 @@ class Pope
     @permissions.member?( perm.to_sym )
   end
 
+  def visible_conferences
+    if !@visible_conferences
+      if permission?('conference::show')
+        @visible_conferences = Conference.select
+      elsif !conferences_with_permission('conference::show').empty?
+        @visible_conferences = Conference.select({:conference_id=>conferences_with_permission('conference::show')})
+      else
+        @visible_conferences = []
+      end
+    end
+    @visible_conferences
+  end
+
+  def visible_conference_ids
+    @visible_conference_ids ||= visible_conferences.map(&:conference_id)
+    @visible_conference_ids
+  end
+
+  def conference_permissions
+    if !@conference_permissions
+      @conference_permissions = {}
+      if user 
+        Account_conference_permissions.call({:account_id=>user.account_id}).each do | row |
+          @conference_permissions[row.conference_id] ||= []
+          @conference_permissions[row.conference_id] << row.permission
+        end
+      end
+    end
+    @conference_permissions
+  end
+
   # returns a list of all conferences the account has a certain permission
   def conferences_with_permission( perm )
     conferences = []
-    @conference_permissions.each do | conference_id, permissions |
+    conference_permissions.each do | conference_id, permissions |
       conferences << conference_id if permissions.member?( perm )
     end
     conferences
   end
 
   def conference_permission?( perm, conf )
-    if !@conference_permissions
-      if user 
-        Account_conference_permissions.call({:account_id=>user.account_id}).each do | row |
-          @conference_permissions[row.conference_id] ||= []
-          @conference_permissions[row.conference_id] << row.permission
-        end
-      else
-        @conference_permissions = {}
-      end
-    end
-    @conference_permissions[conf] && @conference_permissions[conf].member?( perm.to_sym )
+    conference_permissions[conf] && conference_permissions[conf].member?( perm.to_sym )
   end
 
   # function hooked into momomoto when table rows are written
@@ -214,6 +235,8 @@ class Pope
   def flush
     @user = nil
     @permissions = []
+    @visible_conferences = nil
+    @visible_conferences_ids = nil
     @conference_permissions = nil
     @own_events = nil
     @own_conference_persons = nil
