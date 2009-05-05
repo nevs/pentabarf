@@ -46,5 +46,10 @@ INSERT INTO auth.object_domain VALUES ('conference_role','conference_role');
 INSERT INTO auth.object_domain VALUES ('conference_role_permission','conference_role');
 INSERT INTO auth.object_domain VALUES ('account_conference_role','account_conference_role');
 
+CREATE TYPE auth.conference_permission AS (
+  conference_id INTEGER,
+  permission TEXT
+);
+
 COMMIT;
 

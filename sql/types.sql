@@ -115,3 +115,8 @@ CREATE TYPE conflict.view_conflict_person AS (
   name TEXT
 );
 
+CREATE TYPE auth.conference_permission AS (
+  conference_id INTEGER,
+  permission TEXT
+);
+
