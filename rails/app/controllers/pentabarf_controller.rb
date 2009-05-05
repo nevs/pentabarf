@@ -393,13 +393,17 @@ class PentabarfController < ApplicationController
   protected
 
   def init
-    @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id) rescue Conference.new(:conference_id=>0)
+    if POPE.visible_conference_ids.member?(POPE.user.current_conference_id)
+      @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id) rescue Conference.new(:conference_id=>0)
+    end
+    @current_conference ||= Conference.new(:conference_id=>0)
+    
     @preferences = POPE.user.preferences
     @current_language = POPE.user.current_language || 'en'
   end
 
   def check_permission
-    if POPE.permission?('pentabarf::login')
+    if POPE.permission?('pentabarf::login') or !POPE.conferences_with_permission('pentabarf::login').empty?
       return true
     end
     redirect_to(:controller=>'submission')
