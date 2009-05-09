@@ -13,6 +13,6 @@ CREATE TABLE event_state_progress (
 CREATE TABLE log.event_state_progress (
 ) INHERITS( base.logging, base.event_state_progress );
 
-CREATE INDEX log_event_state_progress_idx ON log.event_state_progress( event_state, event_state_progress );
+CREATE INDEX log_event_state_progress_event_state_event_state_progress_idx ON log.event_state_progress( event_state, event_state_progress );
 CREATE INDEX log_event_state_progress_log_transaction_id_idx ON log.event_state_progress( log_transaction_id );
 
