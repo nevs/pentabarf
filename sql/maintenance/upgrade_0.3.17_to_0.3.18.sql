@@ -244,7 +244,7 @@ CREATE INDEX log_im_type_localized_log_transaction_id_idx ON log.im_type_localiz
 CREATE INDEX log_link_type_link_type_idx ON log.link_type( link_type );
 CREATE INDEX log_link_type_log_transaction_id_idx ON log.link_type( log_transaction_id );
 
-CREATE INDEX log_event_state_progress_event_state_event_state_progress_idx ON log.event_state_progress( event_state, event_state_progress );
+CREATE INDEX log_event_state_progress_idx ON log.event_state_progress( event_state, event_state_progress );
 CREATE INDEX log_event_state_progress_log_transaction_id_idx ON log.event_state_progress( log_transaction_id );
 
 CREATE INDEX log_conference_person_link_internal_pkey_idx ON log.conference_person_link_internal( conference_person_link_internal_id );
