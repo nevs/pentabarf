@@ -213,7 +213,6 @@ class PentabarfController < ApplicationController
   def search_person_simple
     query = params[:id] ? @preferences[:search_person_simple].to_s : params[:search_person_simple].to_s
     conditions = {}
-    conditions[:conference_id] = @current_conference.conference_id
     conditions[:AND] = []
     query.split(/ +/).each do | word |
       cond = {}
