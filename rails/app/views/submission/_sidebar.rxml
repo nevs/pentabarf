@@ -13,7 +13,7 @@ xml.div( :id => 'sidebar' ) do
     xml.div( :class=>'menu-item-group' ) do
       xml.a( local('submission::login'), {:href=>url_for(:action=>:login), :class => 'menu-item'} )
       xml.a( local('user::new_account'), {:href=>url_for(:controller=>'user',:action=>:new_account,:id=>params[:conference]), :class => 'menu-item'} )
-    end if not POPE.user
+    end if not POPE.user && params[:conference]
 
     xml.div( :class=>'menu-item-group' ) do
       xml.a( local('submission::person'), {:href=> url_for(:action => :person), :class => 'menu-item'} )
