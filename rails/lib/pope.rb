@@ -129,6 +129,8 @@ class Pope
   end
 
   def conference_permission?( perm, conf )
+    # check for global permission first
+    return true if permission?( perm )
     conference_permissions[conf] && conference_permissions[conf].member?( perm.to_sym )
   end
 
