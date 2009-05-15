@@ -136,6 +136,10 @@ class Pope
     conference_permissions[conf] && conference_permissions[conf].member?( perm.to_sym )
   end
 
+  def event_permission?( perm, event )
+    conference_permission( perm, event_conference( event ) )
+  end
+
   # function hooked into momomoto when table rows are written
   def table_select( table, rows )
     # cache conference_ids of events for later usage
@@ -240,7 +244,7 @@ class Pope
     @user = nil
     @permissions = []
     @visible_conferences = nil
-    @visible_conferences_ids = nil
+    @visible_conference_ids = nil
     @conference_permissions = nil
     @own_events = nil
     @own_conference_persons = nil
