@@ -54,7 +54,9 @@ class Pope
   end
 
   def event_conference( event_id )
-    raise "Unknown event_id" if not @event_conference[event_id]
+    if not @event_conference[event_id]
+      Event.select_single({:event_id=>event_id},{:columns=>[:event_id,:conference_id]})
+    end
     @event_conference[event_id]
   end
 
