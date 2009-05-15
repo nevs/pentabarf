@@ -8,7 +8,7 @@ class EventController < ApplicationController
   end
 
   def conflicts
-    @event = Event.select_single({:event_id=>params[:id]})
+    @event = Event.select_single({:event_id=>params[:event_id]})
     @conflicts = []
     @conflicts += View_conflict_event.call({:conference_id => @event.conference_id},{:event_id=>params[:id],:translated=>@current_language})
     @conflicts += View_conflict_event_event.call({:conference_id => @event.conference_id},{:event_id1=>params[:id],:translated=>@current_language})
@@ -21,6 +21,5 @@ class EventController < ApplicationController
   def init
     @current_language = POPE.user.current_language || 'en'
   end
-
 
 end
