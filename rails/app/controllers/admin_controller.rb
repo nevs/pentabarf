@@ -14,6 +14,13 @@ class AdminController < ApplicationController
     @phase_conflicts = Conference_phase_conflict.select
   end
 
+  def roles
+    @roles = Role.select
+  end
+
+  def save_roles
+  end
+
   def save_conflict_setup
     params[:conflict].each do | conflict, outer |
       outer.each do | conference_phase, value |
