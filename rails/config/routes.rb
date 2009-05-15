@@ -42,9 +42,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'pentabarf/events_by_state/:event_state', :controller => 'pentabarf', :action => 'events_by_state'
   map.connect 'pentabarf/events_by_state/:event_state/:event_state_progress', :controller => 'pentabarf', :action => 'events_by_state'
 
-  map.connect 'conference/:conference_id/:action/:id', :controller => 'conference', :conference_id => /^\d+$/
-  map.connect 'event/:event_id/:action/:id', :controller => 'event', :event_id => /^\d+$/
-  map.connect 'person/:person_id/:action/:id', :controller => 'person', :person_id => /^\d+$/
+  map.connect 'conference/:conference_id/:action/:id', :controller => 'conference', :conference_id => /\d+/
+  map.connect 'event/:event_id/:action/:id', :controller => 'event', :event_id => /\d+/
+  map.connect 'person/:person_id/:action/:id', :controller => 'person', :person_id => /\d+/
 
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
