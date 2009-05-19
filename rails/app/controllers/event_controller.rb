@@ -41,7 +41,14 @@ class EventController < ApplicationController
   end
 
   def save
-    params[:event][:event_id] = params[:id] if params[:id].to_i > 0
+    if params[:transaction].to_i != 0
+      transaction = Event_transaction.select_single({:event_id=>params[:event_id]},{:limit=>1})
+      if transaction.event_transaction_id != params[:transaction].to_i
+        raise "Simultanious edit"
+      end
+    end
+
+    params[:event][:event_id] = params[:event_id] if params[:event_id].to_i > 0
     event = write_row( Event, params[:event], {:except=>[:event_id,:conference_id],:init=>{:conference_id=>@current_conference.conference_id},:always=>[:public]} )
     custom_bools = Custom_fields.select({:table_name=>:event,:field_type=>:boolean}).map(&:field_name)
     write_row( Custom_event, params[:custom_event], {:preset=>{:event_id=>event.event_id},:always=>custom_bools})
