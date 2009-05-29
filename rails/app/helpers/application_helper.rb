@@ -59,7 +59,8 @@ module ApplicationHelper
           tab_name = tab.last
           tab = tab.first
         else
-          tab_name = local( "#{params[:action]}::tab::#{tab}" )
+          tab_name = params[:action] == 'edit' ? params[:controller] : params[:action]
+          tab_name = local( "#{tab_name}::tab::#{tab}" )
         end
         xml.span( tab_name, {:id=>"tab-#{tab}",:onclick=>"switch_tab('#{tab}')",:class=>'tab inactive',:accesskey=>index+1} )
       end
