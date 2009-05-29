@@ -1,7 +1,6 @@
 class PentabarfController < ApplicationController
 
   before_filter :init
-  before_filter :check_transaction, :only=>[:save_event,:save_person,:save_conference]
   around_filter :update_last_login, :except=>[:activity]
   around_filter :save_preferences, :only=>[:search_person_simple,:search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
 

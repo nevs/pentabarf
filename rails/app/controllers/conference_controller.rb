@@ -1,5 +1,6 @@
 class ConferenceController < ApplicationController
 
+  before_filter :check_transaction, :only => :save
 
   def edit
     begin

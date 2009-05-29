@@ -1,5 +1,7 @@
 class PersonController < ApplicationController
 
+  before_filter :check_transaction, :only => :save
+
   def conflict_person
     @conflicts = []
     @conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})
@@ -8,7 +10,7 @@ class PersonController < ApplicationController
     @conflicts.length > 0 ? render( :partial => 'conflict_person' ) : render( :text => '' )
   end
 
-  def person
+  def edit
     begin
       @person = Person.select_single( :person_id => params[:id] )
       @content_title = @person.name
@@ -29,7 +31,7 @@ class PersonController < ApplicationController
     @transaction = Person_transaction.select_or_new({:person_id=>@person.person_id},{:limit=>1})
   end
 
-  def save_person
+  def save
     params[:person][:person_id] = params[:id] if params[:id].to_i > 0
     person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam]} )
     if params[:account]

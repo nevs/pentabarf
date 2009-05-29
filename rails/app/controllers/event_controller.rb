@@ -1,6 +1,7 @@
 class EventController < ApplicationController
 
   before_filter :init
+  before_filter :check_transaction, :only => :save
 
   def copy
     cp = Copy_event.call({:source_event_id=>params[:event_id],:target_conference_id=>params[:conference_id],:coordinator_id=>POPE.user.person_id})
