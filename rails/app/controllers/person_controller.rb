@@ -1,25 +1,36 @@
 class PersonController < ApplicationController
 
+  before_filter :init
   before_filter :check_transaction, :only => :save
 
-  def conflict_person
+  def conflicts
     @conflicts = []
-    @conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})
-    @conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})
-    @conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:id],:translated=>@current_language})
-    @conflicts.length > 0 ? render( :partial => 'conflict_person' ) : render( :text => '' )
+    @conflicts += View_conflict_person.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:person_id],:translated=>@current_language})
+    @conflicts += View_conflict_event_person.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:person_id],:translated=>@current_language})
+    @conflicts += View_conflict_event_person_event.call({:conference_id => @current_conference.conference_id},{:person_id=>params[:person_id],:translated=>@current_language})
+    @conflicts.length > 0 ? render( :partial => 'conflicts' ) : render( :text => '' )
+  end
+
+  def new
+    raise "Not allowed to create person." if not POPE.permission?( 'person::create' )
+    @content_title = "New Person"
+    @person = Person.new(:person_id=>0)
+    @person_image = Person_image.new({:person_id=>@person.person_id})
+    @person_rating = Person_rating.new({:person_id=>@person.person_id,:evaluator_id=>POPE.user.person_id})
+
+    @conference = @current_conference
+    @conference_person = Conference_person.new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
+    @conference_person_travel = Conference_person_travel.new({:conference_person_id=>@conference_person.conference_person_id.to_i})
+    @account = Account.new(:person_id=>@person.person_id)
+    @account_roles = []
+    @settings = Account_settings.new(:account_id=>@account.account_id.to_i)
+    @transaction = Person_transaction.new({:person_id=>@person.person_id})
+    render(:action=>'edit')
   end
 
   def edit
-    begin
-      @person = Person.select_single( :person_id => params[:id] )
-      @content_title = @person.name
-    rescue
-      raise "Not allowed to create person." if not POPE.permission?( 'person::create' )
-      return redirect_to(:action=>:person,:id=>'new') if params[:id] != 'new'
-      @content_title = "New Person"
-      @person = Person.new(:person_id=>0)
-    end
+    @person = Person.select_single( :person_id => params[:person_id] )
+    @content_title = @person.name
     @conference = @current_conference
     @conference_person = Conference_person.select_or_new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
     @conference_person_travel = Conference_person_travel.select_or_new({:conference_person_id=>@conference_person.conference_person_id.to_i})
@@ -69,6 +80,18 @@ class PersonController < ApplicationController
     Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
 
     redirect_to( :action => :person, :id => person.person_id )
+  end
+
+  protected
+
+  def init
+    if POPE.visible_conference_ids.member?(POPE.user.current_conference_id)
+      @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id) rescue Conference.new(:conference_id=>0)
+    end
+    @current_conference ||= Conference.new(:conference_id=>0)
+    
+    @preferences = POPE.user.preferences
+    @current_language = POPE.user.current_language || 'en'
   end
 
 end

@@ -31,7 +31,7 @@ xml.div( :id => 'data' ) do
 
     xml.div(:id=>:conflicts) do
       xml.script(:type=>'text/javascript') do
-        xml.text! "new Ajax.Updater('conflicts','#{url_for(:action=>:conflict_person,:id=>@person.person_id)}');"
+        xml.text! "new Ajax.Updater('conflicts','#{url_for(:action=>:conflicts,:person_id=>@person.person_id)}');"
       end
     end if not @person.new_record?
 
