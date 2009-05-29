@@ -162,7 +162,8 @@ module ApplicationHelper
 
   def format_event( event )
     xml = Builder::XmlMarkup.new
-    xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)}) do
+    event_url = url_for({:controller=>:event,:action=>:edit,:event_id=>event.event_id})
+    xml.a({:href=>event_url}) do
       xml.strong event.title
       if event.subtitle
         xml.br
@@ -174,7 +175,7 @@ module ApplicationHelper
       names = event.speakers.split("\n")
       xml.ul(:class=>'event-persons') do
         ids.each_with_index do | id, index |
-          xml.li do xml.a( names[index], {:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>id)}) end
+          xml.li do xml.a( names[index], {:href=>event_url}) end
         end
       end
     end
@@ -200,9 +201,10 @@ module ApplicationHelper
       end
       xml.tbody do
         events.each do | event |
+          event_url = url_for({:controller=>:event,:action=>:edit,:event_id=>event.event_id})
           xml.tr(:class=>event.event_state) do
             xml.td do
-              xml.a({:href=>url_for(:action=>:event,:id=>event.event_id)}) do
+              xml.a({:href=>event_url}) do
                 xml.img({:src=>url_for(:controller=>'image',:action=>:event,:id=>event.event_id,:size=>"24x24"),:height=>24,:witdh=>24})
               end
             end
@@ -210,7 +212,7 @@ module ApplicationHelper
               xml << format_event( event )
             end
             fields.each do | field |
-              xml.td do xml.a( event.send(field), {:href=>url_for(:action=>:event,:id=>event.event_id)}) end
+              xml.td do xml.a( event.send(field), {:href=>event_url}) end
             end
           end
         end
