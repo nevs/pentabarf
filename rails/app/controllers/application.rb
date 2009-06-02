@@ -73,17 +73,6 @@ class ApplicationController < ActionController::Base
     true
   end
 
-  # check whether we are working on the last version
-  def check_transaction
-    action = params[:action].gsub(/^save_/, '')
-    if params[:transaction].to_i != 0
-      transaction = "#{action.capitalize}_transaction".constantize.select_single({"#{action}_id"=>params[:id]},{:limit=>1})
-      if transaction["#{action}_transaction_id"] != params[:transaction].to_i
-        raise "Simultanious edit"
-      end
-    end
-  end
-
   def log_error( exception, verbose = false )
     super( exception )
 
