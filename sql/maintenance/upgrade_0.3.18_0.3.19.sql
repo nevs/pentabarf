@@ -3,6 +3,9 @@ BEGIN;
 
 DELETE FROM auth.permission WHERE permission = 'move_event';
 
+ALTER TABLE log.permission DROP CONSTRAINT permission_pkey;
+ALTER TABLE log.permission ADD CONSTRAINT permission_pkey PRIMARY KEY(log_transaction_id,permission);
+
 ALTER TABLE base.permission ADD COLUMN conference_permission BOOL NOT NULL DEFAULT FALSE;
 
 

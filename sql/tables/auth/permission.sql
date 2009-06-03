@@ -12,7 +12,7 @@ CREATE TABLE auth.permission (
 ) INHERITS( base.permission );
 
 CREATE TABLE log.permission (
-  PRIMARY KEY(permission)
+  PRIMARY KEY(log_transaction_id,permission)
 ) INHERITS( base.logging, base.permission );
 
 CREATE INDEX log_permission_permission_idx ON log.permission( permission );
