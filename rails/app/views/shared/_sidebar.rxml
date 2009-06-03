@@ -52,13 +52,13 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div( :class=>'menu-item-group' ) do
       xml.div( :class=>'menu-text' ) do
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :person, :id => 'new'), :title=>"New Person") do
+        xml.a( :href=> url_for(:controller => 'person', :action => :new), :title=>"New Person") do
           xml.img( :src => image_path('icon-new-person-32x32.png'))
         end
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :event, :id => 'new'), :title=>"New Event") do
+        xml.a( :href=> url_for(:controller => 'event', :action => :new), :title=>"New Event") do
           xml.img( :src => image_path('icon-new-event-32x32.png'))
         end
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :conference, :id => 'new'), :title=>"New Conference") do
+        xml.a( :href=> url_for(:controller => 'conference', :action => :new), :title=>"New Conference") do
           xml.img( :src => image_path('icon-new-conference-32x32.png'))
         end
       end
