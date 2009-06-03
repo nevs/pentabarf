@@ -1,8 +1,17 @@
 require 'test_helper'
 
 class EventControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+
+  def setup
+    @controller = EventController.new
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new
+    authenticate_user( Account.select_single(:login_name=>'committee') )
   end
+
+  def test_event
+    get :new
+    assert_response :success
+  end
+
 end
