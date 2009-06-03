@@ -1,0 +1,34 @@
+xml.div do
+  xml.form({:action=>url_for(:action=>:save_roles),:id=>:content_form}) do
+
+    permissions = Permission.select
+
+    @roles.each do | role |
+      perm = Role_permission.select({:role=>role.role}).map(&:permission)
+      xml.p do
+        xml.h3 role.role
+        xml.table do
+          xml.tr do
+            items_per_row = ( permissions.length / 4.0 ).ceil
+            4.times do | i |
+              xml.td(:style=>'vertical-align: top;') do
+                ((i*items_per_row)...((i+1)*items_per_row)).each do | item |
+                  if permissions[item]
+                    xml.input({:type=>:checkbox}.merge(perm.member?(permissions[item].permission) ? {:checked=>:checked} : {} ))
+                    xml.span permissions[item].permission
+                    xml.br
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+
+    end
+
+    xml << render( :partial => 'shared/modification_buttons' )
+    xml.script( "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );", { :type => 'text/javascript' } )
+  end
+end
+
