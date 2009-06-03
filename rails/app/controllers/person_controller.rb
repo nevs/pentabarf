@@ -1,7 +1,6 @@
 class PersonController < ApplicationController
 
   before_filter :init
-  before_filter :check_transaction, :only => :save
 
   def conflicts
     @conflicts = []
@@ -43,7 +42,14 @@ class PersonController < ApplicationController
   end
 
   def save
-    params[:person][:person_id] = params[:id] if params[:id].to_i > 0
+    if params[:transaction].to_i != 0
+      transaction = Person_transaction.select_single({:person_id=>params[:person_id]},{:limit=>1})
+      if transaction.person_transaction_id != params[:transaction].to_i
+        raise "Simultanious edit"
+      end
+    end
+
+    params[:person][:person_id] = params[:person_id] if params[:person_id].to_i > 0
     person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam]} )
     if params[:account]
       params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
@@ -79,7 +85,7 @@ class PersonController < ApplicationController
     end
     Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
 
-    redirect_to( :action => :person, :id => person.person_id )
+    redirect_to( :action => :edit, :person_id => person.person_id )
   end
 
   protected
