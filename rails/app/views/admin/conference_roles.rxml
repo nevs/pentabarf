@@ -1,12 +1,12 @@
 xml.div do
-  xml.form({:action=>url_for(:action=>:save_roles),:id=>:content_form}) do
+  xml.form({:action=>url_for(:action=>:save_conference_roles),:id=>:content_form}) do
 
-    permissions = Permission.select({},{:order=>[:rank,:permission]})
+    permissions = Permission.select({:conference_permission=>'t'},{:order=>[:rank,:permission]})
 
-    @roles.each do | role |
-      perm = Role_permission.select({:role=>role.role}).map(&:permission)
+    Conference_role.select.each do | role |
+      perm = Conference_role_permission.select({:conference_role=>role.conference_role}).map(&:permission)
       xml.div do
-        xml.h3 role.role
+        xml.h3 role.conference_role
         xml.table do
           xml.tr do
             items_per_row = ( permissions.length / 4.0 ).ceil
@@ -14,7 +14,7 @@ xml.div do
               xml.td(:style=>'vertical-align: top;') do
                 ((i*items_per_row)...((i+1)*items_per_row)).each do | item |
                   if permissions[item]
-                    xml.input({:type=>:checkbox,:value=>1,:name=>"role_permission[#{role.role}][#{permissions[item].permission}]"}.merge(perm.member?(permissions[item].permission) ? {:checked=>:checked} : {} ))
+                    xml.input({:type=>:checkbox,:value=>1,:name=>"conference_role_permission[#{role.conference_role}][#{permissions[item].permission}]"}.merge(perm.member?(permissions[item].permission) ? {:checked=>:checked} : {} ))
                     xml.span permissions[item].permission
                     xml.br
                   end
@@ -33,9 +33,9 @@ xml.div do
 end
 
 xml.div do
-  xml.form({:action=>url_for(:action=>:save_new_role),:id=>:content_form}) do
-    xml.input(:type=>:text,:name=>:role)
-    xml.button("Add Role")
+  xml.form({:action=>url_for(:action=>:save_new_conference_role),:id=>:content_form}) do
+    xml.input(:type=>:text,:name=>:conference_role)
+    xml.button("Add Conference Role")
   end
 end
 

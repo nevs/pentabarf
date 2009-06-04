@@ -40,6 +40,28 @@ class AdminController < ApplicationController
     redirect_to(:action=>:roles)
   end
 
+  def save_conference_roles
+    permissions = Permission.select(:conference_permission=>'t').map(&:permission)
+    params[:conference_role_permission].each do | conference_role, values |
+      rp = Conference_role_permission.select({:conference_role=>conference_role}).map(&:permission)
+      permissions.each do | perm |
+        if rp.member?( perm ) && !values[perm]
+          # permission has to be removed
+          Conference_role_permission.select_single({:conference_role=>conference_role,:permission=>perm}).delete
+        elsif !rp.member?( perm ) && values[perm]
+          # permission has to be set
+          Conference_role_permission.new({:conference_role=>conference_role,:permission=>perm}).write
+        end
+      end
+    end
+    redirect_to(:action=>:conference_roles)
+  end
+
+  def save_new_conference_role
+    Conference_role.new({:conference_role=>params[:conference_role]}).write
+    redirect_to(:action=>:conference_roles)
+  end
+
   def save_conflict_setup
     params[:conflict].each do | conflict, outer |
       outer.each do | conference_phase, value |
