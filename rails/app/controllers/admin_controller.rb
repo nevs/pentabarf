@@ -19,6 +19,20 @@ class AdminController < ApplicationController
   end
 
   def save_roles
+    permissions = Permission.select.map(&:permission)
+    params[:role_permission].each do | role, values |
+      rp = Role_permission.select({:role=>role}).map(&:permission)
+      permissions.each do | perm |
+        if rp.member?( perm ) && !values[perm]
+          # permission has to be removed
+          Role_permission.select_single({:role=>role,:permission=>perm}).delete
+        elsif !rp.member?( perm ) && values[perm]
+          # permission has to be set
+          Role_permission.new({:role=>role,:permission=>perm}).write
+        end
+      end
+    end
+    redirect_to(:action=>:roles)
   end
 
   def save_conflict_setup
