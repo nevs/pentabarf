@@ -35,6 +35,11 @@ class AdminController < ApplicationController
     redirect_to(:action=>:roles)
   end
 
+  def save_new_role
+    Role.new({:role=>params[:role]}).write
+    redirect_to(:action=>:roles)
+  end
+
   def save_conflict_setup
     params[:conflict].each do | conflict, outer |
       outer.each do | conference_phase, value |

@@ -32,3 +32,10 @@ xml.div do
   end
 end
 
+xml.div do
+  xml.form({:action=>url_for(:action=>:save_new_role),:id=>:content_form}) do
+    xml.input(:type=>:text,:name=>:role)
+    xml.button("Add Role")
+  end
+end
+
