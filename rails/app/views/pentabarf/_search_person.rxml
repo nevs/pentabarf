@@ -13,12 +13,12 @@ paginate( xml, @results, params[:id].to_i ) do | results |
       results.each do | person |
         xml.tr do
           xml.td do
-            xml.a({:href=>url_for(:action=>:person,:id=>person.person_id)}) do
+            xml.a({:href=>url_for(:controller=>'person',:action=>:edit,:id=>person.person_id)}) do
               xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>person.person_id,:size=>"24x24"),:height=>24,:witdh=>24})
             end
           end
           fields.each do | field |
-            xml.td do xml.a( person.send(field), {:href=>url_for(:action=>:person,:id=>person.person_id)}) end
+            xml.td do xml.a( person.send(field), {:href=>url_for(:controller=>'person',:action=>:edit,:id=>person.person_id)}) end
           end
         end
       end
