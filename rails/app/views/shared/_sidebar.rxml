@@ -31,7 +31,7 @@ xml.div( :id => 'sidebar' ) do
     xml.div( "", :id=>:sidebar_search_results )
 
     xml.script({:type=>'text/javascript'}) do
-      xml.text! "new Ajax.Autocompleter('sidebar_search', 'sidebar_search_results', '#{url_for(:action=>:sidebar_search)}',{paramName: 'sidebar_search',updateElement: switch_to_selection});"
+      xml.text! "new Ajax.Autocompleter('sidebar_search', 'sidebar_search_results', '#{url_for(:controller=>'pentabarf',:action=>:sidebar_search)}',{paramName: 'sidebar_search',updateElement: switch_to_selection});"
       xml.text! "function switch_to_selection( li ) { window.location = li.firstDescendant().href; };"
     end
 
