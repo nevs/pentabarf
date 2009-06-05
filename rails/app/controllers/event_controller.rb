@@ -88,7 +88,6 @@ class EventController < ApplicationController
   end
 
   def check_permission
-    return true
     return POPE.event_permission?('pentabarf::login',params[:event_id])
   end
 
