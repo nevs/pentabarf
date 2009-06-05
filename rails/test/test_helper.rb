@@ -26,7 +26,7 @@ class Test::Unit::TestCase
 
   # Add more helper methods to be used by all tests here...
   def hijack_controller_auth( controller )
-    controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do true end
+    controller.send( :instance_eval ) { class << self; self; end }.send(:define_method, :auth ) do check_permission end
   end
 
   def authenticate_user( user )
