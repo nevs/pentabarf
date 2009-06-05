@@ -54,7 +54,7 @@ class PersonController < ApplicationController
     if params[:account]
       params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
       account = write_row( Account, params[:account], {:except=>[:account_id,:salt,:edit_token,:password,:password2],:preset=>{:person_id=>person.person_id},:ignore_empty=>:login_name} ) do | row |
-        if params[:account][:password].to_s != "" && ( row.account_id == POPE.user.account_id || POPE.permission?( 'account::update' ) )
+        if params[:account][:password].to_s != "" && ( row.account_id == POPE.user.account_id || POPE.permission?( 'account::modify' ) )
           raise "Passwords do not match" if params[:account][:password] != params[:account][:password2]
           row.password = params[:account][:password]
         end
@@ -79,7 +79,7 @@ class PersonController < ApplicationController
     write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:public],:image=>true})
     write_person_availability( @current_conference, person, params[:person_availability])
 
-    if POPE.permission?( 'account::update' )
+    if POPE.permission?( 'account::modify' )
       params[:account_role].each do | k,v | v[:remove] = true if not v[:set] end
       write_rows( Account_role, params[:account_role], {:preset=>{:account_id=>account.account_id},:except=>[:set]})
     end
