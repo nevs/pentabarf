@@ -10,7 +10,7 @@ class LocalizationControllerTest < Test::Unit::TestCase
     @controller = LocalizationController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    authenticate_user( Account.select_single(:login_name=>'admin') )
+    authenticate_user( Account.select_single(:login_name=>'testcase_admin') )
   end
 
   def teardown
