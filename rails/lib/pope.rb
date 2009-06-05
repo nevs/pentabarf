@@ -55,7 +55,12 @@ class Pope
 
   def event_conference( event_id )
     if not @event_conference[event_id]
-      Event.select_single({:event_id=>event_id},{:columns=>[:event_id,:conference_id]})
+      return nil if not event_id
+      begin
+        Event.select_single({:event_id=>event_id},{:columns=>[:event_id,:conference_id]})
+      rescue Momomoto::Nothing_found
+        return nil
+      end
     end
     @event_conference[event_id]
   end
@@ -133,11 +138,12 @@ class Pope
   def conference_permission?( perm, conf )
     # check for global permission first
     return true if permission?( perm )
-    conference_permissions[conf] && conference_permissions[conf].member?( perm.to_sym )
+    return true if conference_permissions[conf] && conference_permissions[conf].member?( perm.to_sym )
+    false
   end
 
   def event_permission?( perm, event )
-    conference_permission( perm, event_conference( event ) )
+    conference_permission?( perm, event_conference( event ) )
   end
 
   # function hooked into momomoto when table rows are written
