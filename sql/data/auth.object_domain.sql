@@ -12,10 +12,10 @@ INSERT INTO object_domain ("object", "domain") VALUES ('conference_day', 'confer
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_image', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_language', 'conference');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_link', 'conference');
-INSERT INTO object_domain ("object", "domain") VALUES ('conference_person', 'person');
-INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_link', 'person');
-INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_link_internal', 'person');
-INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_travel', 'person');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_person', 'conference_person');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_link', 'conference_person');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_link_internal', 'conference_person');
+INSERT INTO object_domain ("object", "domain") VALUES ('conference_person_travel', 'conference_person');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_phase_conflict', 'config');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_phase_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('conference_release', 'conference');
@@ -30,7 +30,7 @@ INSERT INTO object_domain ("object", "domain") VALUES ('conflict_localized', 'lo
 INSERT INTO object_domain ("object", "domain") VALUES ('country_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('currency_localized', 'localization');
 INSERT INTO object_domain ("object", "domain") VALUES ('custom_conference', 'conference');
-INSERT INTO object_domain ("object", "domain") VALUES ('custom_conference_person', 'person');
+INSERT INTO object_domain ("object", "domain") VALUES ('custom_conference_person', 'conference_person');
 INSERT INTO object_domain ("object", "domain") VALUES ('custom_event', 'event');
 INSERT INTO object_domain ("object", "domain") VALUES ('custom_fields', 'custom');
 INSERT INTO object_domain ("object", "domain") VALUES ('custom_person', 'person');

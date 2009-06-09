@@ -8,6 +8,9 @@ BEGIN TRANSACTION;
 \i auth.role.sql
 \i auth.role_localized.sql
 \i auth.role_permission.sql
+\i auth.conference_role.sql
+\i auth.conference_role_localized.sql
+\i auth.conference_role_permission.sql
 \i conference_phase.sql
 \i conference_phase_localized.sql
 \i country.sql
