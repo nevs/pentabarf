@@ -3,7 +3,7 @@ xml.div do
 
     permissions = Permission.select({:conference_permission=>'t'},{:order=>[:rank,:permission]})
 
-    Conference_role.select.each do | role |
+    Conference_role.select({},{:order=>[:rank,:conference_role]}).each do | role |
       perm = Conference_role_permission.select({:conference_role=>role.conference_role}).map(&:permission)
       xml.div do
         xml.h3 role.conference_role
