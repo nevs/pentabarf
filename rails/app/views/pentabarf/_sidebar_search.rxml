@@ -14,7 +14,7 @@ xml.ul do
         break
       end
       xml.li({:class=>table}) do
-        xml.a({:href=>url_for(:action=>table,:id=>item[item_id])}) do
+        xml.a({:href=>url_for(:controller=>table,:action=>:edit,item_id=>item[item_id])}) do
           xml.img({:src=>url_for(:controller=>'image',:action=>table,:id=>item[item_id],:size=>"24x24"),:height=>24,:witdh=>24})
           case table
             when :person then
