@@ -17,7 +17,7 @@ class EventController < ApplicationController
   end
 
   def new
-    raise "Not allowed to create event." if not POPE.permission?( 'event::create' )
+    raise "Not allowed to create event." if not POPE.conference_permission?( 'event::create', @current_conference.conference_id )
     @content_title = "New Event"
     @event = Event.new(:event_id=>0,:conference_id=>@current_conference.conference_id)
 
@@ -88,7 +88,11 @@ class EventController < ApplicationController
   end
 
   def check_permission
-    return POPE.event_permission?('pentabarf::login',params[:event_id])
+    if params[:event_id].to_i == 0
+      return POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id)
+    else
+      return POPE.event_permission?('pentabarf::login',params[:event_id])
+    end
   end
 
 end
