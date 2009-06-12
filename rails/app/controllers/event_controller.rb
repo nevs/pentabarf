@@ -88,7 +88,9 @@ class EventController < ApplicationController
   end
 
   def check_permission
-    if params[:event_id].to_i == 0
+    if params[:action] == "new"
+      return POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id) && POPE.conference_permission?('event::create',POPE.user.current_conference_id)
+    elsif params[:event_id].to_i == 0
       return POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id)
     else
       return POPE.event_permission?('pentabarf::login',params[:event_id])
