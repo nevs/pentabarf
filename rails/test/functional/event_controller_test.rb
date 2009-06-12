@@ -37,4 +37,12 @@ class EventControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  def test_event_conference_committee
+    authenticate_user( Account.select_single(:login_name=>'testcase_conference_committee') )
+    get :new
+    assert_response :success
+    get :edit, {:event_id=>1}
+    assert_response :success
+  end
+
 end
