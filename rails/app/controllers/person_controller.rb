@@ -22,7 +22,7 @@ class PersonController < ApplicationController
     @conference_person_travel = Conference_person_travel.new({:conference_person_id=>@conference_person.conference_person_id.to_i})
     @account = Account.new(:person_id=>@person.person_id)
     @account_roles = []
-    @account_conference_role = []
+    @account_conference_roles = []
     @settings = Account_settings.new(:account_id=>@account.account_id.to_i)
     @transaction = Person_transaction.new({:person_id=>@person.person_id})
     render(:action=>'edit')
