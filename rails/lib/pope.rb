@@ -119,7 +119,7 @@ class Pope
       if user 
         Account_conference_permissions.call({:account_id=>user.account_id}).each do | row |
           @conference_permissions[row.conference_id] ||= []
-          @conference_permissions[row.conference_id] << row.permission
+          @conference_permissions[row.conference_id] << row.permission.to_sym
         end
       end
     end
@@ -130,12 +130,13 @@ class Pope
   def conferences_with_permission( perm )
     conferences = []
     conference_permissions.each do | conference_id, permissions |
-      conferences << conference_id if permissions.member?( perm )
+      conferences << conference_id if permissions.member?( perm.to_sym )
     end
     conferences
   end
 
   def conference_permission?( perm, conf )
+    perm = perm.to_sym
     # check for global permission first
     return true if permission?( perm )
     return true if conference_permissions[conf] && conference_permissions[conf].member?( perm.to_sym )
@@ -143,7 +144,7 @@ class Pope
   end
 
   def event_permission?( perm, event )
-    conference_permission?( perm, event_conference( event ) )
+    conference_permission?( perm.to_sym, event_conference( event ) )
   end
 
   # function hooked into momomoto when table rows are written
