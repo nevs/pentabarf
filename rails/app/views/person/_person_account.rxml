@@ -35,6 +35,20 @@ xml.div(:id=>'content-account') do
       end
     end
 
+    conference_roles = @account_conference_roles.map{|r| r.conference_role}
+    xml.table do
+      Conference_role.select.each do | role |
+        xml.tr do
+          xml.td role.conference_role
+          xml.td do
+            xml.input(:type=>:hidden,:name=>"account_conference_role[#{role.conference_role}][conference_role]",:value=>role.conference_role)
+            checked = conference_roles.member?( role.conference_role ) ?  {:checked=>:checked} : {}
+            xml.input({:type=>:checkbox,:name=>"account_conference_role[#{role.conference_role}][set]"}.merge(checked))
+          end
+        end
+      end
+    end
+
   end if POPE.permission?( 'account::modify' )
 
 end
