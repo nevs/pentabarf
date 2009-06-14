@@ -50,6 +50,8 @@ class EventControllerTest < ActionController::TestCase
     get :new
     # this should actually be 401 but due to the way auth is handled in test cases no data is returned
     assert_response 0
+
+    authenticate_user( Account.select_single(:login_name=>'testcase_conference_reviewer') )
     get :edit, {:event_id=>1}
     assert_response :success
   end
