@@ -11,7 +11,6 @@ class PersonController < ApplicationController
   end
 
   def new
-    raise "Not allowed to create person." if not POPE.permission?( 'person::create' )
     @content_title = "New Person"
     @person = Person.new(:person_id=>0)
     @person_image = Person_image.new({:person_id=>@person.person_id})
@@ -103,6 +102,14 @@ class PersonController < ApplicationController
     
     @preferences = POPE.user.preferences
     @current_language = POPE.user.current_language || 'en'
+  end
+
+  def check_permission
+    if params[:action] == "new"
+      return POPE.conference_permission?('pentabarf::login', POPE.user.current_conference_id) && POPE.conference_permission?('person::create', POPE.user.current_conference_id)
+    else
+      return POPE.conference_permission?('pentabarf::login', POPE.user.current_conference_id)
+    end
   end
 
 end
