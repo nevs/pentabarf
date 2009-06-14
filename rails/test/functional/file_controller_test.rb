@@ -9,10 +9,10 @@ class FileControllerTest < Test::Unit::TestCase
     @controller = FileController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    authenticate_user( Account.select_single(:login_name=>'testcase_committee') )
   end
 
   def test_event_attachment
+    authenticate_user( Account.select_single(:login_name=>'testcase_committee') )
     get :event_attachment, {:id => 1}
     assert_response :success
   end

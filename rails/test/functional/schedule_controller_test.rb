@@ -9,20 +9,22 @@ class ScheduleControllerTest < Test::Unit::TestCase
     @controller = ScheduleController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    authenticate_user( Account.select_single(:login_name=>'committee') )
   end
 
   def test_index
+    authenticate_user( Account.select_single(:login_name=>'committee') )
     get :index, {:conference=>'TEST'}
     assert_response :success
   end
 
   def test_speakers
+    authenticate_user( Account.select_single(:login_name=>'committee') )
     get :speakers, {:conference=>'TEST'}
     assert_response :success
   end
 
   def test_events
+    authenticate_user( Account.select_single(:login_name=>'committee') )
     get :events, {:conference=>'TEST'}
     assert_response :success
   end
@@ -30,6 +32,7 @@ class ScheduleControllerTest < Test::Unit::TestCase
   def test_days
     c = Conference.select_single({:acronym=>:TEST})
     c.days.each do | day |
+      authenticate_user( Account.select_single(:login_name=>'committee') )
       get :day, {:id=>day.conference_day.to_s,:conference=>'TEST'}
       assert_response :success
     end

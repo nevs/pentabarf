@@ -22,17 +22,19 @@ class EventControllerTest < ActionController::TestCase
   def test_event_submitter
     authenticate_user( Account.select_single(:login_name=>'testcase_submitter') )
     get :new
-    # this should actually be 401 but due to the way auth is handled in test cases no data is returned
-    assert_response 0
+    assert_response 401
+
+    authenticate_user( Account.select_single(:login_name=>'testcase_submitter') )
     get :edit, {:event_id=>1}
-    # this should actually be 401 but due to the way auth is handled in test cases no data is returned
-    assert_response 0
+    assert_response 401
   end
 
   def test_event_committee
     authenticate_user( Account.select_single(:login_name=>'testcase_committee') )
     get :new
     assert_response :success
+
+    authenticate_user( Account.select_single(:login_name=>'testcase_committee') )
     get :edit, {:event_id=>1}
     assert_response :success
   end
@@ -41,6 +43,8 @@ class EventControllerTest < ActionController::TestCase
     authenticate_user( Account.select_single(:login_name=>'testcase_conference_committee') )
     get :new
     assert_response :success
+
+    authenticate_user( Account.select_single(:login_name=>'testcase_conference_committee') )
     get :edit, {:event_id=>1}
     assert_response :success
   end
@@ -48,8 +52,7 @@ class EventControllerTest < ActionController::TestCase
   def test_event_conference_reviewer
     authenticate_user( Account.select_single(:login_name=>'testcase_conference_reviewer') )
     get :new
-    # this should actually be 401 but due to the way auth is handled in test cases no data is returned
-    assert_response 0
+    assert_response 401
 
     authenticate_user( Account.select_single(:login_name=>'testcase_conference_reviewer') )
     get :edit, {:event_id=>1}
