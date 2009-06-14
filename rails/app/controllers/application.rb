@@ -18,7 +18,15 @@ class ApplicationController < ActionController::Base
   def transaction_wrapper
     response.content_type ||= Mime::HTML
     Momomoto::Database.instance.transaction do
-      yield if auth
+      if auth
+        # if auth succeeds we continue
+        yield
+      elsif not performed? then
+        # if auth failed and nothing has been rendered we return 401
+        response.headers["Status"] = "Unauthorized"
+        response.headers["WWW-Authenticate"] = "Basic realm=Pentabarf"
+        render( :file=>'auth_failed.rxml',:status=>401,:content_type=>'text/html' )
+      end
       POPE.deauth
     end
   end
@@ -51,9 +59,6 @@ class ApplicationController < ActionController::Base
     return check_permission
    rescue => e
     logger.warn( e.to_s ) unless e.class == Pope::NoUserData
-    response.headers["Status"] = "Unauthorized"
-    response.headers["WWW-Authenticate"] = "Basic realm=Pentabarf"
-    render( :file=>'auth_failed.rxml',:status=>401,:content_type=>'text/html' )
     return false
   end
 
