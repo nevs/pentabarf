@@ -54,6 +54,7 @@ class Pope
   end
 
   def event_conference( event_id )
+    event_id = Integer( event_id )
     if not @event_conference[event_id]
       return nil if not event_id
       begin
@@ -135,8 +136,9 @@ class Pope
     conferences
   end
 
-  def conference_permission?( perm, conf )
+  def conference_permission?( perm, conference_id )
     perm = perm.to_sym
+    conf = Integer( conference_id )
     # check for global permission first
     return true if permission?( perm )
     return true if conference_permissions[conf] && conference_permissions[conf].member?( perm.to_sym )
