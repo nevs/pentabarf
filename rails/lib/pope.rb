@@ -127,11 +127,16 @@ class Pope
     @conference_permissions
   end
 
-  # returns a list of all conferences the account has a certain permission
+  # returns a list of all conference_ids the account has a certain permission
   def conferences_with_permission( perm )
     conferences = []
-    conference_permissions.each do | conference_id, permissions |
-      conferences << conference_id if permissions.member?( perm.to_sym )
+    if permission?( perm )
+      # return all conferences if user has global permission
+      conferences << Conference.select({},{:columns=>[:conference_id]})
+    else
+      conference_permissions.each do | conference_id, permissions |
+        conferences << conference_id if permissions.member?( perm.to_sym )
+      end
     end
     conferences
   end
