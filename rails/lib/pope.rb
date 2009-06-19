@@ -132,7 +132,7 @@ class Pope
     conferences = []
     if permission?( perm )
       # return all conferences if user has global permission
-      conferences << Conference.select({},{:columns=>[:conference_id]})
+      conferences = Conference.select({},{:columns=>[:conference_id]}).map(&:conference_id)
     else
       conference_permissions.each do | conference_id, permissions |
         conferences << conference_id if permissions.member?( perm.to_sym )
@@ -197,7 +197,7 @@ class Pope
   end
 
   def domain_account( action, row )
-    if action == :modify && permission?( :'person::modify_own')
+    if action == :modify && permission?( :'account::modify_own')
       return if row.respond_to?( :account_id ) && row.account_id == user.account_id
     end
     raise Pope::PermissionError
