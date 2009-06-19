@@ -12,7 +12,7 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
   end
 
   xml.body({:id=>:body}) do
-    xml << render(:partial=>'sidebar')
+    xml << render(:partial=>'shared/sidebar')
     xml.div('',{:id=>:activity})
 
     xml.div({:id=>:main}) do
