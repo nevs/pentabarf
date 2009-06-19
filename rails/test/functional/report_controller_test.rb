@@ -9,7 +9,6 @@ class ReportControllerTest < Test::Unit::TestCase
     @controller = ReportController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    authenticate_user( Account.select_single(:login_name=>'committee') )
   end
 
   def teardown
@@ -17,7 +16,20 @@ class ReportControllerTest < Test::Unit::TestCase
   end
 
   ReportController::REPORTS.each do | action |
-    define_method "test_#{action}" do
+    define_method "test_submitter_#{action}" do
+      authenticate_user( Account.select_single(:login_name=>'testcase_submitter') )
+      get action
+      assert_response 401
+    end
+
+    define_method "test_committee_#{action}" do
+      authenticate_user( Account.select_single(:login_name=>'testcase_committee') )
+      get action
+      assert_response :success
+    end
+
+    define_method "test_conference_committee_#{action}" do
+      authenticate_user( Account.select_single(:login_name=>'testcase_conference_committee') )
       get action
       assert_response :success
     end
