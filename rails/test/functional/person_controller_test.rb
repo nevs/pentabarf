@@ -48,4 +48,16 @@ class PersonControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  def test_new_person
+    authenticate_user( Account.select_single(:login_name=>'testcase_conference_committee') )
+    get :new
+    assert_response :success
+
+    authenticate_user( Account.select_single(:login_name=>'testcase_conference_committee') )
+    submit_form('content_form') do | form |
+      form.person.first_name = 'Foo'
+      form.person.last_name = 'Bar'
+    end
+    assert_response :redirect
+  end
 end
