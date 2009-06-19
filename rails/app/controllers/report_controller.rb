@@ -34,4 +34,8 @@ class ReportController < ApplicationController
     @current_language = POPE.user.current_language
   end
 
+  def check_permission
+    POPE.conference_permission?('pentabarf::login', POPE.user.current_conference_id)
+  end
+
 end
