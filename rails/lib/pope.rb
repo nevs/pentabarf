@@ -53,6 +53,7 @@ class Pope
     end
   end
 
+  # returns the conference_id of the supplied event_id
   def event_conference( event_id )
     event_id = Integer( event_id )
     if not @event_conference[event_id]
@@ -64,6 +65,20 @@ class Pope
       end
     end
     @event_conference[event_id]
+  end
+
+  # returns the conference_id of the supplied conference_person_id
+  def conference_person_conference( conference_person_id )
+    conference_person_id = Integer( conference_person_id )
+    if not @conference_person_conference[conference_person_id]
+      return nil if not conference_person_id
+      begin
+        Conference_person.select_single({:conference_person_id=>conference_person_id},{:columns=>[:conference_person_id,:conference_id]})
+      rescue Momomoto::Nothing_found
+        return nil
+      end
+    end
+    @conference_person_conference[conference_person_id]
   end
 
   def auth( username, pass )
@@ -159,6 +174,8 @@ class Pope
     # cache conference_ids of events for later usage
     if table.table_name == 'event'
       rows.each do | row | @event_conference[row.event_id] ||= row.conference_id end
+    elsif table.table_name == 'conference_person'
+      rows.each do | row | @conference_person_conference[row.conference_person_id] ||= row.conference_id end
     end
     rows
   end
@@ -188,13 +205,12 @@ class Pope
     return if domain == :public
     # check for global permissions
     return if permission?( "#{domain}::#{action}" )
-    # check for conference permissions
-    return if row.respond_to?( :conference_id ) && conference_permission?( "#{domain}::#{action}", row.conference_id )
-    return if row.respond_to?( :event_id ) && conference_permission?( "#{domain}::#{action}", event_conference( row.event_id ) )
     # check domain specific handler functions
     return send( "domain_#{domain}", action, row ) if respond_to?( "domain_#{domain}")
     raise PermissionError
   end
+
+  # domain specific helper functions
 
   def domain_account( action, row )
     if action == :modify && permission?( :'account::modify_own')
@@ -203,14 +219,36 @@ class Pope
     raise Pope::PermissionError
   end
 
+  def domain_conference( action, row )
+    return if row.respond_to?( :conference_id ) && conference_permission?( "conference::#{action}", row.conference_id )
+    raise Pope::PermissionError
+  end
+
   def domain_event( action, row )
+    return if conference_permission?( "event::#{action}", event_conference( row.event_id ) )
     if action == :modify && permission?( :'event::modify_own' )
       return if own_event?( row.event_id )
     end
     raise Pope::PermissionError
   end
 
+  def domain_review( action, row )
+    case row.class.table.table_name
+      when "event_rating" then
+        return if row.person_id == POPE.user.person_id && conference_permission?( "review::modify", event_conference( row.event_id ) )
+      when "person_rating" then
+        return if row.evaluator_id == POPE.user.person_id && conference_permission?( "review::modify", POPE.user.current_conference_id )
+    end
+    raise Pope::PermissionError
+  end
+
   def domain_person( action, row )
+    # fallback to conference permission check for person even though 
+    # person is independent of conferences
+    # this allows person-permissions for conference roles
+    return if conference_permission?( "person::#{action}", POPE.user.current_conference_id )
+
+    # check for modify_own
     if action == :modify && permission?( :'person::modify_own' )
       return if row.respond_to?( :person_id ) && row.person_id == user.person_id
     end
@@ -218,6 +256,8 @@ class Pope
   end
 
   def domain_conference_person( action, row )
+    return if row.respond_to?(:conference_id) && conference_permission?( "conference_person::#{action}", row.conference_id )
+    return if conference_permission?( "conference_person::#{action}", conference_person_conference( row.conference_person_id ) )
     if permission?( :'person::modify_own' )
       return if own_conference_person?( row.conference_person_id )
     end
@@ -263,6 +303,7 @@ class Pope
     @own_events = nil
     @own_conference_persons = nil
     @event_conference = {}
+    @conference_person_conference = {}
     Set_config.call(:setting=>'pentabarf.person_id',:value=>'',:is_local=>'f')
   end
 
