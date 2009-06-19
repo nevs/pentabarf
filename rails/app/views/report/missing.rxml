@@ -13,12 +13,12 @@ xml.div({:id=>:data}) do
       @rows.each do | row |
         xml.tr do
           xml.td do
-            xml.a({:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>row.person_id)}) do
+            xml.a({:href=>url_for(:controller=>'person',:action=>:edit,:person_id=>row.person_id)}) do
               xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>row.person_id,:size=>'24x24')})
             end
           end
           xml.td do
-            xml.a(row.name, {:href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>row.person_id)})
+            xml.a(row.name, {:href=>url_for(:controller=>'person',:action=>:edit,:person_id=>row.person_id)})
           end
         end
       end

@@ -18,11 +18,11 @@ xml.div(:id=>:data) do
         xml.tr({:style=>style}) do
           xml.td do xml << format_event( event ) end
           xml.td do
-            xml.a( "#{event.event_state} #{event.event_state_progress}", {:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)})
+            xml.a( "#{event.event_state} #{event.event_state_progress}", {:href=>url_for(:controller=>'event',:action=>:edit,:event_id=>event.event_id)})
           end
           [:conference_track,:rating,:raters].each do | field |
             xml.td do
-              xml.a( event[field], {:href=>url_for(:controller=>'pentabarf',:action=>:event,:id=>event.event_id)})
+              xml.a( event[field], {:href=>url_for(:controller=>'event',:action=>:edit,:event_id=>event.event_id)})
             end
           end
         end

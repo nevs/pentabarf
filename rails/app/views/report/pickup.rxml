@@ -16,17 +16,18 @@ xml.div({:id=>:data}) do
 
     xml.tbody do
       @rows.each do | row |
+        url = url_for({:controller=>'person',:action=>:edit,:person_id=>row.person_id})
         xml.tr do
-          xml.td do xml.a( row.date, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
-          xml.td do xml.a( row.time, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.date, {:href=>url}) end
+          xml.td do xml.a( row.time, {:href=>url}) end
           xml.td do
-            xml.a({:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) do
+            xml.a({:href=>url}) do
               xml.img({:src=>url_for({:controller=>'image',:action=>:person,:id=>row.person_id}),:height=>24,:width=>24})
             end
           end
-          xml.td do xml.a( row.name, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.name, {:href=>url}) end
           [:type,:from,:to,:transport,:number].each do | field |
-            xml.td do xml.a( row[field], {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+            xml.td do xml.a( row[field], {:href=>url}) end
           end
         end
       end

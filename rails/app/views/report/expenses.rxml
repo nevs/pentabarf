@@ -20,19 +20,20 @@ xml.div({:id=>:data}) do
         sum[row.fee_currency] += row.fee if row.fee
         sum[row.travel_currency] += row.travel_cost if row.travel_cost
         sum[row.accommodation_currency] += row.accommodation_cost if row.accommodation_cost
+        url = url_for({:controller=>'person',:action=>:edit,:person_id=>row.person_id})
         xml.tr do
           xml.td do
-            xml.a({:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) do
+            xml.a({:href=>url}) do
               xml.img({:src=>url_for({:controller=>'image',:action=>:person,:id=>row.person_id}),:height=>24,:width=>24})
             end
           end
-          xml.td do xml.a( row.name, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
-          xml.td do xml.a( row.fee ? sprintf("%.2f", row.fee) : '', {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
-          xml.td do xml.a( row.fee_currency, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
-          xml.td do xml.a( row.travel_cost ? sprintf("%.2f", row.travel_cost) : '', {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
-          xml.td do xml.a( row.travel_currency, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
-          xml.td do xml.a( row.accommodation_cost ? sprintf("%.2f", row.accommodation_cost) : '', {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
-          xml.td do xml.a( row.accommodation_currency, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.name, {:href=>url}) end
+          xml.td do xml.a( row.fee ? sprintf("%.2f", row.fee) : '', {:href=>url}) end
+          xml.td do xml.a( row.fee_currency, {:href=>url}) end
+          xml.td do xml.a( row.travel_cost ? sprintf("%.2f", row.travel_cost) : '', {:href=>url}) end
+          xml.td do xml.a( row.travel_currency, {:href=>url}) end
+          xml.td do xml.a( row.accommodation_cost ? sprintf("%.2f", row.accommodation_cost) : '', {:href=>url}) end
+          xml.td do xml.a( row.accommodation_currency, {:href=>url}) end
         end
       end
     end
