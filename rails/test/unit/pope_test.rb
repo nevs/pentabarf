@@ -3,8 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PopeTest < Test::Unit::TestCase
 
   def setup
-    POPE.deauth
-    POPE.send( :instance_variable_set, :@user, Pope::User.new( Account.select_single(:login_name=>'testcase_submitter') ))
+    POPE.send( :instance_variable_set, :@user, Pope::User.new( Account.select_single(:login_name=>'testcase_norole') ))
   end
 
   def test_single_domain_permissions
