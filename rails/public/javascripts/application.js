@@ -310,7 +310,7 @@ function add_event_person( event_person_id, person_id, event_role, event_role_st
   var index = table_row_counter['event_person'] - 1;
   var select = $('event_person[' + index + '][person_id]');
   var link = document.createElement('a');
-  link.href = document.URL.replace( /event\/\d+(#.*)?/, 'person/' + select.value );
+  link.href = document.URL.replace( /event\/edit\/\d+(#.*)?/, 'person/edit/' + select.value );
   link.appendChild( document.createTextNode( select.options[select.selectedIndex].text ) );
   select.parentNode.appendChild( link );
   replace_element_with_hidden_field( select );
