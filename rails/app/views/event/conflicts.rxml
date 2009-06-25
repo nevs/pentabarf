@@ -7,11 +7,11 @@ xml.fieldset(:class=>:conflicts) do
           when View_conflict_event::Row
             xml.span(conflict.conflict_name)
           when View_conflict_event_event::Row
-            xml.a("#{conflict.conflict_name}: #{conflict.title2}",:href=>url_for(:action=>:event,:id=>conflict.event_id2))
+            xml.a("#{conflict.conflict_name}: #{conflict.title2}",:href=>url_for(:controller=>'event',:action=>:edit,:event_id=>conflict.event_id2))
           when View_conflict_event_person::Row
-            xml.a("#{conflict.conflict_name}: #{conflict.name}",:href=>url_for(:action=>:person,:id=>conflict.person_id))
+            xml.a("#{conflict.conflict_name}: #{conflict.name}",:href=>url_for(:controller=>'person',:action=>:edit,:person_id=>conflict.person_id))
           when View_conflict_event_person_event::Row
-            xml.a("#{conflict.conflict_name}: #{conflict.name}",:href=>url_for(:action=>:person,:id=>conflict.person_id))
+            xml.a("#{conflict.conflict_name}: #{conflict.name}",:href=>url_for(:controller=>'person',:action=>:edit,:person_id=>conflict.person_id))
           else
             raise Error, "Unknown conflict: #{conflict.inspect}"
         end
