@@ -59,4 +59,10 @@ class EventControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  def test_event_attachment
+    authenticate_user( Account.select_single(:login_name=>'testcase_committee') )
+    get :attachment, {:event_id=>1,:event_attachment_id=>1}
+    assert_response :success
+  end
+
 end

@@ -78,8 +78,7 @@ class EventController < ApplicationController
 
   def attachment
     data = View_event_attachment.select_single({:event_attachment_id=>params[:event_attachment_id],:event_id=>params[:event_id],:translated=>@current_language})
-    file = Event_attachment.select_single({:event_attachment_id => params[:id]})
-    raise "Not allowed" if not POPE.event_permission?( 'event::show', file.event_id )
+    file = Event_attachment.select_single({:event_attachment_id => params[:event_attachment_id],:event_id=>params[:event_id]})
     response.headers['Content-Disposition'] = "attachment; filename=\"#{file.filename}\""
     response.headers['Content-Type'] = data.mime_type
     response.headers['Content-Length'] = data.filesize
