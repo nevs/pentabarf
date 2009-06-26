@@ -73,7 +73,7 @@ class Pope
     if not @conference_person_conference[conference_person_id]
       return nil if not conference_person_id
       begin
-        Conference_person.select_single({:conference_person_id=>conference_person_id},{:columns=>[:conference_person_id,:conference_id]})
+        Conference_person.select_single({:conference_person_id=>conference_person_id},{:columns=>[:conference_id,:conference_person_id]})
       rescue Momomoto::Nothing_found
         return nil
       end
@@ -256,11 +256,9 @@ class Pope
   end
 
   def domain_conference_person( action, row )
-    return if row.respond_to?(:conference_id) && conference_permission?( "conference_person::#{action}", row.conference_id )
+    return if row.class.table.table_name == "conference_person" && conference_permission?( "conference_person::#{action}", row.conference_id )
     return if conference_permission?( "conference_person::#{action}", conference_person_conference( row.conference_person_id ) )
-    if permission?( :'person::modify_own' )
-      return if own_conference_person?( row.conference_person_id )
-    end
+    return if permission?( :'person::modify_own' ) && own_conference_person?( row.conference_person_id )
     raise Pope::PermissionError
   end
 
