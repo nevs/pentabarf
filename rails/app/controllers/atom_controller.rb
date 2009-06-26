@@ -6,4 +6,8 @@ class AtomController < ApplicationController
     @changes = View_recent_changes.select( {}, {:limit => 25 } )
   end
 
+  def check_permission
+    POPE.permission?('pentabarf::login')
+  end
+
 end
