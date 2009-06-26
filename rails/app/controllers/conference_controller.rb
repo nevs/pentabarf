@@ -47,6 +47,11 @@ class ConferenceController < ApplicationController
     redirect_to( :action => :conference, :id => conf.conference_id)
   end
 
+  def delete
+    Conference.select_single({:conference_id=>params[:conference_id]}).delete
+    redirect_to(:controller=>'pentabarf',:action=>:index)
+  end
+
   protected
 
   def init
@@ -57,6 +62,7 @@ class ConferenceController < ApplicationController
     return false if not POPE.conference_permission?('pentabarf::login',params[:conference_id])
     case params[:action]
       when 'new' then POPE.permission?('conference::create')
+      when 'delete' then POPE.permission?('conference::delete')
       when 'edit' then POPE.conference_permission?('conference::show',params[:conference_id])
       when 'save' then POPE.conference_permission?('conference::modify',params[:conference_id])
       else
