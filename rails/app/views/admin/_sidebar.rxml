@@ -9,6 +9,8 @@ xml.div( :id => 'sidebar' ) do
   xml.div(:id => 'menu') do
 
     xml.div( :class=>'menu-item-group' ) do
+      xml.a( 'Role permissions', {:href=> url_for(:action => :role_permissions), :class => 'menu-item'} )
+      xml.a( 'Conference Role permissions', {:href=> url_for(:action => :conference_role_permissions), :class => 'menu-item'} )
       xml.a( 'Conflict Setup', {:href=> url_for(:action => :conflict_setup), :class => 'menu-item'} )
       xml.a( 'Custom Fields', {:href=> url_for(:action => :custom_fields), :class => 'menu-item'} )
     end

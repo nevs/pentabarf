@@ -14,11 +14,24 @@ class AdminController < ApplicationController
     @phase_conflicts = Conference_phase_conflict.select
   end
 
-  def roles
+  def role_permissions
     @roles = Role.select
   end
 
-  def save_roles
+  def conference_role_permissions
+  end
+
+  def save_new_role
+    Role.new({:role=>params[:role]}).write
+    redirect_to(:action=>:role_permissions)
+  end
+
+  def save_new_conference_role
+    Conference_role.new({:conference_role=>params[:conference_role]}).write
+    redirect_to(:action=>:conference_role_permissions)
+  end
+
+  def save_role_permissions
     permissions = Permission.select.map(&:permission)
     params[:role_permission].each do | role, values |
       rp = Role_permission.select({:role=>role}).map(&:permission)
@@ -32,15 +45,10 @@ class AdminController < ApplicationController
         end
       end
     end
-    redirect_to(:action=>:roles)
+    redirect_to(:action=>:role_permissions)
   end
 
-  def save_new_role
-    Role.new({:role=>params[:role]}).write
-    redirect_to(:action=>:roles)
-  end
-
-  def save_conference_roles
+  def save_conference_role_permissions
     permissions = Permission.select(:conference_permission=>'t').map(&:permission)
     params[:conference_role_permission].each do | conference_role, values |
       rp = Conference_role_permission.select({:conference_role=>conference_role}).map(&:permission)
@@ -54,12 +62,7 @@ class AdminController < ApplicationController
         end
       end
     end
-    redirect_to(:action=>:conference_roles)
-  end
-
-  def save_new_conference_role
-    Conference_role.new({:conference_role=>params[:conference_role]}).write
-    redirect_to(:action=>:conference_roles)
+    redirect_to(:action=>:conference_role_permissions)
   end
 
   def save_conflict_setup

@@ -1,5 +1,5 @@
 xml.div do
-  xml.form({:action=>url_for(:action=>:save_roles),:id=>:content_form}) do
+  xml.form({:action=>url_for(:action=>:save_role_permissions),:id=>:content_form}) do
 
     permissions = Permission.select({},{:order=>[:rank,:permission]})
 
