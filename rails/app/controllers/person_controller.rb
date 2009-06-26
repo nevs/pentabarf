@@ -104,11 +104,15 @@ class PersonController < ApplicationController
     @current_language = POPE.user.current_language || 'en'
   end
 
+
   def check_permission
-    if params[:action] == "new"
-      return POPE.conference_permission?('pentabarf::login', POPE.user.current_conference_id) && POPE.conference_permission?('person::create', POPE.user.current_conference_id)
-    else
-      return POPE.conference_permission?('pentabarf::login', POPE.user.current_conference_id)
+    return false if not POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id)
+    case params[:action]
+      when 'new' then POPE.conference_permission?('person::create',POPE.user.current_conference_id)
+      when 'edit','conflicts' then POPE.conference_permission?('person::show',POPE.user.current_conference_id)
+      when 'save' then POPE.conference_permission?('person::modify',POPE.user.current_conference_id)
+      else
+        false
     end
   end
 
