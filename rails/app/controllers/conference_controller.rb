@@ -4,7 +4,6 @@ class ConferenceController < ApplicationController
   before_filter :check_transaction, :only => :save
 
   def new
-    raise "Not allowed to create conference." if not POPE.permission?( 'conference::create' )
     @content_title = "New Conference"
     @conference = Conference.new(:conference_id=>0)
     @current_conference = @conference
@@ -55,7 +54,14 @@ class ConferenceController < ApplicationController
   end
 
   def check_permission
-    return POPE.conference_permission?('pentabarf::login',params[:conference_id])
+    return false if not POPE.conference_permission?('pentabarf::login',params[:conference_id])
+    case params[:action]
+      when 'new' then POPE.permission?('conference::create')
+      when 'edit' then POPE.conference_permission?('conference::show',params[:conference_id])
+      when 'save' then POPE.conference_permission?('conference::modify',params[:conference_id])
+      else
+        false
+    end
   end
 
 end
