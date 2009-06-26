@@ -7,6 +7,7 @@ class ConferenceController < ApplicationController
     raise "Not allowed to create conference." if not POPE.permission?( 'conference::create' )
     @content_title = "New Conference"
     @conference = Conference.new(:conference_id=>0)
+    @current_conference = @conference
     @conference.feedback_base_url = url_for(:controller=>:pentabarf,:action=>:index,:only_path=>false)
 
     @transaction = Conference_transaction.new({:conference_id=>@conference.conference_id})
@@ -15,8 +16,8 @@ class ConferenceController < ApplicationController
 
   def edit
     @conference = Conference.select_single( :conference_id => params[:conference_id] )
-    @content_title = @conference.title
     @current_conference = @conference
+    @content_title = @conference.title
     @transaction = Conference_transaction.select_or_new({:conference_id=>@conference.conference_id},{:limit=>1})
   end
 
