@@ -256,7 +256,7 @@ class Pope
   end
 
   def domain_conference_person( action, row )
-    return if row.class.table.table_name == "conference_person" && conference_permission?( "conference_person::#{action}", row.conference_id )
+    return if ["conference_person","custom_conference_person"].member?(row.class.table.table_name) && conference_permission?( "conference_person::#{action}", row.conference_id )
     return if conference_permission?( "conference_person::#{action}", conference_person_conference( row.conference_person_id ) )
     return if permission?( :'person::modify_own' ) && own_conference_person?( row.conference_person_id )
     raise Pope::PermissionError
