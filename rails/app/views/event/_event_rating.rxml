@@ -34,32 +34,34 @@ xml.div(:id=>'content-rating') do
 
   xml << text_area_fieldset( @event_rating_remark, :remark, {:rows=>5,:cols=>60})
 
-  ratings = View_event_rating.select({:event_id=>@event.event_id})
-  xml.fieldset do
-    xml.legend local('other ratings')
+  if !@event.new_record? && POPE.conference_permission?('rating::show', @event.conference_id) then
+    ratings = View_event_rating.select({:event_id=>@event.event_id})
+    xml.fieldset do
+      xml.legend local('other ratings')
 
-    xml.table do
-      xml.tr do
-        xml.th( local('event_rating::person_id'),:colspan=>2)
-        xml.th('Rating',:colspan=>2)
-        xml.th local('event_rating::remark')
-        xml.th local('event_rating::eval_time')
-      end
-      ratings.each do | rating |
+      xml.table do
         xml.tr do
-          xml.td do
-            xml.a( {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) do
-              xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>rating.person_id,:size=>'24x24')})
+          xml.th( local('event_rating::person_id'),:colspan=>2)
+          xml.th('Rating',:colspan=>2)
+          xml.th local('event_rating::remark')
+          xml.th local('event_rating::eval_time')
+        end
+        ratings.each do | rating |
+          xml.tr do
+            xml.td do
+              xml.a( {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) do
+                xml.img({:src=>url_for(:controller=>'image',:action=>:person,:id=>rating.person_id,:size=>'24x24')})
+              end
             end
+            xml.td do xml.a( rating.name, {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) end
+            xml << event_rating_bar( rating )
+            xml.td rating.remark
+            xml.td rating.eval_time.strftime('%Y-%m-%d %H:%M')
           end
-          xml.td do xml.a( rating.name, {:href=>url_for(:action=>:person,:id=>rating.person_id)} ) end
-          xml << event_rating_bar( rating )
-          xml.td rating.remark
-          xml.td rating.eval_time.strftime('%Y-%m-%d %H:%M')
         end
       end
-    end
 
-  end if POPE.permission?('rating::show') && ratings.length > 0
+    end if ratings.length > 0
+  end
 
 end
