@@ -81,4 +81,8 @@ class ScheduleController < ApplicationController
     @current_language = params[:language] || 'en'
   end
 
+  def check_permission
+    POPE.permission?('pentabarf::login')
+  end
+
 end

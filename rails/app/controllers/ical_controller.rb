@@ -61,5 +61,14 @@ class IcalController < ApplicationController
     response.content_type = Mime::ICS
   end
 
+  def check_permission
+    return false if not POPE.conference_permission?('pentabarf::login',params[:conference_id])
+    case params[:action]
+      when 'conference' then POPE.conference_permission?('conference::show',params[:conference_id])
+      else
+        false
+    end
+  end
+
 end
 
