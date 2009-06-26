@@ -62,10 +62,6 @@ class ApplicationController < ActionController::Base
     return false
   end
 
-  def check_permission
-    return POPE.permission?('pentabarf::login')
-  end
-
   # protect save and delete functions with token
   def check_token
     if params[:action].match(/^(save|delete|copy)/)
