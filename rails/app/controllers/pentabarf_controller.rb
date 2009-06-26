@@ -220,15 +220,6 @@ class PentabarfController < ApplicationController
     redirect_to(:action=>:mail)
   end
 
-  def events_by_state
-    @content_title = "Events by state: "
-    state = Event_state_localized.select_single(:event_state=>params[:event_state],:translated=>POPE.user.current_language)
-    @content_title += state.name
-    conditions = {:conference_id=>@current_conference.conference_id,:event_state=>params[:event_state],:translated=>POPE.user.current_language}
-    conditions[:event_state_progress] = params[:event_state_progress] if params[:event_state_progress]
-    @results = View_find_event.select( conditions )
-  end
-
   protected
 
   def init
