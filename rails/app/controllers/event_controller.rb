@@ -76,6 +76,19 @@ class EventController < ApplicationController
     redirect_to( :action => :edit, :event_id => event.event_id )
   end
 
+  def attachment
+    data = View_event_attachment.select_single({:event_attachment_id=>params[:event_attachment_id],:event_id=>params[:event_id],:translated=>@current_language})
+    file = Event_attachment.select_single({:event_attachment_id => params[:id]})
+    raise "Not allowed" if not POPE.event_permission?( 'event::show', file.event_id )
+    response.headers['Content-Disposition'] = "attachment; filename=\"#{file.filename}\""
+    response.headers['Content-Type'] = data.mime_type
+    response.headers['Content-Length'] = data.filesize
+#    response.headers['Last-Modified'] = file.last_modified
+    render(:text=>file.data)
+   rescue
+    render(:text=>"File not found",:status=>404)
+  end
+
   protected
 
   def init
@@ -88,12 +101,22 @@ class EventController < ApplicationController
   end
 
   def check_permission
-    if params[:action] == "new"
-      return POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id) && POPE.conference_permission?('event::create',POPE.user.current_conference_id)
-    elsif params[:event_id]
-      return POPE.event_permission?('pentabarf::login',params[:event_id])
-    else
-      return POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id)
+    case params[:action]
+      when 'new' then
+        POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id) &&
+        POPE.conference_permission?('event::create',POPE.user.current_conference_id)
+      when 'copy' then
+        POPE.event_permission?('pentabarf::login',params[:event_id]) &&
+        POPE.conference_permission?('event::create',params[:conference_id]) &&
+        POPE.event_permission?('event::show',params[:event_id])
+      when 'edit','conflicts','attachment' then
+        POPE.event_permission?('pentabarf::login',params[:event_id]) &&
+        POPE.event_permission?('event::show',params[:event_id])
+      when 'save' then
+        POPE.event_permission?('pentabarf::login',params[:event_id]) &&
+        POPE.event_permission?('event::modify',params[:event_id])
+      else
+        false
     end
   end
 
