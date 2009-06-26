@@ -1,6 +1,7 @@
 class EventController < ApplicationController
 
   before_filter :init
+  around_filter :update_last_login, :except=>[:copy,:delete,:save]
 
   def copy
     cp = Copy_event.call({:source_event_id=>params[:event_id],:target_conference_id=>params[:conference_id],:coordinator_id=>POPE.user.person_id})
@@ -23,6 +24,13 @@ class EventController < ApplicationController
     conditions = {:conference_id=>@current_conference.conference_id,:event_state=>params[:event_state],:translated=>POPE.user.current_language}
     conditions[:event_state_progress] = params[:event_state_progress] if params[:event_state_progress]
     @results = View_find_event.select( conditions )
+  end
+
+  def own
+    @content_title = "Own events"
+    @events = {}
+    @events[:participant] = View_own_events_participant.select({:person_id=>POPE.user.person_id,:translated=>@current_language,:conference_id=>@current_conference.conference_id},{:order=>[:event_state,:title,:subtitle,:event_role]})
+    @events[:coordinator] = View_own_events_coordinator.select({:person_id=>POPE.user.person_id,:translated=>@current_language,:conference_id=>@current_conference.conference_id},{:order=>[:event_state,:title,:subtitle,:event_role]})
   end
 
   def new
@@ -125,7 +133,7 @@ class EventController < ApplicationController
       when 'delete' then
         POPE.event_permission?('pentabarf::login',params[:event_id]) &&
         POPE.event_permission?('event::delete',params[:event_id])
-      when 'state' then
+      when 'own','state' then
         POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id) &&
         POPE.conference_permission?('event::show',POPE.user.current_conference_id)
       when 'edit','conflicts','attachment' then

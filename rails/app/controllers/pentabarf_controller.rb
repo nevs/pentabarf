@@ -24,13 +24,6 @@ class PentabarfController < ApplicationController
     @content_title = "Overview"
   end
 
-  def own_events
-    @content_title = "Own events"
-    @events = {}
-    @events[:participant] = View_own_events_participant.select({:person_id=>POPE.user.person_id,:translated=>@current_language,:conference_id=>@current_conference.conference_id},{:order=>[:event_state,:title,:subtitle,:event_role]})
-    @events[:coordinator] = View_own_events_coordinator.select({:person_id=>POPE.user.person_id,:translated=>@current_language,:conference_id=>@current_conference.conference_id},{:order=>[:event_state,:title,:subtitle,:event_role]})
-  end
-
   def activity
     @last_active = View_last_active.select( {:login_name => {:ne => POPE.user.login_name}}, {:limit => 12} )
     render(:partial=>'activity')

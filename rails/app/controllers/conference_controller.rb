@@ -1,6 +1,7 @@
 class ConferenceController < ApplicationController
 
   before_filter :init
+  around_filter :update_last_login, :except=>[:copy,:delete,:save]
   before_filter :check_transaction, :only => :save
 
   def new

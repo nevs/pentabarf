@@ -1,6 +1,7 @@
 class PersonController < ApplicationController
 
   before_filter :init
+  around_filter :update_last_login, :except=>[:copy,:delete,:save]
 
   def conflicts
     @conflicts = []
