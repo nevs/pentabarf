@@ -31,14 +31,6 @@ class PentabarfController < ApplicationController
     @events[:coordinator] = View_own_events_coordinator.select({:person_id=>POPE.user.person_id,:translated=>@current_language,:conference_id=>@current_conference.conference_id},{:order=>[:event_state,:title,:subtitle,:event_role]})
   end
 
-  ["event","person","conference"].each do | action |
-    define_method("delete_#{action}") do
-      row = action.capitalize.constantize.select_single("#{action}_id"=>params[:id])
-      row.delete
-      redirect_to(:action=>:index)
-    end
-  end
-
   def activity
     @last_active = View_last_active.select( {:login_name => {:ne => POPE.user.login_name}}, {:limit => 12} )
     render(:partial=>'activity')
