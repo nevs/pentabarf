@@ -3,14 +3,14 @@ xml.div(:id=>'content-export') do
   xml.fieldset do
     xml.legend( local('conference::tab::export') )
 
-    xml.a({:href=>url_for({:controller=>'schedule',:conference=>@conference.acronym,:action=>:index,:language=>:en})}) do
+    xml.a({:href=>url_for({:controller=>'schedule',:conference_id=>@conference.conference_id,:action=>:index,:language=>:en})}) do
       xml.button( local( :schedule_export ) )
     end
-    xml.a({:href=>url_for({:controller=>'ical',:action=>:conference,:conference=>@conference.acronym})}) do
+    xml.a({:href=>url_for({:controller=>'ical',:action=>:conference,:conference_id=>@conference.conference_id})}) do
       xml.button( local( :ical ) )
     end
 
-    xml.a({:href=>url_for({:controller=>'xcal',:action=>:conference,:conference=>@conference.acronym})}) do
+    xml.a({:href=>url_for({:controller=>'xcal',:action=>:conference,:conference_id=>@conference.conference_id})}) do
       xml.button( local( :xcal ) )
     end
 
