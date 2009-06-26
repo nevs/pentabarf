@@ -76,6 +76,11 @@ class EventController < ApplicationController
     redirect_to( :action => :edit, :event_id => event.event_id )
   end
 
+  def delete
+    Event.select_single({:event_id=>params[:event_id]}).delete
+    redirect_to(:controller=>'pentabarf',:action=>:index)
+  end
+
   def attachment
     data = View_event_attachment.select_single({:event_attachment_id=>params[:event_attachment_id],:event_id=>params[:event_id],:translated=>@current_language})
     file = Event_attachment.select_single({:event_attachment_id => params[:event_attachment_id],:event_id=>params[:event_id]})
@@ -108,6 +113,9 @@ class EventController < ApplicationController
         POPE.event_permission?('pentabarf::login',params[:event_id]) &&
         POPE.conference_permission?('event::create',params[:conference_id]) &&
         POPE.event_permission?('event::show',params[:event_id])
+      when 'delete' then
+        POPE.event_permission?('pentabarf::login',params[:event_id]) &&
+        POPE.event_permission?('event::delete',params[:event_id])
       when 'edit','conflicts','attachment' then
         POPE.event_permission?('pentabarf::login',params[:event_id]) &&
         POPE.event_permission?('event::show',params[:event_id])
