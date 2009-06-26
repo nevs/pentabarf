@@ -35,15 +35,18 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'image/:action/:id.:size.:extension', :controller=> 'image'
   map.connect 'image/:action/:id.:size', :controller=> 'image'
 
-  map.connect 'ical/:action/:conference', :controller=> 'ical'
-  map.connect 'xcal/:action/:conference', :controller=> 'xcal'
-  map.connect 'xml/:action/:conference', :controller=> 'xml'
+  map.connect 'ical/:action/:conference_id', :controller=> 'ical'
+  map.connect 'xcal/:action/:conference_id', :controller=> 'xcal'
+  map.connect 'xml/:action/:conference_id', :controller=> 'xml'
 
   map.connect 'pentabarf/events_by_state/:event_state', :controller => 'pentabarf', :action => 'events_by_state'
   map.connect 'pentabarf/events_by_state/:event_state/:event_state_progress', :controller => 'pentabarf', :action => 'events_by_state'
 
   map.connect 'conference/:action/:conference_id', :controller => 'conference', :conference_id => /\d+/
+
   map.connect 'event/:action/:event_id', :controller => 'event', :event_id => /\d+/
+  map.connect 'event/attachment/:event_id/:event_attachment_id', :controller=>'event', :action=>'attachment', :event_id=>/\d+/, :event_attachment_id=>/\d+/
+
   map.connect 'person/:action/:person_id', :controller => 'person', :person_id => /\d+/
 
   # Install the default route as the lowest priority.
