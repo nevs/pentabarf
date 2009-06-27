@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   include MomomotoHelper
   session :off
   around_filter :transaction_wrapper
-  before_filter :check_token
+  before_filter :automatic_token_check
 
   protected
 
@@ -62,16 +62,23 @@ class ApplicationController < ActionController::Base
     return false
   end
 
-  # protect save and delete functions with token
-  def check_token
+  # protect save,copy and delete functions with token
+  def automatic_token_check
     if params[:action].match(/^(save|delete|copy)/)
-      token = Token.generate( url_for(:only_path=>true) )
-      if token != params[:token]
-        logger.warn( "Wrong token for #{url_for({})} from #{request.remote_ip}" )
-        return false
-      end
+      return check_token
     end
     true
+  end
+
+  # validate submitted token
+  def check_token
+    token = Token.generate( url_for(:only_path=>true) )
+    if token != params[:token]
+      logger.warn( "Wrong token for #{url_for({})} from #{request.remote_ip}" )
+      return false
+    else
+      return true
+    end
   end
 
   def log_error( exception, verbose = false )
