@@ -16,7 +16,7 @@ class PentabarfControllerTest < Test::Unit::TestCase
     POPE.deauth
   end
 
-  [:conflicts,:own_events,:recent_changes,:schedule,:find_person,:find_event,:find_conference].each do | action |
+  [:conflicts,:recent_changes,:schedule,:find_person,:find_event,:find_conference].each do | action |
     define_method "test_#{action}" do
       get action
       assert_response :success
