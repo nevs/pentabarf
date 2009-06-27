@@ -16,7 +16,7 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div( :class=>'menu-item-group' ) do
       xml.a( local('pentabarf::index'), {:href=> url_for(:controller => 'pentabarf', :action => :index), :class => 'menu-item'} )
-      xml.a( local('pentabarf::own_events'), {:href=> url_for(:controller => 'pentabarf', :action => :own_events), :class => 'menu-item'} )
+      xml.a( local('pentabarf::own_events'), {:href=> url_for(:controller => 'event', :action => :own), :class => 'menu-item'} )
       xml.a( local('pentabarf::recent_changes'), {:href=> url_for(:controller => 'pentabarf', :action => :recent_changes), :class => 'menu-item'} )
       xml.a( local('reports::index'), {:href=> url_for(:controller => 'report'), :class => 'menu-item'} )
       xml.a( local('pentabarf::conflicts'), {:href=> url_for(:controller => 'pentabarf', :action => :conflicts), :class => 'menu-item'} )
