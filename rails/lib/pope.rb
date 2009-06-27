@@ -213,8 +213,10 @@ class Pope
   # domain specific helper functions
 
   def domain_account( action, row )
-    if action == :modify && permission?( :'account::modify_own')
-      return if row.respond_to?( :account_id ) && row.account_id == user.account_id
+    if row.respond_to?( :account_id ) && row.account_id == user.account_id
+      return if action == :modify && permission?( :'account::modify_own')
+      # allow account::modify_own as conference permission
+      return if action == :modify && conference_permission?( :'account::modify_own', user.current_conference_id )
     end
     raise Pope::PermissionError
   end
