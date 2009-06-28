@@ -65,5 +65,7 @@ CREATE TYPE auth.conference_permission AS (
   permission TEXT
 );
 
+ALTER TABLE auth.account_settings ADD CONSTRAINT account_settings_current_conference_id_fkey FOREIGN KEY (current_conference_id) REFERENCES conference(conference_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
 COMMIT;
 

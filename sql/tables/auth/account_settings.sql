@@ -9,6 +9,7 @@ CREATE TABLE base.account_settings (
 
 CREATE TABLE auth.account_settings (
   FOREIGN KEY( account_id ) REFERENCES auth.account( account_id ) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY( current_conference_id ) REFERENCES conference( conference_id ) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY( account_id )
 ) INHERITS( base.account_settings );
 
