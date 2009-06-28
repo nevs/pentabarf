@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 
   before_filter :init
   around_filter :update_last_login
-  around_filter :save_preferences, :only=>[:search_person_simple,:search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
+  around_filter :save_preferences, :except=>[:person,:event,:conference]
 
   def person
     @content_title = "Search Person"
@@ -32,8 +32,55 @@ class SearchController < ApplicationController
     @content_title = "Search Event"
   end
 
+  def search_event_simple
+    conditions = {:AND=>[]}
+    conditions[:conference_id] = @current_conference.conference_id
+    conditions[:translated] = @current_language
+    query = params[:id] ? @preferences[:search_event_simple].to_s : params[:search_event_simple].to_s
+    query.split(/ +/).each do | word |
+      q = "%#{word}%"
+      conditions[:AND] << {:OR=>[{:title=>{:ilike=>q}},{:subtitle=>{:ilike=>q}}]}
+    end
+    @results = View_find_event.select( conditions )
+    @preferences[:search_event_simple] = query
+    render(:partial=>'event_results')
+  end
+
+  def search_event_advanced
+    params[:search_event] = @preferences[:search_event_advanced] if params[:id]
+    conditions = form_to_condition( params[:search_event], View_find_event )
+    conditions[:conference_id] = @current_conference.conference_id
+    conditions[:translated] = @current_language
+    conditions[:AND] = []
+    conditions[:AND] << {:OR=>[{:title=>conditions[:title]},{:subtitle=>conditions[:title]}]} if conditions[:title]
+    conditions[:AND] << {:OR=>[{:abstract=>conditions[:description]},{:description=>conditions[:description]}]} if conditions[:description]
+    conditions.delete(:title)
+    conditions.delete(:description)
+    @results = View_find_event.select( conditions )
+    @preferences[:search_event_advanced] = params[:search_event]
+    render(:partial=>'event_results')
+  end
+
   def conference
     @content_title = "Search Conference"
+  end
+
+  def search_conference_simple
+    conditions = {}
+    query = params[:id] ? @preferences[:search_conference_simple].to_s : params[:search_conference_simple].to_s
+    if not query.empty?
+      conditions[:AND] = []
+      query.split(/ +/).each do | word |
+        cond = {}
+        [:acronym,:title,:subtitle].each do | field |
+          cond[field] = {:ilike=>"%#{word}%"}
+        end
+        conditions[:AND] << {:OR=>cond}
+      end
+    end
+    @results = View_find_conference.select( conditions )
+    @preferences[:search_conference_simple] = query
+    render(:partial=>'conference_results')
   end
 
   protected
@@ -58,9 +105,9 @@ class SearchController < ApplicationController
     case params[:action]
       when 'person','search_person_simple','search_person_advanced' then
         POPE.conference_permission?('person::show',POPE.user.current_conference_id)
-      when 'event' then
+      when 'event','search_event_simple','search_event_advanced' then
         POPE.conference_permission?('event::show',POPE.user.current_conference_id)
-      when 'conference' then
+      when 'conference','search_conference_simple' then
         POPE.conference_permission?('conference::show',POPE.user.current_conference_id)
       else
         false
