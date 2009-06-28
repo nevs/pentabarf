@@ -2,7 +2,6 @@ class PentabarfController < ApplicationController
 
   before_filter :init
   around_filter :update_last_login, :except=>[:activity]
-  around_filter :save_preferences, :only=>[:search_conference_simple]
 
   def conflicts
     @content_title = "Conflicts"
@@ -37,27 +36,6 @@ class PentabarfController < ApplicationController
   def schedule
     @content_title = 'Schedule'
     @events = View_schedule.select({:conference_id => @current_conference.conference_id, :translated => @current_language})
-  end
-
-  def sidebar_search
-    conditions = {:person=>{:AND=>[]},:event=>{:AND=>[]},:conference=>{:AND=>[]}}
-    conditions[:event].merge({:conference_id=>@current_conference.conference_id,:translated=>@current_language})
-    fields = {
-      :event=>[:title,:subtitle,:slug],
-      :person=>[:first_name,:last_name,:nickname,:public_name,:email],
-      :conference=>[:title,:subtitle,:acronym]
-    }
-    params[:sidebar_search].split(/ +/).each do | word |
-      [:event,:person,:conference].each do | table |
-        find = {}
-        fields[table].each do | field | find[field] = {:ilike=>"%#{word}%"} end
-        conditions[table][:AND] << {:OR=>find}
-      end
-    end
-    @persons = View_find_person.select( conditions[:person], {:distinct=>[:name,:person_id]})
-    @events = View_find_event.select( conditions[:event], {:distinct=>[:title,:subtitle,:event_id]})
-    @conferences = View_find_conference.select( conditions[:conference] )
-    render(:partial=>'sidebar_search')
   end
 
   def save_current_conference
@@ -142,11 +120,6 @@ class PentabarfController < ApplicationController
     return true if POPE.conference_permission?('pentabarf::login', POPE.user.current_conference_id)
     redirect_to(:controller=>'submission')
     false
-  end
-
-  def save_preferences
-    yield
-    POPE.user.preferences = @preferences
   end
 
   # converts values submitted by advanced search to a hash understood by momomoto

@@ -83,6 +83,27 @@ class SearchController < ApplicationController
     render(:partial=>'conference_results')
   end
 
+  def search_sidebar
+    conditions = {:person=>{:AND=>[]},:event=>{:AND=>[]},:conference=>{:AND=>[]}}
+    conditions[:event].merge({:conference_id=>@current_conference.conference_id,:translated=>@current_language})
+    fields = {
+      :event=>[:title,:subtitle,:slug],
+      :person=>[:all_names,:email],
+      :conference=>[:title,:subtitle,:acronym]
+    }
+    params[:sidebar_search].split(/ +/).each do | word |
+      fields.each do | table, table_fields |
+        find = {}
+        table_fields.each do | field | find[field] = {:ilike=>"%#{word}%"} end
+        conditions[table][:AND] << {:OR=>find}
+      end
+    end
+    @persons = View_find_person.select( conditions[:person], {:distinct=>[:name,:person_id]})
+    @events = View_find_event.select( conditions[:event], {:distinct=>[:title,:subtitle,:event_id]})
+    @conferences = View_find_conference.select( conditions[:conference] )
+    render(:partial=>'sidebar_results')
+  end
+
   protected
 
   def init
@@ -109,6 +130,8 @@ class SearchController < ApplicationController
         POPE.conference_permission?('event::show',POPE.user.current_conference_id)
       when 'conference','search_conference_simple' then
         POPE.conference_permission?('conference::show',POPE.user.current_conference_id)
+      when 'search_sidebar'
+        true
       else
         false
     end
