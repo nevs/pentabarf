@@ -38,13 +38,13 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div( :class=>'menu-item-group' ) do
       xml.div( :class=>'menu-text' ) do
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :find_person), :title=>"Find Person") do
+        xml.a( :href=> url_for(:controller => 'search', :action => :person), :title=>"Find Person") do
           xml.img( :src => image_path('icon-find-person-32x32.png'))
         end
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :find_event), :title=>"Find Event") do
+        xml.a( :href=> url_for(:controller => 'search', :action => :event), :title=>"Find Event") do
           xml.img( :src => image_path('icon-find-event-32x32.png'))
         end
-        xml.a( :href=> url_for(:controller => 'pentabarf', :action => :find_conference), :title=>"Find Conference") do
+        xml.a( :href=> url_for(:controller => 'search', :action => :conference), :title=>"Find Conference") do
           xml.img( :src => image_path('icon-find-conference-32x32.png'))
         end
       end
