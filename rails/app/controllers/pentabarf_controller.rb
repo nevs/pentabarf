@@ -2,7 +2,7 @@ class PentabarfController < ApplicationController
 
   before_filter :init
   around_filter :update_last_login, :except=>[:activity]
-  around_filter :save_preferences, :only=>[:search_person_simple,:search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
+  around_filter :save_preferences, :only=>[search_person_advanced,:search_event_simple,:search_event_advanced,:search_conference_simple]
 
   def conflicts
     @content_title = "Conflicts"
@@ -37,34 +37,6 @@ class PentabarfController < ApplicationController
   def schedule
     @content_title = 'Schedule'
     @events = View_schedule.select({:conference_id => @current_conference.conference_id, :translated => @current_language})
-  end
-
-  def find_person
-    @content_title = "Find Person"
-  end
-
-  def search_person_simple
-    query = params[:id] ? @preferences[:search_person_simple].to_s : params[:search_person_simple].to_s
-    conditions = {}
-    conditions[:AND] = []
-    query.split(/ +/).each do | word |
-      cond = {}
-      [:first_name,:last_name,:nickname,:public_name,:email].each do | field |
-        cond[field] = {:ilike=>"%#{word}%"}
-      end
-      conditions[:AND] << {:OR=>cond}
-    end
-    @results = View_find_person.select( conditions, {:distinct => [:name,:person_id]} )
-    @preferences[:search_person_simple] = query
-    render(:partial=>'search_person')
-  end
-
-  def search_person_advanced
-    params[:search_person] = @preferences[:search_person_advanced] if params[:id]
-    conditions = form_to_condition( params[:search_person], View_find_person )
-    @results = View_find_person.select( conditions, {:distinct=>[:name,:person_id]})
-    @preferences[:search_person_advanced] = params[:search_person]
-    render(:partial=>'search_person')
   end
 
   def sidebar_search
