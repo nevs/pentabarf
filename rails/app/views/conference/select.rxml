@@ -1,0 +1,18 @@
+xml.div({:id=>'data'}) do
+
+  xml.fieldset do
+    xml.h2 "You have not yet selected a current conference to work with."
+
+    xml.br
+    xml.p "Please select a current conference from the listbox on the left."
+
+    xml.p "or"
+
+    xml.p do
+      xml.a("Create a new conference.", :href=>url_for({:action=>:new}))
+    end
+
+  end
+
+end
+

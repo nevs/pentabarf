@@ -1,5 +1,6 @@
 class PentabarfController < ApplicationController
 
+  around_filter :check_current_conference
   before_filter :init
   around_filter :update_last_login, :except=>[:activity]
 
@@ -36,18 +37,6 @@ class PentabarfController < ApplicationController
   def schedule
     @content_title = 'Schedule'
     @events = View_schedule.select({:conference_id => @current_conference.conference_id, :translated => @current_language})
-  end
-
-  def save_current_conference
-    POPE.user.current_conference_id = params[:conference_id]
-    POPE.user.write
-    url = case request.env['HTTP_REFERER']
-      when /\/conference\// then url_for(:action=>:conference,:id=>POPE.user.current_conference_id)
-      when /\/event\// then url_for(:action=>:conference,:id=>POPE.user.current_conference_id)
-      when nil then url_for(:action=>:index)
-      else request.env['HTTP_REFERER']
-    end
-    redirect_to( url )
   end
 
   def mail
@@ -107,11 +96,7 @@ class PentabarfController < ApplicationController
   protected
 
   def init
-    if POPE.visible_conference_ids.member?(POPE.user.current_conference_id)
-      @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id) rescue Conference.new(:conference_id=>0)
-    end
-    @current_conference ||= Conference.new(:conference_id=>0)
-    
+    @current_conference = Conference.select_single(:conference_id => POPE.user.current_conference_id)
     @preferences = POPE.user.preferences
     @current_language = POPE.user.current_language || 'en'
   end

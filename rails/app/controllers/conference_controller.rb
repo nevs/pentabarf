@@ -1,8 +1,24 @@
 class ConferenceController < ApplicationController
 
+  around_filter :check_current_conference, :except => [:select,:new,:save,:save_current_conference]
   before_filter :init
-  around_filter :update_last_login, :except=>[:copy,:delete,:save]
-  before_filter :check_transaction, :only => :save
+  around_filter :update_last_login, :except=>[:copy,:delete]
+
+  def select
+    @current_conference = Conference.new
+
+  end
+
+  def save_current_conference
+    POPE.user.current_conference_id = params[:conference_id]
+    POPE.user.write
+    url = case request.env['HTTP_REFERER']
+      when /\/conference\//,/\/event\// then url_for(:controller=>'conference',:action=>:edit,:id=>POPE.user.current_conference_id)
+      when nil then url_for(:controller=>'pentabarf',:action=>:index)
+      else request.env['HTTP_REFERER']
+    end
+    redirect_to( url )
+  end
 
   def new
     @content_title = "New Conference"
@@ -45,7 +61,8 @@ class ConferenceController < ApplicationController
     write_file_row( Conference_image, params[:conference_image], {:preset=>{:conference_id => conf.conference_id},:image=>true})
     Conference_transaction.new({:conference_id=>conf.conference_id,:changed_by=>POPE.user.person_id}).write
 
-    redirect_to( :action => :conference, :id => conf.conference_id)
+    POPE.user.current_conference_id ||= conf.conference_id
+    redirect_to( :action => :edit, :conference_id => conf.conference_id)
   end
 
   def delete
@@ -60,6 +77,12 @@ class ConferenceController < ApplicationController
   end
 
   def check_permission
+    # allow select conference if user can at least login into one conference
+    if ['select','save_current_conference'].member?(params[:action]) && 
+       ( !POPE.conferences_with_permission('pentabarf::login').empty? ||
+         POPE.permission?('pentabarf::login') )
+      return true 
+    end
     return false if not POPE.conference_permission?('pentabarf::login',params[:conference_id])
     case params[:action]
       when 'new' then POPE.permission?('conference::create')

@@ -15,13 +15,13 @@ class ApplicationController < ActionController::Base
     Localizer.lookup( tag.to_s, @current_language, arguments )
   end
 
-  # ensure user has proper permissions for the current conference
+  # ensure user has a current conference set and proper permissions for the current conference
   def check_current_conference
     if POPE.user.current_conference_id &&
        POPE.conference_permission?( 'pentabarf::login', POPE.user.current_conference_id )
       yield
     else
-      redirect_to(:controller=>'conference',:action=>:select_conference)
+      redirect_to(:controller=>'conference',:action=>:select)
     end
   end
 
