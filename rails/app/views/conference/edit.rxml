@@ -18,10 +18,10 @@ end if POPE.permission?('conference::delete') && !@conference.new_record?
 
 xml.div({:id=>'data'}) do
 
-  xml.form(:action=>url_for(:action=>:save,:id=>params[:id]),:id=>'content_form',:onsubmit=>'return send_content()',:method=>'post',:enctype=>'multipart/form-data') do
+  xml.form(:action=>url_for(:action=>:save,:conference_id=>@conference.conference_id),:id=>'content_form',:onsubmit=>'return send_content()',:method=>'post',:enctype=>'multipart/form-data') do
 
     xml.input({:type=>:hidden,:name=>:transaction,:value=>@transaction.conference_transaction_id})
-    xml.input({:type=>:hidden,:name=>'conference[conference_id]',:value=>@conference.conference_id})
+    xml << hidden_field( @conference, :conference_id )
     xml << render( :partial => "conference_comment" )
     tabs.each do | tab |
       xml << render( :partial => "conference_#{tab}" )

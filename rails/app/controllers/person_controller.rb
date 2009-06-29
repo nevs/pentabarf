@@ -52,8 +52,7 @@ class PersonController < ApplicationController
       end
     end
 
-    params[:person][:person_id] = params[:person_id] if params[:person_id].to_i > 0
-    person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam]} )
+    person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam],:init=>{:person_id=>nil}} )
     if params[:account]
       params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
       account = write_row( Account, params[:account], {:except=>[:account_id,:salt,:edit_token,:password,:password2],:preset=>{:person_id=>person.person_id},:ignore_empty=>:login_name} ) do | row |

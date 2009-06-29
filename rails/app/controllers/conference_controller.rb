@@ -45,8 +45,7 @@ class ConferenceController < ApplicationController
       end
     end
 
-    params[:conference][:conference_id] = nil if params[:id].to_i == 0
-    conf = write_row( Conference, params[:conference], {:except=>[:conference_id],:always=>[:f_submission_enabled,:f_submission_new_events,:f_submission_writable,:f_visitor_enabled,:f_feedback_enabled,:f_reconfirmation_enabled]} )
+    conf = write_row( Conference, params[:conference], {:except=>[:conference_id],:always=>[:f_submission_enabled,:f_submission_new_events,:f_submission_writable,:f_visitor_enabled,:f_feedback_enabled,:f_reconfirmation_enabled],:init=>{:conference_id=>nil}} )
     custom_bools = Custom_fields.select({:table_name=>:conference,:field_type=>:boolean}).map(&:field_name)
     write_row( Custom_conference, params[:custom_conference], {:preset=>{:conference_id=>conf.conference_id},:always=>custom_bools})
     write_rows( Conference_link, params[:conference_link], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:url})
