@@ -59,6 +59,7 @@ class Pope
     if not @event_conference[event_id]
       return nil if not event_id
       begin
+        # event_id gets added automatically to @evnet_conference in the table_select hook
         Event.select_single({:event_id=>event_id},{:columns=>[:event_id,:conference_id]})
       rescue Momomoto::Nothing_found
         return nil
@@ -73,6 +74,7 @@ class Pope
     if not @conference_person_conference[conference_person_id]
       return nil if not conference_person_id
       begin
+        # conference_person_id gets added automatically to @conference_person_conference in the table_select hook
         Conference_person.select_single({:conference_person_id=>conference_person_id},{:columns=>[:conference_id,:conference_person_id]})
       rescue Momomoto::Nothing_found
         return nil
@@ -158,7 +160,7 @@ class Pope
 
   def conference_permission?( perm, conference_id )
     perm = perm.to_sym
-    conf = Integer( conference_id )
+    conf = Integer( conference_id ) rescue nil
     # check for global permission first
     return true if permission?( perm )
     return true if conference_permissions[conf] && conference_permissions[conf].member?( perm.to_sym )
