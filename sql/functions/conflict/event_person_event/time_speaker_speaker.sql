@@ -1,60 +1,44 @@
+-- Check for time conflicts between speakers
 
--- returns event_persons with conflicting events
 CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_speaker_speaker(integer) RETURNS SETOF conflict.conflict_event_person_event AS $$
-  DECLARE
-    cur_conference_id ALIAS FOR $1;
-    cur_speaker RECORD;
-    cur_event RECORD;
-    cur_conflict conflict.conflict_event_person_event%rowtype;
-  BEGIN
+  SELECT 
+    ep1.person_id AS person_id,
+    ep1.event_id AS event_id1,
+    ep2.event_id AS event_id2
+  FROM
+    event_person AS ep1
+    INNER JOIN event AS e1 ON (
+      e1.conference_id = $1 AND
+      e1.event_id = ep1.event_id AND
+      e1.start_time IS NOT NULL AND
+      e1.event_state = 'accepted' AND
+      e1.event_state_progress <> 'canceled'
+    )
+    INNER JOIN conference_day AS cd1 USING (conference_day_id)
+    INNER JOIN event_person AS ep2 ON (
+      ep2.person_id = ep1.person_id AND
+      ep2.event_role IN ('speaker','moderator') AND
+      ep2.event_role_state = 'confirmed' AND
+      ep2.event_id <> ep1.event_id
+    )
+    INNER JOIN event AS e2 ON (
+      e2.conference_id = $1 AND
+      e2.event_id = ep2.event_id AND
+      e2.start_time IS NOT NULL AND
+      e2.event_state = 'accepted' AND
+      e2.event_state_progress <> 'canceled'
+    )
+    INNER JOIN conference_day AS cd2 ON (
+      cd2.conference_day_id = e2.conference_day_id
+    )
+  WHERE
+    ep1.event_role IN ('speaker','moderator') AND
+    ep1.event_role_state = 'confirmed' AND
+    (cd1.conference_day + e1.start_time, e1.duration) OVERLAPS (cd2.conference_day + e2.start_time, e2.duration) AND
+    -- OVERLAPS also returns true when the end of interval 1 matches the start of interval 2
+    -- thats why we exclude those cases explicitly
+    cd1.conference_day + e1.start_time + e1.duration <> cd2.conference_day + e2.start_time AND
+    cd2.conference_day + e2.start_time + e2.duration <> cd1.conference_day + e1.start_time;
 
--- Loop through all event_persons
-    FOR cur_speaker IN
-      SELECT person_id,
-             event_id,
-             conference_id,
-             conference_day_id,
-             start_time,
-             duration
-        FROM event_person
-        INNER JOIN event USING (event_id)
-        WHERE event_role IN ('speaker', 'moderator') AND
-              event_role_state = 'confirmed' AND
-              event.conference_id = cur_conference_id AND
-              event.event_state = 'accepted' AND
-              event.event_state_progress <> 'canceled' AND
-              event.conference_day_id IS NOT NULL AND
-              event.start_time IS NOT NULL
-    LOOP
-
-      -- loop through overlapping events
-      FOR cur_event IN
-        SELECT event_id
-          FROM event_person
-          INNER JOIN event USING (event_id)
-          WHERE event.conference_day_id IS NOT NULL AND
-                event.start_time IS NOT NULL AND
-                event.conference_day_id = cur_speaker.conference_day_id AND
-                event.event_id <> cur_speaker.event_id AND
-                event.conference_id = cur_conference_id AND
-                ( event.start_time::time, event.duration::interval ) OVERLAPS
-                ( cur_speaker.start_time::time, cur_speaker.duration::interval) AND
-                event.start_time::time + event.duration::interval <> cur_speaker.start_time::time AND
-                cur_speaker.start_time::time + cur_speaker.duration::interval <> event.start_time::time AND
-                event.event_state = 'accepted' AND
-                event.event_state_progress <> 'canceled' AND
-                event_role IN ('speaker', 'moderator') AND
-                event_role_state = 'confirmed' AND
-                event_person.person_id = cur_speaker.person_id
-
-      LOOP
-        cur_conflict.person_id = cur_speaker.person_id;
-        cur_conflict.event_id1 = cur_speaker.event_id;
-        cur_conflict.event_id2 = cur_event.event_id;
-        RETURN NEXT cur_conflict;
-      END LOOP;
-    END LOOP;
-    RETURN;
-  END;
-$$ LANGUAGE 'plpgsql' RETURNS NULL ON NULL INPUT;
+$$ LANGUAGE SQL RETURNS NULL ON NULL INPUT;
 
