@@ -30,12 +30,23 @@ class ImageController < ApplicationController
   protected
 
    def auth
+     # allow viewing of conference images for conferences with submission enabled
      return true if params[:action] == "conference" && Conference.select(:conference_id=>params[:id].to_i,:f_submission_enabled=>'t').length == 1
      super
    end
 
   def check_permission
-    if POPE.permission?('pentabarf::login')
+    if params[:action] == 'conference' && 
+       POPE.conference_permission?('pentabarf::login',params[:id]) &&
+       POPE.conference_permission?('conference::show',params[:id])
+      return true
+    elsif params[:action] == 'event' && 
+          POPE.event_permission?('pentabarf::login',params[:id] ) &&
+          POPE.event_permission?('event::show',params[:id] )
+      return true
+    elsif params[:action] == 'person' && 
+          POPE.person_permission?('pentabarf::login',params[:id] ) &&
+          POPE.person_permission?('person::show',params[:id] )
       return true
     elsif POPE.permission?('submission::login')
       case params[:action]
