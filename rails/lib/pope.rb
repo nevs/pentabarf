@@ -171,6 +171,10 @@ class Pope
     conference_permission?( perm.to_sym, event_conference( event ) )
   end
 
+  def person_permission?( perm, person_id )
+    conference_permission?( perm.to_sym, POPE.user.current_conference_id )
+  end
+
   # function hooked into momomoto when table rows are written
   def table_select( table, rows )
     # cache conference_ids of events for later usage
