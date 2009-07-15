@@ -40,7 +40,7 @@ CREATE OR REPLACE VIEW view_report_paper AS
     AS pages
   FROM event
   WHERE event.event_state = 'accepted' AND
-    event.event_state_progress = 'confirmed' AND
+    event.event_state_progress = 'reconfirmed' AND
     event.paper = 't'
   ORDER BY lower(title), lower(subtitle)
 ;

@@ -14,7 +14,7 @@ CREATE OR REPLACE VIEW view_report_arrived AS
         INNER JOIN event ON (
           event_person.event_id = event.event_id AND
           event.event_state = 'accepted' AND
-          event.event_state_progress = 'confirmed' AND
+          event.event_state_progress = 'reconfirmed' AND
           event.conference_id = conference_person.conference_id)
       WHERE event_person.person_id = view_person.person_id AND
         event_person.event_role IN ('speaker','moderator') AND

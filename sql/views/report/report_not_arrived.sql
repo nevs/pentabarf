@@ -8,13 +8,13 @@ CREATE OR REPLACE VIEW view_report_not_arrived AS
   FROM view_person
     INNER JOIN conference_person USING (person_id)
   WHERE 
-    conference_person.arrived = FALSE AND     
+    conference_person.arrived = FALSE AND
     EXISTS (SELECT 1
       FROM event_person
         INNER JOIN event ON (
           event_person.event_id = event.event_id AND
           event.event_state = 'accepted' AND
-          event.event_state_progress = 'confirmed' AND
+          event.event_state_progress = 'reconfirmed' AND
           event.conference_id = conference_person.conference_id)
       WHERE 
         event_person.person_id = view_person.person_id AND

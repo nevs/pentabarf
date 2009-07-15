@@ -16,7 +16,7 @@ CREATE OR REPLACE VIEW view_report_missing AS
           event_person.event_id = event.event_id AND
           event.conference_id = conference_person.conference_id AND
           event.event_state = 'accepted' AND
-          event.event_state_progress = 'confirmed' )
+          event.event_state_progress = 'reconfirmed' )
         INNER JOIN conference USING (conference_id)
         INNER JOIN conference_day USING (conference_day_id)
       WHERE event_person.person_id = view_person.person_id AND

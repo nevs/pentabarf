@@ -35,7 +35,7 @@ CREATE OR REPLACE VIEW view_report_slides AS
     AS slides_submitted
   FROM event
   WHERE event.event_state = 'accepted' AND
-    event.event_state_progress = 'confirmed' AND
+    event.event_state_progress = 'reconfirmed' AND
     event.slides = 't'
   ORDER BY lower(title), lower(subtitle)
 ;
