@@ -2,7 +2,7 @@ xml.instruct!
 xml.feed({:xmlns=>"http://www.w3.org/2005/Atom"}) do
   xml.title "Pentabarf Recent Changes"
   xml.subtitle ""
-  xml.generator "Pentabarf #{pentabarf_version} - Revision #{pentabarf_revision}"
+  xml.generator "Pentabarf #{pentabarf_version}"
   xml.link({:rel => "self", :href=>url_for(:only_path => false, :controller => 'atom', :action => 'recent_changes')})
   xml.updated @changes[0].log_timestamp.strftime('%FT%T%:z')
   xml.id url_for(:only_path => false, :controller => 'pentabarf', :action => 'recent_changes')
