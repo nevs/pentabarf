@@ -1,7 +1,7 @@
 -- Check for time conflicts between speakers
 
 CREATE OR REPLACE FUNCTION conflict.conflict_event_person_event_time_speaker_speaker(integer) RETURNS SETOF conflict.conflict_event_person_event AS $$
-  SELECT 
+  SELECT
     ep1.person_id AS person_id,
     ep1.event_id AS event_id1,
     ep2.event_id AS event_id2
