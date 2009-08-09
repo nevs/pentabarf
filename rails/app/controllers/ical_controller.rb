@@ -42,7 +42,6 @@ class IcalController < ApplicationController
 #        dtstamp (event.start_datetime - tz.utc_offset.to_i ).strftime('%Y%m%dT%H%M%S')
         dtstamp Time.now.strftime('%Y%m%dT%H%M%S')
         dtstart event.start_datetime.strftime('%Y%m%dT%H%M%S'), {'TZID'=>tz.timezone}
-        dtend event.end_datetime.strftime('%Y%m%dT%H%M%S'), {'TZID'=>tz.timezone}
         duration sprintf( 'PT%dH%02dM', event.duration.hour, event.duration.min )
         summary event.title + ( event.subtitle ? " - #{event.subtitle}" : '')
         description event.abstract.to_s.gsub( "\n", '' ).gsub( "\r", '' )
