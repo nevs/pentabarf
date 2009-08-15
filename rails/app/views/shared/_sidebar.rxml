@@ -66,6 +66,7 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div( :class=>'menu-item-group' ) do
       xml.a( local('admin::index'), {:href=> url_for(:controller => 'admin', :action => :index), :class => 'menu-item'} ) if POPE.permission?('config::modify')
+      xml.a( local('search::account'), {:href=> url_for(:controller => 'search', :action => :account), :class => 'menu-item'} ) if POPE.permission?('account::show')
       xml.a( local('localization::index'), {:href=> url_for(:controller => 'localization', :action => :index), :class => 'menu-item'} ) if POPE.permission?('localization::modify')
       xml.a( local('pentabarf::preferences'), {:href=> url_for(:controller => 'person', :action => :edit, :id=>POPE.user.person_id), :class => 'menu-item'} )
       xml.a( local(:logout), {:href=>"#{request.protocol}logout@#{request.host_with_port}/logout", :onclick=>"logout()", :class => 'menu-item'} ) if POPE.user
