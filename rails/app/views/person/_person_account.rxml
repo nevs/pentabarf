@@ -19,7 +19,7 @@ xml.div(:id=>'content-account') do
   end
 
   xml.fieldset do
-    xml.legend local('Roles in current conference')
+    xml.legend 'Roles in current conference'
 
     conference_roles = @account_conference_roles.map{|r| r.conference_role}
     xml.table do

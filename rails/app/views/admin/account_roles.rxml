@@ -5,7 +5,7 @@ xml.div( :id => 'data' ) do
     xml << render( :partial => 'shared/modification_buttons' )
 
     xml.fieldset do
-      xml.legend local('Global roles')
+      xml.legend local('account::global_roles')
 
       roles = @account_roles.map{|r| r.role}
       xml.table do
@@ -23,7 +23,7 @@ xml.div( :id => 'data' ) do
     end
 
     xml.fieldset do
-      xml.legend local('Conference roles')
+      xml.legend local('account::conference_roles')
 
       conferences = Conference.select
 

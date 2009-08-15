@@ -3,7 +3,7 @@ paginate( xml, @results, params[:id].to_i ) do | results |
     fields = [:name, :first_name, :last_name, :nickname]
     xml.thead do
       xml.tr do
-        ['account::login_name','account::email'].each do | field |
+        ['account::login_name','account::email','person::name','person::email'].each do | field |
           xml.th( local( field ))
         end
       end
@@ -11,7 +11,7 @@ paginate( xml, @results, params[:id].to_i ) do | results |
     xml.tbody do
       results.each do | account |
         xml.tr do
-          [:login_name,:account_email].each do | field |
+          [:login_name,:account_email,:name,:person_email].each do | field |
             xml.td do xml.a( account[field], {:href=>url_for(:controller=>'admin',:action=>:account_roles,:id=>account.account_id)}) end
           end
         end
