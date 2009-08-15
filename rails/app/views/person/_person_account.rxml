@@ -39,6 +39,6 @@ xml.div(:id=>'content-account') do
       xml.button( "Edit all roles" )
     end
 
-  end if POPE.permission?( 'account::modify' )
+  end if POPE.conference_permission?( 'account_conference_role::create', @current_conference.conference_id )
 
 end

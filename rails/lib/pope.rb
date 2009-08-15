@@ -227,6 +227,13 @@ class Pope
     raise Pope::PermissionError
   end
 
+  def domain_account_conference_role( action, row )
+    if row.class.table.table_name == 'account_conference_role'
+      return if conference_permission?( "account_conference_role::#{action}", row.conference_id )
+    end
+    raise Pope::PermissionError
+  end
+
   def domain_conference( action, row )
     return if row.respond_to?( :conference_id ) && conference_permission?( "conference::#{action}", row.conference_id )
     raise Pope::PermissionError
