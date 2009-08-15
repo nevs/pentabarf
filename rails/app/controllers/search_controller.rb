@@ -85,7 +85,7 @@ class SearchController < ApplicationController
   end
 
   def search_conference_simple
-    conditions = {}
+    conditions = {:conference_id=>POPE.visible_conference_ids}
     query = params[:id] ? @preferences[:search_conference_simple].to_s : params[:search_conference_simple].to_s
     if not query.empty?
       conditions[:AND] = []
@@ -105,6 +105,7 @@ class SearchController < ApplicationController
   def search_sidebar
     conditions = {:person=>{:AND=>[]},:event=>{:AND=>[]},:conference=>{:AND=>[]}}
     conditions[:event].merge({:conference_id=>@current_conference.conference_id,:translated=>@current_language})
+    conditions[:conference][:conference_id] = POPE.visible_conference_ids
     fields = {
       :event=>[:title,:subtitle,:slug],
       :person=>[:all_names,:email],
@@ -152,7 +153,6 @@ class SearchController < ApplicationController
       when 'account','search_account'
         POPE.permission?('account::show')
       when 'search_sidebar'
-        # FIXME implement permission checking in search_sidebar
         true
       else
         false
