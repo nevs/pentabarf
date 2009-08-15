@@ -6,6 +6,7 @@ INSERT INTO role_permission ("role", permission) VALUES ('admin', 'account::crea
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'account::delete');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'account::modify');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'account::modify_own');
+INSERT INTO role_permission ("role", permission) VALUES ('admin', 'account::show');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'account_conference_role::create');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'account_conference_role::delete');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'account_role::create');

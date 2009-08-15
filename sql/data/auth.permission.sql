@@ -6,6 +6,7 @@ INSERT INTO permission (permission, rank, conference_permission) VALUES ('accoun
 INSERT INTO permission (permission, rank, conference_permission) VALUES ('account::delete', NULL, false);
 INSERT INTO permission (permission, rank, conference_permission) VALUES ('account::modify', NULL, false);
 INSERT INTO permission (permission, rank, conference_permission) VALUES ('account::modify_own', NULL, true);
+INSERT INTO permission (permission, rank, conference_permission) VALUES ('account::show', NULL, false);
 INSERT INTO permission (permission, rank, conference_permission) VALUES ('account_conference_role::create', NULL, true);
 INSERT INTO permission (permission, rank, conference_permission) VALUES ('account_conference_role::delete', NULL, true);
 INSERT INTO permission (permission, rank, conference_permission) VALUES ('account_role::create', NULL, false);
