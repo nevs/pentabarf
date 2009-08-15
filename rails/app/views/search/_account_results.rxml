@@ -1,0 +1,22 @@
+paginate( xml, @results, params[:id].to_i ) do | results |
+  xml.table({:id=>'account_results_table',:class=>'sortable'}) do
+    fields = [:name, :first_name, :last_name, :nickname]
+    xml.thead do
+      xml.tr do
+        ['account::login_name','account::email'].each do | field |
+          xml.th( local( field ))
+        end
+      end
+    end
+    xml.tbody do
+      results.each do | account |
+        xml.tr do
+          [:login_name,:account_email].each do | field |
+            xml.td do xml.a( account[field], {:href=>url_for(:controller=>'admin',:action=>:account_roles,:id=>account.account_id)}) end
+          end
+        end
+      end
+    end
+  end if results.length > 0
+end
+

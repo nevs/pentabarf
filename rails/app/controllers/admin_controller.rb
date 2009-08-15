@@ -6,6 +6,10 @@ class AdminController < ApplicationController
     @content_title = 'Admin'
   end
 
+  def account_roles
+
+  end
+
   def conflict_setup
     @content_title = 'Conflict Setup'
     @phases = Conference_phase_localized.select(:translated=>@current_language)
