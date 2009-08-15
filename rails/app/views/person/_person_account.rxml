@@ -19,24 +19,9 @@ xml.div(:id=>'content-account') do
   end
 
   xml.fieldset do
-    xml.legend local('permissions')
-
-    roles = @account_roles.map{|r| r.role}
-    xml.table do
-      Role.select.each do | role |
-        xml.tr do
-          xml.td role.role
-          xml.td do
-            xml.input(:type=>:hidden,:name=>"account_role[#{role.role}][role]",:value=>role.role)
-            checked = roles.member?( role.role ) ?  {:checked=>:checked} : {}
-            xml.input({:type=>:checkbox,:name=>"account_role[#{role.role}][set]"}.merge(checked))
-          end
-        end
-      end
-    end
+    xml.legend local('Roles in current conference')
 
     conference_roles = @account_conference_roles.map{|r| r.conference_role}
-    xml.span "Conference permissions"
     xml.table do
       Conference_role.select.each do | role |
         xml.tr do

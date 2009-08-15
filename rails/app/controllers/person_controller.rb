@@ -22,7 +22,6 @@ class PersonController < ApplicationController
     @conference_person = Conference_person.new({:conference_id=>@conference.conference_id, :person_id=>@person.person_id})
     @conference_person_travel = Conference_person_travel.new({:conference_person_id=>@conference_person.conference_person_id.to_i})
     @account = Account.new(:person_id=>@person.person_id)
-    @account_roles = []
     @account_conference_roles = []
     @settings = Account_settings.new(:account_id=>@account.account_id.to_i)
     @transaction = Person_transaction.new({:person_id=>@person.person_id})
@@ -39,7 +38,6 @@ class PersonController < ApplicationController
     @person_image = Person_image.select_or_new({:person_id=>@person.person_id})
     @account = Account.select_or_new(:person_id=>@person.person_id)
     @settings = Account_settings.select_or_new(:account_id=>@account.account_id.to_i)
-    @account_roles = @account.new_record? ? [] : Account_role.select(:account_id=>@account.account_id)
     @account_conference_roles = @account.new_record? ? [] : Account_conference_role.select(:account_id=>@account.account_id,:conference_id=>@conference.conference_id)
     @transaction = Person_transaction.select_or_new({:person_id=>@person.person_id},{:limit=>1})
   end
@@ -82,9 +80,6 @@ class PersonController < ApplicationController
     write_person_availability( @current_conference, person, params[:person_availability])
 
     if POPE.permission?( 'account::modify' )
-      params[:account_role].each do | k,v | v[:remove] = true if not v[:set] end
-      write_rows( Account_role, params[:account_role], {:preset=>{:account_id=>account.account_id},:except=>[:set]})
-
       params[:account_conference_role].each do | k,v | v[:remove] = true if not v[:set] end
       write_rows( Account_conference_role, params[:account_conference_role], {:preset=>{:account_id=>account.account_id,:conference_id=>@current_conference.conference_id},:except=>[:set]})
     end
