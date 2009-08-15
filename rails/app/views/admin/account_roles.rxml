@@ -1,0 +1,70 @@
+xml.div( :id => 'data' ) do
+
+  
+  xml.form(:action=>url_for(:action=>:save_account_roles,:account_id=>@account.account_id),:id=>'content_form',:method=>'post',:enctype=>'multipart/form-data') do
+    xml << render( :partial => 'shared/modification_buttons' )
+
+    xml.fieldset do
+      xml.legend local('Global roles')
+
+      roles = @account_roles.map{|r| r.role}
+      xml.table do
+        Role.select.each do | role |
+          xml.tr do
+            xml.td role.role
+            xml.td do
+              xml.input(:type=>:hidden,:name=>"account_role[#{role.role}][role]",:value=>role.role)
+              checked = roles.member?( role.role ) ?  {:checked=>:checked} : {}
+              xml.input({:type=>:checkbox,:name=>"account_role[#{role.role}][set]"}.merge(checked))
+            end
+          end
+        end
+      end
+    end
+
+    xml.fieldset do
+      xml.legend local('Conference roles')
+
+      conferences = Conference.select
+
+      xml.table(:class=>:layout) do
+        xml.tr do
+
+          conferences.each_with_index do | conf, index |
+            xml.td(:style=>'background-color: white;padding: 5px;') do
+
+              account_conference_roles = Account_conference_role.select(:account_id=>@account.account_id,:conference_id=>conf.conference_id)
+              conference_roles = account_conference_roles.map{|r| r.conference_role}
+
+              xml.h4 conf.acronym
+              xml.table(:style=>'margin: 10px;') do
+                Conference_role.select.each do | role |
+                  xml.tr do
+                    xml.td role.conference_role
+                    xml.td do
+                      xml.input(:type=>:hidden,:name=>"account_conference_role[#{role.conference_role}][conference_role]",:value=>role.conference_role)
+                      checked = conference_roles.member?( role.conference_role ) ?  {:checked=>:checked} : {}
+                      xml.input({:type=>:checkbox,:name=>"account_conference_role[#{role.conference_role}][set]"}.merge(checked))
+                    end
+                  end
+                end
+              end
+
+            end
+
+            xml << "</tr><tr>" if ( index + 1 ) % 6 == 0 &&  index < conferences.length - 1
+
+          end
+
+        end
+      end
+    end
+
+  end
+
+end
+
+xml.script({:type=>'text/javascript'}) do
+  xml << "new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );"
+end
+

@@ -7,7 +7,8 @@ class AdminController < ApplicationController
   end
 
   def account_roles
-
+    @account = Account.select_single(:account_id=>params[:id])
+    @account_roles = Account_role.select(:account_id=>@account.account_id)
   end
 
   def conflict_setup
@@ -97,7 +98,13 @@ class AdminController < ApplicationController
 
   def check_permission
     raise StandardError if not POPE.permission?('admin::login')
-    true
+    case params[:action]
+      when 'account_roles' then
+        POPE.permission?('account::show')
+      else
+        # FIXME
+        true
+    end
   end
 
 end
