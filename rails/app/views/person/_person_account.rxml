@@ -35,6 +35,10 @@ xml.div(:id=>'content-account') do
       end
     end
 
+    xml.a({:href=>url_for({:controller=>'admin',:action=>:account_roles,:id=>@account.account_id})}) do
+      xml.button( "Edit all roles" )
+    end
+
   end if POPE.permission?( 'account::modify' )
 
 end
