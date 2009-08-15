@@ -11,6 +11,20 @@ class AdminController < ApplicationController
     @account_roles = Account_role.select(:account_id=>@account.account_id)
   end
 
+  def save_account_roles
+    account = Account.select_single(:account_id=>params[:id])
+
+    params[:account_role].each do | k,v | v[:remove] = true if not v[:set] end
+    write_rows( Account_role, params[:account_role], {:preset=>{:account_id=>account.account_id},:except=>[:set]})
+
+    params[:account_conference_role].each do | conference_id, conf_v |
+      conf_v.each do | k,v | v[:remove] = true if not v[:set] end
+      write_rows( Account_conference_role, conf_v, {:preset=>{:account_id=>account.account_id,:conference_id=>conference_id},:except=>[:set]})
+    end
+
+    redirect_to(:action=>:account_roles,:id=>account.account_id)
+  end
+
   def conflict_setup
     @content_title = 'Conflict Setup'
     @phases = Conference_phase_localized.select(:translated=>@current_language)
@@ -99,7 +113,7 @@ class AdminController < ApplicationController
   def check_permission
     raise StandardError if not POPE.permission?('admin::login')
     case params[:action]
-      when 'account_roles' then
+      when 'account_roles','save_account_roles' then
         POPE.permission?('account::show')
       else
         # FIXME

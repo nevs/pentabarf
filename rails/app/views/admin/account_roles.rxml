@@ -1,7 +1,7 @@
 xml.div( :id => 'data' ) do
 
   
-  xml.form(:action=>url_for(:action=>:save_account_roles,:account_id=>@account.account_id),:id=>'content_form',:method=>'post',:enctype=>'multipart/form-data') do
+  xml.form(:action=>url_for(:action=>:save_account_roles,:id=>@account.account_id),:id=>'content_form',:method=>'post',:enctype=>'multipart/form-data') do
     xml << render( :partial => 'shared/modification_buttons' )
 
     xml.fieldset do
@@ -42,9 +42,9 @@ xml.div( :id => 'data' ) do
                   xml.tr do
                     xml.td role.conference_role
                     xml.td do
-                      xml.input(:type=>:hidden,:name=>"account_conference_role[#{role.conference_role}][conference_role]",:value=>role.conference_role)
+                      xml.input(:type=>:hidden,:name=>"account_conference_role[#{conf.conference_id}][#{role.conference_role}][conference_role]",:value=>role.conference_role)
                       checked = conference_roles.member?( role.conference_role ) ?  {:checked=>:checked} : {}
-                      xml.input({:type=>:checkbox,:name=>"account_conference_role[#{role.conference_role}][set]"}.merge(checked))
+                      xml.input({:type=>:checkbox,:name=>"account_conference_role[#{conf.conference_id}][#{role.conference_role}][set]"}.merge(checked))
                     end
                   end
                 end
