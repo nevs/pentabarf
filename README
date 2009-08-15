@@ -1,0 +1,8 @@
+
+Pentabarf is a conference planning software written in Ruby
+( using the Rails framework) and PL/pgSQL.
+
+Pentabarf supports you in the submission collection, content planning,
+schedule creation, feedback collection and has various exports to put
+these data to use in other systems.
+
