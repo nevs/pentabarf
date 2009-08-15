@@ -2,7 +2,26 @@ class SearchController < ApplicationController
 
   before_filter :init
   around_filter :update_last_login
-  around_filter :save_preferences, :except=>[:person,:event,:conference]
+  around_filter :save_preferences, :except=>[:person,:event,:conference,:account]
+
+  def account
+    @content_title = "Search Account"
+  end
+
+  def search_account
+    query = params[:id] ? @preferences[:search_account].to_s : params[:search_account].to_s
+    conditions = {:AND => []}
+    query.split(/ +/).each do | word |
+      constraint = []
+      [:login_name,:account_email,:first_name,:last_name,:public_name,:nickname,:person_email,:name].each do | field |
+        constraint << {field=>{:ilike=>"%#{word}%"}}
+      end
+      conditions[:AND] << {:OR=>constraint}
+    end
+    @results = View_find_account.select( conditions )
+    @preferences[:search_account] = query
+    render(:partial=>'account_results')
+  end
 
   def person
     @content_title = "Search Person"
@@ -130,7 +149,10 @@ class SearchController < ApplicationController
         POPE.conference_permission?('event::show',POPE.user.current_conference_id)
       when 'conference','search_conference_simple' then
         POPE.conference_permission?('conference::show',POPE.user.current_conference_id)
+      when 'account','search_account'
+        POPE.permission?('account::show')
       when 'search_sidebar'
+        # FIXME implement permission checking in search_sidebar
         true
       else
         false
