@@ -13,6 +13,7 @@
 \i views/find/find_conference.sql
 \i views/find/find_event.sql
 \i views/find/find_person.sql
+\i views/find/view_find_account.sql
 \i views/last_active.sql
 \i views/mail/mail_accepted_speaker.sql
 \i views/mail/mail_all_reviewer.sql
