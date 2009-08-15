@@ -13,4 +13,5 @@ CREATE OR REPLACE VIEW view_find_account AS
   FROM
     auth.account
     LEFT OUTER JOIN view_person USING(person_id)
+  ORDER BY login_name
 ;
