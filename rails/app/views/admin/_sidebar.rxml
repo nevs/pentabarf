@@ -24,6 +24,10 @@ xml.div( :id => 'sidebar' ) do
       xml.a( 'Logout', {:href=>"#{request.protocol}logout@#{request.host_with_port}/logout", :onclick=>"logout()", :class => 'menu-item'} ) if POPE.user
     end
 
+    xml.div( :class=>'menu-item-group' ) do
+      xml.a( local('search::account'), {:href=> url_for(:controller => 'search', :action => :account), :class => 'menu-item'} ) if POPE.permission?('account::show')
+    end
+
   end
 end
 
