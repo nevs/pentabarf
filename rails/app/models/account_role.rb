@@ -6,8 +6,7 @@ class Account_role < Momomoto::Table
   end
 
   def self.log_change_url( change )
-    account = Account.select_single({:account_id=>change.account_id})
-    {:controller=>'pentabarf',:action=>:person,:id=>account.person_id}
+    {:controller=>'admin',:action=>:account_roles,:id=>change.account_id}
    rescue
     {}
   end
