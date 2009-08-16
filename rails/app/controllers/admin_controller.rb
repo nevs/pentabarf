@@ -8,6 +8,7 @@ class AdminController < ApplicationController
 
   def account_roles
     @account = Account.select_single(:account_id=>params[:id])
+    @content_title = "Roles for #{@account.login_name}"
     @account_roles = Account_role.select(:account_id=>@account.account_id)
   end
 
