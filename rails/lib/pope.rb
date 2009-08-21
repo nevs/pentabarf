@@ -249,7 +249,7 @@ class Pope
 
   def domain_review( action, row )
     case row.class.table.table_name
-      when "event_rating" then
+      when "event_rating","event_rating_remark" then
         return if row.person_id == POPE.user.person_id && conference_permission?( "review::modify", event_conference( row.event_id ) )
       when "person_rating" then
         return if row.evaluator_id == POPE.user.person_id && conference_permission?( "review::modify", POPE.user.current_conference_id )
