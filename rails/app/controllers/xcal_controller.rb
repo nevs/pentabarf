@@ -5,9 +5,9 @@ class XcalController < ApplicationController
 
   def conference
     begin
-      @conference = Release::Conference.select_single({:acronym=>params[:conference]},{:limit=>1,:order=>Momomoto.desc(:conference_release_id)})
+      @conference = Release::Conference.select_single({:conference_id=>params[:conference_id]},{:limit=>1,:order=>Momomoto.desc(:conference_release_id)})
     rescue Momomoto::Nothing_found
-      @conference = Release_preview::Conference.select_single({:acronym=>params[:conference]})
+      @conference = Release_preview::Conference.select_single({:conference_id=>params[:conference_id]})
     end
     @filename = "#{@conference.acronym}.xcs"
   end
