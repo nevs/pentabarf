@@ -37,20 +37,20 @@ xml.div(:id=>'schedule',:class=>'section') do
               event = @events.select{|e| e.event_id == event_id }.first
               xml.td({:rowspan=>row[room.conference_room_id][:slots],:class=>"room event #{sanitize_track(event.conference_track)}"}) do
                 xml.p(:class=>'title') do
-                  xml.a( event.title, {:href=>url_for(:action=>:event,:id=>event_id,:conference=>@conference.acronym,:language=>params[:language])} )
+                  xml.a( event.title, {:href=>url_for(:action=>:event,:id=>event_id,:conference_id=>@conference.conference_id,:language=>params[:language])} )
                 end
                 xml.p(:class=>'subtitle') do
-                  xml.a( event.subtitle, {:href=>url_for(:action=>:event,:id=>event_id,:conference=>@conference.acronym,:language=>params[:language])} )
+                  xml.a( event.subtitle, {:href=>url_for(:action=>:event,:id=>event_id,:conference_id=>@conference.conference_id,:language=>params[:language])} )
                 end
                 xml.ul(:class=>'speakers') do
                   event.persons.each do | person |
                     xml.li do
-                      xml.a(person.name, {:href=>url_for(:action=>:speaker,:id=>person.person_id,:conference=>@conference.acronym,:language=>params[:language])})
+                      xml.a(person.name, {:href=>url_for(:action=>:speaker,:id=>person.person_id,:conference_id=>@conference.conference_id,:language=>params[:language])})
                     end
                   end
                 end
                 xml.div(:class=>'info') do
-                  xml.a({:href=>url_for(:action=>:event,:id=>event_id,:conference=>@conference.acronym,:language=>params[:language])} ) do
+                  xml.a({:href=>url_for(:action=>:event,:id=>event_id,:conference_id=>@conference.conference_id,:language=>params[:language])} ) do
                     xml.div({:class=>'language-info'}) do
                       xml.text! local('event::language')
                       xml.span(event.language_name,{:class=>'language'})

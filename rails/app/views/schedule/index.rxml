@@ -4,12 +4,12 @@ xml.ul do
 
   @conference.days.each do | day |
     links << [
-      url_for({:conference=>@conference.acronym,:action=>:day,:id=>day.conference_day.to_s,:language=>params[:language]}),
+      url_for({:conference_id=>@conference.conference_id,:action=>:day,:id=>day.conference_day.to_s,:language=>params[:language]}),
       "#{day.name} - #{day.conference_day}"
     ]
   end
-  links << [url_for({:conference=>@conference.acronym,:action=>:speakers,:language=>params[:language]}), local('schedule::speakers')]
-  links << [url_for({:conference=>@conference.acronym,:action=>:events,:language=>params[:language]}), local('schedule::events')]
+  links << [url_for({:conference_id=>@conference.conference_id,:action=>:speakers,:language=>params[:language]}), local('schedule::speakers')]
+  links << [url_for({:conference_id=>@conference.conference_id,:action=>:events,:language=>params[:language]}), local('schedule::events')]
 
   @conference.links.each do | link |
     links << [link.url,link.title || link.url]
