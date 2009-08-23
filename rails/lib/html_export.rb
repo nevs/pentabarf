@@ -50,43 +50,61 @@ class HTMLExport
       target = case url[:controller]
         when 'event' then
           case url[:action]
-            when :attachment then "#{prefix}attachments/#{url[:event_attachment_id]}#{url[:filename].to_s.length > 0 ? '_' + url[:filename] : ''}"
+            when :attachment then "attachments/#{url[:event_attachment_id]}#{url[:filename].to_s.length > 0 ? '_' + url[:filename] : ''}"
           end
         when 'schedule' then
           case url[:action]
-            when :index then "#{prefix}index.#{url[:language]}.html"
-            when :day then "#{prefix}day_#{url[:id]}.#{url[:language]}.html"
-            when :event then "#{prefix}events/#{url[:id]}.#{url[:language]}.html"
-            when :events then "#{prefix}events.#{url[:language]}.html"
-            when :track_event then "#{prefix}track/#{url[:track]}/#{url[:id]}.#{url[:language]}.html"
-            when :track_events then "#{prefix}track/#{url[:track]}/index.#{url[:language]}.html"
-            when :speaker then "#{prefix}speakers/#{url[:id]}.#{url[:language]}.html"
-            when :speakers then "#{prefix}speakers.#{url[:language]}.html"
+            when :index then "index.#{url[:language]}.html"
+            when :day then "day_#{url[:id]}.#{url[:language]}.html"
+            when :event then "events/#{url[:id]}.#{url[:language]}.html"
+            when :events then "events.#{url[:language]}.html"
+            when :track_event then "track/#{url[:track]}/#{url[:id]}.#{url[:language]}.html"
+            when :track_events then "track/#{url[:track]}/index.#{url[:language]}.html"
+            when :speaker then "speakers/#{url[:id]}.#{url[:language]}.html"
+            when :speakers then "speakers.#{url[:language]}.html"
             when :css then 
-              if @current_url[:action].to_sym == :css
-                "#{prefix}style.css"
-              else
-                nesting = make_url( @current_url, '' ).split('/').length - 1
-                "../"*nesting + "style.css"
-              end
+             "style.css"
           end
         when 'image' then
           case url[:action]
-            when :conference then "#{prefix}images/conference-#{url[:size]}.#{url[:extension]}"
-            when :event then "#{prefix}images/event-#{url[:id]}-#{url[:size]}.#{url[:extension]}"
-            when :person then "#{prefix}images/person-#{url[:id]}-#{url[:size]}.#{url[:extension]}"
+            when :conference then "images/conference-#{url[:size]}.#{url[:extension]}"
+            when :event then "images/event-#{url[:id]}-#{url[:size]}.#{url[:extension]}"
+            when :person then "images/person-#{url[:id]}-#{url[:size]}.#{url[:extension]}"
           end
         when 'feedback' then "#{@conference.feedback_base_url}feedback/#{url[:conference]}/event/#{url[:id]}.#{url[:language]}.html"
-        when 'xcal' then "#{prefix}schedule.#{url[:language]}.xcs"
-        when 'ical' then "#{prefix}schedule.#{url[:language]}.ics"
-        when 'xml' then "#{prefix}schedule.#{url[:language]}.xml"
+        when 'xcal' then "schedule.#{url[:language]}.xcs"
+        when 'ical' then "schedule.#{url[:language]}.ics"
+        when 'xml' then "schedule.#{url[:language]}.xml"
       end
       puts "Empty target for #{url.inspect}" if not target
+
+      if prefix == ''
+        # use relative URLs when no prefix is supplied
+        if !( @current_url[:controller] == url[:controller] && @current_url[:action] == url[:action])
+          target = "../"*nesting(@current_url) + target
+        end
+      else
+        target = "#{prefix}#{target}"
+      end
+
       target
     end
 
+    def nesting( url )
+      case url[:controller]
+        when 'schedule' then
+          case url[:action]
+            when :index,:day,:events,:speakers,:css then 0 
+            when :event,:speaker then 1
+            when :track_events,:track_event then 2
+          end
+        when 'image','event' then 1
+        when 'feedback','xcal','ical','xml' then 0
+      end
+    end
+
     def url_for_file( url )
-      make_url( url, @file_prefix )
+      make_url( url, file_prefix )
     end
 
     def url_for_http( url)
