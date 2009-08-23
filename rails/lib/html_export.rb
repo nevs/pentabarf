@@ -48,9 +48,9 @@ class HTMLExport
       url[:controller] ||= 'schedule'
       url[:language] ||= 'en'
       target = case url[:controller]
-        when 'file' then
+        when 'event' then
           case url[:action]
-            when :event_attachment then "#{prefix}attachments/#{url[:id]}#{url[:filename].to_s.length > 0 ? '_' + url[:filename] : ''}"
+            when :attachment then "#{prefix}attachments/#{url[:event_attachment_id]}#{url[:filename].to_s.length > 0 ? '_' + url[:filename] : ''}"
           end
         when 'schedule' then
           case url[:action]
@@ -63,8 +63,12 @@ class HTMLExport
             when :speaker then "#{prefix}speakers/#{url[:id]}.#{url[:language]}.html"
             when :speakers then "#{prefix}speakers.#{url[:language]}.html"
             when :css then 
-              nesting = make_url( @current_url, '' ).split('/').length - 1
-              "../"*nesting + "/style.css"
+              if @current_url[:action].to_sym == :css
+                "#{prefix}style.css"
+              else
+                nesting = make_url( @current_url, '' ).split('/').length - 1
+                "../"*nesting + "style.css"
+              end
           end
         when 'image' then
           case url[:action]
