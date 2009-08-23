@@ -30,7 +30,7 @@ languages << 'en' if languages.length < 1
 HTMLExport.init(conf)
 HTMLExport.build_tree
 languages.each do | lang |
-  HTMLExport.export(:controller=>'schedule',:conference=>conf.acronym,:action=>:index,:language=>lang)
+  HTMLExport.export(:controller=>'schedule',:conference_id=>conf.conference_id,:action=>:index,:language=>lang)
 end
 
 while HTMLExport.urls[0]

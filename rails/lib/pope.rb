@@ -240,7 +240,13 @@ class Pope
   end
 
   def domain_event( action, row )
+    # new event
+    if row.class.table.table_name == 'event' && action == :create
+      return if conference_permission?( "event::create", row.conference_id )
+    end
+
     return if conference_permission?( "event::#{action}", event_conference( row.event_id ) )
+
     if action == :modify && permission?( :'event::modify_own' )
       return if own_event?( row.event_id )
     end

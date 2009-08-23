@@ -12,16 +12,16 @@ xml.div(:id=>'speaker-index',:class=>'section') do
       @speakers.each do | person |
         xml.tr do
           xml.td(:class=>'speaker') do
-            xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)) do
+            xml.a(:href=>url_for(:conference_id=>@conference.conference_id,:action=>:speaker,:language=>params[:language],:id=>person.person_id)) do
               xml.img(:class=>'speaker-image',:src=>person_image(person.person_id, 48))
             end
-            xml.a(person.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
+            xml.a(person.name,{:href=>url_for(:conference_id=>@conference.conference_id,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
           end
           xml.td(:class=>'events') do
             xml.ul(:class=>'events') do 
               person.events({:translated=>@current_language}).each do | event |
                 xml.li do
-                  xml.a(event.title, {:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>event.event_id)})
+                  xml.a(event.title, {:href=>url_for(:conference_id=>@conference.conference_id,:action=>:event,:language=>params[:language],:id=>event.event_id)})
                 end
               end
             end

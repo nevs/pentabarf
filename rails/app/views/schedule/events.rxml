@@ -9,7 +9,7 @@ xml.div(:id=>'event-index',:class=>'section') do
     xml.tbody do
       @events.each do | event |
 
-        event_url = {:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>event.event_id}
+        event_url = {:conference_id=>@conference.conference_id,:action=>:event,:language=>params[:language],:id=>event.event_id}
         if @track
           event_url[:action] = :track_event
           event_url[:track] = @track.conference_track
@@ -53,7 +53,7 @@ xml.div(:id=>'event-index',:class=>'section') do
             xml.ul(:class=>'speakers') do
               event.persons.each do | person |
                 xml.li do
-                  xml.a(person.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
+                  xml.a(person.name,{:href=>url_for(:conference_id=>@conference.conference_id,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
                 end
               end
             end

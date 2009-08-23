@@ -5,12 +5,12 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
       @speaker.events(:translated=>@current_language).each do | event |
         xml.tr do
           xml.td do
-            xml.a(:href=>url_for(:action=>:event,:id=>event.event_id,:conference=>@conference.acronym,:language=>params[:language])) do
+            xml.a(:href=>url_for(:conference_id=>@conference.conference_id,:action=>:event,:id=>event.event_id,:language=>params[:language])) do
               xml.img(:src=>event_image(event.event_id,32))
             end
           end
           xml.td do
-            xml.a(event.title,{:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>event.event_id)})
+            xml.a(event.title,{:href=>url_for(:conference_id=>@conference.conference_id,:action=>:event,:language=>params[:language],:id=>event.event_id)})
           end
         end
       end
@@ -55,14 +55,14 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
     if navigation_index
       prev = @speakers[navigation_index - 1]
       if prev
-        xml.a(:href=>url_for(:conference=>@conference.acronym,:language=>params[:language],:action=>:speaker,:id=>prev.person_id)) do
+        xml.a(:href=>url_for(:conference_id=>@conference.conference_id,:language=>params[:language],:action=>:speaker,:id=>prev.person_id)) do
           xml.span('<<<',{:class=>'previous',:title=>prev.name})
         end
       end
 
       fwd = @speakers[navigation_index + 1]
       if fwd
-        xml.a(:href=>url_for(:conference=>@conference.acronym,:language=>params[:language],:action=>:speaker,:id=>fwd.person_id)) do
+        xml.a(:href=>url_for(:conference_id=>@conference.conference_id,:language=>params[:language],:action=>:speaker,:id=>fwd.person_id)) do
           xml.span('>>>',{:class=>'next',:title=>fwd.name})
         end
       end

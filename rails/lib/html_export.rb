@@ -16,7 +16,7 @@ class HTMLExport
       export_url = URI.parse( conference.export_base_url )
       @http_prefix = export_url.path || "/"
       @file_prefix = "tmp/html-export/#{conf.acronym}/"
-      get( "/schedule/#{@conference.acronym}")
+      get( "/schedule/#{@conference.conference_id}")
     end
 
     def get( url )

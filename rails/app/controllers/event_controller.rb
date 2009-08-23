@@ -140,8 +140,13 @@ class EventController < ApplicationController
         POPE.event_permission?('pentabarf::login',params[:event_id]) &&
         POPE.event_permission?('event::show',params[:event_id])
       when 'save' then
-        POPE.event_permission?('pentabarf::login',params[:event_id]) &&
-        POPE.event_permission?('event::modify',params[:event_id])
+        if params[:event_id]
+          POPE.event_permission?('pentabarf::login',params[:event_id]) &&
+          POPE.event_permission?('event::modify',params[:event_id])
+        else
+          POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id) &&
+          POPE.conference_permission?('event::create',POPE.user.current_conference_id)
+        end
       else
         false
     end
