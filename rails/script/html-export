@@ -23,6 +23,12 @@ class ActionController::Base
 end
 
 conf = Conference.select_single(:acronym=>ARGV[0])
+
+POPE.send( :instance_variable_set, :@user, Pope::User.new( Account.new({:account_id=>0}) ))
+POPE.user.current_conference_id = conf.conference_id
+def POPE.permission?( unused ) return true end
+def (POPE.user).write() return true end
+
 languages = View_conference_language.select(:conference_id=>conf.conference_id,:translated=>'en')
 languages = languages.map(&:language)
 languages << 'en' if languages.length < 1
