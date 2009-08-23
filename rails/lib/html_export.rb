@@ -62,7 +62,9 @@ class HTMLExport
             when :track_events then "#{prefix}track/#{url[:track]}/index.#{url[:language]}.html"
             when :speaker then "#{prefix}speakers/#{url[:id]}.#{url[:language]}.html"
             when :speakers then "#{prefix}speakers.#{url[:language]}.html"
-            when :css then "#{prefix}/style.css"
+            when :css then 
+              nesting = make_url( @current_url, '' ).split('/').length - 1
+              "../"*nesting + "/style.css"
           end
         when 'image' then
           case url[:action]
@@ -84,10 +86,11 @@ class HTMLExport
     end
 
     def url_for_http( url)
-      make_url( url, @http_prefix )
+      make_url( url, '' )
     end
 
     def export( url )
+      @current_url = url
       url[:only_path] = true
       http_url = url_for_http( url )
       return if @urls_done.member?( http_url )
