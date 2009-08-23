@@ -89,16 +89,19 @@ module ApplicationHelper
       table[event.conference_day.to_s][start_slot][event.conference_room_id] = {:event_id => event.event_id, :slots => slots}
       slots.times do | i |
         next if i < 1
-        # check whether the event spans multiple days
-        if (start_slot + i) >= slots_per_day
-          if (start_slot + i)%slots_per_day == 0
-            table[(event.conference_day + (start_slot + i)/slots_per_day).to_s][(start_slot + i)%slots_per_day][event.conference_room_id] = {:event_id => event.event_id, :slots => slots - i}
-          else
-            table[(event.conference_day + (start_slot + i)/slots_per_day).to_s][(start_slot + i)%slots_per_day][event.conference_room_id] = 0
-          end
+        day = (event.conference_day + (start_slot + i)/slots_per_day).to_s
+        slot = (start_slot + i)%slots_per_day
+
+        # skip processing if the events spans into days not part of the schedule
+        next if not table[day]
+
+        if (start_slot + i)%slots_per_day == 0
+          # new day has started => enter event structure again
+          table[day][slot][event.conference_room_id] = {:event_id => event.event_id, :slots => slots - i}
         else
-          table[event.conference_day.to_s][start_slot + i][event.conference_room_id] = 0
+          table[day][slot][event.conference_room_id] = 0
         end
+
       end
     end
     # remove unused rows at the beginning and the end
