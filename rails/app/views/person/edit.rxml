@@ -10,7 +10,7 @@ end
 
 tabs = [:general,:availability,:events,:contact,:description,:links,:rating,:travel]
 
-tabs << :account if POPE.permission?('account::modify') || POPE.user.person_id == @person.person_id
+tabs << :account if POPE.conference_permission?('account_conference_role::create', POPE.user.current_conference_id) || POPE.user.person_id == @person.person_id
 
 xml << js_tabs( tabs )
 

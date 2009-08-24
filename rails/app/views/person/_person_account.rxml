@@ -16,7 +16,7 @@ xml.div(:id=>'content-account') do
       end
       xml << select_row( @settings, :current_language, Language.select({:localized=>'t'}).map(&:language) )
     end
-  end
+  end if POPE.permission?( 'account::modify', @current_conference.conference_id )
 
   xml.fieldset do
     xml.legend 'Roles in current conference'
