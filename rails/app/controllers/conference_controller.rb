@@ -2,7 +2,7 @@ class ConferenceController < ApplicationController
 
   around_filter :check_current_conference, :except => [:select,:new,:save,:save_current_conference]
   before_filter :init
-  around_filter :update_last_login, :except=>[:copy,:delete]
+  around_filter :update_last_login, :except=>[:copy,:delete,:select]
 
   def select
     @current_conference = Conference.new

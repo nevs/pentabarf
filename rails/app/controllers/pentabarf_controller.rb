@@ -103,7 +103,12 @@ class PentabarfController < ApplicationController
 
   def check_permission
     return true if POPE.conference_permission?('pentabarf::login', POPE.user.current_conference_id)
-    redirect_to(:controller=>'submission')
+    if !conferences_with_permission('pentabarf::login').empty?
+      redirect_to(:controller=>'conference',:action=>:select)
+    else
+      redirect_to(:controller=>'submission')
+    end
+       
     false
   end
 

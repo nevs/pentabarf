@@ -24,7 +24,9 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
       end
     end
 
-    xml.script("new Ajax.PeriodicalUpdater('activity','#{url_for(:controller=>'pentabarf',:action=>:activity)}', {frequency:42,decay:5});", {:type=>'text/javascript'})
+    if params[:action] != 'select'
+      xml.script("new Ajax.PeriodicalUpdater('activity','#{url_for(:controller=>'pentabarf',:action=>:activity)}', {frequency:42,decay:5});", {:type=>'text/javascript'})
+    end
 
   end
 end
