@@ -19,13 +19,10 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div( :class=>'menu-item-group' ) do
       xml.a( 'Localization', {:href=> url_for(:controller => 'localization', :action => :index), :class => 'menu-item'} )
+      xml.a( local('search::account'), {:href=> url_for(:controller => 'search', :action => :account), :class => 'menu-item'} ) if POPE.permission?('account::show')
       xml.a( 'Pentabarf', {:href=> url_for(:controller => 'pentabarf', :action => :index), :class => 'menu-item'} )
       xml.a( local('link::preferences'), {:href=> url_for(:controller => 'person', :action => :edit, :person_id=>POPE.user.person_id), :class => 'menu-item'} )
       xml.a( 'Logout', {:href=>"#{request.protocol}logout@#{request.host_with_port}/logout", :onclick=>"logout()", :class => 'menu-item'} ) if POPE.user
-    end
-
-    xml.div( :class=>'menu-item-group' ) do
-      xml.a( local('search::account'), {:href=> url_for(:controller => 'search', :action => :account), :class => 'menu-item'} ) if POPE.permission?('account::show')
     end
 
   end
