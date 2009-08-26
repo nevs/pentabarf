@@ -28,6 +28,7 @@ INSERT INTO role_permission ("role", permission) VALUES ('admin', 'event::create
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'event::delete');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'event::modify');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'event::modify_own');
+INSERT INTO role_permission ("role", permission) VALUES ('admin', 'event::show');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'localization::create');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'localization::delete');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'localization::modify');
@@ -36,6 +37,7 @@ INSERT INTO role_permission ("role", permission) VALUES ('admin', 'person::creat
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'person::delete');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'person::modify');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'person::modify_own');
+INSERT INTO role_permission ("role", permission) VALUES ('admin', 'person::show');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'rating::create');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'rating::modify');
 INSERT INTO role_permission ("role", permission) VALUES ('admin', 'rating::show');
