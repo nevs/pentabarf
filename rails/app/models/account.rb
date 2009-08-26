@@ -10,7 +10,7 @@ class Account < Momomoto::Table
       8.times do salt << rand(256) end
 
       salt_bin = salt.pack("C8")
-      salt_hex = salt.unpack("H16")[0]
+      salt_hex = salt_bin.unpack("H16")[0]
 
       hash = Digest::MD5.hexdigest( salt_bin + value.to_s )
       set_column( :salt, salt_hex )
