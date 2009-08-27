@@ -80,9 +80,7 @@ class HTMLExport
 
       if prefix == ''
         # use relative URLs when no prefix is supplied
-        if !( @current_url[:controller] == url[:controller] && @current_url[:action] == url[:action])
-          target = "../"*nesting(@current_url) + target
-        end
+        target = "../"*nesting(@current_url) + target
       else
         target = "#{prefix}#{target}"
       end
