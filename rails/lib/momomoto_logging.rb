@@ -19,11 +19,11 @@ module Momomoto
 
       def log_change_url( change )
         if change.respond_to?(:conference_id)
-          {:controller=>'pentabarf',:action=>:conference,:id=>change.conference_id}
+          {:controller=>'conference',:action=>:edit,:conference_id=>change.conference_id}
         elsif change.respond_to?(:event_id)
-          {:controller=>'pentabarf',:action=>:event,:id=>change.event_id}
+          {:controller=>'event',:action=>:edit,:event_id=>change.event_id}
         elsif change.respond_to?(:person_id)
-          {:controller=>'pentabarf',:action=>:person,:id=>change.person_id}
+          {:controller=>'person',:action=>:edit,:person_id=>change.person_id}
         elsif change.class.table.table_name.match(/_localized$/)
           {:controller=>'localization',:action=>change.class.table.table_name.gsub(/_localized$/,'')}
         else
