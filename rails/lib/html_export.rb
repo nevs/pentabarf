@@ -91,15 +91,15 @@ class HTMLExport
     end
 
     def nesting( url )
-      case url[:controller]
-        when 'schedule' then
-          case url[:action]
+      case url[:controller].to_sym
+        when :schedule then
+          case url[:action].to_sym
             when :index,:day,:events,:speakers,:css then 0 
             when :event,:speaker then 1
             when :track_events,:track_event then 2
           end
-        when 'image','event' then 1
-        when 'feedback','xcal','ical','xml' then 0
+        when :image,:event then 1
+        when :feedback,:xcal,:ical,:xml then 0
       end
     end
 
