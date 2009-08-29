@@ -43,7 +43,7 @@ class Pope
 
   end
 
-  attr_reader :user, :own_events
+  attr_reader :user
 
   def initialize
     flush
