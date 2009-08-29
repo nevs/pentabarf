@@ -51,7 +51,7 @@ class ImageController < ApplicationController
     elsif POPE.permission?('submission::login')
       case params[:action]
         when 'event'
-          return true if POPE.own_events.member?(params[:id].to_i)
+          return true if POPE.own_event?(params[:id].to_i)
         when 'person'
           return true if POPE.user.person_id == params[:id].to_i
       end
