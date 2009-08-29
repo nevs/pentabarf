@@ -13,19 +13,19 @@ class ScheduleControllerTest < Test::Unit::TestCase
 
   def test_index
     authenticate_user( Account.select_single(:login_name=>'testcase_committee') )
-    get :index, {:conference=>'TEST'}
+    get :index, {:conference_id=>1}
     assert_response :success
   end
 
   def test_speakers
     authenticate_user( Account.select_single(:login_name=>'testcase_committee') )
-    get :speakers, {:conference=>'TEST'}
+    get :speakers, {:conference_id=>1}
     assert_response :success
   end
 
   def test_events
     authenticate_user( Account.select_single(:login_name=>'testcase_committee') )
-    get :events, {:conference=>'TEST'}
+    get :events, {:conference_id=>1}
     assert_response :success
   end
 
@@ -33,7 +33,7 @@ class ScheduleControllerTest < Test::Unit::TestCase
     c = Conference.select_single({:acronym=>:TEST})
     c.days.each do | day |
       authenticate_user( Account.select_single(:login_name=>'testcase_committee') )
-      get :day, {:id=>day.conference_day.to_s,:conference=>'TEST'}
+      get :day, {:id=>day.conference_day.to_s,:conference_id=>1}
       assert_response :success
     end
   end

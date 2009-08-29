@@ -17,7 +17,7 @@ class XmlControllerTest < Test::Unit::TestCase
   end
 
   def test_schedule
-    get :schedule, {:conference=>'TEST'}
+    get :schedule, {:conference_id=>1}
     assert_response :success
   end
 
