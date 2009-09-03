@@ -280,6 +280,9 @@ class Pope
     return if ["conference_person","custom_conference_person"].member?(row.class.table.table_name) && conference_permission?( "conference_person::#{action}", row.conference_id )
     return if conference_permission?( "conference_person::#{action}", conference_person_conference( row.conference_person_id ) )
     return if permission?( :'person::modify_own' ) && own_conference_person?( row.conference_person_id )
+    # allow everybody with person::modify_own to add conference_person entries for themselves
+    return if row.class.table.table_name == 'conference_person' && action == :create && permission?( "person::modify_own") && row.person_id == POPE.user.person_id
+
     raise Pope::PermissionError
   end
 
