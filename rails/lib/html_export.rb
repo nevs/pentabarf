@@ -71,7 +71,8 @@ class HTMLExport
             when :event then "images/event-#{url[:id]}-#{url[:size]}.#{url[:extension]}"
             when :person then "images/person-#{url[:id]}-#{url[:size]}.#{url[:extension]}"
           end
-        when 'feedback' then "#{@conference.feedback_base_url}feedback/#{url[:conference]}/event/#{url[:id]}.#{url[:language]}.html"
+        when 'feedback' then
+          return "#{@conference.feedback_base_url}feedback/#{url[:conference]}/event/#{url[:id]}.#{url[:language]}.html"
         when 'xcal' then "schedule.#{url[:language]}.xcs"
         when 'ical' then "schedule.#{url[:language]}.ics"
         when 'xml' then "schedule.#{url[:language]}.xml"
