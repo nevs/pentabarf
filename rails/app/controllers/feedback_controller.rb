@@ -21,7 +21,7 @@ class FeedbackController < ApplicationController
   end
 
   def thankyou
-    @event = @conference.events({:event_id=>params[:id],:translated=>@current_language})
+    @event = @conference.events({:event_id=>params[:id],:translated=>@current_language})[0]
     raise StandardError unless @event
   end
 
