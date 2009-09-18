@@ -112,7 +112,9 @@ class PersonController < ApplicationController
       when 'new' then POPE.conference_permission?('person::create',POPE.user.current_conference_id)
       when 'delete' then POPE.permission?('person::delete')
       when 'edit','conflicts' then POPE.conference_permission?('person::show',POPE.user.current_conference_id)
-      when 'save' then POPE.conference_permission?('person::modify',POPE.user.current_conference_id)
+      when 'save' then 
+        POPE.conference_permission?('person::modify',POPE.user.current_conference_id) ||
+        POPE.conference_permission?('rating::modify',POPE.user.current_conference_id)
       else
         false
     end
