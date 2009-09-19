@@ -555,6 +555,10 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::language', 'de', 'Sprache der Veranstaltung');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::language', 'en', 'Language used for presentation');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::language', 'pt', 'Linguagem utilizados para apresentação');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::own::tab::coordinator', 'de', 'Koordinator');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::own::tab::coordinator', 'en', 'Coordinator');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::own::tab::participant', 'de', 'Teilnehmer');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::own::tab::participant', 'en', 'Participant');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::paper', 'de', 'Abgabe eines Papers für den Tagungsband');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::paper', 'en', 'Submission of paper for proceedings');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::paper', 'pt', 'Apresentação de papel para processo');
@@ -685,6 +689,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_i
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_image::mime_type', 'en', 'MIME-Type');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_image::remove', 'de', 'Bild löschen');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_image::remove', 'en', 'Delete image');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_link::description', 'de', 'Beschreibung');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_link::description', 'en', 'Description');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_link::event_id', 'de', 'Veranstaltung');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_link::event_id', 'en', 'Event');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event_link::event_id', 'pt', 'Evento');
@@ -1397,12 +1403,12 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('ui_mess
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('ui_message_localized::name', 'en', 'Name');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('ui_message_localized::translated', 'en', 'Language');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('ui_message_localized::ui_message', 'en', 'UI message');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::account_activated_please_login', 'de', 'Dein Benutzer ist nun aktivueren. Bitte melde Dich an und mach Deine Angaben.');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::account_activated_please_login', 'de', 'Dein Benutzer ist nun aktiviert. Bitte melde Dich an und mach Deine Angaben.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::account_activated_please_login', 'en', 'Your account has been activated. Please log in and fill in your personal details.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::enter_new_password', 'de', 'Dein neues Passwort:');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::enter_new_password', 'en', 'Enter your new password here.');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::forgot_password_heading', 'de', 'Gib Benutzernamen und E-Mailadresse an. Duu wirst eine Mail mit einem Link erhalten, unter dem Du Dein Passwort zurücksetzen kannst.');
-INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::forgot_password_heading', 'en', 'Enter your login name and your email address. You will get an email with a link to reset your password.');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::forgot_password_heading', 'de', 'Bitte gib deinen Benutzernamen an. Du wirst eine Mail mit einem Link erhalten, unter dem Du Dein Passwort zurücksetzen kannst.');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::forgot_password_heading', 'en', 'Enter your login name. You will get an email with a link to reset your password.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::index_heading', 'de', 'Erstelle einen Benutzer für das Pentabarf Einreichungs-Systems des CCC');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::index_heading', 'en', 'You can create an account for the Pentabarf Submission System.');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('user::new_account', 'de', 'Benutzer erstellen');
