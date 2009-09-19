@@ -4,8 +4,8 @@ SET search_path = conflict, pg_catalog;
 
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_abstract_length', 'de', 'Empfohlene Veranstaltungsabstrakt-Länge überschritten');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_abstract_length', 'en', 'Recommended event abstract length exceeded');
-INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_accepted_without_timeslot', 'de', 'Akzeptierte und bestätigte Veranstaltung ohne Zeitfenster');
-INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_accepted_without_timeslot', 'en', 'Accepted and confirmed event without timeslot');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_accepted_without_timeslot', 'de', 'Akzeptierte und rückbestätigte Veranstaltung ohne Zeitfenster');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_accepted_without_timeslot', 'en', 'Accepted and reconfirmed event without timeslot');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_conference_language', 'de', 'Eine Veranstaltung ist in einer Sprache die keine Konferenzsprache ist');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_conference_language', 'en', 'Event has a language set which is not a conference language');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_description_length', 'de', 'Empfohlene Veranstaltungsbeschreibungs-Länge überschritten');
@@ -34,8 +34,8 @@ INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_pa
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_paper', 'en', 'Accepted Event without paper');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_slides', 'de', 'Akzeptierte Veranstaltung ohne Folien');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_slides', 'en', 'Accepted Event without slides');
-INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_speaker', 'de', 'Akzeptierte und bestätigte Veranstaltung ohne bestätigten Referenten');
-INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_speaker', 'en', 'Accepted and confirmed event without confirmed speaker');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_speaker', 'de', 'Akzeptierte und rückbestätigte Veranstaltung ohne bestätigten Referenten');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_speaker', 'en', 'Accepted and reconfirmed event without confirmed speaker');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_track', 'de', 'Akzeptierte Veranstaltung ohne Track');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_track', 'en', 'Accepted event without conference track');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_paper_unknown', 'de', 'Veranstaltung mit unklarem Paper-Status.');
