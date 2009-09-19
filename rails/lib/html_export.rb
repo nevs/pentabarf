@@ -32,7 +32,6 @@ class HTMLExport
     end
 
     def url_for_rails( *args )
-      args[0][:escape] ||= false
       @session.controller.url_for_rails( *args )
     end
 
