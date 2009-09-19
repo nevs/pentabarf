@@ -59,6 +59,13 @@ end
 # filter password fields in logs
 ActionController::Base.filter_parameter_logging( :password )
 
+module ActionView::Helpers::TagHelper
+  def escape_once( html )
+    html
+  end
+end
+
+
 require 'builder_enhancements'
 
 require 'pope'
