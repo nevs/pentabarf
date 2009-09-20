@@ -55,3 +55,4 @@ INSERT INTO conference_role_permission (conference_role, permission) VALUES ('re
 INSERT INTO conference_role_permission (conference_role, permission) VALUES ('reviewer', 'person::show');
 INSERT INTO conference_role_permission (conference_role, permission) VALUES ('reviewer', 'rating::create');
 INSERT INTO conference_role_permission (conference_role, permission) VALUES ('reviewer', 'rating::modify');
+INSERT INTO conference_role_permission (conference_role, permission) VALUES ('reviewer', 'review::modify');
