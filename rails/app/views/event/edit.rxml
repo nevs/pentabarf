@@ -7,7 +7,7 @@ tabs = [:general,:persons,:description,:links,:schedule,:rating,:resources,:feed
 xml << js_tabs( tabs )
 
 xml.div( :id => 'remove-button' ) do
-  xml.form(:action=>url_for(:action=>:delete_event,:event_id=>params[:event_id]),:id=>'delete_event',:method=>'post') do
+  xml.form(:action=>url_for(:action=>:delete,:event_id=>params[:event_id]),:id=>'delete_event',:method=>'post') do
     xml.input({:onclick=>"return confirm('Are you sure?');",:value=>"Delete Event",:type=>:submit})
   end
 end if !@event.new_record? && POPE.conference_permission?('event::delete', @event.conference_id)
