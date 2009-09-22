@@ -4,7 +4,7 @@ class SubmissionController < ApplicationController
   before_filter :check_transaction, :only=>[:save_event]
 
   def index
-    @conferences = Conference.select({:f_submission_enabled=>true,:f_submission_writable=>true,:f_submission_new_events=>true})
+    @conferences = Conference.select({:f_submission_enabled=>true,:f_submission_writable=>true})
   end
 
   def login
