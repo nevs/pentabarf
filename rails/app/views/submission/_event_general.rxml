@@ -52,7 +52,7 @@ xml.div(:id=>'content-general') do
       xml.tr do
         xml.td do xml.b( local('event::start_time')) end
         if @event.start_time
-          xml.td( @event.start_time + Integer(@conference.day_change.strftime("%H"))*3600 )
+          xml.td( @event.start_time + @conference.day_change.strftime("%H").to_i*3600 )
         else
           xml.td
         end
