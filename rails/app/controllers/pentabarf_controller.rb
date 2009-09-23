@@ -79,6 +79,7 @@ class PentabarfController < ApplicationController
           body = params[:mail][:body].dup
           subject = params[:mail][:subject].dup
           variables.each do | v |
+            next if not r.respond_to?(v)
             body.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
             subject.gsub!(/\{\{#{v}\}\}/i, r[v].to_s)
           end
