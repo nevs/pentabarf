@@ -15,7 +15,7 @@ tabs << :account if POPE.conference_permission?('account_conference_role::create
 xml << js_tabs( tabs )
 
 xml.div( :id => 'remove-button' ) do
-  xml.form(:action=>url_for(:action=>:delete_person,:id=>params[:id]),:id=>'delete_person',:method=>'post') do
+  xml.form(:action=>url_for(:action=>:delete,:person_id=>params[:person_id]),:id=>'delete_person',:method=>'post') do
     xml.input({:onclick=>"return confirm('Are you sure?');",:value=>"Delete Person",:type=>:submit})
   end
 end if POPE.permission?('person::delete') && !@person.new_record?
@@ -44,7 +44,7 @@ xml.div( :id => 'data' ) do
 
   xml.script({:type=>'text/javascript'}) do
     xml << "
-      function send_content(){ 
+      function send_content(){
         if ( !$F('person[first_name]') && !$F('person[last_name]') && !$F('person[nickname]') && !$F('person[public_name]') ) {
           alert('You must fill in a name.');
           return false;
@@ -53,7 +53,7 @@ xml.div( :id => 'data' ) do
       };
       new Form.EventObserver('content_form', function(element, value ) { enable_save_button() } );
       switch_tab();
-    
+
     "
   end
 
