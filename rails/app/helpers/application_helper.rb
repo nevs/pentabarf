@@ -9,7 +9,7 @@ module ApplicationHelper
   TableRowColors = ['khaki', 'plum', 'lightgreen', 'skyblue', 'silver', 'moccasin', 'rosybrown', 'salmon', 'sandybrown']
 
   def pentabarf_version
-    "0.4.0"
+    "0.4.1"
   end
 
   def local( tag, arguments = {} )
