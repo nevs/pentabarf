@@ -5,9 +5,9 @@ task :unused_views do
   views = `grep -r 'CREATE OR REPLACE VIEW' sql | sed -e 's/.*:CREATE OR REPLACE VIEW \\([a-z_.]\\+\\) AS.*/\\1/'`.split
   views.each do | view |
     view = view.split('.').last
-    sql = `grep -r '\\<#{view}\\>' sql | grep -v 'CREATE OR REPLACE VIEW'`
+    sql = `grep -hr '\\<#{view}\\>' sql | grep -v 'CREATE OR REPLACE VIEW'`
     if sql.empty?
-      rails = `grep -ir '\\<#{view}\\>' rails/app/models`
+      rails = `grep -ihr '\\<#{view}\\>' rails/app/models`
       if rails.empty?
         puts "Unused view `#{view}` found."
       end
@@ -17,12 +17,12 @@ end
 
 desc "finds unused models"
 task :unused_models do
-  models = `grep -r '^class ' rails/app/models | sed -e 's/.*:class \\([A-Z][a-z_]\\+\\) .*/\\1/'`.split
+  models = `grep -hr '^class ' rails/app/models | sed -e 's/^class \\([A-Z][a-z_]\\+\\)[^\w].*$/\\1/'`.split
   models.each do | model |
     next if model.match(/^View_(conference|event|person)_image_modification$/)
     used = false
     ['app/controllers', 'app/views','lib','test'].each do | dir |
-      if not `grep -r '\\<#{model}\\>' rails/#{dir}`.empty?
+      if not `grep -hr '\\<#{model}\\>' rails/#{dir}`.empty?
         used = true
         break
       end
