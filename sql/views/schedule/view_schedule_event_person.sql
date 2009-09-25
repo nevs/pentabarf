@@ -23,7 +23,7 @@ CREATE OR REPLACE VIEW view_schedule_event_person AS
     INNER JOIN event USING (event_id)
     INNER JOIN view_schedule_room USING (conference_id,conference_room_id)
     INNER JOIN view_schedule_day USING (conference_id,conference_day_id)
-    INNER JOIN event_role_localized USING (event_role)
+    INNER JOIN event_role_localized ON ( event_role.event_role = event_role_localized.event_role)
   WHERE
     event_person.event_role_state = 'confirmed' AND
     event.event_state = 'accepted' AND
