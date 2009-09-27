@@ -16,7 +16,9 @@ class HTMLExport
       export_url = URI.parse( conference.export_base_url )
       @http_prefix = export_url.path || "/"
       @file_prefix = "tmp/html-export/#{conf.acronym}/"
-      get( "/schedule/#{@conference.conference_id}")
+
+      @current_url = {:controller=>'schedule',:action=>:index,:language=>'en',:conference_id=>@conference.conference_id}
+      get( "/schedule/#{@conference.conference_id}/index.en.html" )
     end
 
     def get( url )
