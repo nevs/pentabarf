@@ -1,5 +1,6 @@
 
 -- view for events
+-- used for the internal schedule preview
 CREATE OR REPLACE VIEW view_schedule AS
    SELECT event.event_id,
           event.conference_id,
