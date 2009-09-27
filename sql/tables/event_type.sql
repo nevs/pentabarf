@@ -1,6 +1,7 @@
 
 CREATE TABLE base.event_type (
   event_type TEXT,
+  public_role_required BOOL NOT NULL DEFAULT false, -- this event type requires a public event_role for schedule inclusion
   rank INTEGER
 );
 
