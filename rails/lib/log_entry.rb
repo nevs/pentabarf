@@ -103,7 +103,7 @@ class LogEntry
       end
       if log_name
         xml << "&nbsp;"
-        xml.a( log_name, :href=>url_for(:controller=>'pentabarf',:action=>:person,:id=>log_person_id))
+        xml.a( log_name, :href=>url_for(:controller=>'person',:action=>:edit,:person_id=>log_person_id))
       end
       xml << @rendered_changes.to_s
     end
