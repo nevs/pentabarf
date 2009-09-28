@@ -5,7 +5,7 @@ class Conference_link < Momomoto::Table
   end
 
   def self.log_change_url( change )
-    {:controller=>'pentabarf',:action=>:conference,:id=>change.conference_id}
+    {:controller=>'conference',:action=>:edit,:conference_id=>change.conference_id}
   end
 
   def self.log_change_title( change )

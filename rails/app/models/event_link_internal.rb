@@ -5,7 +5,7 @@ class Event_link_internal < Momomoto::Table
   end
 
   def self.log_change_url( change )
-    {:controller=>'pentabarf',:action=>:event,:id=>change.event_id}
+    {:controller=>'event',:action=>:edit,:event_id=>change.event_id}
   end
 
   def self.log_change_title( change )

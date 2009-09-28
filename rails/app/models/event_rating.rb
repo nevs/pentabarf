@@ -11,7 +11,7 @@ class Event_rating < Momomoto::Table
   end
 
   def self.log_change_url( change )
-    {:controller=>'pentabarf',:action=>:event,:id=>change.event_id}
+    {:controller=>'event',:action=>:edit,:event_id=>change.event_id}
   end
 
 end

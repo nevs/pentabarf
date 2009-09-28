@@ -6,7 +6,7 @@ class Conference_person_link < Momomoto::Table
 
   def self.log_change_url( change )
     person = Conference_person.select_single({:conference_person_id=>change.conference_person_id})
-    {:controller=>'pentabarf',:action=>:person,:id=>person.person_id}
+    {:controller=>'person',:action=>:edit,:person_id=>person.person_id}
    rescue
     {}
   end
