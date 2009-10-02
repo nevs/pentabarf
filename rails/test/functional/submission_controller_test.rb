@@ -38,6 +38,11 @@ class SubmissionControllerTest < Test::Unit::TestCase
     authenticate_user( @user )
     get :person, :conference => @conference.acronym
     assert_response :success
+    authenticate_user( @user )
+    submit_form do | form |
+      form.person.first_name = 'Foo'
+    end
+    assert_response :redirect
   end
 
   def test_event
