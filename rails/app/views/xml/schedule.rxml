@@ -8,7 +8,7 @@ xml.schedule do
     xml.start @conference.days.first.conference_day.strftime('%Y-%m-%d')
     xml.end( @conference.days.last.conference_day.strftime('%Y-%m-%d') )
     xml.days @conference.days.length
-    xml.release @conference.release
+    xml.release @conference.release.conference_release
     xml.day_change @conference.day_change.strftime('%H:%M')
     xml.timeslot_duration @conference.timeslot_duration.strftime('%H:%M')
   end
