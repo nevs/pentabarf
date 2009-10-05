@@ -12,6 +12,12 @@ class AdminController < ApplicationController
     @account_roles = Account_role.select(:account_id=>@account.account_id)
   end
 
+  def activate_account
+    activation = Account_activation.select_single({:account_id=>params[:id]})
+    Activate_account.call({:activation_string=>activation.activation_string})
+    redirect_to({:controller=>'admin',:action=>:account_roles,:id=>params[:id]})
+  end
+
   def save_account_roles
     account = Account.select_single(:account_id=>params[:id])
 
