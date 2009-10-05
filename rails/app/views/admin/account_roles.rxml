@@ -6,7 +6,7 @@ xml.div( :id => 'data' ) do
       xml.button( "Go to person page" )
     end
 
-  elsif Account_activation.select({:account_id=>@account.account_id})[0]
+  else
 
     xml.a({:href=>url_for({:controller=>'admin',:action=>:activate_account,:id=>@account.account_id})}) do
       xml.button( "Activate account" )
