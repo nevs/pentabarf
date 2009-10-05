@@ -13,8 +13,7 @@ class AdminController < ApplicationController
   end
 
   def activate_account
-    activation = Account_activation.select_single({:account_id=>params[:id]})
-    Activate_account.call({:activation_string=>activation.activation_string})
+    Activate_account_id.call({:cur_account_id=>params[:id]})
     redirect_to({:controller=>'admin',:action=>:account_roles,:id=>params[:id]})
   end
 
