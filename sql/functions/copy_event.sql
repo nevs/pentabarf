@@ -58,12 +58,14 @@ CREATE OR REPLACE FUNCTION copy_event( source_event_id INTEGER, target_conferenc
       SELECT target_event_id, mime_type, image FROM event_image 
         WHERE event_id = source_event_id;
 
+    -- copy all public event roles
     INSERT INTO event_person( event_id, person_id, event_role, event_role_state, remark )
-      SELECT target_event_id, person_id, event_role, 'idea', remark FROM event_person
+      SELECT target_event_id, person_id, event_role, 'idea', remark FROM event_person INNER JOIN event_role USING (event_role)
         WHERE
-          event_person.event_role IN ('speaker','moderator') AND
+          event_role.public = true AND
           event_person.event_id = source_event_id;
 
+    -- create coordinator
     INSERT INTO event_person( event_id, person_id, event_role )
       VALUES (target_event_id, coordinator_id, 'coordinator');
 
