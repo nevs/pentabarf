@@ -11,11 +11,12 @@ CREATE OR REPLACE FUNCTION conflict.conflict_person_no_description(INTEGER) RETU
        WHERE description IS NULL AND
              EXISTS (SELECT 1
                        FROM event_person
+                            INNER JOIN event_role USING (event_role)
                             INNER JOIN event USING (event_id)
                       WHERE event.conference_id = $1 AND
                             event.event_state = 'accepted' AND
+                            event_role.public = true AND
                             event_person.person_id = person.person_id AND
-                            event_role IN ('speaker', 'moderator') AND
                             event_role_state = 'confirmed'
              )
 $$ LANGUAGE SQL;
