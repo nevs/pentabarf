@@ -20,11 +20,12 @@ xml.div(:id=>'content-general') do
       xml << file_row( :event_image, :image )
       xml << check_box_row( :event_image, :remove )
 
-      if @event.event_id
-        created = Event_transaction.select({:event_id=>@event.event_id},{:order=>:changed_when,:limit=>1})[0]
+      if @event.event_id && @event.current_transaction_id != 0
+        oldest_transaction = Log::Event.select_single({:event_id=>@event.event_id},{:only=>[:log_transaction_id],:limit=>1,:order=>Momomoto::asc(:log_transaction_id)})
+        created = Log::Log_transaction.select_single({:log_transaction_id=>oldest_transaction.log_transaction_id})
         xml.tr do
           xml.td do xml.label( local('event::creation_time') ) end
-          xml.td created.changed_when.strftime('%Y-%m-%d %H:%M:%S')
+          xml.td created.log_timestamp.strftime('%Y-%m-%d %H:%M:%S')
         end if created
       end
 
