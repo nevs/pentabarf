@@ -41,7 +41,6 @@ class EventController < ApplicationController
 
     @conference = @current_conference
     @attachments = []
-    @transaction = Event_transaction.new
     @event_rating_remark = Event_rating_remark.new
     render(:action=>'edit')
   end
@@ -55,7 +54,6 @@ class EventController < ApplicationController
     @conference = Conference.select_single( :conference_id => @event.conference_id )
     @current_conference = @conference
     @attachments = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language})
-    @transaction = Event_transaction.select_or_new({:event_id=>@event.event_id},{:limit=>1})
   end
 
   def save
