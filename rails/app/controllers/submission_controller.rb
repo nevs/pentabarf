@@ -21,7 +21,6 @@ class SubmissionController < ApplicationController
       @event = Event.new({:conference_id=>@conference.conference_id,:event_id=>0})
     end
     @attachments = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language})
-    @transaction = Event_transaction.select_single({:event_id=>@event.event_id}) rescue Event_transaction.new
   end
 
   def events
@@ -51,8 +50,6 @@ class SubmissionController < ApplicationController
     write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
     write_rows( Event_attachment, params[:event_attachment], {:always=>[:public]} )
     write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
-
-    Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
 
     redirect_to( :action => :event, :id => event.event_id )
   end
