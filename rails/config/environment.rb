@@ -71,5 +71,6 @@ require 'builder_enhancements'
 require 'pope'
 ::POPE = Pope.new
 require 'momomoto_auth'
+require 'momomoto_transaction_ids'
 
 
