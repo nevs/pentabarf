@@ -79,8 +79,6 @@ class EventController < ApplicationController
     write_rows( Event_attachment, params[:event_attachment], {:always=>[:public]} )
     write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
 
-    Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
-
     redirect_to( :action => :edit, :event_id => event.event_id )
   end
 
