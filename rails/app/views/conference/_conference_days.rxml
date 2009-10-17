@@ -14,6 +14,7 @@ xml.div(:id=>'content-days') do
       xml.tbody(:id=>'conference_day_tbody') do
         xml.tr(:id=>'conference_day_template',:style=>'display:none') do
           xml.td do
+            xml.input({:type=>:hidden,:id=>'conference_day[row_id][current_transaction_id]',:name=>'conference_day[row_id][current_transaction_id]'})
             xml.input({:type=>:hidden,:id=>'conference_day[row_id][conference_day_id]',:name=>'conference_day[row_id][conference_day_id]'})
             xml.input({:type=>:text,:id=>'conference_day[row_id][conference_day]',:name=>'conference_day[row_id][conference_day]',:size=>10})
           end
@@ -32,7 +33,7 @@ xml.div(:id=>'content-days') do
 
     xml.script(:type=>'text/javascript') do
       @conference.days.each do | c |
-        xml << js_function( 'table_add_row', 'conference_day', c.conference_day_id, c.conference_day, c.name, c.public)
+        xml << js_function( 'table_add_row', 'conference_day', c.current_transaction_id, c.conference_day_id, c.conference_day, c.name, c.public)
       end
     end
 

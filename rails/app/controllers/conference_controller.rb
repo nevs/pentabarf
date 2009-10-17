@@ -26,7 +26,6 @@ class ConferenceController < ApplicationController
     @current_conference = @conference
     @conference.feedback_base_url = url_for(:controller=>:pentabarf,:action=>:index,:only_path=>false)
 
-    @transaction = Conference_transaction.new({:conference_id=>@conference.conference_id})
     render(:action=>'edit')
   end
 
@@ -34,17 +33,9 @@ class ConferenceController < ApplicationController
     @conference = Conference.select_single( :conference_id => params[:conference_id] )
     @current_conference = @conference
     @content_title = @conference.title
-    @transaction = Conference_transaction.select_or_new({:conference_id=>@conference.conference_id},{:limit=>1})
   end
 
   def save
-    if params[:transaction].to_i != 0
-      transaction = Conference_transaction.select_single({:conference_id=>params[:conference_id]},{:limit=>1})
-      if transaction.conference_transaction_id != params[:transaction].to_i
-        raise "Simultanious edit"
-      end
-    end
-
     conf = write_row( Conference, params[:conference], {:except=>[:conference_id],:always=>[:f_submission_enabled,:f_submission_new_events,:f_submission_writable,:f_visitor_enabled,:f_feedback_enabled,:f_reconfirmation_enabled],:init=>{:conference_id=>nil}} )
     custom_bools = Custom_fields.select({:table_name=>:conference,:field_type=>:boolean}).map(&:field_name)
     write_row( Custom_conference, params[:custom_conference], {:preset=>{:conference_id=>conf.conference_id},:always=>custom_bools})
@@ -58,7 +49,6 @@ class ConferenceController < ApplicationController
     write_rows( Event_rating_category, params[:event_rating_category], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:event_rating_category})
     write_rows( Conference_room_role, params[:conference_room_role] )
     write_file_row( Conference_image, params[:conference_image], {:preset=>{:conference_id => conf.conference_id},:image=>true})
-    Conference_transaction.new({:conference_id=>conf.conference_id,:changed_by=>POPE.user.person_id}).write
 
     POPE.user.current_conference_id ||= conf.conference_id
     redirect_to( :action => :edit, :conference_id => conf.conference_id)
