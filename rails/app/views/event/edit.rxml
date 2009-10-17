@@ -18,6 +18,7 @@ xml.div( :id => 'data' ) do
 
     xml.input({:type=>:hidden,:name=>:transaction,:value=>@transaction.event_transaction_id})
     xml << hidden_field( @event, :event_id )
+    xml << hidden_field( @event, :current_transaction_id )
 
     xml << render( :partial => 'shared/modification_buttons' )
     xml << render( :partial => 'event_comment' )

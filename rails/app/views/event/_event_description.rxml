@@ -25,6 +25,7 @@ xml.div(:id=>'content-description') do
               end
             end
             xml.td do
+              xml.input({:type=>:hidden,:name=>"event_attachment[#{row_id}][current_transaction_id]",:value=>attachment.current_transaction_id})
               xml.input({:type=>:hidden,:name=>"event_attachment[#{row_id}][event_attachment_id]",:value=>row_id})
               xml << select_tag( "event_attachment[#{row_id}][attachment_type]", Attachment_type_localized.select(:translated=>@current_language).map{|e| [e.attachment_type,e.name]}, {:selected=>attachment.attachment_type} )
             end
