@@ -4,7 +4,7 @@ module Builder_helper
   def hidden_field( row, column )
     xml = Builder::XmlMarkup.new
     name = "#{row.class.table.table_name}[#{column}]"
-    xml.input({:type=>:hidden, :id=>name, :name => name, :value => row[column]})
+    xml.input({:type=>:hidden, :id=>name, :name => name, :value => row.send(column)})
   end
 
   def text_field_row( row, column, options = {}, &block )
