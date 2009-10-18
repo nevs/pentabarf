@@ -10,7 +10,10 @@ xml.div do
         xml.tr do
           @languages.each do | translated |
             msg = @messages.select{|m| m.translated == translated.language && m[@master] == tag[@master] && m[@slave] == tag[@slave]}[0]
-            xml.td do xml.input({:name=>"#{@table}[#{tag[@master]}][#{tag[@slave]}][#{translated.language}][name]",:value=>msg ? msg.name : '',:size=>40}) end
+            xml.td do 
+              xml.input({:type=>:hidden,:name=>"#{@table}[#{tag[@master]}][#{tag[@slave]}][#{translated.language}][current_transaction_id]",:value=>msg ? msg.current_transaction_id : 0})
+              xml.input({:name=>"#{@table}[#{tag[@master]}][#{tag[@slave]}][#{translated.language}][name]",:value=>msg ? msg.name : '',:size=>40})
+            end
           end
         end
       end
