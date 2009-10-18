@@ -50,6 +50,8 @@ end
 
 # Include your application configuration below
 
+ActionController::AbstractRequest::TRUSTED_PROXIES = /^(10|127|172\.(1[6-9]|2[0-9]|30|31)|192\.168)\./i
+
 # read mail configuration if available
 if File.exists?("#{RAILS_ROOT}/config/mail.yml")
   config = YAML.load_file("#{RAILS_ROOT}/config/mail.yml")
