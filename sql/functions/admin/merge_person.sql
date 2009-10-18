@@ -17,19 +17,19 @@ CREATE OR REPLACE FUNCTION merge_person( primary_person INTEGER, secondary_perso
     INSERT INTO auth.account_role(account_id,role) 
       SELECT primary_account_id, role 
         FROM auth.account INNER JOIN auth.account_role USING (account_id)
-        WHERE person_id = secondary_person
-      EXCEPT SELECT account_id, role 
+        WHERE account.person_id = secondary_person
+      EXCEPT SELECT primary_account_id, role 
         FROM auth.account INNER JOIN auth.account_role USING (account_id)
-        WHERE person_id = primary_person;
+        WHERE account.person_id = primary_person;
 
     -- copy conference roles from secondary account to primary account
     INSERT INTO auth.account_conference_role(account_id,conference_id,conference_role) 
       SELECT primary_account_id, conference_id, conference_role
         FROM auth.account INNER JOIN auth.account_conference_role USING (account_id)
-        WHERE person_id = secondary_person
-      EXCEPT SELECT account_id, conference_id, conference_role
+        WHERE account.person_id = secondary_person
+      EXCEPT SELECT primary_account_id, conference_id, conference_role
         FROM auth.account INNER JOIN auth.account_conference_role USING (account_id)
-        WHERE person_id = primary_person;
+        WHERE account.person_id = primary_person;
 
     -- delete secondary account
     DELETE FROM auth.account WHERE person_id = secondary_person;
