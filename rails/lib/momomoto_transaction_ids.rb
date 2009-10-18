@@ -5,6 +5,9 @@ module Momomoto
 
     # returns the current log_transaction_id of the current record
     def current_transaction_id
+      # new rows don't have a transaction history
+      return 0 if new_record?
+
       table = self.class.table
       begin
         log_table = "Log::#{table.table_name.capitalize}".constantize
