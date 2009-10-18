@@ -3,6 +3,7 @@ xml.div(:id=>'content-account') do
   xml.fieldset do
     xml.legend local('account')
 
+    xml << hidden_field( @account, :current_transaction_id )
     xml.table do
       xml << text_field_row( @account, :login_name, {:size=>20} )
       xml << text_field_row( @account, :email, {:size=>20} )

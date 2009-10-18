@@ -69,8 +69,36 @@ module MomomotoHelper
     # current_transaction_id is 0 if there is no log_transaction_id available 
     if current_transaction_id != 0 && current_transaction_id != row.current_transaction_id
       # mismatching transaction ids means we tried to modify an outdated row
-      raise "Trying to modify outdated data."
+      # check if there really was a conflicting edit
+      log_table = "Log::#{row.class.table.table_name.capitalize}".constantize
+      row_old = row.get_transaction_id( current_transaction_id )
+      row_now = row.get_transaction_id( row.current_transaction_id )
+      modified_columns = compare_transactions( row_old, row_now )
+      real_modified_columns = compare_transactions( row_old, row )
+      row.dirty.dup.each do | column |
+        if modified_columns.member?( column ) && row[column] != row_now[column]
+          # check whether the modification was really in our transaction
+          if ! real_modified_columns.member?( column ) && row_old[column] == row[column]
+            # the detected modifications resulted from us working on an old transaction
+            # ignore this column in this save 
+            row[column] = row_now[column]
+            row.dirty.delete( column )
+          else
+            raise "Conflicting edit found for table #{row.class.table.table_name}."
+          end
+        end
+      end
     end
+  end
+
+  # returns the modified rows between two transactions
+  def compare_transactions( t1, t2 )
+    modified_columns = []
+    t1.class.table.columns.keys.each do | column |
+      next if [:log_transaction_id,:log_operation].member?( column )
+      modified_columns << column if t1[column] != t2[column]
+    end
+    modified_columns
   end
 
   # writes mulitple rows to the database

@@ -9,22 +9,6 @@ class View_event_attachment < Momomoto::Table
       0
     end
 
-    def rooms( *args )
-      conference_room( *args )
-    end
-
-    def tracks( *args )
-      conference_track( *args )
-    end
-
-    def releases( *args )
-      conference_release( *args )
-    end
-
-    def latest_release
-      conference_release({}, {:limit=>1,:order=>Momomoto.desc(:conference_release_id)})[0]
-    end
-
   end
 
 end

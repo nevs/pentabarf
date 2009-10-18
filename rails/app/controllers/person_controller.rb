@@ -24,7 +24,6 @@ class PersonController < ApplicationController
     @account = Account.new(:person_id=>@person.person_id)
     @account_conference_roles = []
     @settings = Account_settings.new(:account_id=>@account.account_id.to_i)
-    @transaction = Person_transaction.new({:person_id=>@person.person_id})
     render(:action=>'edit')
   end
 
@@ -39,17 +38,9 @@ class PersonController < ApplicationController
     @account = Account.select_or_new(:person_id=>@person.person_id)
     @settings = Account_settings.select_or_new(:account_id=>@account.account_id.to_i)
     @account_conference_roles = @account.new_record? ? [] : Account_conference_role.select(:account_id=>@account.account_id,:conference_id=>@conference.conference_id)
-    @transaction = Person_transaction.select_or_new({:person_id=>@person.person_id},{:limit=>1})
   end
 
   def save
-    if params[:transaction].to_i != 0
-      transaction = Person_transaction.select_single({:person_id=>params[:person_id]},{:limit=>1})
-      if transaction.person_transaction_id != params[:transaction].to_i
-        raise "Simultanious edit"
-      end
-    end
-
     person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam],:init=>{:person_id=>nil}} )
     if params[:account]
       params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
@@ -83,7 +74,6 @@ class PersonController < ApplicationController
       params[:account_conference_role].each do | k,v | v[:remove] = true if not v[:set] end
       write_rows( Account_conference_role, params[:account_conference_role], {:preset=>{:account_id=>account.account_id,:conference_id=>@current_conference.conference_id},:except=>[:set]})
     end
-    Person_transaction.new({:person_id=>person.person_id,:changed_by=>POPE.user.person_id}).write
 
     redirect_to( :action => :edit, :person_id => person.person_id )
   end

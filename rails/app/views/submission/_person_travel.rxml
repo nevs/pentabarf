@@ -6,6 +6,7 @@ xml.div(:id=>'content-travel') do
     xml.table do
       xml.tr do
         xml.td do
+          xml << hidden_field( @conference_person_travel, :current_transaction_id )
           xml.table do
             xml.tr do xml.th( local( 'arrival' ), {:colspan=>2}) end
             xml << text_field_row( @conference_person_travel, :arrival_from )
