@@ -13,6 +13,7 @@ xml.div(:id=>'content-events') do
       xml.tbody(:id=>'event_person_tbody') do
         xml.tr(:id=>'event_person_template',:style=>'display:none') do
           xml.td do
+            xml.input({:type=>:hidden,:id=>'event_person[row_id][current_transaction_id]',:name=>'event_person[row_id][current_transaction_id]'})
             xml.input({:type=>:hidden,:id=>'event_person[row_id][event_person_id]',:name=>'event_person[row_id][event_person_id]'})
             xml << select_tag( 'event_person[row_id][event_id]', Event.select({:conference_id=>@current_conference.conference_id},{:order=>:title}).map{|e| [e.event_id, e.title]} )
           end
@@ -26,6 +27,7 @@ xml.div(:id=>'content-events') do
 
           xml.tr(:class=>ep.event_state) do
             xml.td do
+              xml.input({:type=>:hidden,:id=>"event_person[#{index}][current_transaction_id]",:name=>"event_person[#{index}][current_transaction_id]",:value=>ep.current_transaction_id})
               xml.input({:type=>:hidden,:id=>"event_person[#{index}][event_person_id]",:name=>"event_person[#{index}][event_person_id]",:value=>ep.event_person_id})
               xml.a(ep.title,{:href=>url_for(:controller=>'event',:action=>:edit,:event_id=>ep.event_id)})
             end

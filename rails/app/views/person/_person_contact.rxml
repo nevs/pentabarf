@@ -24,6 +24,7 @@ xml.div(:id=>'content-contact') do
       xml.tbody(:id=>'person_im_tbody') do
         xml.tr(:id=>'person_im_template',:style=>'display:none') do
           xml.td do
+            xml.input({:type=>:hidden,:id=>'person_im[row_id][current_transaction_id]',:name=>'person_im[row_id][current_transaction_id]'})
             xml.input({:type=>:hidden,:id=>'person_im[row_id][person_im_id]',:name=>'person_im[row_id][person_im_id]'})
             xml << select_tag( 'person_im[row_id][im_type]', Im_type.select.map{|e| e.im_type} )
           end
@@ -35,7 +36,7 @@ xml.div(:id=>'content-contact') do
 
     xml.script(:type=>'text/javascript') do
       Person_im.select( :person_id => @person.person_id ).each do | c |
-        xml << js_function( 'table_add_row', 'person_im', c.person_im_id, c.im_type, c.im_address )
+        xml << js_function( 'table_add_row', 'person_im', c.current_transaction_id, c.person_im_id, c.im_type, c.im_address )
       end
     end
 
@@ -56,6 +57,7 @@ xml.div(:id=>'content-contact') do
       xml.tbody(:id=>'person_phone_tbody') do
         xml.tr(:id=>'person_phone_template',:style=>'display:none') do
           xml.td do
+            xml.input({:type=>:hidden,:id=>'person_phone[row_id][current_transaction_id]',:name=>'person_phone[row_id][current_transaction_id]'})
             xml.input({:type=>:hidden,:id=>'person_phone[row_id][person_phone_id]',:name=>'person_phone[row_id][person_phone_id]'})
             xml << select_tag( 'person_phone[row_id][phone_type]', Phone_type.select.map{|e| e.phone_type} )
           end
@@ -67,7 +69,7 @@ xml.div(:id=>'content-contact') do
 
     xml.script(:type=>'text/javascript') do
       Person_phone.select( :person_id => @person.person_id ).each do | c |
-        xml << js_function( 'table_add_row', 'person_phone', c.person_phone_id, c.phone_type, c.phone_number )
+        xml << js_function( 'table_add_row', 'person_phone', c.current_transaction_id, c.person_phone_id, c.phone_type, c.phone_number )
       end
     end
 
