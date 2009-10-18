@@ -316,17 +316,6 @@ function add_event_person( current_transaction_id, event_person_id, person_id, e
   replace_element_with_hidden_field( select );
 }
 
-function add_person_event( event_person_id, event_id, event_role, event_role_state, remark ) {
-  table_add_row( 'event_person', event_person_id, event_id, event_role, event_role_state, remark );
-  var index = table_row_counter['event_person'] - 1;
-  var select = $('event_person[' + index + '][event_id]');
-  var link = document.createElement('a');
-  link.href = document.URL.replace( /person\/\d+(#.*)?/, 'event/' + select.value );
-  link.appendChild( document.createTextNode( select.options[select.selectedIndex].text ) );
-  select.parentNode.appendChild( link );
-  replace_element_with_hidden_field( select );
-}
-
 function rename_valuelist_local( valuelist ) {
   var row_id = $( valuelist + '_rename[old_name]').selectedIndex;
   var new_value = $F( valuelist + '_rename[new_name]');
