@@ -23,8 +23,13 @@ module MomomotoHelper
     options[:only].map!(&:to_sym) if options[:only]
     options[:always].map!(&:to_sym)
     row = klass.select_or_new( options[:preset] ) do | field | values[field] end
+    current_transaction_id = values.delete('current_transaction_id')
+
     if options[:remove] && values['remove']
-      row.delete if not row.new_record?
+      if not row.new_record?
+        check_current_transaction_id( current_transaction_id, row )
+        row.delete
+      end
       return row
     end
 
@@ -48,8 +53,24 @@ module MomomotoHelper
       row[ field_name ] = nil unless values.key?( field_name.to_s )
     end
     yield row if block_given?
-    row.write
+
+    if row.dirty?
+      check_current_transaction_id( current_transaction_id, row )
+      row.write
+    end
+
     row
+  end
+
+  # check that we are mofifying the most recent row
+  def check_current_transaction_id( current_transaction_id, row )
+    current_transaction_id = current_transaction_id.to_i
+
+    # current_transaction_id is 0 if there is no log_transaction_id available 
+    if current_transaction_id != 0 && current_transaction_id != row.current_transaction_id
+      # mismatching transaction ids means we tried to modify an outdated row
+      raise "Trying to modify outdated data."
+    end
   end
 
   # writes mulitple rows to the database

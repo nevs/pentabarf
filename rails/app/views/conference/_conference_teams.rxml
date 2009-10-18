@@ -12,6 +12,7 @@ xml.div(:id=>'content-teams') do
       xml.tbody(:id=>'conference_team_tbody') do
         xml.tr(:id=>'conference_team_template',:style=>'display:none') do
           xml.td do
+            xml.input({:type=>:hidden,:id=>'conference_team[row_id][current_transaction_id]',:name=>'conference_team[row_id][current_transaction_id]'})
             xml.input({:type=>:text,:id=>'conference_team[row_id][conference_team]',:name=>'conference_team[row_id][conference_team]'})
           end
           xml.td do
@@ -23,7 +24,7 @@ xml.div(:id=>'content-teams') do
 
     xml.script(:type=>'text/javascript') do 
       Conference_team.select( :conference_id => @conference.conference_id ).each do | c |
-        xml << js_function( 'table_add_row', 'conference_team', c.conference_team )
+        xml << js_function( 'table_add_row', 'conference_team', c.current_transaction_id, c.conference_team )
       end
     end
 

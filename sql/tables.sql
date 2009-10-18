@@ -78,8 +78,6 @@ BEGIN;
 \i tables/event_role_state_localized.sql
 \i tables/conference_room_role.sql
 \i tables/event_person.sql
-\i tables/conference_transaction.sql
-\i tables/event_transaction.sql
 \i tables/person_transaction.sql
 \i tables/attachment_type.sql
 \i tables/attachment_type_localized.sql

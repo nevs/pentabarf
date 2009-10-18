@@ -14,6 +14,7 @@ xml.div(:id=>'content-rating') do
       xml.tbody(:id=>'event_rating_category_tbody') do
         xml.tr(:id=>'event_rating_category_template',:style=>'display:none') do
           xml.td do
+            xml.input({:type=>:hidden,:id=>'event_rating_category[row_id][current_transaction_id]',:name=>'event_rating_category[row_id][current_transaction_id]'})
             xml.input({:type=>:hidden,:id=>'event_rating_category[row_id][event_rating_category_id]',:name=>'event_rating_category[row_id][event_rating_category_id]'})
             xml.input({:type=>:text,:id=>'event_rating_category[row_id][event_rating_category]',:name=>'event_rating_category[row_id][event_rating_category]'})
           end
@@ -25,7 +26,7 @@ xml.div(:id=>'content-rating') do
 
     xml.script(:type=>'text/javascript') do
       categories.each do | c |
-        xml << js_function( 'table_add_row', 'event_rating_category', c.event_rating_category_id, c.event_rating_category, c.rank )
+        xml << js_function( 'table_add_row', 'event_rating_category', c.current_transaction_id, c.event_rating_category_id, c.event_rating_category, c.rank )
       end
     end
 

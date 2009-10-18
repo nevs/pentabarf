@@ -305,8 +305,8 @@ function replace_element_with_hidden_field( element ) {
   Element.remove( element );
 }
 
-function add_event_person( event_person_id, person_id, event_role, event_role_state, remark ) {
-  table_add_row( 'event_person', event_person_id, person_id, event_role, event_role_state, remark );
+function add_event_person( current_transaction_id, event_person_id, person_id, event_role, event_role_state, remark ) {
+  table_add_row( 'event_person', current_transaction_id, event_person_id, person_id, event_role, event_role_state, remark );
   var index = table_row_counter['event_person'] - 1;
   var select = $('event_person[' + index + '][person_id]');
   var link = document.createElement('a');

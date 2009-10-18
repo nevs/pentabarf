@@ -38,6 +38,7 @@ xml.div(:id=>'content-export') do
       xml.tbody(:id=>'conference_release_tbody') do
         xml.tr(:id=>'conference_release_template',:style=>'display:none') do
           xml.td do
+            xml.input({:type=>:hidden,:id=>'conference_release[row_id][current_transaction_id]',:name=>'conference_release[row_id][current_transaction_id]'})
             xml.input({:type=>:hidden,:id=>'conference_release[row_id][conference_release_id]',:name=>'conference_release[row_id][conference_release_id]'})
             xml.input({:type=>:text,:id=>'conference_release[row_id][conference_release]',:name=>'conference_release[row_id][conference_release]'})
           end
@@ -50,7 +51,7 @@ xml.div(:id=>'content-export') do
 
     xml.script(:type=>'text/javascript') do
       @conference.releases.each do | c |
-        xml << js_function( 'table_add_row', 'conference_release', c.conference_release_id, c.conference_release )
+        xml << js_function( 'table_add_row', 'conference_release', c.current_transaction_id, c.conference_release_id, c.conference_release )
       end
     end
 

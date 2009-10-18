@@ -18,6 +18,7 @@ xml.div(:id=>'content-links') do
             end
           end
           xml.td do
+            xml.input({:type=>:hidden,:id=>'event_link[row_id][current_transaction_id]',:name=>'event_link[row_id][current_transaction_id]'})
             xml.input({:type=>:hidden,:id=>'event_link[row_id][event_link_id]',:name=>'event_link[row_id][event_link_id]'})
             xml.input({:type=>:text,:id=>'event_link[row_id][url]',:name=>'event_link[row_id][url]',:value=>"http://",:onchange=>"$('event_link[row_id][link]').setAttribute( 'href', $F(this));"})
           end
@@ -29,7 +30,7 @@ xml.div(:id=>'content-links') do
 
     xml.script(:type=>'text/javascript') do
       Event_link.select( :event_id => @event.event_id ).each do | c |
-        xml << js_function( 'table_add_row', 'event_link', c.event_link_id, c.url, c.title )
+        xml << js_function( 'table_add_row', 'event_link', c.current_transaction_id, c.event_link_id, c.url, c.title )
       end
     end if @event.event_id
 

@@ -10,6 +10,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_person_availability( I
       SELECT DISTINCT ON ( event_person.event_id, event_person.person_id )
              event_person.event_id, event_person.person_id
         FROM event_person
+        INNER JOIN event_role USING (event_role)
         INNER JOIN event ON (
           event.event_id = event_person.event_id AND
           event.start_time IS NOT NULL
@@ -20,7 +21,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_person_person_availability( I
             conference.conference_id = cur_conference_id)
         INNER JOIN conference_day USING(conference_day_id)
       WHERE
-        event_person.event_role IN ('speaker','moderator') AND
+        event_role.public = true AND
         event_person.event_role_state = 'confirmed' AND
         event.event_state = 'accepted' AND
         ( ( slot.start_date <= (conference_day.conference_day + event.start_time + conference.day_change) AND

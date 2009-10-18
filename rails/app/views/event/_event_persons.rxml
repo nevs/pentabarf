@@ -15,6 +15,7 @@ xml.div(:id=>'content-persons') do
       xml.tbody(:id=>'event_person_tbody') do
         xml.tr(:id=>'event_person_template',:style=>'display:none') do
           xml.td do
+            xml.input({:type=>:hidden,:id=>'event_person[row_id][current_transaction_id]',:name=>'event_person[row_id][current_transaction_id]',:value=>0})
             xml.input({:type=>:hidden,:id=>'event_person[row_id][event_person_id]',:name=>'event_person[row_id][event_person_id]'})
             xml << select_tag( 'event_person[row_id][person_id]', View_person.select.map{|p| [p.person_id, p.name]}, {:with_empty=>true} )
           end
@@ -28,10 +29,10 @@ xml.div(:id=>'content-persons') do
 
     xml.script(:type=>'text/javascript') do
       if @event.new_record?
-        xml << js_function( 'add_event_person', nil, POPE.user.person_id, 'submitter' )
+        xml << js_function( 'add_event_person', 0, nil, POPE.user.person_id, 'submitter' )
       else
         @event.persons.each do | e |
-          xml << js_function( 'add_event_person', e.event_person_id, e.person_id, e.event_role, e.event_role_state, e.remark )
+          xml << js_function( 'add_event_person', e.current_transaction_id, e.event_person_id, e.person_id, e.event_role, e.event_role_state, e.remark )
         end
       end
     end

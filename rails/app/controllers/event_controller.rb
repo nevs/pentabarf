@@ -41,7 +41,6 @@ class EventController < ApplicationController
 
     @conference = @current_conference
     @attachments = []
-    @transaction = Event_transaction.new
     @event_rating_remark = Event_rating_remark.new
     render(:action=>'edit')
   end
@@ -55,17 +54,9 @@ class EventController < ApplicationController
     @conference = Conference.select_single( :conference_id => @event.conference_id )
     @current_conference = @conference
     @attachments = View_event_attachment.select({:event_id=>@event.event_id,:translated=>@current_language})
-    @transaction = Event_transaction.select_or_new({:event_id=>@event.event_id},{:limit=>1})
   end
 
   def save
-    if params[:transaction].to_i != 0
-      transaction = Event_transaction.select_single({:event_id=>params[:event_id]},{:limit=>1})
-      if transaction.event_transaction_id != params[:transaction].to_i
-        raise "Simultanious edit"
-      end
-    end
-
     event = write_row( Event, params[:event], {:except=>[:event_id,:conference_id],:init=>{:event_id=>nil,:conference_id=>@current_conference.conference_id},:always=>[:public]} )
     custom_bools = Custom_fields.select({:table_name=>:event,:field_type=>:boolean}).map(&:field_name)
     write_row( Custom_event, params[:custom_event], {:preset=>{:event_id=>event.event_id},:always=>custom_bools})
@@ -87,8 +78,6 @@ class EventController < ApplicationController
     write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
     write_rows( Event_attachment, params[:event_attachment], {:always=>[:public]} )
     write_file_rows( Event_attachment, params[:attachment_upload], {:preset=>{:event_id=>event.event_id}})
-
-    Event_transaction.new({:event_id=>event.event_id,:changed_by=>POPE.user.person_id}).write
 
     redirect_to( :action => :edit, :event_id => event.event_id )
   end
