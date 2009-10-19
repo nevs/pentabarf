@@ -510,6 +510,8 @@ INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::conference_day', 'de', 'Tag');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::conference_day', 'en', 'Day');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::conference_day', 'pt', 'Dia');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::conference_day_id', 'de', 'Tag');
+INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::conference_day_id', 'en', 'Day');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::conference_id', 'de', 'Konferenz');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::conference_id', 'en', 'Conference');
 INSERT INTO ui_message_localized (ui_message, translated, name) VALUES ('event::conference_id', 'pt', 'Conferência');
