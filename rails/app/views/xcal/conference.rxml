@@ -1,4 +1,4 @@
-@conference.events(:language=>@current_language).each do | event |
+@conference.events(:translated=>@current_language).each do | event |
   xml.vevent do
     xml.method( "PUBLISH" )
     xml.uid( "#{event.event_id}@#{@conference.acronym}@pentabarf.org")
