@@ -55,16 +55,17 @@ module ApplicationHelper
     days = conference.days({},{:order=>:conference_day}).map(&:conference_day)
     days.each do | d | table[d.to_s] = [] end
     # fill array with times
+    offset = conference.day_change.hour * 3600
     table.each do | conference_day, day_table |
       current = 0
       while current < 24 * 60 * 60
-        table[conference_day].push( { 0 => sprintf("%02d:%02d", (current/3600)%24, (current%3600)/60 ) } )
+        table[conference_day].push( { 0 => sprintf("%02d:%02d", ((current+offset)/3600)%24, (current%3600)/60 ) } )
         current += timeslot_seconds
       end
     end
     events.each do | event |
       slots = (event.duration.hour * 3600 + event.duration.min * 60)/timeslot_seconds
-      start_slot = (event.start_time.hour * 3600 + event.start_time.min * 60) / timeslot_seconds
+      start_slot = (event.start_offset.hour * 3600 + event.start_offset.min * 60) / timeslot_seconds
       next if table[event.conference_day.to_s][start_slot][event.conference_room_id]
       table[event.conference_day.to_s][start_slot][event.conference_room_id] = {:event_id => event.event_id, :slots => slots}
       slots.times do | i |

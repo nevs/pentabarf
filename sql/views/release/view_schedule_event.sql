@@ -14,6 +14,7 @@ CREATE OR REPLACE VIEW release.view_schedule_event AS
     view_schedule_day.conference_day,
     view_schedule_day.name AS conference_day_name,
     event.duration,
+    event.start_time AS start_offset,
     event.start_time + conference.day_change AS start_time,
     (view_schedule_day.conference_day + event.start_time + conference.day_change)::timestamp AS start_datetime,
     (view_schedule_day.conference_day + event.start_time + conference.day_change + event.duration)::timestamp AS end_datetime,

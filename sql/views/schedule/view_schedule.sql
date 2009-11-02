@@ -20,6 +20,7 @@ CREATE OR REPLACE VIEW view_schedule AS
           event.conference_day_id,
           conference_day.conference_day,
           conference_day.name AS conference_day_name,
+          event.start_time AS start_offset,
           event.start_time + conference.day_change AS start_time,
           event.abstract,
           event.description,
