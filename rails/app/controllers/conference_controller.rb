@@ -5,8 +5,14 @@ class ConferenceController < ApplicationController
   around_filter :update_last_login, :except=>[:copy,:delete,:select]
 
   def select
+    valid_conferences = POPE.conferences_with_permission(:'pentabarf::login')
+    if valid_conferences.length == 1
+      # if there is only one valid conference immediately set it as active conference
+      POPE.user.current_conference_id = valid_conferences[0]
+      POPE.user.write
+      redirect_to(:controller=>'pentabarf')
+    end
     @current_conference = Conference.new
-
   end
 
   def save_current_conference
