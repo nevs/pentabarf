@@ -10,7 +10,12 @@ end
 
 tabs = [:general,:availability,:events,:contact,:description,:links,:rating,:travel]
 
-tabs << :account if POPE.conference_permission?('account_conference_role::create', POPE.user.current_conference_id) || POPE.user.person_id == @person.person_id
+if POPE.user.person_id == @person.person_id ||
+  POPE.permission?('account::modify') || # global admins
+  ( POPE.conference_permission?('account_conference_role::create', POPE.user.current_conference_id) && 
+    !@account.new_record? ) # conference adins
+  tabs << :account 
+end
 
 xml << js_tabs( tabs )
 
