@@ -6,13 +6,18 @@ class ConferenceController < ApplicationController
 
   def select
     valid_conferences = POPE.conferences_with_permission(:'pentabarf::login')
-    if valid_conferences.length == 1
-      # if there is only one valid conference immediately set it as active conference
-      POPE.user.current_conference_id = valid_conferences[0]
-      POPE.user.write
-      redirect_to(:controller=>'pentabarf')
+    case valid_conferences.length
+      when 0 then
+        # if there is no valid conference immediately redirect to new conference page
+        # if the user can login to the backend without an actual conference
+        # he has global privileges so a redirect to the new conference page is fine
+        redirect_to(:controller=>'conference',:action=>:new)
+      when 1 then
+        # if there is only one valid conference immediately set it as active conference
+        POPE.user.current_conference_id = valid_conferences[0]
+        POPE.user.write
+        redirect_to(:controller=>'pentabarf')
     end
-    @current_conference = Conference.new
   end
 
   def save_current_conference
