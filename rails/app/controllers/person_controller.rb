@@ -70,9 +70,13 @@ class PersonController < ApplicationController
     write_file_row( Person_image, params[:person_image], {:preset=>{:person_id => person.person_id},:always=>[:public],:image=>true})
     write_person_availability( @current_conference, person, params[:person_availability])
 
-    if account && POPE.conference_permission?( 'account_conference_role::create', @current_conference.conference_id )
-      params[:account_conference_role].each do | k,v | v[:remove] = true if not v[:set] end
-      write_rows( Account_conference_role, params[:account_conference_role], {:preset=>{:account_id=>account.account_id,:conference_id=>@current_conference.conference_id},:except=>[:set]})
+    if params[:account_conference_role] && POPE.conference_permission?( 'account_conference_role::create', @current_conference.conference_id )
+      begin
+        account ||= Account.select_single({:person_id=>person.person_id})
+        params[:account_conference_role].each do | k,v | v[:remove] = true if not v[:set] end
+        write_rows( Account_conference_role, params[:account_conference_role], {:preset=>{:account_id=>account.account_id,:conference_id=>@current_conference.conference_id},:except=>[:set]})
+      rescue Momomoto::Nothing_found
+      end
     end
 
     redirect_to( :action => :edit, :person_id => person.person_id )
