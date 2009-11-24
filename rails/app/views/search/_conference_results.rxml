@@ -11,14 +11,15 @@ paginate( xml, @results, params[:id].to_i ) do | results |
     end
     xml.tbody do
       results.each do | conference |
+        conf_url = url_for(:controller=>'conference',:action=>'edit',:conference_id=>conference.conference_id)
         xml.tr do
           xml.td do
-            xml.a({:href=>url_for(:action=>:conference,:id=>conference.conference_id)}) do
+            xml.a({:href=>conf_url}) do
               xml.img({:src=>url_for(:controller=>'image',:action=>:conference,:id=>conference.conference_id,:size=>"24x24"),:height=>24,:witdh=>24})
             end
           end
           fields.each do | field |
-            xml.td do xml.a( conference.send(field), {:href=>url_for(:action=>:conference,:id=>conference.conference_id)}) end
+            xml.td do xml.a(conference.send(field), {:href=>conf_url}) end
           end
         end
       end
