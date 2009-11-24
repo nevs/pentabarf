@@ -1,8 +1,10 @@
 xml.div( :id => 'sidebar' ) do
 
   xml.div( :id => 'logo' ) do
-    xml.a( :href => url_for(:controller=>'conference',:action=>:edit,:conference_id=>POPE.user.current_conference_id)) do
-      xml.img( :src=>url_for(:controller=>'image',:action=>'conference',:id=>POPE.user.current_conference_id,:size=>'128x128'), :height=>128,:width=>128)
+    if POPE.user.current_conference_id
+      xml.a( :href => url_for(:controller=>'conference',:action=>:edit,:conference_id=>POPE.user.current_conference_id)) do
+        xml.img( :src=>url_for(:controller=>'image',:action=>'conference',:id=>POPE.user.current_conference_id.to_i,:size=>'128x128'), :height=>128,:width=>128)
+      end
     end
   end
 
