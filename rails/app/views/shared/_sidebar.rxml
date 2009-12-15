@@ -12,7 +12,13 @@ xml.div( :id => 'sidebar' ) do
 
     xml.div(:class=>'menu-item-group') do
       xml.form(:action=>url_for(:controller=>'conference',:action=>:save_current_conference),:method=>:post,:class=>'menu-text') do
-        xml << select_tag('conference_id', Conference.select({:conference_id=>POPE.conferences_with_permission('pentabarf::login')}).map{|e| [e.conference_id,e.acronym]}, {:selected=>POPE.user.current_conference_id,:onchange=>'submit()'} )
+        conference_ids = POPE.conferences_with_permission('pentabarf::login')
+        if conference_ids.empty?
+          conferences = []
+        else
+          conferences = Conference.select({:conference_id=>conference_ids}).map{|e| [e.conference_id,e.acronym]}
+        end
+        xml << select_tag('conference_id', conferences, {:selected=>POPE.user.current_conference_id,:onchange=>'submit()'} )
       end
     end
 
