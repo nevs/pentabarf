@@ -1,6 +1,6 @@
 class PentabarfController < ApplicationController
 
-  around_filter :check_current_conference
+  around_filter :check_current_conference, :except=>[:activity]
   before_filter :init
   around_filter :update_last_login, :except=>[:activity]
 
