@@ -76,6 +76,7 @@ class SubmissionController < ApplicationController
     write_row( Account_settings, params[:account_settings], {:preset=>{:account_id=>account.account_id}})
     options = {:preset=>{:person_id => person.person_id,:conference_id=>@conference.conference_id}}
     options[ @conference.f_reconfirmation_enabled ? :always : :except ] = [:reconfirmed]
+    params[:conference_person] ||= {}
     conference_person = write_row( Conference_person, params[:conference_person], options )
     POPE.refresh if not POPE.own_conference_person?( conference_person.conference_person_id )
     custom_bools = Custom_fields.select({:table_name=>:person,:field_type=>:boolean,:submission_visible=>true,:submission_settable=>true}).map(&:field_name)
