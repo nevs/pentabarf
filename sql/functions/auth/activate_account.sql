@@ -14,6 +14,7 @@ CREATE OR REPLACE FUNCTION auth.activate_account( activation_string char(64)) RE
       INSERT INTO person(person_id,nickname,email) SELECT cur_person_id,login_name,email FROM auth.account WHERE account.account_id = cur_activation.account_id;
       UPDATE auth.account SET person_id = cur_person_id WHERE account_id = cur_activation.account_id;
       INSERT INTO auth.account_settings(account_id,current_conference_id) VALUES (cur_activation.account_id, cur_activation.conference_id);
+      DELETE FROM auth.account_activation WHERE account_activation.activation_string = activation_string;
     ELSE
       PERFORM 1 FROM log.account_activation WHERE account_activation.activation_string = activation_string AND account_activation.log_operation = 'D';
       IF FOUND THEN
