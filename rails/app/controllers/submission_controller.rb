@@ -65,6 +65,7 @@ class SubmissionController < ApplicationController
   def save_person
     params[:person][:person_id] = POPE.user.person_id
     person = write_row( Person, params[:person], {:except=>[:person_id],:always=>[:spam]} )
+    params[:account] ||= {}
     params[:account][:account_id] = Account.select_single(:person_id=>person.person_id).account_id rescue nil
     account = write_row( Account, params[:account], {:only=>[:current_language],:preset=>{:person_id=>person.person_id}} ) do | row |
       if params[:account][:password].to_s != ""
