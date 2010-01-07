@@ -6,6 +6,7 @@ xml.div(:id=>'content-files') do
     xml.table do
       xml.thead do
         xml.tr do
+          xml.th
           ['event_attachment::attachment_type','event_attachment::public','event_attachment::filename','event_attachment::title','event_attachment::pages','event_attachment::mime_type','form::remove'].each do | field |
             xml.th( local(field) )
           end
@@ -15,6 +16,11 @@ xml.div(:id=>'content-files') do
         @attachments.each do | attachment |
           row_id = attachment.event_attachment_id
           xml.tr do
+            xml.td do
+              xml.a({:href=>url_for(:controller=>'event',:action=>:attachment,:event_id=>attachment.event_id,:event_attachment_id=>attachment.event_attachment_id)}) do
+                xml.img({:src=>image_path('icon-link-32x32.png'),:height=>24,:width=>24})
+              end
+            end
             xml.td do
               xml.input({:type=>:hidden,:name=>"event_attachment[#{row_id}][current_transaction_id]",:value=>attachment.current_transaction_id})
               xml.input({:type=>:hidden,:name=>"event_attachment[#{row_id}][event_attachment_id]",:value=>row_id})

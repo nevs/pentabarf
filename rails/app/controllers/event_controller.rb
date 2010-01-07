@@ -1,6 +1,6 @@
 class EventController < ApplicationController
 
-  around_filter :check_current_conference
+  around_filter :check_current_conference, :except=>[:attachment]
   before_filter :init
   around_filter :update_last_login, :except=>[:copy,:delete,:save]
 
@@ -89,7 +89,7 @@ class EventController < ApplicationController
 
   def attachment
     data = View_event_attachment.select_single({:event_attachment_id=>params[:event_attachment_id],:event_id=>params[:event_id],:translated=>@current_language})
-    file = Event_attachment.select_single({:event_attachment_id => params[:event_attachment_id],:event_id=>params[:event_id]})
+    file = data.event_attachment
     response.headers['Content-Disposition'] = "attachment; filename=\"#{file.filename}\""
     response.headers['Content-Type'] = data.mime_type
     response.headers['Content-Length'] = data.filesize
@@ -125,7 +125,16 @@ class EventController < ApplicationController
       when 'own','state' then
         POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id) &&
         POPE.conference_permission?('event::show',POPE.user.current_conference_id)
-      when 'edit','conflicts','attachment' then
+      when 'attachment' then
+        (
+          POPE.event_permission?('pentabarf::login',params[:event_id]) &&
+          POPE.event_permission?('event::show',params[:event_id])
+        ) || (
+          POPE.event_permission?('submission::login',params[:event_id]) &&
+          POPE.event_permission?('event::modify_own',params[:event_id]) &&
+          !!Event_attachment.select_single({:event_id=>params[:event_id],:event_attachment_id=>params[:event_attachment_id],:public=>'t'})
+        )
+      when 'edit','conflicts' then
         POPE.event_permission?('pentabarf::login',params[:event_id]) &&
         POPE.event_permission?('event::show',params[:event_id])
       when 'save' then

@@ -11,5 +11,7 @@ class View_event_attachment < Momomoto::Table
 
   end
 
+  fk_helper_single :event_attachment, Event_attachment, [:event_attachment_id]
+
 end
 
