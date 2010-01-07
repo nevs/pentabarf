@@ -7,3 +7,8 @@ domain:     localhost
 from:       noreply@pentabarf.org
 always_cc:
 
+exception_recipients:
+  - foo@example.com
+
+exception_subject: 'Pentabarf Exception'
+
