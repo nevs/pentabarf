@@ -19,8 +19,8 @@ CREATE OR REPLACE VIEW view_event_rating AS
     event_rating
     INNER JOIN view_person USING (person_id)
   WHERE
-    NOT EXISTS( SELECT 1 FROM event_rating_remark WHERE event_rating_remark.event_id = event_rating.event_id ) AND
-    NOT EXISTS( SELECT 1 FROM event_rating_remark WHERE event_rating_remark.person_id = event_rating.person_id )
+    NOT EXISTS( SELECT 1 FROM event_rating_remark WHERE event_rating_remark.event_id = event_rating.event_id AND
+                event_rating_remark.person_id = event_rating.person_id )
   GROUP BY event_id,person_id,name
   ORDER BY eval_time DESC
 ;
