@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'schedule/:conference_id/style.css', :controller => 'schedule', :action => 'css'
   map.connect 'schedule/:conference_id/:action.:language.html',:controller => 'schedule'
   map.connect 'schedule/:conference_id/:action/:id.:language.html',:controller => 'schedule'
-  map.connect 'schedule/:conference_id/attachments/:event_id/:event_attachment_id/:filename', :controller => 'schedule', :action => 'event_attachment'
+  map.connect 'schedule/:conference_id/attachments/:event_id/:event_attachment_id/:filename', :controller => 'schedule', :action => 'event_attachment', :filename=> /[^\/]+/
 
   map.connect 'feedback/:conference/style.css',:controller => 'feedback', :action => 'css'
   map.connect 'feedback/:conference/:action/:id.:language.html',:controller => 'feedback'
