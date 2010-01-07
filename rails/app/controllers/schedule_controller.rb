@@ -28,6 +28,21 @@ class ScheduleController < ApplicationController
     @content_title = @event.title
   end
 
+  def event_attachment
+    @event = @conference.events({:translated=>@current_language,:event_id=>params[:id]})[0]
+    raise StandardError unless @event
+    data = @event.attachments.select({:event_attachment_id=>params[:event_attachment_id]})[0]
+    raise StandardError unless data
+    file = data.data
+    response.headers['Content-Disposition'] = "attachment; filename=\"#{file.filename}\""
+    response.headers['Content-Type'] = data.mime_type
+    response.headers['Content-Length'] = data.filesize
+#    response.headers['Last-Modified'] = file.last_modified
+    render(:text=>file.data)
+   rescue
+    render(:text=>"File not found",:status=>404)
+  end
+
   def track_event
     @track = @conference.tracks({:conference_track=>params[:track]})[0]
     raise StandardError unless @track

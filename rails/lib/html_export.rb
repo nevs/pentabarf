@@ -50,15 +50,12 @@ class HTMLExport
       url[:controller] ||= 'schedule'
       url[:language] ||= 'en'
       target = case url[:controller]
-        when 'event' then
-          case url[:action]
-            when :attachment then "attachments/#{url[:event_attachment_id]}#{url[:filename].to_s.length > 0 ? '_' + url[:filename] : ''}"
-          end
         when 'schedule' then
           case url[:action]
             when :index then "index.#{url[:language]}.html"
             when :day then "day_#{url[:id]}.#{url[:language]}.html"
             when :event then "events/#{url[:id]}.#{url[:language]}.html"
+            when :event_attachment then "attachments/#{url[:event_attachment_id]}#{url[:filename].to_s.length > 0 ? '_' + url[:filename] : ''}"
             when :events then "events.#{url[:language]}.html"
             when :track_event then "track/#{url[:track]}/#{url[:id]}.#{url[:language]}.html"
             when :track_events then "track/#{url[:track]}/index.#{url[:language]}.html"
