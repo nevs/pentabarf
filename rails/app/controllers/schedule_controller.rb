@@ -29,11 +29,11 @@ class ScheduleController < ApplicationController
   end
 
   def event_attachment
-    @event = @conference.events({:translated=>@current_language,:event_id=>params[:id]})[0]
+    @event = @conference.events({:translated=>@current_language,:event_id=>params[:event_id]})[0]
     raise StandardError unless @event
-    data = @event.attachments.select({:event_attachment_id=>params[:event_attachment_id]})[0]
+    data = @event.attachments({:event_attachment_id=>params[:event_attachment_id]})[0]
     raise StandardError unless data
-    file = data.data
+    file = data.event_attachment
     response.headers['Content-Disposition'] = "attachment; filename=\"#{file.filename}\""
     response.headers['Content-Type'] = data.mime_type
     response.headers['Content-Length'] = data.filesize
