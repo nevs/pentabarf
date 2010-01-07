@@ -111,6 +111,19 @@ class ApplicationController < ActionController::Base
     rescue => e
       logger.error(e)
     end
+
+    # always include backtrace in exception mails
+    if not verbose
+      message += "Backtrace:\n" + clean_backtrace(exception).join("\n") +
+                 "Request: #{filter_parameters(params).inspect}\n"
+    end
+
+    begin
+      MailLogger.log( exception.message, message )
+    rescue => e
+      logger.error(e)
+    end
+
   end
 
   def update_last_login
