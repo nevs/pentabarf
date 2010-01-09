@@ -13,6 +13,7 @@ require 'momomoto_auth'
 require 'momomoto_logging'
 require 'pope'
 require 'jabberlogger'
+require 'maillogger'
 require 'yaml'
 require 'bluecloth'
 
