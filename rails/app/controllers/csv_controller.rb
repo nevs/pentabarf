@@ -63,6 +63,11 @@ class CsvController < ApplicationController
 
   protected
 
+  def check_permission
+    return true if POPE.conference_permission?('pentabarf::login',POPE.user.current_conference_id)
+    false
+  end
+
   def generate_csv( data, filename, header = nil )
     out = ""
     CSV::Writer.generate( out ) do | csv |
