@@ -4,7 +4,7 @@ require 'localization_controller'
 # Re-raise errors caught by the controller.
 class LocalizationController; def rescue_action(e) raise e end; end
 
-class LocalizationControllerTest < Test::Unit::TestCase
+class LocalizationControllerTest < ActionController::TestCase
 
   def setup
     @controller = LocalizationController.new

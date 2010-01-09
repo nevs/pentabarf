@@ -4,7 +4,7 @@ require 'ical_controller'
 # Re-raise errors caught by the controller.
 class IcalController; def rescue_action(e) raise e end; end
 
-class IcalControllerTest < Test::Unit::TestCase
+class IcalControllerTest < ActionController::TestCase
   def setup
     @controller = IcalController.new
     @request    = ActionController::TestRequest.new

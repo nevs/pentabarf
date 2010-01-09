@@ -4,7 +4,7 @@ require 'user_controller'
 # Re-raise errors caught by the controller.
 class UserController; def rescue_action(e) raise e end; end
 
-class UserControllerTest < Test::Unit::TestCase
+class UserControllerTest < ActionController::TestCase
   def setup
     @controller = UserController.new
     @request    = ActionController::TestRequest.new

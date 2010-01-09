@@ -4,7 +4,7 @@ require 'xcal_controller'
 # Re-raise errors caught by the controller.
 class XcalController; def rescue_action(e) raise e end; end
 
-class XcalControllerTest < Test::Unit::TestCase
+class XcalControllerTest < ActionController::TestCase
   def setup
     @controller = XcalController.new
     @request    = ActionController::TestRequest.new

@@ -4,7 +4,7 @@ require 'submission_controller'
 # Re-raise errors caught by the controller.
 class SubmissionController; def rescue_action(e) raise e end; end
 
-class SubmissionControllerTest < Test::Unit::TestCase
+class SubmissionControllerTest < ActionController::TestCase
   def setup
     @controller = SubmissionController.new
     @request    = ActionController::TestRequest.new

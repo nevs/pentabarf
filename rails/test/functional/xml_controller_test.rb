@@ -4,7 +4,7 @@ require 'xml_controller'
 # Re-raise errors caught by the controller.
 class XmlController; def rescue_action(e) raise e end; end
 
-class XmlControllerTest < Test::Unit::TestCase
+class XmlControllerTest < ActionController::TestCase
   def setup
     @controller = XmlController.new
     @request    = ActionController::TestRequest.new

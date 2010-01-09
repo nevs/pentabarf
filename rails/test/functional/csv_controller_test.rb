@@ -4,7 +4,7 @@ require 'csv_controller'
 # Re-raise errors caught by the controller.
 class CsvController; def rescue_action(e) raise e end; end
 
-class CsvControllerTest < Test::Unit::TestCase
+class CsvControllerTest < ActionController::TestCase
   def setup
     @controller = CsvController.new
     @request    = ActionController::TestRequest.new

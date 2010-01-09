@@ -4,7 +4,7 @@ require 'atom_controller'
 # Re-raise errors caught by the controller.
 class AtomController; def rescue_action(e) raise e end; end
 
-class AtomControllerTest < Test::Unit::TestCase
+class AtomControllerTest < ActionController::TestCase
   def setup
     @controller = AtomController.new
     @request    = ActionController::TestRequest.new
