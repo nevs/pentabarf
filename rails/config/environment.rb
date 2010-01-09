@@ -11,6 +11,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 require 'momomoto/momomoto'
 require 'momomoto_logging'
 require 'jabberlogger'
+require 'maillogger'
 require 'yaml'
 require 'bluecloth'
 
