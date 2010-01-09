@@ -93,7 +93,7 @@ class HTMLExport
         when :schedule then
           case url[:action].to_sym
             when :index,:day,:events,:speakers,:css then 0 
-            when :event,:speaker then 1
+            when :event,:speaker,:event_attachment then 1
             when :track_events,:track_event then 2
           end
         when :image,:event then 1
