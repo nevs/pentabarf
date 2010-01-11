@@ -16,6 +16,7 @@ class EventController < ApplicationController
     @conflicts += View_conflict_event_event.call({:conference_id => @event.conference_id},{:event_id1=>params[:event_id],:translated=>@current_language})
     @conflicts += View_conflict_event_person.call({:conference_id => @event.conference_id},{:event_id=>params[:event_id],:translated=>@current_language})
     @conflicts += View_conflict_event_person_event.call({:conference_id => @event.conference_id},{:event_id1=>params[:event_id],:translated=>@current_language})
+    render(:partial=>'conflicts')
   end
 
   def state
