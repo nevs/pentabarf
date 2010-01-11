@@ -1,7 +1,7 @@
 class PentabarfController < ApplicationController
 
   around_filter :check_current_conference, :except=>[:activity]
-  before_filter :init
+  before_filter :init, :except=>[:activity]
   around_filter :update_last_login, :except=>[:activity]
 
   def conflicts
