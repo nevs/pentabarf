@@ -21,7 +21,7 @@ INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_incon
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_inconsistent_tag', 'de', 'Veranstaltung mit fehlerhafter Kennung');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_inconsistent_tag', 'en', 'Event with incorrectly named tag');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_missing_tag', 'de', 'Veranstaltung mit fehlender eindeutiger Kennung');
-INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_missing_tag', 'en', 'Event with missing unique tag');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_missing_tag', 'en', 'Event with missing unique tag (slug)');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_abstract', 'de', 'Veranstaltung ohne Kurzbeschreibung');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_abstract', 'en', 'event without abstract');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_no_coordinator', 'de', 'Veranstaltung ohne Koordinator');
