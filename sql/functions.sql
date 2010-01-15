@@ -17,6 +17,8 @@
 \i functions/conflict/event_event/conflict_event_event.sql
 \i functions/conflict/event_event/duplicate_tag.sql
 \i functions/conflict/event_event/time.sql
+\i functions/conflict/event_event/event_without_break_before.sql
+\i functions/conflict/event_event/event_without_break_after.sql
 \i functions/conflict/event/incomplete.sql
 \i functions/conflict/event/inconsistent_public_link.sql
 \i functions/conflict/event/inconsistent_tag.sql
