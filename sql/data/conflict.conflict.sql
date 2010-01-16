@@ -31,6 +31,8 @@ INSERT INTO conflict (conflict, conflict_type) VALUES ('event_person_language', 
 INSERT INTO conflict (conflict, conflict_type) VALUES ('event_person_person_availability', 'event_person');
 INSERT INTO conflict (conflict, conflict_type) VALUES ('event_slides_unknown', 'event');
 INSERT INTO conflict (conflict, conflict_type) VALUES ('event_unconfirmed_with_timeslot', 'event');
+INSERT INTO conflict (conflict, conflict_type) VALUES ('event_without_break_after', 'event_event');
+INSERT INTO conflict (conflict, conflict_type) VALUES ('event_without_break_before', 'event_event');
 INSERT INTO conflict (conflict, conflict_type) VALUES ('person_abstract_length', 'person');
 INSERT INTO conflict (conflict, conflict_type) VALUES ('person_description_length', 'person');
 INSERT INTO conflict (conflict, conflict_type) VALUES ('person_inconsistent_public_link', 'person');

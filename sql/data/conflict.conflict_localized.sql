@@ -60,6 +60,10 @@ INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_slide
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_slides_unknown', 'en', 'Event with unknown slides state.');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_unconfirmed_with_timeslot', 'de', 'Akzeptierte und unbestätigte Veranstaltung ohne Zeitfenster');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_unconfirmed_with_timeslot', 'en', 'Accepted and unconfirmed event with timeslot');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_without_break_after', 'de', 'Veranstaltung ohne Pause danach');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_without_break_after', 'en', 'Event without break after');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_without_break_before', 'de', 'Veranstaltultung ohne Pause davor');
+INSERT INTO conflict_localized (conflict, translated, name) VALUES ('event_without_break_before', 'en', 'Event without break before');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('person_abstract_length', 'de', 'Empfohlene Personenabstrakt-Länge überschritten');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('person_abstract_length', 'en', 'Recommended person abstract length exceeded');
 INSERT INTO conflict_localized (conflict, translated, name) VALUES ('person_description_length', 'de', 'Empfohlene Personenbeschreibungs-Länge überschritten');
