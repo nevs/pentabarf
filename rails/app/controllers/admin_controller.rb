@@ -33,7 +33,7 @@ class AdminController < ApplicationController
 
   def conflict_setup
     @content_title = 'Conflict Setup'
-    @phases = Conference_phase_localized.select(:translated=>@current_language)
+    @phases = Conference_phase_localized.select(:translated=>@current_language,{:order=>'conference_phase'})
     @conflicts = Conflict_localized.select({:translated=>@current_language})
     @level = Conflict_level_localized.select(:translated=>@current_language).map{|l|[l.conflict_level,l.name]}
     @phase_conflicts = Conference_phase_conflict.select
