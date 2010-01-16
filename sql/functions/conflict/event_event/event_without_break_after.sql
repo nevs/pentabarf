@@ -1,6 +1,6 @@
 
 -- returns events followed by another event without a break in between
-CREATE OR REPLACE FUNCTION conflict.conflict_event_event_no_break_after( INTEGER ) RETURNS SETOF conflict.conflict_event_event AS $$
+CREATE OR REPLACE FUNCTION conflict.conflict_event_no_break_after( INTEGER ) RETURNS SETOF conflict.conflict_event_event AS $$
 -- Loop through all events
   SELECT
     e2.event_id AS event_id1,
