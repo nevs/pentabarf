@@ -6,7 +6,7 @@ class EventController < ApplicationController
 
   def copy
     cp = Copy_event.call({:source_event_id=>params[:event_id],:target_conference_id=>params[:conference_id],:coordinator_id=>POPE.user.person_id})
-    redirect_to({:controller=>'event',:action=>'edit',:id=>cp[0].copy_event})
+    redirect_to({:controller=>'event',:action=>'edit',:event_id=>cp[0].copy_event})
   end
 
   def conflicts
