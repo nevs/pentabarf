@@ -8,7 +8,7 @@ require File.dirname(__FILE__) + '/../config/environment'
 require 'action_controller/integration'
 require 'lib/html_export'
 
-require 'application'
+require 'application_controller'
 class ApplicationController < ActionController::Base
   def transaction_wrapper
     yield
