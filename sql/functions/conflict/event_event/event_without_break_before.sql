@@ -23,6 +23,6 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_without_break_before( INTEGER
       e1.start_time + conference_day.conference_day = e2.start_time + conference_day.conference_day + e2.duration
     )
   WHERE
-    event.conference_id = $1;
+    e1.conference_id = $1;
 $$ LANGUAGE 'SQL';
 
