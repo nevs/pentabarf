@@ -1,8 +1,9 @@
 CREATE OR REPLACE VIEW view_schedule_person AS
   SELECT
     person.person_id,
+    person.organisation,
     coalesce(person.public_name, coalesce(person.first_name || ' ', '') || person.last_name, person.nickname) AS name,
-    person.email,
+    conference_person.email,
     conference.conference_id,
     conference_person.conference_person_id,
     conference_person.abstract,

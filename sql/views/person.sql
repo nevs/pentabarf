@@ -9,6 +9,7 @@ CREATE OR REPLACE VIEW view_person AS
          last_name,
          public_name,
          nickname,
+         organisation,
          address,
          street,
          street_postcode,
