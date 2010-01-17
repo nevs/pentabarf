@@ -4,6 +4,7 @@ CREATE OR REPLACE VIEW view_event AS
   SELECT event.event_id,
          event.conference_id,
          event.slug,
+         event.tags,
          event.title,
          event.subtitle,
          event.conference_track_id,
