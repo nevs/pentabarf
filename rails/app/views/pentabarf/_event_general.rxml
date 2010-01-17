@@ -4,9 +4,10 @@ xml.div(:id=>'content-general') do
     xml.legend local('event::tab::general')
 
     xml.table do
-      xml << text_field_row( @event, :title )
-      xml << text_field_row( @event, :subtitle )
+      xml << text_field_row( @event, :title, {:counter=>0} )
+      xml << text_field_row( @event, :subtitle, {:counter=>0} )
       xml << text_field_row( @event, :slug )
+      xml << text_field_row( @event, :tags )
       xml << select_row( @event, :event_origin, Event_origin.select({},{:order=>:rank}).map{|e| e.event_origin} )
       xml << select_row( @event, :event_state, Event_state.select({},{:order=>:rank}).map{|e| [e.event_state,e.event_state]}, {:master=>:event_state_progress} )
       xml << select_row( @event, :event_state_progress, Event_state_progress.select({},{:order=>[:event_state,:rank]}).map{|e| [e.event_state_progress,e.event_state,e.event_state_progress]},{:slave=>true} )

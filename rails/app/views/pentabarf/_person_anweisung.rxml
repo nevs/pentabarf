@@ -1,0 +1,6 @@
+xml.div(:id=>'content-anweisung') do
+
+  xml << text_area_fieldset( @conference_person, :handlungsanweisung, {:rows=>12,:counter=>0} )
+
+end
+
