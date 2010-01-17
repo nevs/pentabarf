@@ -24,6 +24,6 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
       end
       xml << @content_for_layout
     end
+    xml << @conference.schedule_html_include if @conference.schedule_html_include
   end
-  xml << @conference.schedule_html_include if @conference.schedule_html_include
 end
