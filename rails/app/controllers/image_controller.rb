@@ -3,7 +3,7 @@ require 'RMagick'
 
 class ImageController < ApplicationController
 
-  before_filter :modified_since, :only=>[:conference,:event,:person]
+#  before_filter :modified_since, :only=>[:conference,:event,:person]
 
   [:conference, :event, :person].each do | action |
     define_method( action ) do
