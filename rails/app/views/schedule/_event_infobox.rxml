@@ -11,7 +11,12 @@ xml.div(:id=>'infobox') do
           end
         end
         xml.td do
-          xml.a(person.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
+          if person.event_role == 'moderator'
+            name = "Moderation: #{person.name}"
+          else
+            name = person.name
+          end
+          xml.a(name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
         end
       end
     end

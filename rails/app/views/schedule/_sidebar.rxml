@@ -4,7 +4,7 @@ xml.div(:id=>'menu', :class=>'noprint') do
       xml.a(:href=>url_for({:action=>:index,:language=>params[:language],:conference=>@conference.acronym})) do
         xml.span('Index', :class=>:normal)
       end
-    end
+    end if false
     @conference.days.each do | day |
       xml.li do
         xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:day,:id=>day.conference_day.to_s,:language=>params[:language]})) do
@@ -14,21 +14,21 @@ xml.div(:id=>'menu', :class=>'noprint') do
     end
     xml.li do
       xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:speakers,:language=>params[:language]})) do
-        xml.span(local('schedule::speakers'), :class=>:normal)
+        xml.span(local('schedule::speakers'), :class=> params[:action].to_sym == :speakers ? :selected : :normal )
       end
     end
     xml.li do
       xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:events,:language=>params[:language]})) do
-        xml.span(local('schedule::events'), :class=>:normal)
+        xml.span(local('schedule::events'), :class=> [:events,:track_events,:event,:track_event].member?(params[:action].to_sym) ? :selected : :normal )
       end
     end
-    if @conference.tracks.length > 0
+    if @conference.tracks.length > 0 && [:event,:track_event,:events,:track_events].member?(params[:action].to_sym)
       xml.li do
         xml.ul(:class=>'track') do
           @conference.tracks.each do | track |
             xml.li(:class=>sanitize_track(track.conference_track)) do
               xml.a(:href=>url_for({:conference=>@conference.acronym,:action=>:track_events,:track=>track.conference_track,:language=>params[:language]})) do
-                xml.span( track.conference_track, :class=>:normal)
+                xml.span( track.conference_track, :class=> params[:action].to_sym == :track_events && params[:track] == track.conference_track ? :selected : :normal )
               end
             end
           end
@@ -36,4 +36,23 @@ xml.div(:id=>'menu', :class=>'noprint') do
       end
     end
   end
+
+  xml.div({:id=>'dataexport'}) do
+    xml.ul(:role=>'navigation') do
+      links = []
+      links << [url_for({:controller=>'ical',:conference=>@conference.acronym,:action=>:conference,:language=>params[:language]}), "iCal"]
+      links << [url_for({:controller=>'xcal',:conference=>@conference.acronym,:action=>:conference,:language=>params[:language]}), "xCal"]
+      links << [url_for({:controller=>'xml',:conference=>@conference.acronym,:action=>:schedule,:language=>params[:language]}), "XML"]
+
+      links.each do | link |
+        xml.li do
+          xml.a(:href=>link.first) do
+            xml.span(link.last, :class=>:normal)
+          end
+        end
+      end
+
+    end
+  end
+
 end

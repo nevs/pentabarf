@@ -19,12 +19,13 @@ xml.div(:id=>'speaker',:class=>'section vcard') do
 
   xml.h1( @speaker.name, {:class=>'fn'})
   xml.img(:class=>'speaker-image photo',:src=>person_image(@speaker.person_id, 128))
+  xml.div(@person.organisation,{:class=>'organisation'})
   xml.div(:class=>'abstract note') do xml << markup(@speaker.abstract) end
   xml.div(:class=>:description) do xml << markup(@speaker.description) end
 
   if @speaker.email
     xml.h2 'Contact'
-    xml.p @speaker.email.gsub(/@/, ' at ').gsub(/\./, ' dot ')
+    xml.a( @speaker.email, {:href=>"mailto:#{@speaker.email}"})
   end
 
   if @speaker.conference_person_id

@@ -15,7 +15,16 @@ xml.div(:id=>'speaker-index',:class=>'section') do
             xml.a(:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)) do
               xml.img(:class=>'speaker-image',:src=>person_image(person.person_id, 48))
             end
-            xml.a(person.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
+            xml.a(person.name,{:class=>:name,:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
+            if person.organisation
+              xml.a(person.organisation,{:class=>:organisation,:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
+            end
+
+            if person.abstract
+              xml.a({:class=>:abstract,:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)}) do
+                xml << markup( person.abstract )
+              end
+            end
           end
           xml.td(:class=>'events') do
             xml.ul(:class=>'events') do 

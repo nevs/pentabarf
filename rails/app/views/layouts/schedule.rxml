@@ -5,7 +5,9 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
     xml.meta(:'http-equiv'=>'Content-Type',:content=>'text/html; charset=utf-8')
     xml.meta(:name=>'generator',:content=>'Pentabarf')
     xml.meta(:name=>'DC.date',:content=>Date.today.to_s)
-    xml.title "#{@conference.acronym}: #{@content_title}"
+    xml.meta(:'http-equiv'=>'pragma',:content=>'no-cache')
+    xml.meta(:'http-equiv'=>'expires',:content=>'0')
+    xml.title "#{@conference.title}: #{@content_title}"
     xml.link(:href=>url_for(:action=>:css,:conference=>@conference.acronym),:rel=>'Stylesheet',:media=>'screen,print',:type=>'text/css')
   end
   xml.body do
@@ -24,6 +26,6 @@ xml.html(:xmlns => 'http://www.w3.org/1999/xhtml') do
       end
       xml << @content_for_layout
     end
+    xml << @conference.schedule_html_include if @conference.schedule_html_include
   end
-  xml << @conference.schedule_html_include if @conference.schedule_html_include
 end

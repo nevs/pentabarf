@@ -48,12 +48,22 @@ xml.div(:id=>'event-index',:class=>'section') do
                 end
               end
             end
+            xml.p(:class=>'abstract') do
+              xml.a({:href=>url_for(:conference=>@conference.acronym,:action=>:event,:language=>params[:language],:id=>event.event_id)}) do
+                xml << markup(event.abstract)
+              end
+            end
           end
           xml.td(:class=>"speakers #{sanitize_track(event.conference_track)}") do
             xml.ul(:class=>'speakers') do
               event.persons.each do | person |
                 xml.li do
-                  xml.a(person.name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
+                  if person.event_role == 'moderator'
+                    name = "Moderation: #{person.name}"
+                  else
+                    name = person.name
+                  end
+                  xml.a(name,{:href=>url_for(:conference=>@conference.acronym,:action=>:speaker,:language=>params[:language],:id=>person.person_id)})
                 end
               end
             end
