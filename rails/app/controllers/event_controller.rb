@@ -73,7 +73,7 @@ class EventController < ApplicationController
     end
     params[:event_rating_remark][:remove] = true if params[:event_rating_remark][:remark].to_s.strip == ""
     write_row( Event_rating_remark, params[:event_rating_remark], {:only=>[:remark],:remove=>true,:preset=>{:event_id => event.event_id,:person_id=>POPE.user.person_id}})
-    write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id},:always=>[:event_role_state],:ignore_empty=>[:person_id]})
+    write_rows( Event_person, params[:event_person], {:preset=>{:event_id => event.event_id},:always=>[:event_role_state],:ignore_empty=>:person_id})
     write_rows( Event_link, params[:event_link], {:preset=>{:event_id => event.event_id},:ignore_empty=>:url})
     write_rows( Event_link_internal, params[:event_link_internal], {:preset=>{:event_id => event.event_id},:ignore_empty=>:url})
     write_file_row( Event_image, params[:event_image], {:preset=>{:event_id => event.event_id},:image=>true})
