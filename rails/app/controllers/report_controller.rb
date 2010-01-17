@@ -2,7 +2,7 @@ class ReportController < ApplicationController
   before_filter :init
   around_filter :update_last_login
 
-  REPORTS = [:arrived,:not_arrived,:pickup,:expenses,:feedback,:missing,:paper,:slides,:resources,:review]
+  REPORTS = [:accommodation,:arrived,:not_arrived,:pickup,:expenses,:feedback,:missing,:paper,:slides,:resources,:review]
 
   def index
   end
