@@ -1,0 +1,73 @@
+xml.div({:id=>:data}) do
+
+  xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:accommodation})}) do
+    xml.button( 'CSV' )
+  end
+
+  xml.table({:id=>:report_accommodation_table,:class=>:sortable}) do
+    xml.thead do
+      xml.tr do
+#        xml.th( local( "person::first_name" ), {:colspan=>2} )
+        xml.th( local( "person::first_name" ) )
+        xml.th( local( "person::last_name" ) )
+        xml.th( local( "person::email" ) )
+        xml.th( local( "person_phone" ) )
+        xml.th( local( "conference_person_travel::arrival_from" ) )
+        xml.th( local( "conference_person_travel::arrival_to" ) )
+        xml.th( local( "conference_person_travel::arrival_date" ) )
+#        xml.th( local( "conference_person_travel::arrival_time" ) )
+        xml.th( local( "conference_person_travel::arrival_transport" ) )
+        xml.th( local( "conference_person_travel::arrival_pickup" ) )
+        xml.th( local( "conference_person_travel::departure_from" ) )
+        xml.th( local( "conference_person_travel::departure_to" ) )
+        xml.th( local( "conference_person_travel::departure_date" ) )
+#        xml.th( local( "conference_person_travel::departure_time" ) )
+        xml.th( local( "conference_person_travel::departure_transport" ) )
+        xml.th( local( "conference_person_travel::departure_pickup" ) )
+        xml.th( local( "conference_person_travel::travel_cost" ) )
+        xml.th( local( "conference_person_travel::need_accommodation" ) )
+        xml.th( local( "conference_person_travel::accommodation_name" ) )
+        xml.th( local( "conference_person_travel::accommodation_cost" ) )
+      end
+    end
+
+    xml.tbody do
+      @rows.each do | row |
+        xml.tr do
+#          xml.td do
+#            xml.a({:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) do
+#              xml.img({:src=>url_for({:controller=>'image',:action=>:person,:id=>row.person_id}),:height=>24,:width=>24})
+#            end
+#          end
+          xml.td do xml.a( row.first_name, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.last_name, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.email, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.phone, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.arrival_from, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.arrival_to, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.arrival_date, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+#          xml.td do xml.a( row.arrival_time, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.arrival_transport, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.arrival_pickup ? 'ja' : 'nein' , {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.departure_from, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.departure_to, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.departure_date, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+#          xml.td do xml.a( row.departure_time, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.departure_transport, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.departure_pickup ? 'ja' : 'nein', {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.travel_cost, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.need_accommodation ? 'ja' : 'nein', {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.accommodation_name, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+          xml.td do xml.a( row.accommodation_cost, {:href=>url_for({:controller=>'pentabarf',:action=>:person,:id=>row.person_id})}) end
+        end
+      end
+    end
+
+  end
+
+  xml.a({:href=>url_for({:controller=>'csv',:id=>@current_conference.acronym,:action=>:accommodation})}) do
+    xml.button( 'CSV' )
+  end
+
+end
+
