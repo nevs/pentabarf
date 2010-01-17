@@ -64,7 +64,7 @@ class ImageController < ApplicationController
     klass = "View_#{action}_image_modification".constantize
     modification = klass.select({"#{action}_id"=>params[:id].to_i}, {:limit=>1} ).first
     if modification
-      @timestamp = modification.last_modified
+      @timestamp = modification.last_modified.to_s
     else
       file = File.join( RAILS_ROOT, "public/images/icon-#{action}-128x128.png" )
       @timestamp = File.mtime( file ).to_s
