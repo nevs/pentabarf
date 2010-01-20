@@ -58,7 +58,7 @@ class ConferenceController < ApplicationController
     write_rows( Conference_release, params[:conference_release], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:conference_release})
     write_rows( Conference_room, params[:conference_room], {:preset=>{:conference_id => conf.conference_id},:always=>[:public],:ignore_empty=>:conference_room})
     write_rows( Event_rating_category, params[:event_rating_category], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:event_rating_category})
-    write_rows( Conference_room_role, params[:conference_room_role] )
+    write_rows( Conference_room_role, params[:conference_room_role], {:preset=>{:conference_id => conf.conference_id},:ignore_empty=>:conference_room_id} )
     write_file_row( Conference_image, params[:conference_image], {:preset=>{:conference_id => conf.conference_id},:image=>true})
 
     POPE.user.current_conference_id ||= conf.conference_id
