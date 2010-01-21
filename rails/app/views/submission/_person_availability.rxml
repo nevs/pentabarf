@@ -24,7 +24,7 @@ xml.div(:id=>'content-availability') do
       xml.tbody do
         @conference.days.each_with_index do | day, index |
           xml.tr do
-            xml.td sprintf("day %d", index + 1 )
+            xml.td day.name ? day.name : day.conference_day
             24.times do | hour |
               real_hour = ( @conference.day_change.hour + hour ) % 24
               date = day.conference_day + ( ( @conference.day_change.hour + hour ) / 24 )
