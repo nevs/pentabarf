@@ -316,6 +316,12 @@ function add_event_person( current_transaction_id, event_person_id, person_id, e
   replace_element_with_hidden_field( select );
 }
 
+function add_conference_day(current_transaction_id,conference_day_id,conference_day,name,public) {
+  table_add_row( 'conference_day', current_transaction_id, conference_day_id, conference_day, name, public );
+  var index = table_row_counter['conference_day'] - 1;
+  Calendar.setup({inputField:'conference_day['+index+'][conference_day]',ifFormat:'%Y-%m-%d',button:'conference_day['+index+'][conference_day_button]',showOthers:true,singleClick:false,onUpdate:enable_save_button});
+}
+
 function rename_valuelist_local( valuelist ) {
   var row_id = $( valuelist + '_rename[old_name]').selectedIndex;
   var new_value = $F( valuelist + '_rename[new_name]');

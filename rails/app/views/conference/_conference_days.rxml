@@ -17,6 +17,7 @@ xml.div(:id=>'content-days') do
             xml.input({:type=>:hidden,:id=>'conference_day[row_id][current_transaction_id]',:name=>'conference_day[row_id][current_transaction_id]'})
             xml.input({:type=>:hidden,:id=>'conference_day[row_id][conference_day_id]',:name=>'conference_day[row_id][conference_day_id]'})
             xml.input({:type=>:text,:id=>'conference_day[row_id][conference_day]',:name=>'conference_day[row_id][conference_day]',:size=>10})
+            xml.button('...',{:type=>:button,:id=>'conference_day[row_id][conference_day_button]'})
           end
           xml.td do
             xml.input({:type=>:text,:id=>'conference_day[row_id][name]',:name=>'conference_day[row_id][name]'})
@@ -33,11 +34,11 @@ xml.div(:id=>'content-days') do
 
     xml.script(:type=>'text/javascript') do
       @conference.days.each do | c |
-        xml << js_function( 'table_add_row', 'conference_day', c.current_transaction_id, c.conference_day_id, c.conference_day, c.name, c.public)
+        xml << js_function( 'add_conference_day', c.current_transaction_id, c.conference_day_id, c.conference_day, c.name, c.public)
       end
     end
 
-    xml.button( local('conference::add_conference_day'), {:type=>:button,:onclick=>'table_add_row("conference_day")'})
+    xml.button( local('conference::add_conference_day'), {:type=>:button,:onclick=>'add_conference_day()'})
   end
 
 end
