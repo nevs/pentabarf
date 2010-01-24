@@ -110,7 +110,8 @@ function table_add_row( table_name ) {
     for( var i = 1; i < arguments.length; i++ ) {
       var field = $( prefix + '[' + field_names[ i - 1] + ']' );
       if (field.type == "checkbox") {
-        field.checked = arguments[i];
+        if (arguments[i] != null)
+          field.checked = arguments[i];
       } else {
         if (arguments[i] == null)
           arguments[i] = ''
