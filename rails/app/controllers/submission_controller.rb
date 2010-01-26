@@ -1,7 +1,6 @@
 class SubmissionController < ApplicationController
 
   before_filter :init
-  before_filter :check_transaction, :only=>[:save_event]
 
   def index
     @conferences = Conference.select({:f_submission_enabled=>true,:f_submission_writable=>true})
@@ -121,16 +120,6 @@ class SubmissionController < ApplicationController
 
   def check_permission
     POPE.permission?('submission::login') || render(:text=>'You are lacking permissions to login to the submission system. The most likely cause for this is your account has not yet been activated.')
-  end
-
-  def check_transaction 
-    action = params[:action].gsub(/^save_/, '') 
-    if params[:transaction].to_i != 0 
-      transaction = "#{action.capitalize}_transaction".constantize.select_single({"#{action}_id"=>params[:id]},{:limit=>1}) 
-      if transaction["#{action}_transaction_id"] != params[:transaction].to_i 
-        raise "Simultanious edit" 
-      end 
-    end 
   end
 
 end
