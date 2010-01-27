@@ -14,6 +14,10 @@ xml.div(:id=>'content-export') do
       xml.button( local( :xcal ) )
     end
 
+    xml.a({:href=>url_for({:controller=>'csv',:action=>:events})}) do
+      xml.button( 'Events CSV' )
+    end
+
     xml.table do
       xml << text_field_row( @conference, :homepage )
       xml << text_field_row( @conference, :export_base_url )
