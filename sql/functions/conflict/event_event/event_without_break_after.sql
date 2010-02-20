@@ -20,7 +20,7 @@ CREATE OR REPLACE FUNCTION conflict.conflict_event_without_break_after( INTEGER 
     ) AS e2 ON (
       e1.conference_id = e2.conference_id AND
       e1.conference_room_id = e2.conference_room_id AND
-      e1.start_time + conference_day.conference_day = e2.start_time + conference_day.conference_day + e2.duration
+      e1.start_time + conference_day.conference_day = e2.start_time + e2.conference_day + e2.duration
     )
   WHERE
     e1.conference_id = $1;
