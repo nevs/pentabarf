@@ -71,7 +71,12 @@ module MomomotoHelper
       # mismatching transaction ids means we tried to modify an outdated row
       # check if there really was a conflicting edit
       log_table = "Log::#{row.class.table.table_name.capitalize}".constantize
-      row_old = row.get_transaction_id( current_transaction_id )
+      begin
+        row_old = row.get_transaction_id( current_transaction_id )
+      rescue Momomoto::Nothing_found
+        # old row not available
+        row_old = row.new
+      end
       row_now = row.get_transaction_id( row.current_transaction_id )
       modified_columns = compare_transactions( row_old, row_now )
       real_modified_columns = compare_transactions( row_old, row )
