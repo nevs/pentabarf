@@ -66,18 +66,15 @@ module MomomotoHelper
   def check_current_transaction_id( current_transaction_id, row )
     current_transaction_id = current_transaction_id.to_i
 
-    # current_transaction_id is 0 if there is no log_transaction_id available 
+    # current_transaction_id is 0 if there is no log_transaction_id available
     if current_transaction_id != 0 && current_transaction_id != row.current_transaction_id
       # mismatching transaction ids means we tried to modify an outdated row
       # check if there really was a conflicting edit
       log_table = "Log::#{row.class.table.table_name.capitalize}".constantize
-      begin
-        row_old = row.get_transaction_id( current_transaction_id )
-      rescue Momomoto::Nothing_found
-        # old row not available
-        row_old = row.new
-      end
-      row_now = row.get_transaction_id( row.current_transaction_id )
+
+      # try to get correspending log entries to check what was really changed
+      row_old = row.get_transaction_id( current_transaction_id ) rescue row.class.new
+      row_now = row.get_transaction_id( row.current_transaction_id ) rescue row
       modified_columns = compare_transactions( row_old, row_now )
       real_modified_columns = compare_transactions( row_old, row )
       row.dirty.dup.each do | column |
@@ -85,7 +82,7 @@ module MomomotoHelper
           # check whether the modification was really in our transaction
           if ! real_modified_columns.member?( column ) && row_old[column] == row[column]
             # the detected modifications resulted from us working on an old transaction
-            # ignore this column in this save 
+            # ignore this column in this save
             row[column] = row_now[column]
             row.dirty.delete( column )
           else
