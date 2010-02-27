@@ -339,7 +339,11 @@ function rename_valuelist_local( valuelist ) {
 }
 
 function logout() {
-  new Ajax.Request(window.location.href,{on403:function(){window.location.href = '/logout'},requestHeaders:{Authorization: 'Basic '+Base64.encode('logout:logout')}});
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.open('GET',window.location,true,"logout","logout");
+  xmlhttp.send('');
+  xmlhttp.abort();
+  window.location = '/logout';
 }
 
 
