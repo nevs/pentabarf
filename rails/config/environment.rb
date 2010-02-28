@@ -12,6 +12,7 @@ require 'momomoto/momomoto'
 require 'momomoto_logging'
 require 'jabberlogger'
 require 'maillogger'
+require 'haml'
 require 'yaml'
 require 'bluecloth'
 
@@ -44,6 +45,8 @@ Rails::Initializer.run do |config|
   Momomoto::Database.connect
 
 end
+
+Haml::Template.options[:escape_html] = true
 
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
