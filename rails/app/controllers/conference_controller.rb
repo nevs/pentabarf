@@ -1,4 +1,5 @@
 class ConferenceController < ApplicationController
+  layout 'pentabarf'
 
   around_filter :check_current_conference, :except => [:select,:new,:save,:save_current_conference]
   before_filter :init

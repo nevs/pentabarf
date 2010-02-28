@@ -4,7 +4,10 @@
   %head
     %meta{:'http-equiv'=>'Content-Type',:content=>'text/html; charset=utf-8'}
     %meta(name='generator' content='Pentabarf')
-    %title= "#{@current_conference.acronym}: #{@content_title} - Pentabarf #{pentabarf_version}"
+    - if @current_conference
+      %title= "#{@current_conference.acronym}: #{@content_title} - Pentabarf #{pentabarf_version}"
+    - else
+      %title= "#{@content_title} - Pentabarf #{pentabarf_version}"
     %link(href="/favicon.ico" rel="shortcut icon")
     %link{:rel=>:alternate,:type=>'application/atom+xml',:title=>:Atom,:href=>url_for(:controller=>'atom',:action=>:recent_changes)}
     != javascript_include_tag('prototype','effects','controls','application', 'sortable')
@@ -22,6 +25,7 @@
       #content
         != yield
 
-    %script(type='text/javascript')= "new Ajax.PeriodicalUpdater('activity','#{url_for(:controller=>'pentabarf',:action=>:activity)}', {frequency:42,decay:5});"
+    - if @current_conference
+      %script(type='text/javascript')= "new Ajax.PeriodicalUpdater('activity','#{url_for(:controller=>'pentabarf',:action=>:activity)}', {frequency:42,decay:5});"
 
 
