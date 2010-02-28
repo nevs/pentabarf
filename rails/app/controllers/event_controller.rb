@@ -1,4 +1,5 @@
 class EventController < ApplicationController
+  layout 'pentabarf'
 
   around_filter :check_current_conference, :except=>[:attachment]
   before_filter :init
