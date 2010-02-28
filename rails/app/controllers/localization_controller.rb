@@ -1,4 +1,5 @@
 class LocalizationController < ApplicationController
+  layout 'pentabarf'
 
   before_filter :init
 

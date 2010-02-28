@@ -1,4 +1,5 @@
 class AdminController < ApplicationController
+  layout 'pentabarf'
 
   before_filter :init
 

@@ -12,6 +12,10 @@ module ApplicationHelper
     "0.4.5"
   end
 
+  def sidebar
+    'shared/sidebar'
+  end
+
   def local( tag, arguments = {} )
     Localizer.lookup( tag.to_s, @current_language, arguments )
   end

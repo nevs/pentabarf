@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  layout 'submission'
 
   before_filter :init
 
