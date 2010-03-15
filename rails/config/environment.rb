@@ -12,7 +12,12 @@ require 'momomoto/momomoto'
 require 'momomoto_logging'
 require 'jabberlogger'
 require 'maillogger'
+
 require 'haml'
+require 'fast_gettext'
+include FastGettext::Translation
+require 'haml_gettext'
+
 require 'yaml'
 require 'bluecloth'
 
@@ -47,6 +52,7 @@ Rails::Initializer.run do |config|
 end
 
 Haml::Template.options[:escape_html] = true
+FastGettext.add_text_domain('pentabarf',:path=>'locale',:type=>:po)
 
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
