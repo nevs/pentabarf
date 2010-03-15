@@ -7,9 +7,15 @@ class ApplicationController < ActionController::Base
   include MomomotoHelper
   session :off
   around_filter :transaction_wrapper
+  before_filter :set_gettext_locale
   before_filter :automatic_token_check
 
   protected
+
+  def set_gettext_locale
+    FastGettext.text_domain = 'pentabarf'
+    FastGettext.available_locales = ['en','de'] #all you want to allow
+  end
 
   def local( tag, arguments = {} )
     Localizer.lookup( tag.to_s, @current_language, arguments )
