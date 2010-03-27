@@ -1,0 +1,30 @@
+!!! XML
+!!!
+%html(xmlns='http://www.w3.org/1999/xhtml')
+  %head
+    %meta{:'http-equiv'=>'Content-Type',:content=>'text/html; charset=utf-8'}
+    %meta(name='generator' content='Pentabarf')
+    - if @current_conference
+      %title= "#{@current_conference.acronym}: #{@content_title} - Pentabarf #{pentabarf_version}"
+    - else
+      %title= "#{@content_title} - Pentabarf #{pentabarf_version}"
+    %link(href="/favicon.ico" rel="shortcut icon")
+    %link{:rel=>:alternate,:type=>'application/atom+xml',:title=>:Atom,:href=>url_for(:controller=>'atom',:action=>:recent_changes)}
+    != javascript_include_tag('prototype','effects','controls','application', 'sortable')
+    != stylesheet_link_tag( 'main' )
+
+    %noscript
+      #js-warning Please enable Javascript.
+
+  %body#body
+    != render(:partial=>sidebar)
+
+    #activity
+
+    #main
+      #context
+        %h1= @content_title
+        %em= @content_subtitle
+      #content
+        != yield
+

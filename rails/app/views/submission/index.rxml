@@ -1,5 +1,5 @@
 xml.div do
-  xml.h2 local('submission::welcome_to_submission_system')
+  xml.h2 _('Welcome to the Pentabarf submission system')
 
   if not @conference
     xml.div do
