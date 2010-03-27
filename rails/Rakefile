@@ -8,3 +8,17 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+
+desc "Update pot/po files."
+task :updatepo do
+  require 'gettext/tools'
+  GetText.update_pofiles("pentabarf", Dir.glob("{app,lib,bin}/**/*.{rb,rhtml,rexml}"), "pentabarf 0.4.5")
+end
+
+desc "Create mo-files"
+task :makemo do
+  require 'gettext/tools'
+  # require 'gettext_rails/tools'  # For Ruby on Rails.
+  GetText.create_mofiles
+end
+
