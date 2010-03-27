@@ -1,5 +1,5 @@
 
-PSQL=psql
+PSQL=psql -v ON_ERROR_STOP=1
 
 LOG_TARGETS = install all import user
 LOG_FILE = install.log
