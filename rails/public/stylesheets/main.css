@@ -60,6 +60,7 @@ fieldset.conflicts { background-color: lightsalmon; }
 span.sortarrow { color: blue; }
 
 table { border: 0px solid #90acc8; padding: 2px; margin: 2px 0 2px 0; width: auto; border-collapse: separate; }
+table.event-by-state td { padding: 1em; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 
 caption { caption-side: top; text-align: center; width: auto; }
 
@@ -104,7 +105,7 @@ textarea:focus { background-color: #FFFFD0; border-color: #90acc8; }
 select { border: 1px solid #c8d8e8; color: #000; vertical-align: top; }
 
 #activity { position: fixed; right: 0px; top: 0px; height: 20px; z-index: 5; font-size: smaller; }
-#activity a { margin: 0px 2px; background-color: #FF4040; padding: 3px; }
+#activity a { margin: 0px 2px; background-color: #FF4040; padding: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; }
 #activity .user { color: black; margin-left: 2px; }
 #activity .time { color: white; }
 #activity :link, #activity :visited { color: black; }
