@@ -1,0 +1,89 @@
+
+#sidebar
+  position: fixed
+  width: 10em
+  min-width: 100px
+  height: 100%
+  padding: 0em 1em
+  margin: 0
+  border-right: 1px solid black
+  z-index: 4
+
+
+#logo
+  height: 128px
+  width: 128px
+  text-align: center
+  margin: 0.5em 0 0 0
+  border: none
+
+  img
+    height: 128px
+    width: 128px
+
+#menu
+  margin-top: 10px
+  margin-left: 0px
+  margin-right: 0px
+
+  .menu-item
+    display: block
+    padding: 2px 0 2px 0
+    line-height: 120%
+    margin: 1px 0 1px 0
+    background-color: #c8d8e8
+    border: 1px solid #90acc8
+    text-align: center
+    +border-radius(3px)
+
+  .menu-text
+    display: block
+    padding: 3px
+    line-height: 120%
+    margin: 2px 0 2px 0
+    background-color: #c8d8e8
+    border: 1px solid black
+    text-align: center
+    +border-radius(4px)
+
+  .menu-item
+    &.selected
+      font-weight: bold
+      background-color: #90acc8
+      color: white
+      border: 1px solid black
+
+    &.off:hover
+      background-color: #c8d8e8
+      border: 1px solid red
+
+  .menu-item-group
+    margin-bottom: 6px
+    margin-top: 6px
+
+
+div#sidebar_search_results
+  min-width: 450px
+  background-color: white
+  border: 1px solid #888
+  margin: 0
+  padding: 0
+
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+
+    li
+      display: block
+      margin: 0
+      padding: 2px
+      height: 32px
+      cursor: pointer
+
+      &.selected
+        background-color: #ffb
+
+  span.more-results
+    padding: 0 50px
+

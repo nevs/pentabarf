@@ -21,7 +21,7 @@ CREATE OR REPLACE VIEW view_mail_accepted_speaker AS
              conference.conference_id = event.conference_id )
     WHERE
         event.event_state = 'accepted' AND
-        event.event_state_progress = 'confirmed' AND
+        event.event_state_progress <> 'canceled' AND
         event_person.event_role IN ('speaker', 'moderator') AND
         event_person.event_role_state = 'confirmed'
 ORDER BY view_person.person_id, event.event_id

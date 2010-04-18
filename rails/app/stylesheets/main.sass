@@ -1,0 +1,503 @@
+
+@import helper
+
+@import base
+@import img
+@import sidebar
+
+!color_blue = #b0cce8
+
+#context
+  position: fixed
+  top: 0em
+  left: 12em
+  width: 100%
+  height: 7em
+  min-height: 80px
+  padding-left: 8em
+  text-align: left
+  :background-color = !color_blue
+  z-index: 4
+  border-left: 1px solid black
+  border-bottom: 1px solid black
+
+
+div#object-image
+  position: fixed
+  top: 6px
+  left: 13em
+  width: 64px
+  height: 64px
+  background-color: #c8d8e8
+  padding: 3px
+  z-index: 4
+
+
+img.object-image
+  width: 64px
+  height: 64px
+
+
+#content
+  position: absolute
+  top: 10em
+  left: 12.1em
+  right: 1em
+
+
+#data
+  padding: 5px
+  background-color: #f8f8f8
+  margin-bottom: 80px
+
+  \:link:hover, :visited:hover
+    text-decoration: underline
+
+
+fieldset.conflicts
+  background-color: lightsalmon
+
+
+span.sortarrow
+  color: blue
+
+
+table
+  border: 0px solid #90acc8
+  padding: 2px
+  margin: 2px 0 2px 0
+  width: auto
+  border-collapse: separate
+
+  &.event-by-state
+
+    td
+      padding: 1em
+      +border-radius(5px)
+    
+
+
+caption
+  caption-side: top
+  text-align: center
+  width: auto
+
+
+th, td
+  padding: 2px
+  border-spacing: 2px
+  border: 1px solid #90acc8
+  empty-cells: show
+
+
+th
+  background-color: #90acc8
+  vertical-align: baseline
+  +border-radius(3px)
+
+
+td
+  background-color: #c8d8e8
+  vertical-align: middle
+  +border-radius(3px)
+
+  &.money
+    text-align: right
+
+
+tr
+
+  &:hover
+    th
+      border: 1px solid #c8d8e8
+
+    td
+      border: 1px solid #90acc8
+
+  &.accepted
+    background-color: #71ff88
+
+
+td.accepted
+  background-color: #71ff88
+
+
+tr.undecided, td.undecided
+  background-color: #fff371
+
+
+tr.rejected, td.rejected
+  background-color: #f16567
+
+
+div#comment table
+  width: 100%
+
+
+col
+  &.label
+    text-align: right
+
+  &.ratings
+    text-align: center
+
+  &.comment
+    text-align: left
+
+
+form
+  border: none
+  margin: 0px
+
+
+fieldset
+  border: 1px solid #c8d8e8
+  padding: 5px 10px 10px 10px
+  margin-top: 10px
+  line-height: 1em
+  width: auto
+  +border-radius(7px)
+
+
+legend
+  background: transparent
+
+
+label
+  font-weight: bold
+
+
+textarea
+  border: 1px solid #c8d8e8
+  padding: 2px
+  color: #000
+  background-color: #fff
+  width: 100%
+  +border-radius(5px)
+
+
+input
+  visibility: visible
+  border: 2px solid #c8d8e8
+  color: #000
+  background-color: #fff
+  vertical-align: middle
+  padding: 2px
+  margin: 2px
+  +border-radius(5px)
+
+  &:focus
+    background-color: #FFFFD0
+    border-color: #90acc8
+
+
+textarea:focus
+  background-color: #FFFFD0
+  border-color: #90acc8
+
+
+select
+  border: 1px solid #c8d8e8
+  color: #000
+  vertical-align: top
+
+
+#activity
+  position: fixed
+  right: 0px
+  top: 0px
+  height: 20px
+  z-index: 5
+  font-size: smaller
+
+  a
+    margin: 0px 2px
+    background-color: #FF4040
+    padding: 3px
+    +border-radius(3px)
+
+  .user
+    color: black
+    margin-left: 2px
+
+  .time
+    color: white
+
+  \:link, :visited
+    color: black
+
+  \:link:hover, :visited:hover
+    text-decoration: underline
+
+  \:active
+    color: white
+
+
+#buttons
+  position: fixed
+  right: 0
+  bottom: 0
+  padding: 10px
+  background-color: #90acc8
+  border-top: 2px dashed black
+  border-left: 2px dashed black
+  z-index: 3
+  text-align: right
+
+  button
+    font-size: 150%
+
+
+#remove-button
+  position: fixed
+  right: 15px
+  top: 40px
+  z-index: 5
+
+
+button
+  border: 2px solid black
+  display: inline
+  cursor: pointer
+  color: black
+  font-weight: bold
+  background-color: #fff
+  vertical-align: middle
+  padding-left: 3px
+  padding-right: 3px
+  text-align: center
+
+  &.paginate
+    border: 1px solid black
+
+  &:hover
+    background-color: #90acc8
+    color: #fff
+
+  &:active
+    color: black
+
+  &.active
+    background-color: #90acc8
+    color: black
+
+    &:hover
+      color: white
+
+  &.attend-button
+    margin: 10px 0px 0px 10px
+
+
+#tabs
+  position: fixed
+  top: 7em
+  right: 1em
+  left: 13em
+  height: 2em
+  clear: both
+  z-index: 4
+
+  .tab
+    display: block
+    float: left
+    padding: 5px
+    margin: 0px
+    margin-right: 5px
+    text-align: center
+    background-color: white
+    border: 1px solid black
+    :border-top = 2px "solid" !color_blue
+    +border-radius(0 0 5px 5px)
+
+  #tab-all
+    margin-right: 0px
+    float: right
+
+  .tab
+    &:hover
+      background-color: #c8d8e8
+
+    &.active
+      :background-color = !color_blue
+      color: white
+
+      &:hover
+        color: black
+
+
+div
+  &.tab-group
+    border: 1px solid #c8d8e8
+    padding: 4px
+    margin: 2px
+
+
+td
+  &.rating-bar
+    width: 150px
+
+    span
+      display: block
+      color: white
+      height: 20px
+
+      &.negative
+        background-color: red
+        float: right
+        text-align: right
+
+      &.positive
+        background-color: green
+        float: left
+        text-align: left
+
+      &.p0
+        width: 0px
+
+      &.p10
+        width: 15px
+
+      &.p20
+        width: 30px
+
+      &.p30
+        width: 45px
+
+      &.p40
+        width: 60px
+
+      &.p50
+        width: 75px
+
+      &.p60
+        width: 90px
+
+      &.p70
+        width: 105px
+
+      &.p80
+        width: 120px
+
+      &.p90
+        width: 135px
+
+      &.p100
+        width: 150px
+
+  &.rating-bar-small
+    width: 20px
+    line-height: 8px
+    vertical-align: top
+    padding: 1px
+
+    span
+      display: block
+      color: white
+      height: 8px
+
+      &.negative
+        background-color: red
+        float: right
+        text-align: right
+        margin: 1px 0px 1px 1px
+
+      &.positive
+        background-color: green
+        float: left
+        text-align: left
+        margin: 1px 1px 1px 0px
+
+      &.p0
+        width: 0
+
+      &.p1
+        width: 10px
+
+      &.p2
+        width: 20px
+
+
+ul
+  &.history
+    line-height: 0.2em
+
+  &.event-persons
+    margin: 0
+    padding: 0
+
+    li
+      margin: 0
+      padding: 0
+      display: inline
+
+    li+li:before
+      content: ", "
+
+  &.recipients
+    margin: 0
+    padding: 0
+    display: inline
+
+    li
+      margin: 0
+      padding: 0
+      display: inline
+
+    li+li:before
+      content: ", "
+
+  &.advanced_search
+    list-style: none none inside
+    margin: 0px
+
+    li
+      margin: 0px
+      vertical-align: middle
+
+      select
+        margin: 3px 0px
+        padding: 1px 0px
+
+  &.recent_changes_fields
+    list-style: none
+    margin: 0
+
+    li
+      display: inline
+
+    li+li:before
+      content: ","
+      margin-right: 0.3em
+
+    span
+      padding: 0 0.2em
+
+      &.old_value
+        background-color: #FFE7E7
+
+      &.new_value
+        background-color: #E7FFE7
+
+  &.recent_changes li span.log-entry
+    background-color: lightblue
+
+
+div
+  &.js-warning
+    font-size: 1.8em
+    background: red
+    position: fixed
+    z-index: 10
+    right: 5px
+    margin: 5px
+    padding: 3px 10px
+
+  &.browser-warning
+    font-size: 1.5em
+    background: red
+    position: fixed
+    z-index: 10
+    left: 5px
+    top: 5px
+    margin: 5px
+    padding: 3px 10px

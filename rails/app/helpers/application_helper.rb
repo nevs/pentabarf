@@ -162,7 +162,7 @@ module ApplicationHelper
       names = event.speakers.split("\n")
       xml.ul(:class=>'event-persons') do
         ids.each_with_index do | id, index |
-          xml.li do xml.a( names[index], {:href=>event_url}) end
+          xml.li do xml.a( names[index], {:href=>url_for({:controller=>'person',:action=>:edit,:id=>id})}) end
         end
       end
     end
